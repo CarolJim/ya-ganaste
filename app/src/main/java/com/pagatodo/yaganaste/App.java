@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -42,6 +43,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.FIREBASE_KEY;
 import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 
 /**
@@ -114,6 +116,11 @@ public class App extends Application {
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+        // Se obtiene el Token de Firebase si no existe
+        if (prefs.loadData(FIREBASE_KEY).equals("")) {
+            String s = FirebaseInstanceId.getInstance().getToken();
+            prefs.saveData(FIREBASE_KEY, s);
+        }
         // Se crea la carpeta donde almacenar los Screenshot para compartir.
         File f = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
         if (!f.exists()) {
