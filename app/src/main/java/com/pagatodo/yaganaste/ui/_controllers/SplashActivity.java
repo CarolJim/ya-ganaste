@@ -3,9 +3,12 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
@@ -39,10 +42,19 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     private Preferencias pref;
     private CatalogsDbApi api;
     private Preferencias preferencias;
+    private static final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Codigo para mostrar el token y los datos de las notificaciones FCM. Solo necesitamos
+        // acomodar el Data con valores validos
+     /*   Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken() );
+        if (getIntent().getExtras() != null) {
+            Log.d(TAG, "DATA ID: " + getIntent().getExtras().get("id"));
+        }*/
+
         if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
