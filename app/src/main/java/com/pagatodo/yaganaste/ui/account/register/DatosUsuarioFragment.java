@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
@@ -17,6 +18,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -74,7 +76,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private String passErrorMessage;
     private AppCompatImageView btnBack;
     private boolean errorIsShowed = false;
-
+    private Preferencias preferencias;
     public DatosUsuarioFragment() {
     }
 
@@ -88,10 +90,11 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.preferencias = App.getInstance().getPrefs();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
+        preferencias.saveDataBool(Recursos.HUELLA_FAIL,false);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -99,6 +102,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_datos_usuario, container, false);
+
         initViews();
         return rootview;
     }
@@ -117,8 +121,14 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         edtitConfirmEmail.setOnFocusChangeListener(this);
         editPassword.setOnFocusChangeListener(this);
         editPasswordConfirm.setOnFocusChangeListener(this);
+
+
+
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
+        editPassword.setText("1Azbxcwa");
+        editPasswordConfirm.setText("1Azbxcwa");
+
     }
 
     @Override

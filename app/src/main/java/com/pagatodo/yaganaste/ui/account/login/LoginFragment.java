@@ -110,6 +110,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        prefs.saveDataBool(HUELLA_FAIL,false);
         this.preferencias = App.getInstance().getPrefs();
     }
 
@@ -180,7 +181,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             accessCode.setVisibility(View.INVISIBLE);
             quickPayment.setVisibility(View.INVISIBLE);
         }
-
+        edtUserPass.setText("1029Gh21");
     }
 
     @Override
@@ -370,12 +371,14 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
-        prefs.saveDataBool(HUELLA_FAIL, false);
-        App.getInstance().getStatusId();
-        SingletonUser.getInstance().setCardStatusId(null);
-        Intent intentLogin = new Intent(getActivity(), TabActivity.class);
-        startActivity(intentLogin);
-        getActivity().finish();
+
+
+            App.getInstance().getStatusId();
+            SingletonUser.getInstance().setCardStatusId(null);
+            Intent intentLogin = new Intent(getActivity(), TabActivity.class);
+            startActivity(intentLogin);
+            getActivity().finish();
+
     }
 
     private void setEnableViews(boolean isEnable) {

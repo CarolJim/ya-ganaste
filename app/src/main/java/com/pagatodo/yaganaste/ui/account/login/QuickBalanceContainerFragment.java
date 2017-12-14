@@ -52,7 +52,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs.saveDataBool(HUELLA_FAIL, false);
+        prefs.saveDataBool(HUELLA_FAIL, true);
         quickBalanceAdapter = new QuickBalanceAdapter(getChildFragmentManager(), !RequestHeaders.getTokenAdq().isEmpty());
         loginContainerManager = ((LoginManagerContainerFragment) getParentFragment()).getLoginContainerManager();
     }

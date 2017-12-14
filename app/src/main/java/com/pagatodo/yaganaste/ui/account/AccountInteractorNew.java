@@ -94,6 +94,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
@@ -101,6 +102,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
@@ -675,21 +677,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
-                    if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                        //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                    if (!prefs.loadDataBoolean(HUELLA_FAIL,true)) {
+                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                            //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
                             loginAdq();
                             return;
                         } else {*/
-                        checkAfterLogin();
-                        return;
-                        //}
-                    } else {//Requiere setear el NIP
-                        stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                            checkAfterLogin();
+                            return;
+                            //}
+                        } else {//Requiere setear el NIP
+                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                        }
+                    }else {
+                        stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                     }
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }
+
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
                 if (RequestHeaders.getTokenauth().isEmpty()) {

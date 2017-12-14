@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/asignar_control_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="30dp"
+    android:background="@drawable/rounded_border_edittext"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/asignar_tv1"
+        style="@style/formatPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/asignar_tv2"
+        style="@style/formatPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/asignar_tv3"
+        style="@style/formatPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/asignar_tv4"
+        style="@style/formatPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/asignar_tv5"
+        style="@style/formatPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/asignar_tv6"
+        style="@style/formatPIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center" />
+</LinearLayout>
