@@ -48,6 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_LEGAL;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_DONGLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
@@ -93,6 +94,8 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     CircleImageView iv_photo_item;
     @BindView(R.id.frag_lista_opciones_photo_status)
     CircleImageView iv_photo_item_status;
+    @BindView(R.id.fragment_my_account_config_notify)
+    LinearLayout config_notify;
 
     View rootview;
     CameraManager cameraManager;
@@ -152,6 +155,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        config_notify.setOnClickListener(this);
         ll_usuario.setOnClickListener(this);
 
         int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
@@ -277,7 +281,9 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
-
+                break;
+            case R.id.fragment_my_account_config_notify:
+                onEventListener.onEvent(PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY, 1);
                 break;
 
             /**
