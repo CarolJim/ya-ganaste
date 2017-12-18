@@ -146,9 +146,6 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
-
-
-
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
             //receiverName.setVisibility(GONE);
             receiverName.setEnabled(false);
@@ -160,10 +157,12 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             amountToSend.setOnEditorActionListener(this);
             concept.setImeOptions(IME_ACTION_DONE);
+            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
 
         } else {
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
             concept.setImeOptions(IME_ACTION_NEXT);
+            concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
             tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
         }
 
@@ -180,10 +179,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
         });
 
-        // Hacemos SET de informacion para Concepto y Referencia con valores iniciales
-        concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
         numberReference.setText(DateUtil.getDayMonthYear());
-
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);

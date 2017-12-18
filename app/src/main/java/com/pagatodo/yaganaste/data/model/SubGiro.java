@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class SubGiro implements Serializable {
 
-    private int IdSubgiro = 0;
+    private Integer IdSubgiro = 0;
     private String Subgiro = "";
 
     public SubGiro() {
@@ -33,5 +33,23 @@ public class SubGiro implements Serializable {
 
     public void setSubgiro(String subgiro) {
         Subgiro = subgiro;
+    }
+
+    @Override
+    public boolean equals(Object v) {
+        boolean retVal = false;
+        if (v instanceof SubGiro) {
+            SubGiro ptr = (SubGiro) v;
+            retVal = ptr.IdSubgiro.intValue() == this.IdSubgiro;
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.IdSubgiro != null ? this.IdSubgiro.hashCode() : 0);
+        return hash;
     }
 }

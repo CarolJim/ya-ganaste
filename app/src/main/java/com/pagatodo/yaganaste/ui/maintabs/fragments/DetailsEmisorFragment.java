@@ -257,13 +257,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                     .into(imageDetail);
         }
 
-        /*
-         Glide.with(getContext())
-                    .load(url)
-                    .placeholder(R.mipmap.logo_ya_ganaste)
-                    .into(imageDetail);
-        */
-
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
                     getString(R.string.details_iave_pase) : getString(R.string.txt_phone));
@@ -273,7 +266,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             layoutConcepto.setVisibility(GONE);
         }
 
-
         txtConceptoDescripcion.setSelected(true);
         txtClaveRastreo.setSelected(true);
         btnVolver.setOnClickListener(this);
@@ -281,7 +273,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
 
     private void initFieldsViews() {
-
         layoutFechaDescripcion.setVisibility(VISIBLE);
         txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
         layoutHora.setVisibility(VISIBLE);

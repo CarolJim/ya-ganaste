@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 import android.app.Fragment;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,7 +31,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.CardBackAdquiriente;
 import com.pagatodo.yaganaste.ui.account.CardBackAdquirienteDongle;
-import com.pagatodo.yaganaste.ui.account.CardCover;
 import com.pagatodo.yaganaste.ui.account.CardCoverAdquiriente;
 import com.pagatodo.yaganaste.ui.account.CardCoverAdquirienteDongle;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
@@ -64,7 +62,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
  */
 
 public class QuickBalanceAdquirenteFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener , IPurseView {
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, IPurseView {
     private View transparentBG;
     private AlphaAnimation fading;
     View rootView;
@@ -121,12 +119,11 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
         try {
             accountPresenter.setPurseReference(this);
-        }catch (Exception e){
-            final String TAGCrash="QuiqBalance";
-            Log.d(TAGCrash,"Al instanciar metodo del presenter");
+        } catch (Exception e) {
+            final String TAGCrash = "QuiqBalance";
+            Log.d(TAGCrash, "Al instanciar metodo del presenter");
         }
-            Status = App.getInstance().getStatusId();
-
+        Status = App.getInstance().getStatusId();
     }
 
     @Nullable
@@ -145,7 +142,6 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             accountPresenter.setIView(this);
         }
         initViews();
-        
     }
 
     @Override
@@ -171,7 +167,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             String cardNumber = prefs.loadData(CARD_NUMBER);
 
             cardBalanceAdq.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
-          //  cardBalanceAdq.setCardDate("03/21");
+            //  cardBalanceAdq.setCardDate("03/21");
 
             if (Build.VERSION.SDK_INT >= 24) {
                 txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
@@ -202,6 +198,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         txtDateAdqLastUpdate.setText(String.format(getString(R.string.last_date_update), dateLastUpdateAdq));
         txtBalanceReembolsar.setText(Utils.getCurrencyValue(balaceAdq));
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -220,7 +217,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void onRefresh() {
 
-        if (!UtilsNet.isOnline(getActivity())){
+        if (!UtilsNet.isOnline(getActivity())) {
             UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
                 @Override
                 public void actionConfirm(Object... params) {
@@ -233,7 +230,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
                 }
             }, true, false);
-        }else {
+        } else {
             swipeContainer.setRefreshing(false);
             accountPresenter.updateBalance();
         }
@@ -268,7 +265,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     private void doFlip() {
-        accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter,Status));
+        accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter, Status));
 
         if (flipTimmer != null) {
             flipTimmer.removeCallbacks(runnableTimmer);
@@ -304,7 +301,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             if (accountPresenter.isBackShown() && pauseback == true) {
                 accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter, Status));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -339,7 +336,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void updateStatus() {
         hideLoader();
         Status = App.getInstance().getStatusId();
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter, Status));
     }
 
     @Override
@@ -373,43 +370,41 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void flipCard(int container, Fragment fragment, boolean isBackShown) {
 
-        if(isBackShown)
-        {
-            accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
-         return;
+        if (isBackShown) {
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter, Status));
+            return;
         }
-            getActivity().getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(
-                            R.animator.card_flip_right_in,
-                            R.animator.card_flip_right_out,
-                            R.animator.card_flip_left_in,
-                            R.animator.card_flip_left_out)
-                    .replace(container, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        AccountPresenterNew.isBackShown=true;
-            // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+        AccountPresenterNew.isBackShown = true;
+        // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
     }
 
     @Override
     public void flipCarddongle(int container, Fragment fragment, boolean isBackShowndongle) {
-        if(isBackShowndongle)
-        {
+        if (isBackShowndongle) {
             accountPresenter.loadCardCoverdongle(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
-       return;
+            return;
         }
-            getActivity().getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(
-                            R.animator.card_flip_right_in,
-                            R.animator.card_flip_right_out,
-                            R.animator.card_flip_left_in,
-                            R.animator.card_flip_left_out)
-                    .replace(container, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        AccountPresenterNew.isBackShowndongle=true;
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+        AccountPresenterNew.isBackShowndongle = true;
         // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
     }
 
@@ -429,7 +424,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     @Override
-    public void changeBGVisibility(final boolean  isVisible) {
+    public void changeBGVisibility(final boolean isVisible) {
         float start = isVisible ? 1.0f : 0.0f;
         float end = isVisible ? 0.0f : 1.0f;
 
@@ -438,13 +433,13 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         fading.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                if(!isVisible)
+                if (!isVisible)
                     transparentBG.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(isVisible)
+                if (isVisible)
                     transparentBG.setVisibility(View.GONE);
             }
 
@@ -458,17 +453,15 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public boolean isAnimationAble() {
-        if(fading == null)
+        if (fading == null)
             return true;
 
-        if(fading.hasStarted())
-        {
-            if(fading.hasEnded())
+        if (fading.hasStarted()) {
+            if (fading.hasEnded())
                 return true;
             else
                 return false;
-        }
-        else
+        } else
             return true;
     }
 }

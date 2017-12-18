@@ -3,12 +3,9 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Window;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
@@ -37,6 +34,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
+import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 
 public class SplashActivity extends SupportFragmentActivity implements IRequestResult {
     private Preferencias pref;
@@ -91,6 +89,14 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                 }
             }
         }, 2000);
+        int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT);
+        if (notifPendents == 0) {
+            App.setBadge(notifPendents);
+        } else {
+            notifPendents--;
+            App.setBadge(notifPendents);
+        }
+        App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
     }
 
     @Override
