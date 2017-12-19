@@ -943,7 +943,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             case R.id.add_favorites_alias:
                 editAliasError.setVisibilityImageError(false);
                 break;
-            case R.id.add_favorites_servicio:
+            case R.id.add_favorites_list_serv:
                 editListServError.setVisibilityImageError(false);
                 break;
             /*case R.id.add_favorites_tipo:

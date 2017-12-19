@@ -89,14 +89,6 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                 }
             }
         }, 2000);
-        int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT);
-        if (notifPendents == 0) {
-            App.setBadge(notifPendents);
-        } else {
-            notifPendents--;
-            App.setBadge(notifPendents);
-        }
-        App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
     }
 
     @Override
