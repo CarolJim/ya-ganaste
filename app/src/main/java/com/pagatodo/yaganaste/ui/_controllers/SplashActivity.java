@@ -58,6 +58,7 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
             String idType = getIntent().getExtras().get("id").toString();
             String urlData = getIntent().getExtras().get("urlData").toString();
             String nameData = getIntent().getExtras().get("nameData").toString();
+            String typeData = getIntent().getExtras().get("typeData").toString();
 
             if (idType != null) {
                 Log.d(TAG, "idType: " + idType);
@@ -69,7 +70,8 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                         startActivity(i);
                         break;
                     case "2":
-                        FileDownload fileDownload = new FileDownload(this, urlData, nameData);
+                        FileDownload fileDownload = new FileDownload(this, urlData,
+                                nameData, typeData);
                         fileDownload.execute("");
                         break;
                     case "3":
@@ -172,41 +174,31 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
         //  SplashActivity.this.finish();
     }
 
-    public void returnUri(Uri uriPath) {
+    public void returnUri(Uri uriPath, String typeData) {
         //openFile(uriPath);
-        openFile2(uriPath);
+        openFile2(uriPath, typeData);
     }
 
-    private void openFile2(Uri uriPath) {
+    private void openFile2(Uri uriPath, String typeData) {
 
+        File af = new File(String.valueOf(uriPath));
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(uriPath, "image/*");
-        startActivity(intent);
-        /*
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(String.valueOf(uriPath)), "image/*");
-        startActivity(intent);
 
-        File myFile = new File(String.valueOf(uriPath));
-        Intent myIntent = new Intent(Intent.ACTION_VIEW);
-        myIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myFile));
-        myIntent.setType("image/png");
-        Intent j = Intent.createChooser(myIntent, "Choose an application to open with:");
-        try {
-            startActivity(j);
-        } catch (Exception e) {
-            Log.d(TAG, "Exception " + e);
-        }*/
-    }
+        String typeMime = "";
+        switch (typeData){
+            case "1":
+                typeMime = "text/*";
+                break;
+            case "2":
+                typeMime = "image/*";
+                break;
+            case "3":
+                typeMime = "video/*";
+                break;
 
-    private void openFile(Uri uriPath) {
-        Intent myIntent = new Intent(Intent.ACTION_VIEW);
-        myIntent.setData(uriPath);
-        myIntent.setType("image/jpeg");
-        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Intent j = Intent.createChooser(myIntent, "Choose an application to open with:");
-        startActivity(j);
+        }
+        intent.setDataAndType(Uri.fromFile(af), typeMime);
+        startActivity(intent);
     }
 }

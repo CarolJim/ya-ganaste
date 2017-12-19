@@ -27,11 +27,13 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
     SplashActivity splashActivity;
     String urlData;
     String nameData;
+    String typeData;
 
-    public FileDownload(SplashActivity splashActivity, String urlData, String nameData) {
+    public FileDownload(SplashActivity splashActivity, String urlData, String nameData, String typeData) {
         this.splashActivity = splashActivity;
         this.urlData = urlData;
         this.nameData = nameData;
+        this.typeData = typeData;
     }
 
     // https://drive.google.com/file/d/1AC2BoUQKeXqQr04047UcZcyARLGsAwB4/view?usp=sharing// https://drive.google.com/file/d/1AC2BoUQKeXqQr04047UcZcyARLGsAwB4/view?usp=sharing
@@ -49,7 +51,7 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
             e1.printStackTrace();
         }
 
-        myUri = Uri.parse(root + "/" + nameData);
+        myUri = Uri.parse(root + "/YaGanaste/" + nameData);
         File af = new File(String.valueOf(myUri));
 
         // Verificamos que el archivo no exista
@@ -67,7 +69,7 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
 
                 // Output stream to write file
 
-                OutputStream output = new FileOutputStream(root + "/" + nameData);
+                OutputStream output = new FileOutputStream(root + "/YaGanaste/" + nameData);
                 byte data[] = new byte[1024];
 
                 long total = 0;
@@ -86,7 +88,7 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
                 output.close();
                 input.close();
 
-                myUri = Uri.parse(root + "/" + nameData);
+              //  myUri = Uri.parse(root + "/" + nameData);
 
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -98,7 +100,7 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
 
     @Override
     protected void onPostExecute(Uri uriPath) {
-        splashActivity.returnUri(uriPath);
+        splashActivity.returnUri(uriPath, typeData);
         super.onPostExecute(uriPath);
     }
 
