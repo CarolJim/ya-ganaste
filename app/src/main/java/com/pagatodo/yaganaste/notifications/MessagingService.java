@@ -33,7 +33,7 @@ public class MessagingService extends FirebaseMessagingService {
         // nombres de variables
         if (remoteMessage.getData().size() > 0) {
         //    Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            sendNotification(remoteMessage.getData().get("myBody"));
+            sendNotification(remoteMessage.getData().get("myBody"), remoteMessage.getData().get("id"));
         }
 
     }
@@ -41,9 +41,11 @@ public class MessagingService extends FirebaseMessagingService {
     /**
      * Metodo que crea la notificacion.
      * @param messageBody
+     * @param id
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody, String id) {
         Intent intent = new Intent(this, SplashActivity.class);
+        intent.putExtra("id", id);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);

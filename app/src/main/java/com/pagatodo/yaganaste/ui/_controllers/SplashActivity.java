@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -26,7 +27,9 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+import com.pagatodo.yaganaste.utils.customviews.FileDownload;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -50,10 +53,32 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
 
         // Codigo para mostrar el token y los datos de las notificaciones FCM. Solo necesitamos
         // acomodar el Data con valores validos
-     /*   Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken() );
+        Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken());
         if (getIntent().getExtras() != null) {
-            Log.d(TAG, "DATA ID: " + getIntent().getExtras().get("id"));
-        }*/
+            String idType = getIntent().getExtras().get("id").toString();
+            String urlData = getIntent().getExtras().get("urlData").toString();
+            String nameData = getIntent().getExtras().get("nameData").toString();
+
+            if (idType != null) {
+                Log.d(TAG, "idType: " + idType);
+                switch (idType) {
+                    case "1":
+                        String url = "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                        break;
+                    case "2":
+                        FileDownload fileDownload = new FileDownload(this, urlData, nameData);
+                        fileDownload.execute("");
+                        break;
+                    case "3":
+                        break;
+                    case "4":
+                        break;
+                }
+            }
+        }
 
         if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
@@ -143,7 +168,45 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
             intent.putExtra(SELECTION, NO_SIM_CARD);
         }
 
+        //  startActivity(intent);
+        //  SplashActivity.this.finish();
+    }
+
+    public void returnUri(Uri uriPath) {
+        //openFile(uriPath);
+        openFile2(uriPath);
+    }
+
+    private void openFile2(Uri uriPath) {
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(uriPath, "image/*");
         startActivity(intent);
-        SplashActivity.this.finish();
+        /*
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(String.valueOf(uriPath)), "image/*");
+        startActivity(intent);
+
+        File myFile = new File(String.valueOf(uriPath));
+        Intent myIntent = new Intent(Intent.ACTION_VIEW);
+        myIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myFile));
+        myIntent.setType("image/png");
+        Intent j = Intent.createChooser(myIntent, "Choose an application to open with:");
+        try {
+            startActivity(j);
+        } catch (Exception e) {
+            Log.d(TAG, "Exception " + e);
+        }*/
+    }
+
+    private void openFile(Uri uriPath) {
+        Intent myIntent = new Intent(Intent.ACTION_VIEW);
+        myIntent.setData(uriPath);
+        myIntent.setType("image/jpeg");
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent j = Intent.createChooser(myIntent, "Choose an application to open with:");
+        startActivity(j);
     }
 }
