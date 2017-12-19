@@ -166,8 +166,6 @@ public class App extends Application {
     }
 
     //Get & Set huella
-
-
     public String getCadenaHuella() {
         return datoHuellaC;
     }
