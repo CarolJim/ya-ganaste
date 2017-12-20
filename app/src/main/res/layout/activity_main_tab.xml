@@ -42,31 +42,6 @@
             app:tabMode="fixed" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/wallet_zone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLy"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager_wallet"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:scrollIndicators=""
-            tools:ignore="UnusedAttribute" />
-
-        <android.support.v7.app.AlertController.RecycleListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.app.AlertController.RecycleListView>
-
-    </LinearLayout>
-
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressGIF"
         android:layout_width="match_parent"

@@ -52,7 +52,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @BindView(R.id.tab_months)
     GenericTabLayout<T> tabMonths;
 
-    //public List<ItemRecycler> movements;
+    //public List<ItemRecycler> Movements;
     protected MovementsPresenter<T> movementsPresenter;
     public List<List<ItemRecycler>> movementsList;
     private View rootView;
@@ -193,7 +193,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
         movementsList.set(tabMonths.getSelectedTabPosition(), movements);
-        //txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        //txtInfoMovements.setVisibility(Movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
 

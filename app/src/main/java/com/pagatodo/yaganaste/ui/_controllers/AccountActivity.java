@@ -4,13 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.fingerprint.FingerprintManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
@@ -46,16 +41,11 @@ import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 
 import javax.crypto.KeyGenerator;
 
@@ -299,9 +289,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
 
-                        /*
-         * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
-         */
+                /*
+                * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
+                */
                 SingletonUser user = SingletonUser.getInstance();
                 DataIniciarSesion dataUser = user.getDataUser();
                 String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
@@ -320,8 +310,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
                     startActivity(intent);
                 } else {
-                    //Intent intent = new Intent(AccountActivity.this, TabActivity.class);
-                    Intent intent = new Intent(AccountActivity.this, WalletMainActivity.class);
+                    Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                    //Intent intent = new Intent(AccountActivity.this, WalletMainActivity.class);
                     startActivity(intent);
                     finish();
                 }

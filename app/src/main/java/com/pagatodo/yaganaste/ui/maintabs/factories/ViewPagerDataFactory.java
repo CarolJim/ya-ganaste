@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -99,9 +100,10 @@ public class ViewPagerDataFactory {
     }
     private static void addMainFragments(List<Fragment> fragmentList) {
        int Idestatus;
-        fragmentList.add(HomeTabFragment.newInstance());
+        //fragmentList.add(HomeTabFragment.newInstance());
+        fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
-        fragmentList.add(DepositsFragment.newInstance());
+        //fragmentList.add(DepositsFragment.newInstance());
 
         Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         if (SingletonUser.getInstance().getDataUser().isEsAgente()

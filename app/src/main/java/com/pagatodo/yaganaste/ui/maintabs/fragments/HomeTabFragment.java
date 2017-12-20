@@ -199,7 +199,6 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         return nombreCompleto;
     }
 
-
     @Override
     public void onLongClickBlockCard() {
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);

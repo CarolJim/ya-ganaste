@@ -15,8 +15,8 @@ public enum MainTab implements IEnumTab {
 
     TAB1(R.string.main_tab_inicio, R.mipmap.icon_tab_ya_white),
     TAB2(R.string.main_tab_pagos, R.drawable.vector_pagos),
-    TAB3(R.string.main_tab_depositos, R.drawable.vector_depositos),
-    TAB4(R.string.main_tab_cobros, R.drawable.ic_tab_cobros);
+    //TAB3(R.string.main_tab_depositos, R.drawable.vector_depositos),
+    TAB3(R.string.main_tab_cobros, R.drawable.ic_tab_cobros);
 
     @StringRes
     private int name;
