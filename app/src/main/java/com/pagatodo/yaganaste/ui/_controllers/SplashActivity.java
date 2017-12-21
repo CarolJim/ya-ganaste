@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Window;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,7 +22,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalo
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -41,20 +40,25 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
-public class SplashActivity extends SupportFragmentActivity implements IRequestResult {
+public class SplashActivity extends LoaderActivity implements IRequestResult {
     private Preferencias pref;
     private CatalogsDbApi api;
     private Preferencias preferencias;
     private static final String TAG = "SplashActivity";
+    boolean downloadFile = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.splash_activity_layout);
 
         // Codigo para mostrar el token y los datos de las notificaciones FCM. Solo necesitamos
         // acomodar el Data con valores validos
         Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken());
-        if (getIntent().getExtras() != null) {
+        Bundle intent = getIntent().getExtras();
+        if (intent != null && intent.get("id") != null) {
+            // Recibimos todos los datos que estan en nuestro Intent
             String idType = getIntent().getExtras().get("id").toString();
             String urlData = getIntent().getExtras().get("urlData").toString();
             String nameData = getIntent().getExtras().get("nameData").toString();
@@ -64,7 +68,8 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                 Log.d(TAG, "idType: " + idType);
                 switch (idType) {
                     case "1":
-                        String url = "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste";
+                        //String url = "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste";
+                        String url = urlData;
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         startActivity(i);
@@ -73,8 +78,12 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                         FileDownload fileDownload = new FileDownload(this, urlData,
                                 nameData, typeData);
                         fileDownload.execute("");
+                        downloadFile = true;
+                        showLoader(getString(R.string.download_file));
                         break;
                     case "3":
+                        //  startActivity(new Intent(this, TestActivity.class));
+                        // this.finish();
                         break;
                     case "4":
                         break;
@@ -85,8 +94,6 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
         if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.splash_activity_layout);
         api = new CatalogsDbApi(this);
         pref = App.getInstance().getPrefs();
         final IRequestResult iRequestResult = this;
@@ -170,23 +177,37 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
             intent.putExtra(SELECTION, NO_SIM_CARD);
         }
 
-        //  startActivity(intent);
-        //  SplashActivity.this.finish();
+        /**
+         * Iniciamos el flujo normal solo si nuestra bandera de downloadFile es falsa, esto signoica
+         * que no estamos descargand onada, en caso contrario en automatico se hace el proceso para
+         * descargar y abrir por el hilo de notificacion
+         */
+        if (!downloadFile) {
+            startActivity(intent);
+            SplashActivity.this.finish();
+        }
+
     }
 
+    /**
+     * Recibimos la URI del archivo que descargamos asi como su tipo de data. Esto los sirve para
+     * hacer dierencia entre su tipo de MIME
+     *
+     * @param uriPath
+     * @param typeData
+     */
     public void returnUri(Uri uriPath, String typeData) {
-        //openFile(uriPath);
-        openFile2(uriPath, typeData);
-    }
-
-    private void openFile2(Uri uriPath, String typeData) {
+        /*
+         - Creamos una nueva instancia del archivo por medio de su URI. Esto SOLO lo localiza
+         - Hacemos SET de la accion de ACTION_VIEW para abrir el archivo
+          */
 
         File af = new File(String.valueOf(uriPath));
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
 
         String typeMime = "";
-        switch (typeData){
+        switch (typeData) {
             case "1":
                 typeMime = "text/*";
                 break;
@@ -198,7 +219,14 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                 break;
 
         }
+
+        /**
+         * Hacemos SET de la orden para abrir el File por medio de Uri.fromFile(af), si intentamos
+         * abrir directo el URI no funciona, necesitamos ambas combinaciones
+         */
         intent.setDataAndType(Uri.fromFile(af), typeMime);
         startActivity(intent);
+        hideLoader();
+        this.finish();
     }
 }

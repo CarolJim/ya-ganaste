@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Giros implements Serializable {
 
-    private int IdGiro = 0;
+    private Integer IdGiro = 0;
     private String Giro = "";
     private List<SubGiro> ListaSubgiros;
 
@@ -35,5 +35,23 @@ public class Giros implements Serializable {
 
     public void setListaSubgiros(List<SubGiro> listaSubgiros) {
         ListaSubgiros = listaSubgiros;
+    }
+
+    @Override
+    public boolean equals(Object v) {
+        boolean retVal = false;
+        if (v instanceof Giros){
+            Giros ptr = (Giros) v;
+            retVal = ptr.IdGiro.intValue() == this.IdGiro;
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.IdGiro != null ? this.IdGiro.hashCode() : 0);
+        return hash;
     }
 }

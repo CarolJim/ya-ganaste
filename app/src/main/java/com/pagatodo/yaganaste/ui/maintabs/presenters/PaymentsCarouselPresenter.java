@@ -225,8 +225,14 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
          * pos. 9 debe de pasar a pos 0, y el resto en las posiciones posteriores
          */
         ArrayList<CarouselItem> auxList = new ArrayList<>();
-        auxList.add(finalList.get(9));
-        for(int x=0; x<9; x++){
+        int sizeCarousel;
+        if (finalList.size() > 9) {
+            sizeCarousel = 9;
+        } else {
+            sizeCarousel = finalList.size()-1;
+        }
+        auxList.add(finalList.get(sizeCarousel));
+        for (int x = 0; x < sizeCarousel; x++) {
             auxList.add(finalList.get(x));
         }
         // Igualamos la lista auxiliar ordenada para que sea nuestra nueva finalList
@@ -235,10 +241,9 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
          * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
          * finalList
          */
-        for(int x=0; x<originalList.size(); x++){
+        for (int x = 0; x < originalList.size(); x++) {
             finalList.add(originalList.get(x));
         }
-
 
 
         return finalList;

@@ -1,12 +1,15 @@
 package com.pagatodo.yaganaste.utils.customviews;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.notifications.MessagingService;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 
 import java.io.BufferedInputStream;
@@ -21,16 +24,18 @@ import java.net.URLConnection;
 
 /**
  * Created by FranciscoManzo on 15/12/2017.
+ * Se encarga de hacer la descarga de la URL que llega como parametro, puede ser un PNG, JPG, PDG o
+ * MP4
  */
 
 public class FileDownload extends AsyncTask<String, String, Uri> {
-    SplashActivity splashActivity;
+    Context context;
     String urlData;
     String nameData;
     String typeData;
 
-    public FileDownload(SplashActivity splashActivity, String urlData, String nameData, String typeData) {
-        this.splashActivity = splashActivity;
+    public FileDownload(Context context, String urlData, String nameData, String typeData) {
+        this.context = context;
         this.urlData = urlData;
         this.nameData = nameData;
         this.typeData = typeData;
@@ -51,11 +56,12 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
             e1.printStackTrace();
         }
 
+        // Crea la Uri con la direccion apuntada a la carpeta /YaGanaste/nombreArchivo
         myUri = Uri.parse(root + "/YaGanaste/" + nameData);
         File af = new File(String.valueOf(myUri));
 
         // Verificamos que el archivo no exista
-        if(!af.exists()) {
+        if (!af.exists()) {
             URLConnection conection = null;
             try {
                 conection = url.openConnection();
@@ -100,7 +106,12 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
 
     @Override
     protected void onPostExecute(Uri uriPath) {
-        splashActivity.returnUri(uriPath, typeData);
+        // REgresamos el URI y el tipo de data que trabajaremos solo si es un contexto de SplashActivity
+        if (context instanceof SplashActivity) {
+            ((SplashActivity) context).returnUri(uriPath, typeData);
+        }else{
+            Toast.makeText(context, "Tu Descarga ha Finalizado", Toast.LENGTH_SHORT).show();
+        }
         super.onPostExecute(uriPath);
     }
 

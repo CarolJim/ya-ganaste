@@ -1141,6 +1141,8 @@
     <string name="use_fingerprint_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
     <string name="description_bugdroid_icon">Android bugdroid image</string>
     <string name="description_fingerprint_icon">Fingerprint icon</string>
+    <string name="download_file">Descargando Archivo</string>
+    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
 
 
 </resources>

@@ -102,7 +102,6 @@ public class Recursos {
     public static String COUCHMARK_EDIT_FAV = "COUCHMARKEF";
 
     public static String CO_QUICK_EM = "CO_QUICK_EM";
-    public static String CO_QUICK_EM_2 = "CO_QUICK_EM_2";
     public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
@@ -110,6 +109,7 @@ public class Recursos {
     public static String HUELLA_FAIL = "HUELLA_FAIL";
     public static String VERSION_APP = "VERSION_APP";
     public static String FIREBASE_KEY = "FIREBASE_KEY";
+    public static String NOTIF_COUNT = "NOTIF_COUNT";
 
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
