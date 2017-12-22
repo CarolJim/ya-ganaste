@@ -212,11 +212,12 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 }
             }
             layoutCompania.setVisibility(View.GONE);
-            title.setText(R.string.title_envio_success);
-            //txtComision.setVisibility(View.GONE);
-            //comisionReferenciaText.setText("A:");
+            if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
+                title.setText(R.string.title_envio_success);
+            } else {
+                title.setText(R.string.title_envio_in_proccess);
+            }
             nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
-            //layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             String fullName = ((Envios) pago).getNombreDestinatario();
             titleMail.setText(

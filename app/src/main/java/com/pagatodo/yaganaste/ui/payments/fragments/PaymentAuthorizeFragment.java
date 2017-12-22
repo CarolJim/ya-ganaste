@@ -2,14 +2,12 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
@@ -185,7 +183,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         //Huella
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
-
+            } else if (!keyguardManager.isKeyguardSecure()) {
+                return;
             } else {
                 try {
                     keyStore = KeyStore.getInstance("AndroidKeyStore");
@@ -247,79 +246,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                         fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                     }
 
-                } else {
-                    // Hide the purchase button which uses a non-invalidated key
-                    // if the app doesn't work on Android N preview
-                    //purchaseButtonNotInvalidated.setVisibility(View.GONE);
-                    //invalidDesc.setVisibility(View.GONE);
-               /* getActivity().findViewById(R.id.purchase_button_not_invalidated_description)
-                        .setVisibility(View.GONE);*/
-                }
-
-                if (!keyguardManager.isKeyguardSecure()) {
-                    // Show a message that the user hasn't set up a fingerprint or lock screen.
-                    Toast.makeText(getContext(),
-                            "Secure lock screen hasn't set up.\n"
-                                    + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint",
-                            Toast.LENGTH_LONG).show();
-                    //purchaseButton.setEnabled(false);
-                    //purchaseButtonNotInvalidated.setEnabled(false);
-                    return;
-                }
-
-                // Now the protection level of USE_FINGERPRINT permission is normal instead of dangerous.
-                // See http://developer.android.com/reference/android/Manifest.permission.html#USE_FINGERPRINT
-                // The line below prevents the false positive inspection from Android Studio
-                // noinspection ResourceType
-                if (!fingerprintManager.hasEnrolledFingerprints()) {
-                    //purchaseButton.setEnabled(false);
-                    // This happens when no fingerprints are registered.
-                    Toast.makeText(getContext(),
-                            "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint",
-                            Toast.LENGTH_LONG).show();
-                    return;
                 }
             }
         }
-    }
-
-    private void opensettings() {
-        Intent intent = new Intent(Settings.ACTION_SETTINGS);
-        startActivity(intent);
-    }
-
-    private void generateKey() throws FingerprintException {
-        try {
-
-            keyStore = KeyStore.getInstance("AndroidKeyStore");
-
-            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-
-            keyStore.load(null);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                keyGenerator.init(new
-                        KeyGenParameterSpec.Builder(KEY_NAME,
-                        KeyProperties.PURPOSE_ENCRYPT |
-                                KeyProperties.PURPOSE_DECRYPT)
-                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                        .setUserAuthenticationRequired(true)
-                        .setEncryptionPaddings(
-                                KeyProperties.ENCRYPTION_PADDING_PKCS7)
-                        .build());
-            }
-
-            keyGenerator.generateKey();
-
-        } catch (KeyStoreException
-                | NoSuchAlgorithmException
-                | NoSuchProviderException
-                | InvalidAlgorithmParameterException
-                | CertificateException
-                | IOException exc) {
-            exc.printStackTrace();
-            throw new FingerprintException(exc);
-        }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -384,7 +313,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             keyGenerator.generateKey();
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
                 | CertificateException | IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -472,9 +402,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         } else if (error.toString().equals(getString(R.string.no_internet_access))) {
             errorTittle = "Ya Ganaste";
-            errorBody =getString(R.string.no_internet_access);
+            errorBody = getString(R.string.no_internet_access);
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
-        }else if (!TextUtils.isEmpty(error.toString())) {
+        } else if (!TextUtils.isEmpty(error.toString())) {
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }

@@ -449,5 +449,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             ((BlockCardFragment) fm).loadOtpHuella();
 
     }
+
 }
 

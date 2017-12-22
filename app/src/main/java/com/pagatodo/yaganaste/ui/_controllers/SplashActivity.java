@@ -23,10 +23,10 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
-import com.pagatodo.yaganaste.utils.customviews.FileDownload;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -40,7 +40,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
-public class SplashActivity extends LoaderActivity implements IRequestResult {
+public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener {
     private Preferencias pref;
     private CatalogsDbApi api;
     private Preferencias preferencias;
@@ -75,9 +75,8 @@ public class SplashActivity extends LoaderActivity implements IRequestResult {
                         startActivity(i);
                         break;
                     case "2":
-                        FileDownload fileDownload = new FileDownload(this, urlData,
-                                nameData, typeData);
-                        fileDownload.execute("");
+                        App.getInstance().downloadFile(urlData,
+                                nameData, typeData, this);
                         downloadFile = true;
                         showLoader(getString(R.string.download_file));
                         break;
@@ -189,19 +188,12 @@ public class SplashActivity extends LoaderActivity implements IRequestResult {
 
     }
 
-    /**
-     * Recibimos la URI del archivo que descargamos asi como su tipo de data. Esto los sirve para
-     * hacer dierencia entre su tipo de MIME
-     *
-     * @param uriPath
-     * @param typeData
-     */
+    @Override
     public void returnUri(Uri uriPath, String typeData) {
         /*
          - Creamos una nueva instancia del archivo por medio de su URI. Esto SOLO lo localiza
          - Hacemos SET de la accion de ACTION_VIEW para abrir el archivo
           */
-
         File af = new File(String.valueOf(uriPath));
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);

@@ -1,16 +1,13 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -27,10 +25,13 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
-import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,14 +59,10 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     Button btnDepositar;
 
     private View rootView;
-    String mensaje;
+    String mensaje, cardNumber;
     ImageView imageshae;
-    boolean onlineNetWork;
-    boolean onlineGPS;
-    boolean isBackAvailable = false;
+    boolean onlineNetWork, onlineGPS;
     CircleImageView imageView;
-    int a;
-    String cardNumber;
 
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
@@ -131,6 +128,12 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             cardNumber = getCreditCardFormat(cuenta.getTarjeta());
             clabe = cuenta.getCLABE();
         }
+        // Download QR if not exists
+        MyQr myQr = new MyQr(name, celPhone, usuario.getCuentas().get(0).getTarjeta());
+        String gson = new Gson().toJson(myQr);
+        String gsonCihper = Utils.cipherAES(gson, true);
+        Log.e("Ya Ganaste", "QR JSON: " + gson + "\nQR Ciphered: " + gsonCihper);
+
         txtCableNumber.setText(clabe);
         txtCellPhone.setText(celPhone);
         txtNumberCard.setText(cardNumber);
@@ -156,7 +159,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             }
         }
         if (v.getId() == R.id.deposito_Share) {
-            a = 100;
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
 
@@ -165,15 +167,12 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onResume() {
         super.onResume();
         if (getParentFragment() != null && getParentFragment().isMenuVisible()) {
             ((ToolBarActivity) getActivity()).setVisibilityPrefer(false);
-        }
-        if (a == 100) {
-            imageView.setVisibility(View.GONE);
-            a = 0;
         }
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
@@ -194,8 +193,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
-                //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-                printCard(cardNumber);
                 txtNumberCard.setText(cardNumber);
                 break;
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
@@ -203,8 +200,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 txtNumberCard.setText(cardNumber);
                 break;
             default:
-                //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-                printCard(cardNumber);
                 break;
         }
     }
@@ -229,32 +224,14 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 true, false);
     }
 
-    private void printCard(String cardNumber) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
-        android.graphics.Bitmap.Config bitmapConfig =
-                bitmap.getConfig();
-        // set default bitmap config if none
-        if (bitmapConfig == null) {
-            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+    class MyQr {
+
+        String username, phoneNumber, cardNumber;
+
+        public MyQr(String username, String phoneNumber, String cardNumber) {
+            this.username = username;
+            this.phoneNumber = phoneNumber;
+            this.cardNumber = cardNumber;
         }
-        // resource bitmaps are imutable,
-        // so we need to convert it to mutable one
-        bitmap = bitmap.copy(bitmapConfig, true);
-
-        Canvas canvas = new Canvas(bitmap);
-        // new antialised Paint
-        TextPaint textPaint = new TextPaint();
-        Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", getContext());
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTypeface(typeface);
-
-        float heigth = canvas.getHeight();
-        float width = canvas.getWidth();
-        textPaint.setTextSize(heigth * 0.115f);
-
-        canvas.drawText(cardNumber, width * 0.07f, heigth * 0.6f, textPaint);
-
-
-        imgYaGanasteCard.setImageBitmap(bitmap);
     }
 }
