@@ -23,6 +23,16 @@ public class UsuarioClienteResponse implements Serializable {
     private String TokenSesionAdquirente = "";
     private String FechaUltimoAcceso = "";
     private List<CuentaResponse> Cuentas;
+
+    public Boolean getPasswordAsignado() {
+        return PasswordAsignado;
+    }
+
+    public void setPasswordAsignado(Boolean passwordAsignado) {
+        PasswordAsignado = passwordAsignado;
+    }
+
+    private Boolean PasswordAsignado = null;
     private String NumeroAgente = "";
     private String PetroNumero = "72851001";
     private String ClaveAgente = "7320";

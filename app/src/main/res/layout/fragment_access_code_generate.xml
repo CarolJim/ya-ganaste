@@ -7,6 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
+
     tools:context="com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment">
 
     <RelativeLayout
@@ -64,11 +65,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/asignar_edittext"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:layout_marginTop="3dp"
+                    android:inputType="numberPassword" />
+                <include layout="@layout/login_fragment_passwordedittext_custom"
+                    android:visibility="gone"
+                    android:id="@+id/customkeyboard"
+                    />
 
 
             </LinearLayout>
 
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+            android:id="@+id/keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_above="@+id/relativeAd"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:keyBackground="@drawable/material_key_drawable"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/layoutBottom"

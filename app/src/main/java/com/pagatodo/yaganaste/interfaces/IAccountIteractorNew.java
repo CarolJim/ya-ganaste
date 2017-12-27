@@ -4,6 +4,7 @@ import android.app.Fragment;
 
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -65,5 +66,6 @@ public interface IAccountIteractorNew<T> {
 
     void onStatusCuenta(EstatusCuentaRequest estatusCuentaRequest);
 
+    void changePassToIteractor(CambiarContraseniaRequest cambiarContraseniaRequest);
 }
 

@@ -22,6 +22,7 @@
         <LinearLayout
             android:id="@+id/layoutScrollCard"
             android:layout_width="match_parent"
+            android:clickable="true"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -37,7 +38,8 @@
                     style="@style/BorderLayoutContentCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
@@ -59,17 +61,32 @@
                         style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_small"
-                        android:layout_marginTop="40dp"
+                        android:paddingTop="0dp"
                         android:gravity="center"
                         android:text="@string/ingresa_pass_block" />
+
+
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/asignar_edittext"
+                        android:layout_width="1px"
+                        android:layout_height="1px"
+                        android:layout_marginTop="3dp"
+                        android:inputType="numberPassword" />
+                    <include layout="@layout/login_fragment_passwordedittext_custom"
+                        android:visibility="gone"
+                        android:id="@+id/customkeyboard"
+                        />
+
+
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editUserPassword"
                         style="@style/GenericInputTextForms"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="20dp"
                         android:clickable="true"
                         app:formato="password"
                         app:hintText="@string/txt_escribe_tu_pass"
@@ -89,7 +106,18 @@
                 android:inputType="textPassword"
                 android:orientation="horizontal">
 
-
+                <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+                    android:id="@+id/keyboard_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_above="@+id/relativeAd"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:keyBackground="@drawable/material_key_drawable"
+                    android:visibility="gone" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -154,6 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5" />
+
             </LinearLayout>
 
         </LinearLayout>

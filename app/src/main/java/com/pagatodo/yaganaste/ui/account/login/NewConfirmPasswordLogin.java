@@ -1,4 +1,5 @@
 package com.pagatodo.yaganaste.ui.account.login;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -14,17 +15,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
+import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
+import com.pagatodo.yaganaste.interfaces.IChangeNipView;
+import com.pagatodo.yaganaste.interfaces.IChangePass6;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -41,15 +58,20 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 
 /**
  * Created by Armando Sandoval on 13/12/2017.
  */
 
 public class NewConfirmPasswordLogin extends GenericFragment implements View.OnClickListener,
-        ValidationForms, IAccountCardNIPView {
-
+        ValidationForms, IAccountCardNIPView,IMyPassView, IResetNIPView,IChangePass6, IChangeNipView {
+    private Preferencias prefs = App.getInstance().getPrefs();
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
     @BindView(R.id.borderLayout)
@@ -77,8 +99,10 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     private String nipToConfirm = "";
     private AccountPresenterNew accountPresenter;
     ImageView imageView;
+    App aplicacion;
 
-
+    private ChangeNipPresenterImp changeNipPresenterImp;
+    private ResetPinPresenter resetPinPresenter;
     public static NewConfirmPasswordLogin newInstance(String nip) {
         NewConfirmPasswordLogin fragmentRegister = new NewConfirmPasswordLogin();
         Bundle args = new Bundle();
@@ -91,8 +115,16 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nipToConfirm = getArguments().getString(PIN_TO_CONFIRM);
+
+
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        resetPinPresenter = new ResetPinPresenterImp(false);
+        resetPinPresenter.setResetNIPView(this);
+
+        this.changeNipPresenterImp = new ChangeNipPresenterImp();
+        changeNipPresenterImp.setIChangeNipView(this);
+        aplicacion = new App();
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
@@ -107,6 +139,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_new_password_login, container, false);
+
         initViews();
         return rootview;
     }
@@ -243,18 +276,41 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
 
     @Override
     public void onValidationSuccess() {
-       // accountPresenter.assignNIP(nip);
-        showLoader("");
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                hideLoader();
-                if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
-                    onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
-                } else {
-                    onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+        //accountPresenter.assignNIP(nip);
+        String[] pass = Utils.cipherAES(prefs.loadData(PSW_CPR), false).split("-");
+
+        prefs.saveDataBool(PASSWORD_CHANGE,true);
+
+
+        if (!RequestHeaders.getTokenauth().isEmpty()) {
+            accountPresenter.changepasssixdigits(pass[0],"1Azbxcwa2"); // Realizamos el  Login
+
+            showLoader("");
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    hideLoader();
+                    if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+                        onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+                    } else {
+                        onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+                    }
                 }
-            }
-        }, DELAY_MESSAGE_PROGRESS);
+            }, DELAY_MESSAGE_PROGRESS);
+
+        }else {
+            showLoader("");
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    hideLoader();
+                    if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+                        onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+                    } else {
+                        onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+                    }
+                }
+            }, DELAY_MESSAGE_PROGRESS);
+        }
+
     }
 
     @Override
@@ -316,5 +372,67 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public void onPause() {
         super.onPause();
 
+    }
+
+    @Override
+    public void sendSuccessPassToView(String mensaje) {
+        String[] pass = Utils.cipherAES(prefs.loadData(PSW_CPR), false).split("-");
+        App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256("1Azbxcwa2"));
+        if (SingletonUser.getInstance().needsReset()) {
+            resetPinPresenter.doReseting(Utils.getSHA256("1Azbxcwa2"));
+        } else {
+           changeNipPresenterImp.doChangeNip(Utils.getSHA256(pass[0]),
+                    Utils.getSHA256("1Azbxcwa2"));
+        }
+    }
+
+    @Override
+    public void sendErrorPassToView(String mensaje) {
+        if (mensaje.contains("Contraseña")) {
+            showValidationError(getString(R.string.error_service_verify_pass));
+        } else {
+            showValidationError(mensaje);
+        }
+        hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
+    }
+
+    @Override
+    public void showErrorReset(ErrorObject error) {
+
+    }
+
+    @Override
+    public void finishReseting() {
+
+    }
+
+    @Override
+    public void onResetingFailed() {
+
+    }
+
+    @Override
+    public void onFrejaNipChanged() {
+        endAndBack();
+    }
+
+    @Override
+    public void onFrejaNipFailed() {
+        SingletonUser.getInstance().setNeedsReset(true);
+        resetPinPresenter.doReseting(Utils.getSHA256("1Azbxcwa2"));
+    }
+
+    @Override
+    public void showErrorNip(ErrorObject error) {
+        hideLoader();
+    }
+    private void endAndBack() {
+       // editOldPassword.setText("");
+       // editPassword.setText("");
+       // editPasswordConfirm.setText("");
+       // showDialogMesage(Recursos.MESSAGE_CHANGE_PASS);
+        hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
     }
 }

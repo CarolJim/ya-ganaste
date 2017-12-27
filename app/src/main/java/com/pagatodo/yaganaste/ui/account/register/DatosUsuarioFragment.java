@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -32,13 +34,15 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosUsuarioFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IUserDataRegisterView,
         View.OnFocusChangeListener {
-
+    private Preferencias prefs = App.getInstance().getPrefs();
     private static int MIN_LENGHT_VALIDATION_PASS = 8;
     private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
     @BindView(R.id.edtitEmail)
@@ -77,6 +81,9 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private AppCompatImageView btnBack;
     private boolean errorIsShowed = false;
     private Preferencias preferencias;
+
+
+
     public DatosUsuarioFragment() {
     }
 
@@ -93,8 +100,9 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         this.preferencias = App.getInstance().getPrefs();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        prefs.saveDataBool(TECLADO_CUSTOM,true);
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
-        preferencias.saveDataBool(Recursos.HUELLA_FAIL,false);
+        preferencias.saveDataBool(Recursos.HUELLA_FAIL,true);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -126,8 +134,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
-        editPassword.setText("1Azbxcwa");
-        editPasswordConfirm.setText("1Azbxcwa");
+
 
     }
 

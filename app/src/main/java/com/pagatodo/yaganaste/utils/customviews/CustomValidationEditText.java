@@ -38,6 +38,8 @@ import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -207,9 +209,9 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                     setValidationListener(txt);
                     break;
                 case "1"://password
-                    if (pref.loadDataBoolean(HUELLA_FAIL,true)){
-                        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    if (pref.loadDataBoolean(TECLADO_CUSTOM,false)){
 
+                        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
                     }else {
                         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);

@@ -751,6 +751,7 @@
     <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
+    <string name="password_required_seis">Contraseña Requerida a 6 Digitos, Verifique su Información</string>
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>

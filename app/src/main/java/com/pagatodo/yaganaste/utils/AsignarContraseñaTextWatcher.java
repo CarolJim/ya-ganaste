@@ -191,7 +191,11 @@ public class AsignarContraseñaTextWatcher  implements TextWatcher {
             handler.postDelayed(myRunnable, 000);
         } else {
             // Proceso de borrado de numeros,
-            handler.removeCallbacks(myRunnable);
+          try {
+              handler.removeCallbacks(myRunnable);
+          }catch (Exception e){
+
+          }
             int countString = etGen.getText().toString().length();
             switch (countString) {
                 case 0:

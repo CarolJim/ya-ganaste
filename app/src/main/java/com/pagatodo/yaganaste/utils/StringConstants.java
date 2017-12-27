@@ -10,6 +10,11 @@ public class StringConstants {
 
     public static final String SPACE = " ";
     public static final String HAS_SESSION = "HAS_SESSION";
+    public static final String PASSWORD_CHANGE = "PASSWORD_CHANGE";
+
+
+
+
     public static final String IS_CUPO = "IS_CUPO";
     public static final String NAME_USER = "NAME_USER";
     public static final String FULL_NAME_USER = "FULL_NAME_USER";

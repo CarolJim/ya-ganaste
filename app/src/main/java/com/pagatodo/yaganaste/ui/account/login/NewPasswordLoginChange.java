@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
+import com.pagatodo.yaganaste.interfaces.IChangePass6;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
@@ -61,10 +62,11 @@ public class NewPasswordLoginChange extends GenericFragment implements Validatio
     TextView tv4Num;
     TextView tv5Num;
     TextView tv6Num;
-    ImageView asignar_iv1;
-    private View rootview;
     private String nip = "";
     private Keyboard keyboard;
+    ImageView asignar_iv1;
+    private View rootview;
+
     ImageView imageView;
 
 
@@ -263,4 +265,6 @@ public class NewPasswordLoginChange extends GenericFragment implements Validatio
     public boolean isCustomKeyboardVisible() {
         return false;
     }
+
+
 }
