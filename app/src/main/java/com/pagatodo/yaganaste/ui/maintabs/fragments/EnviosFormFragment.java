@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +27,14 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
@@ -58,6 +62,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJET
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.ValidateForm.AMEX;
@@ -158,6 +163,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             amountToSend.setOnEditorActionListener(this);
             concept.setImeOptions(IME_ACTION_DONE);
             concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            //tipoPago.add(QR_CODE.getId(), QR_CODE.getName(getContext()));
 
         } else {
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
@@ -448,7 +454,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             if (favoriteItem != null && favoriteItem.getReferencia().length() == 10) {
                 referenceFavorite = favoriteItem.getReferencia();
             }
-        } else if (position == CLABE.getId()) {
+        } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
@@ -459,6 +465,10 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             if (favoriteItem != null && favoriteItem.getReferencia().length() == 18) {
                 referenceFavorite = favoriteItem.getReferencia();
             }
+       /* } else if (position == QR_CODE.getId() && keyIdComercio == IDCOMERCIO_YA_GANASTE){
+            Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
+            intent.putExtra(ScannVisionActivity.QRObject, true);
+            getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
         } else {
             maxLength = 2;
             cardNumber.setHint("");
@@ -526,6 +536,14 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CONTACTS_CONTRACT) {
                 contactPicked(data);
+            }
+        }
+        if (requestCode == BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    Log.e(getString(R.string.app_name), "QRCode Value: "+barcode.displayValue);
+                }
             }
         }
     }

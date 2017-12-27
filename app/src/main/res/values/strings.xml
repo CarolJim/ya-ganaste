@@ -488,6 +488,7 @@
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CLABE</string>
+    <string name="transfer_qr">Código QR</string>
     <string name="transfer_card_unavailable">No Disponible</string>
     <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>

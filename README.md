@@ -13,6 +13,30 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
   
+**_VERSION 1.7.2 - 5 de Diciembre del 2017 al 2 de Enero del 2018 (ID:)_**
+
+Descripción al desarrollador:
+
+    * Cambio en focos de EditText's al saltar entre ellos.
+    * Mantener el Scrollview solo para formularios de pagos, no afectando a los círculos de imágenes de usuario y carrier.
+    * Limitar carrusel a 10 elementos y ordenas por carriers en específico.
+    * Corrección bug de seguridad para uso de huella digital en Autorización de Transferencia.
+    * Solución de aprovisionamiento en FrejaMass para desarrollo.
+    * Limpieza de código ejemplo que hacía detener la Aplicación en versiones Android menores a 5.
+    * Prellenar el nombre del contacto en el formulario al seleccionarlo directamnte de la agenda nativa de contactos.
+    * Correción de coachmarks.
+    * Cambio de gif's para flujos de Dongle Adquiriente.
+    * Habilitar notificaciones y correción de clases duplicadas para registro en Firebase.
+    * Cambio en velocidad de flips para tarjta Emisor y Dongle Adquiriente así como tamaño de los mismos.
+    * Implementación de contraseña a 6 dígitos y correción de flujos correspondientes.
+    * Correcion de incidencias.
+    
+Funcionalidad:
+
+    * Implementación de Notificaciones.
+    * Mejorar flujo en carrusel.
+    * Implementación de contraseña a 6 dígitos.
+  
 **_VERSION 1.7.1 - 16 de Noviembre al 4 de Diciembre del 2017 (ID:3930)_**
 
 Descripción al desarrollador:
