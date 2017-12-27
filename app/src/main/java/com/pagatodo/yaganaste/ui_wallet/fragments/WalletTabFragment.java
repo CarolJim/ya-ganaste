@@ -224,16 +224,16 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
     public void onItemClick(ElementView elementView) {
         switch (elementView.getIdOperacion()) {
             case 1:
-                if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-                    Intent intent = new Intent(getContext(), WalletMainActivity.class);
-                    intent.putExtra("CURRENT_PAGE",pageCurrent);
-                    startActivity(intent);
+                Intent intent = new Intent(getContext(), WalletMainActivity.class);
+                intent.putExtra("CURRENT_PAGE",pageCurrent);
+                startActivity(intent);
 
+                /*if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
                 } else {
                     //loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS),R.id.main_view_pager);
                     //onEventListener.onEvent(EVENT_MOVIMIENTO_MOVEMENTS,elementView);
-                }
+                }*/
                 break;
                 default:
                     Toast.makeText(getContext(),"Proximamente",Toast.LENGTH_SHORT).show();
