@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,9 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
-import com.pagatodo.yaganaste.data.model.Envios;
-import com.pagatodo.yaganaste.data.model.Recarga;
-import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
@@ -26,7 +22,6 @@ import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
@@ -39,7 +34,6 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RECARGA;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -244,25 +238,18 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
          * Glide permite falla y cargar un PlaceHolder
          */
         String url = movimientosResponse.getURLImagen();
-        if(url != null && !url.isEmpty()) {
+        if (url != null && !url.isEmpty()) {
             Picasso.with(getContext())
-                    .load(getString(R.string.url_images_logos)+url)
+                    .load(getString(R.string.url_images_logos) + url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .error(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);
-        }else{
+        } else {
             Glide.with(getContext())
                     .load(url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);
         }
-
-        /*
-         Glide.with(getContext())
-                    .load(url)
-                    .placeholder(R.mipmap.logo_ya_ganaste)
-                    .into(imageDetail);
-        */
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
@@ -273,7 +260,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             layoutConcepto.setVisibility(GONE);
         }
 
-
         txtConceptoDescripcion.setSelected(true);
         txtClaveRastreo.setSelected(true);
         btnVolver.setOnClickListener(this);
@@ -281,7 +267,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
 
     private void initFieldsViews() {
-
         layoutFechaDescripcion.setVisibility(VISIBLE);
         txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
         layoutHora.setVisibility(VISIBLE);
@@ -329,16 +314,22 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
-                layoutReferencia.setVisibility(VISIBLE);
-                txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
-                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
-                txtRefernciaDescripcion.setSelected(true);
+                if (!movimientosResponse.getReferencia().equals("")) {
+                    layoutReferencia.setVisibility(VISIBLE);
+                    txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
+                    txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                    txtRefernciaDescripcion.setSelected(true);
+                }
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+                if (!movimientosResponse.getClaveRastreo().equals("")) {
+                    layoutClaveRastreo.setVisibility(VISIBLE);
+                    txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
+                }
+                if (!movimientosResponse.getReferenciaNum().equals("")) {
+                    layoutNumeroReferencia.setVisibility(VISIBLE);
+                    txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+                }
                 break;
             case TRASPASO_MISMO_BANCO_ABONO://5
                 layoutConcepto.setVisibility(VISIBLE);

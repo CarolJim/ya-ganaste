@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
@@ -106,6 +107,7 @@ import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
@@ -278,7 +280,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             //  textViewServ.setHintText(getString(R.string.details_compania));
         } else if (current_tab == 3) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
-                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
+                formatoPago = getCreditCardFormat(formatoPago);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
@@ -375,20 +377,19 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 .into(imageViewCamera.getCircleImageView());*/
 
 
-
         /**
          * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
          * Glide permite falla y cargar un PlaceHolder
          */
         String url = dataFavoritos.getImagenURL();
-        if(url != null && !url.isEmpty()) {
+        if (url != null && !url.isEmpty()) {
             Picasso.with(this)
                     .load(dataFavoritos.getImagenURL())
                     .error(R.drawable.ic_usuario_azul)
                     //.placeholder(R.drawable.user_placeholder)
                     //.error(R.drawable.user_placeholder_error)
                     .into(imageViewCamera.getCircleImageView());
-        }else{
+        } else {
             Glide.with(this)
                     .load(dataFavoritos.getImagenURL())
                     .asBitmap()
@@ -521,7 +522,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             isValid = false;
         }
 
-        if(isValid){
+        if (isValid) {
             favoritesPresenter.openMenuPhoto(1, cameraManager);
         }
     }
@@ -551,6 +552,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                  * 3 - Mostramos el dialogo
                  */
                 ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                 dialogFragment.setOnListServiceListener(this);
                 dialogFragment.show(getSupportFragmentManager(), "FragmentDialog");
                 break;
@@ -765,10 +767,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-            /*Glide.with(this)
-                    .load(cameraManager.getUriImage())
-                    .asBitmap()
-                    .into(imageViewCamera.getCircleImageView());*/
             Picasso.with(this)
                     .load(cameraManager.getUriImage())
                     .into(imageViewCamera.getCircleImageView());
@@ -783,15 +781,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
             // Ocultamos el mensaje de error de foto
             editFotoError.setVisibilityImageError(false);
-
-            //CODIGO ORIGINAL DE FOTO EN ListaOpcionesFRagment
-            // Creamos el objeto ActualizarAvatarRequest
-            // ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
-
-            // onEventListener.onEvent("DISABLE_BACK", true);
-
-            // Enviamos al presenter
-            // mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -868,14 +857,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 //return;
             }
         }
-/*
-        //Validate format Tipo Envio
-        if (!editFoto.isValidText()) {
-            showValidationError(editFoto.getId(), getString(R.string.addFavoritesErrorFoto));
-            editFoto.setIsInvalid();
-            isValid = false;
-            //return;
-        }*/
 
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
@@ -931,7 +912,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             case R.id.add_favorites_alias:
                 editAliasError.setVisibilityImageError(false);
                 break;
-            case R.id.add_favorites_servicio:
+            case R.id.add_favorites_list_serv:
                 editListServError.setVisibilityImageError(false);
                 break;
             case R.id.add_favorites_tipo:
@@ -974,23 +955,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         dataFavoritos.setReferencia(referService);
         favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
         favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
-        /* Si no tiene un favorito guardado con la misma referencia entonces se permite editarlo
-        if (!favoritesPresenter.alreadyExistFavorite(referService)) {
-
-        //} else {
-        /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo
-            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
-                    "");
-        }/*
-
-        // Codigo para mostrar el llenado de la peticion
-    /*    Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "Alias " + mAlias
-                + " idTipoComercio " + idTipoComercio
-                + " idComercio " + idComercio
-                + " idTipoEnvio " + idTipoEnvio
-                + " mReferencia " + referService
-                + " stringFoto " + stringFoto);*/
     }
 
     @Override

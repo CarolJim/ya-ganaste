@@ -844,7 +844,7 @@
     <string name="micuenta">Mi Cuenta</string>
     <string name="cuentareebolso">Cuenta de Reembolso</string>
     <string name="solicitacredito">Solicita tu Línea de Crédito *</string>
-   <string name="notifications">Notificaciones</string>
+    <string name="notifications">Notificaciones</string>
     <string name="datos_nombre_titular">Titular</string>
     <string name="my_card_change_nip">Cambia NIP</string>
     <string name="my_card_report">Reporta tu Tarjeta</string>
@@ -1102,7 +1102,7 @@
     <string name="fingerprint_no_supported">Su Dispositivo no es Compatible Con la Autenticación de Huellas Dactilares</string>
     <string name="fingerprint_permission">Por Favor Active el Permiso de Huella Digital</string>
     <string name="fingerprint_no_found">No Existe Una Huella Digital Configurada. Registre al Menos Una Huella Digital en la Configuración de su Dispositivo</string>
-    <string name="fingerprint_go_to_settings">Ir a la Configuración</string >
+    <string name="fingerprint_go_to_settings">Ir a la Configuración</string>
     <string name="fingerprint_use_password">Usar Contraseña</string>
     <string name="fingerprint_eneable_security">Habilite la Seguridad de LockScreen en la Configuración de su Dispositivo</string>
     <string name="fingerprint_verification">Coloque su Huella Digital Para Verificar su Identidad</string>
@@ -1112,7 +1112,6 @@
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
     <string name="trans_spei_envio_txt">Traspaso Mismo Banco</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
-
 
 
     <!-- Finger print nativo -->
@@ -1139,9 +1138,11 @@
     <string name="new_fingerprint_enrolled_description">A new fingerprint was added to this device, so your password is required.</string>
     <string name="use_fingerprint_in_future">Use fingerprint in the future</string>
     <string name="use_fingerprint_to_authenticate_title">Use fingerprint to authenticate</string>
-    <string name="use_fingerprint_to_authenticate_key" >use_fingerprint_to_authenticate_key</string>
+    <string name="use_fingerprint_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
     <string name="description_bugdroid_icon">Android bugdroid image</string>
     <string name="description_fingerprint_icon">Fingerprint icon</string>
+    <string name="download_file">Descargando Archivo</string>
+    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
 
 
     <!--Cambio de contraeña  -->

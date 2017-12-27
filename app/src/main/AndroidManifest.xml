@@ -65,7 +65,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui._controllers.CupoStatusActivity"
             android:screenOrientation="portrait"
@@ -127,7 +126,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyaKKktDzaNdnjjxMFz-4jmbiUA191DCo" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher" />
@@ -143,7 +141,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".notifications.MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -171,13 +168,11 @@
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".ui._controllers.manager.AddFavoritesActivity" />
-        <activity android:name=".ui._controllers.manager.AddNewFavoritesActivity" />
         <activity android:name=".ui._controllers.manager.EditFavoritesActivity" />
         <activity android:name=".ui._controllers.CropActivity" />
         <activity android:name=".ui._controllers.TarjetaActivity" />
         <activity android:name=".ui._controllers.manager.DongleBatteryHome" />
-        <activity android:name=".ui._controllers.manager.AddToFavoritesActivity"></activity>
+        <activity android:name=".ui._controllers.manager.AddToFavoritesActivity" />
     </application>
 
 </manifest>

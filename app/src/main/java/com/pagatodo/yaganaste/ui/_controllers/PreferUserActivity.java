@@ -47,6 +47,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
+import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
@@ -157,6 +158,15 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         if (!SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals(""))
             checkDataCard();
+
+        int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT);
+        if (notifPendents == 0) {
+            App.setBadge(notifPendents);
+        } else {
+            notifPendents--;
+            App.setBadge(notifPendents);
+        }
+        App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
     }
 
     public AccountPresenterNew getPresenterAccount() {
