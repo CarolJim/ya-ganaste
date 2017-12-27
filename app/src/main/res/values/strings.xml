@@ -140,7 +140,7 @@
     <string name="write_your_name">Escribe tu Nombre</string>
     <string name="second_last_name">Segundo Apellido</string>
     <string name="last_name">Primer Apellido</string>
-    <string name="your_password_need_to_have">Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos Una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos</string>
+    <string name="your_password_need_to_have">Tu Contraseña Debe Tener 6 Digitos,\nNo puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
     <string name="create_your_pass">Crea Una Contraseña</string>
     <string name="more_data_and_finish">Unos Datos Más\ny Habremos Terminado</string>
     <string name="put_your_birthday">Indícanos tu Fecha de Nacimiento</string>
@@ -340,7 +340,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
-    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 8\nCaracteres, Incluyendo al Menos Una Letra\nMayúscula, Una Minúscula y un Número</string>
+    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 6 Digitos, No\n Puede Incluir 3 Números Iguales Seguidos\nNi Números Consecutivos</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -751,6 +751,7 @@
     <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
+    <string name="password_required_seis">Contraseña Requerida a 6 Digitos, Verifique su Información</string>
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>
@@ -1110,9 +1111,9 @@
     <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
     <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
-    <string name="trans_spei_envio_txt">Transferencia SPEI</string>
-    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
+    <string name="trans_spei_envio_txt">Traspaso Mismo Banco</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
+
 
     <!-- Finger print nativo -->
     <string name="application_name">FingerprintDialog</string>
@@ -1141,8 +1142,17 @@
     <string name="use_fingerprint_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
     <string name="description_bugdroid_icon">Android bugdroid image</string>
     <string name="description_fingerprint_icon">Fingerprint icon</string>
+    <string name="download_file">Descargando Archivo</string>
+    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
 
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
 
+    <!--Cambio de contraeña  -->
+    <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
+    <string name="confirma_nueva_contrasena">Confirma tu Contraseña</string>
+    <string name="confirma_nueva_contraseña">Confirmar Nueva Contraseña</string>
+    <string name="confirmar_contrase">La Contraseña no Coincide</string>
+    <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato de\nContraseña Para Que Sea Más Segura</string>
+    <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
 </resources>

@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
@@ -68,7 +69,7 @@ public class    SingletonUser {
 
             prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
                     .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
-
+           // prefs.saveDataBool(PASSWORD_CHANGE,dataUser.getUsuario().getPasswordAsignado());
             prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).

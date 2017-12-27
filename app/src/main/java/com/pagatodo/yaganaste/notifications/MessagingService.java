@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -33,11 +34,45 @@ public class MessagingService extends FirebaseMessagingService {
         // Varificamos si el mensaje remoto contiene datos. debemos verificar que concuerden los
         // nombres de variables
         if (remoteMessage.getData().size() > 0) {
-            //    Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            sendNotification(remoteMessage.getData().get("myBody"));
+            // Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            // sendNotification(remoteMessage.getData().get("myBody"), remoteMessage.getData().get("id"));
             int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT) + 1;
             App.setBadge(notifPendents);
             App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
+            /*String idType = getIntent().getExtras().get("id").toString();
+            String urlData = getIntent().getExtras().get("urlData").toString();
+            String nameData = getIntent().getExtras().get("nameData").toString();
+            String typeData = getIntent().getExtras().get("typeData").toString();*/
+
+            String idType = remoteMessage.getData().get("id").toString();
+            String urlData = remoteMessage.getData().get("urlData").toString();
+            String nameData = remoteMessage.getData().get("nameData").toString();
+            String typeData = remoteMessage.getData().get("typeData").toString();
+
+            // Dependiendo del tipo de idType mandamos a una URL o al proceso de descargar archivos
+            if (idType != null) {
+                Log.d(TAG, "idType: " + idType);
+                switch (idType) {
+                    case "1":
+                        //String url = "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste";
+                        String url = urlData;
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                        break;
+                    case "2":
+
+                        App.getInstance().downloadFile(this, urlData,
+                                nameData, typeData);
+                        break;
+                    case "3":
+                        //  startActivity(new Intent(this, TestActivity.class));
+                        // this.finish();
+                        break;
+                    case "4":
+                        break;
+                }
+            }
         }
     }
 
@@ -45,9 +80,11 @@ public class MessagingService extends FirebaseMessagingService {
      * Metodo que crea la notificacion.
      *
      * @param messageBody
+     * @param id
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody, String id) {
         Intent intent = new Intent(this, SplashActivity.class);
+        intent.putExtra("id", id);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);

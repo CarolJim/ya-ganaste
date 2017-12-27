@@ -24,12 +24,14 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.VolleySingleton;
+import com.pagatodo.yaganaste.notifications.MessagingService;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
+import com.pagatodo.yaganaste.utils.customviews.FileDownload;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -321,5 +323,12 @@ public class App extends Application {
             }
         }
         return null;
+    }
+
+    public void downloadFile(MessagingService messagingService, String urlData, String nameData, String typeData){
+        FileDownload fileDownload = new FileDownload(messagingService, urlData,
+                nameData, typeData);
+        fileDownload.execute("");
+        //showLoader("Descargando Archivo");
     }
 }

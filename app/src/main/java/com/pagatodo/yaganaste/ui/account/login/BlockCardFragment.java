@@ -4,17 +4,26 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.KeyguardManager;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
+import android.inputmethodservice.Keyboard;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -33,11 +42,13 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -61,9 +72,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 
@@ -75,7 +88,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
  * 4 - Cerramos session
  */
 public class BlockCardFragment extends GenericFragment implements ValidationForms,
-        ILoginView, IMyCardView {
+        ILoginView, IMyCardView,View.OnClickListener{
 
 
     ///////////////
@@ -139,6 +152,39 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     static BlockCardFragment fragmentCode;
 
+
+
+
+    @BindView(R.id.customkeyboard)
+    LinearLayout customkeyboard;
+
+    @BindView(R.id.keyboard_view)
+    CustomKeyboardView keyboardView;
+
+    @BindView(R.id.layoutScrollCard)
+    LinearLayout linerar_principal;
+
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
+    TextView tv5Num;
+    TextView tv6Num;
+    private String nip = "";
+    private Keyboard keyboard;
+    ImageView asignar_iv1;
+    private static int PIN_LENGHT = 6;
+    @BindView(R.id.asignar_edittext)
+    CustomValidationEditText edtPin;
+
+
+
+
+
+
+
+
     public BlockCardFragment() {
         // Required empty public constructor
     }
@@ -198,6 +244,78 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+            linerar_principal.setOnClickListener(this);
+            edtUserPass.setVisibility(View.GONE);
+            layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
+            customkeyboard.setVisibility(VISIBLE);
+            customkeyboard.setOnClickListener(this);
+            keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+            keyboardView.setPreviewEnabled(false);
+            keyboardView.showCustomKeyboard(rootview);
+            tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+            tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+            tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+            tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
+            tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
+            tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
+            // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
+            // Se le asigna un TextWatcher personalizado para realizar las oepraciones
+            edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+            edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
+            edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
+            edtPin.addCustomTextWatcher(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().length() == 6) {
+                        keyboardView.hideCustomKeyboard();
+                        //  Servicio para consumir usuario y contraseña
+                        validateForm();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+
+
+
+            edtPin.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    EditText edittext = (EditText) v;
+                    int inType = edittext.getInputType();       // Backup the input type
+                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                    edittext.onTouchEvent(event);               // Call native handler
+                    keyboardView.showCustomKeyboard(v);
+                    edittext.setInputType(inType);              // Restore input type
+                    return true; // Consume touch event
+                }
+            });
+            //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
+            setValidationRules();
+            keyboardView.showCustomKeyboard(rootview);
+            edtPin.requestEditFocus();
+
+        }else {
+
+            edtUserPass.setVisibility(View.VISIBLE);
+        }
+
+
+
+
+
+
+
+
         if (cardStatusId.equals("1")) {
             // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
             cardBlue.setVisibility(View.VISIBLE);
@@ -304,6 +422,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
 
     }
+
+
+
 
     public void loadOtpHuella() {
         //// Succes de la validación de huella digital
@@ -420,6 +541,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                     } else if (edtUserPass.isValidText()) {
                         edtUserPass.setIsValid();
                     }
+
+
+
                 }
             }
         });
@@ -447,6 +571,14 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             edtUserPass.setIsInvalid();
             isValid = false;
         }
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+            if (password.length()<6) {
+                errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required_seis) : errorMsg;
+                edtUserPass.setIsInvalid();
+                isValid = false;
+            }
+        }
+
 
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
@@ -479,7 +611,14 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     @Override
     public void getDataForm() {
-        password = edtUserPass.getText().trim();
+
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
+            password = edtPin.getText().trim();
+        }else {
+            password = edtUserPass.getText().trim();
+        }
+
+
     }
 
     @Override
@@ -576,6 +715,22 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     @Override
     public void loginSucced() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+
+            case R.id.layoutScrollCard:
+                keyboardView.hideCustomKeyboard();
+                break;
+            case R.id.customkeyboard:
+                keyboardView.showCustomKeyboard(rootview);
+                break;
+
+        }
+
 
     }
 
