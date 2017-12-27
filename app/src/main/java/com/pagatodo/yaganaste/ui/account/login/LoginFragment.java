@@ -87,14 +87,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.quickPayment)
     LinearLayout quickPayment;
 
-
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
     private String username;
     private String password;
     private Preferencias preferencias;
-
+    private boolean dialogErrorShown = false;
 
     public static LoginFragment newInstance() {
         LoginFragment fragmentRegister = new LoginFragment();
@@ -241,21 +240,25 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
-                error.toString(), getFragmentManager(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        edtUserName.clearFocus();
-                        edtUserPass.clearFocus();
-                        edtUserPass.setText("");
-                        password = "";
-                    }
+        if (!dialogErrorShown) {
+            dialogErrorShown = true;
+            UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
+                    error.toString(), getFragmentManager(), new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            edtUserName.clearFocus();
+                            edtUserPass.clearFocus();
+                            edtUserPass.setText("");
+                            password = "";
+                            dialogErrorShown = false;
+                        }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+                        @Override
+                        public void actionCancel(Object... params) {
 
-                    }
-                });
+                        }
+                    });
+        }
         setEnableViews(true);
     }
 

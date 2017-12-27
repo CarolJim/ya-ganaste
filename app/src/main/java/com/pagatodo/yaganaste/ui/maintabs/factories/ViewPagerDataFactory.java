@@ -103,7 +103,7 @@ public class ViewPagerDataFactory {
         //fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
-        //fragmentList.add(DepositsFragment.newInstance());
+        fragmentList.add(DepositsFragment.newInstance());
 
         Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         if (SingletonUser.getInstance().getDataUser().isEsAgente()

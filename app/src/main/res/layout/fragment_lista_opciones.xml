@@ -217,6 +217,7 @@
 
                 android:background="@color/borderLayoutColor"
                 android:visibility="gone" />
+
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_dongle"
                 android:layout_width="match_parent"
@@ -252,12 +253,54 @@
 
 
             <View
+                android:id="@+id/lineareebolso"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-
-                android:id="@+id/contenedordongle"
                 android:background="@color/borderLayoutColor"
                 android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/fragment_my_account_config_notify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/fragment_my_account_confnotif"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:text="@string/notifications" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/contenedordongle"
+                android:layout_width="match_parent"
+
+                android:layout_height="1dp"
+                android:background="@color/borderLayoutColor"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_help_legal"
                 android:layout_width="match_parent"
@@ -275,13 +318,13 @@
                     android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
-                        android:text="Ayuda y Legales"
-                        style="@style/generic_text_style_2"/>
+                        android:text="Ayuda y Legales" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="17dp"

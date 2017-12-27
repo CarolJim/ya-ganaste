@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -35,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
@@ -142,14 +140,15 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 List<SubGiro> list = girosComercio.get(position).getListaSubgiros();
-                Collections.sort(list, new Comparator<SubGiro>() {
-                    @Override
-                    public int compare(SubGiro countries, SubGiro t1) {
-                        return countries.getSubgiro().compareTo(t1.getSubgiro());
-                    }
-                });
-                if (list.get(0).getIdSubgiro() != -1)
+                if (!list.contains(new SubGiro(-1, getString(R.string.subgiro_commerce)))) {
+                    Collections.sort(list, new Comparator<SubGiro>() {
+                        @Override
+                        public int compare(SubGiro countries, SubGiro t1) {
+                            return countries.getSubgiro().compareTo(t1.getSubgiro());
+                        }
+                    });
                     list.add(0, new SubGiro(-1, getString(R.string.subgiro_commerce)));
+                }
                 subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
                         R.layout.spinner_layout, list, DatosNegocioFragment.this);
                 spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
@@ -314,10 +313,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         }
     }
 
-    private boolean isPhone(String input){
+    private boolean isPhone(String input) {
         return Pattern.compile("\\d{10}").matcher(input).find();
     }
-
 
 
     @Override

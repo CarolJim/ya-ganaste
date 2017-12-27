@@ -2,11 +2,16 @@ package com.pagatodo.yaganaste.ui_wallet.pojos;
 
 import android.content.Context;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
+import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -63,7 +68,8 @@ public class ElementWallet {
     //Datos seteado de prueb
     public ElementWallet getCardyaganaste(Context context){
         return new ElementWallet(R.drawable.card_yaganaste,
-                "$234.00",new ElementView().getListWow(),
+                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                new ElementView().getListWow(),
                 context.getResources().getString(R.string.saldo_disponible));
     }
 
@@ -74,7 +80,10 @@ public class ElementWallet {
     }
 
     public ElementWallet getCardLector(Context context){
-        return new ElementWallet(R.mipmap.lector_front,"$449.25",new ElementView().getListLector(),
+        return new ElementWallet(R.mipmap.lector_front,
+                Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
+                new ElementView().getListLector(),
                 context.getResources().getString(R.string.saldo_reembolso));
     }
+
 }

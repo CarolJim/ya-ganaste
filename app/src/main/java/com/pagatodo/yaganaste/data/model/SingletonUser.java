@@ -26,7 +26,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * @author flima
  */
 
-public class SingletonUser {
+public class    SingletonUser {
 
     public static SingletonUser user;
 

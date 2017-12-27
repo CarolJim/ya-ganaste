@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.pagatodo.yaganaste.R;
 
+import java.io.Serializable;
 import java.sql.Array;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Created by icruz on 12/12/2017.
  */
 
-public class ElementView {
+public class ElementView implements Serializable{
 
     private int idOperacion;
     private int resource;
@@ -54,23 +55,23 @@ public class ElementView {
     public ArrayList<ElementView> getListWow(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.finance,"Movimientos"));
-        elementViews.add(new ElementView(1, R.mipmap.star,"Promociones"));
-        elementViews.add(new ElementView(1, R.mipmap.map_marker,"Ubicaciones"));
+        elementViews.add(new ElementView(2, R.mipmap.star,"Promociones"));
+        elementViews.add(new ElementView(3, R.mipmap.map_marker,"Ubicaciones"));
         return elementViews;
     }
 
     public ArrayList<ElementView> getListStartBuck(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.finance,"Movimientos"));
-        elementViews.add(new ElementView(1, R.mipmap.wallet,"Añadir Saldo"));
-        elementViews.add(new ElementView(1, R.mipmap.credit_card,"Tarjetas"));
+        elementViews.add(new ElementView(4, R.mipmap.wallet,"Añadir Saldo"));
+        elementViews.add(new ElementView(5, R.mipmap.credit_card,"Tarjetas"));
         return elementViews;
     }
 
     public ArrayList<ElementView> getListLector(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.finance,"Movimientos"));
-        elementViews.add(new ElementView(1, R.mipmap.settings,"Mi Lector"));
+        elementViews.add(new ElementView(6, R.mipmap.settings,"Mi Lector"));
         return elementViews;
     }
 }

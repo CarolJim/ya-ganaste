@@ -1,10 +1,14 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
@@ -30,8 +34,10 @@ public class ElementsWalletAdpater extends RecyclerView.Adapter<ButtonsViewHolde
 
     @Override
     public ButtonsViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_element, viewGroup, false);
-        ButtonsViewHolder pvh = new ButtonsViewHolder(v);
+
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_element, viewGroup, false);
+        ButtonsViewHolder pvh = new ButtonsViewHolder(view, AnimationUtils.loadAnimation(context,
+                R.anim.slide_up));
         return pvh;
     }
 

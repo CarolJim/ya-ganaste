@@ -34,15 +34,25 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
+import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 
 public class SplashActivity extends SupportFragmentActivity implements IRequestResult {
     private Preferencias pref;
     private CatalogsDbApi api;
     private Preferencias preferencias;
+    private static final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Codigo para mostrar el token y los datos de las notificaciones FCM. Solo necesitamos
+        // acomodar el Data con valores validos
+     /*   Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken() );
+        if (getIntent().getExtras() != null) {
+            Log.d(TAG, "DATA ID: " + getIntent().getExtras().get("id"));
+        }*/
+
         if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
         }

@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
+import com.pagatodo.yaganaste.ui.preferuser.MyNotifyConfigFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyTutorialFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
@@ -46,6 +47,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
+import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
@@ -77,6 +79,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_HELP_LEGAL = "PREFER_USER_HELP_LEGAL";
     public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
+    public static String PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY = "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY";
+    public static String PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK = "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK";
     public static String PREFER_USER_MY_CARD = "PREFER_USER_MY_CARD";
     public static String PREFER_USER_MY_USER_BACK = "PREFER_USER_MY_USER_BACK";
     public static String PREFER_USER_EMAIL = "PREFER_USER_EMAIL";
@@ -154,6 +158,15 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         if (!SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals(""))
             checkDataCard();
+
+        int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT);
+        if (notifPendents == 0) {
+            App.setBadge(notifPendents);
+        } else {
+            notifPendents--;
+            App.setBadge(notifPendents);
+        }
+        App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -271,6 +284,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
             case "PREFER_USER_CUENTA_REEMBOLSO_BACK":
                 loadFragment(MyAccountFragment.newInstance(), Direction.BACK, false);
+                break;
+            case "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY":
+                loadFragment(MyNotifyConfigFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK":
+                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
                 break;
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
@@ -452,6 +471,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
             } else if (currentFragment instanceof CuentaReembolsoFragment) {
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
+            } else if (currentFragment instanceof MyNotifyConfigFragment) {
+                onEvent(PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK, null);
             } else {
                 super.onBackPressed();
             }

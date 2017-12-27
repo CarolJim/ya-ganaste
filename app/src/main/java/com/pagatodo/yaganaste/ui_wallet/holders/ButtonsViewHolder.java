@@ -1,7 +1,11 @@
 package com.pagatodo.yaganaste.ui_wallet.holders;
 
+import android.animation.Animator;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,21 +19,24 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
  * Created by icruz on 11/12/2017.
  */
 
-public class ButtonsViewHolder extends RecyclerView.ViewHolder{
+public class ButtonsViewHolder extends RecyclerView.ViewHolder implements Runnable{
 
     public ImageView button;
     public TextView textOption;
     private View itemView;
+    private Animation animSlideUp;
 
 
-    public ButtonsViewHolder(View itemView) {
+    public ButtonsViewHolder(View itemView, Animation animSlideUp) {
         super(itemView);
         this.button = (ImageView) itemView.findViewById(R.id.button_item);
         this.textOption = (TextView) itemView.findViewById(R.id.text_option);
         this.itemView = itemView;
+        this.animSlideUp = animSlideUp;
     }
 
-    public void bind(final ElementView elementView, final ElementsWalletAdpater.OnItemClickListener listener){
+    public void bind(final ElementView elementView, final ElementsWalletAdpater.OnItemClickListener listener) {
+        this.itemView.post(this);
         this.button.setBackgroundResource(elementView.getResource());
         this.textOption.setText(elementView.getTitle());
         this.itemView.setOnClickListener(new View.OnClickListener() {
@@ -38,5 +45,11 @@ public class ButtonsViewHolder extends RecyclerView.ViewHolder{
                 listener.onItemClick(elementView);
             }
         });
+    }
+
+    @Override
+    public void run() {
+        itemView.setVisibility(View.VISIBLE);
+        itemView.startAnimation(animSlideUp);
     }
 }

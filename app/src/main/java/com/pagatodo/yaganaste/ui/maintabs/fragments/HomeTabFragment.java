@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -64,6 +65,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     private TabLayoutEmAd tabLayoutEmAd;
     private GenericPagerAdapter pagerAdapter;
     private String nombreCompleto, cuentaUsuario;
+    private int currentPage;
 
     CircleImageView imageView;
 
@@ -76,10 +78,21 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         return homeTabFragment;
     }
 
+    public static HomeTabFragment newInstance(int setCurrentPage) {
+        HomeTabFragment homeTabFragment = new HomeTabFragment();
+        Bundle args = new Bundle();
+        args.putInt("CURRENT_PAGE",setCurrentPage);
+        homeTabFragment.setArguments(args);
+        return homeTabFragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        if (getArguments() != null){
+            currentPage = getArguments().getInt("CURRENT_PAGE",0);
+        }
         this.homeFragmentPresenter = new HomeFragmentPresenter(this);
     }
 
@@ -141,6 +154,15 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         pagerAdquirente.setAdapter(pagerAdapter);
         pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente() &&
                 SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO);
+        pagerAdquirente.setCurrentItem(currentPage);
+        pagerAdquirente.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return true;
+            }
+        });
+
     }
 
 
@@ -198,6 +220,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
         return nombreCompleto;
     }
+
 
     @Override
     public void onLongClickBlockCard() {

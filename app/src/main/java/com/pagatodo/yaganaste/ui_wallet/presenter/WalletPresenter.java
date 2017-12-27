@@ -6,5 +6,6 @@ package com.pagatodo.yaganaste.ui_wallet.presenter;
 
 public interface WalletPresenter {
     void getWalletsCards();
+    void getMovementsAdq();
     void onDestroy();
 }

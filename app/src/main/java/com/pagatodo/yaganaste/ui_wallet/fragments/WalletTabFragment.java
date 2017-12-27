@@ -1,11 +1,15 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +19,20 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WlletNotifaction;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
@@ -33,10 +45,13 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+
 /**
  *
  */
-public class WalletTabFragment extends SupportFragment implements WalletView, ElementsWalletAdpater.OnItemClickListener {
+public class WalletTabFragment extends SupportFragment implements WalletView, ElementsWalletAdpater.OnItemClickListener,
+        WlletNotifaction{
 
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
@@ -54,19 +69,29 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
 
     private WalletPresenter walletPresenter;
     private CardWalletAdpater cardWalletAdpater;
+    protected OnEventListener onEventListener;
 
     private int dotsCount;
     private ImageView[] dots;
     private int previous_pos = 0;
+    private int pageCurrent = 0;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEventListener) {
+            this.onEventListener = (OnEventListener) context;
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        walletPresenter = new WalletPresenterImpl(this, new WalletInteractorImpl());
+        walletPresenter = new WalletPresenterImpl(this);
     }
 
 
@@ -103,10 +128,13 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
 
     @Override
     public void completed() {
+
+
+
         progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = new CardWalletAdpater();
         cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
-        cardWalletAdpater.addCardItem(new ElementWallet().getCardStarBucks(getContext()));
+        //cardWalletAdpater.addCardItem(new ElementWallet().getCardStarBucks(getContext()));
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO){
             cardWalletAdpater.addCardItem(new ElementWallet().getCardLector(getContext()));
         }
@@ -186,6 +214,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
     }
 
     private void updateOperations(int psition){
+        pageCurrent = psition;
         rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(),cardWalletAdpater.getElementWallet(psition),this));
         txtSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getSaldo());
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getTipoSaldo());
@@ -193,6 +222,33 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
 
     @Override
     public void onItemClick(ElementView elementView) {
-        Toast.makeText(getContext(),"" + elementView.getIdOperacion(),Toast.LENGTH_SHORT).show();
+        switch (elementView.getIdOperacion()) {
+            case 1:
+                if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+                    Intent intent = new Intent(getContext(), WalletMainActivity.class);
+                    intent.putExtra("CURRENT_PAGE",pageCurrent);
+                    startActivity(intent);
+
+                } else {
+                    //loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS),R.id.main_view_pager);
+                    //onEventListener.onEvent(EVENT_MOVIMIENTO_MOVEMENTS,elementView);
+                }
+                break;
+                default:
+                    Toast.makeText(getContext(),"Proximamente",Toast.LENGTH_SHORT).show();
+                    break;
+        }
+
+    }
+
+    @Override
+    public void onFailed(int errorCode, int action, String error) {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
     }
 }

@@ -235,7 +235,6 @@
     <string name="txt_selecciona_archivo">Selecciona Archivo</string>
     <string name="error_cargar_imagen">Error al Cargar Imagen</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
     <string name="confirm_pass">Confirma tu Contraseña</string>
     <string name="confirm_new_pass">Confirma Nueva Contraseña</string>
@@ -440,6 +439,7 @@
     <string name="main_tab_depositos">Depósitos</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
+    <string name="main_tab_movimientos">Movimientos</string>
     <string name="no_movimientos">No Hay Movimientos Registrados</string>
     <string name="error_respuesta">Ocurrió un Error de Conexión</string>
 
@@ -844,6 +844,7 @@
     <string name="micuenta">Mi Cuenta</string>
     <string name="cuentareebolso">Cuenta de Reembolso</string>
     <string name="solicitacredito">Solicita tu Línea de Crédito *</string>
+    <string name="notifications">Notificaciones</string>
     <string name="datos_nombre_titular">Titular</string>
     <string name="my_card_change_nip">Cambia NIP</string>
     <string name="my_card_report">Reporta tu Tarjeta</string>
@@ -1110,8 +1111,8 @@
     <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
     <string name="trans_spei_envio_txt">Transferencia SPEI</string>
+    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
-
 
     <!-- Finger print nativo -->
     <string name="application_name">FingerprintDialog</string>

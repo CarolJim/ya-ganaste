@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -60,6 +61,7 @@ import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragmen
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
+import static com.pagatodo.yaganaste.utils.Recursos.FIREBASE_KEY;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 
 
@@ -138,10 +140,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         }
         switch (action) {
             case GO_TO_LOGIN:
+                App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
                 loadFragment(loginContainerFragment, Direction.FORDWARD, false);
                 break;
 
             case GO_TO_REGISTER:
+                App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
                 loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
 
                 // TODO: 28/04/2017
@@ -311,7 +315,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(AccountActivity.this, TabActivity.class);
-                    //Intent intent = new Intent(AccountActivity.this, WalletMainActivity.class);
                     startActivity(intent);
                     finish();
                 }

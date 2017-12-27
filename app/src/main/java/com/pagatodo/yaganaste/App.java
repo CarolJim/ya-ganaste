@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -16,6 +18,7 @@ import android.util.Log;
 
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -42,6 +45,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.FIREBASE_KEY;
 import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 
 /**
@@ -114,6 +118,11 @@ public class App extends Application {
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+        // Se obtiene el Token de Firebase si no existe
+        if (prefs.loadData(FIREBASE_KEY).equals("")) {
+            String s = FirebaseInstanceId.getInstance().getToken();
+            prefs.saveData(FIREBASE_KEY, s);
+        }
         // Se crea la carpeta donde almacenar los Screenshot para compartir.
         File f = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
         if (!f.exists()) {
@@ -157,8 +166,6 @@ public class App extends Application {
     }
 
     //Get & Set huella
-
-
     public String getCadenaHuella() {
         return datoHuellaC;
     }
@@ -287,5 +294,32 @@ public class App extends Application {
 
     public void setCancel(boolean cancel) {
         this.cancel = cancel;
+    }
+
+    public static void setBadge(int count) {
+        String launcherClassName = getLauncherClassName(getContext());
+        if (launcherClassName == null) {
+            return;
+        }
+        Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+        intent.putExtra("badge_count", count);
+        intent.putExtra("badge_count_package_name", getContext().getPackageName());
+        intent.putExtra("badge_count_class_name", launcherClassName);
+        getContext().sendBroadcast(intent);
+    }
+
+    public static String getLauncherClassName(Context context) {
+        PackageManager pm = context.getPackageManager();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
+        for (ResolveInfo resolveInfo : resolveInfos) {
+            String pkgName = resolveInfo.activityInfo.applicationInfo.packageName;
+            if (pkgName.equalsIgnoreCase(context.getPackageName())) {
+                String className = resolveInfo.activityInfo.name;
+                return className;
+            }
+        }
+        return null;
     }
 }
