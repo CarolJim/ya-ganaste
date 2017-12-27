@@ -109,6 +109,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRAS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
@@ -227,7 +228,22 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, CambiarContraseniaResponse.class, result);
     }
+    public static void cambiarContrasenia6digits(CambiarContraseniaRequest request, IRequestResult result) throws OfflineException {
+//        Map<String, String> headers = getHeadersYaGanaste();
+//        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+//        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
 
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put("Content-Type", "application/json");
+
+        Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokensesion());
+        Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokenauth());
+        NetFacade.consumeWS(CHANGE_PASS_6,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
+                headers, request, CambiarContraseniaResponse.class, result);
+    }
     /**
      * Método para realizar la Carga de los documentos para la afiliación de Comercios.
      *

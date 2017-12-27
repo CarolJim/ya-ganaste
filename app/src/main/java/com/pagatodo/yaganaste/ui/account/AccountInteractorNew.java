@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -31,6 +32,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCu
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
@@ -77,6 +79,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
@@ -94,6 +97,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
@@ -101,6 +105,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
@@ -152,6 +158,17 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
+
+    @Override
+    public void changePassToIteractor(CambiarContraseniaRequest request) {
+        try {
+            ApiAdtvo.cambiarContrasenia6digits(request, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            accountManager.onError(CHANGE_PASS_6,e.toString());
+        }
+    }
+
 
     @Override
     public void loginAdq() {
@@ -422,6 +439,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
         switch (dataSourceResult.getWebService()) {
 
+
+            case CHANGE_PASS_6:
+                processchangepass6(dataSourceResult);
+                break;
             case VALIDAR_ESTATUS_USUARIO:
                 processStatusEmail(dataSourceResult);
                 break;
@@ -524,6 +545,19 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             default:
                 break;
         }
+    }
+
+    private void processchangepass6(DataSourceResult dataSourceResult) {
+        CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
+
+        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
+            accountManager.onSuccesChangePass6(dataSourceResult);
+        } else {
+            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
+            accountManager.onError(CHANGE_PASS_6,dataSourceResult.getData());
+        }
+
     }
 
     private void validatePersonDataResponse(GenericResponse data) {
@@ -675,21 +709,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
-                    if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                        //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                    if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
+                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                            //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
                             loginAdq();
                             return;
                         } else {*/
-                        checkAfterLogin();
-                        return;
-                        //}
-                    } else {//Requiere setear el NIP
-                        stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                            checkAfterLogin();
+                            return;
+                            //}
+                        } else {//Requiere setear el NIP
+                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                        }
+                    }else {
+                        stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                     }
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }
+
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
                 if (RequestHeaders.getTokenauth().isEmpty()) {

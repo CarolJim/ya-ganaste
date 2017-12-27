@@ -418,7 +418,6 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
      * @param mensaje
      */
     @Override
-
     public void sendSuccessPassToView(String mensaje) {
         App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256(editPassword.getText()));
         if (SingletonUser.getInstance().needsReset()) {

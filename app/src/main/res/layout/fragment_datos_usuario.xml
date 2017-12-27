@@ -68,7 +68,8 @@
                     app:formato="password"
                     app:hintText="@string/password"
                     app:isSingleLine="true"
-                    app:maxLength="16" />
+
+                    app:maxLength="8" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorPasswordMessage"
@@ -85,7 +86,8 @@
                     app:formato="password"
                     app:hintText="@string/passwordConfirm"
                     app:isSingleLine="true"
-                    app:maxLength="16" />
+                    android:inputType="phone"
+                    app:maxLength="8" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorConfirmPasswordMessage"
@@ -115,7 +117,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:textSize="@dimen/size_text_style_2_value"
+            android:textSize="@dimen/size_text_style_3_value"
             android:textColor="@color/colorAccent"
             android:text="@string/formato_password"/>
 

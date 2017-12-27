@@ -21,6 +21,8 @@ public interface IAccountManager<T> {
 
     void onSuccesBalance();
 
+    void onSuccesChangePass6(DataSourceResult dataSourceResult);
+
     void onSuccesStateCuenta();
 
     void onSuccesBalanceAdq();

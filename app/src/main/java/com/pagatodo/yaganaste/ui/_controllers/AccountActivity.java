@@ -37,6 +37,8 @@ import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
+import com.pagatodo.yaganaste.ui.account.login.NewConfirmPasswordLogin;
+import com.pagatodo.yaganaste.ui.account.login.NewPasswordLoginChange;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
@@ -91,8 +93,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_ADDRESS_DATA = "EVENT_GO_ADDRESS_DATA";
     public final static String EVENT_ADDRESS_DATA_BACK = "EVENT_GO_ADDRESS_DATA_BACK";
     public final static String EVENT_GO_ASSIGN_PIN = "EVENT_GO_ASSIGN_PIN";
+    public final static String EVENT_GO_ASSIGN_NEW_CONTRASE = "EVENT_GO_ASSIGN_NEW_CONTRASE";
+    public final static String EVENT_GO_CONFIRM_NEW_CONTRASE = "EVENT_GO_CONFIRM_NEW_CONTRASE";
     public final static String EVENT_GO_CONFIRM_PIN = "EVENT_GO_CONFIRM_PIN";
     public final static String EVENT_GO_CONFIRM_PIN_BACK = "EVENT_GO_CONFIRM_PIN_BACK";
+    public final static String EVENT_GO_CONFIRM_CONTRA_BACK = "EVENT_GO_CONFIRM_CONTRA_BACK";
+
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
@@ -249,12 +255,28 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
 
                 break;
+            case EVENT_GO_ASSIGN_NEW_CONTRASE:
+                back = false;
+                setVisibilityBack(back);
+                loadFragment(NewPasswordLoginChange.newInstance(), Direction.FORDWARD, true);
+
+                break;
+            case EVENT_GO_CONFIRM_NEW_CONTRASE:
+                back = false;
+                setVisibilityBack(back);
+                loadFragment(NewConfirmPasswordLogin.newInstance(o.toString()), Direction.FORDWARD, true);
+
+                break;
             case EVENT_GO_ASSIGN_PIN:
                 loadFragment(AsignarNIPFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIRM_PIN:
                 loadFragment(ConfirmarNIPFragment.newInstance(o.toString()), Direction.FORDWARD, false);
                 break;
+            case EVENT_GO_CONFIRM_CONTRA_BACK:
+                loadFragment(NewPasswordLoginChange.newInstance(), Direction.BACK, false);
+                break;
+
             case EVENT_GO_CONFIRM_PIN_BACK:
                 loadFragment(AsignarNIPFragment.newInstance(), Direction.BACK, false);
                 break;
@@ -355,17 +377,33 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     showDialogOut();
                 }*/
             } else if (currentFragment instanceof AsignarNIPFragment) {
-                if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                    if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                        //((AsignarNIPFragment) currentFragment).hideKeyboard();
+                    } else {
+                        resetRegisterData();// Eliminamos la información de registro almacenada.
+                        showDialogOut();
+                    }
+
+            }
+            else if (currentFragment instanceof NewPasswordLoginChange) {
+                if (((NewPasswordLoginChange) currentFragment).isCustomKeyboardVisible()) {
                     //((AsignarNIPFragment) currentFragment).hideKeyboard();
                 } else {
                     resetRegisterData();// Eliminamos la información de registro almacenada.
                     showDialogOut();
                 }
-            } else if (currentFragment instanceof ConfirmarNIPFragment) {
+
+            }else if (currentFragment instanceof ConfirmarNIPFragment) {
                 if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
                     ((ConfirmarNIPFragment) currentFragment).hideKeyboard();
                 } else {
                     onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
+                }
+            }else if (currentFragment instanceof NewConfirmPasswordLogin) {
+                if (((NewConfirmPasswordLogin) currentFragment).isCustomKeyboardVisible()) {
+                    ((NewConfirmPasswordLogin) currentFragment).hideKeyboard();
+                } else {
+                    onEvent(EVENT_GO_CONFIRM_CONTRA_BACK, null);
                 }
             } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
                 resetRegisterData();// Eliminamos la información de registro almacenada.

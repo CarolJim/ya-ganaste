@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
+import android.inputmethodservice.Keyboard;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -17,12 +18,19 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +39,11 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -58,8 +68,11 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -109,6 +122,37 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     KeyguardManager keyguardManager;
     FingerprintManager fingerprintManager;
+
+
+
+    ////Teclado de 6 digitos Variables
+
+    @BindView(R.id.customkeyboard)
+    LinearLayout customkeyboard;
+
+    @BindView(R.id.keyboard_view)
+    CustomKeyboardView keyboardView;
+
+    @BindView(R.id.activity_lets_start)
+    LinearLayout linerar_principal;
+
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
+    TextView tv5Num;
+    TextView tv6Num;
+    private String nip = "";
+    private Keyboard keyboard;
+    ImageView asignar_iv1;
+    private static int PIN_LENGHT = 6;
+    @BindView(R.id.asignar_edittext)
+    CustomValidationEditText edtPin;
+
+
+
+
 
     @Override
     public void generatecode() {
@@ -168,6 +212,75 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         ButterKnife.bind(this, rootView);
         btnGenerateCode.setOnClickListener(this);
         editPassword.addCustomTextWatcher(new MTextWatcher());
+
+        ////teclado de 6 Digitos Rutina
+
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+            btnGenerateCode.setVisibility(GONE);
+            linerar_principal.setOnClickListener(this);
+            editPassword.setVisibility(GONE);
+            layout_control = (LinearLayout) rootView.findViewById(R.id.asignar_control_layout_login);
+            customkeyboard.setVisibility(VISIBLE);
+            customkeyboard.setOnClickListener(this);
+            keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+            keyboardView.setPreviewEnabled(false);
+            keyboardView.showCustomKeyboard(rootView);
+
+            tv1Num = (TextView) rootView.findViewById(R.id.asignar_tv1);
+            tv2Num = (TextView) rootView.findViewById(R.id.asignar_tv2);
+            tv3Num = (TextView) rootView.findViewById(R.id.asignar_tv3);
+            tv4Num = (TextView) rootView.findViewById(R.id.asignar_tv4);
+            tv5Num = (TextView) rootView.findViewById(R.id.asignar_tv5);
+            tv6Num = (TextView) rootView.findViewById(R.id.asignar_tv6);
+            // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
+            // Se le asigna un TextWatcher personalizado para realizar las oepraciones
+            edtPin = (CustomValidationEditText) rootView.findViewById(R.id.asignar_edittext);
+            edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
+            edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
+            edtPin.addCustomTextWatcher(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().length() == 6) {
+                        keyboardView.hideCustomKeyboard();
+                        //  Servicio para consumir usuario y contraseña
+                        loadOtp();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+
+
+
+            edtPin.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    EditText edittext = (EditText) v;
+                    int inType = edittext.getInputType();       // Backup the input type
+                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                    edittext.onTouchEvent(event);               // Call native handler
+                    keyboardView.showCustomKeyboard(v);
+                    edittext.setInputType(inType);              // Restore input type
+                    return true; // Consume touch event
+                }
+            });
+            //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
+           // setValidationRules();
+            keyboardView.showCustomKeyboard(rootView);
+            edtPin.requestEditFocus();
+
+        }else {
+
+            editPassword.setVisibility(View.VISIBLE);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
@@ -330,11 +443,28 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        edtPin.requestEditFocus();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGenerateCode:
                 loadOtp();
                 break;
+
+            case  R.id.customkeyboard:
+                keyboardView.showCustomKeyboard(rootView);
+                btnGenerateCode.setVisibility(GONE);
+                break;
+
+            case  R.id.activity_lets_start:
+                keyboardView.hideCustomKeyboard();
+                btnGenerateCode.setVisibility(VISIBLE);
+                break;
+
             default:
                 //Nothing To Do
                 break;
@@ -350,17 +480,39 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     private void loadOtp() {
-        if (editPassword.isValidText()) {
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-            ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
-            prefs.saveDataBool(HUELLA_FAIL, false);
 
-        } else if (editPassword.getText().isEmpty()) {
-            editPassword.setIsInvalid();
-            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
-        } else {
-            editPassword.setIsInvalid();
-            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+
+            editPassword.setText(edtPin.getText().toString().trim());
+
+            if (editPassword.isValidText()) {
+                onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+                ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
+                prefs.saveDataBool(HUELLA_FAIL, false);
+
+            } else if (editPassword.getText().isEmpty()) {
+                editPassword.setIsInvalid();
+                errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
+            } else {
+                editPassword.setIsInvalid();
+                errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
+            }
+
+        }else {
+
+
+            if (editPassword.isValidText()) {
+                onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+                ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
+                prefs.saveDataBool(HUELLA_FAIL, false);
+
+            } else if (editPassword.getText().isEmpty()) {
+                editPassword.setIsInvalid();
+                errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
+            } else {
+                editPassword.setIsInvalid();
+                errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
+            }
         }
     }
 

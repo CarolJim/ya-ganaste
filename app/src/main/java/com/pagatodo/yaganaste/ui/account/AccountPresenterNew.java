@@ -6,17 +6,21 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
@@ -29,6 +33,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.interfaces.IChangePass6;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IPursePresenter;
@@ -92,9 +97,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private MyChangeNip mensajesucces;
     public static boolean isBackShown;
     public static boolean isBackShowndongle;
-    private ResetPinPresenter resetPinPresenter;
     private IPurseView view;
-
+    private ChangeNipPresenterImp changeNipPresenterImp;
+    private ResetPinPresenter resetPinPresenter;
     public void setIView(View accountView) {
         super.setIView(accountView);
 
@@ -162,6 +167,19 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void logout() {
         accountIteractor.logout();
+    }
+
+
+
+
+    public void changepasssixdigits(String mPassActual, String mPassNueva) {
+            accountView.showLoader(App.getContext().getResources().getString(R.string.user_change_password));
+            CambiarContraseniaRequest cambiarContraseniaRequest = new CambiarContraseniaRequest();
+            cambiarContraseniaRequest.setContrasenaActual(mPassActual);
+            cambiarContraseniaRequest.setContrasenaNueva(mPassNueva);
+            accountIteractor.changePassToIteractor(cambiarContraseniaRequest);
+
+
     }
 
     public void logoutSinRespuesta() {
@@ -450,6 +468,13 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onSuccesBalance() {
         ((IBalanceView) this.accountView).updateBalance();
+    }
+
+    @Override
+    public void onSuccesChangePass6(DataSourceResult dataSourceResult) {
+        CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
+        ((IChangePass6) this.accountView).sendSuccessPassToView(response.getMensaje());
+
     }
 
     @Override
