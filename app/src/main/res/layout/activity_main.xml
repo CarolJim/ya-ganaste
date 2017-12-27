@@ -8,12 +8,6 @@
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
-    <!--    <com.github.demono.AutoScrollViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/whiteColor" />-->
-
     <com.jude.rollviewpager.RollPagerView
         android:id="@+id/rollPager"
         android:layout_width="match_parent"

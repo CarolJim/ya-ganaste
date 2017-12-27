@@ -140,7 +140,7 @@
     <string name="write_your_name">Escribe tu Nombre</string>
     <string name="second_last_name">Segundo Apellido</string>
     <string name="last_name">Primer Apellido</string>
-    <string name="your_password_need_to_have">Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos Una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos</string>
+    <string name="your_password_need_to_have">Tu Contraseña Debe Tener 6 Digitos,\nNo puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
     <string name="create_your_pass">Crea Una Contraseña</string>
     <string name="more_data_and_finish">Unos Datos Más\ny Habremos Terminado</string>
     <string name="put_your_birthday">Indícanos tu Fecha de Nacimiento</string>
@@ -277,7 +277,7 @@
     <string name="we_need_your_files">Necesitamos Tus Documentos</string>
     <string name="omit_files_message">En Caso de no Tener Tus Documentos a la Mano, Podrás Continuar Con el Registro, Pero Deberás Agregarlos Posteriormente</string>
     <string name="omit">Omitir</string>
-
+    <string name="ob_get_started">Comenzar</string>
 
     <!-- Lectura Dongle -->
     <string name="device_no_response">Lector no Responde, Por Favor Vuelva a Conectarlo</string>
@@ -287,6 +287,7 @@
     <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
     <string name="registro_small">Inserta el Lector Para Registrarlo</string>
     <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo</string>
+    <string name="error_codigo_de_seguridad">El Código de Seguridad es Inválido</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
@@ -334,13 +335,13 @@
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña</string>
     <string name="datos_usuario_pass_equal_new">Tu Nueva Contraseña no Puede Ser Igual a la Anterior</string>
-    <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
+    <string name="bienvenido_usuario"><![CDATA[¡Hola <b>%1$s</b>!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
-    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 8\nCaracteres, Incluyendo al Menos Una Letra\nMayúscula, Una Minúscula y un Número</string>
+    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 6 Digitos, No\n Puede Incluir 3 Números Iguales Seguidos\nNi Números Consecutivos</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -479,13 +480,15 @@
     <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
-    <string name="title_envio_success">¡Envío en Proceso!</string>
+    <string name="title_envio_in_proccess">¡Envío en Proceso!</string>
+    <string name="title_envio_success">¡Envío Exitoso!</string>
     <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
     <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CLABE</string>
+    <string name="transfer_qr">Código QR</string>
     <string name="transfer_card_unavailable">No Disponible</string>
     <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
@@ -750,6 +753,7 @@
     <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
+    <string name="password_required_seis">Contraseña Requerida a 6 Digitos, Verifique su Información</string>
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>
@@ -843,6 +847,7 @@
     <string name="micuenta">Mi Cuenta</string>
     <string name="cuentareebolso">Cuenta de Reembolso</string>
     <string name="solicitacredito">Solicita tu Línea de Crédito *</string>
+    <string name="notifications">Notificaciones</string>
     <string name="datos_nombre_titular">Titular</string>
     <string name="my_card_change_nip">Cambia NIP</string>
     <string name="my_card_report">Reporta tu Tarjeta</string>
@@ -1091,7 +1096,7 @@
     <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
     <string name="text_error_destino_mensual">Destino Requerido, Verifique su Información</string>
     <string name="msg_format_image">Formato de Imagen</string>
-    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extension JPG o JPGE</string>
+    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extensión JPG o JPEG</string>
 
     <string name="text_error_spinner">Ocurrio un Problema al Obtener los Elementos</string>
     <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>
@@ -1100,7 +1105,7 @@
     <string name="fingerprint_no_supported">Su Dispositivo no es Compatible Con la Autenticación de Huellas Dactilares</string>
     <string name="fingerprint_permission">Por Favor Active el Permiso de Huella Digital</string>
     <string name="fingerprint_no_found">No Existe Una Huella Digital Configurada. Registre al Menos Una Huella Digital en la Configuración de su Dispositivo</string>
-    <string name="fingerprint_go_to_settings">Ir a la Configuración</string >
+    <string name="fingerprint_go_to_settings">Ir a la Configuración</string>
     <string name="fingerprint_use_password">Usar Contraseña</string>
     <string name="fingerprint_eneable_security">Habilite la Seguridad de LockScreen en la Configuración de su Dispositivo</string>
     <string name="fingerprint_verification">Coloque su Huella Digital Para Verificar su Identidad</string>
@@ -1110,7 +1115,6 @@
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
     <string name="trans_spei_envio_txt">Transferencia SPEI</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
-
 
 
     <!-- Finger print nativo -->
@@ -1137,9 +1141,18 @@
     <string name="new_fingerprint_enrolled_description">A new fingerprint was added to this device, so your password is required.</string>
     <string name="use_fingerprint_in_future">Use fingerprint in the future</string>
     <string name="use_fingerprint_to_authenticate_title">Use fingerprint to authenticate</string>
-    <string name="use_fingerprint_to_authenticate_key" >use_fingerprint_to_authenticate_key</string>
+    <string name="use_fingerprint_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
     <string name="description_bugdroid_icon">Android bugdroid image</string>
     <string name="description_fingerprint_icon">Fingerprint icon</string>
+    <string name="download_file">Descargando Archivo</string>
+    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
 
 
+    <!--Cambio de contraeña  -->
+    <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
+    <string name="confirma_nueva_contrasena">Confirma tu Contraseña</string>
+    <string name="confirma_nueva_contraseña">Confirmar Nueva Contraseña</string>
+    <string name="confirmar_contrase">La Contraseña no Coincide</string>
+    <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato de\nContraseña Para Que Sea Más Segura</string>
+    <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
 </resources>

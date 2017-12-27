@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaR
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
@@ -116,6 +117,12 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
         /**
         * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
         */
+        mView.hideLoader();
+        mView.sendErrorBloquearCuentaToView("No hay internet");
+        if (dataSourceResult.getData()instanceof TarjetaActivity){
+
+            mView.sendErrorBloquearCuentaToView("No tienes Acceso a Internet ");
+        }
         if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
             EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
             iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(response.getMensaje());
@@ -146,7 +153,11 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
     }
 
     @Override
-    public void showExceptionBloquearCuentaToPresenter(String s) {    }
+    public void showExceptionBloquearCuentaToPresenter(String s) {
+        mView.hideLoader();
+        mView.sendErrorBloquearCuentaToView("No Hay conexion a internet ");
+
+    }
 
     @Override
     public void sendErrorServerBloquearCuentaToPresenter(String s) {   }

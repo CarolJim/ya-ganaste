@@ -43,6 +43,7 @@ import java.io.IOException;
 public class ScannVisionActivity extends SupportFragmentActivity implements BarcodeTracker.BarcodeGraphicTrackerCallback {
     // Constants used to pass extra data in the intent
     public static final String BarcodeObject = "Barcode";
+    public static final String QRObject = "Qrcode";
     // Intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
 
@@ -52,15 +53,17 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
 
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
+    private boolean isQrcode = false;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_barcode_scan);
-
+        if(getIntent().getExtras() != null){
+            isQrcode = getIntent().getExtras().getBoolean(QRObject);
+        }
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
-
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
         int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
@@ -73,7 +76,14 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
 
     @Override
     public void onDetectedQrCode(Barcode barcode) {
-        if (barcode != null && barcode.format != Barcode.QR_CODE) {
+        // Read only numeric barcode
+        if (!isQrcode && barcode != null && barcode.format != Barcode.QR_CODE) {
+            Intent intent = new Intent();
+            intent.putExtra(BarcodeObject, barcode);
+            setResult(CommonStatusCodes.SUCCESS, intent);
+            finish();
+        // Read only QR code
+        } else if (isQrcode && barcode != null && barcode.format == Barcode.QR_CODE){
             Intent intent = new Intent();
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);

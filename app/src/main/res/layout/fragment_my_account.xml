@@ -126,6 +126,8 @@
                     android:layout_height="1dp"
                     android:background="@color/borderLayoutColor"
                     android:visibility="gone" />
+
+
             </LinearLayout>
         </LinearLayout>
 

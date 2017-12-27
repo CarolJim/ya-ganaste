@@ -25,7 +25,7 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     /*Freja*/
     public static final String PT_CLIENT_CODE = null;
@@ -102,13 +102,16 @@ public class Recursos {
     public static String COUCHMARK_EDIT_FAV = "COUCHMARKEF";
 
     public static String CO_QUICK_EM = "CO_QUICK_EM";
-    public static String CO_QUICK_EM_2 = "CO_QUICK_EM_2";
     public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
+    public static String TECLADO_CUSTOM = "TECLADO_CUSTOM";
+    public static String PASSWORD_CHANGE = "PASSWORD_CHANGE";
     public static String VERSION_APP = "VERSION_APP";
+    public static String FIREBASE_KEY = "FIREBASE_KEY";
+    public static String NOTIF_COUNT = "NOTIF_COUNT";
 
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";

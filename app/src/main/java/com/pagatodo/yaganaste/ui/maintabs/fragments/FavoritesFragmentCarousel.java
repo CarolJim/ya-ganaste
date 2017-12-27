@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -26,6 +28,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselAdapter;
@@ -63,6 +66,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
     PaymentsTabFragment fragment;
     MovementsTab current_tab;
     boolean isFromClick = false, longClicked;
+    private boolean msnOpen = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,9 +121,13 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         carouselFav.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
+
                 if (position == 0) {
                     isFromClick = true;
-                    paymentsCarouselPresenter.getFavoriteCarouselItems();
+                    if (msnOpen) {
+                        msnOpen = false;
+                        paymentsCarouselPresenter.getFavoriteCarouselItems();
+                    }
                 } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio() != null &&
                         ((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio().getIdComercio() == -1) {
                     paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
@@ -131,9 +139,12 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
             }
         });
 
-        carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener() {
+        carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener()
+
+        {
             @Override
-            public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position,
+                                           long id) {
                 DataFavoritos dataFavoritos = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos();
                 if (dataFavoritos != null) {
                     Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -207,11 +218,16 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 }
             });
             if (response.size() > 0) {
+                msnOpen = true;
                 ListDialog dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
                 dialog.show();
+
             } else {
                 //Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
-                UI.createSimpleCustomDialog(getString(R.string.title_dialog_busqueda),getString(R.string.empty_list_favorites),getFragmentManager(),"");
+                //  UI.createSimpleCustomDialog(getString(R.string.title_dialog_busqueda),getString(R.string.empty_list_favorites),getFragmentManager(),"");
+                showDialogMesage(getString(R.string.title_dialog_busqueda), getString(R.string.empty_list_favorites));
+
+
             }
             isFromClick = false;
         } else {
@@ -223,6 +239,38 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
             }
         }
     }
+
+    private void showDialogMesage(String mTitulo, String mMesage) {
+        UI.createSimpleCustomDialog(mTitulo, mMesage, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        msnOpen = true;
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+  /*  public static void createSimpleCustomDialog(String title, String message, FragmentManager fragmentManager, String tag) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, true, false);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                customErrorDialog.dismiss();
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        });
+        customErrorDialog.show(fragmentManager, tag);
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

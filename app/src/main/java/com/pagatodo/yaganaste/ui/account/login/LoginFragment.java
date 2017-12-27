@@ -2,12 +2,22 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,9 +36,11 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -46,6 +58,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECUR
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
@@ -87,6 +101,34 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.quickPayment)
     LinearLayout quickPayment;
 
+    @BindView(R.id.customkeyboard)
+    LinearLayout customkeyboard;
+
+    @BindView(R.id.keyboard_view)
+    CustomKeyboardView keyboardView;
+
+    @BindView(R.id.linerar_principal)
+    LinearLayout linerar_principal;
+
+
+
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
+    TextView tv5Num;
+    TextView tv6Num;
+    private String nip = "";
+    private Keyboard keyboard;
+    ImageView asignar_iv1;
+    private static int PIN_LENGHT = 6;
+    @BindView(R.id.asignar_edittext)
+    CustomValidationEditText edtPin;
+
+
+
+
 
     private View rootview;
     private AccountPresenterNew accountPresenter;
@@ -94,7 +136,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     private String username;
     private String password;
     private Preferencias preferencias;
-
+    private boolean dialogErrorShown = false;
 
     public static LoginFragment newInstance() {
         LoginFragment fragmentRegister = new LoginFragment();
@@ -106,8 +148,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        prefs.saveDataBool(HUELLA_FAIL,true);
+        prefs.saveDataBool(TECLADO_CUSTOM,false);
+        prefs.saveDataBool(PASSWORD_CHANGE,false);
         this.preferencias = App.getInstance().getPrefs();
     }
 
@@ -126,35 +172,121 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootview == null) {
-            rootview = inflater.inflate(R.layout.fragment_login, container, false);
+                rootview = inflater.inflate(R.layout.fragment_login, container, false);
             initViews();
         }
         return rootview;
     }
 
+
+
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
 
-
+        customkeyboard.setOnClickListener(this);
+        linerar_principal.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         blockCard.setOnClickListener(this);
         accessCode.setOnClickListener(this);
         quickPayment.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
+
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            Preferencias preferencias = App.getInstance().getPrefs();
-            textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
 
-            edtUserName.setText(RequestHeaders.getUsername());
-            edtUserName.setVisibility(GONE);
+                DisplayMetrics metrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+                int widthp = metrics.widthPixels; // ancho absoluto en pixels
+                int paramentroT = widthp / 3;
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                params.width = paramentroT;
+                params.height = paramentroT;
+                imgLoginExistProfile.setLayoutParams(params);
 
-            textNameUser.setOnClickListener(this);
+
+                Preferencias preferencias = App.getInstance().getPrefs();
+                textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+                edtUserName.setText(RequestHeaders.getUsername());
+                edtUserName.setVisibility(GONE);
+                textNameUser.setOnClickListener(this);
+                edtUserPass.setVisibility(GONE);
+                customkeyboard.setVisibility(VISIBLE);
+                keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+                keyboardView.setPreviewEnabled(false);
+               // keyboardView.showCustomKeyboard(rootview);
+                btnLogin.setVisibility(GONE);
+                //imageView.setVisibility(View.GONE);
+                tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+                tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+                tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+                tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
+                tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
+                tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
+
+                // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
+                // Se le asigna un TextWatcher personalizado para realizar las oepraciones
+                edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+                edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
+                edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
+                edtPin.addCustomTextWatcher(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (s.toString().length() == 6) {
+                            keyboardView.hideCustomKeyboard();
+                          //  Servicio para consumir usuario y contraseña
+                            validateForm();
+                           edtPin.setText("");
+
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+
+
+
+                edtPin.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        EditText edittext = (EditText) v;
+                        int inType = edittext.getInputType();       // Backup the input type
+                        edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                        edittext.onTouchEvent(event);               // Call native handler
+                        keyboardView.showCustomKeyboard(v);
+                        edittext.setInputType(inType);              // Restore input type
+                        return true; // Consume touch event
+                    }
+                });
+           //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
+                setValidationRules();
+             //   keyboardView.showCustomKeyboard(rootview);
+                edtPin.requestEditFocus();
+
+            }else {
+                textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+                edtUserName.setText(RequestHeaders.getUsername());
+                edtUserName.setVisibility(GONE);
+                textNameUser.setOnClickListener(this);
+            }
+
         } else {
+
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
             textNameUser.setVisibility(GONE);
+
         }
         setValidationRules();
 
@@ -206,6 +338,15 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             case R.id.quickPayment:
                 nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
+            case R.id.linerar_principal:
+                keyboardView.hideCustomKeyboard();
+                btnLogin.setVisibility(VISIBLE);
+                break;
+            case R.id.customkeyboard:
+                keyboardView.showCustomKeyboard(rootview);
+                btnLogin.setVisibility(GONE);
+                break;
+
             default:
                 break;
         }
@@ -241,21 +382,25 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
-                error.toString(), getFragmentManager(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        edtUserName.clearFocus();
-                        edtUserPass.clearFocus();
-                        edtUserPass.setText("");
-                        password = "";
-                    }
+        if (!dialogErrorShown) {
+            dialogErrorShown = true;
+            UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
+                    error.toString(), getFragmentManager(), new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            edtUserName.clearFocus();
+                            edtUserPass.clearFocus();
+                            edtUserPass.setText("");
+                            password = "";
+                            dialogErrorShown = false;
+                        }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+                        @Override
+                        public void actionCancel(Object... params) {
 
-                    }
-                });
+                        }
+                    });
+        }
         setEnableViews(true);
     }
 
@@ -311,6 +456,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void validateForm() {
         getDataForm();
         boolean isValid = true;
@@ -328,10 +478,30 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             isValid = false;
         }
 
-        if (password.isEmpty()) {
-            errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
-            edtUserPass.setIsInvalid();
-            isValid = false;
+        if (!RequestHeaders.getTokenauth().isEmpty()) {
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+
+                if (nip.isEmpty() || nip.length() < 6) {
+                    errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
+                    edtUserPass.setIsInvalid();
+                    isValid = false;
+                }
+
+
+            } else {
+                if (password.isEmpty()) {
+                    errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
+                    edtUserPass.setIsInvalid();
+                    isValid = false;
+                }
+            }
+        }else {
+            if (password.isEmpty()) {
+                errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
+                edtUserPass.setIsInvalid();
+                isValid = false;
+            }
+
         }
 
         if (isValid) {
@@ -357,23 +527,38 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-        accountPresenter.login(username, password); // Realizamos el  Login
+
+
+
+        if (!RequestHeaders.getTokenauth().isEmpty()) {
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                accountPresenter.login(username, nip); // Realizamos el  Login
+            }else {
+                accountPresenter.login(username, password); // Realizamos el  Login
+                prefs.saveDataBool(PASSWORD_CHANGE,true);
+            }
+        }else {
+
+            accountPresenter.login(username, password); // Realizamos el  Login
+        }
     }
 
     @Override
     public void getDataForm() {
         username = edtUserName.getText().trim();
         password = edtUserPass.getText().trim();
+        nip = edtPin.getText().toString().trim();
     }
 
     @Override
     public void loginSucced() {
-        prefs.saveDataBool(HUELLA_FAIL, false);
-        App.getInstance().getStatusId();
-        SingletonUser.getInstance().setCardStatusId(null);
-        Intent intentLogin = new Intent(getActivity(), TabActivity.class);
-        startActivity(intentLogin);
-        getActivity().finish();
+
+            App.getInstance().getStatusId();
+            SingletonUser.getInstance().setCardStatusId(null);
+            Intent intentLogin = new Intent(getActivity(), TabActivity.class);
+            startActivity(intentLogin);
+            getActivity().finish();
+
     }
 
     private void setEnableViews(boolean isEnable) {
@@ -386,8 +571,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         accountPresenter.setIView(this);
+        edtPin.requestEditFocus();
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             edtUserName.setText(RequestHeaders.getUsername());
+
         }
 
         if (preferencias.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {

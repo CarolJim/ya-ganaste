@@ -18,13 +18,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/linerar_principal"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/layoutImagenLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:gravity="center"
+                android:layout_marginTop="7dp"
                 android:padding="@dimen/generic_padig">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -45,7 +47,7 @@
                 android:layout_margin="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginRight="@dimen/activity_vertical_margin"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -56,7 +58,17 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:tipo="Titulo" />
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/asignar_edittext"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:layout_marginTop="12dp"
+                    android:inputType="numberPassword" />
 
+                <include layout="@layout/login_fragment_passwordedittext_custom"
+                    android:visibility="gone"
+                    android:id="@+id/customkeyboard"
+                    />
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserName"
                     style="@style/GenericInputTextForms"
@@ -166,7 +178,18 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
+    <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/relativeAd"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/material_key_drawable"
+        android:visibility="gone" />
     <LinearLayout
         android:id="@+id/layoutBtns"
         android:layout_width="match_parent"
@@ -181,6 +204,7 @@
             style="@style/buttonSquareRoundedBlue"
             android:text="@string/txt_ingresar" />
     </LinearLayout>
+
 </LinearLayout>
 
 

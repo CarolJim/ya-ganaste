@@ -97,7 +97,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     public void getFavoriteCarouselItems() {
         if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
             paymentsTabIteractor.getFavoritesFromService();
-           // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
+            // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
         } else {
             paymentsTabIteractor.getFavoritesFromService();
         }
@@ -154,7 +154,132 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     @Override
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
         ArrayList<CarouselItem> items = getCarouselItems(comercios);
+        items = orderList(items);
         paymentsManager.setCarouselData(items);
+    }
+
+    private ArrayList<CarouselItem> orderList(ArrayList<CarouselItem> originalList) {
+        ArrayList<Integer> orderBy = new ArrayList<>();
+        ArrayList<CarouselItem> finalList = new ArrayList<>();
+
+        /**
+         * Agregamos la lupa a la primera posicion y eliminamos de nuestro arreglo
+         */
+        finalList.add(originalList.get(0));
+        originalList.remove(0);
+
+        /**
+         * Agregamos a nuestro OrderKey la forma en que necesitamos los elementos
+         */
+        switch (current_tab.getId()) {
+            case 1:
+                orderBy.add(18);
+                orderBy.add(7);
+                orderBy.add(12);
+                orderBy.add(8);
+                orderBy.add(22);
+                orderBy.add(13);
+                orderBy.add(28);
+                orderBy.add(23);
+                orderBy.add(26);
+                break;
+            case 2:
+                orderBy.add(4);
+                orderBy.add(21);
+                orderBy.add(20);
+                orderBy.add(6);
+                orderBy.add(3);
+                orderBy.add(17);
+                orderBy.add(25);
+                orderBy.add(27);
+                orderBy.add(2);
+                break;
+            case 3:
+                orderBy.add(8609);
+                orderBy.add(785);
+                orderBy.add(779);
+                orderBy.add(787);
+                orderBy.add(809);
+                orderBy.add(790);
+                orderBy.add(799);
+                orderBy.add(796);
+                orderBy.add(832);
+                break;
+        }
+
+        /**
+         * Buscamos en nuestro orderBy cada elemento en un ciclo adicional de originalList, si el ID existe
+         * lo agregamos a nuesta finalList. Y eliminamos ese elemnto de originalList
+         */
+        for (Integer miList : orderBy) {
+            for (int x = 0; x < originalList.size(); x++) {
+                if (originalList.get(x).getComercio().getIdComercio() == miList) {
+                    finalList.add(originalList.get(x));
+                    originalList.remove(x);
+                }
+            }
+        }
+
+        /**
+         * Hacemos un ajuste adicional para mostrar la lupa en la posicion del nuevo cambio. El item
+         * pos. 9 debe de pasar a pos 0, y el resto en las posiciones posteriores
+         */
+        ArrayList<CarouselItem> auxList = new ArrayList<>();
+        int sizeCarousel;
+        if (finalList.size() > 9) {
+            sizeCarousel = 9;
+        } else {
+            sizeCarousel = finalList.size()-1;
+        }
+        auxList.add(finalList.get(sizeCarousel));
+        for (int x = 0; x < sizeCarousel; x++) {
+            auxList.add(finalList.get(x));
+        }
+        // Igualamos la lista auxiliar ordenada para que sea nuestra nueva finalList
+        finalList = auxList;
+        /**
+         * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
+         * finalList
+         */
+        for (int x = 0; x < originalList.size(); x++) {
+            finalList.add(originalList.get(x));
+        }
+
+
+        return finalList;
+
+        /**
+         * Acomodos de referencia
+         Telcel 18
+         Telcel Datos 28
+         Movistar  12
+         AT&T 8
+         Unefon 22
+         Nextel 13
+         Virgin 23
+         ALÓ 26
+         IAVE/Pase Urbano 7
+
+         Avon 2
+         CFE 4
+         Cablemás 27
+         Cablevision 25
+         Sky 17
+         Gas Natural 6
+         IZZI 3
+         Telmex c/recibo 20
+         Telmex s/recibo 21
+
+         Ya Ganaste 8609
+         BBVA Bancomer 785
+         Banamex 779
+         HSBC 790
+         Inbursa 796
+         Santander 787
+         ScotiaBank Inverlat 799
+         American Exppress 814
+         Banorte/IXE 809
+         */
     }
 
     private CarouselItem createItemToAddFav() {

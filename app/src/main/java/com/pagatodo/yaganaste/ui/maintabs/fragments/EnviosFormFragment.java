@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,25 +10,31 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
@@ -55,6 +62,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJET
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.ValidateForm.AMEX;
@@ -154,10 +162,13 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             amountToSend.setOnEditorActionListener(this);
             concept.setImeOptions(IME_ACTION_DONE);
+            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            //tipoPago.add(QR_CODE.getId(), QR_CODE.getName(getContext()));
 
         } else {
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
             concept.setImeOptions(IME_ACTION_NEXT);
+            concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
             tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
         }
 
@@ -174,10 +185,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
         });
 
-        // Hacemos SET de informacion para Concepto y Referencia con valores iniciales
-        concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
         numberReference.setText(DateUtil.getDayMonthYear());
-
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
@@ -197,9 +205,33 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                     break;
             }
         }
+        concept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
+                if (actionid== EditorInfo.IME_ACTION_NEXT) {
+                    // si pasamos al siguiente item
+
+                    final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                            numberReference.setFocusable(true);
+                            numberReference.requestFocus();
+                        }
+                    });
+                    return true; // Focus will do whatever you put in the logic.)
+                }
+                return false;
+            }
+        });
+
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
         if (favoriteItem != null) {
+            amountToSend.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             fragment.updateValueTabFrag(0.0);
             amountToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -422,7 +454,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             if (favoriteItem != null && favoriteItem.getReferencia().length() == 10) {
                 referenceFavorite = favoriteItem.getReferencia();
             }
-        } else if (position == CLABE.getId()) {
+        } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
@@ -433,6 +465,10 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             if (favoriteItem != null && favoriteItem.getReferencia().length() == 18) {
                 referenceFavorite = favoriteItem.getReferencia();
             }
+       /* } else if (position == QR_CODE.getId() && keyIdComercio == IDCOMERCIO_YA_GANASTE){
+            Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
+            intent.putExtra(ScannVisionActivity.QRObject, true);
+            getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
         } else {
             maxLength = 2;
             cardNumber.setHint("");
@@ -502,24 +538,45 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                 contactPicked(data);
             }
         }
+        if (requestCode == BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    Log.e(getString(R.string.app_name), "QRCode Value: "+barcode.displayValue);
+                }
+            }
+        }
     }
 
     private void contactPicked(Intent data) {
         Cursor cursor;
         String phoneNo = null;
+        String nameDisplay = "";
         Uri uri = data.getData();
         cursor = getContext().getContentResolver().query(uri, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
             //get column index of the Phone Number
             int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
             // column index of the contact name
             //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
             phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
+            nameDisplay = cursor.getString(nameIndex);
             if (phoneNo.length() > 10) {
                 phoneNo = phoneNo.substring(phoneNo.length() - 10);
             }
         }
         cardNumber.setText(phoneNo);
+
+        /**
+         * Validacion de nombre vacio
+         */
+        try{
+            int oneNumbre = Integer.parseInt(nameDisplay.substring(0,2));
+            receiverName.setText("");
+        }catch (Exception e){
+            receiverName.setText(nameDisplay);
+        }
     }
 }

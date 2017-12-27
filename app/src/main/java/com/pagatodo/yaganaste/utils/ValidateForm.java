@@ -48,7 +48,8 @@ public class ValidateForm {
                {6,20}	#        length at least 6 characters and maximum of 20
            )			# End of group
    * */
-    private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
+    //private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
+    private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d).{6})");
     private final static Pattern emailPattern = Patterns.EMAIL_ADDRESS; //Pattern.compile(
     List<String> listOfPattern = new ArrayList<String>();
     //"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");

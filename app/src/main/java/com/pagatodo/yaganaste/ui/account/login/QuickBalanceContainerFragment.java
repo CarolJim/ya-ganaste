@@ -22,10 +22,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INICIO_SESION_ADQUIRENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INICIO_SESION_EMISOR;
-import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INICIO_SESION_EMISOR_2;
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_EM;
-import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_EM_2;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 
 /**
@@ -52,7 +50,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs.saveDataBool(HUELLA_FAIL, false);
+        prefs.saveDataBool(HUELLA_FAIL, true);
         quickBalanceAdapter = new QuickBalanceAdapter(getChildFragmentManager(), !RequestHeaders.getTokenAdq().isEmpty());
         loginContainerManager = ((LoginManagerContainerFragment) getParentFragment()).getLoginContainerManager();
     }
@@ -80,16 +78,11 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         pref = App.getInstance().getPrefs();
         if (RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_EM)) {
             pref.saveDataBool(CO_QUICK_EM, true);
-            pref.saveDataBool(CO_QUICK_EM_2, true); /* Se guarda el otro tambien porque se muestra el flip de la tarjeta*/
             startActivity(LandingActivity.createIntent(getActivity(), INICIO_SESION_EMISOR));
         } else if (!RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_ADQ)) {
             pref.saveDataBool(CO_QUICK_ADQ, true);
             startActivity(LandingActivity.createIntent(getActivity(), INICIO_SESION_ADQUIRENTE));
-        } else if (!pref.containsData(CO_QUICK_EM_2)){
-            pref.saveDataBool(CO_QUICK_EM_2, true);
-            startActivity(LandingActivity.createIntent(getActivity(), INICIO_SESION_EMISOR_2));
         }
-
     }
 
     public ILoginContainerManager getLoginContainerManager() {

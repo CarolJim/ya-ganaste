@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyHelpMensajeContactanos
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
@@ -91,19 +92,24 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
     }
 
     private void valida() {
-        if (contenidoemail.isEmpty()) {
-            UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
-        }
-        if (!contenidoemail.isEmpty()) {
-            EnviarCorreoContactanosRequest mensajeRequest = new EnviarCorreoContactanosRequest(contenidoemail);
-            // Enviamos al presenter
-            //   onValidationSuccess();
-            showLoader(getString(R.string.enviando_mensaje));
-            if (getActivity() instanceof TarjetaActivity) {
-                mPreferPresenter.enviarCorreoContactanosPresenter(mensajeRequest);
-            } else {
-                mPreferPresenter2.enviarCorreoContactanosPresenter(mensajeRequest);
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            if (contenidoemail.isEmpty()) {
+                UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
             }
+            if (!contenidoemail.isEmpty()) {
+                EnviarCorreoContactanosRequest mensajeRequest = new EnviarCorreoContactanosRequest(contenidoemail);
+                // Enviamos al presenter
+                //   onValidationSuccess();
+                showLoader(getString(R.string.enviando_mensaje));
+                if (getActivity() instanceof TarjetaActivity) {
+                    mPreferPresenter.enviarCorreoContactanosPresenter(mensajeRequest);
+                } else {
+                    mPreferPresenter2.enviarCorreoContactanosPresenter(mensajeRequest);
+                }
+            }
+        } else {
+            showDialogMesage(getString(R.string.no_internet_access), false);
         }
     }
 
@@ -148,7 +154,11 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
                     @Override
                     public void actionConfirm(Object... params) {
                         if (success) {
-                            ((TarjetaActivity) getActivity()).onBackPressed();
+                            if (getActivity() instanceof TarjetaActivity) {
+                                ((TarjetaActivity) getActivity()).onBackPressed();
+                            } else {
+                                ((PreferUserActivity) getActivity()).onBackPressed();
+                            }
                         }
                     }
 

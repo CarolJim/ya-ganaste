@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
@@ -18,7 +19,6 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -90,7 +89,6 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
@@ -281,18 +279,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(this);
 
-      /*  // Funcionalidad para agregar el Spinner
-        editListServ.imageViewIsGone(false);
-        editListServ.setEnabled(false);
-        editListServ.setFullOnClickListener(this);
-        if (current_tab2.getId() == 1) {
-            editListServ.setHintText(getString(R.string.details_compania));
-        } else if (current_tab2.getId() == 2) {
-            editListServ.setHintText(getString(R.string.details_compania));
-        } else if (current_tab2.getId() == 3) {
-            editListServ.setHintText(getString(R.string.details_bank));
-        }*/
-
         /**
          * PROCESOS BASICOS para cada tipo de EVENTO
          *
@@ -404,7 +390,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             } else if (current_tab == 3) {
                 editListServ.setHintText(getString(R.string.details_bank));
             }
-
             layoutImageContact.setOnClickListener(this);
             layoutImageContact2.setOnClickListener(this);
 
@@ -536,7 +521,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             isValid = false;
         }
 
-        if(isValid){
+        if (isValid) {
             favoritesPresenter.openMenuPhoto(1, cameraManager);
         }
     }
@@ -565,6 +550,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                  * 3 - Mostramos el dialogo
                  */
                 ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                 dialogFragment.setOnListServiceListener(this);
                 dialogFragment.show(getSupportFragmentManager(), "FragmentDialog");
                 break;
@@ -693,6 +679,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     /**
      * Error al tener un numero que no tiene cuenta de YaGanaste
+     *
      * @param mMensaje
      */
     @Override
@@ -702,7 +689,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         String myNumber = cardNumber.getText().toString();
         cardNumber.setHint(myNumber);
         cardNumber.setText("");
-      //  editRefer.setText("");
+        //  editRefer.setText("");
         scrollView.fullScroll(View.FOCUS_DOWN);
 
     }
@@ -956,7 +943,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             case R.id.add_favorites_alias:
                 editAliasError.setVisibilityImageError(false);
                 break;
-            case R.id.add_favorites_servicio:
+            case R.id.add_favorites_list_serv:
                 editListServError.setVisibilityImageError(false);
                 break;
             /*case R.id.add_favorites_tipo:
@@ -1161,15 +1148,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         recargaNumber.addTextChangedListener(currentTextWatcher);
 
         recargaNumber.setSingleLine(true);
-        recargaNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == IME_ACTION_DONE) {
-                    //   UI.hideKeyBoard(getActivity());
-                }
-                return false;
-            }
-        });
     }
 
     /**
@@ -1203,21 +1181,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(this));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(this));
 
-        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-            //receiverName.setVisibility(GONE);
-//            receiverName.setEnabled(false);
-//            receiverName.cancelLongPress();
-//            receiverName.setClickable(false);
-//            referenciaLayout.setVisibility(GONE);
-//            numberReference.setText("123456");
-//            //cardNumber.setOnFocusChangeListener(this);
-//            amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-//            amountToSend.setOnEditorActionListener(this);
-//            concept.setImeOptions(IME_ACTION_DONE);
-
-        } else {
-//            receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
-//            concept.setImeOptions(IME_ACTION_NEXT);
+        if (keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             tipoPago.add(CLABE.getId(), CLABE.getName(this));
         }
 
@@ -1312,14 +1276,10 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {    }
 
     @Override
-    public void onTextChanged() {
-
-    }
+    public void onTextChanged() {    }
 
     @Override
     public void onTextComplete() {
@@ -1327,19 +1287,13 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     @Override
-    public void showError() {
-
-    }
+    public void showError() {    }
 
     @Override
-    public void onError(String error) {
-
-    }
+    public void onError(String error) {    }
 
     @Override
-    public void onSuccess(Double importe) {
-
-    }
+    public void onSuccess(Double importe) {    }
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
@@ -1368,12 +1322,10 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void showErrorService() {
-
     }
 
     @Override
     public void showFavorites() {
-
     }
 
     /*
@@ -1401,8 +1353,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public void onHideProgress() {
         hideLoader();
         BACK_STATE_NEWFAVORITE = true;
-
-
     }
 
     @Override
@@ -1431,7 +1381,5 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void showError(Errors error) {
-
     }
-
 }

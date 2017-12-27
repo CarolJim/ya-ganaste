@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -116,6 +117,12 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void onSuccesBalance() {
 
     }
+
+    @Override
+    public void onSuccesChangePass6(DataSourceResult dataSourceResult) {
+
+    }
+
 
     @Override
     public void onSuccesBalanceAdq() {

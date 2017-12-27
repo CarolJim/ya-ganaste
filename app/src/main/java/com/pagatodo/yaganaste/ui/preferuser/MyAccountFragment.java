@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CUENTA_REEMBOLSO;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +30,6 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
     LinearLayout txtreebolso;
     @BindView(R.id.lineareebolso)
     View lreembolso;
-
     @BindView(R.id.fragment_my_account_linea_credito)
     LinearLayout solicita_credito;
     @BindView(R.id.llcredito)

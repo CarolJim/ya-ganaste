@@ -29,7 +29,6 @@
                         android:id="@+id/txtUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="center"
                         android:text="@string/bienvenido_usuario"
                         android:textColor="@color/bluecolor_disable"
@@ -40,117 +39,120 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
+                    android:layout_marginTop="0dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
 
                     <LinearLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/llsaldocontenedor"
-                        android:orientation="vertical"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="0dp"
-                        >
+                        android:orientation="vertical">
+
                         <LinearLayout
-                            android:layout_width="match_parent"
                             android:id="@+id/llsaldo"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
                         </LinearLayout>
 
 
-                    <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
-                        android:id="@+id/cardBalanceAdq"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone"
-                        android:layout_marginLeft="65dp"
-                        android:layout_marginRight="65dp" />
+                        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
+                            android:id="@+id/cardBalanceAdq"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="65dp"
+                            android:layout_marginRight="65dp"
+                            android:visibility="gone" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtMessageCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:text="@string/saldo_personal"
-                        android:textSize="@dimen/text_screen_size_normal" />
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtMessageCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:gravity="center"
+                            android:text="@string/saldo_personal"
+                            android:textSize="@dimen/text_screen_size_normal"
+                            android:visibility="gone" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
-                        android:id="@+id/txtSaldoPersonal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="0"
-                        android:visibility="gone"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        app:dotBottom="false"
-                        app:symbolSmaller="true" />
+                        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                            android:id="@+id/txtSaldoPersonal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:visibility="gone"
+                            app:dotBottom="false"
+                            app:symbolSmaller="true" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtDateLastUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_xsmall"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="Actualizado el 15/Jun/2017 24:24:59"
-                        android:textSize="@dimen/text_screen_size_normal"
-                        android:visibility="gone" />
-                        </LinearLayout>
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtDateLastUpdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/margin_xsmall"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="Actualizado el 15/Jun/2017 24:24:59"
+                            android:textSize="@dimen/text_screen_size_normal"
+                            android:visibility="gone" />
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/llsaldocontenedordongle"
-                        android:orientation="vertical"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="0dp"
-                        android:gravity="top">
+                        android:gravity="top"
+                        android:orientation="vertical">
+
                         <LinearLayout
-                            android:layout_width="match_parent"
                             android:id="@+id/llsaldodongle"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
                         </LinearLayout>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:adjustViewBounds="true"
-                        android:visibility="gone"
-                        android:scaleType="centerInside"
-                        android:src="@mipmap/dongle_alone" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtMessageCardReembolso"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:text="@string/saldo_reembolso"
-                        android:textSize="@dimen/text_screen_size_normal" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:src="@mipmap/dongle_alone"
+                            android:visibility="gone" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
-                        android:id="@+id/txtBalanceReembolsar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:text="0"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        app:dotBottom="false"
-                        app:symbolSmaller="true" />
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtMessageCardReembolso"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:gravity="center"
+                            android:text="@string/saldo_reembolso"
+                            android:textSize="@dimen/text_screen_size_normal"
+                            android:visibility="gone" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                            android:id="@+id/txtBalanceReembolsar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:visibility="gone"
+                            app:dotBottom="false"
+                            app:symbolSmaller="true" />
                     </LinearLayout>
+
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtDateAdqLastUpdate"
                         android:layout_width="match_parent"

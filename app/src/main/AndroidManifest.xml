@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pagatodo.yaganaste">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,7 +17,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-    <uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
     <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ" />
 
     <!-- PERMISOS DEL GPS -->
@@ -64,7 +65,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
         <activity
             android:name=".ui._controllers.CupoStatusActivity"
             android:screenOrientation="portrait"
@@ -126,32 +126,24 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyaKKktDzaNdnjjxMFz-4jmbiUA191DCo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccentTransparent" />
 
-        <!--
-             <meta-data
-             android:name="com.google.android.geo.API_KEY"
-             android:value="@string/google_maps_key" />
-        -->
-        <!--
-             <meta-data
-             android:name="com.google.android.geo.API_KEY"
-             android:value="@string/google_maps_key" />
-        -->
-
-        <service
-            android:name=".net.MessagingService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
         <service
             android:name=".notifications.FirebaseInstanceServer"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".notifications.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -176,13 +168,11 @@
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".ui._controllers.manager.AddFavoritesActivity" />
-        <activity android:name=".ui._controllers.manager.AddNewFavoritesActivity" />
         <activity android:name=".ui._controllers.manager.EditFavoritesActivity" />
         <activity android:name=".ui._controllers.CropActivity" />
         <activity android:name=".ui._controllers.TarjetaActivity" />
         <activity android:name=".ui._controllers.manager.DongleBatteryHome" />
-        <activity android:name=".ui._controllers.manager.AddToFavoritesActivity"></activity>
+        <activity android:name=".ui._controllers.manager.AddToFavoritesActivity" />
     </application>
 
 </manifest>

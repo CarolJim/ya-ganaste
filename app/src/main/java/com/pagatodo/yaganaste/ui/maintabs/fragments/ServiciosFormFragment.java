@@ -1,17 +1,26 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -39,6 +48,8 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 
 public class ServiciosFormFragment extends PaymentFormBaseFragment implements PaymentsManager,
         View.OnClickListener {
+
+
 
     @BindView(R.id.referenceNumber)
     EditText referenceNumber;
@@ -87,16 +98,21 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         rootview = inflater.inflate(R.layout.fragment_servicios_form, container, false);
 
         initViews();
+
         return rootview;
     }
 
     @Override
     public void initViews() {
-
-
         super.initViews();
+
+
+
+
         layoutImageReference.setOnClickListener(this);
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
+
+
         if (comercioItem.getLongitudReferencia() > 0) {
             InputFilter[] fArray = new InputFilter[1];
             maxLength = Utils.calculateFilterLength(comercioItem.getLongitudReferencia());
@@ -117,26 +133,172 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
             referenceNumber.setText(favoriteItem.getReferencia());
             //referenceNumber.setEnabled(false);
         }
+/*
+        serviceConcept.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        serviceConcept.setFocusable(true);
+                        serviceConcept.requestFocus();
+                    }
+                });
+                return false;
+            }
+        });
+
+
+        serviceConcept.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    serviceConcept.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                            scrollView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                                    serviceConcept.setFocusable(true);
+                                    serviceConcept.requestFocus();
+                                }
+                            });
+                            return false;
+                        }
+                    });
+
+                }else {
+                    serviceConcept.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                            scrollView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                                    serviceConcept.setFocusable(true);
+                                    serviceConcept.requestFocus();
+                                }
+                            });
+                            return false;
+                        }
+                    });
+                }
+            }
+        });
+
+        serviceConcept.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        serviceConcept.setFocusable(true);
+                        serviceConcept.requestFocus();
+                    }
+                });
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        serviceConcept.setFocusable(true);
+                        serviceConcept.requestFocus();
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        serviceConcept.setFocusable(true);
+                        serviceConcept.requestFocus();
+                    }
+                });
+            }
+        });
+
+
+
+        serviceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
+                }
+            }
+        });
+*/
+
+        serviceImport.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
+                if (actionid== EditorInfo.IME_ACTION_NEXT) {
+                    // si pasamos al siguiente item
+
+                    final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                            serviceConcept.setFocusable(true);
+                            serviceConcept.requestFocus();
+                        }
+                    });
+                    return true; // Focus will do whatever you put in the logic.)
+                }
+                return false;
+            }
+        });
+
+
+
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
         if (favoriteItem != null) {
+            serviceImport.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             serviceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
-                    } else {
+                    if (!hasFocus) {
                         // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
-                        String serviceImportStr = serviceImport.getText().toString().substring(1).replace(",", "");
-                        if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
-                            monto = Double.valueOf(serviceImportStr);
-                            fragment.updateValueTabFrag(monto);
-                        } else {
-                            fragment.updateValueTabFrag(0.0);
+                        if (serviceImport.getText().length() > 0) {
+                            String serviceImportStr = serviceImport.getText().toString().substring(1).replace(",", "");
+
+                            if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
+                                monto = Double.valueOf(serviceImportStr);
+                                fragment.updateValueTabFrag(monto);
+                            } else {
+                                fragment.updateValueTabFrag(0.0);
+                            }
                         }
                     }
+
                 }
             });
+
         }
 
     }
