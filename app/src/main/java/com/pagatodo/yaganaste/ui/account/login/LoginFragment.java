@@ -538,7 +538,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 prefs.saveDataBool(PASSWORD_CHANGE,true);
             }
         }else {
-
+            prefs.saveDataBool(PASSWORD_CHANGE,true);
             accountPresenter.login(username, password); // Realizamos el  Login
         }
     }

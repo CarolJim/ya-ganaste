@@ -43,6 +43,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -443,6 +444,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (actualFragment instanceof GetMountFragment) {
             goHome();
         } else if (actualFragment instanceof HomeTabFragment) {
+            showDialogOut();
+        }else if (actualFragment instanceof WalletTabFragment) {
             showDialogOut();
         } else {
             goHome();

@@ -268,8 +268,6 @@ public class LandingActivity extends SupportFragmentActivity implements View.OnC
             }
 
         });
-
-
     }
 
     // Button Topdown animation

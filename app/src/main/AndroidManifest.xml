@@ -173,6 +173,11 @@
         <activity android:name=".ui._controllers.TarjetaActivity" />
         <activity android:name=".ui._controllers.manager.DongleBatteryHome" />
         <activity android:name=".ui._controllers.manager.AddToFavoritesActivity" />
+
+        <activity android:name=".ui_wallet.WalletMainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+
     </application>
 
 </manifest>

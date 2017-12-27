@@ -1,0 +1,103 @@
+package com.pagatodo.yaganaste.ui_wallet.adapters;
+
+
+import android.content.Context;
+import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by icruz on 11/12/2017.
+ */
+
+public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
+
+
+    private ArrayList<ElementWallet> elementViewList;
+    private float mBaseElevation;
+    private List<CardView> mViews;
+
+    public CardWalletAdpater() {
+        elementViewList = new ArrayList<>();
+        mViews = new ArrayList<>();
+    }
+    public void addCardItem(ElementWallet item) {
+        mViews.add(null);
+        elementViewList.add(item);
+    }
+
+    public ArrayList<ElementView> getElementWallet(int position){
+        return this.elementViewList.get(position).getElementViews();
+    }
+    @Override
+    public int getCount() {
+        return this.elementViewList.size();
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        View view = LayoutInflater.from(container.getContext())
+                .inflate(R.layout.wallet_element, container, false);
+        container.addView(view);
+        bind(elementViewList.get(position), view);
+        CardView cardView = (CardView) view.findViewById(R.id.cardView);
+        if (mBaseElevation == 0) {
+            mBaseElevation = cardView.getCardElevation();
+        }
+        cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
+        mViews.set(position, cardView);
+        return view;
+
+    }
+
+    private void bind(ElementWallet item, View view) {
+        ImageView imageViewCard = (ImageView) view.findViewById(R.id.imageview_card);
+        imageViewCard.setImageResource(item.getResourceCard());
+
+    }
+
+    public ElementWallet getElemenWallet(int position) {
+        return this.elementViewList.get(position);
+    }
+    /*public String getSaldo(int position){
+        return this.elementViewList.get(position).getSaldo();
+    }*/
+
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        //container.removeView((LinearLayout) object);
+    }
+
+    @Override
+    public float getBaseElevation() {
+        return mBaseElevation;
+    }
+
+    @Override
+    public CardView getCardViewAt(int position) {
+        return mViews.get(position);
+    }
+
+
+
+}
