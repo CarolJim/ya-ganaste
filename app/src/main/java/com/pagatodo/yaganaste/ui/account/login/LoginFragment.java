@@ -127,10 +127,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
 
-
-
-
-
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -527,9 +523,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-
-
-
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
                 accountPresenter.login(username, nip); // Realizamos el  Login
@@ -550,7 +543,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
-
             App.getInstance().getStatusId();
             SingletonUser.getInstance().setCardStatusId(null);
             Intent intentLogin = new Intent(getActivity(), TabActivity.class);

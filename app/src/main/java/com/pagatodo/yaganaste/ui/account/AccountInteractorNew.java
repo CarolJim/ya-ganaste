@@ -439,8 +439,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
-
-
             case CHANGE_PASS_6:
                 processchangepass6(dataSourceResult);
                 break;
@@ -550,7 +548,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void processchangepass6(DataSourceResult dataSourceResult) {
         CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
-
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
             accountManager.onSuccesChangePass6(dataSourceResult);

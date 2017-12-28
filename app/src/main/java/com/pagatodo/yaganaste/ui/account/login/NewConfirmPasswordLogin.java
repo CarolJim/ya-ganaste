@@ -1,5 +1,5 @@
 package com.pagatodo.yaganaste.ui.account.login;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -19,8 +19,8 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
@@ -30,16 +30,11 @@ import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IChangeNipView;
 import com.pagatodo.yaganaste.interfaces.IChangePass6;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
-import com.pagatodo.yaganaste.ui._controllers.MainActivity;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
-import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
@@ -50,7 +45,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -58,8 +52,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
@@ -70,7 +62,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
  */
 
 public class NewConfirmPasswordLogin extends GenericFragment implements View.OnClickListener,
-        ValidationForms, IAccountCardNIPView,IMyPassView, IResetNIPView,IChangePass6, IChangeNipView {
+        ValidationForms, IMyPassView, IResetNIPView, IChangePass6, IChangeNipView {
     private Preferencias prefs = App.getInstance().getPrefs();
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
@@ -103,6 +95,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
 
     private ChangeNipPresenterImp changeNipPresenterImp;
     private ResetPinPresenter resetPinPresenter;
+
     public static NewConfirmPasswordLogin newInstance(String nip) {
         NewConfirmPasswordLogin fragmentRegister = new NewConfirmPasswordLogin();
         Bundle args = new Bundle();
@@ -125,7 +118,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         this.changeNipPresenterImp = new ChangeNipPresenterImp();
         changeNipPresenterImp.setIChangeNipView(this);
         aplicacion = new App();
-        imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
+        imageView = (ImageView) getActivity().findViewById(R.id.btn_back);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -254,7 +247,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     @Override
     public void showValidationError(int id, Object error) {
         //UI.showToastShort(error.toString(), getActivity());
-        UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+        UI.createSimpleCustomDialog("", ((CambiarContraseniaResponse) error).getMensaje(), getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -278,40 +271,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public void onValidationSuccess() {
         //accountPresenter.assignNIP(nip);
         String[] pass = Utils.cipherAES(prefs.loadData(PSW_CPR), false).split("-");
-
-
-
-
-        if (!RequestHeaders.getTokenauth().isEmpty()) {
-            accountPresenter.changepasssixdigits(pass[0],nip); // Realizamos el  Login
-
-            prefs.saveDataBool(PASSWORD_CHANGE,true);
-            showLoader("");
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    hideLoader();
-                    if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
-                        onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
-                    } else {
-                        onEventListener.onEvent(EVENT_GO_MAINTAB, null);
-                    }
-                }
-            }, DELAY_MESSAGE_PROGRESS);
-
-        }else {
-            showLoader("");
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    hideLoader();
-                    if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
-                        onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
-                    } else {
-                        onEventListener.onEvent(EVENT_GO_MAINTAB, null);
-                    }
-                }
-            }, DELAY_MESSAGE_PROGRESS);
-        }
-
+        accountPresenter.changepasssixdigits(pass[0], nip); // Realizamos el  Login
     }
 
     @Override
@@ -336,7 +296,6 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
 
     @Override
     public void backScreen(String event, Object data) {
-
         onEventListener.onEvent(event, data);
     }
 
@@ -353,8 +312,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     @Override
     public void showError(Object error) {
         // UI.showToastShort(error.toString(), getActivity());
-        showValidationError(0, error.toString());
-
+        showValidationError(0, error);
     }
 
     public boolean isCustomKeyboardVisible() {
@@ -382,7 +340,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(Utils.getSHA256(nip));
         } else {
-           changeNipPresenterImp.doChangeNip(Utils.getSHA256(pass[0]),
+            changeNipPresenterImp.doChangeNip(Utils.getSHA256(pass[0]),
                     Utils.getSHA256(nip));
         }
     }
@@ -421,18 +379,19 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     @Override
     public void onFrejaNipFailed() {
         SingletonUser.getInstance().setNeedsReset(true);
-        resetPinPresenter.doReseting(Utils.getSHA256("1Azbxcwa2"));
+        resetPinPresenter.doReseting(Utils.getSHA256(nip));
     }
 
     @Override
     public void showErrorNip(ErrorObject error) {
         hideLoader();
     }
+
     private void endAndBack() {
-       // editOldPassword.setText("");
-       // editPassword.setText("");
-       // editPasswordConfirm.setText("");
-       // showDialogMesage(Recursos.MESSAGE_CHANGE_PASS);
+        // editOldPassword.setText("");
+        // editPassword.setText("");
+        // editPasswordConfirm.setText("");
+        // showDialogMesage(Recursos.MESSAGE_CHANGE_PASS);
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
     }
