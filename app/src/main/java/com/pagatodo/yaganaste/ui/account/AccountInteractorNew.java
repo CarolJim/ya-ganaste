@@ -107,6 +107,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE_NOSERVISE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
@@ -709,7 +710,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
-                    if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
+                    if (prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
                         if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
                             //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){

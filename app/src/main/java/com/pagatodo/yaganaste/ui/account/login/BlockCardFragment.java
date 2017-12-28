@@ -77,6 +77,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE_NOSERVISE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 
@@ -244,7 +245,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+
+
             linerar_principal.setOnClickListener(this);
             edtUserPass.setVisibility(View.GONE);
             layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);

@@ -73,6 +73,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE_NOSERVISE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -215,7 +216,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
         ////teclado de 6 Digitos Rutina
 
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
             btnGenerateCode.setVisibility(GONE);
             linerar_principal.setOnClickListener(this);
             editPassword.setVisibility(GONE);

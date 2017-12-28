@@ -59,6 +59,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE_NOSERVISE;
 import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
@@ -153,7 +154,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         accountPresenter.setIView(this);
         prefs.saveDataBool(HUELLA_FAIL,true);
         prefs.saveDataBool(TECLADO_CUSTOM,false);
-        prefs.saveDataBool(PASSWORD_CHANGE,false);
         this.preferencias = App.getInstance().getPrefs();
     }
 
@@ -195,7 +195,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
 
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -535,10 +535,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 accountPresenter.login(username, nip); // Realizamos el  Login
             }else {
                 accountPresenter.login(username, password); // Realizamos el  Login
-                prefs.saveDataBool(PASSWORD_CHANGE,true);
             }
         }else {
-
             accountPresenter.login(username, password); // Realizamos el  Login
         }
     }

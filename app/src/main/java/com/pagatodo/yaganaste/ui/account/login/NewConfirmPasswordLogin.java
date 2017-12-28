@@ -279,12 +279,13 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         //accountPresenter.assignNIP(nip);
         String[] pass = Utils.cipherAES(prefs.loadData(PSW_CPR), false).split("-");
 
-        prefs.saveDataBool(PASSWORD_CHANGE,true);
+
 
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            accountPresenter.changepasssixdigits(pass[0],"1Azbxcwa2"); // Realizamos el  Login
+            accountPresenter.changepasssixdigits(pass[0],nip); // Realizamos el  Login
 
+            prefs.saveDataBool(PASSWORD_CHANGE,true);
             showLoader("");
             new Handler().postDelayed(new Runnable() {
                 public void run() {
@@ -377,12 +378,12 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     @Override
     public void sendSuccessPassToView(String mensaje) {
         String[] pass = Utils.cipherAES(prefs.loadData(PSW_CPR), false).split("-");
-        App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256("1Azbxcwa2"));
+        App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256(nip));
         if (SingletonUser.getInstance().needsReset()) {
-            resetPinPresenter.doReseting(Utils.getSHA256("1Azbxcwa2"));
+            resetPinPresenter.doReseting(Utils.getSHA256(nip));
         } else {
            changeNipPresenterImp.doChangeNip(Utils.getSHA256(pass[0]),
-                    Utils.getSHA256("1Azbxcwa2"));
+                    Utils.getSHA256(nip));
         }
     }
 

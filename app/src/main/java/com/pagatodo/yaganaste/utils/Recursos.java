@@ -109,6 +109,7 @@ public class Recursos {
     public static String HUELLA_FAIL = "HUELLA_FAIL";
     public static String TECLADO_CUSTOM = "TECLADO_CUSTOM";
     public static String PASSWORD_CHANGE = "PASSWORD_CHANGE";
+    public static String PASSWORD_CHANGE_NOSERVISE = "PASSWORD_CHANGE_NOSERVISE";
     public static String VERSION_APP = "VERSION_APP";
     public static String FIREBASE_KEY = "FIREBASE_KEY";
     public static String NOTIF_COUNT = "NOTIF_COUNT";
@@ -234,7 +235,6 @@ public class Recursos {
     public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
     public static final String BATTERY_PORCENTAGE = "BATTERY_PORCENTAGE";
     public static final String KSN_LECTOR = "KSN_LECTOR";
-
     /*Url Legales*/
     public static final String URL_LEGALES_TERMINOS = "http://dev.yaganaste.com/terminos-y-condiciones.html";
     public static final String URL_LEGALES_PRIVACIDAD = "http://dev.yaganaste.com/aviso-de-privacidad.html";
