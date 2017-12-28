@@ -553,7 +553,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onSuccesChangePass6(dataSourceResult);
         } else {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
-            accountManager.onError(CHANGE_PASS_6,dataSourceResult.getData());
+            accountManager.onError(CHANGE_PASS_6,response.getMensaje());
         }
 
     }

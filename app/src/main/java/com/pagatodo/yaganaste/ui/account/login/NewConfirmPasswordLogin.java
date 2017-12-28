@@ -26,7 +26,6 @@ import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IChangeNipView;
 import com.pagatodo.yaganaste.interfaces.IChangePass6;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -247,7 +246,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     @Override
     public void showValidationError(int id, Object error) {
         //UI.showToastShort(error.toString(), getActivity());
-        UI.createSimpleCustomDialog("", ((CambiarContraseniaResponse) error).getMensaje(), getFragmentManager(),
+        UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -337,6 +336,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public void sendSuccessPassToView(String mensaje) {
         String[] pass = Utils.cipherAES(prefs.loadData(PSW_CPR), false).split("-");
         App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256(nip));
+        App.getInstance().getPrefs().saveDataBool(PASSWORD_CHANGE, true);
         if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(Utils.getSHA256(nip));
         } else {
@@ -380,6 +380,16 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public void onFrejaNipFailed() {
         SingletonUser.getInstance().setNeedsReset(true);
         resetPinPresenter.doReseting(Utils.getSHA256(nip));
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                hideLoader();
+                if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+                    onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+                } else {
+                    onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+                }
+            }
+        }, DELAY_MESSAGE_PROGRESS);
     }
 
     @Override
