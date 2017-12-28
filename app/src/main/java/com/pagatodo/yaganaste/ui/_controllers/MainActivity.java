@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
