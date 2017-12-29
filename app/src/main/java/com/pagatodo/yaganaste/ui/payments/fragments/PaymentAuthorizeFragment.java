@@ -4,6 +4,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
+import android.inputmethodservice.Keyboard;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -11,10 +12,19 @@ import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -32,10 +42,12 @@ import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -64,6 +76,8 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE_NOSERVISE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -120,6 +134,42 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     static PaymentAuthorizeFragment fragmentCode;
 
 
+
+
+
+
+    ///////////////////////
+    @BindView(R.id.customkeyboard)
+    LinearLayout customkeyboard;
+
+    @BindView(R.id.keyboard_view)
+    CustomKeyboardView keyboardView;
+
+    @BindView(R.id.layoutScrollCard)
+    LinearLayout linerar_principal;
+
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
+    TextView tv5Num;
+    TextView tv6Num;
+    private String nip = "";
+    private Keyboard keyboard;
+    ImageView asignar_iv1;
+    private static int PIN_LENGHT = 6;
+    @BindView(R.id.asignar_edittext)
+    CustomValidationEditText edtPin;
+    private Preferencias prefs = App.getInstance().getPrefs();
+    ///////////////
+
+
+
+
+
+
+
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
         fragmentCode = new PaymentAuthorizeFragment();
         //PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
@@ -156,6 +206,80 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        if ( prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
+
+
+            linerar_principal.setOnClickListener(this);
+            editPassword.setVisibility(View.GONE);
+            btnContinueEnvio.setVisibility(View.GONE);
+            layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
+            customkeyboard.setVisibility(VISIBLE);
+            customkeyboard.setOnClickListener(this);
+            keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+            keyboardView.setPreviewEnabled(false);
+            keyboardView.showCustomKeyboard(rootview);
+            tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+            tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+            tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+            tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
+            tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
+            tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
+            // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
+            // Se le asigna un TextWatcher personalizado para realizar las oepraciones
+            edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+            edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
+            edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
+            edtPin.addCustomTextWatcher(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().length() == 6) {
+                        keyboardView.hideCustomKeyboard();
+                        //  Servicio para consumir usuario y contraseña
+                        validateForm();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+
+
+
+            edtPin.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    EditText edittext = (EditText) v;
+                    int inType = edittext.getInputType();       // Backup the input type
+                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                    edittext.onTouchEvent(event);               // Call native handler
+                    keyboardView.showCustomKeyboard(v);
+                    edittext.setInputType(inType);              // Restore input type
+                    return true; // Consume touch event
+                }
+            });
+            //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
+            setValidationRules();
+            keyboardView.showCustomKeyboard(rootview);
+            edtPin.requestEditFocus();
+
+
+        }else {
+
+            editPassword.setVisibility(View.VISIBLE);
+        }
+
+
+        keyboardView.hideCustomKeyboard();
+
+
         nombreEnvio.setVisibility(VISIBLE);
         nombreEnvio.setText(envio.getNombreDestinatario());
 
@@ -265,6 +389,13 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        edtPin.requestEditFocus();
+    }
+
     /**
      * Creates a symmetric key in the Android Key Store which can only be used after the user has
      * authenticated with fingerprint.
@@ -327,6 +458,26 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (v.getId() == R.id.btn_continueEnvio) {
             validateForm();
         }
+
+        if (v.getId() ==  R.id.layoutScrollCard){
+            keyboardView.hideCustomKeyboard();
+        }
+
+        if (v.getId() ==   R.id.customkeyboard) {
+            keyboardView.showCustomKeyboard(rootview);
+
+            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+            scrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                    edtPin.requestEditFocus();
+                }
+            });
+
+        }
+
+
     }
 
     @Override
@@ -354,6 +505,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void validateForm() {
         getDataForm();
+
+
         if (TextUtils.isEmpty(password)) {
             showValidationError(0, getString(R.string.datos_usuario_pass));
         } else {
@@ -380,7 +533,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void getDataForm() {
-        password = editPassword.getText().toString();
+
+
+        password = edtPin.getText().toString().trim();
+
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
@@ -40,6 +41,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 
 /**
@@ -50,7 +52,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     //  ValidationForms, IUserDataRegisterView,
 
     public static final String TAG = MyPassFragment.class.getSimpleName();
-
+    private Preferencias prefs = App.getInstance().getPrefs();
     @BindView(R.id.fragment_myemail_btn)
     StyleButton sendButton;
     @BindView(R.id.editOldPassword)
@@ -92,6 +94,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         super.onCreate(savedInstanceState);
         mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         mPreferPresenter.setIView(this);
+        prefs.saveDataBool(TECLADO_CUSTOM,true);
         accountPresenter = ((PreferUserActivity) getActivity()).getPresenterAccount();
         accountPresenter.setIView(this);
         this.changeNipPresenterImp = new ChangeNipPresenterImp();
