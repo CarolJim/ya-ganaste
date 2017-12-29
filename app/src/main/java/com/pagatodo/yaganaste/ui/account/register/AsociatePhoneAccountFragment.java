@@ -47,12 +47,15 @@ import java.util.Timer;
 
 import butterknife.BindView;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE_NOSERVISE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
@@ -188,7 +191,11 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        if (preferencias.loadDataBoolean(PASSWORD_CHANGE,false)) {
+            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        }else {
+            nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
+        }
         //}
     }
 
