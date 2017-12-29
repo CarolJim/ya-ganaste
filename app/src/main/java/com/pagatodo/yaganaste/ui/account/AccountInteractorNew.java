@@ -707,21 +707,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
-                    if (!prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
-                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                            //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                    if (!dataUser.isRequiereActivacionSMS()) {
+                        if (!prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE, false) && prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                            if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                                //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
                             loginAdq();
                             return;
                         } else {*/
-                            checkAfterLogin();
-                            return;
-                            //}
-                        } else {//Requiere setear el NIP
-                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                                checkAfterLogin();
+                                return;
+                                //}
+                            } else {//Requiere setear el NIP
+                                stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                            }
+                        } else {
+                            stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                         }
+
                     }else {
-                        stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
+                        stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
                     }
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
