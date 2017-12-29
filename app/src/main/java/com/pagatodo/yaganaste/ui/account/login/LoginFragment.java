@@ -543,6 +543,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
+
             App.getInstance().getStatusId();
             SingletonUser.getInstance().setCardStatusId(null);
             Intent intentLogin = new Intent(getActivity(), TabActivity.class);

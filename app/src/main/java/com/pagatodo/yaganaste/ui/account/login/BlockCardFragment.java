@@ -245,7 +245,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+        if (!prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
 
 
             linerar_principal.setOnClickListener(this);
