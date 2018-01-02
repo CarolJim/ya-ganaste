@@ -137,7 +137,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             cardNumber = getCreditCardFormat(cuenta.getTarjeta());
             clabe = cuenta.getCLABE();
         }
-        //showQRCode(name, celPhone, usuario.getCuentas().get(0));
+        showQRCode(name, celPhone, usuario.getCuentas().get(0));
         txtCableNumber.setText(clabe);
         txtCellPhone.setText(celPhone);
         txtNumberCard.setText(cardNumber);
@@ -193,19 +193,19 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     private void checkState(String state) {
         switch (state) {
             case "0":
-                imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
+                //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
                 txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
-                printCard(cardNumber);
+                //printCard(cardNumber);
                 txtNumberCard.setText(cardNumber);
                 break;
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
-                imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
+                //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
                 txtNumberCard.setText(cardNumber);
                 break;
             default:
-                printCard(cardNumber);
+                //printCard(cardNumber);
                 break;
         }
     }
@@ -220,7 +220,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         int height = point.y;
         int smallerDimension = width < height ? width : height;
         smallerDimension = smallerDimension * 3 / 4;
-        MyQr myQr = new MyQr(name, cellPhone, usuario.getTarjeta(), usuario.getCLABE());
+        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjeta(), usuario.getCLABE());
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
         Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
@@ -280,17 +280,5 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
 
         imgYaGanasteQR.setImageBitmap(bitmap);
-    }
-
-    class MyQr {
-
-        String userName, phoneNumber, cardNumber, clabe;
-
-        public MyQr(String username, String phoneNumber, String cardNumber, String clabe) {
-            this.userName = username;
-            this.phoneNumber = phoneNumber;
-            this.cardNumber = cardNumber;
-            this.clabe = clabe;
-        }
     }
 }

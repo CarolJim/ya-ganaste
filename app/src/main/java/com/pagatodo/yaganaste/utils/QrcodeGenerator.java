@@ -93,7 +93,7 @@ public class QrcodeGenerator {
             }
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
     }
@@ -106,5 +106,17 @@ public class QrcodeGenerator {
             }
         }
         return null;
+    }
+
+    public static class MyQr {
+
+        String userName, phoneNumber, cardNumber, clabe;
+
+        public MyQr(String username, String phoneNumber, String cardNumber, String clabe) {
+            this.userName = username;
+            this.phoneNumber = phoneNumber;
+            this.cardNumber = cardNumber;
+            this.clabe = clabe;
+        }
     }
 }
