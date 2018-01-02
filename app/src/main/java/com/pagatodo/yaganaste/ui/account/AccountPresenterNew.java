@@ -100,6 +100,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private IPurseView view;
     private ChangeNipPresenterImp changeNipPresenterImp;
     private ResetPinPresenter resetPinPresenter;
+
     public void setIView(View accountView) {
         super.setIView(accountView);
 
@@ -170,16 +171,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
 
-
-
     public void changepasssixdigits(String mPassActual, String mPassNueva) {
-            accountView.showLoader(App.getContext().getResources().getString(R.string.user_change_password));
-            CambiarContraseniaRequest cambiarContraseniaRequest = new CambiarContraseniaRequest();
-            cambiarContraseniaRequest.setContrasenaActual(mPassActual);
-            cambiarContraseniaRequest.setContrasenaNueva(mPassNueva);
-            accountIteractor.changePassToIteractor(cambiarContraseniaRequest);
-
-
+        accountView.showLoader(App.getContext().getResources().getString(R.string.user_change_password));
+        CambiarContraseniaRequest cambiarContraseniaRequest = new CambiarContraseniaRequest();
+        cambiarContraseniaRequest.setContrasenaActual(mPassActual);
+        cambiarContraseniaRequest.setContrasenaNueva(mPassNueva);
+        accountIteractor.changePassToIteractor(cambiarContraseniaRequest);
     }
 
     public void logoutSinRespuesta() {
@@ -333,7 +330,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 accountView.showError(error);
             }
 
-
         } else if (accountView instanceof IDocumentApproved) {
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
@@ -346,6 +342,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
             }
         } else if (accountView instanceof IMyCardView) {
+            accountView.showError(error);
+        } else if (accountView instanceof IChangePass6) {
             accountView.showError(error);
         } else {
             accountView.showError(error);
@@ -474,7 +472,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void onSuccesChangePass6(DataSourceResult dataSourceResult) {
         CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
         ((IChangePass6) this.accountView).sendSuccessPassToView(response.getMensaje());
-
     }
 
     @Override

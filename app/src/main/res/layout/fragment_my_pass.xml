@@ -117,7 +117,7 @@
                         app:formato="password"
                         app:hintText="@string/new_password"
                         app:isSingleLine="true"
-                        app:maxLength="16" />
+                        app:maxLength="6" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorPasswordMessage"
@@ -134,7 +134,7 @@
                         app:formato="password"
                         app:hintText="@string/passwordConfirmNew"
                         app:isSingleLine="true"
-                        app:maxLength="16" />
+                        app:maxLength="6" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorConfirmPasswordMessage"

@@ -8,11 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -20,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -28,7 +24,6 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
@@ -47,13 +42,14 @@ import java.util.Timer;
 
 import butterknife.BindView;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 
 
 /**
@@ -188,7 +184,11 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        if (preferencias.loadDataBoolean(PASSWORD_CHANGE,false)) {
+            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        }else {
+            nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
+        }
         //}
     }
 

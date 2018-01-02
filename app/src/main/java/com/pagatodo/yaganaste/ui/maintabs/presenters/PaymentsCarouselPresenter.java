@@ -311,7 +311,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         for (ComercioResponse comercio : comercios) {
             if (comercio.getIdTipoComercio() == current_tab.getId()) {
                 if (comercio.getIdComercio() != 0) {
-                    if (comercio.getColorMarca().isEmpty()) {
+                    if (comercio.getColorMarca()==null || comercio.getColorMarca().isEmpty()) {
                         carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
                         carouselItemCommerce.setCommerceImageViewMargin();
                         carouselItems.add(carouselItemCommerce);
