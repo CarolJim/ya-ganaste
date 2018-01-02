@@ -13,8 +13,6 @@ import android.security.keystore.KeyProperties;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -244,7 +241,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
+
+
             linerar_principal.setOnClickListener(this);
             edtUserPass.setVisibility(View.GONE);
             layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);

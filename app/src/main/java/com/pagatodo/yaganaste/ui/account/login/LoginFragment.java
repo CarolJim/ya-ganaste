@@ -126,10 +126,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
 
-
-
-
-
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -153,7 +149,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         accountPresenter.setIView(this);
         prefs.saveDataBool(HUELLA_FAIL,true);
         prefs.saveDataBool(TECLADO_CUSTOM,false);
-        prefs.saveDataBool(PASSWORD_CHANGE,false);
         this.preferencias = App.getInstance().getPrefs();
     }
 
@@ -185,6 +180,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ButterKnife.bind(this, rootview);
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
 
+
         customkeyboard.setOnClickListener(this);
         linerar_principal.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -195,7 +191,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
 
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -217,7 +213,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
                 keyboardView.setPreviewEnabled(false);
                // keyboardView.showCustomKeyboard(rootview);
-                btnLogin.setVisibility(GONE);
+                btnLogin.setVisibility(VISIBLE);
                 //imageView.setVisibility(View.GONE);
                 tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
                 tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
@@ -527,12 +523,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-
-
-
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
                 accountPresenter.login(username, nip); // Realizamos el  Login
+
             }else {
                 accountPresenter.login(username, password); // Realizamos el  Login
                 prefs.saveDataBool(PASSWORD_CHANGE,true);

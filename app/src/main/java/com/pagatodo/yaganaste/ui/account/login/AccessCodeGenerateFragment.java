@@ -1,10 +1,8 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 
-import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.inputmethodservice.Keyboard;
@@ -12,27 +10,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -58,9 +49,7 @@ import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
@@ -215,7 +204,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
         ////teclado de 6 Digitos Rutina
 
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
             btnGenerateCode.setVisibility(GONE);
             linerar_principal.setOnClickListener(this);
             editPassword.setVisibility(GONE);

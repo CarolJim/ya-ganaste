@@ -195,13 +195,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+
         android:clickable="true"
         android:gravity="center">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLoginExistUser"
             style="@style/buttonSquareRoundedBlue"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:text="@string/txt_ingresar" />
     </LinearLayout>
 

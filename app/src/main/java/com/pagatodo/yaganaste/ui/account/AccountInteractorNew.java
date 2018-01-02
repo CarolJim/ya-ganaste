@@ -105,7 +105,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
-import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
@@ -438,8 +437,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
-
-
             case CHANGE_PASS_6:
                 processchangepass6(dataSourceResult);
                 break;
@@ -549,13 +546,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void processchangepass6(DataSourceResult dataSourceResult) {
         CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
-
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
             accountManager.onSuccesChangePass6(dataSourceResult);
         } else {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
-            accountManager.onError(CHANGE_PASS_6,dataSourceResult.getData());
+            accountManager.onError(CHANGE_PASS_6,response.getMensaje());
         }
 
     }
@@ -709,24 +705,46 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
-                    if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
-                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                            //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                            if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                                //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
                             loginAdq();
                             return;
                         } else {*/
-                            checkAfterLogin();
+                                checkAfterLogin();
+                                return;
+                                //}
+                            } else {//Requiere setear el NIP
+                                stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                            }
+                        } else {
+
+                            if (!dataUser.isRequiereActivacionSMS()) {
+
+                                stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
+                            }else {
+
+                                if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                                    //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                        /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
+                            loginAdq();
                             return;
-                            //}
-                        } else {//Requiere setear el NIP
-                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                        } else {*/
+                                    checkAfterLogin();
+                                    return;
+                                    //}
+                                } else {//Requiere setear el NIP
+                                    stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                                }
+
+                            }
                         }
-                    }else {
-                        stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
-                    }
+
                 } else { // No tiene cuenta asignada.
-                    stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
+
+                        stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
+
                 }
 
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.

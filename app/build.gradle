@@ -28,7 +28,7 @@ android {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 10
+        versionCode 11
         versionName "1.7.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,6 +37,7 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a"
         }
+        useLibrary  'org.apache.http.legacy'
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -44,7 +45,6 @@ android {
 
     signingConfigs {
         debug {
-
             storeFile file("KeyPagaTodoDev.jks")
             storePassword "ptmobile"
             keyAlias "PTmobile"
@@ -52,13 +52,11 @@ android {
         }
 
         release {
-
             storeFile file("cert.jks")
             storePassword "PagaTodo"
             keyAlias "ptmobile"
             keyPassword "PagaTodo"
         }
-
     }
 
     buildTypes {
@@ -102,27 +100,29 @@ dependencies {
     compile 'com.google.android.gms:play-services-plus:11.0.4'
     compile 'com.google.android.gms:play-services:11.0.4'
     compile 'com.google.android.gms:play-services-vision:11.0.4'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jude:rollviewpager:1.4.5'
     compile 'com.bignerdranch.android:recyclerview-multiselect:+'
-    compile 'com.android.volley:volley:1.0.0'
-    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
-    compile 'org.thoughtcrime.ssl.pinning:AndroidPinning:1.0.0'
     compile 'com.jakewharton:butterknife:8.4.+'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
     compile 'id.zelory:compressor:1.0.4'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-core:10.0.1'
-    compile 'com.github.demoNo:AutoScrollViewPager:v1.0.2'
-    compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.omadahealth:swipy:1.2.3@aar'
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.steelkiwi:cropiwa:1.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.zxing:core:3.3.1'
+    // Network Gradle Compilations
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'org.thoughtcrime.ssl.pinning:AndroidPinning:1.0.0'
+
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

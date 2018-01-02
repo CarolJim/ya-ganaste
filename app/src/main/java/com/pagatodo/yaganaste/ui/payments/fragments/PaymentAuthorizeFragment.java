@@ -2,22 +2,29 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
+import android.inputmethodservice.Keyboard;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -34,10 +41,12 @@ import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -66,6 +75,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -122,6 +132,42 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     static PaymentAuthorizeFragment fragmentCode;
 
 
+
+
+
+
+    ///////////////////////
+    @BindView(R.id.customkeyboard)
+    LinearLayout customkeyboard;
+
+    @BindView(R.id.keyboard_view)
+    CustomKeyboardView keyboardView;
+
+    @BindView(R.id.layoutScrollCard)
+    LinearLayout linerar_principal;
+
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
+    TextView tv5Num;
+    TextView tv6Num;
+    private String nip = "";
+    private Keyboard keyboard;
+    ImageView asignar_iv1;
+    private static int PIN_LENGHT = 6;
+    @BindView(R.id.asignar_edittext)
+    CustomValidationEditText edtPin;
+    private Preferencias prefs = App.getInstance().getPrefs();
+    ///////////////
+
+
+
+
+
+
+
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
         fragmentCode = new PaymentAuthorizeFragment();
         //PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
@@ -158,6 +204,80 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        if ( prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
+
+
+            linerar_principal.setOnClickListener(this);
+            editPassword.setVisibility(View.GONE);
+            btnContinueEnvio.setVisibility(View.GONE);
+            layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
+            customkeyboard.setVisibility(VISIBLE);
+            customkeyboard.setOnClickListener(this);
+            keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+            keyboardView.setPreviewEnabled(false);
+            keyboardView.showCustomKeyboard(rootview);
+            tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+            tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+            tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+            tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
+            tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
+            tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
+            // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
+            // Se le asigna un TextWatcher personalizado para realizar las oepraciones
+            edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+            edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
+            edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
+            edtPin.addCustomTextWatcher(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().length() == 6) {
+                        keyboardView.hideCustomKeyboard();
+                        //  Servicio para consumir usuario y contraseña
+                        validateForm();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+
+
+
+            edtPin.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    EditText edittext = (EditText) v;
+                    int inType = edittext.getInputType();       // Backup the input type
+                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                    edittext.onTouchEvent(event);               // Call native handler
+                    keyboardView.showCustomKeyboard(v);
+                    edittext.setInputType(inType);              // Restore input type
+                    return true; // Consume touch event
+                }
+            });
+            //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
+            setValidationRules();
+            keyboardView.showCustomKeyboard(rootview);
+            edtPin.requestEditFocus();
+
+
+        }else {
+
+            editPassword.setVisibility(View.VISIBLE);
+        }
+
+
+        keyboardView.hideCustomKeyboard();
+
+
         nombreEnvio.setVisibility(VISIBLE);
         nombreEnvio.setText(envio.getNombreDestinatario());
 
@@ -185,7 +305,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         //Huella
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
-
+            } else if (!keyguardManager.isKeyguardSecure()) {
+                return;
             } else {
                 try {
                     keyStore = KeyStore.getInstance("AndroidKeyStore");
@@ -247,79 +368,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                         fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                     }
 
-                } else {
-                    // Hide the purchase button which uses a non-invalidated key
-                    // if the app doesn't work on Android N preview
-                    //purchaseButtonNotInvalidated.setVisibility(View.GONE);
-                    //invalidDesc.setVisibility(View.GONE);
-               /* getActivity().findViewById(R.id.purchase_button_not_invalidated_description)
-                        .setVisibility(View.GONE);*/
-                }
-
-                if (!keyguardManager.isKeyguardSecure()) {
-                    // Show a message that the user hasn't set up a fingerprint or lock screen.
-                    Toast.makeText(getContext(),
-                            "Secure lock screen hasn't set up.\n"
-                                    + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint",
-                            Toast.LENGTH_LONG).show();
-                    //purchaseButton.setEnabled(false);
-                    //purchaseButtonNotInvalidated.setEnabled(false);
-                    return;
-                }
-
-                // Now the protection level of USE_FINGERPRINT permission is normal instead of dangerous.
-                // See http://developer.android.com/reference/android/Manifest.permission.html#USE_FINGERPRINT
-                // The line below prevents the false positive inspection from Android Studio
-                // noinspection ResourceType
-                if (!fingerprintManager.hasEnrolledFingerprints()) {
-                    //purchaseButton.setEnabled(false);
-                    // This happens when no fingerprints are registered.
-                    Toast.makeText(getContext(),
-                            "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint",
-                            Toast.LENGTH_LONG).show();
-                    return;
                 }
             }
         }
-    }
-
-    private void opensettings() {
-        Intent intent = new Intent(Settings.ACTION_SETTINGS);
-        startActivity(intent);
-    }
-
-    private void generateKey() throws FingerprintException {
-        try {
-
-            keyStore = KeyStore.getInstance("AndroidKeyStore");
-
-            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-
-            keyStore.load(null);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                keyGenerator.init(new
-                        KeyGenParameterSpec.Builder(KEY_NAME,
-                        KeyProperties.PURPOSE_ENCRYPT |
-                                KeyProperties.PURPOSE_DECRYPT)
-                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                        .setUserAuthenticationRequired(true)
-                        .setEncryptionPaddings(
-                                KeyProperties.ENCRYPTION_PADDING_PKCS7)
-                        .build());
-            }
-
-            keyGenerator.generateKey();
-
-        } catch (KeyStoreException
-                | NoSuchAlgorithmException
-                | NoSuchProviderException
-                | InvalidAlgorithmParameterException
-                | CertificateException
-                | IOException exc) {
-            exc.printStackTrace();
-            throw new FingerprintException(exc);
-        }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -334,6 +385,13 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             //throw new RuntimeException("Failed to init Cipher", e);
             return false;
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        edtPin.requestEditFocus();
     }
 
     /**
@@ -384,7 +442,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             keyGenerator.generateKey();
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
                 | CertificateException | IOException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -397,6 +456,26 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (v.getId() == R.id.btn_continueEnvio) {
             validateForm();
         }
+
+        if (v.getId() ==  R.id.layoutScrollCard){
+            keyboardView.hideCustomKeyboard();
+        }
+
+        if (v.getId() ==   R.id.customkeyboard) {
+            keyboardView.showCustomKeyboard(rootview);
+
+            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+            scrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                    edtPin.requestEditFocus();
+                }
+            });
+
+        }
+
+
     }
 
     @Override
@@ -424,6 +503,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void validateForm() {
         getDataForm();
+
+
         if (TextUtils.isEmpty(password)) {
             showValidationError(0, getString(R.string.datos_usuario_pass));
         } else {
@@ -450,7 +531,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void getDataForm() {
-        password = editPassword.getText().toString();
+
+
+        password = edtPin.getText().toString().trim();
+
     }
 
     @Override
@@ -472,9 +556,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         } else if (error.toString().equals(getString(R.string.no_internet_access))) {
             errorTittle = "Ya Ganaste";
-            errorBody =getString(R.string.no_internet_access);
+            errorBody = getString(R.string.no_internet_access);
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
-        }else if (!TextUtils.isEmpty(error.toString())) {
+        } else if (!TextUtils.isEmpty(error.toString())) {
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }

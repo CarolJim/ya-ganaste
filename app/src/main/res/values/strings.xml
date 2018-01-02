@@ -480,13 +480,15 @@
     <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
-    <string name="title_envio_success">¡Envío en Proceso!</string>
+    <string name="title_envio_in_proccess">¡Envío en Proceso!</string>
+    <string name="title_envio_success">¡Envío Exitoso!</string>
     <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
     <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CLABE</string>
+    <string name="transfer_qr">Código QR</string>
     <string name="transfer_card_unavailable">No Disponible</string>
     <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
@@ -1111,7 +1113,7 @@
     <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
     <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
-    <string name="trans_spei_envio_txt">Traspaso Mismo Banco</string>
+    <string name="trans_spei_envio_txt">Transferencia SPEI</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
 
 

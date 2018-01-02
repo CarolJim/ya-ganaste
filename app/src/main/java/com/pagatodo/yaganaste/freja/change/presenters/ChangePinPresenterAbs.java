@@ -39,7 +39,6 @@ public abstract class ChangePinPresenterAbs implements ChangePinPresenter, Chang
             changePinIteractor.changePin(oldPin, newPin);
         } else {
             onError(Errors.BAD_CHANGE_POLICY);
-
         }
     }
 

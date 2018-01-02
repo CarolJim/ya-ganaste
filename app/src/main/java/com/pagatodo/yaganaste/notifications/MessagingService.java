@@ -61,9 +61,8 @@ public class MessagingService extends FirebaseMessagingService {
                         startActivity(i);
                         break;
                     case "2":
-
-                        App.getInstance().downloadFile(this, urlData,
-                                nameData, typeData);
+                        App.getInstance().downloadFile(urlData,
+                                nameData, typeData, null);
                         break;
                     case "3":
                         //  startActivity(new Intent(this, TestActivity.class));
