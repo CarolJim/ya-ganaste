@@ -192,7 +192,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (!prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
 
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);

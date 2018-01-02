@@ -216,7 +216,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
         ////teclado de 6 Digitos Rutina
 
-        if (!prefs.loadDataBoolean(PASSWORD_CHANGE_NOSERVISE,false) && prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
             btnGenerateCode.setVisibility(GONE);
             linerar_principal.setOnClickListener(this);
             editPassword.setVisibility(GONE);
