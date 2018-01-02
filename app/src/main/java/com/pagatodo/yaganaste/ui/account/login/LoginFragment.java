@@ -241,6 +241,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                           //  Servicio para consumir usuario y contraseña
                             validateForm();
                            edtPin.setText("");
+                           edtPin.isFocused();
 
                         }
                     }

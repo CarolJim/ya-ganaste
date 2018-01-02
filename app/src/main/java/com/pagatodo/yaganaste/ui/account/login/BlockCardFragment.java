@@ -278,6 +278,8 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                         keyboardView.hideCustomKeyboard();
                         //  Servicio para consumir usuario y contraseña
                         validateForm();
+                        edtPin.setText("");
+                        edtPin.isFocused();
                     }
                 }
 
