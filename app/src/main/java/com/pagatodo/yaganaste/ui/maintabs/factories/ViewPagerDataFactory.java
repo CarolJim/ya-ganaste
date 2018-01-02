@@ -104,7 +104,7 @@ public class ViewPagerDataFactory {
         fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
-
+/*
         Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
@@ -140,6 +140,7 @@ public class ViewPagerDataFactory {
         } else {
             fragmentList.add(InviteAdquirenteFragment.newInstance());
         }
+        */
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

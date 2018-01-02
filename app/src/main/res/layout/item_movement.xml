@@ -69,6 +69,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtTituloDescripcion"
                     style="@style/generic_text_style_2"
+                    android:transitionName="@string/transition_name_mov"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"

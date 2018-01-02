@@ -55,8 +55,8 @@ public class ElementView implements Serializable{
     public ArrayList<ElementView> getListWow(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.finance,"Movimientos"));
-        elementViews.add(new ElementView(2, R.mipmap.star,"Promociones"));
-        elementViews.add(new ElementView(3, R.mipmap.map_marker,"Ubicaciones"));
+        elementViews.add(new ElementView(2, R.mipmap.wallet,"Depositios"));
+        elementViews.add(new ElementView(3, R.mipmap.credit_card,"Administración"));
         return elementViews;
     }
 
@@ -68,10 +68,17 @@ public class ElementView implements Serializable{
         return elementViews;
     }
 
-    public ArrayList<ElementView> getListLector(){
+    public ArrayList<ElementView> getListLectorAdq(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.finance,"Movimientos"));
-        elementViews.add(new ElementView(6, R.mipmap.settings,"Mi Lector"));
+        elementViews.add(new ElementView(6, R.mipmap.icon_tab_dongle_white,"Cobros"));
+        elementViews.add(new ElementView(3, R.mipmap.icon_tab_dongle_white,"Administración"));
+        return elementViews;
+    }
+
+    public ArrayList<ElementView> getListLectorEmi(){
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(7, R.mipmap.icon_tab_dongle_white,"Registrar"));
         return elementViews;
     }
 }

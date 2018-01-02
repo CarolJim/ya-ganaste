@@ -435,8 +435,8 @@
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
-    <string name="main_tab_pagos">Pagos</string>
-    <string name="main_tab_depositos">Depósitos</string>
+    <string name="main_tab_pagos">Pagar</string>
+    <string name="main_tab_depositos">Enviar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Movimientos</string>
@@ -1155,4 +1155,7 @@
     <string name="confirmar_contrase">La Contraseña no Coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato de\nContraseña Para Que Sea Más Segura</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
+
+    <!-- Transitions -->
+    <string name="transition_name_mov">transition:MOVE</string>
 </resources>

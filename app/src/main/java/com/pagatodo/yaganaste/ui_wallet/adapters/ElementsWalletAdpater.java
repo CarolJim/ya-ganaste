@@ -35,7 +35,11 @@ public class ElementsWalletAdpater extends RecyclerView.Adapter<ButtonsViewHolde
     @Override
     public ButtonsViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_element, viewGroup, false);
+        //View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_element, viewGroup, false);
+        View view = LayoutInflater
+                .from(viewGroup.getContext())
+                .inflate(R.layout.view_element, null);
+
         ButtonsViewHolder pvh = new ButtonsViewHolder(view, AnimationUtils.loadAnimation(context,
                 R.anim.slide_up));
         return pvh;

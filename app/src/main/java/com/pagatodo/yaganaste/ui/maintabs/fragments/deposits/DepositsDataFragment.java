@@ -169,7 +169,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         if (getParentFragment() != null && getParentFragment().isMenuVisible()) {
-            ((ToolBarActivity) getActivity()).setVisibilityPrefer(false);
+            //((ToolBarActivity) getActivity()).setVisibilityPrefer(false);
         }
         if (a == 100) {
             imageView.setVisibility(View.GONE);

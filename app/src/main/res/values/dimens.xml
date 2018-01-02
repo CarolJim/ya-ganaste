@@ -196,9 +196,10 @@
     <dimen name="switch_card_thumb_size">20dp</dimen>
 
     <dimen name="pager_dot_size">11dp</dimen>
-    <dimen name="item_offset">5dp</dimen>
+    <dimen name="item_offset">6dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
     <dimen name="card_padding">75dp</dimen>
     <dimen name="margin_wallet">15dp</dimen>
+    <dimen name="card_height">80dp</dimen>
 </resources>
 
