@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,19 +26,25 @@ import butterknife.ButterKnife;
  */
 public class NewPaymentFragment extends GenericFragment implements IPaymentFragment {
 
-    @BindView(R.id.gvPayment)
-    GridView gvPayment;
-    @BindView(R.id.gv2)
-    GridView gv2;
+    @BindView(R.id.gvRecargas)
+    GridView gvRecargas;
+    @BindView(R.id.gvServicios)
+    GridView gvServicios;
 
     private View rootview;
     private ArrayList myDataset;
+    private ArrayList mRecargarGrid;
+    private ArrayList mPagarGrid;
+    private int typeView = 0;
 
     public static final int TYPE_RELOAD = 1;
-    public static final int TYPE_PAYMENT = 2;
+    public static final int TYPE_SERVICE = 2;
+
     private ArrayList myDatasetAux;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     INewPaymentPresenter newPaymentPresenter;
+    private List<ComercioResponse> mDataRecargar;
+    private List<ComercioResponse> mDataPagar;
 
     public NewPaymentFragment() {
         // Required empty public constructor
@@ -71,67 +79,35 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        // Array Auxiliar para operaciones de GridView
+        mRecargarGrid = new ArrayList();
+        mPagarGrid = new ArrayList();
+        myDatasetAux = new ArrayList();
+
+        gvRecargas.setVerticalScrollBarEnabled(false);
+        gvServicios.setVerticalScrollBarEnabled(false);
+
         // Hacemos al consulta de favoritos
         // paymentsCarouselPresenter = new PaymentsCarouselPresenter(1, this, getContext(), true);
         // paymentsCarouselPresenter.getFavoriteCarouselItems();
 
-        newPaymentPresenter = new NewPaymentPresenter(this);
-        newPaymentPresenter.testToPresenter();
+        newPaymentPresenter = new NewPaymentPresenter(this, App.getContext());
+        newPaymentPresenter.getRecargarItems(TYPE_RELOAD);
+        newPaymentPresenter.getRecargarItems(TYPE_SERVICE);
 
-        // Array Auxiliar para operaciones de GridView
-        myDatasetAux = new ArrayList();
 
+
+        /*
+        Bloque de pruebas, eliminar despues
         //initList1();
         initList10();
         myDatasetAux = orderList(myDataset);
-        gvPayment.setAdapter(new PaymentAdapterRV(myDatasetAux, this, TYPE_RELOAD));
+        gvPayment.setAdapter(new PaymentAdapterRV(myDatasetAux, this, TYPE_RELOAD));*/
 
         //initList7();
-        initList17();
+       /* initList17();
         myDatasetAux = orderList(myDataset);
-        gv2.setAdapter(new PaymentAdapterRV(myDatasetAux, this, TYPE_PAYMENT));
-    }
-
-    /**
-     * Se encarga de acomodar el Dataset que enviaremos al Adapter. Siguiendo las reglas de 4 casos
-     * @param originalData Contiene la lista del arreglo original que nos brindan los servicios o DB
-     * @return
-     */
-    private ArrayList orderList(ArrayList<DataFavoritosGridView> originalData) {
-        // Array auxiliar para cuando debemos de hacer muchos cambios de posiciones
-        ArrayList myDatasetExtra = new ArrayList();
-
-        int lenghtArray = originalData.size();
-        if (lenghtArray == 0) {
-            for (int x = 0; x < 10; x++) {
-                originalData.add(new DataFavoritosGridView("Nuevo", R.drawable.add_photo_canvas));
-            }
-        }
-
-        // 7 -> 0-6  10 -> 0-9
-        if (lenghtArray > 0 && lenghtArray < 11) {
-            int diference = 10 - lenghtArray;
-            for (int x = 0; x < diference; x++) {
-                originalData.add(new DataFavoritosGridView("Nuevo", R.drawable.add_photo_canvas));
-            }
-        }
-
-        if(lenghtArray == 10){
-
-        }
-
-        if (lenghtArray > 11) {
-           // myDatasetExtra
-            myDatasetExtra.add(new DataFavoritosGridView("Buscar", R.drawable.places_ic_search));
-            for (int x = 0; x < 8; x++) {
-                myDatasetExtra.add(new DataFavoritosGridView(originalData.get(x).getmName(), originalData.get(x).getmDrawable()));
-            }
-            myDatasetExtra.add(new DataFavoritosGridView("Nuevo", R.drawable.add_photo_canvas));
-
-            originalData.clear();
-            originalData = myDatasetExtra;
-        }
-        return originalData;
+        gv2.setAdapter(new PaymentAdapterRV(myDatasetAux, this, TYPE_PAYMENT));*/
     }
 
     private void initList1() {
@@ -140,48 +116,48 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     private void initList7() {
         myDataset = new ArrayList();
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
     }
 
     private void initList10() {
         myDataset = new ArrayList();
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camara_white_blue_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camara_white_blue_canvas));
     }
 
     private void initList17() {
         myDataset = new ArrayList();
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camara_white_blue_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camara_white_blue_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
+//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
     }
 
     @Override
@@ -192,5 +168,199 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @Override
     public void resToView() {
         Toast.makeText(getContext(), "MVP Listo", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
+        int comerciosSise = comercios.size();
+        mDataRecargar = new ArrayList<>();
+        mDataPagar = new ArrayList<>();
+
+        /**
+         * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
+         * la informacion que enviaremos al momento de hacer un pago. Es importante siempre tenerlos
+         * integros y de acceso
+         */
+        if (typeData == 1) {
+            /**
+             * Ordenamos la lista como en el orden correcto de Carriers
+             * - Recargas
+             * - Servicios
+             */
+            mDataRecargar = comercios;
+            mDataRecargar = orderCarriers(mDataRecargar, typeData);
+
+            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+            if (mDataRecargar.size() > 0) {
+                for (int x = 0; x < 8; x++) {
+                    mRecargarGrid.add(new DataFavoritosGridView(
+                            mDataRecargar.get(x).getColorMarca(),
+                            mDataRecargar.get(x).getNombreComercio(),
+                            mDataRecargar.get(x).getLogoURL()));
+                }
+
+                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD));
+               // mRecargarGrid.clear();
+            }
+        } else if (typeData == 2) {
+            mDataPagar = comercios;
+            mDataPagar = orderCarriers(mDataPagar, typeData);
+
+            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+            if (mDataPagar.size() > 0) {
+                for (int x = 0; x < 8; x++) {
+                    mPagarGrid.add(new DataFavoritosGridView(
+                            mDataPagar.get(x).getColorMarca(),
+                            mDataPagar.get(x).getNombreComercio(),
+                            mDataPagar.get(x).getLogoURL()));
+                }
+
+                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE));
+               // mRecargarGrid.clear();
+            }
+        }
+    }
+
+    private List<ComercioResponse> orderCarriers(List<ComercioResponse> originalList, int typeData) {
+        ArrayList<Integer> orderBy = new ArrayList<>();
+        ArrayList<ComercioResponse> finalList = new ArrayList<>();
+
+        // Agregamos la lupa solo si tenemos mas de 8 items en el servicio
+        int lenghtArray = originalList.size();
+        if (lenghtArray > 8) {
+            ComercioResponse itemLupa = new ComercioResponse();
+            itemLupa.setLogoURL("R.mipmap.buscar_con_texto");
+            itemLupa.setNombreComercio("Buscar");
+            finalList.add(itemLupa);
+        }
+
+        switch (typeData) {
+            case 1:
+                orderBy.add(18);
+                orderBy.add(7);
+                orderBy.add(12);
+                orderBy.add(8);
+                orderBy.add(22);
+                orderBy.add(13);
+                orderBy.add(28);
+                orderBy.add(23);
+                orderBy.add(26);
+                break;
+            case 2:
+                orderBy.add(4);
+                orderBy.add(21);
+                orderBy.add(20);
+                orderBy.add(6);
+                orderBy.add(3);
+                orderBy.add(17);
+                orderBy.add(25);
+                orderBy.add(27);
+                orderBy.add(2);
+                break;
+        }
+
+        /**
+         * Buscamos en nuestro orderBy cada elemento en un ciclo adicional de originalList, si el ID existe
+         * lo agregamos a nuesta finalList. Y eliminamos ese elemnto de originalList
+         */
+        for (Integer miList : orderBy) {
+            for (int x = 0; x < originalList.size(); x++) {
+                if (originalList.get(x).getIdComercio() == miList) {
+                    finalList.add(originalList.get(x));
+                    originalList.remove(x);
+                }
+            }
+        }
+
+        /**
+         * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
+         * finalList
+         */
+        for (int x = 0; x < originalList.size(); x++) {
+            finalList.add(originalList.get(x));
+        }
+
+        return finalList;
+    }
+
+    /**
+     * Se encarga de acomodar el Dataset que enviaremos al Adapter. Siguiendo las reglas de 4 casos
+     *
+     * @param originalData Contiene la lista del arreglo original que nos brindan los servicios o DB
+     * @return
+     */
+    private ArrayList orderList(ArrayList<DataFavoritosGridView> originalData) {
+        // Array auxiliar para cuando debemos de hacer muchos cambios de posiciones
+        ArrayList myDatasetExtra = new ArrayList();
+
+        int lenghtArray = originalData.size();
+        if (lenghtArray == 0) {
+            for (int x = 0; x < 10; x++) {
+                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), "Nuevo", "R.drawable.add_photo_canvas"));
+            }
+        }
+
+        // 7 -> 0-6  10 -> 0-9
+        if (lenghtArray > 0 && lenghtArray < 11) {
+            int diference = 10 - lenghtArray;
+            for (int x = 0; x < diference; x++) {
+                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), "Nuevo", "R.drawable.add_photo_canvas"));
+            }
+        }
+
+        if (lenghtArray == 10) {
+
+        }
+
+        if (lenghtArray > 11) {
+            // myDatasetExtra
+            myDatasetExtra.add(new DataFavoritosGridView("#888888", "Buscar", "R.drawable.places_ic_search"));
+            for (int x = 0; x < 8; x++) {
+                myDatasetExtra.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), originalData.get(x).getName(), originalData.get(x).getUrlLogo()));
+            }
+            myDatasetExtra.add(new DataFavoritosGridView("#888888", "Nuevo", "R.drawable.add_photo_canvas"));
+
+            originalData.clear();
+            originalData = myDatasetExtra;
+        }
+        return originalData;
+    }
+
+    private ArrayList orderListCarriers(ArrayList<DataFavoritosGridView> originalData) {
+        // Array auxiliar para cuando debemos de hacer muchos cambios de posiciones
+        ArrayList myDatasetExtra = new ArrayList();
+
+
+        // TODO Simular el camino del Carrier cuando viene vacio, menor a 10, solo 10 o mas
+        int lenghtArray = originalData.size();
+     /*   if (lenghtArray == 0) {
+            for (int x = 0; x < 10; x++) {
+                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), "Nuevo", "R.drawable.add_photo_canvas"));
+            }
+        }
+
+        // 7 -> 0-6  10 -> 0-9
+        if (lenghtArray > 0 && lenghtArray < 11) {
+            int diference = 10 - lenghtArray;
+            for (int x = 0; x < diference; x++) {
+                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), "Nuevo", "R.drawable.add_photo_canvas"));
+            }
+        }
+
+        if (lenghtArray == 10) {
+
+        }*/
+
+        if (lenghtArray > 7) {
+            // myDatasetExtra
+            myDatasetExtra.add(new DataFavoritosGridView("#888888", "Buscar", "R.drawable.places_ic_search"));
+            for (int x = 0; x < 7; x++) {
+                myDatasetExtra.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), originalData.get(x).getName(), originalData.get(x).getUrlLogo()));
+            }
+            // myDatasetExtra.add(new DataFavoritosGridView("#888888", "Nuevo", "R.drawable.add_photo_canvas"));
+
+            originalData.clear();
+            originalData = myDatasetExtra;
+        }
+        return originalData;
     }
 }

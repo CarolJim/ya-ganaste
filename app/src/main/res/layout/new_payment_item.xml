@@ -2,22 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/grid_image"
-        tools:background="@mipmap/ic_launcher"
-        android:layout_width="60dp"
-        android:layout_height="60dp">
-    </ImageView>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/itemGallery"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgItemGalleryMark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/blacksquare"
+            app:civ_border_color="#FF09CC20"
+            app:civ_border_width="2dp" />
+
+        <ImageView
+            android:id="@+id/imgItemGalleryPay"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+    </RelativeLayout>
 
     <TextView
         tools:text="Nombre Contacto largo"
         android:id="@+id/grid_text"
-        android:layout_width="60dp"
+        android:layout_width="65dp"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"

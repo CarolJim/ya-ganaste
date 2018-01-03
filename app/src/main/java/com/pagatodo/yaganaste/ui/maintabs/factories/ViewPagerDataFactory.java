@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
+import com.pagatodo.yaganaste.ui.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
@@ -99,7 +100,8 @@ public class ViewPagerDataFactory {
     }
     private static void addMainFragments(List<Fragment> fragmentList) {
        int Idestatus;
-        fragmentList.add(HomeTabFragment.newInstance());
+        //fragmentList.add(HomeTabFragment.newInstance());
+        fragmentList.add(NewPaymentFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
 

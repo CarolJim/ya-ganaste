@@ -6,4 +6,8 @@ package com.pagatodo.yaganaste.ui;
 
 public interface INewPaymentInteractor {
     void testToInteractor();
+
+    void getCatalogosRecargarFromService();
+
+    void getCatalogosFromDB(int mType);
 }

@@ -544,7 +544,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     @Override
-    public void getDataForm() {
+    public void getDataForm() {edtUserPass.setText("Q1w2e3r4");
         username = edtUserName.getText().trim();
         password = edtUserPass.getText().trim();
         nip = edtPin.getText().toString().trim();
