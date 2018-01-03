@@ -341,7 +341,6 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
-    <string name="formato_password">Tu Nueva Contraseña Debe Tener 6 Digitos,\n No Puede Incluir 3 Números Iguales\nSeguidos Ni Números Consecutivos</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -1153,6 +1152,7 @@
     <string name="confirma_nueva_contrasena">Confirma tu Contraseña</string>
     <string name="confirma_nueva_contraseña">Confirmar Nueva Contraseña</string>
     <string name="confirmar_contrase">La Contraseña no Coincide</string>
-    <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato de\nContraseña Para Que Sea Más Segura</string>
+    <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato Para Que Accedas Más Rápido\n\nIngresa Una Contraseña de 6 Dígitos</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
+    <string name="formato_password">Tu Nueva Contraseña no Puede Incluir\n3 Números Iguales Seguidos\nni Números Consecutivos</string>
 </resources>

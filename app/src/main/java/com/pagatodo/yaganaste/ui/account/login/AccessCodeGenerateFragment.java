@@ -422,7 +422,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             mKeyGenerator.generateKey();
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
                 | CertificateException | IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
