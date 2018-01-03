@@ -341,7 +341,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
-    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 6 Digitos, No\n Puede Incluir 3 Números Iguales Seguidos\nNi Números Consecutivos</string>
+    <string name="formato_password">Tu Nueva Contraseña Debe Tener 6 Digitos,\n No Puede Incluir 3 Números Iguales\nSeguidos Ni Números Consecutivos</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
