@@ -242,7 +242,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.toString().length() == 6) {
                             if (!UtilsNet.isOnline(getActivity())) {
-                                UI.createSimpleCustomDialog("Ocurrio un Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
+                                UI.createSimpleCustomDialog("Ocurrió un Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
                             }else{
                                 keyboardView.hideCustomKeyboard();
                                 //  Servicio para consumir usuario y contraseña
