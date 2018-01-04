@@ -2,7 +2,9 @@ package com.pagatodo.yaganaste.ui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.squareup.picasso.Picasso;
@@ -118,7 +121,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                     imageView.setBackground(App.getContext().getDrawable(R.drawable.places_ic_search));
                     imageViewBorder.setBorderColor(Color.WHITE);
                 } else {
-                    setImagePicasoFav(imageView, myDataset.get(position).getUrlLogo());
+                    setImagePicasoFav(imageViewBorder, myDataset.get(position).getUrlLogo());
                     //imageView.setBackground(App.getContext().getDrawable(R.drawable.ic_add_new_favorite));
                 }
 
@@ -144,10 +147,16 @@ public class PaymentAdapterRV extends BaseAdapter {
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
-                .load("http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/Favoritos/f865f5e529a95c9ef26bbd760b6e94e3303ae6b320e76e5e0bf267b168107ac1.png")
+                .load(urlLogo)
                 .placeholder(R.mipmap.icon_user)
+                .resize(80,80)
+                .centerCrop()
                 .error(R.mipmap.ic_launcher)
                 .into(imageView);
+
+        /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
+                .error(R.mipmap.ic_launcher)
+                .dontAnimate().into(imageView);*/
     }
         /*ImageView imageView;
         int dpInt = 50;
