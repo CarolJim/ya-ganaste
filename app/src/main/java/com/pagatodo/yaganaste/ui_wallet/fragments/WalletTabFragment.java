@@ -132,8 +132,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
     @Override
     public void completed() {
 
-
-
         progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = new CardWalletAdpater();
         cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
@@ -144,12 +142,10 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
             cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
         }
 
-
         viewPagerWallet.setAdapter(cardWalletAdpater);
         //viewPagerWallet.setPageTransformer(true, new ZoomOutPageTransformer(true));
         viewPagerWallet.setCurrentItem(0);
         viewPagerWallet.setOffscreenPageLimit(3);
-
         viewPagerWallet.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

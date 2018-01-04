@@ -37,7 +37,7 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a"
         }
-        useLibrary  'org.apache.http.legacy'
+        useLibrary 'org.apache.http.legacy'
     }
     dexOptions {
         javaMaxHeapSize "4g"
