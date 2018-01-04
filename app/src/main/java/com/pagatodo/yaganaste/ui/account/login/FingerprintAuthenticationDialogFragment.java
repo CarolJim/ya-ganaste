@@ -267,11 +267,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                         @Override
                         public void onClick(View view) {
                             dismiss();
-
-                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                            getActivity().findViewById(R.id.editUserPassword).requestFocus();
-
                         }
                     });
                 } else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
@@ -282,11 +277,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                         @Override
                         public void onClick(View view) {
                             dismiss();
-
-                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                            getActivity().findViewById(R.id.editPassword).requestFocus();
-
                         }
                     });
 
