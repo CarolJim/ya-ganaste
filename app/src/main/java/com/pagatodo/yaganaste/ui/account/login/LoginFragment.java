@@ -241,11 +241,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.toString().length() == 6) {
-                            keyboardView.hideCustomKeyboard();
-                          //  Servicio para consumir usuario y contraseña
-                            validateForm();
-                           edtPin.setText("");
-                           edtPin.isFocused();
+                            if (!UtilsNet.isOnline(getActivity())) {
+                                UI.createSimpleCustomDialog("Ocurrio un Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
+                            }else{
+                                keyboardView.hideCustomKeyboard();
+                                //  Servicio para consumir usuario y contraseña
+                                validateForm();
+                                edtPin.setText("");
+                                edtPin.isFocused();
+                            }
+
+
 
                         }
                     }
@@ -386,8 +392,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-        opciones_login.setVisibility(VISIBLE);
-        keyboardView.hideCustomKeyboard();
+
         if (!dialogErrorShown) {
             dialogErrorShown = true;
             UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
@@ -399,11 +404,14 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                             edtUserPass.setText("");
                             password = "";
                             dialogErrorShown = false;
+                            opciones_login.setVisibility(VISIBLE);
+                            keyboardView.hideCustomKeyboard();
                         }
 
                         @Override
                         public void actionCancel(Object... params) {
-
+                            opciones_login.setVisibility(VISIBLE);
+                            keyboardView.hideCustomKeyboard();
                         }
                     });
         }
