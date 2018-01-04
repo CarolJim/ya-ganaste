@@ -113,7 +113,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     FingerprintManager fingerprintManager;
 
 
-
     ////Teclado de 6 digitos Variables
 
     @BindView(R.id.customkeyboard)
@@ -138,9 +137,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     private static int PIN_LENGHT = 6;
     @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
-
-
-
 
 
     @Override
@@ -204,7 +200,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
         ////teclado de 6 Digitos Rutina
 
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
             btnGenerateCode.setVisibility(GONE);
             linerar_principal.setOnClickListener(this);
             editPassword.setVisibility(GONE);
@@ -246,9 +242,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 }
             });
 
-
-
-
             edtPin.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -261,13 +254,20 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                     return true; // Consume touch event
                 }
             });
+            edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        keyboardView.hideCustomKeyboard();
+                        btnGenerateCode.setVisibility(VISIBLE);
+                    }
+                }
+            });
             //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
-           // setValidationRules();
+            // setValidationRules();
             keyboardView.showCustomKeyboard(rootView);
             edtPin.requestEditFocus();
-
-        }else {
-
+        } else {
             editPassword.setVisibility(View.VISIBLE);
         }
 
@@ -443,17 +443,11 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             case R.id.btnGenerateCode:
                 loadOtp();
                 break;
-
-            case  R.id.customkeyboard:
+            case R.id.customkeyboard:
                 keyboardView.showCustomKeyboard(rootView);
+                edtPin.requestEditFocus();
                 btnGenerateCode.setVisibility(GONE);
                 break;
-
-            case  R.id.activity_lets_start:
-                keyboardView.hideCustomKeyboard();
-                btnGenerateCode.setVisibility(VISIBLE);
-                break;
-
             default:
                 //Nothing To Do
                 break;
@@ -461,7 +455,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public void loadOtpHuella() {
-
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
         ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
         prefs.saveDataBool(HUELLA_FAIL, false);
@@ -470,7 +463,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     private void loadOtp() {
 
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE,false)){
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
 
             editPassword.setText(edtPin.getText().toString().trim());
 
@@ -487,7 +480,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
             }
 
-        }else {
+        } else {
 
 
             if (editPassword.isValidText()) {

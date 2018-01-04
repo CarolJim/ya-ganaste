@@ -47,8 +47,6 @@
                     android:text="@string/access_code_text" />
 
 
-
-
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editPassword"
                     style="@style/GenericCustomValidationEditText"
@@ -60,22 +58,24 @@
                     app:isSingleLine="true"
                     app:maxLength="50" />
 
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorPasswordMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible" />
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/asignar_edittext"
                     android:layout_width="1px"
                     android:layout_height="1px"
                     android:layout_marginTop="3dp"
                     android:inputType="numberPassword" />
-                <include layout="@layout/login_fragment_passwordedittext_custom"
-                    android:visibility="gone"
-                    android:id="@+id/customkeyboard"
-                    />
 
+                <include
+                    android:id="@+id/customkeyboard"
+                    layout="@layout/login_fragment_passwordedittext_custom"
+                    android:visibility="gone" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorPasswordMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
