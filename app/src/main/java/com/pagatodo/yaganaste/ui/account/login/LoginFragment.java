@@ -111,6 +111,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.linerar_principal)
     LinearLayout linerar_principal;
 
+    @BindView(R.id.opciones_login)
+    LinearLayout opciones_login;
+
+
 
 
     LinearLayout layout_control;
@@ -337,10 +341,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
             case R.id.linerar_principal:
+                opciones_login.setVisibility(VISIBLE);
                 keyboardView.hideCustomKeyboard();
                 btnLogin.setVisibility(VISIBLE);
                 break;
             case R.id.customkeyboard:
+                opciones_login.setVisibility(GONE);
                 keyboardView.showCustomKeyboard(rootview);
                 btnLogin.setVisibility(GONE);
                 break;
@@ -380,6 +386,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
+        opciones_login.setVisibility(VISIBLE);
+        keyboardView.hideCustomKeyboard();
         if (!dialogErrorShown) {
             dialogErrorShown = true;
             UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
