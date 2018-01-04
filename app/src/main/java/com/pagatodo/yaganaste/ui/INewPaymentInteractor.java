@@ -10,4 +10,8 @@ public interface INewPaymentInteractor {
     void getCatalogosRecargarFromService();
 
     void getCatalogosFromDB(int mType);
+
+    void getFavoritesFromService();
+
+    void getFavoritesFromDB(int id);
 }

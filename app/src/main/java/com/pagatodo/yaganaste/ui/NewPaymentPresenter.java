@@ -1,16 +1,23 @@
 package com.pagatodo.yaganaste.ui;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 
 /**
  * Created by FranciscoManzo on 28/12/2017.
@@ -23,6 +30,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     Context mContext;
     private CatalogsDbApi api;
     private int typeData;
+    private int typeDataFav;
 
     public NewPaymentPresenter(NewPaymentFragment mView, Context context) {
         this.mView = mView;
@@ -32,13 +40,43 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void getRecargarItems(int typeData) {
+    public void getCarriersItems(int typeData) {
         this.typeData = typeData;
         //Revisar que la tabla no esté
         if (api.isCatalogTableEmpty()) {
             mInteractor.getCatalogosRecargarFromService();
         } else {
             mInteractor.getCatalogosFromDB(typeData);
+        }
+    }
+
+    @Override
+    public void getFavoritesItems(int typeDataFav) {
+        this.typeDataFav = typeDataFav;
+        if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
+            mInteractor.getFavoritesFromService();
+            // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
+        } else {
+            mInteractor.getFavoritesFromService();
+        }
+    }
+
+    @Override
+    public void onSuccessWSFavorites(DataSourceResult result) {
+        ConsultarFavoritosResponse response = (ConsultarFavoritosResponse) result.getData();
+        if (response.getCodigoRespuesta() == CODE_OK) {
+            try {
+                App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
+                if (response.getData().size() > 0) {
+                    api.insertFavorites(response.getData());
+                }
+                mInteractor.getFavoritesFromDB(typeDataFav);
+            } catch (Exception e) {
+                e.printStackTrace();
+             //   mView.showError();
+            }
+        } else {
+            // mView.showError();
         }
     }
 
@@ -50,6 +88,19 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     @Override
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
         mView.setCarouselData(comercios, typeData);
+    }
+
+    @Override
+    public void onSuccessDBFavorites(List<DataFavoritos> catalogos) {
+        mView.setDataFavorite(catalogos, typeDataFav);
+
+
+//        if (showFavorite) {
+//            paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+//
+//        } else {
+//            paymentsManager.showFavorites();
+//        }
     }
 
     @Override

@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 
@@ -30,6 +32,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     GridView gvRecargas;
     @BindView(R.id.gvServicios)
     GridView gvServicios;
+    @BindView(R.id.btnSwitch)
+    Switch btnSwitch;
 
     private View rootview;
     private ArrayList myDataset;
@@ -39,12 +43,16 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     public static final int TYPE_RELOAD = 1;
     public static final int TYPE_SERVICE = 2;
+    public static final int TYPE_CARRIER = 1;
+    public static final int TYPE_FAVORITE = 2;
 
     private ArrayList myDatasetAux;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     INewPaymentPresenter newPaymentPresenter;
     private List<ComercioResponse> mDataRecargar;
     private List<ComercioResponse> mDataPagar;
+    private List<DataFavoritos> mDataRecargarFav;
+    private List<DataFavoritos> mDataPagarFav;
 
     public NewPaymentFragment() {
         // Required empty public constructor
@@ -92,22 +100,41 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         // paymentsCarouselPresenter.getFavoriteCarouselItems();
 
         newPaymentPresenter = new NewPaymentPresenter(this, App.getContext());
-        newPaymentPresenter.getRecargarItems(TYPE_RELOAD);
-        newPaymentPresenter.getRecargarItems(TYPE_SERVICE);
 
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (btnSwitch.isChecked()) {
+                    Toast.makeText(App.getContext(), "ON", Toast.LENGTH_SHORT).show();
+                    updateFavorites();
+                } else {
+                    Toast.makeText(App.getContext(), "OFF", Toast.LENGTH_SHORT).show();
+                    updateCarriers();
+                }
+            }
+        });
+    }
 
+    private void updateFavorites() {
+        mRecargarGrid.clear();
+        mPagarGrid.clear();
+        newPaymentPresenter.getFavoritesItems(TYPE_RELOAD);
+        // newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
+    }
 
-        /*
-        Bloque de pruebas, eliminar despues
-        //initList1();
-        initList10();
-        myDatasetAux = orderList(myDataset);
-        gvPayment.setAdapter(new PaymentAdapterRV(myDatasetAux, this, TYPE_RELOAD));*/
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        //initList7();
-       /* initList17();
-        myDatasetAux = orderList(myDataset);
-        gv2.setAdapter(new PaymentAdapterRV(myDatasetAux, this, TYPE_PAYMENT));*/
+        updateCarriers();
+        //updateCarriers();
+    }
+
+    private void updateCarriers() {
+        mRecargarGrid.clear();
+        mPagarGrid.clear();
+        newPaymentPresenter.getCarriersItems(TYPE_RELOAD);
+        newPaymentPresenter.getCarriersItems(TYPE_SERVICE);
     }
 
     private void initList1() {
@@ -187,35 +214,89 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              * - Servicios
              */
             mDataRecargar = comercios;
+            /**
+             * Lineas de pruebas. Se eliminaran elementos para probar la logica
+             Para probar lista sin lupa y menos de 8 elementos
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+             mDataRecargar.remove(7);
+             mDataRecargar.remove(6);
+
+             Para probar lista de 8
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+
+             Para probar lista vacia
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+             mDataRecargar.remove(7);
+             mDataRecargar.remove(6);
+             mDataRecargar.remove(5);
+             mDataRecargar.remove(4);
+             mDataRecargar.remove(3);
+             mDataRecargar.remove(2);
+             mDataRecargar.remove(1);
+             mDataRecargar.remove(0);
+             */
+
+
+
             mDataRecargar = orderCarriers(mDataRecargar, typeData);
 
             // Creamos la lista que enviaremos al Grid con los datos del Recargas
             if (mDataRecargar.size() > 0) {
-                for (int x = 0; x < 8; x++) {
+                /**
+                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+                 */
+                int llaveRecargas = mDataRecargar.size() > 8 ? 8 : mDataRecargar.size();
+
+                for (int x = 0; x < llaveRecargas; x++) {
                     mRecargarGrid.add(new DataFavoritosGridView(
                             mDataRecargar.get(x).getColorMarca(),
                             mDataRecargar.get(x).getNombreComercio(),
                             mDataRecargar.get(x).getLogoURL()));
                 }
 
-                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD));
-               // mRecargarGrid.clear();
+                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD,
+                        TYPE_CARRIER));
+                // mRecargarGrid.clear();
+            }else{
+                // TODO Mostrar un mensaje cuando la lista Recargas llegar vacia del servicio
+                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
             }
         } else if (typeData == 2) {
+
             mDataPagar = comercios;
+
+            /**
+             * Lineas de pruebas. Se eliminaran elementos para probar la logica
+             mDataPagar.remove(9);
+             mDataPagar.remove(8);
+             mDataPagar.remove(7);
+             */
+
             mDataPagar = orderCarriers(mDataPagar, typeData);
 
             // Creamos la lista que enviaremos al Grid con los datos del Recargas
             if (mDataPagar.size() > 0) {
-                for (int x = 0; x < 8; x++) {
+                /**
+                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+                 */
+                int llaveServicios = mDataPagar.size() > 8 ? 8 : mDataPagar.size();
+
+                for (int x = 0; x < llaveServicios; x++) {
                     mPagarGrid.add(new DataFavoritosGridView(
                             mDataPagar.get(x).getColorMarca(),
                             mDataPagar.get(x).getNombreComercio(),
                             mDataPagar.get(x).getLogoURL()));
                 }
 
-                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE));
-               // mRecargarGrid.clear();
+                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE,
+                        TYPE_CARRIER));
+                // mRecargarGrid.clear();
+            }else{
+                // TODO Mostrar un mensaje cuando la lista Servicios llegar vacia del servicio
+                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -224,9 +305,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         ArrayList<Integer> orderBy = new ArrayList<>();
         ArrayList<ComercioResponse> finalList = new ArrayList<>();
 
-        // Agregamos la lupa solo si tenemos mas de 8 items en el servicio
+        // Agregamos la lupa solo si tenemos mas de 8 items en el servicio. En caso de 0 no agrega nada
         int lenghtArray = originalList.size();
-        if (lenghtArray > 8) {
+        if (lenghtArray > 8 && lenghtArray != 0) {
             ComercioResponse itemLupa = new ComercioResponse();
             itemLupa.setLogoURL("R.mipmap.buscar_con_texto");
             itemLupa.setNombreComercio("Buscar");
@@ -281,6 +362,137 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         return finalList;
     }
+
+    @Override
+    public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
+        int dataFavSize = dataFavoritos.size();
+        mDataRecargar = new ArrayList<>();
+        mDataPagar = new ArrayList<>();
+
+        /**
+         * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
+         * la informacion que enviaremos al momento de hacer un pago. Es importante siempre tenerlos
+         * integros y de acceso
+         */
+        if (typeDataFav == 1) {
+            /**
+             * Ordenamos la lista como en el orden correcto de Carriers
+             * - Recargas
+             * - Servicios
+             */
+            mDataRecargarFav = dataFavoritos;
+            /**
+             * Lineas de pruebas. Se eliminaran elementos para probar la logica
+             Para probar lista sin lupa y menos de 8 elementos
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+             mDataRecargar.remove(7);
+             mDataRecargar.remove(6);
+
+             Para probar lista de 8
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+
+             Para probar lista vacia
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+             mDataRecargar.remove(7);
+             mDataRecargar.remove(6);
+             mDataRecargar.remove(5);
+             mDataRecargar.remove(4);
+             mDataRecargar.remove(3);
+             mDataRecargar.remove(2);
+             mDataRecargar.remove(1);
+             mDataRecargar.remove(0);
+             */
+
+            mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
+
+            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+            if (mDataRecargarFav.size() > 0) {
+                /**
+                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+                 */
+                int llaveRecargas = mDataRecargarFav.size() > 8 ? 8 : mDataRecargarFav.size();
+
+                for (int x = 0; x < llaveRecargas; x++) {
+                    mRecargarGrid.add(new DataFavoritosGridView(
+                            mDataRecargarFav.get(x).getColorMarca(),
+                            mDataRecargarFav.get(x).getNombre(),
+                            mDataRecargarFav.get(x).getImagenURL()));
+                    /*
+                            mDataRecargar.get(x).getColorMarca(),
+                            mDataRecargar.get(x).getNombreComercio(),
+                            mDataRecargar.get(x).getLogoURL()));*/
+                }
+
+                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD,
+                        TYPE_FAVORITE));
+                // mRecargarGrid.clear();
+            }else{
+                // TODO Mostrar un mensaje cuando la lista Recargas llegar vacia del servicio
+                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
+            }
+        } else if (typeDataFav == 2) {
+            mDataPagarFav  = dataFavoritos;
+
+            /**
+             * Lineas de pruebas. Se eliminaran elementos para probar la logica
+             mDataPagar.remove(9);
+             mDataPagar.remove(8);
+             mDataPagar.remove(7);
+             */
+
+            mDataPagarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
+
+            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+            if (mDataPagarFav.size() > 0) {
+                /**
+                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+                 */
+                int llaveServicios = mDataPagarFav.size() > 8 ? 8 : mDataPagarFav.size();
+
+                for (int x = 0; x < llaveServicios; x++) {
+                    mPagarGrid.add(new DataFavoritosGridView(
+                            mDataPagarFav.get(x).getColorMarca(),
+                            mDataPagarFav.get(x).getNombre(),
+                            mDataPagarFav.get(x).getImagenURL()));
+                }
+
+                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE,
+                        TYPE_FAVORITE));
+                // mRecargarGrid.clear();
+            }else{
+                // TODO Mostrar un mensaje cuando la lista Servicios llegar vacia del servicio
+                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private List<DataFavoritos> orderFavoritos(List<DataFavoritos> originalList, int typeDataFav) {
+
+        ArrayList<DataFavoritos> finalList = new ArrayList<>();
+
+        // Agregamos la lupa solo si tenemos mas de 8 items en el servicio. En caso de 0 no agrega nada
+        int lenghtArray = originalList.size();
+        if (lenghtArray > 8 && lenghtArray != 0) {
+            DataFavoritos itemLupa = new DataFavoritos(-1);
+            itemLupa.setImagenURL("R.mipmap.buscar_con_texto");
+            itemLupa.setNombre("Buscar");
+            finalList.add(itemLupa);
+        }
+
+        /**
+         * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
+         * finalList
+         */
+        for (int x = 0; x < originalList.size(); x++) {
+            finalList.add(originalList.get(x));
+        }
+
+        return finalList;
+    }
+
 
     /**
      * Se encarga de acomodar el Dataset que enviaremos al Adapter. Siguiendo las reglas de 4 casos

@@ -1,7 +1,12 @@
 package com.pagatodo.yaganaste.ui;
 
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.IRequestResult;
 
 import java.util.List;
 
@@ -9,7 +14,7 @@ import java.util.List;
  * Created by FranciscoManzo on 28/12/2017.
  */
 
-public class NewPaymentInteractor implements INewPaymentInteractor{
+public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResult {
 
     INewPaymentPresenter mPresenter;
     CatalogsDbApi catalogsDbApi;
@@ -36,5 +41,39 @@ public class NewPaymentInteractor implements INewPaymentInteractor{
         } else {
             mPresenter.onErrorService();
         }
+    }
+
+    @Override
+    public void getFavoritesFromService() {
+        try {
+            ApiAdtvo.consultarFavoritos(this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getFavoritesFromDB(int id) {
+        List<DataFavoritos> catalogos = catalogsDbApi.getFavoritesList(id);
+        mPresenter.onSuccessDBFavorites(catalogos);
+    }
+
+    @Override
+    public void onSuccess(DataSourceResult dataSourceResult) {
+        switch (dataSourceResult.getWebService()) {
+            case OBTENER_CATALOGOS:
+               // mPresenter.onSuccessWSObtenerCatalogos(dataSourceResult);
+                break;
+            case OBTENER_FAVORITOS:
+                mPresenter.onSuccessWSFavorites(dataSourceResult);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onFailed(DataSourceResult error) {
+
     }
 }
