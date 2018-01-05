@@ -207,7 +207,6 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void onResume() {
-
         accountPresenter.updateBalance();
         super.onResume();
         //accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));

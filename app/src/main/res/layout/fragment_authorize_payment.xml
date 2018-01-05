@@ -12,10 +12,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/layoutScrollCard"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -208,6 +211,17 @@
                         app:defaultIcon="@null"
                         app:formato="password"
                         app:hintText="@string/password" />
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/asignar_edittext"
+                        android:layout_width="1px"
+                        android:layout_height="1px"
+                        android:layout_marginTop="3dp"
+                        android:inputType="numberPassword" />
+                    <include layout="@layout/login_fragment_passwordedittext_custom"
+                        android:visibility="gone"
+                        android:id="@+id/customkeyboard"
+                        />
+
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorPasswordMessage"
@@ -217,6 +231,7 @@
                         android:layout_marginTop="@dimen/margin_xsmall" />
                 </LinearLayout>
 
+
             </LinearLayout>
 
             <android.support.v4.widget.Space
@@ -225,14 +240,30 @@
                 android:layout_weight="1" />
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+
+                android:orientation="horizontal">
                 android:gravity="center_horizontal">
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+                    android:id="@+id/keyboard_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_above="@+id/relativeAd"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:keyBackground="@drawable/material_key_drawable"
+                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btn_continueEnvio"
                     style="@style/buttonDirecctionNext"
+                    android:layout_marginBottom="@dimen/btn_navigation_bottom"
                     android:gravity="center"
                     android:text="@string/continuar" />
 

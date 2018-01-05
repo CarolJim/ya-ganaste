@@ -23,11 +23,14 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteF
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosCarouselFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -100,10 +103,11 @@ public class ViewPagerDataFactory {
     }
     private static void addMainFragments(List<Fragment> fragmentList) {
        int Idestatus;
-        fragmentList.add(HomeTabFragment.newInstance());
+        //fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
-        fragmentList.add(DepositsFragment.newInstance());
-
+        fragmentList.add(WalletTabFragment.newInstance());
+        fragmentList.add(SendWalletFragment.newInstance());
+/*
         Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
@@ -139,6 +143,7 @@ public class ViewPagerDataFactory {
         } else {
             fragmentList.add(InviteAdquirenteFragment.newInstance());
         }
+        */
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

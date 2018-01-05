@@ -4,8 +4,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
@@ -27,7 +25,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * @author flima
  */
 
-public class SingletonUser {
+public class    SingletonUser {
 
     public static SingletonUser user;
 
@@ -69,7 +67,7 @@ public class SingletonUser {
 
             prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
                     .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
-           // prefs.saveDataBool(PASSWORD_CHANGE,dataUser.getUsuario().getPasswordAsignado());
+            prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
             prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).

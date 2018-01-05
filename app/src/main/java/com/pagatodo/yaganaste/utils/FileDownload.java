@@ -1,16 +1,11 @@
-package com.pagatodo.yaganaste.utils.customviews;
+package com.pagatodo.yaganaste.utils;
 
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.notifications.MessagingService;
-import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,9 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by FranciscoManzo on 15/12/2017.
@@ -29,16 +24,17 @@ import java.net.URLConnection;
  */
 
 public class FileDownload extends AsyncTask<String, String, Uri> {
-    Context context;
     String urlData;
     String nameData;
     String typeData;
+    String dirFile;
+    FileDownloadListener fileDownloadListener;
 
-    public FileDownload(Context context, String urlData, String nameData, String typeData) {
-        this.context = context;
+    public FileDownload(String urlData, String nameData, String typeData, FileDownloadListener listener) {
         this.urlData = urlData;
         this.nameData = nameData;
         this.typeData = typeData;
+        this.fileDownloadListener = listener;
     }
 
     // https://drive.google.com/file/d/1AC2BoUQKeXqQr04047UcZcyARLGsAwB4/view?usp=sharing// https://drive.google.com/file/d/1AC2BoUQKeXqQr04047UcZcyARLGsAwB4/view?usp=sharing
@@ -57,15 +53,15 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
         }
 
         // Crea la Uri con la direccion apuntada a la carpeta /YaGanaste/nombreArchivo
-        myUri = Uri.parse(root + "/YaGanaste/" + nameData);
+        dirFile = root + "/YaGanaste/" + nameData;
+        myUri = Uri.parse(dirFile);
         File af = new File(String.valueOf(myUri));
 
         // Verificamos que el archivo no exista
         if (!af.exists()) {
-            URLConnection conection = null;
+            HttpURLConnection conection = null;
             try {
-                conection = url.openConnection();
-
+                conection = (HttpURLConnection) url.openConnection();
                 conection.connect();
                 // Tamaño del archivo
                 int lenghtOfFile = conection.getContentLength();
@@ -75,7 +71,7 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
 
                 // Output stream to write file
 
-                OutputStream output = new FileOutputStream(root + "/YaGanaste/" + nameData);
+                OutputStream output = new FileOutputStream(dirFile);
                 byte data[] = new byte[1024];
 
                 long total = 0;
@@ -94,8 +90,6 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
                 output.close();
                 input.close();
 
-              //  myUri = Uri.parse(root + "/" + nameData);
-
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -107,10 +101,10 @@ public class FileDownload extends AsyncTask<String, String, Uri> {
     @Override
     protected void onPostExecute(Uri uriPath) {
         // REgresamos el URI y el tipo de data que trabajaremos solo si es un contexto de SplashActivity
-        if (context instanceof SplashActivity) {
-            ((SplashActivity) context).returnUri(uriPath, typeData);
-        }else{
-            Toast.makeText(context, "Tu Descarga ha Finalizado", Toast.LENGTH_SHORT).show();
+        if (fileDownloadListener != null) {
+            fileDownloadListener.returnUri(uriPath, typeData);
+        } else {
+            Toast.makeText(App.getContext(), "Tu Descarga ha Finalizado", Toast.LENGTH_SHORT).show();
         }
         super.onPostExecute(uriPath);
     }

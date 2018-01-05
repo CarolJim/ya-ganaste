@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
@@ -39,7 +40,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
     private String newData;
     private String TAG = getClass().getSimpleName();
 
-    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal, StyleEdittext edtConcept) {
+    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal, @Nullable StyleEdittext edtConcept) {
         this.etMonto = edtMount;
         this.tvMontoEntero = tvMontoEntero;
         this.tvMontoDecimal = tvMontoDecimal;
@@ -202,7 +203,9 @@ public class NumberCalcTextWatcher implements TextWatcher {
 
                     // Hacemos un set vacio en el concepto al reiniciarse la cantidad
                     if(tmp.equals("0.00")){
-                        edtConcept.setText("");
+                        if(edtConcept != null){
+                            edtConcept.setText("");
+                        }
                     }
                 }
             }

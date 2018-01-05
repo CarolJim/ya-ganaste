@@ -1,4 +1,9 @@
 <resources>
+
+    <dimen name="general_padding">16dp</dimen>
+    <dimen name="image">50dp</dimen>
+    <dimen name="row_padding">8dp</dimen>
+
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_horizontal_double_margin">24dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
@@ -185,6 +190,7 @@
     <dimen name="size_text_style_3_value">14sp</dimen>
     <dimen name="size_text_style_3_half_value">7sp</dimen>
     <dimen name="size_text_style_4_value">10sp</dimen>
+    <dimen name="size_text_style_5_value">12sp</dimen>
     <dimen name="size_text_mount">24sp</dimen>
 
 
@@ -196,5 +202,10 @@
     <dimen name="switch_card_thumb_size">20dp</dimen>
 
     <dimen name="pager_dot_size">11dp</dimen>
+    <dimen name="item_offset">6dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
+    <dimen name="card_padding">75dp</dimen>
+    <dimen name="margin_wallet">15dp</dimen>
+    <dimen name="card_height">80dp</dimen>
 </resources>
 

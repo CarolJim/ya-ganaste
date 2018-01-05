@@ -235,7 +235,6 @@
     <string name="txt_selecciona_archivo">Selecciona Archivo</string>
     <string name="error_cargar_imagen">Error al Cargar Imagen</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
     <string name="confirm_pass">Confirma tu Contraseña</string>
     <string name="confirm_new_pass">Confirma Nueva Contraseña</string>
@@ -435,11 +434,12 @@
     <string name="message_generic_wsnuevo">Ocurrió un Error de Conexión al Intentar Realizar la Operación</string>
 
     <!-- Strings Menu Principal-->
-    <string name="main_tab_inicio">Inicio</string>
-    <string name="main_tab_pagos">Pagos</string>
-    <string name="main_tab_depositos">Depósitos</string>
+    <string name="main_tab_inicio">Wallet</string>
+    <string name="main_tab_pagos">Pagar</string>
+    <string name="main_tab_depositos">Envios</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
+    <string name="main_tab_movimientos">Movimientos</string>
     <string name="no_movimientos">No Hay Movimientos Registrados</string>
     <string name="error_respuesta">Ocurrió un Error de Conexión</string>
 
@@ -480,13 +480,15 @@
     <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
-    <string name="title_envio_success">¡Envío en Proceso!</string>
+    <string name="title_envio_in_proccess">¡Envío en Proceso!</string>
+    <string name="title_envio_success">¡Envío Exitoso!</string>
     <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
     <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CLABE</string>
+    <string name="transfer_qr">Código QR</string>
     <string name="transfer_card_unavailable">No Disponible</string>
     <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
@@ -976,6 +978,7 @@
     <string name="details_bank">Banco</string>
     <string name="details_enviado_a">Enviado a</string>
     <string name="details_telefono">Teléfono</string>
+    <string name="details_qr">QR</string>
 
     <string name="status_cancelado">Cancelada</string>
     <string name="status_por_rembolsar">Por Reembolsar</string>
@@ -1111,7 +1114,7 @@
     <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
     <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
-    <string name="trans_spei_envio_txt">Traspaso Mismo Banco</string>
+    <string name="trans_spei_envio_txt">Transferencia SPEI</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
 
 
@@ -1145,6 +1148,13 @@
     <string name="download_file">Descargando Archivo</string>
     <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
 
+    <!-- Wallet -->
+    <string name="opciones">Operaciones</string>
+    <string name="saldo_disponible_enviar">Saldo Disponible: </string>
+    <string name="Monto_a_enviar">Monto a Enviar: </string>
+    <string name="ingresa_monto">Ingresa el Monto</string>
+    <string name="enviar_dinero">Enviar Dinero</string>
+    <string name="solicitar_pago">Solicitar Pago</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1153,4 +1163,9 @@
     <string name="confirmar_contrase">La Contraseña no Coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato de\nContraseña Para Que Sea Más Segura</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
+
+    <!-- Transitions -->
+    <string name="transition_name_mov">transition:MOVE</string>
+
+
 </resources>

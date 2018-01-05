@@ -20,17 +20,12 @@ public class UsuarioClienteResponse implements Serializable {
     private String SegundoApellido = "";
     private String ImagenAvatarURL = "";
     private String TokenSesion = "";
+
     private String TokenSesionAdquirente = "";
     private String FechaUltimoAcceso = "";
     private List<CuentaResponse> Cuentas;
 
-    public Boolean getPasswordAsignado() {
-        return PasswordAsignado;
-    }
 
-    public void setPasswordAsignado(Boolean passwordAsignado) {
-        PasswordAsignado = passwordAsignado;
-    }
 
     private Boolean PasswordAsignado = null;
     private String NumeroAgente = "";
@@ -42,6 +37,13 @@ public class UsuarioClienteResponse implements Serializable {
 
     private String NombreNegocio;
 
+    public Boolean getPasswordAsignado() {
+        return PasswordAsignado;
+    }
+
+    public void setPasswordAsignado(Boolean passwordAsignado) {
+        PasswordAsignado = passwordAsignado;
+    }
 
     public UsuarioClienteResponse() {
         Cuentas = new ArrayList<CuentaResponse>();
