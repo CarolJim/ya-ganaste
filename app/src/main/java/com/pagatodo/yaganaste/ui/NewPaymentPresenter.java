@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -54,15 +53,15 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     public void getFavoritesItems(int typeDataFav) {
         this.typeDataFav = typeDataFav;
         if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
-            mInteractor.getFavoritesFromService();
+            mInteractor.getFavoritesFromService(typeDataFav);
             // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
         } else {
-            mInteractor.getFavoritesFromService();
+            mInteractor.getFavoritesFromService(typeDataFav);
         }
     }
 
     @Override
-    public void onSuccessWSFavorites(DataSourceResult result) {
+    public void onSuccessWSFavorites(DataSourceResult result, int typeDataFav) {
         ConsultarFavoritosResponse response = (ConsultarFavoritosResponse) result.getData();
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {

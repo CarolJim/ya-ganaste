@@ -2,9 +2,8 @@ package com.pagatodo.yaganaste.ui;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
+import android.graphics.drawable.GradientDrawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.squareup.picasso.Picasso;
@@ -66,18 +64,22 @@ public class PaymentAdapterRV extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-//CircleImageView  imgItemGalleryMark  ImageView   imgItemGalleryPay
 
             grid = new View(App.getContext());
             grid = inflater.inflate(R.layout.new_payment_item, null);
 
-            // Agregamos el color del borde
+            // Agregamos el color del borde para todos los casos, en los casos particulares se reescribe
             CircleImageView imageViewBorder = (CircleImageView) grid.findViewById(R.id.imgItemGalleryMark);
             imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
 
+            // Procesos para Carriers
             if (mOperation == TYPE_CARRIER) {
-                // Validacion para cambiar IAVE a Pase Urbano
+                GradientDrawable gd = createCircleDrawable(Color.BLACK,
+                        Color.parseColor(myDataset.get(position).getmColor()));
+                imageViewBorder.setBackground(gd);
+
+                // Validacion para cambiar Strings por texto especifico ejemplo IAVE a Pase Urbano
                 TextView textView = (TextView) grid.findViewById(R.id.grid_text);
                 if (myDataset.get(position).getName().equals("IAVE/Pase Urbano")) {
                     textView.setText("Tag");
@@ -87,12 +89,13 @@ public class PaymentAdapterRV extends BaseAdapter {
                     textView.setText("" + myDataset.get(position).getName());
                 }
 
-
                 // Cargamos la lupa en caso de existir
                 ImageView imageView = (ImageView) grid.findViewById(R.id.imgItemGalleryPay);
                 if (myDataset.get(position).getUrlLogo().equals("R.mipmap.buscar_con_texto")) {
-                    imageView.setBackground(App.getContext().getDrawable(R.drawable.places_ic_search));
-                    imageViewBorder.setBorderColor(Color.WHITE);
+                    GradientDrawable gdCarrier = createCircleDrawable(Color.BLACK, Color.WHITE);
+                    imageViewBorder.setBackground(gdCarrier);
+
+                    imageView.setBackground(App.getContext().getDrawable(R.drawable.new_fav_search));
                 } else {
                     setImagePicaso(imageView, myDataset.get(position).getUrlLogo());
                 }
@@ -104,24 +107,51 @@ public class PaymentAdapterRV extends BaseAdapter {
                     }
                 });
             } else {
+                // Procesos para favoritos
+
+                // Localizamos el elementos de TextView para Iniciales
+                TextView textIniciales = (TextView) grid.findViewById(R.id.textIniciales);
+
+
                 // Validacion para cambiar IAVE a Pase Urbano
                 TextView textView = (TextView) grid.findViewById(R.id.grid_text);
-             /*   if (myDataset.get(position).getName().equals("IAVE/Pase Urbano")) {
-                    textView.setText("Tag");
-                } else if (myDataset.get(position).getName().equals("Telcel Datos")) {
-                    textView.setText("Datos");
-                } else {
-                    textView.setText("" + myDataset.get(position).getName());
-                }*/
                 textView.setText("" + myDataset.get(position).getName());
 
+                String urlImage = myDataset.get(position).getUrlLogo();
                 // Cargamos la lupa en caso de existir
                 ImageView imageView = (ImageView) grid.findViewById(R.id.imgItemGalleryPay);
-                if (myDataset.get(position).getUrlLogo().equals("R.mipmap.buscar_con_texto")) {
-                    imageView.setBackground(App.getContext().getDrawable(R.drawable.places_ic_search));
-                    imageViewBorder.setBorderColor(Color.WHITE);
-                } else {
-                    setImagePicasoFav(imageViewBorder, myDataset.get(position).getUrlLogo());
+                if (urlImage.equals("R.mipmap.buscar_con_texto")) {
+                  //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+
+                    GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.WHITE);
+                    imageViewBorder.setBackground(gd);
+
+                    imageView.setBackground(App.getContext().getDrawable(R.drawable.new_fav_search));
+
+                    //imageViewBorder.setBorderColor(Color.WHITE);
+                } else if (urlImage.equals("R.mipmap.ic_add_new_favorite")) {
+                  //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+
+                    GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.GRAY);
+                    imageViewBorder.setBackground(gd);
+
+                    imageView.setBackground(App.getContext().getDrawable(R.drawable.new_fav_add));
+                  //  imageViewBorder.setBorderColor(Color.GRAY);
+                }else {
+                    if(urlImage.equals("")) {
+                        textIniciales.setVisibility(View.VISIBLE);
+                       // imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+
+                        int colorBackground = Color.parseColor(myDataset.get(position).getmColor());
+                        GradientDrawable gd = createCircleDrawable(colorBackground,
+                                Color.parseColor(myDataset.get(position).getmColor()));
+                        imageViewBorder.setBackground(gd);
+
+                        String sIniciales = getIniciales(myDataset.get(position).getName());
+                        textIniciales.setText(sIniciales);
+                    }else {
+                      setImagePicasoFav(imageViewBorder, urlImage);
+                    }
                     //imageView.setBackground(App.getContext().getDrawable(R.drawable.ic_add_new_favorite));
                 }
 
@@ -139,6 +169,40 @@ public class PaymentAdapterRV extends BaseAdapter {
         return grid;
     }
 
+    // Se encarga de crear el circulo Drawable que usaremos para mostrar las imagenes o los textos
+    private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
+        // Creamos el circulo que mostraremos
+        int strokeWidth = 2; // 3px not dp
+        int roundRadius = 100; // 8px not dp
+        int strokeColor = colorBorder;
+        int fillColor = colorBackground;
+
+        GradientDrawable gd = new GradientDrawable();
+        gd.setColor(fillColor);
+        gd.setCornerRadius(roundRadius);
+        gd.setStroke(strokeWidth, strokeColor);
+
+       return gd;
+    }
+
+    /**
+     * Obtiene las iniciales a mostrar si no tenemos foto: Ejemplo
+     * Frank Manzo Nava= FM
+     * Francisco = Fr
+     * @param fullName
+     * @return
+     */
+    private String getIniciales(String fullName) {
+        String[] spliName = fullName.split(" ");
+        String sIniciales = "";
+        if(spliName.length == 2){
+            sIniciales = spliName[0].substring(0,1) + spliName[1].substring(0,1).toUpperCase();
+        }else{
+            sIniciales = fullName.substring(0,2).toUpperCase();
+        }
+        return sIniciales;
+    }
+
     private void setImagePicaso(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
                 .load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
@@ -149,8 +213,6 @@ public class PaymentAdapterRV extends BaseAdapter {
         Picasso.with(App.getContext())
                 .load(urlLogo)
                 .placeholder(R.mipmap.icon_user)
-                .resize(80,80)
-                .centerCrop()
                 .error(R.mipmap.ic_launcher)
                 .into(imageView);
 

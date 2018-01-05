@@ -119,7 +119,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mRecargarGrid.clear();
         mPagarGrid.clear();
         newPaymentPresenter.getFavoritesItems(TYPE_RELOAD);
-        // newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
+        //   newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
     }
 
     @Override
@@ -240,7 +240,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              */
 
 
-
             mDataRecargar = orderCarriers(mDataRecargar, typeData);
 
             // Creamos la lista que enviaremos al Grid con los datos del Recargas
@@ -260,7 +259,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD,
                         TYPE_CARRIER));
                 // mRecargarGrid.clear();
-            }else{
+            } else {
                 // TODO Mostrar un mensaje cuando la lista Recargas llegar vacia del servicio
                 Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
             }
@@ -294,7 +293,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE,
                         TYPE_CARRIER));
                 // mRecargarGrid.clear();
-            }else{
+            } else {
                 // TODO Mostrar un mensaje cuando la lista Servicios llegar vacia del servicio
                 Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
             }
@@ -366,8 +365,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @Override
     public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
         int dataFavSize = dataFavoritos.size();
-        mDataRecargar = new ArrayList<>();
-        mDataPagar = new ArrayList<>();
+        mDataRecargarFav = new ArrayList<>();
+        mDataPagarFav = new ArrayList<>();
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -429,13 +428,13 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD,
                         TYPE_FAVORITE));
                 // mRecargarGrid.clear();
-            }else{
+            } else {
                 // TODO Mostrar un mensaje cuando la lista Recargas llegar vacia del servicio
                 Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
             }
         } else if (typeDataFav == 2) {
-            mDataPagarFav  = dataFavoritos;
-
+            mDataPagarFav = dataFavoritos;
+            //mDataPagarFav.clear();
             /**
              * Lineas de pruebas. Se eliminaran elementos para probar la logica
              mDataPagar.remove(9);
@@ -443,7 +442,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              mDataPagar.remove(7);
              */
 
-            mDataPagarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
+            mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
 
             // Creamos la lista que enviaremos al Grid con los datos del Recargas
             if (mDataPagarFav.size() > 0) {
@@ -462,10 +461,17 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE,
                         TYPE_FAVORITE));
                 // mRecargarGrid.clear();
-            }else{
+            } else {
                 // TODO Mostrar un mensaje cuando la lista Servicios llegar vacia del servicio
                 Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        /**
+         * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
+         */
+        if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
+            newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
         }
     }
 
@@ -475,21 +481,61 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         // Agregamos la lupa solo si tenemos mas de 8 items en el servicio. En caso de 0 no agrega nada
         int lenghtArray = originalList.size();
+        if (lenghtArray < 9) {
+
+            // Agregamos nuestros elementos que van en la lista, estos tienen item valido
+            for (int x = 0; x < lenghtArray; x++) {
+                finalList.add(originalList.get(x));
+            }
+
+            DataFavoritos itemAdd = new DataFavoritos(-2);
+            itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
+            itemAdd.setNombre("Nuevo");
+            finalList.add(itemAdd);
+
+            // CODIGO ALTERNATIVO para mostrar posiciones en las partes vacias de favoritos
+            // Eliminar para version definitiva
+            // Agregamos los elementos de Add a las posiciones que restan de la lista
+          /*  int numAddItem = 8 - lenghtArray;
+            for (int x = 0; x < numAddItem; x++) {
+                DataFavoritos itemAdd = new DataFavoritos(-2);
+                itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
+                itemAdd.setNombre("Nuevo");
+                finalList.add(itemAdd);
+            }*/
+        }
+
         if (lenghtArray > 8 && lenghtArray != 0) {
             DataFavoritos itemLupa = new DataFavoritos(-1);
             itemLupa.setImagenURL("R.mipmap.buscar_con_texto");
             itemLupa.setNombre("Buscar");
             finalList.add(itemLupa);
+
+            // Agregamos los elementos de Favortios en las posiciones 1-6. 0 = Lupa 7=Agregar
+            for (int x = 0; x < 6; x++) {
+                finalList.add(originalList.get(x));
+            }
+
+            DataFavoritos itemAdd = new DataFavoritos(-2);
+            itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
+            itemAdd.setNombre("Nuevo");
+            finalList.add(itemAdd);
+
+            /**
+             * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
+             * finalList
+             */
+            for (int x = 0; x < originalList.size(); x++) {
+                finalList.add(originalList.get(x));
+            }
         }
 
         /**
-         * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
-         * finalList
+         * Codigo de prueba para verificar el nombre
          */
-        for (int x = 0; x < originalList.size(); x++) {
-            finalList.add(originalList.get(x));
-        }
-
+        finalList.get(1).setImagenURL("");
+        finalList.get(2).setImagenURL("");
+        finalList.get(2).setNombre("Francisco");
         return finalList;
     }
 
@@ -507,7 +553,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         int lenghtArray = originalData.size();
         if (lenghtArray == 0) {
             for (int x = 0; x < 10; x++) {
-                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), "Nuevo", "R.drawable.add_photo_canvas"));
+                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(),
+                        "Nuevo", "R.drawable.add_photo_canvas"));
             }
         }
 
@@ -515,7 +562,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         if (lenghtArray > 0 && lenghtArray < 11) {
             int diference = 10 - lenghtArray;
             for (int x = 0; x < diference; x++) {
-                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(), "Nuevo", "R.drawable.add_photo_canvas"));
+                originalData.add(new DataFavoritosGridView(mDataRecargar.get(x).getColorMarca(),
+                        "Nuevo", "R.drawable.add_photo_canvas"));
             }
         }
 

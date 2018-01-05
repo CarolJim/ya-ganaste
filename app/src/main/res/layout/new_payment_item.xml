@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +21,6 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/blacksquare"
             app:civ_border_color="#FF09CC20"
             app:civ_border_width="2dp" />
 
@@ -33,16 +32,27 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/textIniciales"
+            android:layout_width="50dp"
+            android:textColor="@color/whiteColor"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="FM"
+            android:textSize="24sp" />
     </RelativeLayout>
 
     <TextView
-        tools:text="Nombre Contacto largo"
         android:id="@+id/grid_text"
         android:layout_width="65dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textSize="12sp" >
-    </TextView>
+        android:gravity="center"
+        android:textSize="12sp"
+        tools:text="Nombre Contacto largo"></TextView>
 
 </LinearLayout>

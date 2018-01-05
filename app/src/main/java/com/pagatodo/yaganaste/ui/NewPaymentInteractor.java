@@ -18,6 +18,7 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
 
     INewPaymentPresenter mPresenter;
     CatalogsDbApi catalogsDbApi;
+    private int typeDataFav;
 
     public NewPaymentInteractor(INewPaymentPresenter mPresenter) {
         this.mPresenter = mPresenter;
@@ -44,7 +45,8 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
     }
 
     @Override
-    public void getFavoritesFromService() {
+    public void getFavoritesFromService(int typeDataFav) {
+        this.typeDataFav = typeDataFav;
         try {
             ApiAdtvo.consultarFavoritos(this);
         } catch (OfflineException e) {
@@ -65,7 +67,7 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
                // mPresenter.onSuccessWSObtenerCatalogos(dataSourceResult);
                 break;
             case OBTENER_FAVORITOS:
-                mPresenter.onSuccessWSFavorites(dataSourceResult);
+                mPresenter.onSuccessWSFavorites(dataSourceResult, typeDataFav);
                 break;
             default:
                 break;

@@ -100,8 +100,7 @@ public class ViewPagerDataFactory {
     }
     private static void addMainFragments(List<Fragment> fragmentList) {
        int Idestatus;
-        //fragmentList.add(HomeTabFragment.newInstance());
-        fragmentList.add(NewPaymentFragment.newInstance());
+        fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
 

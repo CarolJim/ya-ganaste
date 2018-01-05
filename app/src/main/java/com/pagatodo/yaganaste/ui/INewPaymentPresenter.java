@@ -21,7 +21,7 @@ public interface INewPaymentPresenter {
 
     void getFavoritesItems(int typeReload);
 
-    void onSuccessWSFavorites(DataSourceResult dataSourceResult);
+    void onSuccessWSFavorites(DataSourceResult dataSourceResult, int typeDataFav);
 
     void onSuccessDBFavorites(List<DataFavoritos> catalogos);
 }
