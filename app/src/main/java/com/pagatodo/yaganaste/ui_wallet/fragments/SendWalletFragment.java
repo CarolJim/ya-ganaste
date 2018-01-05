@@ -20,6 +20,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
+import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
+import com.pagatodo.yaganaste.ui._controllers.manager.DongleBatteryHome;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
@@ -124,7 +126,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     public void onItemClick(ElementView elementView) {
         switch (elementView.getIdOperacion()){
             case ID_ENVIAR:
-
+                Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
+                startActivity(intent);
                 break;
             case ID_SOLICITAR:
                 break;
