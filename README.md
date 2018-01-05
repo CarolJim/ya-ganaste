@@ -13,7 +13,7 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
   
-**_VERSION 1.7.2 - 5 de Diciembre del 2017 al 2 de Enero del 2018 (ID:)_**
+**_VERSION 1.7.2 - 5 de Diciembre del 2017 al 4 de Enero del 2018 (ID:4052)_**
 
 Descripción al desarrollador:
 
@@ -30,6 +30,7 @@ Descripción al desarrollador:
     * Cambio en velocidad de flips para tarjta Emisor y Dongle Adquiriente así como tamaño de los mismos.
     * Implementación de contraseña a 6 dígitos y correción de flujos correspondientes.
     * Correcion de incidencias.
+    * Corrección de bug para mostrar imagenes de Carrusel con información vacía o nula.
     
 Funcionalidad:
 

@@ -110,7 +110,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.linerar_principal)
     LinearLayout linerar_principal;
 
+    @BindView(R.id.opciones_login)
+    LinearLayout opciones_login;
 
+    @BindView(R.id.txtVersionApp)
+    TextView txtVersionApp;
 
     LinearLayout layout_control;
     TextView tv1Num;
@@ -147,8 +151,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
-        prefs.saveDataBool(HUELLA_FAIL,true);
-        prefs.saveDataBool(TECLADO_CUSTOM,false);
+        prefs.saveDataBool(HUELLA_FAIL, true);
+        prefs.saveDataBool(TECLADO_CUSTOM, false);
         this.preferencias = App.getInstance().getPrefs();
     }
 
@@ -167,19 +171,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootview == null) {
-                rootview = inflater.inflate(R.layout.fragment_login, container, false);
+            rootview = inflater.inflate(R.layout.fragment_login, container, false);
             initViews();
         }
         return rootview;
     }
 
 
-
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
-
 
         customkeyboard.setOnClickListener(this);
         linerar_principal.setOnClickListener(this);
@@ -189,9 +191,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         quickPayment.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
-
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (prefs.loadDataBoolean(PASSWORD_CHANGE,false) ){
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
 
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -212,7 +213,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 customkeyboard.setVisibility(VISIBLE);
                 keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
                 keyboardView.setPreviewEnabled(false);
-               // keyboardView.showCustomKeyboard(rootview);
+                // keyboardView.showCustomKeyboard(rootview);
                 btnLogin.setVisibility(VISIBLE);
                 //imageView.setVisibility(View.GONE);
                 tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
@@ -236,10 +237,16 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         if (s.toString().length() == 6) {
-                            keyboardView.hideCustomKeyboard();
-                          //  Servicio para consumir usuario y contraseña
-                            validateForm();
-                           edtPin.setText("");
+                            if (!UtilsNet.isOnline(getActivity())) {
+                                UI.createSimpleCustomDialog("Ocurrió un Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
+                            } else {
+                                keyboardView.hideCustomKeyboard();
+                                //  Servicio para consumir usuario y contraseña
+                                validateForm();
+                                edtPin.setText("");
+                                edtPin.isFocused();
+                            }
+
 
                         }
                     }
@@ -251,8 +258,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 });
 
 
-
-
                 edtPin.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -262,15 +267,16 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                         edittext.onTouchEvent(event);               // Call native handler
                         keyboardView.showCustomKeyboard(v);
                         edittext.setInputType(inType);              // Restore input type
+                        txtVersionApp.setVisibility(GONE);
                         return true; // Consume touch event
                     }
                 });
-           //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
+                //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
                 setValidationRules();
-             //   keyboardView.showCustomKeyboard(rootview);
+                //   keyboardView.showCustomKeyboard(rootview);
                 edtPin.requestEditFocus();
 
-            }else {
+            } else {
                 textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
                 edtUserName.setText(RequestHeaders.getUsername());
                 edtUserName.setVisibility(GONE);
@@ -306,7 +312,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             accessCode.setVisibility(View.INVISIBLE);
             quickPayment.setVisibility(View.INVISIBLE);
         }
-
+        txtVersionApp.setText("Versión: " + BuildConfig.VERSION_NAME);
     }
 
     @Override
@@ -335,12 +341,16 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
             case R.id.linerar_principal:
+                opciones_login.setVisibility(VISIBLE);
                 keyboardView.hideCustomKeyboard();
                 btnLogin.setVisibility(VISIBLE);
+                txtVersionApp.setVisibility(VISIBLE);
                 break;
             case R.id.customkeyboard:
+                opciones_login.setVisibility(GONE);
                 keyboardView.showCustomKeyboard(rootview);
                 btnLogin.setVisibility(GONE);
+                txtVersionApp.setVisibility(GONE);
                 break;
 
             default:
@@ -378,6 +388,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
+
         if (!dialogErrorShown) {
             dialogErrorShown = true;
             UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
@@ -389,11 +400,14 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                             edtUserPass.setText("");
                             password = "";
                             dialogErrorShown = false;
+                            opciones_login.setVisibility(VISIBLE);
+                            keyboardView.hideCustomKeyboard();
                         }
 
                         @Override
                         public void actionCancel(Object... params) {
-
+                            opciones_login.setVisibility(VISIBLE);
+                            keyboardView.hideCustomKeyboard();
                         }
                     });
         }
@@ -491,7 +505,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     isValid = false;
                 }
             }
-        }else {
+        } else {
             if (password.isEmpty()) {
                 errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
                 edtUserPass.setIsInvalid();
@@ -527,12 +541,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
                 accountPresenter.login(username, nip); // Realizamos el  Login
 
-            }else {
+            } else {
                 accountPresenter.login(username, password); // Realizamos el  Login
-                prefs.saveDataBool(PASSWORD_CHANGE,true);
             }
-        }else {
-            prefs.saveDataBool(PASSWORD_CHANGE,true);
+        } else {
             accountPresenter.login(username, password); // Realizamos el  Login
         }
     }
@@ -547,11 +559,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void loginSucced() {
 
-            App.getInstance().getStatusId();
-            SingletonUser.getInstance().setCardStatusId(null);
-            Intent intentLogin = new Intent(getActivity(), TabActivity.class);
-            startActivity(intentLogin);
-            getActivity().finish();
+        App.getInstance().getStatusId();
+        SingletonUser.getInstance().setCardStatusId(null);
+        Intent intentLogin = new Intent(getActivity(), TabActivity.class);
+        startActivity(intentLogin);
+        getActivity().finish();
 
     }
 

@@ -20,7 +20,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
@@ -236,7 +235,12 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
             return;
         }
 
-        onValidationSuccess();
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            onValidationSuccess();
+        } else {
+            showValidationError(getResources().getString(R.string.no_internet_access));
+        }
     }
 
     private void showValidationError(Object err) {
@@ -395,10 +399,10 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         // showDialogMesage(Recursos.MESSAGE_CHANGE_PASS);
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
-                if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
-                    onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
-                } else {
-                    onEventListener.onEvent(EVENT_GO_MAINTAB, null);
-                }
+        if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+            onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+        } else {
+            onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+        }
     }
 }

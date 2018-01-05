@@ -83,9 +83,17 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
     @Override
     public void setResetCode(String rpc) {
         Log.e(TAG, "Set Reset Code");
-        this.rpcCode = rpc.getBytes();
+        this.rpcCode = translateUserPinToFmcFormat(rpc.getBytes());
         individualReintent = 0;
         resetNip();
+    }
+
+    private byte[] translateUserPinToFmcFormat(byte[] pin) {
+        byte[] transformedUserPin = new byte[pin.length];
+        for (int i=0; i<pin.length; i++) {
+            transformedUserPin[i] = (byte) (pin[i] - 48);
+        }
+        return transformedUserPin;
     }
 
     private void resetNip() {

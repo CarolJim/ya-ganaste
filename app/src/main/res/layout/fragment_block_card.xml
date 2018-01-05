@@ -99,9 +99,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
                 android:layout_weight="4"
-                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+
                 android:clickable="true"
                 android:inputType="textPassword"
                 android:orientation="horizontal">
@@ -109,10 +109,9 @@
                 <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
                     android:id="@+id/keyboard_view"
                     android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
                     android:layout_height="200dp"
                     android:layout_above="@+id/relativeAd"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:background="@android:color/transparent"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -129,6 +128,7 @@
                     android:id="@+id/btnLoginExistUser"
                     style="@style/buttonSquareRoundedBlue"
                     android:layout_gravity="bottom"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:text="@string/txt_iniciar_sesion" />
 
@@ -146,7 +146,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/layoutContent"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/margin_medium"
+
                 android:layout_marginLeft="@dimen/margin_big"
                 android:layout_marginRight="@dimen/margin_big"
                 android:layout_weight="4"
