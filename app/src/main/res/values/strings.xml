@@ -977,6 +977,7 @@
     <string name="details_bank">Banco</string>
     <string name="details_enviado_a">Enviado a</string>
     <string name="details_telefono">Teléfono</string>
+    <string name="details_qr">QR</string>
 
     <string name="status_cancelado">Cancelada</string>
     <string name="status_por_rembolsar">Por Reembolsar</string>
@@ -1149,6 +1150,7 @@
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
     <string name="saldo_disponible_enviar">Saldo Disponible: </string>
+    <string name="Monto_a_enviar">Monto a Enviar: </string>
     <string name="ingresa_monto">Ingresa el Monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
@@ -1165,6 +1167,13 @@
     <!-- Transitions -->
     <string name="transition_name_mov">transition:MOVE</string>
 
+    <!--Navegation Drawer-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_menu_seguridad">Seguridad</string>
+    <string name="navigation_drawer_menu_chat">Chat</string>
+    <string name="navigation_drawer_menu_ajustes">Ajustes</string>
+    <string name="navigation_drawer_menu_acerca">Acerca De</string>
 
 
 </resources>

@@ -73,7 +73,7 @@ import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
  */
 
 public class EnviosFormFragment extends PaymentFormBaseFragment implements EnviosManager,
-        AdapterView.OnItemSelectedListener, TextView.OnEditorActionListener, View.OnClickListener {
+            AdapterView.OnItemSelectedListener, TextView.OnEditorActionListener, View.OnClickListener {
 
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;

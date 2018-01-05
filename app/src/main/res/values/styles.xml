@@ -139,6 +139,11 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
+    <style name="RowTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
     <style name="buttonSquareRoundedTransparent" parent="AppButton">
         <item name="android:background">@drawable/button_rounded_transparent</item>
@@ -616,5 +621,14 @@
 
         <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">@color/whiteColor</item>
+
     </style>
+
+    <!-- ToolBar -->
+    <style name="ToolBarTheme.ToolBarStyle"   parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
+    </style>
+
 </resources>

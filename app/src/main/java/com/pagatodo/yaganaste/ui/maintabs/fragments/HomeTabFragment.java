@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -67,7 +68,8 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     private String nombreCompleto, cuentaUsuario;
     private int currentPage;
 
-    CircleImageView imageView;
+    //CircleImageView imageView;
+    ImageView imageView;
 
     private CardEmisorSelected cardEmisorSelected;
 
@@ -89,7 +91,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (getArguments() != null){
             currentPage = getArguments().getInt("CURRENT_PAGE",0);
         }
