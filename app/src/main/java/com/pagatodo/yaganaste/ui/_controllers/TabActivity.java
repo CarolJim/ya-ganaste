@@ -134,8 +134,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 viewPagerData.getFragmentList(), viewPagerData.getTabData());
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
+        mainViewPager.setCurrentItem(1);
         mainTab.setupWithViewPager(mainViewPager);
-        mainTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
+        //mainTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
         LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         GradientDrawable drawable = new GradientDrawable();
@@ -143,9 +144,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         drawable.setSize(1, 1);
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);
-        mainTab.setSelectedTabIndicatorHeight(4);
-
-        mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        //mainTab.setSelectedTabIndicatorHeight(4);
+        /*mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
@@ -168,11 +168,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     imageView.setVisibility(View.VISIBLE);
                     imageshare.setVisibility(View.GONE);
                 }
-                /*if (tab.getPosition() == 3) {
-                    hideMainTab();
-                } else {
-                    showMainTab();
-                }*/
+
             }
 
             @Override
@@ -185,7 +181,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
             }
         });
-
+*/
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
         } else if (SingletonUser.getInstance().needsReset()) {

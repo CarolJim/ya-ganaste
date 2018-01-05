@@ -1,24 +1,32 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_ADQUIRENTE_SUCCESS;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
+import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends SupportFragmentActivity implements View.OnClickListener{
 
     @BindView(R.id.btn_back)
     AppCompatImageView back;
+    //@BindView(R.id.main_tab)
+    //TabLayout mainTab;
 
     private int idOperation;
     private int currentPage;
@@ -54,49 +62,28 @@ public class WalletMainActivity extends SupportFragmentActivity implements View.
                 loadFragment(DepositsFragment.newInstance(),R.id.fragment_container);
                 break;
             case 7:
-                /*
-        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-            fragmentList.add(GetMountFragment.newInstance());
-        }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I6.getId() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
-           // fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(InviteAdquirenteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I6.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-         //   fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-            fragmentList.add(InviteAdquirenteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I7.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I8.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                   Idestatus == IdEstatus.I9.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                Idestatus == IdEstatus.I11.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else {
-            fragmentList.add(InviteAdquirenteFragment.newInstance());
-        }
-        */
+                startActivity(BussinesActivity.createIntent(this));
                 break;
 
             default:
-                Toast.makeText(this,"Error Interno",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Proximamente",Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REGISTER_ADQUIRENTE_CODE) {
+            showMainTab();
+        }
+
+    }
+
+    protected void showMainTab() {
+        /*if (mainTab.getVisibility() == View.GONE) {
+            mainTab.setVisibility(View.VISIBLE);
+        }*/
     }
 
     @Override

@@ -67,7 +67,7 @@ public class ElementWallet {
 
     //Datos seteado de prueb
     public ElementWallet getCardyaganaste(Context context){
-        return new ElementWallet(R.drawable.card_yaganaste,
+        return new ElementWallet(R.drawable.tarjeta_yg,
                 StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
                 new ElementView().getListWow(),
                 context.getResources().getString(R.string.saldo_disponible));

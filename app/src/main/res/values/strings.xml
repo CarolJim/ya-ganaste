@@ -434,9 +434,9 @@
     <string name="message_generic_wsnuevo">Ocurrió un Error de Conexión al Intentar Realizar la Operación</string>
 
     <!-- Strings Menu Principal-->
-    <string name="main_tab_inicio">Inicio</string>
+    <string name="main_tab_inicio">Wallet</string>
     <string name="main_tab_pagos">Pagar</string>
-    <string name="main_tab_depositos">Enviar</string>
+    <string name="main_tab_depositos">Envios</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Movimientos</string>
@@ -1149,6 +1149,10 @@
 
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
+    <string name="saldo_disponible_enviar">Saldo Disponible: </string>
+    <string name="ingresa_monto">Ingresa el Monto</string>
+    <string name="enviar_dinero">Enviar Dinero</string>
+    <string name="solicitar_pago">Solicitar Pago</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1160,4 +1164,7 @@
 
     <!-- Transitions -->
     <string name="transition_name_mov">transition:MOVE</string>
+
+
+
 </resources>
