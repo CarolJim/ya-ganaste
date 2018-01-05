@@ -133,7 +133,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     Button btnVolver;
     private View rootView;
     private MovimientosResponse movimientosResponse;
-    CircleImageView imageView;
+    ImageView imageView;
 
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
         DetailsEmisorFragment detailsEmisorFragment = new DetailsEmisorFragment();
@@ -147,13 +147,12 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
         } else {
             throw new IllegalCallException(DetailsEmisorFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
-
     }
 
     public void setVisibilityPrefer(Boolean mBoolean) {

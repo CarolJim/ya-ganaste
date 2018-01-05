@@ -71,7 +71,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     String mensaje, cardNumber;
     ImageView imageshae;
     boolean onlineNetWork, onlineGPS;
-    CircleImageView imageView;
+    ImageView imageView;
 
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
@@ -85,7 +85,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         super.onCreate(savedInstanceState);
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
         imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgToRight_prefe);
 
     }
 

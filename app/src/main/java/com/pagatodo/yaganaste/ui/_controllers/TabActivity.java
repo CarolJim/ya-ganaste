@@ -6,15 +6,27 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -43,15 +55,20 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
+import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
 
+import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
@@ -72,10 +89,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>, IResetNIPView<ErrorObject> {
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject> ,NavigationView.OnNavigationItemSelectedListener{
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
     public static final String EVENT_CARGA_DOCUMENTS= "EVENT_CARGA_DOCUMENTS";
@@ -93,9 +111,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
     private ResetPinPresenter resetPinPresenter;
-    CircleImageView imageView;
+
+    CircleImageView imgLoginExistProfile;
+    TextView nameUser;
+    ImageView imageView;
     ImageView imageshare;
     App aplicacion;
+
+    private ListView listView;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -104,16 +127,21 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_tab);
+        setContentView(R.layout.main_menu_drawer);
         aplicacion = new App();
         load();
-        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
-        imageshare= (ImageView) findViewById(R.id.deposito_Share);
+        imgLoginExistProfile = (CircleImageView) findViewById(R.id.imgLoginExistProfile);
+        imageView = (ImageView) findViewById(R.id.imgToRight_prefe);
+        imageView.setVisibility(View.VISIBLE);
+        imageshare = (ImageView) findViewById(R.id.deposito_Share);
+
+
         showBack(false);
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
         }
+
     }
 
     private void load() {
@@ -126,6 +154,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         resetPinPresenter = new ResetPinPresenterImp(false);
         resetPinPresenter.setResetNIPView(this);
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+        nameUser = (TextView) findViewById(R.id.txt_name_user);
+        nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
+
     }
 
     @Override
@@ -187,6 +218,26 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
         }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
+
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburguesita);
+
+        listView = (ListView) findViewById(R.id.lst_menu_items);
+        MenuAdapter menuAdapter = new MenuAdapter(this);
+        listView.setAdapter(menuAdapter);
     }
 
     @Override
@@ -221,6 +272,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Log.e("Test" , "Mostrar Ventana Tutorial");
         }
 
+        updatePhoto();
 
     }
 
@@ -303,7 +355,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     public void goHome() {
-        TabLayout.Tab current = mainTab.getTabAt(0);
+        TabLayout.Tab current = mainTab.getTabAt(1);
         if (current != null) {
             current.select();
         }
@@ -443,6 +495,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             showDialogOut();
         }else if (actualFragment instanceof WalletTabFragment) {
             showDialogOut();
+        }else if (actualFragment instanceof SendWalletFragment) {
+            goHome();
         } else {
             goHome();
         }
@@ -494,5 +548,35 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void showErrorReset(ErrorObject error) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        /*int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        }*/
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    /**
+     * Codigo para hacer Set en la imagen de preferencias con la foto actual
+     */
+    private void updatePhoto() {
+        String mUserImage = pref.loadData(URL_PHOTO_USER);
+        Glide.with(this).load(StringUtils.procesarURLString(mUserImage))
+                .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                .dontAnimate().into(imgLoginExistProfile);
     }
 }

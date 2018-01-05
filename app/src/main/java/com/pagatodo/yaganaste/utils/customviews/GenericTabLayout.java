@@ -136,18 +136,17 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
     @Override
     public void onTabSelected(final Tab tab) {
-       /* Log.e("genric tab ", "ontabSelect");
+       Log.e("genric tab ", "ontabSelect");
         ViewGroup customParen = (ViewGroup) LayoutInflater.from(getContext()).inflate(selectedLayout, null, false);
 
         ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).removeViewAt(2);
         ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).addView(customParen, 2);
 
-
         tab.setCustomView(customParen);
 
         tabView.put(tab, new TabHolder(tab.getCustomView()));
         tabView.get(tab).mText.setTextColor(getTabTextColors());
-*/
+
     }
 
     @Override

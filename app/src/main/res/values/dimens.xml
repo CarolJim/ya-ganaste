@@ -202,5 +202,10 @@
     <dimen name="card_padding">75dp</dimen>
     <dimen name="margin_wallet">15dp</dimen>
     <dimen name="card_height">80dp</dimen>
+
+    <!-- Hamburgesa-->
+    <dimen name="nav_header_height">132dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+
 </resources>
 

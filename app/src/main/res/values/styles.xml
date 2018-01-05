@@ -616,5 +616,14 @@
 
         <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">@color/whiteColor</item>
+
     </style>
+
+    <!-- ToolBar -->
+    <style name="ToolBarTheme.ToolBarStyle"   parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
+    </style>
+
 </resources>

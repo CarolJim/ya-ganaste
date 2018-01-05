@@ -1165,6 +1165,14 @@
     <!-- Transitions -->
     <string name="transition_name_mov">transition:MOVE</string>
 
+    <!--Navegation Drawer-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_menu_seguridad">Seguridad</string>
+    <string name="navigation_drawer_menu_chat">Chat</string>
+    <string name="navigation_drawer_menu_ajustes">Ajustes</string>
+    <string name="navigation_drawer_menu_acerca">Acerca De</string>
+
 
 
 </resources>

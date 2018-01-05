@@ -65,7 +65,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_CLOSE_ACT = "EVENT_CLOSE_ACT";
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
-    CircleImageView imageView;
+    ImageView imageView;
     ImageView imageshare;
     private DataMovimientoAdq dataMovimentTmp;
     private Serializable serializable;
@@ -131,7 +131,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_em_adq);
         Bundle extras = getIntent().getExtras();
-        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) findViewById(R.id.imgToRight_prefe);
         imageView.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
         imageshare.setVisibility(View.VISIBLE);

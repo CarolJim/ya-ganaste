@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
@@ -34,8 +35,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
     private View toolbarLayout;
     public String mUserImage;
-    CircleImageView imageView;
-    static CircleImageView imageViewdes;
+    //CircleImageView imageView;
+    //ImageView imageView;
+    //static CircleImageView imageViewdes;
+    //static ImageView imageViewdes;
     private AppCompatImageView btnBack;
 
     @Override
@@ -46,12 +49,12 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
     public void setUpActionBar() {
         toolbarLayout = findViewById(R.id.toolbarLy);
-        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
-        imageViewdes= (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        //imageView = (ImageView) findViewById(R.id.imgToRight_prefe);
+        //imageViewdes= (ImageView) findViewById(R.id.imgToRight_prefe);
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
-        if (imageView != null) {
-            imageView.setOnClickListener(this);
-        }
+        //if (imageView != null) {
+       //     imageView.setOnClickListener(this);
+       // }
 
         if (btnBack != null) {
             btnBack.setOnClickListener(this);
@@ -74,9 +77,9 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
      */
     public void setVisibilityPrefer(Boolean mBoolean){
         if(mBoolean){
-            imageView.setVisibility(View.VISIBLE);
+            //imageView.setVisibility(View.VISIBLE);
         }else{
-            imageView.setVisibility(View.GONE);
+           // imageView.setVisibility(View.GONE);
         }
     }
 
@@ -92,7 +95,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
 
     public static void setVisibleshare(){
-        imageViewdes.setVisibility(View.GONE);
+        //imageViewdes.setVisibility(View.GONE);
     }
 
 
@@ -100,12 +103,12 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */
     private void updatePhoto() {
-        mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
+        /*mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
 
         if (mUserImage != null && !mUserImage.isEmpty()) {
             Glide.with(this).load(mUserImage).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                     .dontAnimate().into(imageView);
-        }
+        }*/
     }
 
  public void changeToolbarVisibility(boolean visibility) {

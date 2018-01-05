@@ -100,7 +100,7 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false;
     private boolean isCancelation = false;
-    CircleImageView imageView;
+    //CircleImageView imageView;
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
         public void run() {
@@ -295,7 +295,7 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        //imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
@@ -395,9 +395,9 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
     }
     public void setVisibilityPrefer(Boolean mBoolean){
         if(mBoolean){
-            imageView.setVisibility(View.VISIBLE);
+            //imageView.setVisibility(View.VISIBLE);
         }else{
-            imageView.setVisibility(View.GONE);
+            //imageView.setVisibility(View.GONE);
         }
     }
 

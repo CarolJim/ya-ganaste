@@ -85,7 +85,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     private AudioManager audioManager;
     public Preferencias prefs;
-    CircleImageView imageView;
+    //CircleImageView imageView;
 
 
     private IntentFilter broadcastEMVSwipe;
@@ -273,7 +273,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-        imageView.setVisibility(View.GONE);
+       // imageView.setVisibility(View.GONE);
         txtLastPayment.setVisibility(View.GONE);
         txtNumberBattery.setGravity(Gravity.START);
         txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
@@ -286,7 +286,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        //imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
