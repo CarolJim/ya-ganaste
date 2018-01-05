@@ -64,6 +64,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
             mBaseElevation = cardView.getCardElevation();
         }
         cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
+        cardView.setPreventCornerOverlap(false);
         mViews.set(position, cardView);
         return view;
 
