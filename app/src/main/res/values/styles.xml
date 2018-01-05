@@ -139,6 +139,11 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
+    <style name="RowTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
     <style name="buttonSquareRoundedTransparent" parent="AppButton">
         <item name="android:background">@drawable/button_rounded_transparent</item>

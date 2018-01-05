@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
+import com.pagatodo.yaganaste.ui.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
