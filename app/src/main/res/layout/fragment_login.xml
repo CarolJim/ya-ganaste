@@ -16,17 +16,17 @@
         android:layout_weight="1">
 
         <LinearLayout
+            android:id="@+id/linerar_principal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linerar_principal"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/layoutImagenLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="7dp"
+                android:gravity="center"
                 android:padding="@dimen/generic_padig">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -58,6 +58,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:tipo="Titulo" />
+
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/asignar_edittext"
                     android:layout_width="1px"
@@ -65,10 +66,11 @@
                     android:layout_marginTop="12dp"
                     android:inputType="numberPassword" />
 
-                <include layout="@layout/login_fragment_passwordedittext_custom"
-                    android:visibility="gone"
+                <include
                     android:id="@+id/customkeyboard"
-                    />
+                    layout="@layout/login_fragment_passwordedittext_custom"
+                    android:visibility="gone" />
+
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserName"
                     style="@style/GenericInputTextForms"
@@ -99,12 +101,12 @@
                     android:text="@string/recover_pass" />
 
                 <LinearLayout
+                    android:id="@+id/opciones_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:id="@+id/opciones_login"
                     android:layout_marginTop="20dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -179,6 +181,7 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
         android:id="@+id/keyboard_view"
         android:layout_width="match_parent"
@@ -191,25 +194,29 @@
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/material_key_drawable"
         android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/layoutBtns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-
         android:clickable="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLoginExistUser"
             style="@style/buttonSquareRoundedBlue"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:layout_marginBottom="@dimen/margin_error"
             android:text="@string/txt_ingresar" />
 
-
+        <TextView
+            android:id="@+id/txtVersionApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/size_text_style_3_value"/>
     </LinearLayout>
-
-
 
 
 </LinearLayout>
