@@ -25,11 +25,6 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
     }
 
     @Override
-    public void testToInteractor() {
-        mPresenter.resToPresenter();
-    }
-
-    @Override
     public void getCatalogosRecargarFromService() {
 
     }
@@ -76,6 +71,6 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
 
     @Override
     public void onFailed(DataSourceResult error) {
-
+        mPresenter.onFail(error);
     }
 }

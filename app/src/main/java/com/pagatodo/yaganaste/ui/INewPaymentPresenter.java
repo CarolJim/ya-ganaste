@@ -13,8 +13,6 @@ import java.util.List;
 public interface INewPaymentPresenter {
     void getCarriersItems(int typeReload);
 
-    void resToPresenter();
-
     void onSuccesDBObtenerCatalogos(List<ComercioResponse> catalogos);
 
     void onErrorService();
@@ -24,4 +22,10 @@ public interface INewPaymentPresenter {
     void onSuccessWSFavorites(DataSourceResult dataSourceResult, int typeDataFav);
 
     void onSuccessDBFavorites(List<DataFavoritos> catalogos);
+
+    void sendChoiceCarrier(ComercioResponse position, int mType);
+
+    void sendChoiceFavorite(DataFavoritos dataFavoritos, int mType);
+
+    void onFail(DataSourceResult error);
 }

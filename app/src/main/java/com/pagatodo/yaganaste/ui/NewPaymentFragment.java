@@ -1,26 +1,39 @@
 package com.pagatodo.yaganaste.ui;
 
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.customviews.NewListDialog;
+import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
  * Frank Manzo 27-12-17
@@ -34,6 +47,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     GridView gvServicios;
     @BindView(R.id.btnSwitch)
     Switch btnSwitch;
+    @BindView(R.id.tvErrorRecargas)
+    TextView errorRecargas;
+    @BindView(R.id.tvErrorServicios)
+    TextView errorServicios;
 
     private View rootview;
     private ArrayList myDataset;
@@ -41,10 +58,17 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private ArrayList mPagarGrid;
     private int typeView = 0;
 
+    // Constantes para el Presenter
     public static final int TYPE_RELOAD = 1;
     public static final int TYPE_SERVICE = 2;
+    // Constantes para operaciones en el Grid
     public static final int TYPE_CARRIER = 1;
     public static final int TYPE_FAVORITE = 2;
+
+    public static final int SEARCH_CARRIER_RECARGA = 1;
+    public static final int SEARCH_CARRIER_PAGOS = 2;
+    public static final int SEARCH_FAVORITO_RECARGA = 3;
+    public static final int SEARCH_FAVORITO_PAGOS = 4;
 
     private ArrayList myDatasetAux;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
@@ -92,6 +116,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mPagarGrid = new ArrayList();
         myDatasetAux = new ArrayList();
 
+        mDataRecargar = new ArrayList<>();
+        mDataPagar = new ArrayList<>();
+        mDataRecargarFav = new ArrayList<>();
+        mDataPagarFav = new ArrayList<>();
+
         gvRecargas.setVerticalScrollBarEnabled(false);
         gvServicios.setVerticalScrollBarEnabled(false);
 
@@ -105,21 +134,12 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             @Override
             public void onClick(View v) {
                 if (btnSwitch.isChecked()) {
-                    Toast.makeText(App.getContext(), "ON", Toast.LENGTH_SHORT).show();
                     updateFavorites();
                 } else {
-                    Toast.makeText(App.getContext(), "OFF", Toast.LENGTH_SHORT).show();
                     updateCarriers();
                 }
             }
         });
-    }
-
-    private void updateFavorites() {
-        mRecargarGrid.clear();
-        mPagarGrid.clear();
-        newPaymentPresenter.getFavoritesItems(TYPE_RELOAD);
-        //   newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
     }
 
     @Override
@@ -127,80 +147,33 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         super.onResume();
 
         updateCarriers();
-        //updateCarriers();
     }
 
     private void updateCarriers() {
+        // Reiniciamos las listas de datos y los grid
+        mDataRecargarFav.clear();
+        mDataPagarFav.clear();
         mRecargarGrid.clear();
         mPagarGrid.clear();
+
+        // Reiniciamos el Switch a false
+        btnSwitch.setChecked(false);
+
         newPaymentPresenter.getCarriersItems(TYPE_RELOAD);
         newPaymentPresenter.getCarriersItems(TYPE_SERVICE);
     }
 
-    private void initList1() {
-        myDataset = new ArrayList();
-    }
-
-    private void initList7() {
-        myDataset = new ArrayList();
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-    }
-
-    private void initList10() {
-        myDataset = new ArrayList();
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camara_white_blue_canvas));
-    }
-
-    private void initList17() {
-        myDataset = new ArrayList();
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camera));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.camara_white_blue_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.share_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.visa));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.menu_canvas_blue));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.mastercard_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.upload_canvas));
-//        myDataset.add(new DataFavoritosGridView("Titulo", R.drawable.arrow_canvas_blue));
-    }
-
-    @Override
-    public void sendData(int position, int mType) {
-        Toast.makeText(getContext(), "Pos: " + position + " mType " + mType, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void resToView() {
-        Toast.makeText(getContext(), "MVP Listo", Toast.LENGTH_SHORT).show();
+    private void updateFavorites() {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        mRecargarGrid.clear();
+        mPagarGrid.clear();
+        newPaymentPresenter.getFavoritesItems(TYPE_RELOAD);
+        //   newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
     }
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
-        int comerciosSise = comercios.size();
-        mDataRecargar = new ArrayList<>();
-        mDataPagar = new ArrayList<>();
+        // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -256,12 +229,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                             mDataRecargar.get(x).getLogoURL()));
                 }
 
-                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD,
-                        TYPE_CARRIER));
+                errorRecargas.setVisibility(View.GONE);
+                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this,
+                        SEARCH_CARRIER_RECARGA, TYPE_CARRIER));
+                onEventListener.onEvent(EVENT_HIDE_LOADER, "");
                 // mRecargarGrid.clear();
             } else {
-                // TODO Mostrar un mensaje cuando la lista Recargas llegar vacia del servicio
-                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
+                gvRecargas.setVisibility(View.GONE);
+                errorRecargas.setVisibility(View.VISIBLE);
             }
         } else if (typeData == 2) {
 
@@ -290,13 +265,128 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                             mDataPagar.get(x).getLogoURL()));
                 }
 
-                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE,
-                        TYPE_CARRIER));
+                errorServicios.setVisibility(View.GONE);
+                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this,
+                        SEARCH_CARRIER_PAGOS, TYPE_CARRIER));
+                onEventListener.onEvent(EVENT_HIDE_LOADER, "");
                 // mRecargarGrid.clear();
             } else {
-                // TODO Mostrar un mensaje cuando la lista Servicios llegar vacia del servicio
-                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
+                gvServicios.setVisibility(View.GONE);
+                errorServicios.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    @Override
+    public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
+        // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+
+        /**
+         * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
+         * la informacion que enviaremos al momento de hacer un pago. Es importante siempre tenerlos
+         * integros y de acceso
+         */
+        if (typeDataFav == 1) {
+            /**
+             * Ordenamos la lista como en el orden correcto de Carriers
+             * - Recargas
+             * - Servicios
+             */
+            mDataRecargarFav = dataFavoritos;
+            /**
+             * Lineas de pruebas. Se eliminaran elementos para probar la logica
+             Para probar lista sin lupa y menos de 8 elementos
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+             mDataRecargar.remove(7);
+             mDataRecargar.remove(6);
+
+             Para probar lista de 8
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+
+             Para probar lista vacia
+             mDataRecargar.remove(9);
+             mDataRecargar.remove(8);
+             mDataRecargar.remove(7);
+             mDataRecargar.remove(6);
+             mDataRecargar.remove(5);
+             mDataRecargar.remove(4);
+             mDataRecargar.remove(3);
+             mDataRecargar.remove(2);
+             mDataRecargar.remove(1);
+             mDataRecargar.remove(0);
+             */
+
+            mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
+
+            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+            if (mDataRecargarFav.size() > 0) {
+                /**
+                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+                 */
+                int llaveRecargas = mDataRecargarFav.size() > 8 ? 8 : mDataRecargarFav.size();
+
+                for (int x = 0; x < llaveRecargas; x++) {
+                    mRecargarGrid.add(new DataFavoritosGridView(
+                            mDataRecargarFav.get(x).getColorMarca(),
+                            mDataRecargarFav.get(x).getNombre(),
+                            mDataRecargarFav.get(x).getImagenURL()));
+                    /*
+                            mDataRecargar.get(x).getColorMarca(),
+                            mDataRecargar.get(x).getNombreComercio(),
+                            mDataRecargar.get(x).getLogoURL()));*/
+                }
+
+                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this,
+                        SEARCH_FAVORITO_RECARGA, TYPE_FAVORITE));
+                errorRecargas.setVisibility(View.GONE);
+            } else {
+                gvRecargas.setVisibility(View.GONE);
+                errorRecargas.setVisibility(View.VISIBLE);
+            }
+        } else if (typeDataFav == 2) {
+            mDataPagarFav = dataFavoritos;
+            //mDataPagarFav.clear();
+            /**
+             * Lineas de pruebas. Se eliminaran elementos para probar la logica
+             mDataPagar.remove(9);
+             mDataPagar.remove(8);
+             mDataPagar.remove(7);
+             */
+
+            mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
+
+            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+            if (mDataPagarFav.size() > 0) {
+                /**
+                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+                 */
+                int llaveServicios = mDataPagarFav.size() > 8 ? 8 : mDataPagarFav.size();
+
+                for (int x = 0; x < llaveServicios; x++) {
+                    mPagarGrid.add(new DataFavoritosGridView(
+                            mDataPagarFav.get(x).getColorMarca(),
+                            mDataPagarFav.get(x).getNombre(),
+                            mDataPagarFav.get(x).getImagenURL()));
+                }
+
+                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this,
+                        SEARCH_FAVORITO_PAGOS, TYPE_FAVORITE));
+                errorServicios.setVisibility(View.GONE);
+            } else {
+                gvServicios.setVisibility(View.GONE);
+                errorServicios.setVisibility(View.VISIBLE);
+            }
+        }
+
+        /**
+         * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
+         */
+        if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+            newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
         }
     }
 
@@ -362,119 +452,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         return finalList;
     }
 
-    @Override
-    public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
-        int dataFavSize = dataFavoritos.size();
-        mDataRecargarFav = new ArrayList<>();
-        mDataPagarFav = new ArrayList<>();
-
-        /**
-         * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
-         * la informacion que enviaremos al momento de hacer un pago. Es importante siempre tenerlos
-         * integros y de acceso
-         */
-        if (typeDataFav == 1) {
-            /**
-             * Ordenamos la lista como en el orden correcto de Carriers
-             * - Recargas
-             * - Servicios
-             */
-            mDataRecargarFav = dataFavoritos;
-            /**
-             * Lineas de pruebas. Se eliminaran elementos para probar la logica
-             Para probar lista sin lupa y menos de 8 elementos
-             mDataRecargar.remove(9);
-             mDataRecargar.remove(8);
-             mDataRecargar.remove(7);
-             mDataRecargar.remove(6);
-
-             Para probar lista de 8
-             mDataRecargar.remove(9);
-             mDataRecargar.remove(8);
-
-             Para probar lista vacia
-             mDataRecargar.remove(9);
-             mDataRecargar.remove(8);
-             mDataRecargar.remove(7);
-             mDataRecargar.remove(6);
-             mDataRecargar.remove(5);
-             mDataRecargar.remove(4);
-             mDataRecargar.remove(3);
-             mDataRecargar.remove(2);
-             mDataRecargar.remove(1);
-             mDataRecargar.remove(0);
-             */
-
-            mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
-
-            // Creamos la lista que enviaremos al Grid con los datos del Recargas
-            if (mDataRecargarFav.size() > 0) {
-                /**
-                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
-                 */
-                int llaveRecargas = mDataRecargarFav.size() > 8 ? 8 : mDataRecargarFav.size();
-
-                for (int x = 0; x < llaveRecargas; x++) {
-                    mRecargarGrid.add(new DataFavoritosGridView(
-                            mDataRecargarFav.get(x).getColorMarca(),
-                            mDataRecargarFav.get(x).getNombre(),
-                            mDataRecargarFav.get(x).getImagenURL()));
-                    /*
-                            mDataRecargar.get(x).getColorMarca(),
-                            mDataRecargar.get(x).getNombreComercio(),
-                            mDataRecargar.get(x).getLogoURL()));*/
-                }
-
-                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this, TYPE_RELOAD,
-                        TYPE_FAVORITE));
-                // mRecargarGrid.clear();
-            } else {
-                // TODO Mostrar un mensaje cuando la lista Recargas llegar vacia del servicio
-                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
-            }
-        } else if (typeDataFav == 2) {
-            mDataPagarFav = dataFavoritos;
-            //mDataPagarFav.clear();
-            /**
-             * Lineas de pruebas. Se eliminaran elementos para probar la logica
-             mDataPagar.remove(9);
-             mDataPagar.remove(8);
-             mDataPagar.remove(7);
-             */
-
-            mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
-
-            // Creamos la lista que enviaremos al Grid con los datos del Recargas
-            if (mDataPagarFav.size() > 0) {
-                /**
-                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
-                 */
-                int llaveServicios = mDataPagarFav.size() > 8 ? 8 : mDataPagarFav.size();
-
-                for (int x = 0; x < llaveServicios; x++) {
-                    mPagarGrid.add(new DataFavoritosGridView(
-                            mDataPagarFav.get(x).getColorMarca(),
-                            mDataPagarFav.get(x).getNombre(),
-                            mDataPagarFav.get(x).getImagenURL()));
-                }
-
-                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this, TYPE_SERVICE,
-                        TYPE_FAVORITE));
-                // mRecargarGrid.clear();
-            } else {
-                // TODO Mostrar un mensaje cuando la lista Servicios llegar vacia del servicio
-                Toast.makeText(App.getContext(), "Sin Items de Recargas", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        /**
-         * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
-         */
-        if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
-            newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
-        }
-    }
-
     private List<DataFavoritos> orderFavoritos(List<DataFavoritos> originalList, int typeDataFav) {
 
         ArrayList<DataFavoritos> finalList = new ArrayList<>();
@@ -525,8 +502,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
              * finalList
              */
-            for (int x = 0; x < originalList.size(); x++) {
-                finalList.add(originalList.get(x));
+            if (lenghtArray > 6) {
+
+                for (int x = 6; x < originalList.size(); x++) {
+                    finalList.add(originalList.get(x));
+                }
             }
         }
 
@@ -538,6 +518,69 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         finalList.get(2).setNombre("Francisco");
         return finalList;
     }
+
+    @Override
+    public void sendData(String position, int mType) {
+        if (position.equals("Buscar") && mType == SEARCH_CARRIER_RECARGA) {
+            NewListDialog dialog = new NewListDialog(getContext(), mDataRecargar, newPaymentPresenter,
+                    mType);
+            dialog.show();
+        } else if (position.equals("Buscar") && mType == SEARCH_CARRIER_PAGOS) {
+            NewListDialog dialog = new NewListDialog(getContext(), mDataPagar, newPaymentPresenter,
+                    mType);
+            dialog.show();
+        } else if (position.equals("Buscar") && mType == SEARCH_FAVORITO_RECARGA) {
+            NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
+                    newPaymentPresenter, mType);
+            dialog.show();
+        } else if (position.equals("Buscar") && mType == SEARCH_FAVORITO_PAGOS) {
+            NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
+                    newPaymentPresenter, mType);
+            dialog.show();
+        } else if (position.equals("Nuevo") && mType == SEARCH_FAVORITO_RECARGA) {
+           // Iniciamos la actividad de Favoritos para recargas
+            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+            intent.putExtra(CURRENT_TAB_ID, TYPE_RELOAD);
+            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+            } else {
+                getActivity().startActivityForResult(intent, NEW_FAVORITE);
+            }
+        } else if (position.equals("Nuevo") && mType == SEARCH_FAVORITO_PAGOS) {
+           // Iniciamos la actividad de Favoritos
+            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+            intent.putExtra(CURRENT_TAB_ID, TYPE_SERVICE);
+            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+            } else {
+                getActivity().startActivityForResult(intent, NEW_FAVORITE);
+            }
+        }
+    }
+
+    public void sendCarrierToView(ComercioResponse mComercio, int mType) {
+        Toast.makeText(App.getContext(), mComercio.getNombreComercio(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void sendFavoriteToView(DataFavoritos dataFavoritos, int mType) {
+        Toast.makeText(App.getContext(), dataFavoritos.getNombre(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void errorFail(DataSourceResult error) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
+
+    @Override
+    public void errorService() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
+
+
+
 
 
     /**
@@ -623,4 +666,5 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         }
         return originalData;
     }
+
 }

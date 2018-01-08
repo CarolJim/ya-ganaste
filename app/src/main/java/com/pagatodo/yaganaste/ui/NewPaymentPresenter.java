@@ -80,11 +80,6 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void resToPresenter() {
-        mView.resToView();
-    }
-
-    @Override
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
         mView.setCarouselData(comercios, typeData);
     }
@@ -103,8 +98,23 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void onErrorService() {
+    public void sendChoiceCarrier(ComercioResponse mComercio, int mType) {
+        mView.sendCarrierToView(mComercio, mType);
+    }
 
+    @Override
+    public void sendChoiceFavorite(DataFavoritos dataFavoritos, int mType) {
+        mView.sendFavoriteToView(dataFavoritos, mType);
+    }
+
+    @Override
+    public void onFail(DataSourceResult error) {
+        mView.errorFail(error);
+    }
+
+    @Override
+    public void onErrorService() {
+mView.errorService();
     }
 
 

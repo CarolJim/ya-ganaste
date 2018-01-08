@@ -103,7 +103,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType);
+                        mContext.sendData(myDataset.get(position).getName(), mType);
                     }
                 });
             } else {
@@ -158,7 +158,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType);
+                        mContext.sendData(myDataset.get(position).getName(), mType);
                     }
                 });
             }
@@ -213,7 +213,7 @@ public class PaymentAdapterRV extends BaseAdapter {
         Picasso.with(App.getContext())
                 .load(urlLogo)
                 .placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.ic_launcher)
+                .error(R.mipmap.icon_user)
                 .into(imageView);
 
         /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)

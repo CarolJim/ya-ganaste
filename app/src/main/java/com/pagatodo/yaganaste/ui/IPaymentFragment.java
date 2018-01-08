@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui;
 
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 
 import java.util.List;
@@ -9,9 +10,13 @@ import java.util.List;
  */
 
 public interface IPaymentFragment {
-    void sendData(int position, int mType);
-
-    void resToView();
+    void sendData(String position, int mType);
 
     void setDataFavorite(List<DataFavoritos> catalogos, int typeDataFav);
+
+    void sendFavoriteToView(DataFavoritos dataFavoritos, int mType);
+
+    void errorFail(DataSourceResult error);
+
+    void errorService();
 }

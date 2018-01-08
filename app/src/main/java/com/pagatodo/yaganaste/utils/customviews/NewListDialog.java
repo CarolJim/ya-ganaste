@@ -17,8 +17,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.ui.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 
 import java.util.ArrayList;
@@ -28,15 +26,16 @@ import java.util.List;
  * Created by Jordan on 17/04/2017.
  */
 
-public class ListDialog extends Dialog implements AdapterView.OnItemClickListener {
+public class NewListDialog extends Dialog implements AdapterView.OnItemClickListener {
 
     ArrayAdapter<String> adapter = null;
     CustomAdapterPagos adapter2 = null;
     ArrayList<String> mList = new ArrayList<>();
-    ArrayList<CarouselItem> listCarousel;
+    List<ComercioResponse> listCarousel;
     Context context;
-    PaymentsTabFragment parentFragment;
-    PaymentsTabPresenter presenter;
+    INewPaymentPresenter presenter;
+    int mType;
+    private NewPaymentFragment fragment;
     private ListView list;
     private EditText filterText = null;
     private TextWatcher filterTextWatcher = new TextWatcher() {
@@ -55,20 +54,22 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
         }
     };
 
-
-    public ListDialog(Context c, ArrayList<CarouselItem> list, PaymentsTabPresenter paymentsTabPresenter, PaymentsTabFragment fragment) {
-        super(c);
-        context = c;
-        presenter = paymentsTabPresenter;
-        parentFragment = fragment;
-
+    public NewListDialog(Context context, List<ComercioResponse> list, INewPaymentPresenter presenter,
+                         int mType) {
+        super(context);
+        this.context = context;
+        this.presenter = presenter;
+        this.mType = mType;
         listCarousel = list;
-        for (CarouselItem item : list) {
-            if (item.getComercio() != null) {
-                mList.add(item.getComercio().getNombreComercio().trim());
-            } else if (item.getFavoritos() != null) {
-                mList.add(item.getFavoritos().getNombre().trim());
+
+        for (ComercioResponse item : list) {
+            if (item.getIdComercio() != 0) {
+                mList.add(item.getNombreComercio().trim());
             }
+
+//            else if (item.getFavoritos() != null) {
+//                mList.add(item.getFavoritos().getNombre().trim());
+//            }
         }
     }
 
@@ -97,12 +98,17 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String value = adapter2.getItem(position);
+       /* String value = adapter2.getItem(position);
         int pos = mList.indexOf(value);
         presenter.setCarouselItem(listCarousel.get(pos));
 
         parentFragment.changeImgageToPay();
         parentFragment.openPaymentFragment();
+        dismiss();*/
+        String value = adapter2.getItem(position);
+        int pos = mList.indexOf(value);
+
+        presenter.sendChoiceCarrier(listCarousel.get(pos+1) , mType);
         dismiss();
     }
 }
