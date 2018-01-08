@@ -147,7 +147,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        imageView = (ImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
         } else {

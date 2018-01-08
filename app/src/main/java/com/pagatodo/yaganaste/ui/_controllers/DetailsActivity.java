@@ -131,7 +131,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_em_adq);
         Bundle extras = getIntent().getExtras();
-        imageView = (ImageView) findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) findViewById(R.id.imgNotifications);
         imageView.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
         imageshare.setVisibility(View.VISIBLE);

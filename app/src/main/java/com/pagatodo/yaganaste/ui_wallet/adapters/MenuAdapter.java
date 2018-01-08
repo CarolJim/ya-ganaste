@@ -19,10 +19,11 @@ import java.util.ArrayList;
  * Created by icruz on 05/01/2018.
  */
 
-public class MenuAdapter extends ArrayAdapter<String>{
+public class MenuAdapter extends ArrayAdapter<String> {
 
     ArrayList<Integer> listIcItem;
     ArrayList<String> listTitle;
+
     // View lookup cache
     private static class ViewHolderMenu {
         TextView txttitle;
@@ -31,7 +32,7 @@ public class MenuAdapter extends ArrayAdapter<String>{
         LinearLayout itemMenu;
     }
 
-    public MenuAdapter(Context context){
+    public MenuAdapter(Context context) {
         super(context, R.layout.menu_navegation_drawwer_adpater);
         listIcItem = new ArrayList<>();
         listIcItem.add(R.mipmap.ic_seguridad);
@@ -43,7 +44,6 @@ public class MenuAdapter extends ArrayAdapter<String>{
         listTitle.add(context.getResources().getString(R.string.navigation_drawer_menu_chat));
         listTitle.add(context.getResources().getString(R.string.navigation_drawer_menu_ajustes));
         listTitle.add(context.getResources().getString(R.string.navigation_drawer_menu_acerca));
-
     }
 
     @NonNull
@@ -51,29 +51,22 @@ public class MenuAdapter extends ArrayAdapter<String>{
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolderMenu viewHolder; // view lookup cache stored in tag
 
+        viewHolder = new ViewHolderMenu();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        convertView = inflater.inflate(R.layout.menu_navegation_drawwer_adpater, parent, false);
+        viewHolder.txttitle = (TextView) convertView.findViewById(R.id.title);
+        viewHolder.ic_item = (ImageView) convertView.findViewById(R.id.ic_item);
+        viewHolder.dividerList = convertView.findViewById(R.id.dividerList);
 
-            viewHolder = new ViewHolderMenu();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.menu_navegation_drawwer_adpater, parent, false);
-            viewHolder.txttitle = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.ic_item = (ImageView) convertView.findViewById(R.id.ic_item);
-            viewHolder.dividerList =  convertView.findViewById(R.id.dividerList);
+        convertView.setTag(viewHolder);
 
-            convertView.setTag(viewHolder);
-
-            viewHolder = (ViewHolderMenu) convertView.getTag();
-
-
-
-
+        viewHolder = (ViewHolderMenu) convertView.getTag();
 
         viewHolder.txttitle.setText(listTitle.get(position));
         viewHolder.ic_item.setImageResource(listIcItem.get(position));
         if (position == 3)
-        viewHolder.dividerList.setVisibility(View.GONE);
-
+            viewHolder.dividerList.setVisibility(View.GONE);
         return convertView;
-
     }
 
     @Override

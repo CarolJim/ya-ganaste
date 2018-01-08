@@ -6,24 +6,19 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -68,7 +63,6 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
 
-import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
@@ -93,10 +87,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>, IResetNIPView<ErrorObject> ,NavigationView.OnNavigationItemSelectedListener{
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, AdapterView.OnItemClickListener {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
-    public static final String EVENT_CARGA_DOCUMENTS= "EVENT_CARGA_DOCUMENTS";
+    public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
@@ -114,7 +108,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     CircleImageView imgLoginExistProfile;
     TextView nameUser;
-    ImageView imageView;
+    ImageView imageNotification;
     ImageView imageshare;
     App aplicacion;
 
@@ -131,8 +125,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         aplicacion = new App();
         load();
         imgLoginExistProfile = (CircleImageView) findViewById(R.id.imgLoginExistProfile);
-        imageView = (ImageView) findViewById(R.id.imgToRight_prefe);
-        imageView.setVisibility(View.VISIBLE);
+        imageNotification = (ImageView) findViewById(R.id.imgNotifications);
+        imageNotification.setVisibility(View.VISIBLE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
 
 
@@ -175,44 +169,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         drawable.setSize(1, 1);
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);
-        //mainTab.setSelectedTabIndicatorHeight(4);
-        /*mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0) {
-                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
-                    imageView.setVisibility(View.VISIBLE);
-                    imageshare.setVisibility(View.GONE);
-                }
-                if (tab.getPosition() == 1) {
-                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
-                    imageView.setVisibility(View.VISIBLE);
-                    imageshare.setVisibility(View.GONE);
-                }
-                if (tab.getPosition() == 2) {
-                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
-                    imageView.setVisibility(View.GONE);
-                    imageshare.setVisibility(View.VISIBLE);
-                }
-                if (tab.getPosition() == 3) {
-                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
-                    imageView.setVisibility(View.VISIBLE);
-                    imageshare.setVisibility(View.GONE);
-                }
 
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-*/
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
         } else if (SingletonUser.getInstance().needsReset()) {
@@ -228,9 +185,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburguesita);
@@ -238,6 +192,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         listView = (ListView) findViewById(R.id.lst_menu_items);
         MenuAdapter menuAdapter = new MenuAdapter(this);
         listView.setAdapter(menuAdapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -267,9 +222,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onResume() {
         super.onResume();
 
-        if (pref.containsData(CUPO_COMPLETE) &&  pref.loadDataBoolean(CUPO_COMPLETE, false) ) {
+        if (pref.containsData(CUPO_COMPLETE) && pref.loadDataBoolean(CUPO_COMPLETE, false)) {
             pref.saveDataBool(CUPO_COMPLETE, false);
-            Log.e("Test" , "Mostrar Ventana Tutorial");
+            Log.e("Test", "Mostrar Ventana Tutorial");
         }
 
         updatePhoto();
@@ -318,7 +273,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             DocumentsContainerFragment mFragment = (DocumentsContainerFragment)
                     getSupportFragmentManager().findFragmentById(R.id.main_view_pager);
             mFragment.loadApprovedFragment();
-        }else if (event.equals(EVENT_ERROR_DOCUMENTS)) {
+        } else if (event.equals(EVENT_ERROR_DOCUMENTS)) {
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_ELECTION);
             onInviteAdquirente();
@@ -326,8 +281,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
             onInviteAdquirente();
-        }
-        else if (event.equals(EVENT_CARGA_DOCUMENTS)) {
+        } else if (event.equals(EVENT_CARGA_DOCUMENTS)) {
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
             onInviteAdquirente();
@@ -369,7 +323,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS
                 || requestCode == Constants.NEW_FAVORITE
-                || requestCode == Constants.EDIT_FAVORITE ) {
+                || requestCode == Constants.EDIT_FAVORITE) {
             Fragment childFragment = getFragment(0);
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);
@@ -486,16 +440,16 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 goHome();
             }
         } else if (actualFragment instanceof DepositsFragment) {
-            imageView.setVisibility(View.GONE);
+            imageNotification.setVisibility(View.GONE);
             imageshare.setVisibility(View.VISIBLE);
             ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
         } else if (actualFragment instanceof GetMountFragment) {
             goHome();
         } else if (actualFragment instanceof HomeTabFragment) {
             showDialogOut();
-        }else if (actualFragment instanceof WalletTabFragment) {
+        } else if (actualFragment instanceof WalletTabFragment) {
             showDialogOut();
-        }else if (actualFragment instanceof SendWalletFragment) {
+        } else if (actualFragment instanceof SendWalletFragment) {
             goHome();
         } else {
             goHome();
@@ -550,26 +504,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        /*int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        }*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     /**
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */
@@ -578,5 +512,21 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         Glide.with(this).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                 .dontAnimate().into(imgLoginExistProfile);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (position) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
     }
 }

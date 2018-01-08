@@ -307,7 +307,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgNotifications);
         deposito_Share = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         deposito_Share.setVisibility(View.GONE);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;

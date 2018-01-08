@@ -76,7 +76,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgNotifications);
     }
 
     @Nullable

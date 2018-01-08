@@ -115,7 +115,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         Bundle args = getArguments();
         imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageViewback = (ImageView) getActivity().findViewById(R.id.btn_back);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgNotifications);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {

@@ -85,7 +85,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         super.onCreate(savedInstanceState);
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
         imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageView = (ImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
 
     }
 

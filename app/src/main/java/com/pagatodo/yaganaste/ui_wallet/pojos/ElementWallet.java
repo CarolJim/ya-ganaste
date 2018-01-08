@@ -69,7 +69,7 @@ public class ElementWallet {
     public ElementWallet getCardyaganaste(Context context){
         return new ElementWallet(R.drawable.tarjeta_yg,
                 StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
-                new ElementView().getListWow(),
+                new ElementView().getListEmisor(),
                 context.getResources().getString(R.string.saldo_disponible));
     }
 

@@ -91,7 +91,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageView = (ImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
         if (getArguments() != null){
             currentPage = getArguments().getInt("CURRENT_PAGE",0);
         }
@@ -154,8 +154,8 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     public void loadViewPager(ViewPagerData viewPagerData) {
         pagerAdapter = new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData());
         pagerAdquirente.setAdapter(pagerAdapter);
-        pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO);
+        /*pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO);*/
         pagerAdquirente.setCurrentItem(currentPage);
         pagerAdquirente.setOnTouchListener(new View.OnTouchListener() {
             @Override

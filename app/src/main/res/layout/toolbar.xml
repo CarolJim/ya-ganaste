@@ -78,7 +78,7 @@
         android:visibility="gone"
         app:srcCompat="@mipmap/bell"
         tools:ignore="ContentDescription"
-        android:id="@+id/imgToRight_prefe" />
+        android:id="@+id/imgNotifications" />
     <!--
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgToRight_prefe"
