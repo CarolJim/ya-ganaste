@@ -39,6 +39,8 @@ import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -47,6 +49,9 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_NOTIFICACIONES;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 
@@ -89,6 +94,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_CHANGE_NIP_BACK = "PREFER_USER_CHANGE_NIP_BACK";
     public static String PREFER_USER_MY_DONGLE = "PREFER_USER_MY_DONGLE";
     public static String PREFER_USER_MY_DONGLE_BACK = "PREFER_USER_MY_DONGLE_BACK";
+
+    public static String PREFER_NOTIFICACIONES = "PREFER_NOTIFICACIONES";
+    public static String PREFER_DESVINCULAR = "PREFER_DESVINCULAR";
 
     /**
      * Acciones para dialogo de confirmacion en cerrar session
@@ -149,8 +157,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         presenterAccount = new AccountPresenterNew(this);
         mPreferPresenter = new PreferUserPresenter(this);
 
-        loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
-
+        //loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
+        //loadFragment(MyUserFragment.newInstance());
+        if (getIntent().getIntExtra(MENU,0) == 3){
+            loadFragment(ListaAyudaLegalesFragment.newInstance());
+        } else {
+            loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0)));
+        }
 
         mContext = this;
 
@@ -375,7 +388,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_MY_USER_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
+                //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0)),Direction.BACK, false);
+
                 break;
 
             case "PREFER_USER_MY_ACCOUNT":
@@ -411,9 +426,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(MyPassFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
+            case "PREFER_NOTIFICACIONES":
+                loadFragment(NotificacionesPrefFragment.newInstance(),Direction.FORDWARD, false);
+                break;
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
-                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
+                //loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
+                finish();
                 break;
 
             case "DISABLE_BACK":
@@ -452,7 +471,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             } else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof ListaAyudaLegalesFragment) {
-                onEvent(PREFER_USER_LISTA, null);
+                onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof MyTutorialFragment) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanos) {
@@ -473,6 +492,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
             } else if (currentFragment instanceof MyNotifyConfigFragment) {
                 onEvent(PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK, null);
+            }else if (currentFragment instanceof SecurityFragment){
+                onEvent(PREFER_USER_LISTA, null);
+            }else if (currentFragment instanceof NotificacionesPrefFragment){
+                onEvent(PREFER_USER_MY_USER_BACK, null);
             } else {
                 super.onBackPressed();
             }

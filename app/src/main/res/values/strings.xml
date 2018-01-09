@@ -1174,6 +1174,15 @@
     <string name="navigation_drawer_menu_chat">Chat</string>
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
     <string name="navigation_drawer_menu_acerca">Acerca De</string>
+    <string name="security_huella_option">Huella Digital</string>
+    <string name="ajustes_notificar_option">Notificaciones</string>
+    <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>
+    <string name="notific_discreption">Selecciona las Notificaciones que\nte Gustaría Recibir en tu Teléfono</string>
+    <string name="notific_pagos_option">Pagas con Tarjeta</string>
+    <string name="notific_retiros_option">Retiros de Efectivo</string>
+    <string name="notific_depositos_option">Despósitos</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

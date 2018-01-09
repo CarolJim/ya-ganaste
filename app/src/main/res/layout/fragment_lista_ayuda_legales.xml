@@ -34,7 +34,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/borderLayoutColor" />
+            android:background="@color/borderLayoutColor"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/fragment_lista_ayuda_tutoriales"
@@ -42,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:visibility="gone">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 style="@style/generic_text_style_2"
@@ -63,7 +65,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/borderLayoutColor" />
+            android:background="@color/borderLayoutColor"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/fragment_lista_ayuda_contactanos"
@@ -71,7 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:visibility="gone">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 style="@style/generic_text_style_2"
@@ -92,7 +96,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/borderLayoutColor" />
+            android:background="@color/borderLayoutColor"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/fragment_lista_ayuda_acerca_app"
@@ -100,7 +105,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:visibility="gone">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 style="@style/generic_text_style_2"
@@ -121,7 +127,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/borderLayoutColor" />
+            android:background="@color/borderLayoutColor"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"

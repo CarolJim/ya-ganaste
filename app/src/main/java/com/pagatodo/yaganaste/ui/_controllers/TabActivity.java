@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -51,8 +52,10 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
+import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringConstants;
@@ -71,6 +74,13 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.ACTIVITY_LANDING;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
@@ -87,7 +97,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, AdapterView.OnItemClickListener {
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, MenuAdapter.OnItemClickListener {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
     public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
@@ -190,9 +200,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburguesita);
 
         listView = (ListView) findViewById(R.id.lst_menu_items);
-        MenuAdapter menuAdapter = new MenuAdapter(this);
+        MenuAdapter menuAdapter = new MenuAdapter(this,new OptionMenuItem(this).MAINMENU(),this);
         listView.setAdapter(menuAdapter);
-        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -515,18 +524,49 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 1:
+    public void onItemClick(OptionMenuItem optionMenuItem) {
+        Intent intent = new Intent(getApplication(),PreferUserActivity.class);
+        switch (optionMenuItem.getIdItem()) {
+            case ID_SEGURIDAD:
+                intent.putExtra(MENU,MENU_SEGURIDAD);
+                startActivity(intent);
                 break;
-            case 2:
+            case ID_AJUSTES:
+                intent.putExtra(MENU,MENU_AJUSTES);
+                startActivity(intent);
                 break;
-            case 3:
-                break;
-            case 4:
+            case ID_ACERCA_DE:
+                intent.putExtra(MENU,MENU_TERMINOS);
+                startActivity(intent);
                 break;
             default:
+                Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
+
+    /*
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getApplication(),PreferUserActivity.class);
+        switch (position) {
+            case 0:
+
+                intent.putExtra(MENU,MENU_SEGURIDAD);
+                startActivity(intent);
+                break;
+            case 1:
+                intent.putExtra(MENU,MENU_AJUSTES);
+                startActivity(intent);
+                break;
+            case 2:
+                Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+    }
+    */
 }
