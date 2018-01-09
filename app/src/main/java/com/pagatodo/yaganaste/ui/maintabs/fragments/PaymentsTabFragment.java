@@ -404,6 +404,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                         break;
                     }
                 }
+
             } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment instanceof ServiciosFormFragment || fragment instanceof EnviosFormFragment) {

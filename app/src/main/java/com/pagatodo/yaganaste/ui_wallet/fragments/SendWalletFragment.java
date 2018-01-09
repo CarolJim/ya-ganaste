@@ -126,8 +126,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     public void onItemClick(ElementView elementView) {
         switch (elementView.getIdOperacion()){
             case ID_ENVIAR:
-                Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                startActivity(intent);
+              //  Integer valueAmount = Parseet_amount.getText().toString();
+                actionCharge();
                 break;
             case ID_SOLICITAR:
                 break;
@@ -176,17 +176,9 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 float current_mount = Float.parseFloat(valueAmount);
                 String current_concept = "ENVIO";//Se agrega Concepto opcional
                 if (current_mount >= MIN_AMOUNT) {
-                    TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
-                    TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
-                    //setData("", "");
-                    /*NumberCalcTextWatcher.cleanData();
-                    et_amount.setText("0");
-                    edtConcept.setText(null);
-                    mySeekBar.setProgress(0);
-                    NumberCalcTextWatcher.cleanData();
-*/
-                    Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
+                    Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
+                    intent.putExtra("Monto",current_mount);
+                    startActivity(intent);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
