@@ -13,16 +13,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.ui.INewPaymentPresenter;
-import com.pagatodo.yaganaste.ui.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Jordan on 17/04/2017.

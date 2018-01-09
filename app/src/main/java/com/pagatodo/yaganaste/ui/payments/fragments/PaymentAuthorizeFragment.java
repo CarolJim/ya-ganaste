@@ -550,6 +550,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         String errorBody = "";
         errorTittle = "Contraseña Inválida";
         errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
+
         if (error.toString().equals(getString(R.string.error_codigo_de_seguridad))) {
             errorTittle = "Contraseña Inválida";
             errorBody = "La Contraseña Ingresada no es Válida, Verifícala";

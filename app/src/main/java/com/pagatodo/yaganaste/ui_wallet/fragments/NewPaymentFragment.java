@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui;
+package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.app.ActivityOptions;
@@ -17,10 +17,15 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
+import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterRV;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
+import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.utils.customviews.NewListDialog;
 import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
 

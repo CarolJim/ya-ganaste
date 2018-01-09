@@ -112,6 +112,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
         ICropper, CropIwaResultReceiver.Listener, OtpView {
 
+
     public static final String TAG = AddToFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
