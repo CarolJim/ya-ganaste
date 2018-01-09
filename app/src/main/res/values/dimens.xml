@@ -55,8 +55,9 @@
     <dimen name="separator">1dp</dimen>
 
     <!-- Botones xhdpi-->
-    <dimen name="height_btns">44dp</dimen>
+    <dimen name="height_btns">45dp</dimen>
     <dimen name="width_btns">162dp</dimen>
+    <dimen name="width_btns_big">214dp</dimen>
     <dimen name="width_btns_small">108dp</dimen>
     <dimen name="btns_separation">11dp</dimen>
 
@@ -77,7 +78,7 @@
     <dimen name="strock_width">1dp</dimen>
 
     <dimen name="radio_image_pago">100dp</dimen>
-    <dimen name="radio_image_pago_payment_tab">113dp</dimen>
+    <dimen name="radio_image_pago_payment_tab">75dp</dimen>
     <dimen name="margin_elements">22dp</dimen>
     <dimen name="margin_elements_payment_tab">34dp</dimen>
 
@@ -192,7 +193,6 @@
     <dimen name="size_text_style_4_value">10sp</dimen>
     <dimen name="size_text_style_5_value">12sp</dimen>
     <dimen name="size_text_mount">24sp</dimen>
-
 
 
     <dimen name="detail_movements_row_height">35dp</dimen>
