@@ -538,7 +538,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     newPaymentPresenter, mType);
             dialog.show();
         } else if (position.equals("Nuevo") && mType == SEARCH_FAVORITO_RECARGA) {
-           // Iniciamos la actividad de Favoritos para recargas
+            // Iniciamos la actividad de Favoritos para recargas
             Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
             intent.putExtra(CURRENT_TAB_ID, TYPE_RELOAD);
             intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
@@ -548,7 +548,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 getActivity().startActivityForResult(intent, NEW_FAVORITE);
             }
         } else if (position.equals("Nuevo") && mType == SEARCH_FAVORITO_PAGOS) {
-           // Iniciamos la actividad de Favoritos
+            // Iniciamos la actividad de Favoritos
             Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
             intent.putExtra(CURRENT_TAB_ID, TYPE_SERVICE);
             intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
@@ -557,6 +557,28 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             } else {
                 getActivity().startActivityForResult(intent, NEW_FAVORITE);
             }
+        } else if (mType == SEARCH_CARRIER_RECARGA) {
+            openItem(position, mType);
+          // Toast.makeText(App.getContext(), position + " Flag " + mType, Toast.LENGTH_SHORT).show();
+        } else if (mType == SEARCH_CARRIER_PAGOS) {
+            // Toast.makeText(App.getContext(), position + " Flag " + mType, Toast.LENGTH_SHORT).show();
+        } else if (mType == SEARCH_FAVORITO_RECARGA){
+            // Toast.makeText(App.getContext(), position + " Flag " + mType, Toast.LENGTH_SHORT).show();
+        } else if (mType == SEARCH_FAVORITO_PAGOS){
+            // Toast.makeText(App.getContext(), position + " Flag " + mType, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void openItem(String mPosition, int mType) {
+        if (mType == SEARCH_CARRIER_RECARGA) {
+            for (ComercioResponse miList : mDataRecargar) {
+               miList.getNombreComercio().equals(mPosition);
+            }
+
+        } else if (mType == SEARCH_CARRIER_PAGOS) {
+        } else if (mType == SEARCH_FAVORITO_RECARGA){
+        } else if (mType == SEARCH_FAVORITO_PAGOS){
         }
     }
 
@@ -578,9 +600,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void errorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
-
-
-
 
 
     /**

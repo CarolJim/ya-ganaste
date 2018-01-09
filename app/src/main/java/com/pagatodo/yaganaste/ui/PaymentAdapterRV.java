@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.ui;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,6 +18,9 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,6 +28,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui.NewPaymentFragment.TYPE_CARRIER;
+import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
 
 /**
  * Created by FranciscoManzo on 27/12/2017.
@@ -106,6 +115,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                         mContext.sendData(myDataset.get(position).getName(), mType);
                     }
                 });
+
             } else {
                 // Procesos para favoritos
 
@@ -161,6 +171,28 @@ public class PaymentAdapterRV extends BaseAdapter {
                         mContext.sendData(myDataset.get(position).getName(), mType);
                     }
                 });
+
+               /* imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        DataFavoritos dataFavoritos = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos();
+                        if (dataFavoritos != null) {
+                            Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                            // Vibrate for 500 milliseconds
+                            v.vibrate(100);
+                            Intent intent = new Intent(App.getContext(), EditFavoritesActivity.class);
+                            intent.putExtra(getString(R.string.favoritos_tag), dataFavoritos);
+                            intent.putExtra(CURRENT_TAB, current_tab.getId());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                getActivity().startActivityForResult(intent, EDIT_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                            } else {
+                                getActivity().startActivityForResult(intent, EDIT_FAVORITE);
+                            }
+                            longClicked = true;
+                        }
+                        return false;
+                    }
+                });*/
             }
         } else {
             grid = (View) convertView;
