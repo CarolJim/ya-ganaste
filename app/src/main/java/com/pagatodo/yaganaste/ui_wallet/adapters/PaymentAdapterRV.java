@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui;
+package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,13 +14,15 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.ui.NewPaymentFragment.TYPE_CARRIER;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.TYPE_CARRIER;
 
 /**
  * Created by FranciscoManzo on 27/12/2017.
@@ -106,6 +108,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                         mContext.sendData(position, mType);
                     }
                 });
+
             } else {
                 // Procesos para favoritos
 
@@ -121,7 +124,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                 // Cargamos la lupa en caso de existir
                 ImageView imageView = (ImageView) grid.findViewById(R.id.imgItemGalleryPay);
                 if (urlImage.equals("R.mipmap.buscar_con_texto")) {
-                  //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+                    //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
                     GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.WHITE);
                     imageViewBorder.setBackground(gd);
@@ -130,17 +133,17 @@ public class PaymentAdapterRV extends BaseAdapter {
 
                     //imageViewBorder.setBorderColor(Color.WHITE);
                 } else if (urlImage.equals("R.mipmap.ic_add_new_favorite")) {
-                  //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+                    //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
                     GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.GRAY);
                     imageViewBorder.setBackground(gd);
 
                     imageView.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_add));
-                  //  imageViewBorder.setBorderColor(Color.GRAY);
-                }else {
-                    if(urlImage.equals("")) {
+                    //  imageViewBorder.setBorderColor(Color.GRAY);
+                } else {
+                    if (urlImage.equals("")) {
                         textIniciales.setVisibility(View.VISIBLE);
-                       // imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+                        // imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
                         int colorBackground = Color.parseColor(myDataset.get(position).getmColor());
                         GradientDrawable gd = createCircleDrawable(colorBackground,
@@ -149,8 +152,8 @@ public class PaymentAdapterRV extends BaseAdapter {
 
                         String sIniciales = getIniciales(myDataset.get(position).getName());
                         textIniciales.setText(sIniciales);
-                    }else {
-                      setImagePicasoFav(imageViewBorder, urlImage);
+                    } else {
+                        setImagePicasoFav(imageViewBorder, urlImage);
                     }
                     //imageView.setBackground(App.getContext().getDrawable(R.drawable.ic_add_new_favorite));
                 }
@@ -159,6 +162,14 @@ public class PaymentAdapterRV extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         mContext.sendData(position, mType);
+                    }
+                });
+
+                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mContext.editFavorite(position, mType);
+                        return true;
                     }
                 });
             }
@@ -182,23 +193,24 @@ public class PaymentAdapterRV extends BaseAdapter {
         gd.setCornerRadius(roundRadius);
         gd.setStroke(strokeWidth, strokeColor);
 
-       return gd;
+        return gd;
     }
 
     /**
      * Obtiene las iniciales a mostrar si no tenemos foto: Ejemplo
      * Frank Manzo Nava= FM
      * Francisco = Fr
+     *
      * @param fullName
      * @return
      */
     private String getIniciales(String fullName) {
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
-        if(spliName.length == 2){
-            sIniciales = spliName[0].substring(0,1) + spliName[1].substring(0,1).toUpperCase();
-        }else{
-            sIniciales = fullName.substring(0,2).toUpperCase();
+        if (spliName.length == 2) {
+            sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
+        } else {
+            sIniciales = fullName.substring(0, 2).toUpperCase();
         }
         return sIniciales;
     }
@@ -213,7 +225,7 @@ public class PaymentAdapterRV extends BaseAdapter {
         Picasso.with(App.getContext())
                 .load(urlLogo)
                 .placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.ic_launcher)
+                .error(R.mipmap.icon_user)
                 .into(imageView);
 
         /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)

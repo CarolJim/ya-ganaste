@@ -1,17 +1,24 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,12 +27,15 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
@@ -34,12 +44,16 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
+import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
@@ -58,6 +72,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -67,18 +83,25 @@ import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
  */
 
 public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implements
-        EnviosManager,TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, IListaOpcionesView ,OnListServiceListener
+        EnviosManager,TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager ,OnListServiceListener, AdapterView.OnItemSelectedListener
 
 {
-
+    List<String> tipoPago = new ArrayList<>();
+    int idTipoComercio;
+    int idComercio;
+    int idTipoEnvio;
+    private String formatoComercio;
+    private int longitudRefer;
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
+
+    @BindView(R.id.montotosend)
+    StyleTextView montotosend;
     @BindView(R.id.cardNumber)
     StyleEdittext cardNumber;
     @BindView(R.id.layout_cardNumber)
     LinearLayout layout_cardNumber;
-    @BindView(R.id.amountToSend)
-    EditText amountToSend;
+
     @BindView(R.id.receiverName)
     EditText receiverName;
     @BindView(R.id.concept)
@@ -94,22 +117,23 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     @BindView(R.id.add_favorites_list_serv)
     CustomValidationEditText editListServ;
-    MovementsTab current_tab2;
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
     private String referenciaNumber, referenceFavorite;
     int keyIdComercio;
     int maxLength;
+    private static Float montoa;
     private boolean isCuentaValida = true;
     PaymentsTabFragment fragment;
     ArrayList<CustomCarouselItem> backUpResponse;
     int current_tab;
 
 
-    public static EnviosFromFragmentNewVersion newInstance() {
+    public static EnviosFromFragmentNewVersion newInstance(float monto) {
         EnviosFromFragmentNewVersion fragment = new EnviosFromFragmentNewVersion();
         Bundle args = new Bundle();
+        montoa=monto;
         fragment.setArguments(args);
         return fragment;
     }
@@ -119,11 +143,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.current_tab2 = MovementsTab.getMovementById(3);
-        backUpResponse = new ArrayList<>();
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, getContext(), false);
-        paymentsCarouselPresenter.getCarouselItems();
         current_tab=3;
+        backUpResponse = new ArrayList<>();
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), false);
+        paymentsCarouselPresenter.getCarouselItems();
 
     }
 
@@ -139,15 +162,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void initViews() {
         super.initViews();
+        montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
 
-        List<String> tipoPago = new ArrayList<>();
-
+        editListServ.setDrawableImage(R.drawable.menu_canvas);
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
         editListServ.setFullOnClickListener(this);
         editListServ.setHintText(getString(R.string.details_bank));
-
-
         tipoPago.add(0, "");
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
@@ -162,17 +183,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
             //cardNumber.setOnFocusChangeListener(this);
-            amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            amountToSend.setOnEditorActionListener(this);
             concept.setImeOptions(IME_ACTION_DONE);
             concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
             //tipoPago.add(QR_CODE.getId(), QR_CODE.getName(getContext()));
-
         } else {
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
             concept.setImeOptions(IME_ACTION_NEXT);
             concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
-
         }
 
         concept.setSingleLine(true);
@@ -191,8 +208,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         numberReference.setText(DateUtil.getDayMonthYear());
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
-        //tipoEnvio.setOnItemSelectedListener(this);
-        amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
+        tipoEnvio.setOnItemSelectedListener(this);
         receiverName.setSingleLine();
         if (favoriteItem != null) {
             receiverName.setText(favoriteItem.getNombre());
@@ -229,35 +245,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         });
 
-
-        // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
-        if (favoriteItem != null) {
-            amountToSend.requestFocus();
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-            fragment.updateValueTabFrag(0.0);
-            amountToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
-                        try {
-                            String serviceImportStr = amountToSend.getText().toString().substring(1).replace(",", "");
-                            if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
-                                monto = Double.valueOf(serviceImportStr);
-                                fragment.updateValueTabFrag(monto);
-                            } else {
-                                fragment.updateValueTabFrag(0.0);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-        }
     }
 
 
@@ -277,8 +264,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
                 dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                 dialogFragment.setOnListServiceListener(this);
-                dialogFragment.show(getFragmentManager(), "FragmentDialog");
+                dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
                 break;
+
+            case R.id.layoutImageContact :
+                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
+            break;
 
             default:
                 break;
@@ -381,32 +373,175 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     @Override
-    public void setPhotoToService(Bitmap bitmap) {
-
-    }
-
-    @Override
-    public void showProgress(String mMensaje) {
-
-    }
-
-    @Override
-    public void showExceptionToView(String mMesage) {
-
-    }
-
-    @Override
-    public void sendSuccessAvatarToView(String mensaje) {
-
-    }
-
-    @Override
-    public void sendErrorAvatarToView(String mensaje) {
-
-    }
-
-    @Override
     public void onListServiceListener(CustomCarouselItem item) {
+        //  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
+        editListServ.setText(item.getNombreComercio());
+        idTipoComercio = item.getIdTipoComercio();
+        idComercio = item.getIdComercio();
 
+
+        // Variables necesarioas para agregar el formato de captura de telefono o referencia
+        formatoComercio = item.getFormatoComercio();
+        longitudRefer = item.getLongitudRefer();
+
+        /**
+         * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
+         * Esto se controlar con la posicion del Tab que seleccionamos
+         */
+         if (current_tab == 3) {
+             LinearLayout taeLL = (LinearLayout) getActivity().findViewById(R.id.add_favorites_list_serv);
+             taeLL.setVisibility(View.VISIBLE);
+
+          //  initEnviosPrefer();
+        }
+        if (idComercio==IDCOMERCIO_YA_GANASTE){
+            SpinnerArrayAdapter dataAdapter;
+            if (tipoPago.size()==5) {
+                tipoPago.remove(NUMERO_TARJETA.getId());
+                dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
+                tipoEnvio.setAdapter(dataAdapter);
+            }else {
+
+            }
+
+        }else {
+            SpinnerArrayAdapter dataAdapter;
+
+            if (tipoPago.size()==4) {
+
+                tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
+
+                dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
+                tipoEnvio.setAdapter(dataAdapter);
+            }else {
+
+
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        layout_cardNumber.setVisibility(View.VISIBLE);
+        cardNumber.setText("");
+        cardNumber.removeTextChangedListener();
+        InputFilter[] fArray = new InputFilter[1];
+
+        if (position == NUMERO_TARJETA.getId()) {
+            maxLength = 19;
+            cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
+            NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                numberCardTextWatcher.setOnITextChangeListener(this);
+            }
+            cardNumber.addTextChangedListener(numberCardTextWatcher);
+            layoutImageContact.setVisibility(View.GONE);
+            layoutImageContact.setOnClickListener(null);
+            selectedType = NUMERO_TARJETA;
+            if (favoriteItem != null && favoriteItem.getReferencia().length() == 16) {
+                referenceFavorite = favoriteItem.getReferencia();
+            }
+        } else if (position == NUMERO_TELEFONO.getId()) {
+            maxLength = 12;
+            cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
+            layoutImageContact.setVisibility(View.VISIBLE);
+            layoutImageContact.setOnClickListener(this);
+            PhoneTextWatcher phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                phoneTextWatcher.setOnITextChangeListener(this);
+            }
+            cardNumber.addTextChangedListener(phoneTextWatcher);
+            selectedType = NUMERO_TELEFONO;
+            if (favoriteItem != null && favoriteItem.getReferencia().length() == 10) {
+                referenceFavorite = favoriteItem.getReferencia();
+            }
+        } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
+            maxLength = 22;
+            cardNumber.setHint(getString(R.string.transfer_cable));
+            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
+            cardNumber.addTextChangedListener(textWatcher);
+            layoutImageContact.setVisibility(View.GONE);
+            layoutImageContact.setOnClickListener(null);
+            selectedType = CLABE;
+            if (favoriteItem != null && favoriteItem.getReferencia().length() == 18) {
+                referenceFavorite = favoriteItem.getReferencia();
+            }
+       /* } else if (position == QR_CODE.getId() && keyIdComercio == IDCOMERCIO_YA_GANASTE){
+            Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
+            intent.putExtra(ScannVisionActivity.QRObject, true);
+            getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
+        } else {
+            maxLength = 2;
+            cardNumber.setHint("");
+            layout_cardNumber.setVisibility(GONE);
+            layoutImageContact.setVisibility(View.GONE);
+            layoutImageContact.setOnClickListener(null);
+            selectedType = null;
+            referenceFavorite = null;
+        }
+
+        fArray[0] = new InputFilter.LengthFilter(maxLength);
+        cardNumber.setFilters(fArray);
+        if (referenceFavorite != null) {
+            //cardNumber.setEnabled(false);
+            cardNumber.setText(referenceFavorite);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CONTACTS_CONTRACT) {
+                contactPicked(data);
+            }
+        }
+        if (requestCode == BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    Log.e(getString(R.string.app_name), "QRCode Value: "+barcode.displayValue);
+                }
+            }
+        }
+    }
+
+    private void contactPicked(Intent data) {
+        Cursor cursor;
+        String phoneNo = null;
+        String nameDisplay = "";
+        Uri uri = data.getData();
+        cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            //get column index of the Phone Number
+            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            // column index of the contact name
+            //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
+            nameDisplay = cursor.getString(nameIndex);
+            if (phoneNo.length() > 10) {
+                phoneNo = phoneNo.substring(phoneNo.length() - 10);
+            }
+        }
+        cardNumber.setText(phoneNo);
+
+        /**
+         * Validacion de nombre vacio
+         */
+        try{
+            int oneNumbre = Integer.parseInt(nameDisplay.substring(0,2));
+            receiverName.setText("");
+        }catch (Exception e){
+            receiverName.setText(nameDisplay);
+        }
     }
 }

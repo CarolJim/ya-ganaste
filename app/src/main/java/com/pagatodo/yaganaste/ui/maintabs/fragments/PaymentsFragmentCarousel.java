@@ -72,7 +72,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), false);
+        //paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), false);
         try {
             fragment = (PaymentsTabFragment) getParentFragment();
             paymentsTabPresenter = fragment.getPresenter();

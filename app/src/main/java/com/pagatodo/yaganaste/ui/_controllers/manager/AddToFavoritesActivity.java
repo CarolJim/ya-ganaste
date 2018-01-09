@@ -112,6 +112,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
         ICropper, CropIwaResultReceiver.Listener, OtpView {
 
+
     public static final String TAG = AddToFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
@@ -192,7 +193,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     private int maxLength;
     int keyIdComercio;
     TransferType selectedType;
-    MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher;
     AppCompatImageView btn_back;
@@ -229,9 +229,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
         // Iniciamos el presentes del carrousel
-        this.current_tab2 = MovementsTab.getMovementById(current_tab);
         backUpResponse = new ArrayList<>();
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
         /**
@@ -815,7 +814,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
         //Validate format Servicios
         if (!editListServ.isValidText()) {
-            if (current_tab2.getId() == 3) {
+            if (current_tab == 3) {
                 showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorBank));
             } else {
                 showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorServ));

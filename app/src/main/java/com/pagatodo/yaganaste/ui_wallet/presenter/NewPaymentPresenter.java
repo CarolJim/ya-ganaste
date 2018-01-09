@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui;
+package com.pagatodo.yaganaste.ui_wallet.presenter;
 
 import android.content.Context;
 
@@ -10,6 +10,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.interactors.INewPaymentInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interactors.NewPaymentInteractor;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -80,11 +83,6 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void resToPresenter() {
-        mView.resToView();
-    }
-
-    @Override
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
         mView.setCarouselData(comercios, typeData);
     }
@@ -103,8 +101,23 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void onErrorService() {
+    public void sendChoiceCarrier(ComercioResponse mComercio, int mType) {
+        mView.sendCarrierToView(mComercio, mType);
+    }
 
+    @Override
+    public void sendChoiceFavorite(DataFavoritos dataFavoritos, int mType) {
+        mView.sendFavoriteToView(dataFavoritos, mType);
+    }
+
+    @Override
+    public void onFail(DataSourceResult error) {
+        mView.errorFail(error);
+    }
+
+    @Override
+    public void onErrorService() {
+mView.errorService();
     }
 
 

@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui;
+package com.pagatodo.yaganaste.ui_wallet.views;
 
 /**
  * Created by FranciscoManzo on 27/12/2017.

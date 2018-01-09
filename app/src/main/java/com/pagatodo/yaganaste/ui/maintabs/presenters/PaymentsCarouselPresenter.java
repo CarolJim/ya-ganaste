@@ -10,7 +10,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.PaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
@@ -29,14 +28,14 @@ import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
  */
 
 public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
-    MovementsTab current_tab;
+    int current_tab;
     IPaymentsCarouselIteractor paymentsTabIteractor;
     PaymentsCarrouselManager paymentsManager;
     Context mContext;
     private CatalogsDbApi api;
     boolean showFavorite; //Sirve para saber si el presenter se manda a llamar desde el carrusel de Favoritos
 
-    public PaymentsCarouselPresenter(MovementsTab current_tab,
+    public PaymentsCarouselPresenter(int current_tab,
                                      PaymentsCarrouselManager paymentsManager, Context context, boolean showFavorite) {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
@@ -46,10 +45,10 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         this.showFavorite = showFavorite;
     }
 
-    @Override
+    /*@Override
     public MovementsTab getCurrenTab() {
         return this.current_tab;
-    }
+    }*/
 
     /*@Override
     public ArrayList<CarouselItem> getCarouselArray() {
@@ -89,7 +88,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         if (api.isCatalogTableEmpty()) {
             paymentsTabIteractor.getCatalogosFromService();
         } else {
-            paymentsTabIteractor.getCatalogosFromDB(current_tab.getId());
+            paymentsTabIteractor.getCatalogosFromDB(current_tab);
         }
     }
 
@@ -141,7 +140,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 if (response.getData().size() > 0) {
                     api.insertFavorites(response.getData());
                 }
-                paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
+                paymentsTabIteractor.getFavoritesFromDB(current_tab);
             } catch (Exception e) {
                 e.printStackTrace();
                 paymentsManager.showError();
@@ -171,7 +170,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         /**
          * Agregamos a nuestro OrderKey la forma en que necesitamos los elementos
          */
-        switch (current_tab.getId()) {
+        switch (current_tab) {
             case 1:
                 orderBy.add(18);
                 orderBy.add(7);
@@ -229,7 +228,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         if (finalList.size() > 9) {
             sizeCarousel = 9;
         } else {
-            sizeCarousel = finalList.size()-1;
+            sizeCarousel = finalList.size() - 1;
         }
         auxList.add(finalList.get(sizeCarousel));
         for (int x = 0; x < sizeCarousel; x++) {
@@ -309,9 +308,9 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         carouselItems.add(0, carouselItemSearch);
         CarouselItem carouselItemCommerce;
         for (ComercioResponse comercio : comercios) {
-            if (comercio.getIdTipoComercio() == current_tab.getId()) {
+            if (comercio.getIdTipoComercio() == current_tab) {
                 if (comercio.getIdComercio() != 0) {
-                    if (comercio.getColorMarca()==null || comercio.getColorMarca().isEmpty()) {
+                    if (comercio.getColorMarca() == null || comercio.getColorMarca().isEmpty()) {
                         carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
                         carouselItemCommerce.setCommerceImageViewMargin();
                         carouselItems.add(carouselItemCommerce);
@@ -341,7 +340,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         carouselItems.add(1, createItemToAddFav());
 
         for (DataFavoritos favorito : favoritos) {
-            if (favorito.getIdTipoComercio() == current_tab.getId()) {
+            if (favorito.getIdTipoComercio() == current_tab) {
                 if (favorito.getIdComercio() != 0) {
                     if (favorito.getColorMarca().isEmpty()) {
                         if (favorito.getImagenURL().isEmpty()) {

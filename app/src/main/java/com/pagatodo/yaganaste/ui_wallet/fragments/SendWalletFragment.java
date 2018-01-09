@@ -1,10 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -13,15 +11,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
-import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
-import com.pagatodo.yaganaste.ui._controllers.manager.DongleBatteryHome;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
@@ -36,7 +30,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_ENVIAR;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_SOLICITAR;
-import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
 public class SendWalletFragment extends GenericFragment implements ElementsWalletAdpater.OnItemClickListener,
         EditTextImeBackListener {
@@ -53,7 +46,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     @BindView(R.id.tv_monto_decimal)
     StyleTextView tvMontoDecimal;
 
-    private float MIN_AMOUNT = 1.0f;
+    private float MIN_AMOUNT = 1.0f ,current_mount;
 
 
     public static SendWalletFragment newInstance() {
@@ -73,7 +66,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_send_wallet, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         initViews();
 
         return view;
@@ -85,11 +78,11 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
-        GridLayoutManager llm = new GridLayoutManager(getContext(),2);
+        GridLayoutManager llm = new GridLayoutManager(getContext(), 2);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
-        rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(),new ElementView().getListEnviar(getContext()),this));
+        rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(), new ElementView().getListEnviar(getContext()), this));
 
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null));
 
@@ -124,16 +117,22 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
 
     @Override
     public void onItemClick(ElementView elementView) {
-        switch (elementView.getIdOperacion()){
+        switch (elementView.getIdOperacion()) {
             case ID_ENVIAR:
-                Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                startActivity(intent);
+                //  Integer valueAmount = Parseet_amount.getText().toString();
+                if (actionCharge()) {
+                    Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
+                    intent.putExtra("Monto", current_mount);
+                    startActivity(intent);
+                }
                 break;
             case ID_SOLICITAR:
+                if(actionCharge()){
+                    //Intent intent = new Intent(getContext(), )
+                }
                 break;
-
             default:
-                Toast.makeText(getContext(),"Error de Operacion",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error de Operacion", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -153,46 +152,31 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         et_amount.requestFocus();
     }
 
-    private void actionCharge() {
+    private boolean actionCharge() {
         String valueAmount = et_amount.getText().toString().trim();
-
         // Limpiamos del "," que tenemos del EditText auxiliar
         int positionQuote = valueAmount.indexOf(",");
         if (positionQuote > 0) {
             String[] valueAmountArray = valueAmount.split(",");
             valueAmount = valueAmountArray[0] + valueAmountArray[1];
         }
-
         if (valueAmount.length() > 0 && !valueAmount.equals(getString(R.string.mount_cero))) {
             try {
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
-
                 // Limpiamos del caracter $ en caso de tenerlo
                 int positionMoney = valueAmount.indexOf("$");
                 if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
                 }
-
-                float current_mount = Float.parseFloat(valueAmount);
-                String current_concept = "ENVIO";//Se agrega Concepto opcional
+                current_mount = Float.parseFloat(valueAmount);
                 if (current_mount >= MIN_AMOUNT) {
-                    TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
-                    TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
-                    //setData("", "");
-                    /*NumberCalcTextWatcher.cleanData();
-                    et_amount.setText("0");
-                    edtConcept.setText(null);
-                    mySeekBar.setProgress(0);
-                    NumberCalcTextWatcher.cleanData();
-*/
-                    Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
+                    return true;
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
             }
         } else showValidationError(getString(R.string.enter_mount));
-
+        return false;
     }
 
     private void showValidationError(String error) {

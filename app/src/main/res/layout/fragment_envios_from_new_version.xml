@@ -21,6 +21,7 @@
             android:text="@string/Monto_a_enviar"/>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/montotosend"
             style="@style/textTitleDetailTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,21 +72,6 @@
             android:orientation="horizontal"
             android:visibility="visible">
 
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/add_favorites_list_serv"
-                style="@style/FragmentElementWithValidation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusableInTouchMode="false"
-                android:visibility="visible"
-                android:windowSoftInputMode="stateHidden"
-                app:formato="text"
-                app:hintText="Servicio"
-                app:imageIsGone="false"
-                app:isTextEnabled="false" />
-
-
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/cardNumber"
                 style="@style/GenericStyleEditText"
@@ -120,18 +106,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
-            android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                android:id="@+id/amountToSend"
-                style="@style/GenericStyleEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_importe_envio"
-                android:inputType="number"
-                android:maxLength="16" />
-
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/add_favorites_list_serv"
+            style="@style/FragmentElementWithValidation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:visibility="visible"
+            android:windowSoftInputMode="stateHidden"
+            app:formato="text"
+            app:hintText="Servicio"
+            app:imageIsGone="false"
+            app:isTextEnabled="false" />
         </LinearLayout>
 
         <LinearLayout
