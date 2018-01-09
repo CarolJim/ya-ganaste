@@ -11,14 +11,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,7 +127,7 @@ public class PaymentFormFragment extends GenericFragment {
             } else {
                 comercioResponse = (ComercioResponse) getArguments().getSerializable(ARG_PARAM1);
                 if(comercioResponse != null){
-                    if(comercioResponse.getIdComercio() == 1){
+                    if(comercioResponse.getIdTipoComercio() == 1){
                         isRecarga = true;
                         isFavorito = false;
                     }
@@ -160,11 +163,18 @@ public class PaymentFormFragment extends GenericFragment {
         /**
          * Mostramos la informacion en la cabecera correspondiente
          */
-        txtNameUser.setText("" + SingletonUser.getInstance().getDataUser().getUsuario());
-        txtSaldo.setText("" + SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+        txtNameUser.setText("" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
+       // txtSaldo.setText("" + SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+        txtSaldo.setText("" + Utils.getCurrencyValue(11350));
+//        Picasso.with(App.getContext())
+//                .load(SingletonUser.getInstance().getDataUser().getUsuario().get)
+//                .placeholder(R.mipmap.icon_user)
+//                .into(imgDataPhoto);
         if(isRecarga){
             // Carriers
             txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
+
+          //  showImageData(imgDataPhoto, isFavorito);
           /*  imgUserPhoto
             imgDataPhoto
             txtNameUser
@@ -174,8 +184,11 @@ public class PaymentFormFragment extends GenericFragment {
         }else{
             // Favoritos
             txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
+
         }
 
+        //txtData.setText(comercioResponse.getNombreComercio());
+        //txtData.setText(comercioResponse.getNombreComercio());
     }
 
     @Override
