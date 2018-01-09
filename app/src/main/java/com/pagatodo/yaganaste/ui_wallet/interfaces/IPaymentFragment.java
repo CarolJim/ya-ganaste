@@ -12,6 +12,8 @@ import java.util.List;
 public interface IPaymentFragment {
     void sendData(int position, int mType);
 
+    void editFavorite(int position, int mType);
+
     void setDataFavorite(List<DataFavoritos> catalogos, int typeDataFav);
 
     void sendFavoriteToView(DataFavoritos dataFavoritos, int mType);

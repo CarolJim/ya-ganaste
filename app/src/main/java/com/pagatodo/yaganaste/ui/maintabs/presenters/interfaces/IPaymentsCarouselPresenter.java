@@ -25,7 +25,7 @@ public interface IPaymentsCarouselPresenter {
 
     void onEmptyListFavorites();
 
-    MovementsTab getCurrenTab();
+    //MovementsTab getCurrenTab();
 
     void onSuccessWSObtenerCatalogos(DataSourceResult result);
 

@@ -101,10 +101,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
-import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -185,7 +185,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     private boolean errorIsShowed = false, showRefEnvio, isIAVE;
     ArrayList<CustomCarouselItem> backUpResponse;
     TransferType selectedType;
-    MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher, currentTextWatcherPDS;
     private static Preferencias preferencias = App.getInstance().getPrefs();
@@ -206,21 +205,19 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         btn_back.setOnClickListener(this);
         favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
 
-
         dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+        current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
 
         idComercio = (int) dataFavoritos.getIdComercio();
         idTipoComercio = dataFavoritos.getIdTipoComercio();
         nombreComercio = dataFavoritos.getNombreComercio();
         mReferencia = dataFavoritos.getReferencia();
         nombreDest = dataFavoritos.getNombre();
-        current_tab = getIntent().getIntExtra(CURRENT_TAB, 96);
         idFavorito = (int) dataFavoritos.getIdFavorito();
 
         // Iniciamos el presentes del carrousel
-        this.current_tab2 = MovementsTab.getMovementById(current_tab);
         backUpResponse = new ArrayList<>();
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
         ButterKnife.bind(this);
         //  imageViewCamera.setVisibilityStatus(true);
