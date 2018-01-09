@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -430,12 +429,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             }
         }
 
-        /**
-         * Codigo de prueba para verificar el nombre
-         */
-        finalList.get(1).setImagenURL("");
-        finalList.get(2).setImagenURL("");
-        finalList.get(2).setNombre("Francisco");
         return finalList;
     }
 
@@ -475,7 +468,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();
-                    } else if (mDataPagarFav.get(position).getNombreComercio().equals("Nuevo")) {
+                    } else if (mDataRecargarFav.get(position).getNombreComercio().equals("Nuevo")) {
                         // Iniciamos la actividad de Favoritos para recargas
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, TYPE_RELOAD);
@@ -522,12 +515,18 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     public void sendCarrierToView(ComercioResponse mComercio, int mType) {
-        Toast.makeText(App.getContext(), mComercio.getNombreComercio(), Toast.LENGTH_SHORT).show();
+        Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);
+        intentPayment.putExtra(PAYMENT_DATA, mComercio);
+        intentPayment.putExtra(PAYMENT_IS_FAV, false);
+        startActivity(intentPayment);
     }
 
     @Override
     public void sendFavoriteToView(DataFavoritos dataFavoritos, int mType) {
-        Toast.makeText(App.getContext(), dataFavoritos.getNombre(), Toast.LENGTH_SHORT).show();
+        Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);
+        intentPayment.putExtra(PAYMENT_DATA, dataFavoritos);
+        intentPayment.putExtra(PAYMENT_IS_FAV, true);
+        startActivity(intentPayment);
     }
 
     @Override

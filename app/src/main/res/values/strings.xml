@@ -173,7 +173,7 @@
     <string name="my_commerce_is">Mi Comercio es…</string>
     <string name="giro_commerce">Giro Del Comercio</string>
     <string name="giro_commerce_spinner">Giro Comercial</string>
-    <string name="subgiro_commerce">SubGiro Del Comercio</string>
+    <string name="subgiro_commerce">Subgiro Del Comercio</string>
     <string name="this_is_optional">Este Dato es Opcional</string>
     <string name="short_form_and_finish">Favor de Completar Este Breve Cuestionario y Habremos Terminado</string>
     <string name="answer_the_next_form">Contesta el Cuestionario Según\ntu Caso o lo más Apegado</string>
