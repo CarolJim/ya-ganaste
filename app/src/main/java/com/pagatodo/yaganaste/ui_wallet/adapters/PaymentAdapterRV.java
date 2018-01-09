@@ -1,12 +1,8 @@
-package com.pagatodo.yaganaste.ui;
+package com.pagatodo.yaganaste.ui_wallet.adapters;
 
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
-import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -18,18 +14,15 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
-import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.ui.NewPaymentFragment.TYPE_CARRIER;
-import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
-import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.TYPE_CARRIER;
 
 /**
  * Created by FranciscoManzo on 27/12/2017.

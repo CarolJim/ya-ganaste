@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui;
+package com.pagatodo.yaganaste.ui_wallet.interactors;
 
 /**
  * Created by FranciscoManzo on 28/12/2017.

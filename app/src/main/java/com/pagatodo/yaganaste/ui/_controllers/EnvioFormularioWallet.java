@@ -13,7 +13,6 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 
@@ -21,6 +20,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     public final static String EVENT_GO_INSERT_DONGLE = "EVENT_GO_INSERT_DONGLE";
     private Preferencias pref;
     private Float monto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
 
     @Override
     public boolean requiresTimer() {
-      return true;
+        return true;
     }
 
     @Override
