@@ -117,7 +117,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     @BindView(R.id.add_favorites_list_serv)
     CustomValidationEditText editListServ;
-    MovementsTab current_tab2;
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
@@ -143,14 +142,11 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.current_tab2 = MovementsTab.getMovementById(3);
 
-
-
-        backUpResponse = new ArrayList<>();
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, getContext(), false);
-        paymentsCarouselPresenter.getCarouselItems();
         current_tab=3;
+        backUpResponse = new ArrayList<>();
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), false);
+        paymentsCarouselPresenter.getCarouselItems();
 
     }
 

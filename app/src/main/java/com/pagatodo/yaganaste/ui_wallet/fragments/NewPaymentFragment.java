@@ -2,9 +2,11 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +19,16 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
-import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
-import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterRV;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
-import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterRV;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.pagatodo.yaganaste.utils.customviews.NewListDialog;
 import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
 
@@ -473,7 +476,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();
-                    } else if (mDataRecargarFav.get(position).getNombreComercio().equals("Nuevo")) {
+                    } else if (mDataRecargarFav.get(position).getNombre().equals("Nuevo")) {
                         // Iniciamos la actividad de Favoritos para recargas
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, TYPE_RELOAD);
@@ -496,7 +499,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();
-                    } else if (mDataPagarFav.get(position).getNombreComercio().equals("Nuevo")) {
+                    } else if (mDataPagarFav.get(position).getNombre().equals("Nuevo")) {
                         // Iniciamos la actividad de Favoritos
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, TYPE_PAYMENT);
@@ -517,6 +520,47 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 break;
         }
 
+    }
+
+    @Override
+    public void editFavorite(int position, int mType) {
+        Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+        switch (mType) {
+            case SEARCH_FAVORITO_RECARGA:
+                if (mDataRecargarFav != null) {
+                    if (!mDataRecargarFav.get(position).getNombreComercio().equals("Buscar") && !mDataRecargarFav.get(position).getNombre().equals("Nuevo")) {
+                        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        // Vibrate for 500 milliseconds
+                        v.vibrate(100);
+                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mDataRecargarFav.get(position));
+                        intentEditFav.putExtra(CURRENT_TAB_ID, mType);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                        } else {
+                            startActivity(intentEditFav);
+                        }
+                    }
+                }
+                break;
+            case SEARCH_FAVORITO_PAGOS:
+                if (mDataPagarFav != null) {
+                    if (!mDataPagarFav.get(position).getNombreComercio().equals("Buscar") && !mDataPagarFav.get(position).getNombre().equals("Nuevo")) {
+                        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        // Vibrate for 500 milliseconds
+                        v.vibrate(100);
+                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mDataPagarFav.get(position));
+                        intentEditFav.putExtra(CURRENT_TAB_ID, mType);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                        } else {
+                            startActivity(intentEditFav);
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public void sendCarrierToView(ComercioResponse mComercio, int mType) {

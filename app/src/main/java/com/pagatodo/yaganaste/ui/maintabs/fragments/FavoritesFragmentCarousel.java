@@ -73,7 +73,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         super.onCreate(savedInstanceState);
 
         this.current_tab = MovementsTab.getMovementById(getArguments().getInt("TAB"));
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), true);
+        //paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), true);
         fragment = (PaymentsTabFragment) getParentFragment();
         try {
             paymentsTabPresenter = fragment.getPresenter();
