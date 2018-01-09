@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
 
@@ -42,10 +43,14 @@ public class PaymentFormFragment extends GenericFragment {
     private View rootView;
     @BindView(R.id.txt_title_payment)
     StyleTextView txtTitleFragment;
+    @BindView(R.id.imgPagosUserProfile)
+    CircleImageView imgUserPhoto;
+    @BindView(R.id.imgPagosServiceToPayRound)
+    CircleImageView imgDataPhoto;
     @BindView(R.id.txt_username_payment)
     StyleTextView txtNameUser;
-    @BindView(R.id.txt_carrier)
-    StyleTextView txtCarrier;
+    @BindView(R.id.txt_data)
+    StyleTextView txtData;
     @BindView(R.id.txt_saldo)
     StyleTextView txtSaldo;
     @BindView(R.id.txt_monto)
@@ -80,6 +85,8 @@ public class PaymentFormFragment extends GenericFragment {
     @BindView(R.id.comisionTextServicio)
     StyleTextView txtComisionServicio;
 
+    boolean isRecarga = false;
+
     /***/
 
     public PaymentFormFragment() {
@@ -107,6 +114,7 @@ public class PaymentFormFragment extends GenericFragment {
         if (getArguments() != null) {
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
+                isRecarga = true;
             } else {
                 comercioResponse = (ComercioResponse) getArguments().getSerializable(ARG_PARAM1);
             }
@@ -136,6 +144,24 @@ public class PaymentFormFragment extends GenericFragment {
                 lytContainerServicios.setVisibility(View.VISIBLE);
             }
         }
+
+        /**
+         * Mostramos la informacion en la cabecera correspondiente
+         */
+        if(isRecarga){
+            // Carriers
+            txtTitleFragment.setText(getResources().getString(R.string.tab_recargas));
+          /*  imgUserPhoto
+            imgDataPhoto
+            txtNameUser
+            txtData
+            txtSaldo
+            txtMonto*/
+        }else{
+            // Favoritos
+            txtTitleFragment.setText(getResources().getString(R.string.tab_recargas));
+        }
+
     }
 
     @Override

@@ -486,14 +486,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                             getActivity().startActivityForResult(intent, NEW_FAVORITE);
                         }
                     } else {
-                        intentPayment.putExtra(PAYMENT_DATA, mDataPagarFav.get(position));
+                        intentPayment.putExtra(PAYMENT_DATA, mDataRecargarFav.get(position));
                         intentPayment.putExtra(PAYMENT_IS_FAV, true);
                         startActivity(intentPayment);
                     }
                 }
                 break;
             case SEARCH_FAVORITO_PAGOS:
-                if (mDataRecargarFav != null) {
+                if (mDataPagarFav != null) {
                     if (mDataPagarFav.get(position).getNombreComercio().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
                                 newPaymentPresenter, mType);
