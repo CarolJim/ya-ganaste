@@ -432,10 +432,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         /**
          * Codigo de prueba para verificar el nombre
+         * finalList.get(1).setImagenURL("");
+         finalList.get(2).setImagenURL("");
+         finalList.get(2).setNombre("Francisco");
          */
-        finalList.get(1).setImagenURL("");
-        finalList.get(2).setImagenURL("");
-        finalList.get(2).setNombre("Francisco");
+
         return finalList;
     }
 

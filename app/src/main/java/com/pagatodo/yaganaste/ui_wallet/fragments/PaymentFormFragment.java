@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -86,6 +87,7 @@ public class PaymentFormFragment extends GenericFragment {
     StyleTextView txtComisionServicio;
 
     boolean isRecarga = false;
+    boolean isFavorito = false;
 
     /***/
 
@@ -114,9 +116,19 @@ public class PaymentFormFragment extends GenericFragment {
         if (getArguments() != null) {
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
-                isRecarga = true;
+                if(dataFavoritos != null){
+                    if(dataFavoritos.getIdFavorito() >= 0){
+                        isFavorito = true;
+                    }
+                }
             } else {
                 comercioResponse = (ComercioResponse) getArguments().getSerializable(ARG_PARAM1);
+                if(comercioResponse != null){
+                    if(comercioResponse.getIdComercio() == 1){
+                        isRecarga = true;
+                        isFavorito = false;
+                    }
+                }
             }
         }
     }
@@ -148,9 +160,11 @@ public class PaymentFormFragment extends GenericFragment {
         /**
          * Mostramos la informacion en la cabecera correspondiente
          */
+        txtNameUser.setText("" + SingletonUser.getInstance().getDataUser().getUsuario());
+        txtSaldo.setText("" + SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
         if(isRecarga){
             // Carriers
-            txtTitleFragment.setText(getResources().getString(R.string.tab_recargas));
+            txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
           /*  imgUserPhoto
             imgDataPhoto
             txtNameUser
@@ -159,7 +173,7 @@ public class PaymentFormFragment extends GenericFragment {
             txtMonto*/
         }else{
             // Favoritos
-            txtTitleFragment.setText(getResources().getString(R.string.tab_recargas));
+            txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
         }
 
     }
