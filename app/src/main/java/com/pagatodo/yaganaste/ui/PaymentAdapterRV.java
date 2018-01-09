@@ -103,7 +103,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(myDataset.get(position).getName(), mType);
+                        mContext.sendData(position, mType);
                     }
                 });
             } else {
@@ -158,7 +158,7 @@ public class PaymentAdapterRV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(myDataset.get(position).getName(), mType);
+                        mContext.sendData(position, mType);
                     }
                 });
             }
