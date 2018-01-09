@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,16 +18,24 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
+import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
+import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
 
 /**
@@ -35,12 +44,9 @@ import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
  * Use the {@link PaymentFormFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentFormFragment extends GenericFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class PaymentFormFragment extends GenericFragment implements PaymentsManager {
     private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
     private ComercioResponse comercioResponse;
     private DataFavoritos dataFavoritos;
 
@@ -50,7 +56,9 @@ public class PaymentFormFragment extends GenericFragment {
     @BindView(R.id.imgPagosUserProfile)
     CircleImageView imgUserPhoto;
     @BindView(R.id.imgPagosServiceToPayRound)
-    CircleImageView imgDataPhoto;
+    CircleImageView circuleDataPhoto;
+    @BindView(R.id.imgItemGalleryPay)
+    ImageView imageDataPhoto;
     @BindView(R.id.txt_username_payment)
     StyleTextView txtNameUser;
     @BindView(R.id.txt_data)
@@ -91,7 +99,10 @@ public class PaymentFormFragment extends GenericFragment {
 
     boolean isRecarga = false;
     boolean isFavorito = false;
+    boolean isIAVE;
 
+    private SpinnerArrayAdapter dataAdapter;
+    private IRecargasPresenter recargasPresenter;
     /***/
 
     public PaymentFormFragment() {
@@ -160,35 +171,90 @@ public class PaymentFormFragment extends GenericFragment {
             }
         }
 
-        /**
-         * Mostramos la informacion en la cabecera correspondiente
-         */
-        txtNameUser.setText("" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
-       // txtSaldo.setText("" + SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
-        txtSaldo.setText("" + Utils.getCurrencyValue(11350));
-//        Picasso.with(App.getContext())
-//                .load(SingletonUser.getInstance().getDataUser().getUsuario().get)
-//                .placeholder(R.mipmap.icon_user)
-//                .into(imgDataPhoto);
+        // Mostramos el titular
         if(isRecarga){
-            // Carriers
+            // Recargas
             txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
-
-          //  showImageData(imgDataPhoto, isFavorito);
+            //  showImageData(circuleDataPhoto, isFavorito);
           /*  imgUserPhoto
-            imgDataPhoto
+            circuleDataPhoto
             txtNameUser
             txtData
             txtSaldo
             txtMonto*/
         }else{
-            // Favoritos
+            // Servicios
             txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
-
         }
 
-        //txtData.setText(comercioResponse.getNombreComercio());
-        //txtData.setText(comercioResponse.getNombreComercio());
+        // Info espeficica de Carrier o Favorito
+        if(dataFavoritos != null){
+            // Cargamos el nombre del favorito, imagen y borde
+            txtData.setText(dataFavoritos.getNombre());
+            setImagePicasoFav(imageDataPhoto, circuleDataPhoto, 1);
+        }
+
+        if(comercioResponse != null){
+            // Cargamos el nombre del Carrier, imagen y borde
+            txtData.setText(comercioResponse.getNombreComercio());
+            setImagePicasoFav(imageDataPhoto, circuleDataPhoto, 2);
+
+            isIAVE = comercioResponse.getIdComercio() == IAVE_ID;
+            recargasPresenter = new RecargasPresenter(this, isIAVE);
+
+            List<Double> montos = comercioResponse.getListaMontos();
+            if (montos.get(0) != 0D) {
+                montos.add(0, 0D);
+            }
+
+            //dataAdapter = new SpinnerArrayAdapter(getContext(), 1, montos);
+        }
+
+        /**
+         * Iniciamos el monto en cero, Mostramos la informacion del usuario, foto y saldo
+         */
+        txtMonto.setText("" + Utils.getCurrencyValue(0));
+        SingletonUser dataUser = SingletonUser.getInstance();
+        txtNameUser.setText("" + dataUser.getDataUser().getUsuario().getNombre());
+        txtSaldo.setText("" + Utils.getCurrencyValue(11350));
+        String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
+        if(!imagenavatar.equals("")){
+            Picasso.with(App.getContext())
+                    .load(imagenavatar)
+                    .placeholder(R.mipmap.icon_user)
+                    .into(circuleDataPhoto);
+        }
+
+
+    }
+
+    private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
+        if(mType == 1){
+            String mPhoto = dataFavoritos.getImagenURL();
+            if(!mPhoto.equals("")){
+                Picasso.with(App.getContext())
+                        .load(mPhoto)
+                        .placeholder(R.mipmap.icon_user)
+                        .into(circuleDataPhoto);
+            }
+            circuleDataPhoto.setBorderColor(Color.parseColor(dataFavoritos.getColorMarca()));
+        }
+
+        if(mType == 2){
+            String mPhoto = comercioResponse.getLogoURL();
+            if(!mPhoto.equals("")){
+                Picasso.with(App.getContext())
+                        .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
+                        .placeholder(R.mipmap.icon_user)
+                        .into(imageDataPhoto);
+            }
+            circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
+        }
+
+
+        /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
+                .error(R.mipmap.ic_launcher)
+                .dontAnimate().into(imageView);*/
     }
 
     @Override
@@ -199,5 +265,20 @@ public class PaymentFormFragment extends GenericFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
+    }
+
+    @Override
+    public void onSuccess(Double importe) {
+
     }
 }
