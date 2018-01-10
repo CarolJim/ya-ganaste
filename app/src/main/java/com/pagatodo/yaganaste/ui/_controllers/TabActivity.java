@@ -1,11 +1,16 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +37,7 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
@@ -51,6 +58,9 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
@@ -61,9 +71,14 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -94,10 +109,15 @@ import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOTO;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, MenuAdapter.OnItemClickListener {
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, MenuAdapter.OnItemClickListener,
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener{
+
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
     public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
@@ -115,6 +135,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
     private ResetPinPresenter resetPinPresenter;
+    private PreferUserPresenter mPreferPresenter;
+    private CameraManager cameraManager;
+    private CropIwaResultReceiver cropResultReceiver;
+    private DrawerLayout navDrawer;
 
     CircleImageView imgLoginExistProfile;
     TextView nameUser;
@@ -122,11 +146,15 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     ImageView imageshare;
     App aplicacion;
 
+
     private ListView listView;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
     }
+
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +163,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         aplicacion = new App();
         load();
         imgLoginExistProfile = (CircleImageView) findViewById(R.id.imgLoginExistProfile);
+        imgLoginExistProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAvatar();
+            }
+        });
         imageNotification = (ImageView) findViewById(R.id.imgNotifications);
         imageNotification.setVisibility(View.VISIBLE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
@@ -145,9 +179,51 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
         }
+        mPreferPresenter = new PreferUserPresenter(this);
+        cameraManager = new CameraManager(this);
+        cameraManager.initCamera(this, imgLoginExistProfile, this);
+
+        cropResultReceiver = new CropIwaResultReceiver();
+        cropResultReceiver.setListener(this);
+        cropResultReceiver.register(this);
 
     }
 
+    public void setAvatar(){
+
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            boolean isValid = true;
+
+            int permissionCamera = ContextCompat.checkSelfPermission(App.getContext(),
+                    Manifest.permission.CAMERA);
+            int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+
+            // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+            if (permissionCamera == -1) {
+                ValidatePermissions.checkPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+                isValid = false;
+            }
+
+            // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+            if (permissionStorage == -1) {
+                ValidatePermissions.checkPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_STORAGE);
+                isValid = false;
+            }
+
+            if(isValid){
+                mPreferPresenter.openMenuPhoto(1, cameraManager);
+            }
+
+        } else {
+            //showDialogMesage(getResources().getString(R.string.no_internet_access));
+        }
+    }
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);
         pref = App.getInstance().getPrefs();
@@ -160,6 +236,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         nameUser = (TextView) findViewById(R.id.txt_name_user);
         nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
+        navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
     }
 
@@ -328,6 +405,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
+
+
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS
@@ -386,11 +467,18 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         } else if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             refreshAdquirenteMovements();
+        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            cameraManager.setOnActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
+            cameraManager.setOnActivityResult(requestCode, resultCode, data);
+        } else if (resultCode == CROP_RESULT) {
+
+            onHideProgress();
         }
     }
 
     protected void refreshAdquirenteMovements() {
-        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragmentList) {
             if (fragment instanceof HomeTabFragment) {
                 goHome();
@@ -402,7 +490,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     protected void clearSeekBar(Fragment childFragment) {
-        PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
+        @SuppressLint("RestrictedApi") PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
         if (paymentFormBaseFragment != null) {
             paymentFormBaseFragment.setSeekBarProgress(0);
         }
@@ -425,7 +513,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     protected Fragment getFragment(int fragmentType) {
-        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
                 if ((fragmentType == 0 && fragment instanceof PaymentsTabFragment)
@@ -545,28 +633,96 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
-    /*
+    //Avatar
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getApplication(),PreferUserActivity.class);
-        switch (position) {
-            case 0:
+    public void setPhotoToService(Bitmap bitmap) {
+        // Guardamos en bruto nuestro Bitmap.
+        cameraManager.setBitmap(bitmap);
 
-                intent.putExtra(MENU,MENU_SEGURIDAD);
-                startActivity(intent);
-                break;
-            case 1:
-                intent.putExtra(MENU,MENU_AJUSTES);
-                startActivity(intent);
-                break;
-            case 2:
-                Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
-                break;
-        }
+        // Procesamos el Bitmap a Base64
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        // Creamos el objeto ActualizarAvatarRequest
+        ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
+
+        //onEventListener.onEvent("DISABLE_BACK", true);
+        // Enviamos al presenter
+        mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
 
     }
-    */
+
+    @Override
+    public void showProgress(String mMensaje) {
+        navDrawer.closeDrawers();
+        showProgressLayout(getString(R.string.listaopciones_load_image_wait));
+    }
+
+    @Override
+    public void showExceptionToView(String mMesage) {
+        showDialogMesage(mMesage);
+    }
+
+    @Override
+    public void sendSuccessAvatarToView(String mensaje) {
+        showDialogMesage(getString(R.string.change_avatar_success));
+        mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
+        updatePhoto();
+        CameraManager.cleanBitmap();
+        hideLoader();
+    }
+
+    @Override
+    public void sendErrorAvatarToView(String mensaje) {
+        hideLoader();
+        //onEventListener.onEvent("DISABLE_BACK", false);
+        CameraManager.cleanBitmap();
+        showDialogMesage(mensaje);
+    }
+
+    //Crope
+
+    @Override
+    public void onCropper(Uri uri) {
+        showProgress("");
+        startActivityForResult(CropActivity.callingIntent(this, uri), CROP_RESULT);
+    }
+
+    @Override
+    public void onHideProgress() {
+        hideProgresLayout();
+    }
+
+    @Override
+    public void failLoadJpg() {
+        showDialogMesage(getString(R.string.msg_format_image_warning));
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        hideProgresLayout();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+    @Override
+    public void onCropSuccess(Uri croppedUri) {
+        cameraManager.setCropImage(croppedUri);
+    }
+
+    @Override
+    public void onCropFailed(Throwable e) {
+        e.printStackTrace();
+    }
 }

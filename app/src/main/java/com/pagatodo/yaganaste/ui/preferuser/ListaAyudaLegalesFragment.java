@@ -61,7 +61,7 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_lista_ayuda_legales, container, false);
-        initViews(); 
+        initViews();
 
         return rootview;
     }
@@ -100,6 +100,4 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
                 break;
         }
     }
-
-
 }
