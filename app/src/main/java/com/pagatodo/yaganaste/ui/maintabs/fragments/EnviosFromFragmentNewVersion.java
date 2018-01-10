@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -43,6 +45,14 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.ui_wallet.adapters.Color;
+import com.pagatodo.yaganaste.ui_wallet.adapters.DividerItemDecoration;
+import com.pagatodo.yaganaste.ui_wallet.adapters.MaterialPaletteAdapter;
+import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerViewOnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.presenter.EnviosPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.presenter.IEnviosPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
@@ -72,8 +82,11 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.TYPE_PAYMENT;
+import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -94,6 +107,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     private int longitudRefer;
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
+
+
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+
 
     @BindView(R.id.montotosend)
     StyleTextView montotosend;
@@ -128,6 +147,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     PaymentsTabFragment fragment;
     ArrayList<CustomCarouselItem> backUpResponse;
     int current_tab;
+    IEnviosPaymentPresenter newPaymentPresenter;
+    private List<Color> colors;
 
 
     public static EnviosFromFragmentNewVersion newInstance(float monto) {
@@ -142,14 +163,20 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
         current_tab=3;
         backUpResponse = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), false);
         paymentsCarouselPresenter.getCarouselItems();
+        paymentsCarouselPresenter.getFavoriteCarouselItems();
+
+
 
     }
-
+    private void obtenerfavoritos() {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        newPaymentPresenter.getFavoritesItems(TYPE_PAYMENT);
+    }
 
     @Nullable
     @Override
@@ -164,6 +191,26 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         super.initViews();
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
 
+
+        initColors();
+
+
+        recyclerView.setAdapter(new MaterialPaletteAdapter(colors, new RecyclerViewOnItemClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                //    Toast toast = Toast.makeText(MainActivity.this, String.valueOf(position), Toast.LENGTH_SHORT);
+                //  int color = android.graphics.Color.parseColor(colors.get(position).getHex());
+                // toast.getView().setBackgroundColor(color);
+                // toast.show();
+            }
+        }));
+
+        //VERTICAL
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        //HORIZONTAL
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         editListServ.setDrawableImage(R.drawable.menu_canvas);
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
@@ -247,6 +294,23 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     }
 
+    private void initColors() {
+        colors = new ArrayList<Color>();
+
+        colors.add(new Color(getString(R.string.blue), getResources().getString(R.color.blue)));
+        colors.add(new Color(getString(R.string.indigo), getResources().getString(R.color.indigo)));
+        colors.add(new Color(getString(R.string.red), getResources().getString(R.color.red)));
+        colors.add(new Color(getString(R.string.green), getResources().getString(R.color.green)));
+        colors.add(new Color(getString(R.string.orange), getResources().getString(R.color.orange)));
+        colors.add(new Color(getString(R.string.grey), getResources().getString(R.color.bluegrey)));
+        colors.add(new Color(getString(R.string.amber), getResources().getString(R.color.teal)));
+        colors.add(new Color(getString(R.string.deeppurple), getResources().getString(R.color.deeppurple)));
+        colors.add(new Color(getString(R.string.bluegrey), getResources().getString(R.color.bluegrey)));
+        colors.add(new Color(getString(R.string.yellow), getResources().getString(R.color.yellow)));
+        colors.add(new Color(getString(R.string.cyan), getResources().getString(R.color.cyan)));
+        colors.add(new Color(getString(R.string.brown), getResources().getString(R.color.brown)));
+        colors.add(new Color(getString(R.string.teal), getResources().getString(R.color.teal)));
+    }
 
 
     @Override
@@ -341,8 +405,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
+
         setBackUpResponse(response);
+
+
     }
+
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         for (CarouselItem carouselItem : mResponse) {
             if (carouselItem.getComercio() != null) {
@@ -369,6 +437,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     @Override
     public void showFavorites() {
+
+
 
     }
 
