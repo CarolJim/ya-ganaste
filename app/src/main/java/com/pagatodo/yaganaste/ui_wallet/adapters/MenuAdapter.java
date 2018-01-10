@@ -67,7 +67,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         convertView.setTag(viewHolder);
 
         viewHolder = (ViewHolderMenu) convertView.getTag();
-        if (listItems.get(position).getTitle() != null) {
+        if (listItems.get(position).getResourceItem() != -1) {
             viewHolder.ic_item.setImageResource(listItems.get(position).getResourceItem());
         } else {
             viewHolder.ic_item.setVisibility(View.GONE);

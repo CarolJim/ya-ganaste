@@ -15,7 +15,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.S
  * Created by icruz on 08/01/2018.
  */
 
-public class    OptionMenuItem {
+public class OptionMenuItem {
 
     private  int idItem;
     private Context context;
@@ -27,6 +27,7 @@ public class    OptionMenuItem {
         this.idItem = idItem;
         this.title = title;
         this.indication = indication;
+        this.resourceItem = -1;
     }
 
     public OptionMenuItem(int idItem, @Nullable int resourceItem, String title) {
