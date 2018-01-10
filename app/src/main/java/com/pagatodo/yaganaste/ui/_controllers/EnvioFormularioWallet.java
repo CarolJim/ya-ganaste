@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -14,6 +12,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONTO;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
@@ -26,7 +25,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
-        monto = (float) getIntent().getExtras().get("Monto");
+        monto = (float) getIntent().getExtras().get(MONTO);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_INSERT_DONGLE, null);
     }
@@ -45,11 +44,12 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       if (requestCode == CONTACTS_CONTRACT) {
-                        getCurrentFragment().onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CONTACTS_CONTRACT) {
+            getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
     }
 }
