@@ -73,6 +73,7 @@ public class WalletMainActivity extends SupportFragmentActivity implements View.
                 break;
             case 7:
                 startActivity(BussinesActivity.createIntent(this));
+                finish();
                 break;
             default:
                 Toast.makeText(this, "Proximamente", Toast.LENGTH_SHORT).show();

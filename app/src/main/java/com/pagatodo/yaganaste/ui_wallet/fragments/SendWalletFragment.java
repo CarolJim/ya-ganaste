@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
@@ -34,6 +35,7 @@ import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_SOLICIT
 public class SendWalletFragment extends GenericFragment implements ElementsWalletAdpater.OnItemClickListener,
         EditTextImeBackListener {
 
+    public static final String MONTO = "Monto";
     @BindView(R.id.keyboard_view)
     CustomKeyboardView keyboardView;
     @BindView(R.id.rcv_elements)
@@ -46,7 +48,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     @BindView(R.id.tv_monto_decimal)
     StyleTextView tvMontoDecimal;
 
-    private float MIN_AMOUNT = 1.0f ,current_mount;
+    private float MIN_AMOUNT = 1.0f, current_mount;
 
 
     public static SendWalletFragment newInstance() {
@@ -122,13 +124,15 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 //  Integer valueAmount = Parseet_amount.getText().toString();
                 if (actionCharge()) {
                     Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                    intent.putExtra("Monto", current_mount);
+                    intent.putExtra(MONTO, current_mount);
                     startActivity(intent);
                 }
                 break;
             case ID_SOLICITAR:
-                if(actionCharge()){
-                    //Intent intent = new Intent(getContext(), )
+                if (actionCharge()) {
+                    Intent intent = new Intent(getContext(), RequestPaymentActivity.class);
+                    intent.putExtra(MONTO, current_mount);
+                    startActivity(intent);
                 }
                 break;
             default:

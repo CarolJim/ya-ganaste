@@ -145,7 +145,19 @@
                         android:visibility="visible" />
 
                 </LinearLayout>
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/your_password_need_to_have"/>
+
             </LinearLayout>
+
+
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/fragment_myemail_btn"
@@ -155,8 +167,8 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
                 android:text="Confirmar" />
-        </LinearLayout>
 
+        </LinearLayout>
 
     </LinearLayout>
 

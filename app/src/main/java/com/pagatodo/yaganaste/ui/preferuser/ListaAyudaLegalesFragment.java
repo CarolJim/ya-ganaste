@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +38,9 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
     LinearLayout ll_aviso;
     @BindView(R.id.fragment_lista_legales_terminos)
     LinearLayout ll_terminos;
+    @BindView(R.id.txtVersionApp)
+
+    StyleTextView version;
 
     View rootview;
 
@@ -60,6 +66,7 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
         return rootview;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
@@ -68,6 +75,7 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
         lllista_ayuda_acerca.setOnClickListener(this);
         ll_aviso.setOnClickListener(this);
         ll_terminos.setOnClickListener(this);
+        version.setText("Versión: " + BuildConfig.VERSION_NAME);
     }
 
     @Override
@@ -92,6 +100,4 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
                 break;
         }
     }
-
-
 }

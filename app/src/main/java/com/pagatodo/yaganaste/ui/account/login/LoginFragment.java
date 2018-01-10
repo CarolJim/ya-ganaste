@@ -313,6 +313,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             quickPayment.setVisibility(View.INVISIBLE);
         }
         txtVersionApp.setText("Versión: " + BuildConfig.VERSION_NAME);
+
     }
 
     @Override

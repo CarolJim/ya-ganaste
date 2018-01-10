@@ -60,7 +60,8 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
  * A simple {@link Fragment} subclass.
  */
 public class ListaOpcionesFragment extends SupportFragment implements View.OnClickListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener {
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener
+        {
 
     private static final String TAG = DocumentosFragment.class.getSimpleName();
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";

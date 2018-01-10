@@ -1,0 +1,35 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/title_menu"
+        style="@style/generic_text_style_2"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/navigation_drawer_menu_seguridad"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/notific_discreption"
+        style="@style/generic_text_style_2"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notific_discreption"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/security_item"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="@android:color/transparent"
+        android:layout_weight="8">
+    </ListView>
+
+</LinearLayout>

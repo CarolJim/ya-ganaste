@@ -27,12 +27,15 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MyUserFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class MyUserFragment extends GenericFragment implements View.OnClickListener {
+
+    //TODO Eliminar este Fragment
 
     @BindView(R.id.fragment_myuser_email)
     LinearLayout myEmail;
@@ -80,6 +83,7 @@ public class MyUserFragment extends GenericFragment implements View.OnClickListe
                 fingerprintSwitch.setChecked(useFingerprint);
             }
         }
+
         fingerprintSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -38,7 +38,8 @@
                     android:layout_width="85dp"
                     android:layout_height="86dp">
 
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/frag_lista_opciones_photo_item"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
