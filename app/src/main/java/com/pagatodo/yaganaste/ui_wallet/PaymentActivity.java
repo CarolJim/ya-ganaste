@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 
@@ -63,5 +65,12 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        myFragment.onActivityResult(requestCode, resultCode, data);
     }
 }

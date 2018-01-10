@@ -51,4 +51,9 @@ public class Constants {
     // COnstantes para newPayments
     public static final int TYPE_RELOAD = 1;
     public static final int TYPE_PAYMENT = 2;
+
+    // PaymentActivity
+    public static final int PAYMENT_RECARGAS = 1;
+    public static final int PAYMENT_SERVICIOS = 1;
+    public static final int PAYMENT_ENVIOS = 1;
 }

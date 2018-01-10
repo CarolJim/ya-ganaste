@@ -184,7 +184,7 @@ public class PaymentAdapterRV extends BaseAdapter {
     private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
         // Creamos el circulo que mostraremos
         int strokeWidth = 2; // 3px not dp
-        int roundRadius = 100; // 8px not dp
+        int roundRadius = 140; // 8px not dp
         int strokeColor = colorBorder;
         int fillColor = colorBackground;
 

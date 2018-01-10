@@ -1,19 +1,32 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Payments;
+import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
@@ -22,6 +35,14 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.ui_wallet.presenter.IPaymentFromFragment;
+import com.pagatodo.yaganaste.ui_wallet.presenter.IPresenterPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
+import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.utils.NumberTagPase;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
+import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
@@ -34,7 +55,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
 
@@ -44,7 +67,8 @@ import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
  * Use the {@link PaymentFormFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentFormFragment extends GenericFragment implements PaymentsManager {
+public class PaymentFormFragment extends GenericFragment implements PaymentsManager,
+        IPaymentFromFragment, View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
 
     private ComercioResponse comercioResponse;
@@ -80,7 +104,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.sp_montoRecarga)
     Spinner spnMontoRecarga;
     @BindView(R.id.comisionTextRecarga)
-    StyleTextView txtComisionRecarga;
+    StyleTextView comisionTextRecarga;
+    @BindView(R.id.layoutImageContact)
+    RelativeLayout layoutImageContact;
     /***/
 
     /* SERVICIOS BLOCK */
@@ -100,9 +126,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     boolean isRecarga = false;
     boolean isFavorito = false;
     boolean isIAVE;
+    private int maxLength;
+    Double monto;
+    String errorText;
+    String referencia;
+    boolean isValid = false;
+    Payments payment;
 
     private SpinnerArrayAdapter dataAdapter;
     private IRecargasPresenter recargasPresenter;
+    private IPresenterPaymentFragment iPresenterPayment;
+
     /***/
 
     public PaymentFormFragment() {
@@ -127,18 +161,22 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Creamos el presentes del favorito
+        iPresenterPayment = new PresenterPaymentFragment(this);
+
         if (getArguments() != null) {
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
-                if(dataFavoritos != null){
-                    if(dataFavoritos.getIdFavorito() >= 0){
+                if (dataFavoritos != null) {
+                    if (dataFavoritos.getIdFavorito() >= 0) {
                         isFavorito = true;
+                        comercioResponse = iPresenterPayment.getComercioById(dataFavoritos.getIdComercio());
                     }
                 }
             } else {
                 comercioResponse = (ComercioResponse) getArguments().getSerializable(ARG_PARAM1);
-                if(comercioResponse != null){
-                    if(comercioResponse.getIdTipoComercio() == 1){
+                if (comercioResponse != null) {
+                    if (comercioResponse.getIdTipoComercio() == 1) {
                         isRecarga = true;
                         isFavorito = false;
                     }
@@ -163,6 +201,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        btnContinue.setOnClickListener(this);
         if (comercioResponse != null) {
             if (comercioResponse.getIdTipoComercio() == TYPE_RELOAD) {
                 lytContainerRecargas.setVisibility(View.VISIBLE);
@@ -172,7 +211,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
 
         // Mostramos el titular
-        if(isRecarga){
+        if (isRecarga) {
             // Recargas
             txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
             //  showImageData(circuleDataPhoto, isFavorito);
@@ -182,19 +221,19 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             txtData
             txtSaldo
             txtMonto*/
-        }else{
+        } else {
             // Servicios
             txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
         }
 
         // Info espeficica de Carrier o Favorito
-        if(dataFavoritos != null){
+        if (dataFavoritos != null) {
             // Cargamos el nombre del favorito, imagen y borde
             txtData.setText(dataFavoritos.getNombre());
             setImagePicasoFav(imageDataPhoto, circuleDataPhoto, 1);
         }
 
-        if(comercioResponse != null){
+        if (comercioResponse != null) {
             // Cargamos el nombre del Carrier, imagen y borde
             txtData.setText(comercioResponse.getNombreComercio());
             setImagePicasoFav(imageDataPhoto, circuleDataPhoto, 2);
@@ -207,7 +246,76 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 montos.add(0, 0D);
             }
 
-            //dataAdapter = new SpinnerArrayAdapter(getContext(), 1, montos);
+            dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_RECARGAS, montos);
+
+            if (comercioResponse.getFormato().equals("N")) {
+                edtPhoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+                edtPhoneNumber.setSingleLine();
+            }
+
+            int longitudReferencia = comercioResponse.getLongitudReferencia();
+            if (longitudReferencia > 0 && longitudReferencia != 10) {
+                InputFilter[] fArray = new InputFilter[1];
+                maxLength = Utils.calculateFilterLength(longitudReferencia);
+                fArray[0] = new InputFilter.LengthFilter(maxLength);
+                edtPhoneNumber.setFilters(fArray);
+            }
+
+            if (isIAVE) {
+                edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
+                edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
+                layoutImageContact.setVisibility(View.GONE);
+            } else {
+                edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
+                edtPhoneNumber.setHint(getString(R.string.phone_number_hint));
+
+                layoutImageContact.setOnClickListener(this);
+            }
+
+            edtPhoneNumber.setSingleLine(true);
+            edtPhoneNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == IME_ACTION_DONE) {
+                        UI.hideKeyBoard(getActivity());
+                    }
+                    return false;
+                }
+            });
+
+            if (comercioResponse.getSobrecargo() > 0) {
+                comisionTextRecarga.setText(String.format(getString(R.string.comision_service_payment),
+                        StringUtils.getCurrencyValue(comercioResponse.getSobrecargo())));
+            } else {
+                comisionTextRecarga.setVisibility(View.GONE);
+            }
+            spnMontoRecarga.setAdapter(dataAdapter);
+
+
+            if (dataFavoritos != null) {
+                edtPhoneNumber.setText(dataFavoritos.getReferencia());
+            }
+            //recargaNumber.setEnabled(false);
+            /**
+             *
+             */
+            spnMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position != 0) {
+                        monto = (Double) spnMontoRecarga.getSelectedItem();
+                        txtMonto.setText("" + Utils.getCurrencyValue(monto));
+                    } else {
+                        txtMonto.setText("" + Utils.getCurrencyValue(0));
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
         }
 
         /**
@@ -218,7 +326,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtNameUser.setText("" + dataUser.getDataUser().getUsuario().getNombre());
         txtSaldo.setText("" + Utils.getCurrencyValue(11350));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
-        if(!imagenavatar.equals("")){
+        if (!imagenavatar.equals("")) {
             Picasso.with(App.getContext())
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user)
@@ -229,9 +337,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     }
 
     private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
-        if(mType == 1){
+        if (mType == 1) {
             String mPhoto = dataFavoritos.getImagenURL();
-            if(!mPhoto.equals("")){
+            if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(mPhoto)
                         .placeholder(R.mipmap.icon_user)
@@ -240,9 +348,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             circuleDataPhoto.setBorderColor(Color.parseColor(dataFavoritos.getColorMarca()));
         }
 
-        if(mType == 2){
+        if (mType == 2) {
             String mPhoto = comercioResponse.getLogoURL();
-            if(!mPhoto.equals("")){
+            if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
                         .placeholder(R.mipmap.icon_user)
@@ -258,6 +366,54 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     }
 
     @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.layoutImageContact) {
+            Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+            getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
+        }
+
+        switch (v.getId()) {
+            case R.id.btn_continue_payment:
+                referencia = edtPhoneNumber.getText().toString().trim();
+                referencia = referencia.replaceAll(" ", "");
+                monto = (Double) spnMontoRecarga.getSelectedItem();
+                recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
+
+                break;
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CONTACTS_CONTRACT) {
+                contactPicked(data);
+            }
+        }
+    }
+
+    private void contactPicked(Intent data) {
+        Cursor cursor;
+        String phoneNo = null;
+        Uri uri = data.getData();
+        cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            //get column index of the Phone Number
+            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            // column index of the contact name
+            //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
+            if (phoneNo.length() > 10) {
+                phoneNo = phoneNo.substring(phoneNo.length() - 10);
+            }
+        }
+        edtPhoneNumber.setText(phoneNo);
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
@@ -269,16 +425,48 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     @Override
     public void showError() {
+        if (errorText != null && !errorText.equals("")) {
+            /**
+             * Comparamos la cadena que entrega el Servicio o el Presentes, con los mensajes que
+             * tenemos en el archivo de Strings, dependiendo del mensaje, hacemos un set al errorTittle
+             * para mostrarlo en el UI.createSimpleCustomDialog
+             */
+            String errorTittle = "";
+            if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
 
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
+                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.numero_telefono_vacio))) {
+                errorTittle = App.getContext().getResources().getString(R.string.phone_invalid);
+                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_phone_error);
+            }
+            UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+        }
     }
 
     @Override
     public void onError(String error) {
-
+        //mySeekBar.setEnabled(false);
+        isValid = false;
+        errorText = error;
+        //Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccess(Double importe) {
+        this.monto = importe;
+        isValid = true;
 
+        //  payment = new Recarga(referencia, monto, comercioResponse, favoriteItem != null);
+        //  sendPayment();
     }
 }

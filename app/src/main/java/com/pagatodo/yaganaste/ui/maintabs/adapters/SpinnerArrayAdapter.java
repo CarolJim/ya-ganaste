@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -24,13 +25,13 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
     private static String TIPO_ENVIO_HINT = "Tipo de Envío";
     Context mContext;
     List<?> mItems;
-    MovementsTab mTab;
+    int paymentType;
 
-    public SpinnerArrayAdapter(Context context, MovementsTab tab, List<?> items) {
+    public SpinnerArrayAdapter(Context context, int paymentType, List<?> items) {
         super(context, -1, items);
         mContext = context;
         mItems = items;
-        mTab = tab;
+        this.paymentType = paymentType;
     }
 
     @Override
@@ -59,10 +60,10 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
             holder = (SpinnerArrayAdapter.DropDownHolder) row.getTag();
         }
 
-        if (mTab == MovementsTab.TAB1) {
+        if (paymentType == Constants.PAYMENT_RECARGAS) {
             hint = CANTIDAD_HINT;
             textLbl = "$" + item.toString() + "0";
-        } else if (mTab == MovementsTab.TAB3) {
+        } else if (paymentType == Constants.PAYMENT_SERVICIOS) {
             hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
         } else {
@@ -110,10 +111,10 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
         });
 
 
-        if (mTab == MovementsTab.TAB1) {
+        if (paymentType == Constants.PAYMENT_RECARGAS) {
             hint = CANTIDAD_HINT;
             textLbl = "$" + item.toString() + "0";
-        } else if (mTab == MovementsTab.TAB3) {
+        } else if (paymentType == Constants.PAYMENT_SERVICIOS) {
             hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
         } else {

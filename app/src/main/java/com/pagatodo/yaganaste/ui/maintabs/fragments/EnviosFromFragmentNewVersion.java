@@ -43,6 +43,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
@@ -206,7 +207,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         });
 
         numberReference.setText(DateUtil.getDayMonthYear());
-        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
+        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         receiverName.setSingleLine();
@@ -398,7 +399,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             SpinnerArrayAdapter dataAdapter;
             if (tipoPago.size()==5) {
                 tipoPago.remove(NUMERO_TARJETA.getId());
-                dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
+                dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
                 tipoEnvio.setAdapter(dataAdapter);
             }else {
 
@@ -411,7 +412,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
                 tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
-                dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
+                dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
                 tipoEnvio.setAdapter(dataAdapter);
             }else {
 
