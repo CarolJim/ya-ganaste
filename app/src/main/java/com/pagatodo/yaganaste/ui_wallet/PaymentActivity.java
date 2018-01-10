@@ -73,4 +73,6 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         myFragment.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }

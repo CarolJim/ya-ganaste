@@ -22,14 +22,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
@@ -57,6 +60,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
@@ -226,17 +230,20 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
         }
 
-        // Info espeficica de Carrier o Favorito
-        if (dataFavoritos != null) {
-            // Cargamos el nombre del favorito, imagen y borde
-            txtData.setText(dataFavoritos.getNombre());
-            setImagePicasoFav(imageDataPhoto, circuleDataPhoto, 1);
-        }
-
         if (comercioResponse != null) {
             // Cargamos el nombre del Carrier, imagen y borde
-            txtData.setText(comercioResponse.getNombreComercio());
-            setImagePicasoFav(imageDataPhoto, circuleDataPhoto, 2);
+
+            int tipoPhoto;
+            String nameRefer;
+            if (dataFavoritos != null) {
+                tipoPhoto = 1;
+                nameRefer = dataFavoritos.getNombre();
+            } else {
+                tipoPhoto = 2;
+                nameRefer = comercioResponse.getNombreComercio();
+            }
+            setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
+            txtData.setText(nameRefer);
 
             isIAVE = comercioResponse.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
@@ -391,6 +398,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (requestCode == CONTACTS_CONTRACT) {
                 contactPicked(data);
             }
+            // TODO Localizar el codigo en constantes o crar uno
+        } else if (requestCode == 190) {
+            Toast.makeText(App.getContext(), App.getContext().getResources()
+                    .getString(R.string.new_body_saldo_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -458,15 +469,29 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         //mySeekBar.setEnabled(false);
         isValid = false;
         errorText = error;
-        //Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        showError();
     }
 
     @Override
     public void onSuccess(Double importe) {
-        this.monto = importe;
-        isValid = true;
+        if (!isValid) {
+            showError();
+        } else {
+            this.monto = importe;
+            isValid = true;
 
-        //  payment = new Recarga(referencia, monto, comercioResponse, favoriteItem != null);
-        //  sendPayment();
+            payment = new Recarga(referencia, monto, comercioResponse, dataFavoritos != null);
+            sendPayment();
+        }
+    }
+
+    protected void sendPayment() {
+        Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
+        intent.putExtra("pagoItem", payment);
+        intent.putExtra("TAB", Constants.PAYMENT_RECARGAS);
+        SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
+        getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
+        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
+

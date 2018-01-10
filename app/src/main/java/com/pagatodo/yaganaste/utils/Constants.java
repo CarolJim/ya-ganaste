@@ -54,6 +54,6 @@ public class Constants {
 
     // PaymentActivity
     public static final int PAYMENT_RECARGAS = 1;
-    public static final int PAYMENT_SERVICIOS = 1;
-    public static final int PAYMENT_ENVIOS = 1;
+    public static final int PAYMENT_SERVICIOS = 2;
+    public static final int PAYMENT_ENVIOS = 3;
 }

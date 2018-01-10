@@ -77,7 +77,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     IPaymentsProcessingPresenter presenter;
     Object pago;
     private boolean isAvailableToBack = false;
-    private MovementsTab tab;
+    //private MovementsTab tab;
     private String mensajeLoader = "";
     EjecutarTransaccionResponse response;
     private String nombreComercio = "";
@@ -88,6 +88,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private int tipoTab = 0;
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
+    int typeOperation;
 
 
     @Override
@@ -97,12 +98,12 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         setContentView(R.layout.activity_generic_fragment_container);
         presenter = new PaymentsProcessingPresenter(this);
         pago = getIntent().getExtras().get("pagoItem");
-        tab = (MovementsTab) getIntent().getExtras().get("TAB");
+        typeOperation = (int) getIntent().getExtras().get("TAB");
         llMain = findViewById(R.id.ll_main);
 
         initViews();
 
-        if (tab != MovementsTab.TAB3) {
+        if (typeOperation != Constants.PAYMENT_ENVIOS) {
             changeToolbarVisibility(false);
             onEvent(EVENT_SEND_PAYMENT, pago);
         } else {
@@ -129,7 +130,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                         }
                     }
                     showLoader(mensajeLoader);
-                    presenter.sendPayment(tab, data);
+                    presenter.sendPayment(typeOperation, data);
                 } catch (OfflineException e) {
                     e.printStackTrace();
                     onError(getString(R.string.no_internet_access));
@@ -151,14 +152,14 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
     private void initViews() {
         ButterKnife.bind(this);
-        switch (tab) {
-            case TAB1:
+        switch (typeOperation) {
+            case Constants.PAYMENT_RECARGAS:
                 mensajeLoader = getString(R.string.procesando_recarga_loader);
                 break;
-            case TAB2:
+            case Constants.PAYMENT_SERVICIOS:
                 mensajeLoader = getString(R.string.procesando_servicios_loader);
                 break;
-            case TAB3:
+            case Constants.PAYMENT_ENVIOS:
                 mensajeLoader = getString(R.string.procesando_envios_loader);
                 break;
         }
