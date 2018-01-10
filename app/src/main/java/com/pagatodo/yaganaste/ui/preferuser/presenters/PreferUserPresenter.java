@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDis
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
@@ -44,6 +45,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric> implements IPreferUserPresenter {
 
     PreferUserActivity mView;
+    TabActivity mViewTabActivity;
     IPreferUserIteractor iPreferUserIteractor;
     IPreferDesasociarView iPreferDesasociarView;
     IListaOpcionesView iListaOpcionesView;
@@ -59,6 +61,11 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         iPreferUserIteractor = new PreferUserIteractor(this);
     }
 
+    public PreferUserPresenter(IListaOpcionesView iListaOpcionesView) {
+        // super(mView); Esta linea hace funcionar el PResenterGeneric
+        this.iListaOpcionesView = iListaOpcionesView;
+        this.iPreferUserIteractor = new PreferUserIteractor(this);
+    }
     public PreferUserPresenter(IMyCardView myCardView) {
         iPreferUserIteractor = new PreferUserIteractor(this);
     }

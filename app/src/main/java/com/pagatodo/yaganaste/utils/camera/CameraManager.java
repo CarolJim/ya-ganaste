@@ -64,7 +64,7 @@ public class CameraManager {
         return ourInstance;
     }*/
 
-    public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
+    public static final int REQUEST_TAKE_PHOTO = 11; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
     public static final int CROP_RESULT = 30;
     private static final String TAG = DocumentosFragment.class.getSimpleName();

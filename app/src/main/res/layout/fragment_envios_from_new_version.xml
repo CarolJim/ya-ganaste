@@ -12,8 +12,6 @@
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:gravity="center">
-
-
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             style="@style/generic_text_style_5"
             android:layout_width="wrap_content"
@@ -29,11 +27,19 @@
 
 
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:background="@color/color_background_image_docs">
@@ -52,12 +58,35 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <LinearLayout
+            style="@style/FragmentElementForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/add_favorites_list_serv"
+                style="@style/FragmentElementWithValidation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:visibility="visible"
+                android:windowSoftInputMode="stateHidden"
+                app:formato="text"
+                app:hintText="Servicio"
+                app:imageIsGone="false"
+                app:isTextEnabled="false" />
+        </LinearLayout>
+
+
         <Spinner
             android:id="@+id/tipoEnvio"
             style="@style/CustomSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_elements"
+            android:layout_marginTop="@dimen/space_between_elements"
             android:layout_marginRight="@dimen/margin_elements"
             android:background="@null"
             android:backgroundTint="@color/transparent" />
@@ -94,33 +123,16 @@
                     android:id="@+id/imgMakePaymentContact"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/icono_agenda" />
             </RelativeLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            style="@style/FragmentElementForm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_between_elements"
-            android:orientation="horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/add_favorites_list_serv"
-            style="@style/FragmentElementWithValidation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:visibility="visible"
-            android:windowSoftInputMode="stateHidden"
-            app:formato="text"
-            app:hintText="Servicio"
-            app:imageIsGone="false"
-            app:isTextEnabled="false" />
-        </LinearLayout>
 
         <LinearLayout
             style="@style/FragmentElementForm"
@@ -162,26 +174,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/fragment_envios_referencia_layout"
-            style="@style/FragmentElementForm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_between_elements"
-            android:background="@drawable/rounded_border_edittext"
-            android:orientation="horizontal">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                android:id="@+id/numberReference"
-                style="@style/GenericStyleEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/hint_referencia_numerica"
-                android:inputType="number"
-                android:maxLength="6" />
-
-        </LinearLayout>
-
         <!--com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/numberReference"
             android:layout_width="match_parent"
@@ -216,6 +208,7 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnenviar"
             style="@style/buttonSquareRoundedBlue"
+            android:visibility="visible"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:text="@string/txt_ingresar">
         </com.pagatodo.yaganaste.utils.customviews.StyleButton>
@@ -234,6 +227,32 @@
             app:text="@string/btn_send"
             />
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/fragment_envios_referencia_layout"
+            style="@style/FragmentElementForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="258dp"
+            android:layout_marginEnd="61dp"
+            android:layout_marginRight="61dp"
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                android:id="@+id/numberReference"
+                style="@style/GenericStyleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint_referencia_numerica"
+                android:inputType="number"
+                android:maxLength="6" />
+
+               </LinearLayout>
+            </RelativeLayout>
+         </LinearLayout>
+    </ScrollView>
 </LinearLayout>
