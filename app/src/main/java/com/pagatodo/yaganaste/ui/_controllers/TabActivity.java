@@ -405,10 +405,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
-
-
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS
@@ -613,24 +609,28 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void onItemClick(OptionMenuItem optionMenuItem) {
-        Intent intent = new Intent(getApplication(),PreferUserActivity.class);
+        //Intent intent = new Intent(getApplication(),PreferUserActivity.class);
+        Intent intent = new Intent(this, PreferUserActivity.class);
+
+
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:
                 intent.putExtra(MENU,MENU_SEGURIDAD);
-                startActivity(intent);
+                //startActivityForResult(intent, CODE_LOG_OUT);
                 break;
             case ID_AJUSTES:
                 intent.putExtra(MENU,MENU_AJUSTES);
-                startActivity(intent);
+                //startActivityForResult(intent, CODE_LOG_OUT);
                 break;
             case ID_ACERCA_DE:
                 intent.putExtra(MENU,MENU_TERMINOS);
-                startActivity(intent);
+                //startActivityForResult(intent, CODE_LOG_OUT);
                 break;
             default:
                 Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
                 break;
         }
+        startActivityForResult(intent, CODE_LOG_OUT);
     }
 
     //Avatar
