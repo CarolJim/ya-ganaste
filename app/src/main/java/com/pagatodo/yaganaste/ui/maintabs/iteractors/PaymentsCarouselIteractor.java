@@ -68,6 +68,7 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
     public void getFavoritesFromDB(int tabID) {
         List<DataFavoritos> catalogos = catalogsDbApi.getFavoritesList(tabID);
         carouselPresenter.onSuccessDBFavorites(catalogos);
+
     }
 
     /*@Override

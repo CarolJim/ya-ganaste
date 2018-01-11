@@ -140,6 +140,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 if (response.getData().size() > 0) {
                     api.insertFavorites(response.getData());
                 }
+
                 paymentsTabIteractor.getFavoritesFromDB(current_tab);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -290,11 +291,14 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
+
+
         if (showFavorite) {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
 
         } else {
-            paymentsManager.showFavorites();
+           // paymentsManager.showFavorites();
+            paymentsManager.setCarouselDataFavoritos(getCarouselItemsFavoritos(favoritos));
         }
     }
 
