@@ -240,6 +240,11 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         }
     }
 
+    @Override
+    public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
+
+    }
+
     private void showDialogMesage(String mTitulo, String mMesage) {
         UI.createSimpleCustomDialog(mTitulo, mMesage, getFragmentManager(),
                 new DialogDoubleActions() {

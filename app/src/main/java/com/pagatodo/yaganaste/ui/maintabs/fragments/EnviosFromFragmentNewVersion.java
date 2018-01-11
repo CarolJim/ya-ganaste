@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
@@ -63,6 +65,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
@@ -71,6 +74,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Formatter;
 import java.util.List;
 
 import butterknife.BindView;
@@ -122,6 +126,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @BindView(R.id.layout_cardNumber)
     LinearLayout layout_cardNumber;
 
+    @BindView(R.id.btnenviar)
+    StyleButton btnenviar;
+
+
+
+
     @BindView(R.id.receiverName)
     EditText receiverName;
     @BindView(R.id.concept)
@@ -147,6 +157,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     private boolean isCuentaValida = true;
     PaymentsTabFragment fragment;
     ArrayList<CustomCarouselItem> backUpResponse;
+    ArrayList<CustomCarouselItem> backUpResponsefavo;
     int current_tab;
     IEnviosPaymentPresenter newPaymentPresenter;
     private List<Color> colors;
@@ -167,6 +178,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
         current_tab=3;
         backUpResponse = new ArrayList<>();
+        backUpResponsefavo= new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), false);
         paymentsCarouselPresenter.getCarouselItems();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
@@ -216,6 +228,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
         editListServ.setFullOnClickListener(this);
+        btnenviar.setOnClickListener(this);
         editListServ.setHintText(getString(R.string.details_bank));
         tipoPago.add(0, "");
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
@@ -307,6 +320,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
 
         switch (view.getId()) {
+
+
+            case R.id.btnenviar:
+                continuePayment();
+                break;
+
+
             case R.id.add_favorites_list_serv:
                 /**
                  * 1 - Creamos nuestro Dialog Fragment Custom que mostrar la lista de Servicios
@@ -350,20 +370,100 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void showError() {
 
+        if (errorText != null && !errorText.equals("")) {
+            //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            /**
+             * Comparamos la cadena que entrega el Servicio o el Presentes, con los mensajes que
+             * tenemos en el archivo de Strings, dependiendo del mensaje, hacemos un set al errorTittle
+             * para mostrarlo en el UI.createSimpleCustomDialog
+             */
+            String errorTittle = "";
+            if (errorText.equals(App.getContext().getString(R.string.txt_tipo_envio_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.type_send_invalid);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty))) {
+                errorTittle = "Error";
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_clabe))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_clabe_empty_error);
+                errorText = App.getContext().getResources().getString(R.string.new_body_envios_clabe_empty_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_creditc))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_tdc_empty_error);
+                errorText = App.getContext().getResources().getString(R.string.new_body_envios_tdc_empty_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_telefono))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_cell_empty_error);
+                errorText = App.getContext().getResources().getString(R.string.new_body_envios_cell_empty_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_error))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_clabe_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_clabe_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_tdc_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_tdc_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_cellphone_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_cellphone_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_empty))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_empty_error);
+                errorText = App.getContext().getString(R.string.new_body_envios_importe_empty_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_importe_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_empty_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_name_empty))) {
+                errorTittle = App.getContext().getString(R.string.destiny_invalid);
+                errorText = App.getContext().getString(R.string.new_body_envios_destiny_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_name_error))) {
+                errorTittle = "Error";
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_empty))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_concepto_error);
+                errorText = App.getContext().getString(R.string.new_body_envios_concepto_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_error))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_empty))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_refer_error);
+                errorText = App.getContext().getString(R.string.new_body_envios_refer_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_short))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_invalid))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_error))) {
+                errorTittle = "Error";
+            }
+
+            UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+        }
+
     }
 
     @Override
     public void onError(String error) {
 
+        isValid = false;
+        errorText = error;
+
     }
 
     @Override
-    public void onSuccess(Double importe) {
-
+    public void onSuccess(Double monto) {
+        this.monto = monto;
+        isValid = true;
     }
 
     @Override
     public void showError(String text) {
+        if (!TextUtils.isEmpty(text)) {
+
+            UI.createSimpleCustomDialog("Error de Text", text, getActivity().getSupportFragmentManager(), getFragmentTag());
+        }
 
     }
 
@@ -389,15 +489,53 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     @Override
     protected void continuePayment() {
+        if (!isCuentaValida) {
+            Formatter formatter = new Formatter();
+            showError(formatter.format(getString(R.string.error_cuenta_no_valida), tipoEnvio.getSelectedItem().toString()).toString());
+            formatter.close();
+
+        } else if (!isValid) {
+            showError();
+        } else {
+            //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+            //Se debe crear un objeto que se envía a la activity que realizará el pago
+            payment = new Envios(selectedType, referencia, monto, nombreDestinatario, concepto, referenciaNumber, comercioItem,
+                    favoriteItem != null);
+            sendPayment();
+        }
 
     }
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
-
         setBackUpResponse(response);
+    }
+
+    @Override
+    public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
+        setBackUpResponsefavo(response);
 
 
+    }
+    private void setBackUpResponsefavo(ArrayList<CarouselItem> mResponse) {
+        for (CarouselItem carouselItem : mResponse) {
+            if (carouselItem.getComercio() != null) {
+                backUpResponsefavo.add(new CustomCarouselItem(
+
+                        carouselItem.getComercio().getIdComercio(),
+                        carouselItem.getComercio().getIdTipoComercio(),
+                        carouselItem.getComercio().getNombreComercio(),
+                        carouselItem.getComercio().getFormato(),
+                        carouselItem.getComercio().getLongitudReferencia()
+                ));
+            }
+        }
+        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+            @Override
+            public int compare(CustomCarouselItem o1, CustomCarouselItem o2) {
+                return o1.getNombreComercio().compareToIgnoreCase(o2.getNombreComercio());
+            }
+        });
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {

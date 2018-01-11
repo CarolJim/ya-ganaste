@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public interface PaymentsCarrouselManager extends PaymentsManager {
     void setCarouselData(ArrayList<CarouselItem> response);
 
+    void setCarouselDataFavoritos(ArrayList<CarouselItem> response);
+
     void showErrorService();
 
     void showFavorites();

@@ -1300,6 +1300,11 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         setBackUpResponse(response);
     }
 
+    @Override
+    public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
+
+    }
+
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         for (CarouselItem carouselItem : mResponse) {
             if (carouselItem.getComercio() != null) {
