@@ -222,7 +222,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
                 tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
                 tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
-
+                edtPin.setText("967188");
                 // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
                 // Se le asigna un TextWatcher personalizado para realizar las oepraciones
                 edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
