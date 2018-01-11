@@ -352,7 +352,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                     path = selectedImage.getPath();
                 } else {
                     cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                    // Move to first row
+                    // Move to first row_envios
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                     path = cursor.getString(columnIndex);
