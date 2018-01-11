@@ -37,6 +37,7 @@ public class Constants {
     public static final String RESULT_SUCCESS = "Success";
 
     public static final int RESULT_CODE_OK = 1;
+    public static final int RESULT_CODE_OK_CLOSE = 2;
     public static final int RESULT_CODE_FAIL = 0;
     public static final int RESULT_CODE_BACK_PRESS = 22;
     //endregion

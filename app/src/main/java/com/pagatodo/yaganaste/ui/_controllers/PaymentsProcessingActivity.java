@@ -51,6 +51,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 
 /**
  * Created by Jordan on 25/04/2017.
@@ -197,6 +198,9 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             changeToolbarVisibility(true);
             setVisibilityPrefer(false);
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
+            Intent intent = new Intent();
+            intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
+            setResult(RESULT_CODE_OK_CLOSE, intent);
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
 
             saveDataResponse();

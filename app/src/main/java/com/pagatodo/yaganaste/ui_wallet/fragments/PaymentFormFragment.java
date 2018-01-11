@@ -208,8 +208,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         btnContinue.setOnClickListener(this);
         if (comercioResponse != null) {
             if (comercioResponse.getIdTipoComercio() == TYPE_RELOAD) {
+                txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
                 lytContainerRecargas.setVisibility(View.VISIBLE);
             } else {
+                txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
                 lytContainerServicios.setVisibility(View.VISIBLE);
             }
         }
@@ -217,17 +219,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         // Mostramos el titular
         if (isRecarga) {
             // Recargas
-            txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
-            //  showImageData(circuleDataPhoto, isFavorito);
-          /*  imgUserPhoto
-            circuleDataPhoto
-            txtNameUser
-            txtData
-            txtSaldo
-            txtMonto*/
+
         } else {
             // Servicios
-            txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
+
         }
 
         if (comercioResponse != null) {
@@ -331,13 +326,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtMonto.setText("" + Utils.getCurrencyValue(0));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtNameUser.setText("" + dataUser.getDataUser().getUsuario().getNombre());
-        txtSaldo.setText("" + Utils.getCurrencyValue(11350));
+        txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
             Picasso.with(App.getContext())
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user)
-                    .into(circuleDataPhoto);
+                    .into(imgUserPhoto);
         }
 
 
@@ -360,7 +355,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
-                        .placeholder(R.mipmap.icon_user)
                         .into(imageDataPhoto);
             }
             circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
@@ -385,7 +379,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 referencia = referencia.replaceAll(" ", "");
                 monto = (Double) spnMontoRecarga.getSelectedItem();
                 recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
-
                 break;
         }
     }
@@ -398,11 +391,18 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (requestCode == CONTACTS_CONTRACT) {
                 contactPicked(data);
             }
-            // TODO Localizar el codigo en constantes o crar uno
-        } else if (requestCode == 190) {
-            Toast.makeText(App.getContext(), App.getContext().getResources()
-                    .getString(R.string.new_body_saldo_error), Toast.LENGTH_SHORT).show();
+        } else if (requestCode == BACK_FROM_PAYMENTS) {
+
+            if (resultCode == Constants.RESULT_CODE_OK_CLOSE) {
+                getActivity().finish();
+            } else {
+                Toast.makeText(App.getContext(), App.getContext().getResources()
+                        .getString(R.string.new_body_saldo_error), Toast.LENGTH_SHORT).show();
+
+            }
         }
+
+
     }
 
     private void contactPicked(Intent data) {
@@ -474,6 +474,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     @Override
     public void onSuccess(Double importe) {
+        if (importe > 0) {
+            isValid = true;
+        }
+
         if (!isValid) {
             showError();
         } else {

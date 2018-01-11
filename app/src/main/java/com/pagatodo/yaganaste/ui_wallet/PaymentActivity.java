@@ -15,6 +15,8 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+
 public class PaymentActivity extends LoaderActivity implements View.OnClickListener {
 
     public static final String PAYMENT_DATA = "PAYMENT_DATA";
@@ -68,7 +70,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         myFragment.onActivityResult(requestCode, resultCode, data);
