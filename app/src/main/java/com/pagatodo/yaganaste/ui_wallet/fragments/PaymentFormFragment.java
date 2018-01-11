@@ -67,12 +67,11 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
-import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -217,7 +216,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
         if (comercioResponse != null) {
-            if (comercioResponse.getIdTipoComercio() == TYPE_RELOAD) {
+            if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
                 lytContainerRecargas.setVisibility(View.VISIBLE);
 

@@ -50,6 +50,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_NOTIFICACIONES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
@@ -96,6 +97,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_MY_DONGLE_BACK = "PREFER_USER_MY_DONGLE_BACK";
 
     public static String PREFER_NOTIFICACIONES = "PREFER_NOTIFICACIONES";
+    public static String PREFER_NOTIFICACIONES_BACK = "PREFER_NOTIFICACIONES_BACK";
     public static String PREFER_DESVINCULAR = "PREFER_DESVINCULAR";
 
     /**
@@ -306,7 +308,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
+                //loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES), Direction.BACK, false);
                 break;
             case "PREFER_USER_MY_DONGLE_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
@@ -429,6 +432,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_NOTIFICACIONES":
                 loadFragment(NotificacionesPrefFragment.newInstance(),Direction.FORDWARD, false);
                 break;
+
+            case "PREFER_NOTIFICACIONES_BACK":
+                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES),Direction.BACK, false);
+                break;
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
                 //loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
@@ -495,7 +502,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             }else if (currentFragment instanceof SecurityFragment){
                 onEvent(PREFER_USER_LISTA, null);
             }else if (currentFragment instanceof NotificacionesPrefFragment){
-                onEvent(PREFER_USER_MY_USER_BACK, null);
+                onEvent(PREFER_NOTIFICACIONES_BACK, null);
             } else {
                 super.onBackPressed();
             }

@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 
@@ -94,13 +95,12 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void getFavoriteCarouselItems() {
-        if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
-            paymentsTabIteractor.getFavoritesFromService();
-            // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
+        //if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
+        paymentsTabIteractor.getFavoritesFromService();
+            /* paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
         } else {
             paymentsTabIteractor.getFavoritesFromService();
-        }
-
+        }*/
     }
 
     @Override
@@ -284,20 +284,17 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     private CarouselItem createItemToAddFav() {
         //Se agrega un id en -1 en el constructor para hacer referencia a que el item responde a la accion de agregar favorito desde 0
-        CarouselItem carouselItemAdd = new CarouselItem(App.getInstance(), R.mipmap.agregar_favorito, "#747E84", CarouselItem.DRAG, new ComercioResponse(-1), null);
+        CarouselItem carouselItemAdd = new CarouselItem(App.getInstance(), R.drawable.new_fav_add, "#747E84", CarouselItem.DRAG, new ComercioResponse(-1), null);
         carouselItemAdd.setAddImageViewMargin();
         return carouselItemAdd;
     }
 
     @Override
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
-
-
         if (showFavorite) {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
-
         } else {
-           // paymentsManager.showFavorites();
+            // paymentsManager.showFavorites();
             paymentsManager.setCarouselDataFavoritos(getCarouselItemsFavoritos(favoritos));
         }
     }
@@ -305,7 +302,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
 
-        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
+        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), current_tab != PAYMENT_ENVIOS ? R.drawable.new_fav_search : R.drawable.new_fav_add,
+                current_tab != PAYMENT_ENVIOS ? "#FFFFFF" : "#808080", CarouselItem.CLICK, null, null);
         carouselItemSearch.setSearchImageViewMargin();
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
@@ -340,8 +338,11 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         carouselItemSearch.setSearchImageViewMargin();
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
-        carouselItems.add(0, carouselItemSearch);
-        carouselItems.add(1, createItemToAddFav());
+        if (current_tab != PAYMENT_ENVIOS) {
+            carouselItems.add(0, carouselItemSearch);
+        } else {
+            carouselItems.add(0, createItemToAddFav());
+        }
 
         for (DataFavoritos favorito : favoritos) {
             if (favorito.getIdTipoComercio() == current_tab) {
@@ -368,9 +369,11 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             }
         }
 
-        int toAdd = 8 - carouselItems.size();
-        for (int n = 0; n < toAdd; n++) {
-            carouselItems.add(createItemToAddFav());
+        if(current_tab!=PAYMENT_ENVIOS) {
+            int toAdd = 8 - carouselItems.size();
+            for (int n = 0; n < toAdd; n++) {
+                carouselItems.add(createItemToAddFav());
+            }
         }
 
         return carouselItems;
