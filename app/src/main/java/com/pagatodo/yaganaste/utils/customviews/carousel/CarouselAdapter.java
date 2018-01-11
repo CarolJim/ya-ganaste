@@ -34,7 +34,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
      */
     public static final int INVALID_POSITION = -1;
     /**
-     * Represents an empty or invalid row id
+     * Represents an empty or invalid row_envios id
      */
     public static final long INVALID_ROW_ID = Long.MIN_VALUE;
     /**
@@ -203,7 +203,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
      *
      * @param view     The view within the CarouselAdapter that was clicked.
      * @param position The position of the view in the adapter.
-     * @param id       The row id of the item that was clicked.
+     * @param id       The row_envios id of the item that was clicked.
      * @return True if there was an assigned OnItemClickListener that was
      * called, false otherwise is returned.
      */
@@ -688,7 +688,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
 
             int newPos;
 
-            // Find the row we are supposed to sync to
+            // Find the row_envios we are supposed to sync to
             if (mNeedSync) {
                 // Update this first, since setNextSelectedPositionInt inspects
                 // it
@@ -701,7 +701,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
                     // Verify that new selection is selectable
                     int selectablePos = lookForSelectablePosition(newPos, true);
                     if (selectablePos == newPos) {
-                        // Same row id is selected
+                        // Same row_envios id is selected
                         setNextSelectedPositionInt(newPos);
                         found = true;
                     }
@@ -756,7 +756,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
      * and then alternates between moving up and moving down until 1) we find the right position, or
      * 2) we run out of time, or 3) we have looked at every position
      *
-     * @return Position of the row that matches mSyncRowId, or {@link #INVALID_POSITION} if it can't
+     * @return Position of the row_envios that matches mSyncRowId, or {@link #INVALID_POSITION} if it can't
      * be found
      */
     int findSyncPosition() {
@@ -928,7 +928,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          * @param view     The view within the CarouselAdapter that was clicked (this
          *                 will be a view provided by the adapter)
          * @param position The position of the view in the adapter.
-         * @param id       The row id of the item that was clicked.
+         * @param id       The row_envios id of the item that was clicked.
          */
         void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id);
     }
@@ -959,7 +959,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          * @param parent   The AbsListView where the click happened
          * @param view     The view within the AbsListView that was clicked
          * @param position The position of the view in the list
-         * @param id       The row id of the item that was clicked
+         * @param id       The row_envios id of the item that was clicked
          * @return true if the callback consumed the long click, false otherwise
          */
         boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id);
@@ -980,7 +980,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          * @param parent   The CarouselAdapter where the selection happened
          * @param view     The view within the CarouselAdapter that was clicked
          * @param position The position of the view in the adapter
-         * @param id       The row id of the item that is selected
+         * @param id       The row_envios id of the item that is selected
          */
         void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id);
 
@@ -1012,7 +1012,7 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          */
         public int position;
         /**
-         * The row id of the item for which the context menu is being displayed.
+         * The row_envios id of the item for which the context menu is being displayed.
          */
         public long id;
 

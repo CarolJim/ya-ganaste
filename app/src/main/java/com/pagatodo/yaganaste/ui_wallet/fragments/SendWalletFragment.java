@@ -184,7 +184,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     }
 
     private void showValidationError(String error) {
-        UI.showToast(error, getActivity());
+        UI.showToastShort(error, getActivity());
         //mySeekBar.setProgress(0);
     }
 

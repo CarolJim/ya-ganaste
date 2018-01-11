@@ -391,7 +391,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     private List<DataFavoritos> orderFavoritos(List<DataFavoritos> originalList, int typeDataFav) {
-
         ArrayList<DataFavoritos> finalList = new ArrayList<>();
 
         // Agregamos la lupa solo si tenemos mas de 8 items en el servicio. En caso de 0 no agrega nada
