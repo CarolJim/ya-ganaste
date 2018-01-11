@@ -64,13 +64,19 @@
                     android:id="@+id/imgPagosServiceToPayRound"
                     android:layout_width="@dimen/radio_image_pago_payment_tab"
                     android:layout_height="@dimen/radio_image_pago_payment_tab"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
                     android:src="@mipmap/blacksquare"
                     app:civ_border_color="@color/black"
                     app:civ_border_width="@dimen/border_width" />
+
+                <ImageView
+                    android:padding="10dp"
+                    android:id="@+id/imgItemGalleryPay"
+                    android:layout_width="70dp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="70dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -156,7 +162,7 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             style="@style/FragmentElementForm"

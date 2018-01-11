@@ -1201,4 +1201,8 @@
     <string name="cyan">Cyan</string>#00BCD4
     <string name="brown">Brown</string>#795548
 
+    <!-- Procesos de PaymentActivity-->
+    <string name="txt_recargas">Recargas</string>
+    <string name="txt_servicios">Servicios</string>
+
 </resources>
