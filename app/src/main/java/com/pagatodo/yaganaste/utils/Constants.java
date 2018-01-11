@@ -37,6 +37,7 @@ public class Constants {
     public static final String RESULT_SUCCESS = "Success";
 
     public static final int RESULT_CODE_OK = 1;
+    public static final int RESULT_CODE_OK_CLOSE = 2;
     public static final int RESULT_CODE_FAIL = 0;
     public static final int RESULT_CODE_BACK_PRESS = 22;
     //endregion
@@ -51,4 +52,9 @@ public class Constants {
     // COnstantes para newPayments
     public static final int TYPE_RELOAD = 1;
     public static final int TYPE_PAYMENT = 2;
+
+    // PaymentActivity
+    public static final int PAYMENT_RECARGAS = 1;
+    public static final int PAYMENT_SERVICIOS = 2;
+    public static final int PAYMENT_ENVIOS = 3;
 }

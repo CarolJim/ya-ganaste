@@ -66,6 +66,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouse
 import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
@@ -1187,7 +1188,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          * Agregamos el Adapter especial al Spinner para tener los 2 o 3 estados dependiendo del
          * keyIdComercio
          */
-        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(this, TAB3, tipoPago);
+        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(this, Constants.PAYMENT_ENVIOS, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
 

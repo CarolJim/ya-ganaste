@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -90,7 +91,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             if (montos.get(0) != 0D) {
                 montos.add(0, 0D);
             }
-            dataAdapter = new SpinnerArrayAdapter(getContext(), TAB1, montos);
+            dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_RECARGAS, montos);
 
             // Hacemos una referencia directa al Fragment Padre
             fragment = (PaymentsTabFragment) getParentFragment();

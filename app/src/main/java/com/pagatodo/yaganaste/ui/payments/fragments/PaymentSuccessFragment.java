@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -51,6 +52,9 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
@@ -368,9 +372,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     @Override
     public void finalizePayment() {
-       /* Intent intent = new Intent();
-        intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
-        getActivity().setResult(RESULT_CODE_OK, intent);*/
         getActivity().finish();
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

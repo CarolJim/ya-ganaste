@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
@@ -186,7 +187,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         });
 
         numberReference.setText(DateUtil.getDayMonthYear());
-        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
+        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
