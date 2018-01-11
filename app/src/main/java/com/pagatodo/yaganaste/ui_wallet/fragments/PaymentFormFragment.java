@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
+import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 
 /**
@@ -136,7 +138,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     StyleTextView txtComisionServicio;
 
     boolean isRecarga = false;
-    boolean isFavorito = false;
     boolean isIAVE;
     private int maxLength;
     Double monto;
@@ -177,12 +178,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         // Creamos el presentes del favorito
         iPresenterPayment = new PresenterPaymentFragment(this);
 
+        /**
+         * Sin importar que sea un proceso de comercioResponse o dataFavoritos, siempre trabaajreos con
+         * ccomercioResponse. En el caso de favorito, accesamos a las propiedades del comercio y lo
+         * asignamos
+         */
         if (getArguments() != null) {
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
                 if (dataFavoritos != null) {
                     if (dataFavoritos.getIdFavorito() >= 0) {
-                        isFavorito = true;
                         comercioResponse = iPresenterPayment.getComercioById(dataFavoritos.getIdComercio());
                     }
                 }
@@ -191,7 +196,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 if (comercioResponse != null) {
                     if (comercioResponse.getIdTipoComercio() == 1) {
                         isRecarga = true;
-                        isFavorito = false;
                     }
                 }
             }
@@ -215,12 +219,18 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
+
+        // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
             if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
                 lytContainerRecargas.setVisibility(View.VISIBLE);
 
-                // Cargamos el nombre del Carrier, imagen y borde
+                /**
+                 * Cargamos el nombre del Carrier, imagen y borde
+                 * tipoPhoto 1 = Favorito 2 = Carrier
+                 */
+
                 int tipoPhoto;
                 String nameRefer;
                 if (dataFavoritos != null) {
@@ -422,6 +432,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     }
 
+    /**
+     * Encargada de hacer Set de la imagen y del borde.
+     * @param imageDataPhoto es la imagen que se usa para hacer Set de los logos de Carriers
+     * @param circuleDataPhoto es la imagen que se usa para hacer Set de los logos de favoritos y borde
+     *                         en ambos casos
+     * @param mType
+     */
     private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
         if (mType == 1) {
             String mPhoto = dataFavoritos.getImagenURL();
@@ -443,11 +460,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             }
             circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
         }
-
-
-        /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.ic_launcher)
-                .dontAnimate().into(imageView);*/
     }
 
     @Override
@@ -459,6 +471,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
         switch (v.getId()) {
             case R.id.btn_continue_payment:
+                /**
+                 * Por medio de la isRecarga mandamos a procesos de Recargas o Carriers
+                 */
                 if (isRecarga) {
                     referencia = edtPhoneNumber.getText().toString().trim();
                     referencia = referencia.replaceAll(" ", "");
@@ -479,7 +494,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
     }
 
-
+    /**
+     * Obtenemos los resultados de onActivityResult desde PaymentActivity. LAs respuestas de los servicios
+     * y tomar un contacto de la agenda
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -492,9 +513,15 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (resultCode == Constants.RESULT_CODE_OK_CLOSE) {
                 getActivity().finish();
             } else {
-                Toast.makeText(App.getContext(), App.getContext().getResources()
-                        .getString(R.string.new_body_saldo_error), Toast.LENGTH_SHORT).show();
 
+                // Mostramos los errores por medio de un dialogo, siempre resultCode 190
+                try{
+                    Bundle MBuddle = data.getExtras();
+                    String MMessage = MBuddle .getString(MESSAGE);
+                    UI.createSimpleCustomDialog("Error Interno", MMessage,
+                            getActivity().getSupportFragmentManager(), getFragmentTag());
+                }catch (Exception e){
+                }
             }
         } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
@@ -567,6 +594,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
     }
 
+    /**
+     * * Errores del servicio de Recargas
+     * @param error
+     */
     @Override
     public void onError(String error) {
         //mySeekBar.setEnabled(false);
@@ -575,6 +606,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         showError();
     }
 
+    /**
+     * Errores del servicio de PDS
+     * @param error
+     */
     @Override
     public void onErrorValidateService(String error) {
         //mySeekBar.setEnabled(false);
@@ -583,6 +618,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         showError();
     }
 
+    /**
+     * Success del presentes de PDS
+     * @param importe
+     */
     @Override
     public void onSuccessValidateService(Double importe) {
         if (importe > 0) {
@@ -601,6 +640,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
     }
 
+    /**
+     * Success del presenter de  Recargas
+     * @param importe
+     */
     @Override
     public void onSuccess(Double importe) {
         if (importe > 0) {
@@ -618,6 +661,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
     }
 
+    /**
+     * Envio a la actividad PaymentsProcessingActivity del resultado, sea una Recarga o PDS
+     */
     protected void sendPayment() {
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
