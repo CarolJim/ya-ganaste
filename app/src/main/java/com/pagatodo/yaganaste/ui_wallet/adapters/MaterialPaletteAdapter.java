@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ import java.util.List;
  */
 
 public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPaletteAdapter.PaletteViewHolder> {
-    private List<Color> data;
+    private List<CarouselItem> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
 
-    public MaterialPaletteAdapter(@NonNull List<Color> data,
+    public MaterialPaletteAdapter(@NonNull List<CarouselItem> data,
                                   @NonNull RecyclerViewOnItemClickListener
                                           recyclerViewOnItemClickListener) {
         this.data = data;
@@ -35,11 +36,16 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
 
     @Override
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
-        Color color = data.get(position);
-        holder.getTitleTextView().setText(color.getName());
-
+        CarouselItem item = data.get(position);
         GradientDrawable gradientDrawable = (GradientDrawable) holder.getCircleView().getBackground();
-        int colorId = android.graphics.Color.parseColor(color.getHex());
+        int colorId;
+        if (position == 0) {
+            holder.getTitleTextView().setText("Agregar");
+            colorId = android.graphics.Color.parseColor(item.getColor());
+        } else {
+            holder.getTitleTextView().setText(item.getFavoritos().getNombre());
+            colorId = android.graphics.Color.parseColor(item.getFavoritos().getColorMarca());
+        }
         gradientDrawable.setColor(colorId);
     }
 

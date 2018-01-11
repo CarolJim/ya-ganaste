@@ -44,8 +44,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
-import static com.pagatodo.yaganaste.utils.Constants.TYPE_PAYMENT;
-import static com.pagatodo.yaganaste.utils.Constants.TYPE_RELOAD;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 
 /**
  * Frank Manzo 27-12-17
@@ -166,15 +166,15 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         // Reiniciamos el Switch a false
         btnSwitch.setChecked(false);
 
-        newPaymentPresenter.getCarriersItems(TYPE_RELOAD);
-        newPaymentPresenter.getCarriersItems(TYPE_PAYMENT);
+        newPaymentPresenter.getCarriersItems(PAYMENT_RECARGAS);
+        newPaymentPresenter.getCarriersItems(PAYMENT_SERVICIOS);
     }
 
     private void updateFavorites() {
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
         mRecargarGrid.clear();
         mPagarGrid.clear();
-        newPaymentPresenter.getFavoritesItems(TYPE_RELOAD);
+        newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);
         //   newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
     }
 
@@ -324,7 +324,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
          */
         if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-            newPaymentPresenter.getFavoritesItems(TYPE_PAYMENT);
+            newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
         }
     }
 
@@ -479,7 +479,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     } else if (mDataRecargarFav.get(position).getNombre().equals("Nuevo")) {
                         // Iniciamos la actividad de Favoritos para recargas
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
-                        intent.putExtra(CURRENT_TAB_ID, TYPE_RELOAD);
+                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
                         intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
@@ -502,7 +502,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     } else if (mDataPagarFav.get(position).getNombre().equals("Nuevo")) {
                         // Iniciamos la actividad de Favoritos
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
-                        intent.putExtra(CURRENT_TAB_ID, TYPE_PAYMENT);
+                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
                         intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
