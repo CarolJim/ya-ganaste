@@ -8,4 +8,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 
 public interface IPresenterPaymentFragment {
     ComercioResponse getComercioById(long idComercio);
+
+    void validateFieldsCarrier(String referencia, String serviceImport, String concepto, int longitudReferencia);
 }

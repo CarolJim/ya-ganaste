@@ -105,7 +105,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
 
     @Override
     public void onError(final Errors error) {
-        Log.e(TAG, "onError: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
+        Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
 
         if (individualReintent < 3 && error.allowsReintent()) { //Si el reintento individual aun no excede el maximo
             handleError(error);

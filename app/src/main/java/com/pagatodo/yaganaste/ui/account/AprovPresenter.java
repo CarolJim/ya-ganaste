@@ -200,7 +200,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onError(WebService ws, Object error) {
-        Log.e(TAG, "onError: " + ws.toString());
+        Log.e(TAG, "onErrorValidateService: " + ws.toString());
         if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
             onError(Errors.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN);
         } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
@@ -237,7 +237,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onError(final Errors error) {
-        Log.e(TAG, "onError: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
+        Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
         final INavigationView navigationView =
                 aprovView instanceof INavigationView ? (INavigationView) aprovView : null;
 

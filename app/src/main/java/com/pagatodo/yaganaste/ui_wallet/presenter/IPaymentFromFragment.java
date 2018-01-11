@@ -5,4 +5,7 @@ package com.pagatodo.yaganaste.ui_wallet.presenter;
  */
 
 public interface IPaymentFromFragment {
+    void onErrorValidateService(String string);
+
+    void onSuccessValidateService(Double result);
 }

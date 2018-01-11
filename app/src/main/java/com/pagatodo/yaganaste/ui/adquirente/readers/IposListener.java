@@ -213,7 +213,7 @@ public class IposListener implements QPOSServiceListener {
     @Override
     public void onError(Error errorState) {
         Log.i("IposListener: ", "------ errorState  " + errorState.name());
-        Log.e("onError", errorState.name());
+        Log.e("onErrorValidateService", errorState.name());
         if (errorState.name().equals("TIMEOUT") || errorState.name().equals("CMD_TIMEOUT")) {
             enviaMensaje(Recursos.SW_TIMEOUT);
         } else {

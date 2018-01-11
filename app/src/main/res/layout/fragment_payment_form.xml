@@ -162,7 +162,7 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             style="@style/FragmentElementForm"
@@ -231,7 +231,7 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             style="@style/FragmentElementForm"
