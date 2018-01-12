@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private ArrayList myDataset;
     private ArrayList mRecargarGrid;
     private ArrayList mPagarGrid;
-    private int typeView = 0;
+    private int typeView;
 
     // Constantes para operaciones en el Grid
     public static final int TYPE_CARRIER = 1;
@@ -140,6 +141,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         // paymentsCarouselPresenter.getFavoriteCarouselItems();
         newPaymentPresenter = new NewPaymentPresenter(this, App.getContext());
 
+        typeView = TYPE_CARRIER;
         btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +166,13 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void onResume() {
         super.onResume();
 
-        updateCarriers();
+        if(typeView == TYPE_CARRIER) {
+            updateCarriers();
+        }else{
+            updateFavorites();
+        }
+
+        Log.d("NewPaymentFragment", "typeView " + typeView);
     }
 
     private void updateCarriers() {
@@ -178,6 +186,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         newPaymentPresenter.getCarriersItems(PAYMENT_RECARGAS);
         newPaymentPresenter.getCarriersItems(PAYMENT_SERVICIOS);
+        typeView = TYPE_CARRIER;
     }
 
     private void updateFavorites() {
@@ -335,6 +344,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
             newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
+            typeView = TYPE_FAVORITE;
         }
     }
 
@@ -595,5 +605,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @Override
     public void errorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        typeView = TYPE_CARRIER;
     }
 }
