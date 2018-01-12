@@ -29,6 +29,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.NewListDialog;
 import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
 
@@ -142,7 +144,15 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             @Override
             public void onClick(View v) {
                 if (btnSwitch.isChecked()) {
-                    updateFavorites();
+                    boolean isOnline = Utils.isDeviceOnline();
+                    if (isOnline) {
+                        updateFavorites();
+                    } else {
+                        btnSwitch.setChecked(false);
+                        UI.createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access),
+                                getActivity().getSupportFragmentManager(), getFragmentTag());
+                    }
+
                 } else {
                     updateCarriers();
                 }

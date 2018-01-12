@@ -653,11 +653,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (!isValid) {
             showError();
         } else {
-            this.monto = importe;
-            isValid = true;
+            boolean isOnline = Utils.isDeviceOnline();
+            if (isOnline) {
+                this.monto = importe;
+                isValid = true;
 
-            payment = new Recarga(referencia, monto, comercioResponse, dataFavoritos != null);
-            sendPayment();
+                payment = new Recarga(referencia, monto, comercioResponse, dataFavoritos != null);
+                sendPayment();
+            } else {
+                UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access),
+                        getActivity().getSupportFragmentManager(), getFragmentTag());
+            }
         }
     }
 

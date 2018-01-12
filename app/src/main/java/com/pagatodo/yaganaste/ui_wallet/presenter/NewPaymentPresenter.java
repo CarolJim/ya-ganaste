@@ -57,7 +57,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
         this.typeDataFav = typeDataFav;
         if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
             mInteractor.getFavoritesFromService(typeDataFav);
-            // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
+            //paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
         } else {
             mInteractor.getFavoritesFromService(typeDataFav);
         }
