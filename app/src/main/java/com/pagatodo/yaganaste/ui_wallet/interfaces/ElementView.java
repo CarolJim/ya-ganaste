@@ -54,7 +54,7 @@ public class ElementView implements Serializable{
         this.title = title;
     }
 
-    public ArrayList<ElementView> getListEmisor(){
+    public static ArrayList<ElementView> getListEmisor(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.icono_movimientos,"Movimientos"));
         elementViews.add(new ElementView(2, R.mipmap.icono_deposito,"Depositos"));
@@ -62,7 +62,7 @@ public class ElementView implements Serializable{
         return elementViews;
     }
 
-    public ArrayList<ElementView> getListStartBuck(){
+    public static ArrayList<ElementView> getListStartBuck(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.icono_movimientos,"Movimientos"));
         elementViews.add(new ElementView(4, R.mipmap.icono_deposito,"Añadir Saldo"));
@@ -70,7 +70,7 @@ public class ElementView implements Serializable{
         return elementViews;
     }
 
-    public ArrayList<ElementView> getListLectorAdq(){
+    public static ArrayList<ElementView> getListLectorAdq(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.icono_movimientos,"Movimientos"));
         elementViews.add(new ElementView(6, R.mipmap.icon_tab_dongle_white,"Cobros"));
@@ -78,13 +78,13 @@ public class ElementView implements Serializable{
         return elementViews;
     }
 
-    public ArrayList<ElementView> getListLectorEmi(){
+    public static ArrayList<ElementView> getListLectorEmi(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(7, R.mipmap.icon_tab_dongle_white,"Registrar"));
         return elementViews;
     }
 
-    public ArrayList<ElementView> getListEnviar(Context context){
+    public static ArrayList<ElementView> getListEnviar(Context context){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(ID_ENVIAR, R.mipmap.send_icon,context.getResources().getString(R.string.enviar_dinero)));
         elementViews.add(new ElementView(ID_SOLICITAR, R.mipmap.request_icon,context.getResources().getString(R.string.solicitar_pago)));

@@ -15,10 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
+import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
@@ -30,17 +36,22 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
+import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
+
 /**
  *
  */
-public class WalletTabFragment extends SupportFragment implements WalletView, ElementsWalletAdpater.OnItemClickListener,
-        WlletNotifaction {
+public class WalletTabFragment extends SupportFragment implements WalletView,
+        ElementsWalletAdpater.OnItemClickListener, IMyCardViewHome
+        {
 
     public static final String ID_OPERATION = "ID_OPERATION";
     @BindView(R.id.progressGIF)
@@ -58,13 +69,17 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
 
 
     private WalletPresenter walletPresenter;
+    private TarjetaUserPresenter mPreferPresenter;
     private CardWalletAdpater cardWalletAdpater;
+    private ElementsWalletAdpater elementsWalletAdpater;
     protected OnEventListener onEventListener;
 
     private int dotsCount;
     private ImageView[] dots;
     private int previous_pos = 0;
     private int pageCurrent = 0;
+    private String mTDC;
+    boolean statusOperation = true;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -82,6 +97,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         walletPresenter = new WalletPresenterImpl(this);
+        mPreferPresenter = new TarjetaUserPresenter(this);
     }
 
 
@@ -90,14 +106,23 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wallet_main, container, false);
         ButterKnife.bind(this, view);
-        walletPresenter.getWalletsCards();
-
+        initViews();
         return view;
     }
 
     @Override
     public void initViews() {
+        GridLayoutManager llm = new GridLayoutManager(getContext(), 3);
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
+        rcvOpciones.addItemDecoration(itemDecoration);
+        rcvOpciones.setLayoutManager(llm);
 
+        cardWalletAdpater = new CardWalletAdpater();
+        viewPagerWallet.setAdapter(cardWalletAdpater);
+        elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this);
+        rcvOpciones.setAdapter(elementsWalletAdpater);
+
+        //walletPresenter.getWalletsCards();
     }
 
     @Override
@@ -119,17 +144,20 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
     public void completed() {
 
         progressLayout.setVisibility(View.GONE);
-        cardWalletAdpater = new CardWalletAdpater();
-        cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
-        //cardWalletAdpater.addCardItem(new ElementWallet().getCardStarBucks(getContext()));
+        if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)){
+            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
+        } else {
+            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
+        }
+
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
         } else {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
         }
 
-        viewPagerWallet.setAdapter(cardWalletAdpater);
-        //viewPagerWallet.setPageTransformer(true, new ZoomOutPageTransformer(true));
+        cardWalletAdpater.notifyDataSetChanged();
+
         viewPagerWallet.setCurrentItem(0);
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -158,10 +186,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
             }
         });
         setUiPageViewController();
-        GridLayoutManager llm = new GridLayoutManager(getContext(), 3);
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
-        rcvOpciones.addItemDecoration(itemDecoration);
-        rcvOpciones.setLayoutManager(llm);
         updateOperations(0);
     }
 
@@ -185,45 +209,90 @@ public class WalletTabFragment extends SupportFragment implements WalletView, El
     }
 
     private void updateOperations(int psition) {
+        elementsWalletAdpater.setEmptyList();
         pageCurrent = psition;
-        rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(), cardWalletAdpater.getElementWallet(psition), this));
+        if (psition == 0) {
+            elementsWalletAdpater.setList(ElementView.getListEmisor(),this);
+        }
+
+        if (psition == 1) {
+            if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+                elementsWalletAdpater.setList(ElementView.getListLectorAdq(),this);
+            } else {
+                elementsWalletAdpater.setList(ElementView.getListLectorEmi(),this);
+            }
+        }
+        elementsWalletAdpater.notifyDataSetChanged();
         txtSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getSaldo());
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getTipoSaldo());
     }
 
+
     @Override
     public void onItemClick(ElementView elementView) {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
-
         intent.putExtra(ID_OPERATION, elementView.getIdOperacion());
-        intent.putExtra("CURRENT_PAGE", pageCurrent);
+        intent.putExtra( "CURRENT_PAGE", pageCurrent);
         startActivity(intent);
-        /*
-        switch (elementView.getIdOperacion()) {
-            case 1:
-                intent.putExtra("CURRENT_PAGE",pageCurrent);
-                startActivity(intent);
-                break;
-            case 2:
-                startActivity(intent);
-                break;
-            case 7:
-                intent.putExtra("CURRENT_PAGE",pageCurrent);
-                startActivity(intent);
-                break;
-            default:
-                Toast.makeText(getContext(),"Proximamente",Toast.LENGTH_SHORT).show();
-                break;
-        }*/
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkDataCard();
+    }
+
+
+    @Override
+    public void showLoader(String s) {
+        showProgress();
     }
 
     @Override
-    public void onFailed(int errorCode, int action, String error) {
+    public void hideLoader() {
+        hideProgress();
+    }
+
+    @Override
+    public void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response) {
 
     }
 
     @Override
-    public void onSuccess() {
+    public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
+        String statusId = response.getData().getStatusId();
+        SingletonUser.getInstance().setCardStatusId(statusId);
+        cardWalletAdpater.setEmptyList();
+        pager_indicator.removeAllViews();
+        walletPresenter.getWalletsCards();
+    }
 
+    @Override
+    public void sendErrorBloquearCuentaToView(String mensaje) {
+
+    }
+
+    private void checkDataCard() {
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Verificamos el estado de bloqueo de la Card
+            String f = SingletonUser.getInstance().getCardStatusId();
+            if (f == null || f.isEmpty() || f.equals("0")) {
+                UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
+                mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+            }
+            else {
+                cardWalletAdpater.setEmptyList();
+                pager_indicator.removeAllViews();
+                elementsWalletAdpater.setEmptyList();
+                walletPresenter.getWalletsCards();
+            }
+
+
+        } else {
+            //showDialogMesage(getResources().getString(R.string.no_internet_access));
+        }
     }
 }

@@ -35,6 +35,11 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
         elementViewList = new ArrayList<>();
         mViews = new ArrayList<>();
     }
+
+    public void setEmptyList(){
+        this.elementViewList = new ArrayList<>();
+        this.mViews = new ArrayList<>();
+    }
     public void addCardItem(ElementWallet item) {
         mViews.add(null);
         elementViewList.add(item);
@@ -43,6 +48,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
     public ArrayList<ElementView> getElementWallet(int position){
         return this.elementViewList.get(position).getElementViews();
     }
+
     @Override
     public int getCount() {
         return this.elementViewList.size();
@@ -79,9 +85,6 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
     public ElementWallet getElemenWallet(int position) {
         return this.elementViewList.get(position);
     }
-    /*public String getSaldo(int position){
-        return this.elementViewList.get(position).getSaldo();
-    }*/
 
 
     @Override

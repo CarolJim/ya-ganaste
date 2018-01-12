@@ -78,6 +78,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     private AccountPresenterNew presenterAccount;
     private String mTDC;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -302,14 +303,14 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 },
                 true, false);
     }
-
+/*
     private String cuenta() {
         UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
         mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
         cuentaUsuario = (StringUtils.ocultarCardNumberFormat(mTDC));
         //mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         return cuentaUsuario;
-    }
+    }*/
 
     @Override
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
