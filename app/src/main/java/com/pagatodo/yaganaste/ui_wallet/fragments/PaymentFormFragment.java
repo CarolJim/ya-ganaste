@@ -184,11 +184,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
          * asignamos
          */
         if (getArguments() != null) {
+            // Verifiamos si es una recarga o un pds
+
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
                 if (dataFavoritos != null) {
                     if (dataFavoritos.getIdFavorito() >= 0) {
                         comercioResponse = iPresenterPayment.getComercioById(dataFavoritos.getIdComercio());
+                    }
+                    if (dataFavoritos.getIdTipoComercio() == 1) {
+                        isRecarga = true;
                     }
                 }
             } else {

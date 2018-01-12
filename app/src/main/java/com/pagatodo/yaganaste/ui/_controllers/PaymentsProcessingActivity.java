@@ -100,7 +100,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         setContentView(R.layout.activity_generic_fragment_container);
         presenter = new PaymentsProcessingPresenter(this);
         pago = getIntent().getExtras().get("pagoItem");
-        typeOperation = PAYMENT_ENVIOS;
+        typeOperation = (int) getIntent().getExtras().get("TAB");
         llMain = findViewById(R.id.ll_main);
 
         initViews();
