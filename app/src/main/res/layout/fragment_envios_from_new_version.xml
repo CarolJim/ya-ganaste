@@ -99,6 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_elements"
+                    android:hint="Tipo de Envio"
                     android:layout_marginRight="@dimen/margin_elements"
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:background="@null"
@@ -186,6 +187,31 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    style="@style/FragmentElementForm"
+                    android:layout_width="match_parent"
+                    android:id="@+id/fragment_envios_referencia_layout"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_between_elements"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                        android:id="@+id/numberReference"
+                        style="@style/GenericStyleEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/hint_referencia_numerica"
+                        android:inputType="number"
+                        android:maxLength="6" />
+                </LinearLayout>
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    android:id="@+id/btnenviar"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    style="@style/buttonSquareRoundedBlue"
+                    android:text="Enviar"
+                    android:visibility="visible" />
             </LinearLayout>
 
             <RelativeLayout
@@ -196,13 +222,6 @@
                 android:layout_marginLeft="@dimen/seekbar_margin"
                 android:layout_marginRight="@dimen/seekbar_margin"
                 android:layout_marginTop="@dimen/margin_big">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnenviar"
-                    style="@style/buttonSquareRoundedBlue"
-                    android:text="@string/txt_ingresar"
-                    android:visibility="visible" />
-
                 <com.pagatodo.yaganaste.utils.customviews.CustomSeekBarEnviar
                     android:id="@+id/myseek"
                     android:layout_width="match_parent"
@@ -215,32 +234,6 @@
                     android:thumbOffset="15dp"
                     android:visibility="gone"
                     app:text="@string/btn_send" />
-
-                <LinearLayout
-                    android:id="@+id/fragment_envios_referencia_layout"
-                    style="@style/FragmentElementForm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="258dp"
-                    android:layout_marginEnd="61dp"
-                    android:layout_marginRight="61dp"
-                    android:background="@drawable/rounded_border_edittext"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                        android:id="@+id/numberReference"
-                        style="@style/GenericStyleEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/hint_referencia_numerica"
-                        android:inputType="number"
-                        android:maxLength="6" />
-
-                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

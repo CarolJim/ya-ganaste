@@ -1182,7 +1182,7 @@
     <string name="notific_pagos_option">Pagos con Tarjeta</string>
     <string name="notific_retiros_option">Retiros de Efectivo</string>
     <string name="notific_depositos_option">Depósitos</string>
-
+    <string name="Agregar_Referencia">Agregar Referencias (Opcional) </string>
     <string name="synch_favorites">Obteniendo Favoritos</string>
     <string name="synch_carrier">Obteniendo Carriers</string>
 
