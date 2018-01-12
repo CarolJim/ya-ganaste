@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 /**
@@ -8,5 +9,5 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
  */
 
 public interface OnListServiceListener {
-    void onListServiceListener(CustomCarouselItem item);
+    void onListServiceListener(CarouselItem item, int position);
 }

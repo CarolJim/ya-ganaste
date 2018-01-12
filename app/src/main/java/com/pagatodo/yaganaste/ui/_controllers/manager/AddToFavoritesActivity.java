@@ -186,7 +186,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     private int longitudRefer;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
-    ArrayList<CustomCarouselItem> backUpResponse;
+    ArrayList<CarouselItem> backUpResponse;
     int current_tab;
     boolean isIAVE;
     private int maxLength;
@@ -1045,12 +1045,13 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
      *
      * @param item
      */
+
     @Override
-    public void onListServiceListener(CustomCarouselItem item) {
-        //  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
-        editListServ.setText(item.getNombreComercio());
-        idTipoComercio = item.getIdTipoComercio();
-        idComercio = item.getIdComercio();
+    public void onListServiceListener(CarouselItem item, int position) {
+//  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
+        editListServ.setText(item.getComercio().getNombreComercio());
+        idTipoComercio = item.getComercio().getIdTipoComercio();
+        idComercio = item.getComercio().getIdComercio();
         editListServError.setVisibilityImageError(false);
 
         // Borramos los textos de los campos de refrencia de todos los tispos
@@ -1066,8 +1067,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         }
 
         // Variables necesarioas para agregar el formato de captura de telefono o referencia
-        formatoComercio = item.getFormatoComercio();
-        longitudRefer = item.getLongitudRefer();
+        formatoComercio = item.getComercio().getFormato();
+        longitudRefer = item.getComercio().getLongitudReferencia();
 
         /**
          * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
@@ -1094,6 +1095,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 //        idTipoComercio = 2;
 //        idComercio = 28;
     }
+
 
     /**
      * Procedimientos especificos para la referencia por via TAE
@@ -1310,20 +1312,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         for (CarouselItem carouselItem : mResponse) {
-            if (carouselItem.getComercio() != null) {
-                backUpResponse.add(new CustomCarouselItem(
-                        carouselItem.getComercio().getIdComercio(),
-                        carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio(),
-                        carouselItem.getComercio().getFormato(),
-                        carouselItem.getComercio().getLongitudReferencia()
-                ));
-            }
+           backUpResponse.add(carouselItem);
         }
-        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+        Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
-            public int compare(CustomCarouselItem o1, CustomCarouselItem o2) {
-                return o1.getNombreComercio().compareToIgnoreCase(o2.getNombreComercio());
+            public int compare(CarouselItem o1, CarouselItem o2) {
+                return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
             }
         });
     }
@@ -1390,4 +1384,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @Override
     public void showError(Errors error) {
     }
+
+
 }

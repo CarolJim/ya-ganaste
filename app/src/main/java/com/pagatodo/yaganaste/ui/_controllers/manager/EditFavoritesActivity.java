@@ -184,7 +184,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     String stringFoto, nombreDest, mReferencia, tabName, formatoComercio = "", nombreComercio;
     CameraManager cameraManager;
     private boolean errorIsShowed = false, showRefEnvio, isIAVE;
-    ArrayList<CustomCarouselItem> backUpResponse;
+    ArrayList<CarouselItem> backUpResponse;
     TransferType selectedType;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher, currentTextWatcherPDS;
@@ -1000,12 +1000,14 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      *
      * @param item
      */
+
     @Override
-    public void onListServiceListener(CustomCarouselItem item) {
+    public void onListServiceListener(CarouselItem item, int position) {
+
         //  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
-        editListServ.setText(item.getNombreComercio());
-        idTipoComercio = item.getIdTipoComercio();
-        idComercio = item.getIdComercio();
+        editListServ.setText(item.getComercio().getNombreComercio());
+        idTipoComercio = item.getComercio().getIdTipoComercio();
+        idComercio = item.getComercio().getIdComercio();
         editListServError.setVisibilityImageError(false);
 
         // Borramos los textos de los campos de refrencia de todos los tispos
@@ -1021,8 +1023,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         }
 
         // Variables necesarioas para agregar el formato de captura de telefono o referencia
-        formatoComercio = item.getFormatoComercio();
-        longitudRefer = item.getLongitudRefer();
+        formatoComercio = item.getComercio().getFormato();
+        longitudRefer = item.getComercio().getLongitudReferencia();
 
         /**
          * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
@@ -1044,6 +1046,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             initEnviosPrefer();
         }
     }
+
 
     /**
      * Procedimientos especificos para la referencia por via TAE
@@ -1144,10 +1147,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     private void initFormatoLogitud() {
 
         // backUpResponse
-        for (CustomCarouselItem customCarouselItem : backUpResponse) {
-            if (customCarouselItem.getNombreComercio().equals(nombreComercio)) {
-                formatoComercio = customCarouselItem.getFormatoComercio();
-                longitudRefer = customCarouselItem.getLongitudRefer();
+        for (CarouselItem customCarouselItem : backUpResponse) {
+            if (customCarouselItem.getComercio().getNombreComercio().equals(nombreComercio)) {
+                formatoComercio = customCarouselItem.getComercio().getFormato();
+                longitudRefer = customCarouselItem.getComercio().getLongitudReferencia();
             }
         }
         Log.d(TAG, "Log");
@@ -1330,16 +1333,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         for (CarouselItem carouselItem : mResponse) {
-            if (carouselItem.getComercio() != null) {
-                backUpResponse.add(new CustomCarouselItem(
-                        carouselItem.getComercio().getIdComercio(),
-                        carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio(),
-                        carouselItem.getComercio().getFormato(),
-                        carouselItem.getComercio().getLongitudReferencia()
-                ));
+           backUpResponse.add(carouselItem);
             }
-        }
     }
 
     @Override
@@ -1404,4 +1399,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void showError(Errors error) {
 
     }
+
+
 }

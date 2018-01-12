@@ -72,7 +72,6 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Formatter;
 import java.util.List;
 
 import butterknife.BindView;
@@ -146,7 +145,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     private static Double montoa;
     private boolean isCuentaValida = true;
     PaymentsTabFragment fragment;
-    ArrayList<CustomCarouselItem> backUpResponse;
+    ArrayList<CarouselItem> backUpResponse;
     ArrayList<CarouselItem> backUpResponsefavo;
     int current_tab;
     IEnviosPaymentPresenter newPaymentPresenter;
@@ -164,32 +163,14 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        try {
-
-            newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
-            current_tab = 3;
-            backUpResponse = new ArrayList<>();
-            backUpResponsefavo = new ArrayList<>();
-            paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
-
-
-            tab = TAB3;
-            paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
-            comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
-            favoriteItem = paymentsTabPresenter.getCarouselItem().getFavoritos();
-            if (comercioItem == null && favoriteItem != null) {
-                comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
-            }
-            keyIdComercio = comercioItem.getIdComercio();
-            enviosPresenter = new EnviosPresenter(this);
-            fragment = (PaymentsTabFragment) getParentFragment();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
+        newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
+        current_tab = 3;
+        backUpResponse = new ArrayList<>();
+        backUpResponsefavo = new ArrayList<>();
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        paymentsCarouselPresenter.getCarouselItems();
+        paymentsCarouselPresenter.getFavoriteCarouselItems();
 
 
     }
@@ -501,10 +482,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         for (CarouselItem carouselItem : mResponse) {
             backUpResponsefavo.add(carouselItem);
         }
-        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+        Collections.sort(backUpResponsefavo, new Comparator<CarouselItem>() {
             @Override
-            public int compare(CustomCarouselItem o1, CustomCarouselItem o2) {
-                return o1.getNombreComercio().compareToIgnoreCase(o2.getNombreComercio());
+            public int compare(CarouselItem o1, CarouselItem o2) {
+                return o1.getFavoritos().getNombre().compareToIgnoreCase(o2.getFavoritos().getNombre());
             }
         });
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
@@ -543,22 +524,16 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         backUpResponse = new ArrayList<>();
         for (CarouselItem carouselItem : mResponse) {
-            if (carouselItem.getComercio() != null) {
-                backUpResponse.add(new CustomCarouselItem(
-                        carouselItem.getComercio().getIdComercio(),
-                        carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio(),
-                        carouselItem.getComercio().getFormato(),
-                        carouselItem.getComercio().getLongitudReferencia()
-                ));
-            }
+            backUpResponse.add(carouselItem);
         }
-        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+        /*
+        Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
-            public int compare(CustomCarouselItem o1, CustomCarouselItem o2) {
-                return o1.getNombreComercio().compareToIgnoreCase(o2.getNombreComercio());
+            public int compare(CarouselItem o1, CarouselItem o2) {
+                return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
             }
         });
+    */
     }
 
     @Override
@@ -573,14 +548,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     @Override
-    public void onListServiceListener(CustomCarouselItem item) {
+    public void onListServiceListener(CarouselItem item, int position) {
         //  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
-        editListServ.setText(item.getNombreComercio());
-        idTipoComercio = item.getIdTipoComercio();
-        idComercio = item.getIdComercio();
+        comercioItem = backUpResponse.get(position).getComercio();
+        editListServ.setText(item.getComercio().getNombreComercio());
+        idTipoComercio = item.getComercio().getIdTipoComercio();
+        idComercio = item.getComercio().getIdComercio();
         // Variables necesarioas para agregar el formato de captura de telefono o referencia
-        formatoComercio = item.getFormatoComercio();
-        longitudRefer = item.getLongitudRefer();
+        formatoComercio = item.getComercio().getFormato();
+        longitudRefer = item.getComercio().getLongitudReferencia();
 
 
         /**
