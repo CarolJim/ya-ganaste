@@ -126,7 +126,7 @@
                             android:layout_weight="2"
                             android:gravity="center"
                             android:maxLines="2"
-                            android:text="Telcel"
+                            android:text="Nombre"
                             android:textColor="@color/colorAccent" />
 
                     </LinearLayout>
@@ -137,7 +137,7 @@
                         android:orientation="horizontal">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/txt_saldo"
+                            android:id="@+id/txt_import"
                             style="@style/generic_text_style_3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -193,6 +193,7 @@
 
                 android:orientation="horizontal">
                 android:gravity="center_horizontal">
+
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
                     android:id="@+id/keyboard_view"

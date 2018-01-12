@@ -50,6 +50,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
 
     private float MIN_AMOUNT = 1.0f, current_mount;
 
+    Double monto;
+
 
     public static SendWalletFragment newInstance() {
         SendWalletFragment fragment = new SendWalletFragment();
@@ -125,14 +127,19 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         switch (elementView.getIdOperacion()) {
             case ID_ENVIAR:
                 //  Integer valueAmount = Parseet_amount.getText().toString();
+
+
                 if (actionCharge()) {
                     Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                    intent.putExtra(MONTO, current_mount);
+                    intent.putExtra(MONTO, monto);
                     startActivity(intent);
                 }
+
                 break;
             case ID_SOLICITAR:
                 if (actionCharge()) {
+
+
                     Intent intent = new Intent(getContext(), RequestPaymentActivity.class);
                     intent.putExtra(MONTO, current_mount);
                     startActivity(intent);
@@ -175,6 +182,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
                 }
+                monto=Double.parseDouble(valueAmount);
                 current_mount = Float.parseFloat(valueAmount);
                 if (current_mount >= MIN_AMOUNT) {
                     return true;

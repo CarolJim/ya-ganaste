@@ -11,14 +11,13 @@
     tools:context=".ui._controllers.PaymentsProcessingActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
             android:id="@+id/layoutScrollCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -211,16 +210,18 @@
                         app:defaultIcon="@null"
                         app:formato="password"
                         app:hintText="@string/password" />
+
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/asignar_edittext"
                         android:layout_width="1px"
                         android:layout_height="1px"
                         android:layout_marginTop="3dp"
                         android:inputType="numberPassword" />
-                    <include layout="@layout/login_fragment_passwordedittext_custom"
-                        android:visibility="gone"
+
+                    <include
                         android:id="@+id/customkeyboard"
-                        />
+                        layout="@layout/login_fragment_passwordedittext_custom"
+                        android:visibility="gone" />
 
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
@@ -240,9 +241,9 @@
                 android:layout_weight="1" />
 
             <LinearLayout
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
 
                 android:orientation="horizontal">
                 android:gravity="center_horizontal">

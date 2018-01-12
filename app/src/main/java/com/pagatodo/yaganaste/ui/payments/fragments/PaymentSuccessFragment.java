@@ -119,6 +119,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @BindView(R.id.view_clave_rastreo)
     View viewClaveRastreo;
 
+    @BindView(R.id.imgShare)
+    LinearLayout imageshae;
 
     Payments pago;
     EjecutarTransaccionResponse result;
@@ -126,7 +128,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     IPaymentsSuccessPresenter presenter;
     private View rootview;
     private boolean isMailAviable = false;
-    ImageView imageshae;
 
     public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
@@ -156,6 +157,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        imageshae.setOnClickListener(this);
         if (pago.isFavorite()) {
             imgAddFavorite.setImageResource(R.drawable.ic_fav);
             //txtHintFavorite.setText(getString(R.string.is_favorite));
@@ -280,9 +282,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
         btnContinueEnvio.setOnClickListener(this);
-        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageshae.setVisibility(View.VISIBLE);
-        imageshae.setOnClickListener(this);
+
+
         showBack(false);
     }
 
@@ -384,7 +385,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             } else {
                 finalizePayment();
             }
-        } else if (v.getId() == R.id.deposito_Share) {
+        } else if (v.getId() == R.id.imgShare) {
             if (!DEBUG) {
                 Answers.getInstance().logShare(new ShareEvent());
             }

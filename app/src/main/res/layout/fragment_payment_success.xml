@@ -429,14 +429,47 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_addfavorites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingTop="30dp"
             android:visibility="visible">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="30dp"
+                android:id="@+id/imgShare"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_share"
+                    android:visibility="visible"
+                    tools:ignore="ContentDescription" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtHintShare"
+                    style="@style/generic_text_style_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:paddingTop="10dp"
+                    android:text="Compartir" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/layout_addfavorites"
+                android:layout_marginLeft="30dp"
+                android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgAddFavorite"
                 android:layout_width="45dp"
@@ -458,8 +491,8 @@
                 android:layout_height="match_parent"
                 android:gravity="end"
                 android:paddingTop="10dp"
-                android:text="Agregar a Favoritos" />
-
+                android:text="Favoritos" />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/layoutPass"
                 android:layout_width="match_parent"
