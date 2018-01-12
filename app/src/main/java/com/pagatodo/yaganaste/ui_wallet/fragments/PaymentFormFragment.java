@@ -12,27 +12,35 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
+import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
@@ -43,6 +51,7 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.IPresenterPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
+import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -60,8 +69,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
+import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 
 /**
@@ -127,7 +138,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     StyleTextView txtComisionServicio;
 
     boolean isRecarga = false;
-    boolean isFavorito = false;
     boolean isIAVE;
     private int maxLength;
     Double monto;
@@ -135,6 +145,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     String referencia;
     boolean isValid = false;
     Payments payment;
+    String concepto;
 
     private SpinnerArrayAdapter dataAdapter;
     private IRecargasPresenter recargasPresenter;
@@ -167,12 +178,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         // Creamos el presentes del favorito
         iPresenterPayment = new PresenterPaymentFragment(this);
 
+        /**
+         * Sin importar que sea un proceso de comercioResponse o dataFavoritos, siempre trabaajreos con
+         * ccomercioResponse. En el caso de favorito, accesamos a las propiedades del comercio y lo
+         * asignamos
+         */
         if (getArguments() != null) {
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
                 if (dataFavoritos != null) {
                     if (dataFavoritos.getIdFavorito() >= 0) {
-                        isFavorito = true;
                         comercioResponse = iPresenterPayment.getComercioById(dataFavoritos.getIdComercio());
                     }
                 }
@@ -181,7 +196,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 if (comercioResponse != null) {
                     if (comercioResponse.getIdTipoComercio() == 1) {
                         isRecarga = true;
-                        isFavorito = false;
                     }
                 }
             }
@@ -205,118 +219,199 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
+
+        // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
             if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
                 lytContainerRecargas.setVisibility(View.VISIBLE);
+
+                /**
+                 * Cargamos el nombre del Carrier, imagen y borde
+                 * tipoPhoto 1 = Favorito 2 = Carrier
+                 */
+
+                int tipoPhoto;
+                String nameRefer;
+                if (dataFavoritos != null) {
+                    tipoPhoto = 1;
+                    nameRefer = dataFavoritos.getNombre();
+                } else {
+                    tipoPhoto = 2;
+                    nameRefer = comercioResponse.getNombreComercio();
+                }
+                setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
+                txtData.setText(nameRefer);
+
+                isIAVE = comercioResponse.getIdComercio() == IAVE_ID;
+                recargasPresenter = new RecargasPresenter(this, isIAVE);
+
+                List<Double> montos = comercioResponse.getListaMontos();
+                if (montos.get(0) != 0D) {
+                    montos.add(0, 0D);
+                }
+
+                dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_RECARGAS, montos);
+
+                if (comercioResponse.getFormato().equals("N")) {
+                    edtPhoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    edtPhoneNumber.setSingleLine();
+                }
+
+                int longitudReferencia = comercioResponse.getLongitudReferencia();
+                if (longitudReferencia > 0 && longitudReferencia != 10) {
+                    InputFilter[] fArray = new InputFilter[1];
+                    maxLength = Utils.calculateFilterLength(longitudReferencia);
+                    fArray[0] = new InputFilter.LengthFilter(maxLength);
+                    edtPhoneNumber.setFilters(fArray);
+                }
+
+                if (isIAVE) {
+                    edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
+                    edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
+                    layoutImageContact.setVisibility(View.GONE);
+                } else {
+                    edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
+                    edtPhoneNumber.setHint(getString(R.string.phone_number_hint));
+
+                    layoutImageContact.setOnClickListener(this);
+                }
+
+                edtPhoneNumber.setSingleLine(true);
+                edtPhoneNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == IME_ACTION_DONE) {
+                            UI.hideKeyBoard(getActivity());
+                        }
+                        return false;
+                    }
+                });
+
+                if (comercioResponse.getSobrecargo() > 0) {
+                    comisionTextRecarga.setText(String.format(getString(R.string.comision_service_payment),
+                            StringUtils.getCurrencyValue(comercioResponse.getSobrecargo())));
+                } else {
+                    comisionTextRecarga.setVisibility(View.GONE);
+                }
+                spnMontoRecarga.setAdapter(dataAdapter);
+
+
+                if (dataFavoritos != null) {
+                    edtPhoneNumber.setText(dataFavoritos.getReferencia());
+                }
+                //recargaNumber.setEnabled(false);
+                /**
+                 *
+                 */
+                spnMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        if (position != 0) {
+                            monto = (Double) spnMontoRecarga.getSelectedItem();
+                            txtMonto.setText("" + Utils.getCurrencyValue(monto));
+                        } else {
+                            txtMonto.setText("" + Utils.getCurrencyValue(0));
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             } else {
                 txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
                 lytContainerServicios.setVisibility(View.VISIBLE);
-            }
-        }
 
-        // Mostramos el titular
-        if (isRecarga) {
-            // Recargas
+                int tipoPhoto;
+                String nameRefer;
+                if (dataFavoritos != null) {
+                    tipoPhoto = 1;
+                    nameRefer = dataFavoritos.getNombre();
+                } else {
+                    tipoPhoto = 2;
+                    nameRefer = comercioResponse.getNombreComercio();
+                }
+                setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
+                txtData.setText(nameRefer);
 
-        } else {
-            // Servicios
+                imgReferencePayment.setOnClickListener(this);
+                edtServiceImport.addTextChangedListener(new NumberTextWatcher(edtServiceImport));
 
-        }
+                if (comercioResponse.getLongitudReferencia() > 0) {
+                    InputFilter[] fArray = new InputFilter[1];
+                    maxLength = Utils.calculateFilterLength(comercioResponse.getLongitudReferencia());
+                    fArray[0] = new InputFilter.LengthFilter(maxLength);
+                    edtReferenceNumber.setFilters(fArray);
+                }
 
-        if (comercioResponse != null) {
-            // Cargamos el nombre del Carrier, imagen y borde
+                if (comercioResponse.getFormato().equals("AN")) {
+                    edtReferenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
+                }
+                edtReferenceNumber.addTextChangedListener(new NumberTagPase(edtReferenceNumber, maxLength));
+                if (comercioResponse.getSobrecargo() > 0) {
+                    txtComisionServicio.setText(String.format(getString(R.string.comision_service_payment),
+                            StringUtils.getCurrencyValue(comercioResponse.getSobrecargo())));
+                } else {
+                    txtComisionServicio.setVisibility(View.INVISIBLE);
+                }
+                if (dataFavoritos != null) {
+                    edtReferenceNumber.setText(dataFavoritos.getReferencia());
+                    //edtReferenceNumber.setEnabled(false);
+                }
 
-            int tipoPhoto;
-            String nameRefer;
-            if (dataFavoritos != null) {
-                tipoPhoto = 1;
-                nameRefer = dataFavoritos.getNombre();
-            } else {
-                tipoPhoto = 2;
-                nameRefer = comercioResponse.getNombreComercio();
-            }
-            setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
-            txtData.setText(nameRefer);
+                edtServiceImport.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
+                        if (actionid == EditorInfo.IME_ACTION_NEXT) {
+                            // si pasamos al siguiente item
 
-            isIAVE = comercioResponse.getIdComercio() == IAVE_ID;
-            recargasPresenter = new RecargasPresenter(this, isIAVE);
+                            edtServiceConcept.setFocusable(true);
+                            edtServiceConcept.requestFocus();
 
-            List<Double> montos = comercioResponse.getListaMontos();
-            if (montos.get(0) != 0D) {
-                montos.add(0, 0D);
-            }
-
-            dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_RECARGAS, montos);
-
-            if (comercioResponse.getFormato().equals("N")) {
-                edtPhoneNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
-                edtPhoneNumber.setSingleLine();
-            }
-
-            int longitudReferencia = comercioResponse.getLongitudReferencia();
-            if (longitudReferencia > 0 && longitudReferencia != 10) {
-                InputFilter[] fArray = new InputFilter[1];
-                maxLength = Utils.calculateFilterLength(longitudReferencia);
-                fArray[0] = new InputFilter.LengthFilter(maxLength);
-                edtPhoneNumber.setFilters(fArray);
-            }
-
-            if (isIAVE) {
-                edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
-                edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
-                layoutImageContact.setVisibility(View.GONE);
-            } else {
-                edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
-                edtPhoneNumber.setHint(getString(R.string.phone_number_hint));
-
-                layoutImageContact.setOnClickListener(this);
-            }
-
-            edtPhoneNumber.setSingleLine(true);
-            edtPhoneNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == IME_ACTION_DONE) {
-                        UI.hideKeyBoard(getActivity());
+                      /*      final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                            scrollView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                                    edtServiceConcept.setFocusable(true);
+                                    edtServiceConcept.requestFocus();
+                                }
+                            });
+                            return true; // Focus will do whatever you put in the logic.)*/
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
 
-            if (comercioResponse.getSobrecargo() > 0) {
-                comisionTextRecarga.setText(String.format(getString(R.string.comision_service_payment),
-                        StringUtils.getCurrencyValue(comercioResponse.getSobrecargo())));
-            } else {
-                comisionTextRecarga.setVisibility(View.GONE);
-            }
-            spnMontoRecarga.setAdapter(dataAdapter);
+                // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
 
+                //edtServiceImport.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                edtServiceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (!hasFocus) {
+                            // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
+                            if (edtServiceImport.getText().length() > 0) {
+                                String serviceImportStr = edtServiceImport.getText().toString().substring(1).replace(",", "");
 
-            if (dataFavoritos != null) {
-                edtPhoneNumber.setText(dataFavoritos.getReferencia());
-            }
-            //recargaNumber.setEnabled(false);
-            /**
-             *
-             */
-            spnMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (position != 0) {
-                        monto = (Double) spnMontoRecarga.getSelectedItem();
-                        txtMonto.setText("" + Utils.getCurrencyValue(monto));
-                    } else {
-                        txtMonto.setText("" + Utils.getCurrencyValue(0));
+                                if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
+                                    monto = Double.valueOf(serviceImportStr);
+                                    txtMonto.setText("" + Utils.getCurrencyValue(monto));
+                                } else {
+                                    txtMonto.setText("" + Utils.getCurrencyValue(0.0));
+                                }
+                            }
+                        }
+
                     }
-                }
+                });
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
-
+            }
         }
 
         /**
@@ -337,6 +432,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     }
 
+    /**
+     * Encargada de hacer Set de la imagen y del borde.
+     * @param imageDataPhoto es la imagen que se usa para hacer Set de los logos de Carriers
+     * @param circuleDataPhoto es la imagen que se usa para hacer Set de los logos de favoritos y borde
+     *                         en ambos casos
+     * @param mType
+     */
     private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
         if (mType == 1) {
             String mPhoto = dataFavoritos.getImagenURL();
@@ -358,11 +460,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             }
             circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
         }
-
-
-        /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.ic_launcher)
-                .dontAnimate().into(imageView);*/
     }
 
     @Override
@@ -374,15 +471,36 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
         switch (v.getId()) {
             case R.id.btn_continue_payment:
-                referencia = edtPhoneNumber.getText().toString().trim();
-                referencia = referencia.replaceAll(" ", "");
-                monto = (Double) spnMontoRecarga.getSelectedItem();
-                recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
+                /**
+                 * Por medio de la isRecarga mandamos a procesos de Recargas o Carriers
+                 */
+                if (isRecarga) {
+                    referencia = edtPhoneNumber.getText().toString().trim();
+                    referencia = referencia.replaceAll(" ", "");
+                    monto = (Double) spnMontoRecarga.getSelectedItem();
+                    recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
+                } else {
+                    referencia = edtReferenceNumber.getText().toString().replaceAll(" ", "");
+                    concepto = txtComisionServicio.getText().toString().trim();
+                    iPresenterPayment.validateFieldsCarrier(referencia, edtServiceImport.getText().toString().trim(),
+                            concepto, comercioResponse.getLongitudReferencia());
+                }
+                break;
+
+            case R.id.imgMakePaymentRef:
+                Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
+                getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
         }
     }
 
-
+    /**
+     * Obtenemos los resultados de onActivityResult desde PaymentActivity. LAs respuestas de los servicios
+     * y tomar un contacto de la agenda
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -395,9 +513,22 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (resultCode == Constants.RESULT_CODE_OK_CLOSE) {
                 getActivity().finish();
             } else {
-                Toast.makeText(App.getContext(), App.getContext().getResources()
-                        .getString(R.string.new_body_saldo_error), Toast.LENGTH_SHORT).show();
 
+                // Mostramos los errores por medio de un dialogo, siempre resultCode 190
+                try{
+                    Bundle MBuddle = data.getExtras();
+                    String MMessage = MBuddle .getString(MESSAGE);
+                    UI.createSimpleCustomDialog("Error Interno", MMessage,
+                            getActivity().getSupportFragmentManager(), getFragmentTag());
+                }catch (Exception e){
+                }
+            }
+        } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    edtReferenceNumber.setText(barcode.displayValue);
+                }
             }
         }
 
@@ -463,6 +594,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
     }
 
+    /**
+     * * Errores del servicio de Recargas
+     * @param error
+     */
     @Override
     public void onError(String error) {
         //mySeekBar.setEnabled(false);
@@ -471,6 +606,44 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         showError();
     }
 
+    /**
+     * Errores del servicio de PDS
+     * @param error
+     */
+    @Override
+    public void onErrorValidateService(String error) {
+        //mySeekBar.setEnabled(false);
+        isValid = false;
+        errorText = error;
+        showError();
+    }
+
+    /**
+     * Success del presentes de PDS
+     * @param importe
+     */
+    @Override
+    public void onSuccessValidateService(Double importe) {
+        if (importe > 0) {
+            isValid = true;
+        }
+
+        if (!isValid) {
+            showError();
+        } else {
+            this.monto = importe;
+            isValid = true;
+
+            payment = new Servicios(referencia, monto, concepto, comercioResponse,
+                    dataFavoritos != null);
+            sendPayment();
+        }
+    }
+
+    /**
+     * Success del presenter de  Recargas
+     * @param importe
+     */
     @Override
     public void onSuccess(Double importe) {
         if (importe > 0) {
@@ -488,10 +661,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
     }
 
+    /**
+     * Envio a la actividad PaymentsProcessingActivity del resultado, sea una Recarga o PDS
+     */
     protected void sendPayment() {
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
-        intent.putExtra("TAB", Constants.PAYMENT_RECARGAS);
+        if(isRecarga) {
+            intent.putExtra("TAB", Constants.PAYMENT_RECARGAS);
+        }else{
+            intent.putExtra("TAB", Constants.PAYMENT_SERVICIOS);
+        }
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

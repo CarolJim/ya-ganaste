@@ -1,11 +1,15 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,14 +39,16 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.ui_wallet.adapters.DividerItemDecoration;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MaterialPaletteAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.presenter.EnviosPaymentPresenter;
@@ -77,11 +83,12 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
+import static com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity.FAV_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
-import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
@@ -160,13 +167,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         backUpResponse = new ArrayList<>();
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-        paymentsCarouselPresenter.getCarouselItems();
-        paymentsCarouselPresenter.getFavoriteCarouselItems();
-    }
-
-    private void obtenerfavoritos() {
-        newPaymentPresenter.getFavoritesItems(PAYMENT_ENVIOS);
     }
 
     @Nullable
@@ -182,12 +182,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         super.initViews();
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
 
-        //VERTICAL
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        //HORIZONTAL
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         editListServ.setDrawableImage(R.drawable.menu_canvas);
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
@@ -273,9 +268,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     @Override
+    public void onResume() {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        paymentsCarouselPresenter.getCarouselItems();
+        paymentsCarouselPresenter.getFavoriteCarouselItems();
+        super.onResume();
+    }
+
+    @Override
     public void onClick(View view) {
-
-
         switch (view.getId()) {
             case R.id.btnenviar:
                 continuePayment();
@@ -465,6 +466,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
+        backUpResponsefavo = new ArrayList<>();
         for (CarouselItem carouselItem : mResponse) {
             backUpResponsefavo.add(carouselItem);
         }
@@ -478,15 +480,37 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponsefavo, new RecyclerViewOnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-                //    Toast toast = Toast.makeText(MainActivity.this, String.valueOf(position), Toast.LENGTH_SHORT);
-                //  int color = android.graphics.Color.parseColor(colors.get(position).getHex());
-                // toast.getView().setBackgroundColor(color);
-                // toast.show();
+                if (backUpResponsefavo.get(position).getFavoritos() == null) { // Click en item Agregar
+                    Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                    intentAddFavorite.putExtra(FAV_PROCESS, 2);
+                    intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
+                    startActivity(intentAddFavorite);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onLongClick(View v, int position) {
+                if (backUpResponsefavo.get(position).getFavoritos() != null) {
+                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    // Vibrate for 500 milliseconds
+                    vibrator.vibrate(100);
+                    Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+                    intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponsefavo.get(position).getFavoritos());
+                    intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, current_tab);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    } else {
+                        startActivity(intentEditFav);
+                    }
+                }
             }
         }));
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
+        backUpResponse = new ArrayList<>();
         for (CarouselItem carouselItem : mResponse) {
             if (carouselItem.getComercio() != null) {
                 backUpResponse.add(new CustomCarouselItem(

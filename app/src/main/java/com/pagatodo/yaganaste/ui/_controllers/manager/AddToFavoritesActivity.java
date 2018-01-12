@@ -42,7 +42,6 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
@@ -90,7 +89,6 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
@@ -181,7 +179,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     int idTipoComercio;
     int idComercio;
     int idTipoEnvio;
-    String stringFoto;
+    String stringFoto = "";
     String mReferencia;
     String tabName;
     private String formatoComercio;
@@ -883,12 +881,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         }
 
         //Validate format Tipo Envio
-        if (!editFoto.isValidText()) {
+       /* if (!editFoto.isValidText()) {
             showValidationError(editFoto.getId(), getString(R.string.addFavoritesErrorFoto));
             editFoto.setIsInvalid();
             isValid = false;
             //return;
-        }
+        }*/
 
 
         //onValidationSuccess();
@@ -978,7 +976,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         String referService = StringUtils.formatCardToService(mReferencia);
 
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, referService, stringFoto, "png");
+                idComercio, mAlias, referService, stringFoto.equals("") ? null : stringFoto, stringFoto.equals("") ? null : "png");
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
@@ -1276,10 +1274,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {    }
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 
     @Override
-    public void onTextChanged() {    }
+    public void onTextChanged() {
+    }
 
     @Override
     public void onTextComplete() {
@@ -1287,13 +1287,16 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     @Override
-    public void showError() {    }
+    public void showError() {
+    }
 
     @Override
-    public void onError(String error) {    }
+    public void onError(String error) {
+    }
 
     @Override
-    public void onSuccess(Double importe) {    }
+    public void onSuccess(Double importe) {
+    }
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {

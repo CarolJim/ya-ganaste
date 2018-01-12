@@ -335,7 +335,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 //                loginAdq();// Realizamos login nuevamente.
 //            }else {
 //                retryLogin = 0;
-//                accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
+//                accountManager.onErrorValidateService(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
 //            }
 //        }
 
@@ -344,7 +344,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         } */ else {
             prefs.clearPreference(KSN_LECTOR);
             accountManager.onError(response.getWebService(), data.getMessage());
-            //accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
+            //accountManager.onErrorValidateService(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
         }
     }
 
