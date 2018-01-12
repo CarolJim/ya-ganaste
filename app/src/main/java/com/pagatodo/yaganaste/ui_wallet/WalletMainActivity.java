@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
@@ -70,6 +71,9 @@ public class WalletMainActivity extends SupportFragmentActivity implements View.
                         loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container);
                         break;
                 }
+                break;
+            case 6:
+                loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
                 break;
             case 7:
                 startActivity(BussinesActivity.createIntent(this));

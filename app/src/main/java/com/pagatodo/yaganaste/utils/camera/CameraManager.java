@@ -342,7 +342,6 @@ public class CameraManager {
      */
     public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
 
-
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);

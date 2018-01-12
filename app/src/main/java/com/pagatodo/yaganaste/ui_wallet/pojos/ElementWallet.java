@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 
@@ -26,6 +27,7 @@ public class ElementWallet {
     public  ElementWallet(){
 
     }
+
     public ElementWallet(int resourceCard, String saldo, ArrayList<ElementView> elementViews, String tipoSaldo) {
         this.resourceCard = resourceCard;
         this.saldo = saldo;
@@ -73,6 +75,12 @@ public class ElementWallet {
                 context.getResources().getString(R.string.saldo_disponible));
     }
 
+    public ElementWallet getCardyaganasteBloqueda(Context context){
+        return new ElementWallet(R.mipmap.main_card_zoom_gray,
+                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                new ElementView().getListEmisor(),
+                context.getResources().getString(R.string.saldo_disponible));
+    }
     public ElementWallet getCardStarBucks(Context context){
         return new ElementWallet(R.drawable.starbucks_card,
                 "$11,350.00",new ElementView().getListStartBuck(),
