@@ -548,7 +548,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         for (CarouselItem carouselItem : mResponse) {
             backUpResponse.add(carouselItem);
         }
-
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
