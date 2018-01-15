@@ -30,12 +30,14 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
@@ -145,6 +147,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     private static Double montoa;
     private boolean isCuentaValida = true;
     PaymentsTabFragment fragment;
+    List<DataFavoritos> backUpResponseFavoritos;
     ArrayList<CarouselItem> backUpResponse;
     ArrayList<CarouselItem> backUpResponsefavo;
     int current_tab;
@@ -477,34 +480,34 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         setBackUpResponseFav(response);
     }
 
-    private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
-        backUpResponsefavo = new ArrayList<>();
-        for (CarouselItem carouselItem : mResponse) {
-            backUpResponsefavo.add(carouselItem);
+    @Override
+    public void setFavolist(List<DataFavoritos> lista) {
+        backUpResponseFavoritos= new ArrayList<>();
+
+        for (DataFavoritos carouselItem : lista) {
+            backUpResponseFavoritos.add(carouselItem);
         }
-        Collections.sort(backUpResponsefavo, new Comparator<CarouselItem>() {
-            @Override
-            public int compare(CarouselItem o1, CarouselItem o2) {
-                return o1.getFavoritos().getNombre().compareToIgnoreCase(o2.getFavoritos().getNombre());
-            }
-        });
+
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-        recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponsefavo, new RecyclerViewOnItemClickListener() {
+        recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponseFavoritos, new RecyclerViewOnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-                if (backUpResponsefavo.get(position).getFavoritos() == null) { // Click en item Agregar
+
+                if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
                     startActivity(intentAddFavorite);
                 } else {
-
+                    Toast.makeText(getActivity(), "Favorito: "+backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
             public void onLongClick(View v, int position) {
-                if (backUpResponsefavo.get(position).getFavoritos() != null) {
+
+                if (backUpResponseFavoritos.size() == 3) {
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
                     vibrator.vibrate(100);
@@ -517,8 +520,27 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                         startActivity(intentEditFav);
                     }
                 }
+
             }
         }));
+
+
+    }
+
+    private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
+        backUpResponsefavo = new ArrayList<>();
+        backUpResponseFavoritos= new ArrayList<>();
+
+        for (CarouselItem carouselItem : mResponse) {
+            backUpResponsefavo.add(carouselItem);
+        }
+        Collections.sort(backUpResponsefavo, new Comparator<CarouselItem>() {
+            @Override
+            public int compare(CarouselItem o1, CarouselItem o2) {
+                return o1.getFavoritos().getNombre().compareToIgnoreCase(o2.getFavoritos().getNombre());
+            }
+        });
+
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
@@ -526,14 +548,19 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         for (CarouselItem carouselItem : mResponse) {
             backUpResponse.add(carouselItem);
         }
-        /*
+
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
-                return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                Log.d("String de franck", "compare: ");
+                if (o1.getComercio()!=null) {
+                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                }else {
+                    return 0;
+                }
             }
         });
-    */
+
     }
 
     @Override
@@ -550,7 +577,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onListServiceListener(CarouselItem item, int position) {
         //  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
-        comercioItem = backUpResponse.get(position).getComercio();
+        comercioItem = item.getComercio();
         editListServ.setText(item.getComercio().getNombreComercio());
         idTipoComercio = item.getComercio().getIdTipoComercio();
         idComercio = item.getComercio().getIdComercio();

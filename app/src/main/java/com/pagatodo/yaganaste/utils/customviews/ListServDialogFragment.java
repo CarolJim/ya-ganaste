@@ -60,12 +60,14 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         backUpResponse = getArguments().getParcelable("backUpResponse");
+     /*
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem countries, CarouselItem t1) {
                 return countries.getComercio().getNombreComercio().compareTo(t1.getComercio().getNombreComercio());
             }
         });
+        */
     }
 
     @Override

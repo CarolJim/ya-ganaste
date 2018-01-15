@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -1307,6 +1308,11 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
+
+    }
+
+    @Override
+    public void setFavolist(List<DataFavoritos> lista) {
 
     }
 

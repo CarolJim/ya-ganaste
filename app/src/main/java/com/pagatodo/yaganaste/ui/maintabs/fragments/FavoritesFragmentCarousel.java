@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -242,6 +243,11 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
 
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
+
+    }
+
+    @Override
+    public void setFavolist(List<DataFavoritos> lista) {
 
     }
 

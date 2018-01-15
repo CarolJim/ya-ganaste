@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,12 +25,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPaletteAdapter.PaletteViewHolder> {
-    private List<CarouselItem> data;
+    private List<DataFavoritos> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
 
-    public MaterialPaletteAdapter(@NonNull List<CarouselItem> data,
-                                  @NonNull RecyclerViewOnItemClickListener
-                                          recyclerViewOnItemClickListener) {
+
+    public MaterialPaletteAdapter(List<DataFavoritos> data, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
     }
@@ -41,28 +42,28 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
 
     @Override
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
-        CarouselItem item = data.get(position);
+        DataFavoritos item = data.get(position);
 
         if (position == 0) {
-            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColor()));
+            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
             GradientDrawable gd = createCircleDrawable(App.getContext().getResources().getColor(R.color.color_background_image_docs), android.graphics.Color.GRAY);
             holder.crlImageFavorite.setBackground(gd);
             holder.imgAddFavorite.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_add));
             holder.txtNameFav.setText("Agregar");
             holder.txtInicialesFav.setVisibility(View.GONE);
         } else {
-            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getFavoritos().getColorMarca()));
-            holder.txtNameFav.setText(item.getFavoritos().getNombre());
-            if (item.getFavoritos().getImagenURL().equals("")) {
-                GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(item.getFavoritos().getColorMarca()),
-                        android.graphics.Color.parseColor(item.getFavoritos().getColorMarca()));
+            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
+            holder.txtNameFav.setText(item.getNombre());
+            if (item.getImagenURL().equals("")) {
+                GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(item.getColorMarca()),
+                        android.graphics.Color.parseColor(item.getColorMarca()));
                 holder.crlImageFavorite.setBackground(gd);
                 holder.txtInicialesFav.setVisibility(View.VISIBLE);
-                String sIniciales = getIniciales(item.getFavoritos().getNombre());
+                String sIniciales = getIniciales(item.getNombre());
                 holder.txtInicialesFav.setText(sIniciales);
             } else {
                 holder.txtInicialesFav.setVisibility(View.GONE);
-                setImagePicasoFav(holder.crlImageFavorite, item.getFavoritos().getImagenURL());
+                setImagePicasoFav(holder.crlImageFavorite, item.getImagenURL());
             }
         }
     }

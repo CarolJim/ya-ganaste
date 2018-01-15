@@ -1331,6 +1331,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     }
 
+    @Override
+    public void setFavolist(List<DataFavoritos> lista) {
+
+    }
+
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         for (CarouselItem carouselItem : mResponse) {
            backUpResponse.add(carouselItem);
