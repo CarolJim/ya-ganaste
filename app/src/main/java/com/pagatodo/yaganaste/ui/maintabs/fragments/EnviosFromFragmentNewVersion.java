@@ -553,7 +553,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
                 Log.d("String de franck", "compare: ");
-                if (o1.getComercio()!=null) {
+                if (o1.getComercio()!=null && o2.getComercio()!=null) {
                     return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
                 }else {
                     return 0;
