@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +21,13 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos
 import com.pagatodo.yaganaste.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class CarouselItem extends FrameLayout
-        implements Comparable<CarouselItem> {
+        implements Comparable<CarouselItem>, Serializable {
 
     public static int DRAG = 0;
     public static int CLICK = 1;

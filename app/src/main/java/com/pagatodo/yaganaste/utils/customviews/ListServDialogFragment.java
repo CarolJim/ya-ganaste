@@ -59,7 +59,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        backUpResponse = getArguments().getParcelable("backUpResponse");
+        backUpResponse = (ArrayList<CarouselItem>) getArguments().getSerializable("backUpResponse");
      /*
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
