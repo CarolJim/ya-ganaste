@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouse
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -155,6 +156,10 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
         ArrayList<CarouselItem> items = getCarouselItems(comercios);
         items = orderList(items);
+
+        // Funcion para eliminar los nuos de nuestra lista. A futuro se cambiara por ComercioResponse
+        items = Utils.removeNullCarouselItem(items);
+
         paymentsManager.setCarouselData(items);
     }
 
