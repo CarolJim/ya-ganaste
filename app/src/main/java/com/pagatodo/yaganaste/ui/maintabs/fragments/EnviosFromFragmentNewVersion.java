@@ -168,6 +168,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         super.onCreate(savedInstanceState);
         newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
         current_tab = 3;
+        tab = TAB3;
         backUpResponse = new ArrayList<>();
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
