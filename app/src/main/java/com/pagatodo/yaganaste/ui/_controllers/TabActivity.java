@@ -126,6 +126,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
+    public static final String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
     public static final int TYPE_DETAILS = 3;
     private Preferencias pref;
@@ -379,6 +380,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             } else {
                 disableBackButton = false;
             }
+        } else if (event.equals(EVENT_BLOCK_CARD_BACK)){
+
         }
     }
 

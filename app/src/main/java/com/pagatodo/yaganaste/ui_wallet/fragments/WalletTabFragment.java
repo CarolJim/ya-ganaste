@@ -22,7 +22,9 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
@@ -37,6 +39,7 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -44,6 +47,9 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD_BACK;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
 
@@ -118,13 +124,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
-
-        cardWalletAdpater = new CardWalletAdpater();
-        viewPagerWallet.setAdapter(cardWalletAdpater);
-
-        elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListEmisor());
-        rcvOpciones.setAdapter(elementsWalletAdpater);
-
     }
 
     @Override
@@ -144,8 +143,8 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void completed() {
-
         progressLayout.setVisibility(View.GONE);
+        cardWalletAdpater = new CardWalletAdpater();
         if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
         } else {
@@ -157,8 +156,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         } else {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
         }
-        cardWalletAdpater.notifyDataSetChanged();
-
+        viewPagerWallet.setAdapter(cardWalletAdpater);
         viewPagerWallet.setCurrentItem(pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(this);
@@ -186,9 +184,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     }
 
     private void updateOperations(int psition) {
-
-
-        elementsWalletAdpater.setEmptyList();
         pageCurrent = psition;
         if (psition == 0) {
             elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListEmisor());
@@ -202,9 +197,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                 elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListLectorEmi());
             }
         }
-        //rcvOpciones.setAdapter(elementsWalletAdpater)
-        //rcvOpciones.scheduleLayoutAnimation();
-        //elementsWalletAdpater.notifyDataSetChanged();
         rcvOpciones.setAdapter(elementsWalletAdpater);
         rcvOpciones.scheduleLayoutAnimation();
         txtSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getSaldo());
@@ -247,14 +239,14 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
-        cardWalletAdpater.setEmptyList();
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards();
+
     }
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
-
+        showDialogMesage("Error De Inicio De Sesión");
     }
 
     @Override
@@ -291,18 +283,31 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                 mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
                 mPreferPresenter.toPresenterEstatusCuenta(mTDC);
             } else {
-                cardWalletAdpater.setEmptyList();
                 pager_indicator.removeAllViews();
-                elementsWalletAdpater.setEmptyList();
                 walletPresenter.getWalletsCards();
             }
 
 
         } else {
-            //showDialogMesage(getResources().getString(R.string.no_internet_access));
+            showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
     }
 
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        Utils.sessionExpired();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
 
 }
 
