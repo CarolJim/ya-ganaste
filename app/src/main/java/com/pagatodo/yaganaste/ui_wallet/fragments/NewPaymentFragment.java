@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @BindView(R.id.gvServicios)
     GridView gvServicios;
     @BindView(R.id.btnSwitch)
-    Switch btnSwitch;
+    SwitchCompat btnSwitch;
     @BindView(R.id.tvErrorRecargas)
     TextView errorRecargas;
     @BindView(R.id.tvErrorServicios)
