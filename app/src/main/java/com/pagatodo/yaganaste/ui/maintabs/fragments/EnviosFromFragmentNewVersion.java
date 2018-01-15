@@ -150,7 +150,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     List<DataFavoritos> backUpResponseFavoritos;
     ArrayList<CarouselItem> backUpResponse;
     ArrayList<CarouselItem> backUpResponsefavo;
-    int current_tab;
     IEnviosPaymentPresenter newPaymentPresenter;
 
 
@@ -167,8 +166,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
-        current_tab = 3;
-        tab = TAB3;
+        current_tab = Constants.PAYMENT_ENVIOS;
         backUpResponse = new ArrayList<>();
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
@@ -549,16 +547,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         for (CarouselItem carouselItem : mResponse) {
             backUpResponse.add(carouselItem);
         }
+
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
-                Log.d("String de franck", "compare: ");
                 if (o1.getComercio()!=null && o2.getComercio()!=null) {
-                    Log.d("String de franck", "compare: ");
-                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio()
-                            .getNombreComercio());
+                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
                 }else {
-                    Log.d("String de franck", "compare: ");
                     return 0;
                 }
             }

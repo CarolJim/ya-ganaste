@@ -38,6 +38,7 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
     Double monto;
     String concepto;
     MovementsTab tab;
+    int current_tab;
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -69,7 +70,7 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
     protected void sendPayment() {
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
-        intent.putExtra("TAB", tab);
+        intent.putExtra("TAB", current_tab);
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
