@@ -85,9 +85,9 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         //rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(), new ElementView().getListEnviar(getContext()), this));
-        ElementsWalletAdpater elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this);
+        ElementsWalletAdpater elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListEnviar(getContext()));
         rcvOpciones.setAdapter(elementsWalletAdpater);
-        elementsWalletAdpater.setList(ElementView.getListEnviar(getContext()),this);
+        //elementsWalletAdpater.setList(ElementView.getListEnviar(getContext()));
         elementsWalletAdpater.notifyDataSetChanged();
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null));
 

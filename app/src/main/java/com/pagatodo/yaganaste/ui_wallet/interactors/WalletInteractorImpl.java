@@ -29,7 +29,7 @@ public class WalletInteractorImpl implements WalletInteractor {
             public void run() {
                 listener.onSuccess();
             }
-        },3000);
+        },1000);
 
     }
 

@@ -65,15 +65,16 @@
             android:orientation="horizontal" />
 
 
-        <android.support.v7.widget.RecyclerView
+        <com.pagatodo.yaganaste.ui_wallet.views.GridRecyclerView
             android:id="@+id/rcv_elements"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="@dimen/margin_wallet"
-            android:layout_marginRight="@dimen/margin_wallet">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_marginRight="@dimen/margin_wallet"
+            android:layoutAnimation="@anim/layout_anim_up">
+        </com.pagatodo.yaganaste.ui_wallet.views.GridRecyclerView>
 
 
     </LinearLayout>

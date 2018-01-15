@@ -57,7 +57,7 @@ public class ElementView implements Serializable{
     public static ArrayList<ElementView> getListEmisor(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(1, R.mipmap.icono_movimientos,"Movimientos"));
-        elementViews.add(new ElementView(2, R.mipmap.icono_deposito,"Depositos"));
+        elementViews.add(new ElementView(2, R.mipmap.icono_deposito,"Depósitos"));
         elementViews.add(new ElementView(3, R.mipmap.card_icon,"Administración"));
         return elementViews;
     }

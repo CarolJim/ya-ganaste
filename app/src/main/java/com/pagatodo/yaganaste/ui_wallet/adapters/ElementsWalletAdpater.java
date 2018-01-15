@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 import android.animation.Animator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -27,12 +28,14 @@ public class ElementsWalletAdpater extends RecyclerView.Adapter<ButtonsViewHolde
     private Context context;
     private OnItemClickListener listener;
 
-    public ElementsWalletAdpater(Context context,OnItemClickListener listener){
+    public ElementsWalletAdpater(Context context, OnItemClickListener listener, List<ElementView> elementViews){
         this.context = context;
-        this.elementViews = new ArrayList<>();
+        this.elementViews = elementViews;
         this.listener = listener;
     }
-
+    public void setOnListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
     /*
     public ElementsWalletAdpater(Context context, OnItemClickListener listener){
         this.context = context;
@@ -43,21 +46,15 @@ public class ElementsWalletAdpater extends RecyclerView.Adapter<ButtonsViewHolde
 
 
     @Override
-    public ButtonsViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-
-        //View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_element, viewGroup, false);
-        View view = LayoutInflater
-                .from(viewGroup.getContext())
-                .inflate(R.layout.view_element, null);
-
-        ButtonsViewHolder pvh = new ButtonsViewHolder(view, AnimationUtils.loadAnimation(context,
-                R.anim.slide_up));
-        return pvh;
+    public ButtonsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new ButtonsViewHolder(inflater.inflate(R.layout.view_element, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ButtonsViewHolder holder, int position) {
-            holder.bind(elementViews.get(position),this.listener);
+    public void onBindViewHolder(final ButtonsViewHolder holder, final int position) {
+            holder.bind(elementViews.get(position),listener);
+
     }
 
 
@@ -80,15 +77,10 @@ public class ElementsWalletAdpater extends RecyclerView.Adapter<ButtonsViewHolde
         //this.mViews.clear();
     }
 
-    /*public void setList(CardWalletAdpater cardWalletAdpater, int position, OnItemClickListener listener){
-        this.elementViews = cardWalletAdpater.getElementWallet(position);
-        this.listener = listener;
-    }*/
+/*    public void setList(ArrayList<ElementView> elementViews){
 
-    public void setList(ArrayList<ElementView> elementViews, OnItemClickListener listener){
         this.elementViews = elementViews;
-
-    }
+    }*/
 
 
 }

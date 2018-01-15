@@ -97,7 +97,11 @@ public class PaymentAdapterRV extends BaseAdapter {
                     GradientDrawable gdCarrier = createCircleDrawable(Color.BLACK, Color.WHITE);
                     imageViewBorder.setBackground(gdCarrier);
 
-                    imageView.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_search));
+                    imageView.setBackground(App.getContext().getResources().getDrawable(R.mipmap.new_fav_search));
+                    imageView.getLayoutParams().height = 70;
+                    imageView.getLayoutParams().width = 70;
+                    imageView.requestLayout();
+
                 } else {
                     setImagePicaso(imageView, myDataset.get(position).getUrlLogo());
                 }
@@ -129,7 +133,10 @@ public class PaymentAdapterRV extends BaseAdapter {
                     GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.WHITE);
                     imageViewBorder.setBackground(gd);
 
-                    imageView.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_search));
+                    imageView.setBackground(App.getContext().getResources().getDrawable(R.mipmap.new_fav_search));
+                    imageView.getLayoutParams().height = 35;
+                    imageView.getLayoutParams().width = 35;
+                    imageView.requestLayout();
 
                     //imageViewBorder.setBorderColor(Color.WHITE);
                 } else if (urlImage.equals("R.mipmap.ic_add_new_favorite")) {
