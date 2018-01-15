@@ -1317,13 +1317,19 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
+        backUpResponse = new ArrayList<>();
         for (CarouselItem carouselItem : mResponse) {
-           backUpResponse.add(carouselItem);
+            backUpResponse.add(carouselItem);
         }
+
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
-                return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                if (o1.getComercio()!=null && o2.getComercio()!=null) {
+                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                }else {
+                    return 0;
+                }
             }
         });
     }

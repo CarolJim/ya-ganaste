@@ -171,8 +171,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         }else{
             updateFavorites();
         }
-
-        Log.d("NewPaymentFragment", "typeView " + typeView);
     }
 
     private void updateCarriers() {
@@ -191,6 +189,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     private void updateFavorites() {
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        onEventListener.onEvent("DISABLE_BACK", true);
         mRecargarGrid.clear();
         mPagarGrid.clear();
         newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);

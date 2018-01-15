@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -61,6 +62,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -1354,4 +1356,15 @@ public class Utils {
         }
     }
 
+    public static ArrayList<CarouselItem> removeNullCarouselItem(ArrayList<CarouselItem> originalList){
+        ArrayList<CarouselItem> items = originalList;
+
+         // Funcion para eliminar los nuos de nuestra lista. A futuro se cambiara por ComercioResponse
+        for(int x=0; x<items.size();x++){
+            if(items.get(x).getComercio() == null){
+                items.remove(x);
+            }
+        }
+        return items;
+    }
 }
