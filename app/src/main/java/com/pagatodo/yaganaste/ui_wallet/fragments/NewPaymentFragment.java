@@ -199,6 +199,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -233,6 +234,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this,
                         SEARCH_CARRIER_RECARGA, TYPE_CARRIER));
                 onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+                onEventListener.onEvent("DISABLE_BACK", false);
                 // mRecargarGrid.clear();
             } else {
                 gvRecargas.setVisibility(View.GONE);
@@ -261,6 +263,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this,
                         SEARCH_CARRIER_PAGOS, TYPE_CARRIER));
                 onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+                onEventListener.onEvent("DISABLE_BACK", false);
                 // mRecargarGrid.clear();
             } else {
                 gvServicios.setVisibility(View.GONE);
@@ -273,6 +276,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -599,11 +603,13 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @Override
     public void errorFail(DataSourceResult error) {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        onEventListener.onEvent("DISABLE_BACK", false);
     }
 
     @Override
     public void errorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        onEventListener.onEvent("DISABLE_BACK", false);
     }
 
     @Override

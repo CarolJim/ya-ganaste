@@ -116,7 +116,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, MenuAdapter.OnItemClickListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener{
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
@@ -145,6 +145,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     ImageView imageNotification;
     ImageView imageshare;
     App aplicacion;
+    private boolean disableBackButton = false;
 
 
     private ListView listView;
@@ -189,7 +190,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     }
 
-    public void setAvatar(){
+    public void setAvatar() {
 
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
@@ -216,7 +217,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 isValid = false;
             }
 
-            if(isValid){
+            if (isValid) {
                 mPreferPresenter.openMenuPhoto(1, cameraManager);
             }
 
@@ -224,6 +225,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             //showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
     }
+
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);
         pref = App.getInstance().getPrefs();
@@ -277,7 +279,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburguesita);
 
         listView = (ListView) findViewById(R.id.lst_menu_items);
-        MenuAdapter menuAdapter = new MenuAdapter(this,new OptionMenuItem(this).MAINMENU(),this);
+        MenuAdapter menuAdapter = new MenuAdapter(this, new OptionMenuItem(this).MAINMENU(), this);
         listView.setAdapter(menuAdapter);
     }
 
@@ -371,8 +373,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
             onInviteAdquirente();
+        } else if (event.equals("DISABLE_BACK")) {
+            if (data.toString().equals("true")) {
+                disableBackButton = true;
+            } else {
+                disableBackButton = false;
+            }
         }
-
     }
 
     protected void hideMainTab() {
@@ -525,27 +532,29 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void onBackPressed() {
         Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
-        if (actualFragment instanceof PaymentsTabFragment) {
-            PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
-            if (paymentsTabFragment.isOnForm) {
-                paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
+        if (!disableBackButton) {
+            if (actualFragment instanceof PaymentsTabFragment) {
+                PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
+                if (paymentsTabFragment.isOnForm) {
+                    paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
+                } else {
+                    goHome();
+                }
+            } else if (actualFragment instanceof DepositsFragment) {
+                imageNotification.setVisibility(View.GONE);
+                imageshare.setVisibility(View.VISIBLE);
+                ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
+            } else if (actualFragment instanceof GetMountFragment) {
+                goHome();
+            } else if (actualFragment instanceof HomeTabFragment) {
+                showDialogOut();
+            } else if (actualFragment instanceof WalletTabFragment) {
+                showDialogOut();
+            } else if (actualFragment instanceof SendWalletFragment) {
+                goHome();
             } else {
                 goHome();
             }
-        } else if (actualFragment instanceof DepositsFragment) {
-            imageNotification.setVisibility(View.GONE);
-            imageshare.setVisibility(View.VISIBLE);
-            ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
-        } else if (actualFragment instanceof GetMountFragment) {
-            goHome();
-        } else if (actualFragment instanceof HomeTabFragment) {
-            showDialogOut();
-        } else if (actualFragment instanceof WalletTabFragment) {
-            showDialogOut();
-        } else if (actualFragment instanceof SendWalletFragment) {
-            goHome();
-        } else {
-            goHome();
         }
     }
 
@@ -615,19 +624,19 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:
-                intent.putExtra(MENU,MENU_SEGURIDAD);
+                intent.putExtra(MENU, MENU_SEGURIDAD);
                 //startActivityForResult(intent, CODE_LOG_OUT);
                 break;
             case ID_AJUSTES:
-                intent.putExtra(MENU,MENU_AJUSTES);
+                intent.putExtra(MENU, MENU_AJUSTES);
                 //startActivityForResult(intent, CODE_LOG_OUT);
                 break;
             case ID_ACERCA_DE:
-                intent.putExtra(MENU,MENU_TERMINOS);
+                intent.putExtra(MENU, MENU_TERMINOS);
                 //startActivityForResult(intent, CODE_LOG_OUT);
                 break;
             default:
-                Toast.makeText(this,"PROXIMAMENTE",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();
                 break;
         }
         startActivityForResult(intent, CODE_LOG_OUT);
