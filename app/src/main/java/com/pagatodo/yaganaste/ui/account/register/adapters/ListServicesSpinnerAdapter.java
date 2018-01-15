@@ -80,9 +80,11 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> imple
         } else {
             holder = (DropDownHolder) row.getTag();
         }
+        if (item.getComercio()==null){
 
-        holder.txtTitle.setText(item.getComercio().getNombreComercio());
-
+        }else {
+            holder.txtTitle.setText(item.getComercio().getNombreComercio());
+        }
         return row;
     }
 
