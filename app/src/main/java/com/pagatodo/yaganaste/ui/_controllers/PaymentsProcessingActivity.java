@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.interfaces.enums.Direction.FORDWARD;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
@@ -104,7 +105,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
         initViews();
 
-        if (typeOperation != Constants.PAYMENT_ENVIOS) {
+        if (typeOperation != PAYMENT_ENVIOS) {
             changeToolbarVisibility(false);
             onEvent(EVENT_SEND_PAYMENT, pago);
         } else {
@@ -160,7 +161,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             case Constants.PAYMENT_SERVICIOS:
                 mensajeLoader = getString(R.string.procesando_servicios_loader);
                 break;
-            case Constants.PAYMENT_ENVIOS:
+            case PAYMENT_ENVIOS:
                 mensajeLoader = getString(R.string.procesando_envios_loader);
                 break;
         }

@@ -11,23 +11,24 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentAuthorizeFragmentWallwt;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONTO;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
-    public final static String EVENT_GO_INSERT_DONGLE = "EVENT_GO_INSERT_DONGLE";
+    public final static String EVENT_GO_ENVIOS = "EVENT_GO_ENVIOS";
     private Preferencias pref;
-    private Float monto;
+    private Double monto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
-        monto = (float) getIntent().getExtras().get(MONTO);
+        monto = (double) getIntent().getExtras().get(MONTO);
         pref = App.getInstance().getPrefs();
-        onEvent(EVENT_GO_INSERT_DONGLE, null);
+        onEvent(EVENT_GO_ENVIOS, null);
     }
 
     @Override
@@ -39,8 +40,9 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
         switch (event) {
-            case EVENT_GO_INSERT_DONGLE:
+            case EVENT_GO_ENVIOS:
                 loadFragment(EnviosFromFragmentNewVersion.newInstance(monto), Direction.FORDWARD, false);
+               // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
                 break;
         }
     }

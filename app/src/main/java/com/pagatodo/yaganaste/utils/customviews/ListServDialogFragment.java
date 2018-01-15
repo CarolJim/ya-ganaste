@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ListServicesSpinnerAdapter;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
     SearchView searchView;
     View rootView;
     private OnListServiceListener onListServiceListener;
-    ArrayList<CustomCarouselItem> backUpResponse;
+    ArrayList<CarouselItem> backUpResponse;
     private ListServicesSpinnerAdapter arrayAdapter;
 
     /**
@@ -47,7 +48,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
      * @param backUpResponse
      * @return
      */
-    public static ListServDialogFragment newInstance(ArrayList<CustomCarouselItem> backUpResponse) {
+    public static ListServDialogFragment newInstance(ArrayList<CarouselItem> backUpResponse) {
         ListServDialogFragment dialogFragment = new ListServDialogFragment();
         Bundle args = new Bundle();
         args.putSerializable("backUpResponse", backUpResponse);
@@ -58,13 +59,15 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        backUpResponse = getArguments().getParcelableArrayList("backUpResponse");
-        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+        backUpResponse = getArguments().getParcelable("backUpResponse");
+     /*
+        Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
-            public int compare(CustomCarouselItem countries, CustomCarouselItem t1) {
-                return countries.getNombreComercio().compareTo(t1.getNombreComercio());
+            public int compare(CarouselItem countries, CarouselItem t1) {
+                return countries.getComercio().getNombreComercio().compareTo(t1.getComercio().getNombreComercio());
             }
         });
+        */
     }
 
     @Override
@@ -126,7 +129,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (onListServiceListener != null) {
-            onListServiceListener.onListServiceListener(arrayAdapter.getItem(position));
+            onListServiceListener.onListServiceListener(arrayAdapter.getItem(position), position);
         }
         dismiss();
     }

@@ -100,6 +100,14 @@ public class ComercioResponse extends AbstractEntity implements Serializable {
         this.sobrecargo = 0.0;
     }
 
+    public ComercioResponse(int idComercio, int idTipoComercio, String nombreComercio, int longitudReferencia, String formato) {
+        this.idComercio = idComercio;
+        this.idTipoComercio = idTipoComercio;
+        this.nombreComercio = nombreComercio;
+        this.longitudReferencia = longitudReferencia;
+        this.formato = formato;
+    }
+
     public ComercioResponse(int idComercio) {
 
         listaMontos = new ArrayList<Double>();

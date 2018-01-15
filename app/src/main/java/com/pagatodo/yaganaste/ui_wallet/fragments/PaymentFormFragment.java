@@ -184,11 +184,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
          * asignamos
          */
         if (getArguments() != null) {
+            // Verifiamos si es una recarga o un pds
+
             if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
                 dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
                 if (dataFavoritos != null) {
                     if (dataFavoritos.getIdFavorito() >= 0) {
                         comercioResponse = iPresenterPayment.getComercioById(dataFavoritos.getIdComercio());
+                    }
+                    if (dataFavoritos.getIdTipoComercio() == 1) {
+                        isRecarga = true;
                     }
                 }
             } else {
@@ -653,11 +658,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (!isValid) {
             showError();
         } else {
-            this.monto = importe;
-            isValid = true;
+            boolean isOnline = Utils.isDeviceOnline();
+            if (isOnline) {
+                this.monto = importe;
+                isValid = true;
 
-            payment = new Recarga(referencia, monto, comercioResponse, dataFavoritos != null);
-            sendPayment();
+                payment = new Recarga(referencia, monto, comercioResponse, dataFavoritos != null);
+                sendPayment();
+            } else {
+                UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access),
+                        getActivity().getSupportFragmentManager(), getFragmentTag());
+            }
         }
     }
 

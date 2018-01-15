@@ -121,7 +121,6 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             tab = TAB3;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
-            favoriteItem = paymentsTabPresenter.getCarouselItem().getFavoritos();
             if (comercioItem == null && favoriteItem != null) {
                 comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
             }

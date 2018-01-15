@@ -295,7 +295,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
         } else {
             // paymentsManager.showFavorites();
-            paymentsManager.setCarouselDataFavoritos(getCarouselItemsFavoritos(favoritos));
+            paymentsManager.setFavolist(favoritos);
         }
     }
 

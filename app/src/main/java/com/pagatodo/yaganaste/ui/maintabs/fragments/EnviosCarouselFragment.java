@@ -3,10 +3,12 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.view.View;
 
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jordan on 10/04/2017.
@@ -33,6 +35,11 @@ public class EnviosCarouselFragment extends PaymentsFragmentCarousel {
 
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
+
+    }
+
+    @Override
+    public void setFavolist(List<DataFavoritos> lista) {
 
     }
 }

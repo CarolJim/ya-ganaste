@@ -98,15 +98,20 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     MontoTextView importe;
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
-    @BindView(R.id.nombreEnvio)
-    StyleTextView nombreEnvio;
-    @BindView(R.id.titleReferencia)
-    StyleTextView titleReferencia;
-    @BindView(R.id.txtBanco)
-    StyleTextView txtBanco;
+   // @BindView(R.id.nombreEnvio)
+   // StyleTextView nombreEnvio;
+   // @BindView(R.id.titleReferencia)
+   // StyleTextView titleReferencia;
+   // @BindView(R.id.txtBanco)
+   // StyleTextView txtBanco;
 
     @BindView(R.id.txtReferencia)
     StyleTextView txtReferencia;
+
+    @BindView(R.id.txt_data)
+    StyleTextView txtnombredestinatario;
+
+
 
 
     @BindView(R.id.editPassword)
@@ -189,7 +194,7 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_authorize_payment, container, false);
+        rootview = inflater.inflate(R.layout.fragment_authorize_payment_wallet, container, false);
         titulo = getString(R.string.titulo_dialogo_huella_generacion_codigo);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -278,15 +283,17 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
 
         keyboardView.hideCustomKeyboard();
 
-
-        nombreEnvio.setVisibility(VISIBLE);
-        nombreEnvio.setText(envio.getNombreDestinatario());
-
+        txtnombredestinatario.setText(envio.getNombreDestinatario());
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
-        titleReferencia.setText(envio.getTipoEnvio().getShortName());
-        txtBanco.setText(envio.getComercio().getNombreComercio());
+
+
         String ref = envio.getReferencia();
 
+        /*
+        nombreEnvio.setVisibility(VISIBLE);
+        nombreEnvio.setText(envio.getNombreDestinatario());
+        titleReferencia.setText(envio.getTipoEnvio().getShortName());
+        txtBanco.setText(envio.getComercio().getNombreComercio());
         switch (envio.getTipoEnvio()) {
             case CLABE:
                 txtReferencia.setText(StringUtils.format(ref, SPACE, 3, 3, 4, 4, 4));
@@ -300,6 +307,7 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
             default:
                 break;
         }
+        */
         setValidationRules();
         btnContinueEnvio.setOnClickListener(this);
 

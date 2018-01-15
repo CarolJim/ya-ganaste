@@ -14,7 +14,10 @@ import android.widget.Filterable;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.text.Normalizer;
@@ -26,18 +29,18 @@ import java.util.Locale;
  * Created by Francisco Manzo on 22/09/2017.
  */
 
-public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem> implements Filterable {
+public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> implements Filterable {
 
     private Context mContext;
     private int mLayoutResourceId;
     private List<Countries> orgCountriesList;
     private List<Countries> countriesList;
-    private List<CustomCarouselItem> orgListServ;
-    private List<CustomCarouselItem> listServ;
+    private List<CarouselItem> orgListServ;
+    private List<CarouselItem> listServ;
     private Filter countriesFilter;
 
     public ListServicesSpinnerAdapter(@NonNull Context context, @LayoutRes int resource,
-                                      @NonNull List<CustomCarouselItem> listServ) {
+                                      @NonNull List<CarouselItem> listServ) {
         super(context, resource, listServ);
         this.mLayoutResourceId = resource;
         this.mContext = context;
@@ -45,7 +48,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
         this.listServ = listServ;
     }
 
-    public CustomCarouselItem getItem(int position) {
+    public CarouselItem getItem(int position) {
         return listServ.get(position);
     }
 
@@ -64,7 +67,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         DropDownHolder holder;
-        CustomCarouselItem item = listServ.get(position);
+        CarouselItem item = listServ.get(position);
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
@@ -78,7 +81,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
             holder = (DropDownHolder) row.getTag();
         }
 
-        holder.txtTitle.setText(item.getNombreComercio());
+        holder.txtTitle.setText(item.getComercio().getNombreComercio());
 
         return row;
     }
@@ -110,9 +113,9 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
                 results.values = orgListServ;
                 results.count = orgListServ.size();
             } else {
-                List<CustomCarouselItem> nCountriesList = new ArrayList<>();
-                for (CustomCarouselItem country : orgListServ) {
-                    if (country.getNombreComercio().toLowerCase(Locale.getDefault()).contains(charText)) {
+                List<CarouselItem> nCountriesList = new ArrayList<>();
+                for (CarouselItem country : orgListServ) {
+                    if (country.getComercio().getNombreComercio().toLowerCase(Locale.getDefault()).contains(charText)) {
                         nCountriesList.add(country);
                     }
 
@@ -135,13 +138,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
                 if (results.count == 0) {
                     String noExisten = mContext.getResources()
                             .getString(R.string.without_items);
-                    nCountriesList.add(new CustomCarouselItem(
-                                    999,
-                                    999,
-                                    noExisten,
-                            "Nada",
-                            999)
-                    );
+                    nCountriesList.add(new CarouselItem(mContext, new ComercioResponse(999,999,noExisten,999,"Nada")));
                     results.count = nCountriesList.size();
                     results.values = nCountriesList;
                 }
@@ -155,7 +152,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
                 listServ = new ArrayList<>();
                 notifyDataSetChanged();
             } else {
-                listServ = (List<CustomCarouselItem>) results.values;
+                listServ = (List<CarouselItem>) results.values;
                 notifyDataSetChanged();
             }
         }
