@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentAuthorizeFragmentWallwt
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -232,8 +233,10 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(RESULT, Constants.RESULT_ERROR);
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(RESULT_CODE_FAIL, intent);
-        finish();
+        showDialogMesage(message);
+
     }
+
 
 
     @Override
@@ -299,6 +302,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        finish();
                     }
 
                     @Override
