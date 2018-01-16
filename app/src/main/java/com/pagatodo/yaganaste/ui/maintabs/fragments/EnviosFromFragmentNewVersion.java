@@ -63,6 +63,7 @@ import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -91,6 +92,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.ValidateForm.AMEX;
+import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
 
 /**
  * Created by Armando Sandoval on 03/01/2018.
@@ -207,7 +210,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
         tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
-        tipoPago.add(QR_CODE.getId(), QR_CODE.getName(getContext()));
+       // tipoPago.add(QR_CODE.getId(), QR_CODE.getName(getContext()));
 
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
@@ -507,9 +510,28 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
     @Override
     protected void continuePayment() {
-        referencia=numberReference.getText().toString();
-        nombreDestinatario= receiverName.getText().toString();
-        concepto=concept.getText().toString();
+
+       /*
+        referencia = cardNumber.getText().toString().trim();
+        referencia = referencia.replaceAll(" ", "");
+
+        concepto = concept.getText().toString().trim();
+        nombreDestinatario = receiverName.getText().toString().trim();
+        referenciaNumber = numberReference.getText().toString().trim();
+
+        enviosPresenter.validateForms(selectedType, referencia,
+                maxLength == 19 ? GENERIC : AMEX,
+                montotosend.getText().toString().trim(),
+                nombreDestinatario,
+                concepto,
+                referenciaNumber);
+
+*/
+            referencia = cardNumber.getText().toString().trim();
+            nombreDestinatario=receiverName.getText().toString();
+            concepto = concept.getText().toString().trim();
+            nombreDestinatario = receiverName.getText().toString().trim();
+            referenciaNumber = numberReference.getText().toString().trim();
             payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                     favoriteItem != null);
             sendPayment();
@@ -596,6 +618,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         backUpResponse = new ArrayList<>();
+        mResponse=Utils.removeNullCarouselItem(mResponse);
         for (CarouselItem carouselItem : mResponse) {
             backUpResponse.add(carouselItem);
         }
@@ -603,12 +626,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
-                if (o1.getComercio()!=null && o2.getComercio()!=null) {
+                return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                /*if (o1.getComercio()!=null && o2.getComercio()!=null) {
                     return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
                 }else {
                     return 0;
                 }
+                */
             }
+
         });
 
     }
