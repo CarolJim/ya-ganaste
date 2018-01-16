@@ -21,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -134,6 +135,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     @BindView(R.id.add_favorites_list_serv)
     CustomValidationEditText editListServ;
+    @BindView(R.id.envio_from_slide_view)
+    LinearLayout slideView;
+    @BindView(R.id.envio_from_slide_view_ll)
+    LinearLayout slideViewLl;
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
@@ -148,6 +153,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     ArrayList<CarouselItem> backUpResponse;
     ArrayList<CarouselItem> backUpResponsefavo;
     IEnviosPaymentPresenter newPaymentPresenter;
+    private boolean isUp;
 
 
     public static EnviosFromFragmentNewVersion newInstance(Double monto) {
@@ -185,6 +191,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void initViews() {
         super.initViews();
+        isUp = false;
+        slideView.setOnClickListener(this);
 
         btnenviar.setOnClickListener(this);
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
@@ -309,11 +317,53 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
                 break;
 
+            case R.id.envio_from_slide_view:
+                onSlideViewButtonClick(slideViewLl);
+                break;
             default:
                 break;
         }
 
 
+    }
+
+    // slide the view from below itself to the current position
+    public void slideUp(View view){
+        view.setVisibility(View.VISIBLE);
+        TranslateAnimation animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                view.getHeight(),  // fromYDelta
+                0);                // toYDelta
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+    }
+
+    // slide the view from its current position to below itself
+    public void slideDown(View view){
+        TranslateAnimation animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                0,                 // fromYDelta
+                view.getHeight()); // toYDelta
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+
+
+        view.setVisibility(View.GONE);
+    }
+
+    public void onSlideViewButtonClick(View view) {
+        if (isUp) {
+            slideDown(view);
+            //myButton.setText("Slide up");
+        } else {
+            slideUp(view);
+            //myButton.setText("Slide down");
+        }
+        isUp = !isUp;
     }
 
     @Override
@@ -488,8 +538,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             backUpResponseFavoritos.add(carouselItem);
         }
 
-
-
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponseFavoritos, new RecyclerViewOnItemClickListener() {
             @Override
@@ -500,7 +548,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
                     startActivity(intentAddFavorite);
                 } else {
-                    Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+
+                    // TODO Amargando Estos son los datos que son necesario, solo queda hacer el Set en los campos
+                    long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
+                    int myIdTipoComercio = backUpResponseFavoritos.get(position).getIdTipoComercio();
+                    String myName = backUpResponseFavoritos.get(position).getNombre();
+                    String myReferencia = backUpResponseFavoritos.get(position).getReferencia();
                 }
 
             }
