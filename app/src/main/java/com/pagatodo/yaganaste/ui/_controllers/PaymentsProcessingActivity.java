@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentAuthorizeFragmentWallwt;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -112,7 +113,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             hideLoader();
             isAvailableToBack = true;
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-            loadFragment(PaymentAuthorizeFragment.newInstance((Payments) pago), FORDWARD, true);
+            loadFragment(PaymentAuthorizeFragmentWallwt.newInstance((Payments) pago), FORDWARD, true);
         }
     }
 

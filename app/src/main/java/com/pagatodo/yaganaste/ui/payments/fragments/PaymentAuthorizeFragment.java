@@ -103,6 +103,14 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView titleReferencia;
     @BindView(R.id.txtBanco)
     StyleTextView txtBanco;
+    @BindView(R.id.txt_data)
+    StyleTextView txt_data;
+
+    @BindView(R.id.txt_monto)
+    StyleTextView txt_monto;
+
+
+
 
     @BindView(R.id.txtReferencia)
     StyleTextView txtReferencia;
@@ -280,6 +288,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         nombreEnvio.setVisibility(VISIBLE);
         nombreEnvio.setText(envio.getNombreDestinatario());
+        txt_data.setText(envio.getNombreDestinatario());
+        txt_monto.setText(StringUtils.getCurrencyValue(envio.getMonto()));
 
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
         titleReferencia.setText(envio.getTipoEnvio().getShortName());

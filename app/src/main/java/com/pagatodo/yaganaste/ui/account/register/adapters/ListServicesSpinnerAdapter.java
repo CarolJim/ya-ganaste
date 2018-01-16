@@ -83,7 +83,11 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> imple
         if (item.getComercio()==null){
 
         }else {
-            holder.txtTitle.setText(item.getComercio().getNombreComercio());
+            if (item.getComercio().getNombreComercio()=="Hola"){}else {
+
+                holder.txtTitle.setText(item.getComercio().getNombreComercio());
+
+            }
         }
         return row;
     }
