@@ -49,6 +49,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
@@ -74,6 +75,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Formatter;
 import java.util.List;
 
 import butterknife.BindView;
@@ -111,7 +113,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     private int longitudRefer;
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
-
+    Boolean isfavo=false;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -157,8 +159,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     ArrayList<CarouselItem> backUpResponsefavo;
     IEnviosPaymentPresenter newPaymentPresenter;
     private boolean isUp;
-
-
+    String myReferencia;
+    private OnListServiceListener onListServiceListener;
     public static EnviosFromFragmentNewVersion newInstance(Double monto) {
         EnviosFromFragmentNewVersion fragment = new EnviosFromFragmentNewVersion();
         Bundle args = new Bundle();
@@ -174,6 +176,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
         current_tab = Constants.PAYMENT_ENVIOS;
         backUpResponse = new ArrayList<>();
+        enviosPresenter = new EnviosPresenter(this);
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
@@ -196,7 +199,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         super.initViews();
         isUp = false;
         slideView.setOnClickListener(this);
-
         btnenviar.setOnClickListener(this);
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -249,6 +251,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         numberReference.setText(DateUtil.getDayMonthYear());
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
+
         tipoEnvio.setOnItemSelectedListener(this);
         receiverName.setSingleLine();
         if (favoriteItem != null) {
@@ -312,6 +315,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
                 dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                 dialogFragment.setOnListServiceListener(this);
+
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
                 break;
 
@@ -511,7 +515,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     protected void continuePayment() {
 
-       /*
         referencia = cardNumber.getText().toString().trim();
         referencia = referencia.replaceAll(" ", "");
 
@@ -526,8 +529,23 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 concepto,
                 referenciaNumber);
 
-*/
+
+        if (!isCuentaValida) {
+            Formatter formatter = new Formatter();
+            showError(formatter.format(getString(R.string.error_cuenta_no_valida), tipoEnvio.getSelectedItem().toString()).toString());
+            formatter.close();
+            //mySeekBar.setProgress(0);
+        } else if (!isValid) {
+            showError();
+            //mySeekBar.setProgress(0);
+        } else {
+
+
+
+            //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+            //Se debe crear un objeto que se envía a la activity que realizará el pago
             referencia = cardNumber.getText().toString().trim();
+            referencia = referencia.replaceAll(" ", "");
             nombreDestinatario=receiverName.getText().toString();
             concepto = concept.getText().toString().trim();
             nombreDestinatario = receiverName.getText().toString().trim();
@@ -535,6 +553,20 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                     favoriteItem != null);
             sendPayment();
+        }
+
+
+        /*
+            referencia = cardNumber.getText().toString().trim();
+            referencia = referencia.replaceAll(" ", "");
+            nombreDestinatario=receiverName.getText().toString();
+            concepto = concept.getText().toString().trim();
+            nombreDestinatario = receiverName.getText().toString().trim();
+            referenciaNumber = numberReference.getText().toString().trim();
+            payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
+                    favoriteItem != null);
+            sendPayment();
+            */
 
     }
 
@@ -572,11 +604,45 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 } else {
                    // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
-                    // TODO Amargando Estos son los datos que son necesario, solo queda hacer el Set en los campos
+                    // TODO Armando Estos son los datos que son necesario, solo queda hacer el Set en los campos
+                    isfavo=true;
                     long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
                     int myIdTipoComercio = backUpResponseFavoritos.get(position).getIdTipoComercio();
                     String myName = backUpResponseFavoritos.get(position).getNombre();
-                    String myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                    receiverName.setText(myName);
+
+                    //backUpResponseFavoritos
+                    /*1 - Con ese id myIdComercio buscamos en backUpResponseFavoritos. Por ejemplo la posicion5
+                            2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
+                            3 - IguLAS comercioItem CON CarouselItem2*/
+
+                            for(int x =0; x<backUpResponse.size(); x++){
+                                if(backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio){
+                                    comercioItem = backUpResponse.get(x).getComercio();
+                                    editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+                                    idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
+                                    idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+                                }
+                            }
+
+
+                    switch (backUpResponseFavoritos.get(position).getReferencia().length()) {
+                        case 10:
+                            myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                            tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
+
+                            break;
+                        case 16:
+                            myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                            tipoEnvio.setSelection(NUMERO_TARJETA.getId());
+                            break;
+                        case 18:
+                            myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                            tipoEnvio.setSelection(CLABE.getId());
+                            break;
+                    }
+
                 }
 
             }
@@ -701,8 +767,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             selectedType = NUMERO_TARJETA;
-            if (favoriteItem != null && favoriteItem.getReferencia().length() == 16) {
-                referenceFavorite = favoriteItem.getReferencia();
+            if (isfavo==true && !myReferencia.isEmpty()) {
+                referenceFavorite = myReferencia;
+                isfavo=false;
             }
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
@@ -715,8 +782,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
-            if (favoriteItem != null && favoriteItem.getReferencia().length() == 10) {
-                referenceFavorite = favoriteItem.getReferencia();
+
+            if (isfavo==true && !myReferencia.isEmpty()) {
+                referenceFavorite = myReferencia;
+                isfavo=false;
             }
         } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             maxLength = 22;
@@ -726,8 +795,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             selectedType = CLABE;
-            if (favoriteItem != null && favoriteItem.getReferencia().length() == 18) {
-                referenceFavorite = favoriteItem.getReferencia();
+            if (isfavo==true && !myReferencia.isEmpty()) {
+                referenceFavorite = myReferencia;
+                isfavo=false;
             }
        /* } else if (position == QR_CODE.getId() && keyIdComercio == IDCOMERCIO_YA_GANASTE){
             Intent intent = new Intent(getActivity(), ScannVisionActivity.class);

@@ -103,7 +103,7 @@
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:background="@null"
                     android:backgroundTint="@color/transparent"
-                    android:hint="Tipo de Envio" />
+                    />
 
                 <LinearLayout
                     android:id="@+id/layout_cardNumber"

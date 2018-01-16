@@ -59,7 +59,10 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
         } else {
             holder = (SpinnerArrayAdapter.DropDownHolder) row.getTag();
         }
-
+        if (paymentType == Constants.PAYMENT_ENVIOS) {
+            hint = TIPO_ENVIO_HINT;
+            textLbl = item.toString();
+        }
         if (paymentType == Constants.PAYMENT_RECARGAS) {
             hint = CANTIDAD_HINT;
             textLbl = "$" + item.toString() + "0";
@@ -67,7 +70,7 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
             hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
         } else {
-            hint = "";
+            hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
         }
 
@@ -115,6 +118,9 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
             hint = CANTIDAD_HINT;
             textLbl = "$" + item.toString() + "0";
         } else if (paymentType == Constants.PAYMENT_SERVICIOS) {
+            hint = TIPO_ENVIO_HINT;
+            textLbl = item.toString();
+        }else if (paymentType == Constants.PAYMENT_ENVIOS) {
             hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
         } else {
