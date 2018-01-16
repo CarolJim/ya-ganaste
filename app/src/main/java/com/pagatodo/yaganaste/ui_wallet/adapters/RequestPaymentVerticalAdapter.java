@@ -24,13 +24,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Armando Sandoval on 09/01/2018.
  */
 
-public class RequestPaymentAdapter extends RecyclerView.Adapter<RequestPaymentAdapter.ViewHolder> {
+public class RequestPaymentVerticalAdapter extends RecyclerView.Adapter<RequestPaymentVerticalAdapter.ViewHolder> {
 
     private List<DtoRequestPayment> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
     private float totalAmout;
 
-    public RequestPaymentAdapter(@NonNull List<DtoRequestPayment> data, @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener, float totalAmount) {
+    public RequestPaymentVerticalAdapter(@NonNull List<DtoRequestPayment> data, @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener, float totalAmount) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
         this.totalAmout = totalAmount;
@@ -39,7 +39,7 @@ public class RequestPaymentAdapter extends RecyclerView.Adapter<RequestPaymentAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_request_payment, parent, false);
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_request_payment_vertical, parent, false);
         return new ViewHolder(row);
     }
 

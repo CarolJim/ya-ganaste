@@ -6,7 +6,11 @@ import android.view.View;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentRequestFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.ProcessRequestPaymentFragment;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +23,7 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
     AppCompatImageView back;
 
     private float monto;
+    private ArrayList<DtoRequestPayment> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +53,11 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         finish();
+    }
+
+    public void setListRequests(ArrayList<DtoRequestPayment> data) {
+        this.data = data;
+        back.setVisibility(View.GONE);
+        loadFragment(ProcessRequestPaymentFragment.newInstance(this.data, monto), R.id.container_request_payment);
     }
 }

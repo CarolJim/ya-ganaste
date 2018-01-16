@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyt_favorite_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/row_padding"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/itemGallery"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/crlImageReq"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:civ_border_color="#FF09CC20" />
+
+        <TextView
+            android:id="@+id/txtInicialesReq"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="FM"
+            android:textColor="@color/whiteColor"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtNameReq"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="11sp"
+        tools:text="Nombre Contacto largo" />
+
+    <TextView
+        android:id="@+id/txtAmountReq"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="$100.00"
+        android:textColor="@color/amout_color_req"
+        android:textSize="11sp" />
+</LinearLayout>
