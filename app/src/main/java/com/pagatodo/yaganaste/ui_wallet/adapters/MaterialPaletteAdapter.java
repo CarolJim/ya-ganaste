@@ -31,6 +31,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     public MaterialPaletteAdapter(List<DataFavoritos> data, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
+
     }
 
     @Override
@@ -43,7 +44,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
         DataFavoritos item = data.get(position);
 
-        if (position == 0) {
+        if (item.getIdComercio() == 0) {
             holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
             GradientDrawable gd = createCircleDrawable(App.getContext().getResources().getColor(R.color.color_background_image_docs), android.graphics.Color.GRAY);
             holder.crlImageFavorite.setBackground(gd);

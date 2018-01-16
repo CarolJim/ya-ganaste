@@ -480,9 +480,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void setFavolist(List<DataFavoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
 
+        DataFavoritos itemAdd = new DataFavoritos(0);
+        itemAdd.setNombre("Agregar");
+        backUpResponseFavoritos.add(itemAdd);
+
         for (DataFavoritos carouselItem : lista) {
             backUpResponseFavoritos.add(carouselItem);
         }
+
+
 
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponseFavoritos, new RecyclerViewOnItemClickListener() {
