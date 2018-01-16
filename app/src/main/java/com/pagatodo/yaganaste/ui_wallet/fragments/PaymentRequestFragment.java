@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,10 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.FavoritesRequestPaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerViewOnItemClickListener;
-import com.pagatodo.yaganaste.ui_wallet.adapters.RequestPaymentAdapter;
+import com.pagatodo.yaganaste.ui_wallet.adapters.RequestPaymentVerticalAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dialog.DialogAddRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IAddRequestPayment;
@@ -82,7 +82,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
 
     PaymentsCarouselPresenter paymentsCarouselPresenter;
     List<DataFavoritos> lstFavorites;
-    List<DtoRequestPayment> lstRequestPayment;
+    ArrayList<DtoRequestPayment> lstRequestPayment;
     private float monto, amountPerPerson;
 
     public PaymentRequestFragment() {
@@ -176,10 +176,22 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                 }
                 break;
             case R.id.btn_continue_payment:
-                UI.showToastShort("Continuar", getActivity());
+                if (lstRequestPayment.size() > 0) {
+                    lstRequestPayment.remove(lstRequestPayment.size() - 1); // Delete add item
+                    ((RequestPaymentActivity) getActivity()).setListRequests(lstRequestPayment);
+                } else {
+                    UI.createSimpleCustomDialog(getActivity().getString(R.string.title_error), getActivity().getString(R.string.txt_message_request_empty), getFragmentManager(), new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+                        }
+                    }, true, false);
+                }
                 break;
             default:
-                Log.e("", "Click view");
                 break;
         }
     }
@@ -198,7 +210,6 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void onSuccess(Double importe) {
-
     }
 
     @Override
@@ -223,49 +234,6 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     public void showErrorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
-    }
-
-    private void setBackUpResponseFav(List<DataFavoritos> mResponse) {
-        lstFavorites = new ArrayList<>();
-        for (DataFavoritos item : mResponse) {
-            if (item.getReferencia().length() == 10) {
-                lstFavorites.add(item);
-            }
-        }
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-        if (lstFavorites.size() > 0) {
-            Collections.sort(lstFavorites, new Comparator<DataFavoritos>() {
-                @Override
-                public int compare(DataFavoritos o1, DataFavoritos o2) {
-                    return o1.getNombre().compareToIgnoreCase(o2.getNombre());
-                }
-            });
-            rcvFavorites.setAdapter(new FavoritesRequestPaymentAdapter(lstFavorites, this));
-        } else {
-            lytFavorites.setVisibility(View.GONE);
-        }
-    }
-
-    /* Method to set all logic of request's */
-    private void notifyRequestContainer() {
-        if (lstRequestPayment.size() == 0) {
-            lytAddUser.setVisibility(View.VISIBLE);
-            rcvRequestPayment.setVisibility(View.GONE);
-        } else {
-            lytAddUser.setVisibility(View.GONE);
-            rcvRequestPayment.setVisibility(View.VISIBLE);
-            // Cargar adaptador
-            rcvRequestPayment.setAdapter(new RequestPaymentAdapter(lstRequestPayment, this, monto));
-        }
-    }
-
-    /* Method to calculate the total amount per person */
-    private float calculateAmountPerPerson() {
-        if (lstRequestPayment.size() >= 1) {
-            return monto / (lstRequestPayment.size());
-        } else {
-            return monto / (lstRequestPayment.size() + 1);
-        }
     }
 
     // OnItemClickRecyclerView
@@ -356,5 +324,49 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         }
         lstRequestPayment.add(dtoRequestPayment);
         notifyRequestContainer();
+    }
+
+    private void setBackUpResponseFav(List<DataFavoritos> mResponse) {
+        lstFavorites = new ArrayList<>();
+        for (DataFavoritos item : mResponse) {
+            if (item.getReferencia().length() == 10) {
+                lstFavorites.add(item);
+            }
+        }
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        if (lstFavorites.size() > 0) {
+            Collections.sort(lstFavorites, new Comparator<DataFavoritos>() {
+                @Override
+                public int compare(DataFavoritos o1, DataFavoritos o2) {
+                    return o1.getNombre().compareToIgnoreCase(o2.getNombre());
+                }
+            });
+            rcvFavorites.setAdapter(new FavoritesRequestPaymentAdapter(lstFavorites, this));
+        } else {
+            lytFavorites.setVisibility(View.GONE);
+        }
+    }
+
+    /* Method to set all logic of request's */
+    private void notifyRequestContainer() {
+        if (lstRequestPayment.size() == 0) {
+            lytAddUser.setVisibility(View.VISIBLE);
+            rcvRequestPayment.setVisibility(View.GONE);
+        } else {
+            lytAddUser.setVisibility(View.GONE);
+            rcvRequestPayment.setVisibility(View.VISIBLE);
+            // Cargar adaptador
+            rcvRequestPayment.setAdapter(new RequestPaymentVerticalAdapter(lstRequestPayment, this, monto));
+            rcvRequestPayment.scrollToPosition(lstRequestPayment.size() - 1);
+        }
+    }
+
+    /* Method to calculate the total amount per person */
+    private float calculateAmountPerPerson() {
+        if (lstRequestPayment.size() >= 1) {
+            return monto / (lstRequestPayment.size());
+        } else {
+            return monto / (lstRequestPayment.size() + 1);
+        }
     }
 }

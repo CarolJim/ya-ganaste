@@ -190,6 +190,7 @@
     <dimen name="size_text_style_4_value">10sp</dimen>
     <dimen name="size_text_style_5_value">12sp</dimen>
     <dimen name="size_text_style_6_value">20sp</dimen>
+    <dimen name="size_text_style_7_value">40sp</dimen>
     <dimen name="size_text_mount">24sp</dimen>
 
 

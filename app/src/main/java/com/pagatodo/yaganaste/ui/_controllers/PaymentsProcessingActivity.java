@@ -114,7 +114,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             hideLoader();
             isAvailableToBack = true;
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-            loadFragment(PaymentAuthorizeFragmentWallwt.newInstance((Payments) pago), FORDWARD, true);
+            loadFragment(PaymentAuthorizeFragment.newInstance((Payments) pago), FORDWARD, true);
         }
     }
 
