@@ -146,7 +146,6 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     style="@style/FragmentElementForm"
                     android:layout_width="match_parent"
@@ -167,12 +166,60 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/envio_from_slide_view_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                    <LinearLayout  android:visibility="invisible"
+                        android:id="@+id/envio_from_slide_view_l1"
+                        style="@style/FragmentElementForm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:background="@drawable/rounded_border_edittext"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                            android:id="@+id/concept"
+                            style="@style/GenericStyleEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/input_letters_concepto"
+                            android:hint="@string/hint_concepto"
+                            android:inputType="textCapWords|textNoSuggestions"
+                            android:maxLength="40" />
+
+                    </LinearLayout>
+
+                    <LinearLayout  android:visibility="invisible"
+                        android:id="@+id/fragment_envios_referencia_layout"
+                        style="@style/FragmentElementForm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:background="@drawable/rounded_border_edittext"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                            android:id="@+id/numberReference"
+                            style="@style/GenericStyleEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/hint_referencia_numerica"
+                            android:inputType="number"
+                            android:maxLength="6" />
+                    </LinearLayout>
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/whiteColor" />
 
 
@@ -196,54 +243,11 @@
                             android:text="Agregar Referencias (Opcional)"
                             android:textColor="@color/grayColor" />
 
-                        <ImageView
+                        <ImageView android:layout_margin="5dp"
                             android:layout_width="wrap_content"
+                            android:id="@+id/iv_triangule_blue"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/arrow_canvas_blue" />
-                    </LinearLayout>
-
-                    <LinearLayout android:visibility="gone"
-                        android:id="@+id/envio_from_slide_view_ll"
-                        android:layout_width="match_parent" android:orientation="vertical"
-                        android:layout_height="wrap_content">
-                    <LinearLayout
-                        style="@style/FragmentElementForm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_between_elements"
-                        android:background="@drawable/rounded_border_edittext"
-                        android:orientation="horizontal">
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                            android:id="@+id/concept"
-                            style="@style/GenericStyleEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="@string/input_letters_concepto"
-                            android:hint="@string/hint_concepto"
-                            android:inputType="textCapWords|textNoSuggestions"
-                            android:maxLength="40" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/fragment_envios_referencia_layout"
-                        style="@style/FragmentElementForm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_between_elements"
-                        android:background="@drawable/rounded_border_edittext"
-                        android:orientation="horizontal">
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                            android:id="@+id/numberReference"
-                            style="@style/GenericStyleEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:hint="@string/hint_referencia_numerica"
-                            android:inputType="number"
-                            android:maxLength="6" />
-                    </LinearLayout>
+                            app:srcCompat="@drawable/triangule_blue_down" />
                     </LinearLayout>
                 </LinearLayout>
 

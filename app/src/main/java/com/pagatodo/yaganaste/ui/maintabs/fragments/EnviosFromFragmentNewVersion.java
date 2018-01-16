@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -21,6 +22,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -142,6 +148,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     LinearLayout slideView;
     @BindView(R.id.envio_from_slide_view_ll)
     LinearLayout slideViewLl;
+    @BindView(R.id.envio_from_slide_view_l1)
+    LinearLayout slideViewL1;
+    @BindView(R.id.iv_triangule_blue)
+    ImageView triBlue;
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
@@ -194,8 +204,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void initViews() {
         super.initViews();
-        isUp = false;
-        slideView.setOnClickListener(this);
 
         btnenviar.setOnClickListener(this);
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
@@ -286,6 +294,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         });
 
+        /**
+         * Variables necesarias para que funcione el Slide Up-Down
+         * isUp = true; indica que la vista esta "Down"
+         * false = es "Up"
+         */
+        isUp = false;
+        slideView.setOnClickListener(this);
     }
 
     @Override
@@ -293,6 +308,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
         paymentsCarouselPresenter.getCarouselItems();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
+        // Ocultamos la vista del Slide en el Layout y hacemos SET Down para mostrar por primera vez
+        // referenciaLayout slideViewL1
+        slideDown(slideViewLl);
+        //firstDown(slideViewLl);
         super.onResume();
     }
 
@@ -326,12 +345,36 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             default:
                 break;
         }
-
-
     }
 
+    public void onSlideViewButtonClick(View view) {
+        if (isUp) {
+            slideDown(view);
+           // slideViewLl.setVisibility(View.VISIBLE);
+        } else {
+            slideUp(view);
+            // slideViewLl.setVisibility(View.GONE);
+        }
+        isUp = !isUp;
+    }
+
+  /*  private void firstDown(LinearLayout view) {
+        TranslateAnimation animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                0,                 // fromYDelta
+                view.getHeight()); // toYDelta
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+        triBlue.setImageResource(R.drawable.triangule_blue_up);
+    }*/
+
     // slide the view from below itself to the current position
-    public void slideUp(View view){
+    public void slideUp(final View view){
+        // Mostramos las 3 capas antes de la animacion, esto de mostrar solo es necesario una vez
+        slideViewL1.setVisibility(View.VISIBLE);
+        referenciaLayout.setVisibility(View.VISIBLE);
         view.setVisibility(View.VISIBLE);
         TranslateAnimation animate = new TranslateAnimation(
                 0,                 // fromXDelta
@@ -341,6 +384,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
+        triBlue.setImageResource(R.drawable.triangule_blue_down);
+
     }
 
     // slide the view from its current position to below itself
@@ -353,20 +398,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
-
-
-        view.setVisibility(View.GONE);
-    }
-
-    public void onSlideViewButtonClick(View view) {
-        if (isUp) {
-            slideDown(view);
-            //myButton.setText("Slide up");
-        } else {
-            slideUp(view);
-            //myButton.setText("Slide down");
-        }
-        isUp = !isUp;
+        triBlue.setImageResource(R.drawable.triangule_blue_up);
     }
 
     @Override
