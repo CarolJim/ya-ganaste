@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lyt_favorite_item"
-    android:layout_width="wrap_content"
+    android:id="@+id/row_request_payment"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/row_padding"
-    android:orientation="vertical">
+    android:clickable="true"
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/itemGallery"
@@ -15,7 +16,7 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/crlImageFavorite"
+            android:id="@+id/crlImageReq"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
@@ -23,7 +24,7 @@
             app:civ_border_color="#FF09CC20" />
 
         <ImageView
-            android:id="@+id/imgAddFavorite"
+            android:id="@+id/imgAddRequest"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerHorizontal="true"
@@ -32,7 +33,7 @@
             android:scaleType="fitCenter" />
 
         <TextView
-            android:id="@+id/txtInicialesFav"
+            android:id="@+id/txtInicialesReq"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerHorizontal="true"
@@ -44,12 +45,40 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtNameFav"
-        android:layout_width="47dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="2"
         android:gravity="center"
-        android:textSize="11sp"
-        tools:text="Nombre Contacto largo"></TextView>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtNameReq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="11sp"
+            tools:text="Nombre Contacto largo" />
+
+        <TextView
+            android:id="@+id/txtAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="$100.00"
+            android:textColor="@color/amout_color_req"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgEditRequest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_weight=".5"
+        app:srcCompat="@drawable/edit_name" />
+
+
 </LinearLayout>

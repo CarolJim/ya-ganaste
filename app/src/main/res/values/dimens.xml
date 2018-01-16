@@ -61,11 +61,8 @@
     <dimen name="width_btns_small">108dp</dimen>
     <dimen name="btns_separation">11dp</dimen>
 
-    <!--
-        <dimen name="height_btn_square">44dp</dimen>
-        <dimen name="width_btn_square">162dp</dimen>
-    -->
-
+    <!-- Request Payment Container -->
+    <dimen name="height_container">200dp</dimen>
 
     <!-- Edittexts -->
     <dimen name="height_edittext">40dp</dimen>
@@ -192,6 +189,7 @@
     <dimen name="size_text_style_3_half_value">7sp</dimen>
     <dimen name="size_text_style_4_value">10sp</dimen>
     <dimen name="size_text_style_5_value">12sp</dimen>
+    <dimen name="size_text_style_6_value">20sp</dimen>
     <dimen name="size_text_mount">24sp</dimen>
 
 

@@ -179,24 +179,24 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         UI.createSimpleCustomDialog("", error, getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
-    @Override
+    /*@Override
     public void showFavorites() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         //carouselMain.setVisibility(View.GONE);
         fragment.showFavorites();
 
 
-        /**
+        *//**
          * Cargamos la actividad de LandingActivity con la informacion de INICIO_EDITAR_FAVORITOS solo
          * si su pref COUCHMARK_EDIT_FAV no se ha guardado
-         */
+         *//*
         Preferencias pref = App.getInstance().getPrefs();
         if (!pref.containsData(COUCHMARK_EDIT_FAV)) {
             pref.saveDataBool(COUCHMARK_EDIT_FAV, true);
             //startActivityForResult(LandingActivity.createIntent(App.getContext(), INICIO_EDITAR_FAVORITOS), ACTIVITY_LANDING);
             startActivity(LandingActivity.createIntent(App.getContext(), INICIO_EDITAR_FAVORITOS));
         }
-    }
+    }*/
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {

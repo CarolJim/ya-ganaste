@@ -48,7 +48,6 @@ import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
@@ -69,7 +68,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,7 +79,6 @@ import butterknife.BindView;
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
@@ -481,7 +478,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     @Override
     public void setFavolist(List<DataFavoritos> lista) {
-        backUpResponseFavoritos= new ArrayList<>();
+        backUpResponseFavoritos = new ArrayList<>();
 
         for (DataFavoritos carouselItem : lista) {
             backUpResponseFavoritos.add(carouselItem);
@@ -491,21 +488,19 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponseFavoritos, new RecyclerViewOnItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-
                 if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
                     startActivity(intentAddFavorite);
                 } else {
-                    Toast.makeText(getActivity(), "Favorito: "+backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onLongClick(View v, int position) {
-
                 if (backUpResponseFavoritos.size() == 3) {
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
@@ -519,16 +514,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                         startActivity(intentEditFav);
                     }
                 }
-
             }
         }));
-
-
     }
 
     private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
         backUpResponsefavo = new ArrayList<>();
-        backUpResponseFavoritos= new ArrayList<>();
+        backUpResponseFavoritos = new ArrayList<>();
 
         for (CarouselItem carouselItem : mResponse) {
             backUpResponsefavo.add(carouselItem);
@@ -567,12 +559,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     @Override
-    public void showFavorites() {
-
-
-    }
-
-    @Override
     public void onListServiceListener(CarouselItem item, int position) {
         //  Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
         comercioItem = item.getComercio();
@@ -594,13 +580,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
         }
         if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                receiverName.setEnabled(false);
-                receiverName.cancelLongPress();
-                receiverName.setClickable(false);
-                referenciaLayout.setVisibility(GONE);
-                numberReference.setText("123456");
-                concept.setImeOptions(IME_ACTION_DONE);
-                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            receiverName.setEnabled(false);
+            receiverName.cancelLongPress();
+            receiverName.setClickable(false);
+            referenciaLayout.setVisibility(GONE);
+            numberReference.setText("123456");
+            concept.setImeOptions(IME_ACTION_DONE);
+            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
 
         } else {
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
@@ -663,7 +649,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
         } else {
             maxLength = 2;
-          //  cardNumber.setHint("");
+            //  cardNumber.setHint("");
             layout_cardNumber.setVisibility(GONE);
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);

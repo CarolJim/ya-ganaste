@@ -185,11 +185,6 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
     }
 
     @Override
-    public void showFavorites() {
-
-    }
-
-    @Override
     public void onSuccess(Double monto) {
 
     }

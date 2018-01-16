@@ -18,6 +18,4 @@ public interface PaymentsCarrouselManager extends PaymentsManager {
     void setFavolist(List<DataFavoritos> lista);
 
     void showErrorService();
-
-    void showFavorites();
 }

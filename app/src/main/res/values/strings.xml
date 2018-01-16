@@ -659,6 +659,8 @@
     <string name="envia_email">Enviando Email</string>
     <string name="btn_recharge_txt">Recargar</string>
     <string name="btn_payment_txt">Pagar</string>
+    <string name="btn_req_payment_txt">Solicitar</string>
+    <string name="btn_req_payment_2_txt">Agregar</string>
     <string name="txt_exito">Éxito</string>
     <string name="txt_cancelar">Cancelar</string>
     <string name="error_enviando_ticket">Error Enviando Ticket</string>
@@ -1151,6 +1153,7 @@
     <string name="opciones">Operaciones</string>
     <string name="saldo_disponible_enviar">Saldo Disponible: </string>
     <string name="Monto_a_enviar">Monto a Enviar: </string>
+    <string name="solicitar_pago_text">Solicitar Pago Por: </string>
     <string name="ingresa_monto">Ingresa el Monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
@@ -1185,24 +1188,19 @@
     <string name="Agregar_Referencia">Agregar Referencias (Opcional) </string>
     <string name="synch_favorites">Obteniendo Favoritos</string>
     <string name="synch_carrier">Obteniendo Carriers</string>
-
-    <string name="red">Red</string>
-    <string name="indigo">Indigo</string>#3F51B5
-    <string name="green">Green</string>
-    <string name="orange">Orange</string>#4CAF50
-    <string name="blue">Blue</string>#2196F3
-    <string name="lime">Lime</string>
-    <string name="yellow">Yellow</string>>#FFEB3B
-    <string name="grey">Grey</string>#9E9E9E
-    <string name="bluegrey">Blue Grey</string>#607D8B
-    <string name="amber">Amber</string>#FFC107
-    <string name="teal">Teal</string>##009688
-    <string name="deeppurple">Deep Purple</string>#673AB7
-    <string name="cyan">Cyan</string>#00BCD4
-    <string name="brown">Brown</string>#795548
+    <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>
 
     <!-- Procesos de PaymentActivity-->
     <string name="txt_recargas">Recargas</string>
     <string name="txt_servicios">Servicios</string>
+
+    <!-- Request Payment -->
+    <string name="txt_name_dest">Nuevo Destinatario:</string>
+    <string name="txt_error_calculate_amount">No se Puede Agregar Otra Solicitud, el Monto Mínimo Por Persona Debe Ser de $1.00</string>
+    <string name="txt_error_name_receiver">Nombre Requerido, Verifique su Información</string>
+    <string name="txt_error_phone_receiver">Numero Celular Requerido, Verifique su Información</string>
+    <string name="txt_add_success_request">Solicitud Agregada</string>
+    <string name="txt_title_edit_request">Borrar Solicitud</string>
+    <string name="txt_message_edit_request">¿Desea Borrar Ésta Solicitud de su Lista?</string>
 
 </resources>

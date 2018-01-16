@@ -1338,10 +1338,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public void showErrorService() {
     }
 
-    @Override
-    public void showFavorites() {
-    }
-
     /*
     // CROPPER
     */

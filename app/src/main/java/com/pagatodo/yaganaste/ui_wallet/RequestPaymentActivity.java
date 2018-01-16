@@ -18,20 +18,20 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
-    private int monto;
+    private float monto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_payment);
-        monto = getIntent().getIntExtra(MONTO, 1);
+        monto = getIntent().getFloatExtra(MONTO, 1F);
         initViews();
     }
 
     private void initViews() {
         ButterKnife.bind(this);
         back.setOnClickListener(this);
-        loadFragment(PaymentRequestFragment.newInstance("",""), R.id.container_request_payment);
+        loadFragment(PaymentRequestFragment.newInstance(monto), R.id.container_request_payment);
     }
 
     @Override

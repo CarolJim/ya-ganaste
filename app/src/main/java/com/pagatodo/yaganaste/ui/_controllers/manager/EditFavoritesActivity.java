@@ -1348,11 +1348,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
-    public void showFavorites() {
-
-    }
-
-    @Override
     public void onCropper(Uri uri) {
         showLoader(getString(R.string.load_photo_favorite));
         BACK_STATE_EDITFAVORITE = false;

@@ -402,11 +402,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
     public void setVisibilityPrefer(Boolean mBoolean) {
-        if (mBoolean) {
+        /*if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
-        } else {
+        } else {*/
             imageView.setVisibility(View.GONE);
-        }
+        //}
     }
 
     @Override

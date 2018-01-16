@@ -7,15 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,11 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Armando Sandoval on 09/01/2018.
  */
 
-public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPaletteAdapter.PaletteViewHolder> {
+public class FavoritesRequestPaymentAdapter extends RecyclerView.Adapter<FavoritesRequestPaymentAdapter.PaletteViewHolder> {
     private List<DataFavoritos> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
 
-    public MaterialPaletteAdapter(List<DataFavoritos> data, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+    public FavoritesRequestPaymentAdapter(@NonNull List<DataFavoritos> data, @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
     }
@@ -42,28 +41,18 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     @Override
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
         DataFavoritos item = data.get(position);
-
-        if (position == 0) {
-            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
-            GradientDrawable gd = createCircleDrawable(App.getContext().getResources().getColor(R.color.color_background_image_docs), android.graphics.Color.GRAY);
+        holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
+        holder.txtNameFav.setText(item.getNombre());
+        if (item.getImagenURL().equals("")) {
+            GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(item.getColorMarca()),
+                    android.graphics.Color.parseColor(item.getColorMarca()));
             holder.crlImageFavorite.setBackground(gd);
-            holder.imgAddFavorite.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_add));
-            holder.txtNameFav.setText("Agregar");
-            holder.txtInicialesFav.setVisibility(View.GONE);
+            holder.txtInicialesFav.setVisibility(View.VISIBLE);
+            String sIniciales = getIniciales(item.getNombre());
+            holder.txtInicialesFav.setText(sIniciales);
         } else {
-            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
-            holder.txtNameFav.setText(item.getNombre());
-            if (item.getImagenURL().equals("")) {
-                GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(item.getColorMarca()),
-                        android.graphics.Color.parseColor(item.getColorMarca()));
-                holder.crlImageFavorite.setBackground(gd);
-                holder.txtInicialesFav.setVisibility(View.VISIBLE);
-                String sIniciales = getIniciales(item.getNombre());
-                holder.txtInicialesFav.setText(sIniciales);
-            } else {
-                holder.txtInicialesFav.setVisibility(View.GONE);
-                setImagePicasoFav(holder.crlImageFavorite, item.getImagenURL());
-            }
+            holder.txtInicialesFav.setVisibility(View.GONE);
+            setImagePicasoFav(holder.crlImageFavorite, item.getImagenURL());
         }
     }
 
@@ -118,16 +107,17 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         CircleImageView crlImageFavorite;
         ImageView imgAddFavorite;
         TextView txtInicialesFav, txtNameFav;
-
+        LinearLayout lytFavorite;
 
         public PaletteViewHolder(View itemView) {
             super(itemView);
+            lytFavorite = (LinearLayout) itemView.findViewById(R.id.lyt_favorite_item);
             crlImageFavorite = (CircleImageView) itemView.findViewById(R.id.crlImageFavorite);
             imgAddFavorite = (ImageView) itemView.findViewById(R.id.imgAddFavorite);
             txtInicialesFav = (TextView) itemView.findViewById(R.id.txtInicialesFav);
             txtNameFav = (TextView) itemView.findViewById(R.id.txtNameFav);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+            lytFavorite.setOnClickListener(this);
+            //itemView.setOnLongClickListener(this);
         }
 
         @Override

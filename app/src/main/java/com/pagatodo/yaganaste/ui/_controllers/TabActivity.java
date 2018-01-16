@@ -10,7 +10,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -21,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -62,7 +60,6 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
-import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
@@ -172,15 +169,15 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         });
         imageNotification = (ImageView) findViewById(R.id.imgNotifications);
-        imageNotification.setVisibility(View.VISIBLE);
+        imageNotification.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
 
 
         showBack(false);
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
+       /* if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
-        }
+        }*/
         mPreferPresenter = new PreferUserPresenter(this);
         cameraManager = new CameraManager(this);
         cameraManager.initCamera(this, imgLoginExistProfile, this);
@@ -328,7 +325,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onStart() {
         super.onStart();
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
+       /* if (!pref.containsData(COUCHMARK_EMISOR)) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -336,7 +333,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     startActivityForResult(LandingActivity.createIntent(TabActivity.this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
                 }
             }, 500);
-        }
+        }*/
     }
 
     @Override
@@ -464,13 +461,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
-        } else if (requestCode == Constants.ACTIVITY_LANDING) {
+        /*} else if (requestCode == Constants.ACTIVITY_LANDING) {
             if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                     !pref.containsData(COUCHMARK_ADQ)) {
                 pref.saveDataBool(COUCHMARK_ADQ, true);
                 startActivity(LandingActivity.createIntent(this, PANTALLA_COBROS));
-            }
+            }*/
         } else if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             refreshAdquirenteMovements();
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {

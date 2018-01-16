@@ -127,8 +127,6 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         switch (elementView.getIdOperacion()) {
             case ID_ENVIAR:
                 //  Integer valueAmount = Parseet_amount.getText().toString();
-
-
                 if (actionCharge()) {
                     Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                     intent.putExtra(MONTO, monto);
@@ -138,8 +136,6 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 break;
             case ID_SOLICITAR:
                 if (actionCharge()) {
-
-
                     Intent intent = new Intent(getContext(), RequestPaymentActivity.class);
                     intent.putExtra(MONTO, current_mount);
                     startActivity(intent);
