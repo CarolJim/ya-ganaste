@@ -38,14 +38,17 @@
             android:paddingStart="@dimen/card_padding"
             android:background="@android:color/transparent"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
             android:id="@+id/txt_monto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="00"
             android:textSize="24sp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorAccent"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            app:dotBottom="false"
+            app:symbolSmaller="true" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/tipo_saldo"

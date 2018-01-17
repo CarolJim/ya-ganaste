@@ -325,7 +325,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                     layoutClaveRastreo.setVisibility(VISIBLE);
                     txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
                 }
-                if (!movimientosResponse.getReferenciaNum().equals("")) {
+                if (!movimientosResponse.getReferenciaNum().trim().equals("")) {
                     layoutNumeroReferencia.setVisibility(VISIBLE);
                     txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
                 }
@@ -385,11 +385,14 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+
                 break;
             case DEVOLUCION:
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 layoutAutorizacon.setVisibility(GONE);
+                layoutNumeroReferencia.setVisibility(GONE);
+                layoutClaveRastreo.setVisibility(GONE);
                 break;
             default:
 

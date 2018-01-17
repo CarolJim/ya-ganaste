@@ -17,7 +17,7 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDepositTitle"
-        style="@style/generic_text_style_1"
+        style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"

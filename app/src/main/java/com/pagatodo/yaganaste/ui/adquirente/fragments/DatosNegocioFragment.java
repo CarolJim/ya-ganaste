@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAd
 import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
@@ -420,7 +421,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         error.setHasConfirm(true);
         error.setHasCancel(false);
         error.setErrorActions(this);
-        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
+        showDialogMesage(error.getErrorMessage());
     }
 
     @Override
@@ -457,6 +458,22 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesPhone.clearFocus();
         spinnerSubBussineLine.requestFocus();
         UI.hideKeyBoard(getActivity());
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        //onEventListener.onEvent("",null);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 }
 
