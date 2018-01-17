@@ -21,6 +21,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -144,6 +149,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     LinearLayout slideView;
     @BindView(R.id.envio_from_slide_view_ll)
     LinearLayout slideViewLl;
+    @BindView(R.id.envio_from_slide_view_l1)
+    LinearLayout slideViewL1;
+    @BindView(R.id.iv_triangule_blue)
+    ImageView triBlue;
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
@@ -197,8 +206,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void initViews() {
         super.initViews();
-        isUp = false;
-        slideView.setOnClickListener(this);
+
         btnenviar.setOnClickListener(this);
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -289,6 +297,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         });
 
+        /**
+         * Variables necesarias para que funcione el Slide Up-Down
+         * isUp = true; indica que la vista esta "Down"
+         * false = es "Up"
+         */
+        isUp = false;
+        slideView.setOnClickListener(this);
     }
 
     @Override
@@ -296,6 +311,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
         paymentsCarouselPresenter.getCarouselItems();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
+        // Ocultamos la vista del Slide en el Layout y hacemos SET Down para mostrar por primera vez
+        // referenciaLayout slideViewL1
+        slideDown(slideViewLl);
+        //firstDown(slideViewLl);
         super.onResume();
     }
 
@@ -330,12 +349,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             default:
                 break;
         }
-
-
     }
 
     // slide the view from below itself to the current position
-    public void slideUp(View view){
+    public void slideUp(final View view){
+        // Mostramos las 3 capas antes de la animacion, esto de mostrar solo es necesario una vez
+        slideViewL1.setVisibility(View.VISIBLE);
+        referenciaLayout.setVisibility(View.VISIBLE);
         view.setVisibility(View.VISIBLE);
         TranslateAnimation animate = new TranslateAnimation(
                 0,                 // fromXDelta
@@ -345,6 +365,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
+        triBlue.setImageResource(R.drawable.triangule_blue_down);
+
     }
 
     // slide the view from its current position to below itself
@@ -357,7 +379,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
-
+        triBlue.setImageResource(R.drawable.triangule_blue_up);
 
         view.setVisibility(View.GONE);
     }
