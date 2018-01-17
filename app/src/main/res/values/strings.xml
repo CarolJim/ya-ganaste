@@ -1206,4 +1206,12 @@
     <string name="txt_confirm_request">Confirma tu Solicitud</string>
     <string name="txt_add_message_request">Agregar un mensaje</string>
 
+    <!-- Solicitar Pago-->
+
+    <string name="mensaje_enviado">Mensaje Enviado</string>
+    <string name="head_message">Solicitud de Pago</string>
+    <string name="foot_message">Descarga la app y realiza envios mas rapido con Ya Ganaste</string>
+    <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
+    <string name="link_message">https://goo.gl/k7iy6Y</string>
+
 </resources>

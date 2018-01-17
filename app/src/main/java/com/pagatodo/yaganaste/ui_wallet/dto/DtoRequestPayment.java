@@ -11,7 +11,7 @@ public class DtoRequestPayment implements Parcelable {
 
     private Long idFavorite = 0L;
     private float amount;
-    private String name, reference, colorBank, urlImage;
+    private String name, reference, colorBank, urlImage, message, headMessage, footMessage;
 
     public DtoRequestPayment(long idFavorite, String name, String reference, String colorBank, String urlImage) {
         this.idFavorite = idFavorite;
@@ -67,6 +67,30 @@ public class DtoRequestPayment implements Parcelable {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getHeadMessage() {
+        return headMessage;
+    }
+
+    public void setHeadMessage(String headMessage) {
+        this.headMessage = headMessage;
+    }
+
+    public String getFootMessage() {
+        return footMessage;
+    }
+
+    public void setFootMessage(String footMessage) {
+        this.footMessage = footMessage;
     }
 
     @Override
