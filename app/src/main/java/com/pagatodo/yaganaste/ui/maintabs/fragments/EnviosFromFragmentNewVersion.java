@@ -311,10 +311,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
         paymentsCarouselPresenter.getCarouselItems();
         paymentsCarouselPresenter.getFavoriteCarouselItems();
-        // Ocultamos la vista del Slide en el Layout y hacemos SET Down para mostrar por primera vez
-        // referenciaLayout slideViewL1
-        slideDown(slideViewLl);
-        //firstDown(slideViewLl);
         super.onResume();
     }
 
@@ -378,19 +374,21 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 view.getHeight()); // toYDelta
         animate.setDuration(500);
         animate.setFillAfter(true);
+
         view.startAnimation(animate);
         triBlue.setImageResource(R.drawable.triangule_blue_up);
 
-        view.setVisibility(View.GONE);
+        slideViewL1.setVisibility(View.INVISIBLE);
+        referenciaLayout.setVisibility(View.INVISIBLE);
+        view.setVisibility(View.INVISIBLE);
+
     }
 
     public void onSlideViewButtonClick(View view) {
         if (isUp) {
-            slideDown(view);
-            //myButton.setText("Slide up");
+            view.setVisibility(View.VISIBLE);
         } else {
-            slideUp(view);
-            //myButton.setText("Slide down");
+            view.setVisibility(View.GONE);
         }
         isUp = !isUp;
     }

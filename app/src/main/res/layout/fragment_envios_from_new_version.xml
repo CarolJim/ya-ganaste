@@ -31,6 +31,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
@@ -171,9 +172,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="invisible">
+                    android:visibility="gone">
 
-                    <LinearLayout  android:visibility="invisible"
+                    <LinearLayout
                         android:id="@+id/envio_from_slide_view_l1"
                         style="@style/FragmentElementForm"
                         android:layout_width="match_parent"
@@ -194,7 +195,7 @@
 
                     </LinearLayout>
 
-                    <LinearLayout  android:visibility="invisible"
+                    <LinearLayout
                         android:id="@+id/fragment_envios_referencia_layout"
                         style="@style/FragmentElementForm"
                         android:layout_width="match_parent"
@@ -214,23 +215,23 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/whiteColor" />
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/envio_from_slide_view"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/whiteColor" />
+
                     <LinearLayout
-                        android:id="@+id/envio_from_slide_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -250,13 +251,6 @@
                             app:srcCompat="@drawable/triangule_blue_down" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnenviar"
-                    style="@style/buttonSquareRoundedBlue"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:text="Enviar"
-                    android:visibility="visible" />
             </LinearLayout>
 
             <RelativeLayout
@@ -265,8 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/btn_navigation_bottom"
                 android:layout_marginLeft="@dimen/seekbar_margin"
-                android:layout_marginRight="@dimen/seekbar_margin"
-                android:layout_marginTop="@dimen/margin_big">
+                android:layout_marginRight="@dimen/seekbar_margin">
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomSeekBarEnviar
                     android:id="@+id/myseek"
@@ -283,4 +276,11 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnenviar"
+        android:layout_marginBottom="25dp"
+        style="@style/buttonSquareRoundedBlue"
+        android:text="Enviar"
+        android:visibility="visible" />
 </LinearLayout>
