@@ -55,6 +55,10 @@ public class RequestPaymentHorizontalAdapter extends RecyclerView.Adapter<Reques
         }
     }
 
+    public DtoRequestPayment getItem(int position){
+        return data.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -114,6 +118,7 @@ public class RequestPaymentHorizontalAdapter extends RecyclerView.Adapter<Reques
         }
 
     }
+
 
 }
 

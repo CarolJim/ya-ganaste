@@ -15,10 +15,14 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.FavoritesRequestPaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerViewOnItemClickListener;
@@ -52,7 +56,8 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
  * Use the {@link PaymentRequestFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentRequestFragment extends GenericFragment implements View.OnClickListener, PaymentsCarrouselManager, RecyclerViewOnItemClickListener,
+public class PaymentRequestFragment extends GenericFragment implements View.OnClickListener,
+        PaymentsCarrouselManager, RecyclerViewOnItemClickListener, EnviosManager,
         IAddRequestPayment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,6 +89,8 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     List<DataFavoritos> lstFavorites;
     ArrayList<DtoRequestPayment> lstRequestPayment;
     private float monto, amountPerPerson;
+    private IEnviosPresenter enviosPresenter;
+    private DtoRequestPayment dtoRequestPayment;
 
     public PaymentRequestFragment() {
         // Required empty public constructor
@@ -111,6 +118,8 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
             monto = getArguments().getFloat(REQUEST_MONTO);
             amountPerPerson = monto;
         }
+
+        enviosPresenter = new EnviosPresenter(this);
     }
 
     @Override
@@ -322,8 +331,12 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         if (lstRequestPayment.size() > 1) {
             lstRequestPayment.remove(lstRequestPayment.size() - 1);
         }
-        lstRequestPayment.add(dtoRequestPayment);
-        notifyRequestContainer();
+        this.dtoRequestPayment = dtoRequestPayment;
+        String msj = "Hola, " +  "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por "+ requestAmout.getText();
+        this.dtoRequestPayment.setHeadMessage(msj);
+        enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
+        //lstRequestPayment.add(dtoRequestPayment);
+        //notifyRequestContainer();
     }
 
     private void setBackUpResponseFav(List<DataFavoritos> mResponse) {
@@ -368,5 +381,45 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         } else {
             return monto / (lstRequestPayment.size() + 1);
         }
+    }
+
+    @Override
+    public void onTextChanged() {
+
+    }
+
+    @Override
+    public void onTextComplete() {
+
+    }
+
+    @Override
+    public void showError(String text) {
+
+    }
+
+    @Override
+    public void setTitularName(DataTitular dataTitular) {
+        //this.dtoRequestPayment.setName(dataTitular.getNombre());
+        this.dtoRequestPayment.setFootMessage("");
+        lstRequestPayment.add(this.dtoRequestPayment);
+        notifyRequestContainer();
+    }
+
+    @Override
+    public void onFailGetTitulaName() {
+        this.dtoRequestPayment.setFootMessage(getString(R.string.foot_message) + " " + getString(R.string.link_message));
+        lstRequestPayment.add(this.dtoRequestPayment);
+        notifyRequestContainer();
+    }
+
+    @Override
+    public void showLoader(String text) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
     }
 }

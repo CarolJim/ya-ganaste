@@ -19,6 +19,8 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONT
 
 public class RequestPaymentActivity extends LoaderActivity implements View.OnClickListener {
 
+    public static final String EVENT_SOLICITAR_PAGO = "EVENT_SOLICITAR_PAGO";
+
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
@@ -59,5 +61,13 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
         this.data = data;
         back.setVisibility(View.GONE);
         loadFragment(ProcessRequestPaymentFragment.newInstance(this.data, monto), R.id.container_request_payment);
+    }
+
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+        if (event.equals(EVENT_SOLICITAR_PAGO)) {
+            finish();
+        }
     }
 }
