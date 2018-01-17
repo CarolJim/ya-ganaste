@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
@@ -29,6 +30,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_ENVIAR;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_SOLICITAR;
 
@@ -128,9 +130,15 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
             case ID_ENVIAR:
                 //  Integer valueAmount = Parseet_amount.getText().toString();
                 if (actionCharge()) {
-                    Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
-                    intent.putExtra(MONTO, monto);
-                    startActivity(intent);
+
+                    if (!UtilsNet.isOnline(getActivity())) {
+                        UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+                    }else {
+                        Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
+                        intent.putExtra(MONTO, monto);
+                        startActivity(intent);
+                    }
+
                 }
 
                 break;

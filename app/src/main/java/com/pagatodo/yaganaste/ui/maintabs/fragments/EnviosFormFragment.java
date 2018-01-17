@@ -267,7 +267,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         } else if (!isValid) {
             showError();
             mySeekBar.setProgress(0);
-        } else {
+        }else {
             //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
             payment = new Envios(selectedType, referencia, monto, nombreDestinatario, concepto, referenciaNumber, comercioItem,

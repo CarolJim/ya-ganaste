@@ -114,7 +114,7 @@ public class DialogAddRequestPayment extends DialogFragment {
                     DtoRequestPayment dtoRequestPayment = new DtoRequestPayment(0, edtReceiver.getText().toString(),
                             edtPhoneNumber.getText().toString().replaceAll(" ", ""), "#00A1E1", "");
                     addRequestPaymentListener.onAddNewRequest(dtoRequestPayment);
-                    UI.showToastShort(getString(R.string.txt_add_success_request), getActivity());
+                    //UI.showToastShort(getString(R.string.txt_add_success_request), getActivity());
                     dismiss();
                 }
             }

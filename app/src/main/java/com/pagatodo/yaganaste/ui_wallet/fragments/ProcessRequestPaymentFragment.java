@@ -1,18 +1,34 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RequestPaymentHorizontalAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -23,12 +39,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity.EVENT_SOLICITAR_PAGO;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProcessRequestPaymentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProcessRequestPaymentFragment extends GenericFragment {
+public class ProcessRequestPaymentFragment extends GenericFragment implements View.OnClickListener{
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String REQUEST_LIST = "REQUEST_LIST";
@@ -43,6 +61,9 @@ public class ProcessRequestPaymentFragment extends GenericFragment {
     StyleEdittext edtMessagePayment;
     @BindView(R.id.btn_send_payment)
     StyleButton btnSendPayment;
+    private int count;
+
+
 
     private ArrayList<DtoRequestPayment> lstRequest;
     private float monto;
@@ -73,12 +94,13 @@ public class ProcessRequestPaymentFragment extends GenericFragment {
             lstRequest = getArguments().getParcelableArrayList(REQUEST_LIST);
             monto = getArguments().getFloat(TOTAL_AMOUNT);
         }
+        count = 0;
+       // enviosPresenter = new EnviosPresenter(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_process_request_payment, container, false);
         initViews();
         return rootView;
@@ -90,5 +112,91 @@ public class ProcessRequestPaymentFragment extends GenericFragment {
         txtTotalAmount.setText(Utils.getCurrencyValue(monto));
         rcvRequest.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rcvRequest.setAdapter(new RequestPaymentHorizontalAdapter(lstRequest));
+        btnSendPayment.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        if (lstRequest.size() > 0) {
+            UI.showToastShort("Enviando Mensaje", getActivity());
+            //Validacion de telefonos de yaganaste
+            for(count = 0; count < lstRequest.size(); count++) {
+                sendSMS(lstRequest.get(count).getReference(),
+                        lstRequest.get(count).getHeadMessage() +
+                                " " + edtMessagePayment.getText().toString() +
+                                " " + lstRequest.get(count).getFootMessage());
+            }
+        }
+    }
+
+    private void sendSMS(String phoneNumber, String message) {
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(getActivity(), 0,
+                new Intent(SENT), 0);
+
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(getActivity(), 0,
+                new Intent(DELIVERED), 0);
+
+        //---when the SMS has been sent---
+        getActivity().registerReceiver(broadcastReceiverSend, new IntentFilter(SENT));
+        //---when the SMS has been delivered---
+
+        //showLoader(getContext().getString(R.string.verificando_sms_esperanuevo));
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+    }
+
+    BroadcastReceiver broadcastReceiverSend = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+                    if (count == lstRequest.size()){
+                        showDialogMesage(getContext().getResources().getString(R.string.solicitud_enviada));
+                    }
+                    break;
+                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    UI.showToastShort(getString(R.string.fallo_envio), getActivity());
+                    break;
+                case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    UI.showToastShort(getString(R.string.sin_servicio), getActivity());
+                    break;
+                case SmsManager.RESULT_ERROR_NULL_PDU:
+                    UI.showToastShort(getString(R.string.null_pdu), getActivity());
+                    break;
+                case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    UI.showToastShort(getString(R.string.sin_senial), getActivity());
+                    break;
+            }
+            getActivity().unregisterReceiver(this);
+        }
+    };
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEventListener) {
+            this.onEventListener = (OnEventListener) context;
+        }
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        //Utils.sessionExpired();
+                        onEventListener.onEvent(EVENT_SOLICITAR_PAGO,null);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
 }
