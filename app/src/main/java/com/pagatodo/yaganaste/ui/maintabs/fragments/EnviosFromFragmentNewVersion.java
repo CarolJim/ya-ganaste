@@ -42,6 +42,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.net.UtilsNet;
+import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
@@ -179,10 +181,14 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         enviosPresenter = new EnviosPresenter(this);
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(current_tab, this, getContext(), false);
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-        paymentsCarouselPresenter.getCarouselItems();
-        paymentsCarouselPresenter.getFavoriteCarouselItems();
 
+        if (!UtilsNet.isOnline(getActivity())) {
+            UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+        }else {
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+            paymentsCarouselPresenter.getCarouselItems();
+            paymentsCarouselPresenter.getFavoriteCarouselItems();
+        }
 
     }
 
@@ -538,21 +544,26 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         } else if (!isValid) {
             showError();
             //mySeekBar.setProgress(0);
+        } else if ( comercioItem==null ) {
+            UI.createSimpleCustomDialog("Error", "Por Favor Elige un Banco ", getActivity().getSupportFragmentManager(), getFragmentTag());
         } else {
 
+            if (!UtilsNet.isOnline(getActivity())) {
+                UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+            }else {
 
-
-            //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
-            //Se debe crear un objeto que se envía a la activity que realizará el pago
-            referencia = cardNumber.getText().toString().trim();
-            referencia = referencia.replaceAll(" ", "");
-            nombreDestinatario=receiverName.getText().toString();
-            concepto = concept.getText().toString().trim();
-            nombreDestinatario = receiverName.getText().toString().trim();
-            referenciaNumber = numberReference.getText().toString().trim();
-            payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
-                    favoriteItem != null);
-            sendPayment();
+                //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+                //Se debe crear un objeto que se envía a la activity que realizará el pago
+                referencia = cardNumber.getText().toString().trim();
+                referencia = referencia.replaceAll(" ", "");
+                nombreDestinatario=receiverName.getText().toString();
+                concepto = concept.getText().toString().trim();
+                nombreDestinatario = receiverName.getText().toString().trim();
+                referenciaNumber = numberReference.getText().toString().trim();
+                payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
+                        favoriteItem != null);
+                sendPayment();
+            }
         }
 
 
