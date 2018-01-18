@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.adapters;
+package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 import android.view.View;
 

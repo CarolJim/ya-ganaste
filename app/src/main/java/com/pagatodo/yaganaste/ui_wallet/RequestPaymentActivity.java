@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 
@@ -11,6 +13,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentRequestFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.ProcessRequestPaymentFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,13 +35,14 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_payment);
         monto = getIntent().getFloatExtra(MONTO, 1F);
+        data = new ArrayList<>();
         initViews();
     }
 
     private void initViews() {
         ButterKnife.bind(this);
         back.setOnClickListener(this);
-        loadFragment(PaymentRequestFragment.newInstance(monto), R.id.container_request_payment);
+        loadFragment(PaymentRequestFragment.newInstance(monto, data), R.id.container_request_payment);
     }
 
     @Override
@@ -54,12 +58,16 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        finish();
+        @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        if (fragmentList.get(0) instanceof ProcessRequestPaymentFragment) {
+            loadFragment(PaymentRequestFragment.newInstance(monto, data), R.id.container_request_payment);
+        } else {
+            finish();
+        }
     }
 
     public void setListRequests(ArrayList<DtoRequestPayment> data) {
         this.data = data;
-        back.setVisibility(View.GONE);
         loadFragment(ProcessRequestPaymentFragment.newInstance(this.data, monto), R.id.container_request_payment);
     }
 

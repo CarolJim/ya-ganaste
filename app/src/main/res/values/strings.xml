@@ -193,7 +193,6 @@
     <string name="pinpad_template">%1$s%2$s</string>
     <string name="please_ingress_the_sms_pin">Por Favor, Ingresa el PIN\nQue te ha Llegado</string>
     <string name="developed_by">Desarrollado Por:</string>
-    <string name="version_app_build">Versión: 1.0 Build: 2.1.1.12</string>
     <string name="pagatodo_public_url">www.pagatodo.com</string>
     <string name="if_you_want_change_you_pass">Si Deseas Cambiar tu Contraseña Primero\nIntroduce la Actual</string>
     <string name="txt_current_pass">Contraseña Actual</string>
