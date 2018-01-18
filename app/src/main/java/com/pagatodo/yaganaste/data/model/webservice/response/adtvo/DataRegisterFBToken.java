@@ -3,7 +3,8 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 import java.io.Serializable;
 
 /**
- * Created by flima on 21/03/2017.
+ * Created by Francisco Manzo on 21/03/2017.
+ * Encargada de obtener los datos de la respuesta de registro de Token
  */
 
 public class DataRegisterFBToken implements Serializable {
@@ -14,13 +15,6 @@ public class DataRegisterFBToken implements Serializable {
     String MensajeRespuesta;
     int TipoRespuesta;
     String TituloRespuesta;
-
-    /*  "CodigoRespuesta": "00011",
-              "Id": 1,
-              "Identificador": 11,
-              "MensajeRespuesta": "El Usuario no existe.",
-              "TipoRespuesta": 2,
-              "TituloRespuesta": "YaGanaste"*/
 
     public int getId() {
         return Id;
