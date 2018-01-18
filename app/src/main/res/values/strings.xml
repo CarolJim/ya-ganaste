@@ -84,6 +84,10 @@
     <string name="adqSignatureVaucher">/agMov/signBankTransaction</string>
     <string name="adqConsultTransaction">/agMov/getStatusTransactionEMVSwipe</string>
 
+
+    <!-- Metodos para operaciones con FB -->
+    <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
+
     <!--Métodos de WS CUPO-->
     <string name="cupoCrearSolicitudCupo">/CrearSolicitudCupo</string>
     <string name="cupoCargaDocumentos">/CargaDocumentosCupo</string>
@@ -1213,5 +1217,6 @@
     <string name="foot_message">Descarga la app y realiza envios mas rapido con Ya Ganaste</string>
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
     <string name="link_message">https://goo.gl/k7iy6Y</string>
+
 
 </resources>

@@ -38,6 +38,11 @@ public class StringConstants {
 
     public static final String OLD_NIP = "OLD_NIP";
     public static final String HAS_TOKEN_ONLINE = "HAS_TOKEN_ONLINE";
+    public static final String TOKEN_FIREBASE = "TOKEN_FIREBASE";
+    public static final String TOKEN_FIREBASE_STATUS = "TOKEN_FIREBASE_STATUS";
+    public static final String TOKEN_FIREBASE_SUCCESS = "TOKEN_FIREBASE_SUCCESS";
+    public static final String TOKEN_FIREBASE_FAIL = "TOKEN_FIREBASE_FAIL";
+
 
     private StringConstants() {
         throw new IllegalCallException("You can not create an instance for ViewPagerDataFactory");

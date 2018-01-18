@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -954,6 +955,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     user.getDataUser().getUsuario().getIdUsuario(),
                     user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
 
+            Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            if(FirebaseInstanceId.getInstance().getToken() != null){
+                prefs.saveData(StringConstants.TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
+               // prefs.saveData(StringConstants.TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);
+            }
             MessageValidation messageValidation = new MessageValidation(phone, message);
             accountManager.onSucces(response.getWebService(), messageValidation);
         } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {

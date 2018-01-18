@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -62,7 +61,10 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
+import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
+import com.pagatodo.yaganaste.ui_wallet.presenter.FBPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringConstants;
@@ -80,8 +82,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
-import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_PRINCIPAL_EMISOR;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
@@ -93,19 +93,19 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_T
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
-import static com.pagatodo.yaganaste.utils.Constants.ACTIVITY_LANDING;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
-import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
-import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE;
+import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_STATUS;
+import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_SUCCESS;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOTO;
@@ -113,7 +113,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, MenuAdapter.OnItemClickListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener {
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
@@ -145,7 +145,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     App aplicacion;
     private boolean disableBackButton = false;
 
-
+    FBPresenter fbmPresenter;
     private ListView listView;
 
     public static Intent createIntent(Context from) {
@@ -186,6 +186,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(this);
 
+        fbmPresenter = new FBPresenter(this, new FBInteractor());
+        String tokenFBExist = pref.loadData(TOKEN_FIREBASE_STATUS);
+        String tokenFB = pref.loadData(TOKEN_FIREBASE);
+        if(!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()){
+            fbmPresenter.registerFirebaseToken(tokenFB);
+        }
     }
 
     public void setAvatar() {
@@ -314,7 +320,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
 
         updatePhoto();
-
     }
 
     @Override

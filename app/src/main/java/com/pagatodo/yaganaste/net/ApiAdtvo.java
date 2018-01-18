@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCobrosM
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RegisterFBTokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
@@ -77,6 +78,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomici
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RegisterFBTokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
@@ -89,6 +91,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
+import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 
 import java.util.Map;
 
@@ -124,6 +127,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIARCORREO_CONTACTANOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.FB_REGISTER_TOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GENERAR_CODIGO_RECUPERACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_JSONWEBTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION;
@@ -149,6 +153,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_FB;
 
 /**
  * Created by flima on 17/03/2017.
@@ -835,5 +840,13 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(asd,
                 METHOD_GET, URL_SERVER_ADTVO + metodo,
                 headers, request, ObtenerCobrosMensualesResponse.class, result);
+    }
+
+    public static void registerFBToken(RegisterFBTokenRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        NetFacade.consumeWS(FB_REGISTER_TOKEN,
+                METHOD_POST, URL_SERVER_FB + App.getContext().getString(R.string.fbRegisterToken),
+                headers, request, RegisterFBTokenResponse.class, result);
+
     }
 }

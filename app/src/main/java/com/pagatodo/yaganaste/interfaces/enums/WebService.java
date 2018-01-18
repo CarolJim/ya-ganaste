@@ -142,6 +142,9 @@ public enum WebService {
     ACTUALIZA_DOCUMENTOS_CUPO,
     ACTUALIZA_REFERENCIAS,
     /** Servicios para DataFavoritos */
-    OBTENER_FAVORITOS
+    OBTENER_FAVORITOS,
+
+    /** Operaciones FBM **/
+    FB_REGISTER_TOKEN
 }
 
