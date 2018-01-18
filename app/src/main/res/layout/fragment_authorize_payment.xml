@@ -56,9 +56,7 @@
                     android:text="00"
                     android:visibility="gone"
                     android:textAlignment="center"
-                    android:textSize="@dimen/size_text_mount"
-                    app:dotBottom="false"
-                    app:symbolSmaller="true" />
+                     />
 
 
                 <android.support.v4.widget.Space
@@ -163,34 +161,39 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                             android:id="@+id/txt_saldo"
-                            style="@style/generic_text_style_3"
+                            style="@style/generic_text_style_4.3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="2"
                             android:gravity="center"
                             android:maxLines="2"
-                            android:text="$11,350.00"
-                            android:textColor="@color/grayColor" />
+                            android:text="$0.00"
+                            android:textColor="@color/grayColor"
+                            app:symbolSmaller="false"
+                            />
 
                         <Space
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                             android:id="@+id/txt_monto"
-                            style="@style/generic_text_style_3"
+                            style="@style/generic_text_style_4.3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="2"
                             android:gravity="center"
                             android:maxLines="2"
-                            android:text="$300.00"
-                            android:textColor="@color/grayColor" />
+                            android:text="$0.00"
+                            android:textColor="@color/grayColor"
+                            app:dotBottom="true"
+                            app:symbolSmaller="false"
+                            />
 
                     </LinearLayout>
 

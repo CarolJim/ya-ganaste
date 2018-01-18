@@ -32,6 +32,16 @@ public class RecargasCarouselFragment extends PaymentsFragmentCarousel {
     }
 
     @Override
+    public void setDataBank(String idcomercio, String nombrebank) {
+
+    }
+
+    @Override
+    public void errorgetdatabank() {
+
+    }
+
+    @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
 
     }

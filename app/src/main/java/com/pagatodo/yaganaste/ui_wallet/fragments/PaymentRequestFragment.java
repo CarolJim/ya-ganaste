@@ -229,6 +229,16 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     }
 
     @Override
+    public void setDataBank(String idcomercio, String nombrebank) {
+
+    }
+
+    @Override
+    public void errorgetdatabank() {
+
+    }
+
+    @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
     }
 

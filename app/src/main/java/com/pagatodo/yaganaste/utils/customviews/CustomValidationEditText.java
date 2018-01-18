@@ -341,8 +341,12 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     }
 
     public void setDrawableImage(@DrawableRes int image) {
+        imageView.setVisibility(VISIBLE);
         imageView.setImageResource(image);
         this.pinnedIcon = image;
+    }
+    public void cleanImage() {
+        imageView.setVisibility(GONE);
     }
 
     public void setMaxLength(Integer i) {

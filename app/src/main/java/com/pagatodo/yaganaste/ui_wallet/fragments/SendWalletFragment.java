@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
@@ -24,7 +25,9 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -48,6 +51,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     StyleTextView tvMontoEntero;
     @BindView(R.id.tv_monto_decimal)
     StyleTextView tvMontoDecimal;
+    @BindView(R.id.saldoDisponible)
+    MontoTextView saldoDisponible;
 
     private float MIN_AMOUNT = 1.0f, current_mount;
 
@@ -82,7 +87,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     public void initViews() {
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-
+        SingletonUser dataUser = SingletonUser.getInstance();
+        saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         GridLayoutManager llm = new GridLayoutManager(getContext(), 2);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
