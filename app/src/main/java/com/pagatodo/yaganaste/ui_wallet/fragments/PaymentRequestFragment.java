@@ -25,7 +25,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.FavoritesRequestPaymentAdapter;
-import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerViewOnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RequestPaymentVerticalAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dialog.DialogAddRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
@@ -62,6 +62,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String REQUEST_MONTO = "REQUEST_MONTO";
+    private static final String REQUEST_DATA = "REQUEST_DATA";
 
     View rootView;
     @BindView(R.id.request_amount)
@@ -88,7 +89,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     PaymentsCarouselPresenter paymentsCarouselPresenter;
     List<DataFavoritos> lstFavorites;
     ArrayList<DtoRequestPayment> lstRequestPayment;
-    private float monto, amountPerPerson;
+    private float monto;
     private IEnviosPresenter enviosPresenter;
     private DtoRequestPayment dtoRequestPayment;
 
@@ -103,10 +104,11 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
      * @param monto Parameter 1.
      * @return A new instance of fragment PaymentRequestFragment.
      */
-    public static PaymentRequestFragment newInstance(float monto) {
+    public static PaymentRequestFragment newInstance(float monto, ArrayList<DtoRequestPayment> data) {
         PaymentRequestFragment fragment = new PaymentRequestFragment();
         Bundle args = new Bundle();
         args.putFloat(REQUEST_MONTO, monto);
+        args.putParcelableArrayList(REQUEST_DATA, data);
         fragment.setArguments(args);
         return fragment;
     }
@@ -116,9 +118,8 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             monto = getArguments().getFloat(REQUEST_MONTO);
-            amountPerPerson = monto;
+            lstRequestPayment = getArguments().getParcelableArrayList(REQUEST_DATA);
         }
-
         enviosPresenter = new EnviosPresenter(this);
     }
 
@@ -135,7 +136,6 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     public void initViews() {
         ButterKnife.bind(this, rootView);
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(PAYMENT_ENVIOS, this, getContext(), false);
-        lstRequestPayment = new ArrayList<>();
         requestAmout.setText(String.format("%s", StringUtils.getCurrencyValue(monto)));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtUsername.setText("" + dataUser.getDataUser().getUsuario().getNombre());
@@ -151,6 +151,9 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         rcvFavorites.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         // List Request's
         rcvRequestPayment.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        if (lstRequestPayment.size() > 0) {
+            notifyRequestContainer();
+        }
 
         rltAddRequest.setOnClickListener(this);
         btnSolicitar.setOnClickListener(this);
@@ -332,7 +335,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
             lstRequestPayment.remove(lstRequestPayment.size() - 1);
         }
         this.dtoRequestPayment = dtoRequestPayment;
-        String msj = "Hola, " +  "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por "+ requestAmout.getText();
+        String msj = "Hola, " + "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
         this.dtoRequestPayment.setHeadMessage(msj);
         enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
         //lstRequestPayment.add(dtoRequestPayment);

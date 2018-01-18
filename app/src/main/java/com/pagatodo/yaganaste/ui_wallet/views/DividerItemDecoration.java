@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.adapters;
+package com.pagatodo.yaganaste.ui_wallet.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;

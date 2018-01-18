@@ -8,14 +8,14 @@ import android.view.View;
  * Created by icruz on 14/12/2017.
  */
 
-public class ZoomOutPageTransformer implements ViewPager.OnPageChangeListener, ViewPager.PageTransformer {
+public class ZoomOutPageAdapter implements ViewPager.OnPageChangeListener, ViewPager.PageTransformer {
 
     private ViewPager mViewPager;
     private CardAdapter mAdapter;
     private float mLastOffset;
     private boolean mScalingEnabled;
 
-    public ZoomOutPageTransformer(ViewPager viewPager, CardAdapter adapter) {
+    public ZoomOutPageAdapter(ViewPager viewPager, CardAdapter adapter) {
         mViewPager = viewPager;
         viewPager.addOnPageChangeListener(this);
         mAdapter = adapter;

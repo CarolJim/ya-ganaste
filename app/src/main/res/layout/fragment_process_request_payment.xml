@@ -67,7 +67,6 @@
             style="@style/GenericStyleEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:digits="@string/input_letters"
             android:gravity="top"
             android:hint="@string/txt_add_message_request"
             android:maxLength="150" />

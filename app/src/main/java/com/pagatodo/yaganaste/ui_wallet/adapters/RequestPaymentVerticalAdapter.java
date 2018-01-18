@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +60,12 @@ public class RequestPaymentVerticalAdapter extends RecyclerView.Adapter<RequestP
             holder.txtInicialesReq.setVisibility(View.GONE);
         } else {
             holder.crlImageReq.setBorderColor(android.graphics.Color.parseColor(item.getColorBank()));
-            holder.txtNameReq.setText(item.getName());
+            if (item.getName().contains(" ")) {
+                String shortName[] = item.getName().split(" ");
+                holder.txtNameReq.setText(shortName[0] + " " + shortName[1]);
+            } else {
+                holder.txtNameReq.setText(item.getName());
+            }
             holder.txtNameReq.setTextColor(App.getContext().getResources().getColor(R.color.colorAccent));
             holder.txtAmount.setText(String.format("%s", StringUtils.getCurrencyValue(item.getAmount())));
             holder.txtAmount.setVisibility(View.VISIBLE);

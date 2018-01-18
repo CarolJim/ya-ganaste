@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.adapters;
+package com.pagatodo.yaganaste.ui_wallet.views;
 
 /**
  * Created by Armando Sandoval on 09/01/2018.
