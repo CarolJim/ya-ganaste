@@ -112,6 +112,7 @@ public class App extends Application {
         initEMVListener();
         RequestHeaders.initHeaders(this);
         if (BuildConfig.VERSION_NAME != prefs.loadData(VERSION_APP)) {
+            prefs.clearPreferences();
             prefs.saveData(VERSION_APP, BuildConfig.VERSION_NAME);
             clearCache();
         }
