@@ -6,6 +6,9 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -397,8 +401,30 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     public void onSlideViewButtonClick(View view) {
         if (isUp) {
+            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+            scrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                    numberReference.setFocusable(true);
+                    numberReference.requestFocus();
+                }
+            });
+            Matrix matrix = new Matrix();
+            matrix.postRotate(180.0f);
+            Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.triangule_blue_down);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(original, 0, 0, original.getWidth(), original.getHeight(), matrix, true);
+            ImageView imgRotate = (ImageView) getActivity().findViewById(R.id.iv_triangule_blue);
+            imgRotate.setImageBitmap(rotatedBitmap);
             view.setVisibility(View.VISIBLE);
         } else {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(360.0f);
+            Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.triangule_blue_down);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(original, 0, 0, original.getWidth(), original.getHeight(), matrix, true);
+            ImageView imgRotate = (ImageView) getActivity().findViewById(R.id.iv_triangule_blue);
+            imgRotate.setImageBitmap(rotatedBitmap);
+            view.setVisibility(View.VISIBLE);
             view.setVisibility(View.GONE);
         }
         isUp = !isUp;
@@ -621,11 +647,27 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void errorgetdatabank() {
         bancoselected = true;
         editListServ.setDrawableImage(R.drawable.menu_canvas);
+        UI.createSimpleCustomDialog("", "Selecciona tu Banco", getActivity().getSupportFragmentManager(), getFragmentTag());
+        //  editListServ.setDrawableImage(R.drawable.menu_canvas);
+        bancoselected = true;
         editListServ.setHintText("Banco");
         UI.createSimpleCustomDialog("Error al Buscar Banco", "Banco no Encontrado", getActivity().getSupportFragmentManager(), getFragmentTag());
 
 
     }
+
+    public  void idcomercioqr(int myIdTipoComercio){
+        for (int x = 0; x < backUpResponse.size(); x++) {
+            if (backUpResponse.get(x).getComercio().getIdComercio() == myIdTipoComercio) {
+                comercioItem = backUpResponse.get(x).getComercio();
+                editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+                idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
+                idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+            }
+        }
+
+    }
+
 
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
@@ -890,6 +932,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             cardNumber.setEnabled(false);
             editListServ.setText(getString(R.string.app_name));
             editListServ.setEnabled(false);
+            idcomercioqr(IDCOMERCIO_YA_GANASTE);
         } else {
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
@@ -920,14 +963,22 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                     //   Toast.makeText(getActivity(), "22 Digitos ingresados", Toast.LENGTH_SHORT).show();
                     paymentsCarouselPresenter.getdatabank(cardNumber.getText().toString(), "clave");
                 }
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if (cardNumber.length() == 22) {
+                    //   Toast.makeText(getActivity(), "22 Digitos ingresados", Toast.LENGTH_SHORT).show();
+                    paymentsCarouselPresenter.getdatabank(cardNumber.getText().toString(), "clave");
+                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(cardNumber.getWindowToken(), 0);
+                }
             }
         });
     }
@@ -938,24 +989,31 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String card = cardNumber.getText().toString();
                 card = card.replaceAll(" ", "");
 
                 if (card.length() == 16) {
                     //   Toast.makeText(getActivity(), "6 Digitos ingresados", Toast.LENGTH_SHORT).show();
                     paymentsCarouselPresenter.getdatabank(card, "bin");
+                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(cardNumber.getWindowToken(), 0);
+                    if (card.length() == 16) {
+                        //   Toast.makeText(getActivity(), "6 Digitos ingresados", Toast.LENGTH_SHORT).show();
+                        paymentsCarouselPresenter.getdatabank(card, "bin");
+                    }
                 }
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
-
     }
 
     @Override
