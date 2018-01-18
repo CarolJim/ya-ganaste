@@ -75,7 +75,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
                 mInteractor.getFavoritesFromDB(typeDataFav);
             } catch (Exception e) {
                 e.printStackTrace();
-             //   mView.showError();
+                //   mView.showError();
             }
         } else {
             // mView.showError();
@@ -117,7 +117,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
 
     @Override
     public void onErrorService() {
-mView.errorService();
+        mView.errorService();
     }
 
 

@@ -152,8 +152,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         updateFavorites();
                     } else {
                         btnSwitch.setChecked(false);
-                        UI.createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access),
-                                getActivity().getSupportFragmentManager(), getFragmentTag());
+                        createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access), 0);
                     }
 
                 } else {
@@ -161,6 +160,17 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
             }
         });
+    }
+
+    /**
+     * Crea dialogos sencillos sin acciones, solo informativos
+     * @param mTittle
+     * @param mMessage
+     * @param mAction
+     */
+    private void createSimpleCustomDialog(String mTittle, String mMessage, int mAction) {
+        UI.createSimpleCustomDialog(mTittle, mMessage,
+                getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
     @Override
@@ -605,12 +615,21 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void errorFail(DataSourceResult error) {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         onEventListener.onEvent("DISABLE_BACK", false);
+
+        btnSwitch.setChecked(false);
+        updateCarriers();
+        createSimpleCustomDialog("", error.getData().toString(), 0);
     }
 
     @Override
     public void errorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         onEventListener.onEvent("DISABLE_BACK", false);
+
+
+        btnSwitch.setChecked(false);
+        updateCarriers();
+        createSimpleCustomDialog("", "Error en Consulta. Intente de Nuevo", 0);
     }
 
     @Override
