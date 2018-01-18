@@ -108,9 +108,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView txt_data;
 
     @BindView(R.id.txt_monto)
-    StyleTextView txt_monto;
+    MontoTextView txt_monto;
     @BindView(R.id.txt_saldo)
-    StyleTextView txtSaldo;
+    MontoTextView txtSaldo;
 
 
 

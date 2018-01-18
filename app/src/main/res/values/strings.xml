@@ -31,6 +31,7 @@
     <string name="loginSimpleUrl">/IniciarSesionSimple</string>
     <string name="searchOfficesUrl">/LocalizarSucursales</string>
     <string name="getCatalogsUrl">/ObtenerCatalogos</string>
+    <string name="getBancoBin">/ObtenerDatosBancarios</string>
     <string name="getNeighborhoodByZipUrl">/ObtenerColoniasPorCP</string>
     <string name="getDocuments">/ObtenerDocumentos</string>
     <string name="getSMSNumberUrl">/ObtenerNumeroSMS</string>

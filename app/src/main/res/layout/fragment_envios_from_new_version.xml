@@ -18,12 +18,16 @@
             android:layout_height="wrap_content"
             android:text="@string/Monto_a_enviar" />
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
             android:id="@+id/montotosend"
             style="@style/textTitleDetailTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$11,350" />
+            android:text="$11,350"
+            android:textSize="@dimen/size_text_style_5_value"
+            app:dotBottom="false"
+            app:symbolSmaller="true"
+            />
 
 
     </LinearLayout>
@@ -72,26 +76,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    style="@style/FragmentElementForm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_between_elements"
-                    android:orientation="horizontal">
 
-                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                        android:id="@+id/add_favorites_list_serv"
-                        style="@style/FragmentElementWithValidation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusableInTouchMode="false"
-                        android:visibility="visible"
-                        android:windowSoftInputMode="stateHidden"
-                        app:formato="text"
-                        app:hintText="Servicio"
-                        app:imageIsGone="false"
-                        app:isTextEnabled="false" />
-                </LinearLayout>
 
 
                 <Spinner
@@ -145,6 +130,26 @@
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
 
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/FragmentElementForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_between_elements"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/add_favorites_list_serv"
+                        style="@style/FragmentElementWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:visibility="visible"
+                        android:windowSoftInputMode="stateHidden"
+                        app:formato="text"
+                        app:hintText="Servicio"
+                        app:imageIsGone="false"
+                        app:isTextEnabled="false" />
                 </LinearLayout>
 
                 <LinearLayout

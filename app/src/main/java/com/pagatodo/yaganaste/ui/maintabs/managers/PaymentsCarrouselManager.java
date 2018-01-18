@@ -13,6 +13,10 @@ import java.util.List;
 public interface PaymentsCarrouselManager extends PaymentsManager {
     void setCarouselData(ArrayList<CarouselItem> response);
 
+    void setDataBank(String idcomercio,String nombrebank);
+
+    void errorgetdatabank();
+
     void setCarouselDataFavoritos(ArrayList<CarouselItem> response);
 
     void setFavolist(List<DataFavoritos> lista);

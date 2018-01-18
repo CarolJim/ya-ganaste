@@ -7,6 +7,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalo
  */
 
 public interface IPaymentsCarouselIteractor {
+    void getdatabank(String pbusqueda,String cob);
+
     void getCatalogosFromService();
 
     void getCatalogosFromDB(int tabID);

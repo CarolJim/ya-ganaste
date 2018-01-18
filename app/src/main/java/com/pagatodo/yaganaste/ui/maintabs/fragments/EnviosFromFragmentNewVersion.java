@@ -14,8 +14,10 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -57,6 +60,7 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.MaterialPaletteAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.presenter.EnviosPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.IEnviosPaymentPresenter;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
@@ -67,6 +71,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -108,6 +113,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     int idTipoComercio;
     int idComercio;
     int idTipoEnvio;
+    boolean bancoselected=false;
     private String formatoComercio;
     private int longitudRefer;
     @BindView(R.id.tipoEnvio)
@@ -117,7 +123,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     RecyclerView recyclerView;
 
     @BindView(R.id.montotosend)
-    StyleTextView montotosend;
+    MontoTextView montotosend;
     @BindView(R.id.cardNumber)
     StyleEdittext cardNumber;
     @BindView(R.id.layout_cardNumber)
@@ -208,7 +214,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         btnenviar.setOnClickListener(this);
         montotosend.setText(String.format("%s", StringUtils.getCurrencyValue(montoa)));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        editListServ.setDrawableImage(R.drawable.menu_canvas);
+
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
         editListServ.setFullOnClickListener(this);
@@ -295,6 +301,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         });
 
+
+
+
         /**
          * Variables necesarias para que funcione el Slide Up-Down
          * isUp = true; indica que la vista esta "Down"
@@ -325,11 +334,14 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                  * asi al hacer clic en algun elemento nos dara la respuesta
                  * 3 - Mostramos el dialogo
                  */
-                ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
-                dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-                dialogFragment.setOnListServiceListener(this);
 
-                dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
+                if (bancoselected) {
+                    ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                    dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                    dialogFragment.setOnListServiceListener(this);
+
+                    dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
+                }
                 break;
 
             case R.id.layoutImageContact:
@@ -590,6 +602,31 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     @Override
+    public void setDataBank(String idcomercioresponse, String nombrebank) {
+        int myIdComercio =Integer.parseInt(idcomercioresponse);
+        for(int x =0; x<backUpResponse.size(); x++){
+            if(backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio){
+                comercioItem = backUpResponse.get(x).getComercio();
+                editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
+                idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
+                idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+            }
+        }
+
+    }
+
+    @Override
+    public void errorgetdatabank() {
+        bancoselected=true;
+        editListServ.setDrawableImage(R.drawable.menu_canvas);
+        editListServ.setHintText("Banco");
+        UI.createSimpleCustomDialog("Error al Buscar Banco", "Banco no Encontrado", getActivity().getSupportFragmentManager(), getFragmentTag());
+
+
+
+    }
+
+    @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
         setBackUpResponseFav(response);
     }
@@ -771,6 +808,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
+            cardNumber.setText("");
+            editListServ.cleanImage();
+            bancoselected=false;
             maxLength = 19;
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
@@ -785,7 +825,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 referenceFavorite = myReferencia;
                 isfavo=false;
             }
+            textchange();
+
         } else if (position == NUMERO_TELEFONO.getId()) {
+
+            editListServ.setDrawableImage(R.drawable.menu_canvas);
+            cardNumber.setText("");
+            bancoselected=true;
             maxLength = 12;
             cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
             layoutImageContact.setVisibility(View.VISIBLE);
@@ -803,9 +849,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             maxLength = 22;
+            editListServ.cleanImage();
+            bancoselected=false;
+            cardNumber.setText("");
             cardNumber.setHint(getString(R.string.transfer_cable));
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
             cardNumber.addTextChangedListener(textWatcher);
+
+
+            textchangeclabe();
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             selectedType = CLABE;
@@ -833,6 +885,50 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             //cardNumber.setEnabled(false);
             cardNumber.setText(referenceFavorite);
         }
+    }
+
+    private void textchangeclabe() {
+        cardNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (cardNumber.length()==22){
+                    //   Toast.makeText(getActivity(), "22 Digitos ingresados", Toast.LENGTH_SHORT).show();
+                    paymentsCarouselPresenter.getdatabank(cardNumber.getText().toString(),"clave");
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+    }
+
+    private void textchange() {
+
+        cardNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+               String card = cardNumber.getText().toString();
+                card = card.replaceAll(" ", "");
+
+                if (card.length()==16){
+                 //   Toast.makeText(getActivity(), "6 Digitos ingresados", Toast.LENGTH_SHORT).show();
+                    paymentsCarouselPresenter.getdatabank(card,"bin");
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
     }
 
     @Override
