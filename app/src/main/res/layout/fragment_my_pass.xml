@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/colorAccent"
-                    android:text="@string/your_password_need_to_have"/>
+                    android:text="@string/formato_password"/>
 
             </LinearLayout>
 

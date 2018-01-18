@@ -69,7 +69,7 @@ public class BussinesActivity extends LoaderActivity {
 
         if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
-            showBack(false);
+            showBack(true);
         } else {
             loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
             //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
@@ -116,7 +116,7 @@ public class BussinesActivity extends LoaderActivity {
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
-                showBack(false);
+                showBack(true);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);

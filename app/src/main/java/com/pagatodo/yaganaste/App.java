@@ -111,10 +111,11 @@ public class App extends Application {
         System.loadLibrary("a01jni");
         initEMVListener();
         RequestHeaders.initHeaders(this);
-        if (BuildConfig.VERSION_NAME != prefs.loadData(VERSION_APP)) {
+        Log.e(getString(R.string.app_name), "BuildConfig.VERSION_NAME: " + BuildConfig.VERSION_NAME + " prefs.loadData(VERSION_APP):" + prefs.loadData(VERSION_APP));
+        if (!BuildConfig.VERSION_NAME.equals(prefs.loadData(VERSION_APP))) {
+            clearCache();
             prefs.clearPreferences();
             prefs.saveData(VERSION_APP, BuildConfig.VERSION_NAME);
-            clearCache();
         }
 
         lifecycleHandler = new ApplicationLifecycleHandler();

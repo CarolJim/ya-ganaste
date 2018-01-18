@@ -30,7 +30,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_ENVIAR;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_SOLICITAR;
 
@@ -89,7 +88,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         //rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(), new ElementView().getListEnviar(getContext()), this));
-        ElementsWalletAdpater elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListEnviar(getContext()));
+        ElementsWalletAdpater elementsWalletAdpater = new ElementsWalletAdpater(getContext(), this, ElementView.getListEnviar(getContext()));
         rcvOpciones.setAdapter(elementsWalletAdpater);
         //elementsWalletAdpater.setList(ElementView.getListEnviar(getContext()));
         elementsWalletAdpater.notifyDataSetChanged();
@@ -130,17 +129,14 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
             case ID_ENVIAR:
                 //  Integer valueAmount = Parseet_amount.getText().toString();
                 if (actionCharge()) {
-
                     if (!UtilsNet.isOnline(getActivity())) {
                         UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
-                    }else {
+                    } else {
                         Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                         intent.putExtra(MONTO, monto);
                         startActivity(intent);
                     }
-
                 }
-
                 break;
             case ID_SOLICITAR:
                 if (actionCharge()) {
@@ -186,11 +182,11 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
                 }
-                monto=Double.parseDouble(valueAmount);
+                monto = Double.parseDouble(valueAmount);
                 current_mount = Float.parseFloat(valueAmount);
                 if (current_mount >= MIN_AMOUNT) {
                     return true;
-                } else showValidationError(getString(R.string.mount_be_higer));
+                } else showValidationError(getString(R.string.new_body_envios_importe_error));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
             }
@@ -199,7 +195,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     }
 
     private void showValidationError(String error) {
-        UI.showToastShort(error, getActivity());
+        UI.createSimpleCustomDialog("Error", error, getActivity().getSupportFragmentManager(), getFragmentTag());
         //mySeekBar.setProgress(0);
     }
 

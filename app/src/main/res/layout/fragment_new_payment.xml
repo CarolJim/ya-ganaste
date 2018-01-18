@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             android:gravity="center"
-            android:text="Favoritos:" />
+            android:text="Favoritos" />
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/btnSwitch"

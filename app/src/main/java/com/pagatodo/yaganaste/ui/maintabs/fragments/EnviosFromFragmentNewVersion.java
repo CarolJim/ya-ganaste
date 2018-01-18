@@ -410,7 +410,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
-            //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
             /**
              * Comparamos la cadena que entrega el Servicio o el Presentes, con los mensajes que
              * tenemos en el archivo de Strings, dependiendo del mensaje, hacemos un set al errorTittle
@@ -449,10 +448,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_empty))) {
                 errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_empty_error);
                 errorText = App.getContext().getString(R.string.new_body_envios_importe_empty_error);
-
-            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_importe_error))) {
-                errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_empty_error);
-
             } else if (errorText.equals(App.getContext().getString(R.string.txt_name_empty))) {
                 errorTittle = App.getContext().getString(R.string.destiny_invalid);
                 errorText = App.getContext().getString(R.string.new_body_envios_destiny_error);
@@ -477,7 +472,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_error))) {
                 errorTittle = "Error";
             }
-
             UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
 
@@ -563,7 +557,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             if (!UtilsNet.isOnline(getActivity())) {
                 UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
             }else {
-
                 //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
                 //Se debe crear un objeto que se envía a la activity que realizará el pago
                 referencia = cardNumber.getText().toString().trim();
@@ -578,7 +571,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         }
 
-
         /*
             referencia = cardNumber.getText().toString().trim();
             referencia = referencia.replaceAll(" ", "");
@@ -590,7 +582,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                     favoriteItem != null);
             sendPayment();
             */
-
     }
 
     @Override
