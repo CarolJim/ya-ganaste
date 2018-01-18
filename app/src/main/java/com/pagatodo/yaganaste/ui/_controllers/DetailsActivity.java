@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
@@ -134,7 +135,9 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         imageView = (ImageView) findViewById(R.id.imgNotifications);
         imageView.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
-        imageshare.setVisibility(View.VISIBLE);
+        imageshare.setVisibility(View.GONE);
+        // Se comenta esta imagen de compartir, arriba esta la de notificaciones
+
         if (extras != null && extras.getSerializable(DATA) != null
                 && extras.getString(TYPE) != null) {
             serializable = extras.getSerializable(DATA);
@@ -145,54 +148,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                     " you should pass as extra's parameters type and DataMovimientoAdq or " +
                     "ResumenMovimientosAdqResponse");
         }
-
-        // Localizamos el tipo de fragmnto que tenemos cargado
-        //fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-
-        imageshare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
-                    if(!DEBUG) {
-                        Answers.getInstance().logShare(new ShareEvent());
-                    }
-
-                    boolean isValid = true;
-
-                    int permissionSMS = ContextCompat.checkSelfPermission(App.getContext(),
-                            Manifest.permission.SEND_SMS);
-
-                    int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE);
-
-                    // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
-                    if (permissionSMS == -1) {
-                        ValidatePermissions.checkPermissions(DetailsActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS},
-                                MY_PERMISSIONS_REQUEST_SEND_SMS);
-                        isValid = false;
-                    }
-
-                    // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
-                    if (permissionStorage == -1) {
-                        ValidatePermissions.checkPermissions(DetailsActivity.this,
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                MY_PERMISSIONS_REQUEST_STORAGE);
-                        isValid = false;
-                    }
-
-                    if(isValid){
-                        takeScreenshot();
-                    }
-
-
-                } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
-                    // TEMP para mostrar el ScreenShoot en vez del Ticket
-                     onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
-                    //takeScreenshot();
-                }
-            }
-        });
     }
 
     protected void loadFragment(TYPES type, Serializable data) {
@@ -223,6 +178,54 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         if (!isLoaderShow) {
             super.onBackPressed();
         }
+    }
+
+    public void openSharedData(View view) {
+        // Localizamos el tipo de fragmnto que tenemos cargado
+        //fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+        if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
+            if(!DEBUG) {
+                Answers.getInstance().logShare(new ShareEvent());
+            }
+
+            boolean isValid = true;
+
+            int permissionSMS = ContextCompat.checkSelfPermission(App.getContext(),
+                    Manifest.permission.SEND_SMS);
+
+            int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+
+            // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+            if (permissionSMS == -1) {
+                ValidatePermissions.checkPermissions(DetailsActivity.this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+                isValid = false;
+            }
+
+            // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+            if (permissionStorage == -1) {
+                ValidatePermissions.checkPermissions(DetailsActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_STORAGE);
+                isValid = false;
+            }
+
+            if(isValid){
+                takeScreenshot();
+            }
+
+
+        } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
+            // TEMP para mostrar el ScreenShoot en vez del Ticket
+            onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
+            //takeScreenshot();
+        }
+    }
+
+    public void openNewFavorites(View view) {
+        // TODO Frank Enviar los datos del objeto en pantalla a la pantalla de agregar favoritos nuevos
     }
 
     enum TYPES {
