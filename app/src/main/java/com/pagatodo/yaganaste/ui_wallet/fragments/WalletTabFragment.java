@@ -4,7 +4,6 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -24,7 +22,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuenta
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
@@ -32,7 +29,6 @@ import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.WlletNotifaction;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
@@ -46,12 +42,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD_BACK;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
-import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
 
 /**
  *
@@ -180,7 +170,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
             pager_indicator.addView(dots[i], params);
         }
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
+        dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
     private void updateOperations(int psition) {
