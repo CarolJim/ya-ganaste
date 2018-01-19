@@ -74,6 +74,7 @@ import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_ERROR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -523,8 +524,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 try{
                     Bundle MBuddle = data.getExtras();
                     String MMessage = MBuddle .getString(MESSAGE);
-                    UI.createSimpleCustomDialog("Error Interno", MMessage,
-                            getActivity().getSupportFragmentManager(), getFragmentTag());
+                    String resultError = MBuddle .getString(RESULT_ERROR);
+                    if(!resultError.equals(RESULT_ERROR)) {
+                        UI.createSimpleCustomDialog(
+                                App.getInstance().getResources().getString(R.string.new_tittle_error_interno),
+                                MMessage,
+                                getActivity().getSupportFragmentManager(), getFragmentTag());
+                    }
                 }catch (Exception e){
                 }
             }
