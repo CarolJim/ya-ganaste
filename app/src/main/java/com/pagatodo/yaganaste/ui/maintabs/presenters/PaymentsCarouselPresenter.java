@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.PaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
@@ -85,6 +86,11 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }*/
 
     @Override
+    public void getdatabank(String bin,String cob) {
+        paymentsTabIteractor.getdatabank(bin,cob);
+    }
+
+    @Override
     public void getCarouselItems() {
         //Revisar que la tabla no esté
         if (api.isCatalogTableEmpty()) {
@@ -150,6 +156,24 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         } else {
             paymentsManager.showError();
         }
+    }
+
+    @Override
+    public void onSuccessWSBankBin(DataSourceResult result) {
+        ObtenerBancoBinResponse response = (ObtenerBancoBinResponse) result.getData();
+        if (response.getCodigoRespuesta() == CODE_OK) {
+            try {
+                if (response.getData()!=null) {
+                    paymentsManager.setDataBank(response.getData().getIdComercioAfectado(),response.getData().getNombre());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
+        } else {
+            paymentsManager.errorgetdatabank();
+        }
+
     }
 
     @Override

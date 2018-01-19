@@ -87,6 +87,10 @@ public class PaymentAdapterRV extends BaseAdapter {
                     textView.setText("Tag");
                 } else if (myDataset.get(position).getName().equals("Telcel Datos")) {
                     textView.setText("Datos");
+                } else if (myDataset.get(position).getName().equals("Telmex s/recibo")) {
+                    textView.setText("Sin Recibo");
+                } else if (myDataset.get(position).getName().equals("Telmex c/recibo")) {
+                    textView.setText("Con Recibo");
                 } else {
                     textView.setText("" + myDataset.get(position).getName());
                 }
@@ -225,6 +229,8 @@ public class PaymentAdapterRV extends BaseAdapter {
     private void setImagePicaso(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
                 .load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
+                .placeholder(R.mipmap.logo_ya_ganaste)
+                .error(R.mipmap.logo_ya_ganaste)
                 .into(imageView);
     }
 

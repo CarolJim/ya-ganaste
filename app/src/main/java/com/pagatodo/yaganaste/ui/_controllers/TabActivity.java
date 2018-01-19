@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -59,6 +60,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.dialog.DialogQrProfile;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
@@ -142,6 +144,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     TextView nameUser;
     ImageView imageNotification;
     ImageView imageshare;
+    ImageButton btnQrProfile;
     App aplicacion;
     private boolean disableBackButton = false;
 
@@ -171,7 +174,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         imageNotification = (ImageView) findViewById(R.id.imgNotifications);
         imageNotification.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
-
+        btnQrProfile = (ImageButton) findViewById(R.id.btn_qr_profile);
+        btnQrProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openQrProfile();
+            }
+        });
 
         showBack(false);
        /* if (!pref.containsData(COUCHMARK_EMISOR)) {
@@ -189,22 +198,19 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         fbmPresenter = new FBPresenter(this, new FBInteractor());
         String tokenFBExist = pref.loadData(TOKEN_FIREBASE_STATUS);
         String tokenFB = pref.loadData(TOKEN_FIREBASE);
-        if(!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()){
+        if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
             fbmPresenter.registerFirebaseToken(tokenFB);
         }
     }
 
     public void setAvatar() {
-
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             boolean isValid = true;
-
             int permissionCamera = ContextCompat.checkSelfPermission(App.getContext(),
                     Manifest.permission.CAMERA);
             int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
                     Manifest.permission.READ_EXTERNAL_STORAGE);
-
             // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
             if (permissionCamera == -1) {
                 ValidatePermissions.checkPermissions(this,
@@ -212,7 +218,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                         MY_PERMISSIONS_REQUEST_CAMERA);
                 isValid = false;
             }
-
             // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
             if (permissionStorage == -1) {
                 ValidatePermissions.checkPermissions(this,
@@ -220,14 +225,17 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                         MY_PERMISSIONS_REQUEST_STORAGE);
                 isValid = false;
             }
-
             if (isValid) {
                 mPreferPresenter.openMenuPhoto(1, cameraManager);
             }
-
         } else {
             //showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
+    }
+
+    private void openQrProfile() {
+        DialogQrProfile dialogQrProfile = new DialogQrProfile();
+        dialogQrProfile.show(getSupportFragmentManager(), "Dialog Qr Profile");
     }
 
     private void load() {
@@ -382,7 +390,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             } else {
                 disableBackButton = false;
             }
-        } else if (event.equals(EVENT_BLOCK_CARD_BACK)){
+        } else if (event.equals(EVENT_BLOCK_CARD_BACK)) {
 
         }
     }

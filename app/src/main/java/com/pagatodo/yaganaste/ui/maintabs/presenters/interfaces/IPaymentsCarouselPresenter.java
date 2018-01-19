@@ -15,6 +15,8 @@ import java.util.List;
 
 public interface IPaymentsCarouselPresenter {
 
+    void getdatabank(String bin,String cob);
+
     void getCarouselItems();
 
     void getFavoriteCarouselItems();
@@ -30,6 +32,8 @@ public interface IPaymentsCarouselPresenter {
     void onSuccessWSObtenerCatalogos(DataSourceResult result);
 
     void onSuccessWSFavorites(DataSourceResult result);
+
+    void onSuccessWSBankBin(DataSourceResult result);
 
     void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios);
 

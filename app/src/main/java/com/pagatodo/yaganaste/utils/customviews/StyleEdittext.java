@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 
@@ -142,6 +143,8 @@ public class StyleEdittext extends AppCompatEditText {
     public void setOnEditTextImeBackListener(EditTextImeBackListener listener) {
         mOnImeBack = listener;
     }
+
+
 
     private class ActionModeCallBack implements ActionMode.Callback {
         @Override

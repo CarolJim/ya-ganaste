@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.GetJsonWebToke
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarTransaccionOnlineRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.LocalizarSucursalesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerBancoBinRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCobrosMensualesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
@@ -71,6 +72,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTok
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarTransaccionOnlineResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
@@ -134,6 +136,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_TRANSACCION_ONLINE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_BANCOSBIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOGOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COBROS_MENSUALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -399,6 +402,22 @@ public class ApiAdtvo extends Api {
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getCatalogsUrl),
                 headers, request, ObtenerCatalogosResponse.class, result);
     }
+
+    /**
+     * Método que se invoca para obtener los Catálogos necesarios para la App Móvil.
+     *
+     * @param request {@link ObtenerCatalogoRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void obtenerBancoBin(ObtenerBancoBinRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.NombreUsuario, "null");
+        NetFacade.consumeWS(OBTENER_BANCOSBIN,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getBancoBin),
+                headers, request, ObtenerBancoBinResponse.class, result);
+    }
+
+
 
     /**
      * Método que se invoca para obtener las Colonias a partir de un Código Postal.

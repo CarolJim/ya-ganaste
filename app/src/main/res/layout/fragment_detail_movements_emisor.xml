@@ -526,7 +526,21 @@
                     android:background="@color/margin_lines" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent" android:orientation="horizontal"
+                android:layout_height="wrap_content">
 
+                <ImageView android:layout_weight="1"
+                    android:onClick="openSharedData"
+                    android:layout_width="wrap_content" android:src="@drawable/shared_canvas_gray"
+                    android:layout_height="wrap_content" />
+
+                <ImageView android:layout_weight="1"
+                    android:onClick="openNewFavorites"
+                    android:layout_width="wrap_content" android:src="@drawable/favorites_canvas_gray"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

@@ -11,7 +11,7 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
-import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentAuthorizeFragmentWallwt;
+import com.pagatodo.yaganaste.utils.Constants;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONTO;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
@@ -42,7 +42,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         switch (event) {
             case EVENT_GO_ENVIOS:
                 loadFragment(EnviosFromFragmentNewVersion.newInstance(monto), Direction.FORDWARD, false);
-               // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
+                // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
                 break;
         }
     }
@@ -50,7 +50,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CONTACTS_CONTRACT) {
+        if (requestCode == CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
     }

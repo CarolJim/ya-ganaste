@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -24,11 +25,18 @@
             android:text="@string/saldo_disponible_enviar" />
 
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
             style="@style/textTitleDetailTransaction"
+            android:id="@+id/saldoDisponible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$11,350" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="$0.00"
+            app:dotBottom="true"
+            app:symbolSmaller="true"
+            />
     </LinearLayout>
 
     <LinearLayout
