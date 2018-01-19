@@ -765,10 +765,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                             idComercio = backUpResponse.get(x).getComercio().getIdComercio();
                         }
                     }
-
-
-
-
                 }
 
             }
