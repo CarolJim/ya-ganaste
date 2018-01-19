@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
-    tools:background="#000"
     android:focusableInTouchMode="true"
+    tools:background="#000"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
 
     <LinearLayout
@@ -310,10 +310,12 @@
 
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="0.5px"
                         android:background="@color/margin_lines" />
+
                     <LinearLayout
                         android:id="@+id/layout_clave_rastreo"
                         android:layout_width="match_parent"
@@ -343,15 +345,15 @@
                             android:marqueeRepeatLimit="marquee_forever"
                             android:paddingLeft="10dp"
                             android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            />
+                            android:singleLine="true" />
                     </LinearLayout>
+
                     <View
                         android:id="@+id/view_clave_rastreo"
                         android:layout_width="fill_parent"
                         android:layout_height="0.5px"
                         android:background="@color/margin_lines"
-                        android:visibility="visible"/>
+                        android:visibility="visible" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -437,11 +439,12 @@
             android:visibility="visible">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginRight="30dp"
                 android:id="@+id/imgShare"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -450,49 +453,54 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal|bottom"
                     android:padding="4dp"
-                    app:srcCompat="@drawable/ic_share"
                     android:visibility="visible"
+                    app:srcCompat="@drawable/ic_share"
                     tools:ignore="ContentDescription" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtHintShare"
                     style="@style/generic_text_style_3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="end"
                     android:paddingTop="10dp"
-                    android:text="Compartir" />
+                    android:text="Compartir"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
                 android:id="@+id/layout_addfavorites"
-                android:layout_marginLeft="30dp"
-                android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/imgAddFavorite"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_horizontal|bottom"
-                android:onClick="openAddFavoritos"
-                android:padding="4dp"
-                app:srcCompat="@drawable/ic_nofav"
-                android:visibility="visible"
-                tools:ignore="ContentDescription" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txtHintFavorite"
-                style="@style/generic_text_style_3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="end"
-                android:paddingTop="10dp"
-                android:text="Favoritos" />
+                <ImageView
+                    android:id="@+id/imgAddFavorite"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:onClick="openAddFavoritos"
+                    android:padding="4dp"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_nofav"
+                    tools:ignore="ContentDescription" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtHintFavorite"
+                    style="@style/generic_text_style_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:paddingTop="10dp"
+                    android:text="Favoritos"
+                    android:textAlignment="center" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layoutPass"
                 android:layout_width="match_parent"
