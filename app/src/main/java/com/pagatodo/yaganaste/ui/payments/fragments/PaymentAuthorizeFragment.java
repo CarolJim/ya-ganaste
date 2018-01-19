@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.fingerprint.FingerprintManager;
 import android.inputmethodservice.Keyboard;
 import android.os.Build;
@@ -32,6 +33,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -71,6 +73,7 @@ import javax.crypto.SecretKey;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
@@ -106,17 +109,20 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView txtBanco;
     @BindView(R.id.txt_data)
     StyleTextView txt_data;
+    @BindView(R.id.txt_username_payment)
+    StyleTextView txt_username_payment;
 
     @BindView(R.id.txt_monto)
     MontoTextView txt_monto;
     @BindView(R.id.txt_saldo)
     MontoTextView txtSaldo;
-
-
+    @BindView(R.id.txtIniciales)
+    TextView txtIniciales;
 
     @BindView(R.id.txtReferencia)
     StyleTextView txtReferencia;
-
+    @BindView(R.id.imgCircleToSendReceiver)
+    CircleImageView imgCircleToSendReceiver;
 
     @BindView(R.id.editPassword)
     CustomValidationEditText editPassword;
@@ -140,11 +146,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private SharedPreferences mSharedPreferences;
     static PaymentAuthorizeFragment fragmentCode;
-
-
-
-
-
 
     ///////////////////////
     @BindView(R.id.customkeyboard)
@@ -171,12 +172,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     CustomValidationEditText edtPin;
     private Preferencias prefs = App.getInstance().getPrefs();
     ///////////////
-
-
-
-
-
-
 
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
         fragmentCode = new PaymentAuthorizeFragment();
@@ -215,10 +210,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void initViews() {
         ButterKnife.bind(this, rootview);
         SingletonUser dataUser = SingletonUser.getInstance();
-
+        UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
         txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
-
-        if ( prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
+        txt_username_payment.setText(usuario.getNombre());
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
 
 
             linerar_principal.setOnClickListener(this);
@@ -262,8 +257,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             });
 
 
-
-
             edtPin.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -282,7 +275,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             edtPin.requestEditFocus();
 
 
-        }else {
+        } else {
 
             editPassword.setVisibility(View.VISIBLE);
         }
@@ -300,6 +293,12 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         titleReferencia.setText(envio.getTipoEnvio().getShortName());
         txtBanco.setText(envio.getComercio().getNombreComercio());
         String ref = envio.getReferencia();
+        imgCircleToSendReceiver.setBorderColor(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
+        GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()),
+                android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
+        imgCircleToSendReceiver.setBackground(gd);
+        String sIniciales = getIniciales(envio.getNombreDestinatario());
+        txtIniciales.setText(sIniciales);
 
         switch (envio.getTipoEnvio()) {
             case CLABE:
@@ -472,11 +471,11 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             validateForm();
         }
 
-        if (v.getId() ==  R.id.layoutScrollCard){
+        if (v.getId() == R.id.layoutScrollCard) {
             keyboardView.hideCustomKeyboard();
         }
 
-        if (v.getId() ==   R.id.customkeyboard) {
+        if (v.getId() == R.id.customkeyboard) {
             keyboardView.showCustomKeyboard(rootview);
 
             final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
@@ -659,10 +658,28 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     }
 
-    private class FingerprintException extends Exception {
+    // Se encarga de crear el circulo Drawable que usaremos para mostrar las imagenes o los textos
+    private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
+        // Creamos el circulo que mostraremos
+        int strokeWidth = 2; // 3px not dp
+        int roundRadius = 140; // 8px not dp
+        int strokeColor = colorBorder;
+        int fillColor = colorBackground;
+        GradientDrawable gd = new GradientDrawable();
+        gd.setColor(fillColor);
+        gd.setCornerRadius(roundRadius);
+        gd.setStroke(strokeWidth, strokeColor);
+        return gd;
+    }
 
-        public FingerprintException(Exception e) {
-            super(e);
+    private String getIniciales(String fullName) {
+        String[] spliName = fullName.split(" ");
+        String sIniciales = "";
+        if (spliName.length == 2) {
+            sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
+        } else {
+            sIniciales = fullName.substring(0, 2).toUpperCase();
         }
+        return sIniciales;
     }
 }

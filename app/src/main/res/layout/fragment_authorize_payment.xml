@@ -9,11 +9,12 @@
     android:orientation="vertical"
     android:paddingTop="30dp"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
+
     <ScrollView
         android:id="@+id/scrollView"
-        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/layoutScrollCard"
@@ -42,10 +43,10 @@
                     android:id="@+id/textView"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/txt_importe"
+                    android:visibility="gone"
                     app:tipo="Text" />
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -54,15 +55,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="00"
-                    android:visibility="gone"
                     android:textAlignment="center"
-                     />
+                    android:visibility="gone" />
 
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:layout_height="30dp" />
+                    android:layout_height="30dp"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,18 +106,29 @@
                             android:visibility="visible">
 
                             <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imgPagosServiceToPayRound"
+                                android:id="@+id/imgCircleToSendReceiver"
                                 android:layout_width="@dimen/radio_image_pago_payment_tab"
                                 android:layout_height="@dimen/radio_image_pago_payment_tab"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
                                 android:src="@mipmap/blacksquare"
                                 app:civ_border_color="@color/black"
                                 app:civ_border_width="@dimen/border_width" />
 
+                            <TextView
+                                android:id="@+id/txtIniciales"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:gravity="center"
+                                android:text="FM"
+                                android:textColor="@color/whiteColor"
+                                android:textSize="24sp"
+                                android:visibility="visible" />
+
                         </RelativeLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -172,8 +184,7 @@
                             android:maxLines="2"
                             android:text="$0.00"
                             android:textColor="@color/grayColor"
-                            app:symbolSmaller="false"
-                            />
+                            app:symbolSmaller="false" />
 
                         <Space
                             android:layout_width="0dp"
@@ -192,21 +203,21 @@
                             android:text="$0.00"
                             android:textColor="@color/grayColor"
                             app:dotBottom="true"
-                            app:symbolSmaller="false"
-                            />
+                            app:symbolSmaller="false" />
 
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_doble"
                     android:layout_marginLeft="@dimen/margin_doble"
                     android:layout_marginRight="@dimen/margin_doble"
                     android:layout_marginStart="@dimen/margin_doble"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
 
                     <LinearLayout
