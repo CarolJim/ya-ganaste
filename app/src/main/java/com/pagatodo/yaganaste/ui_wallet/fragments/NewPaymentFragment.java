@@ -11,6 +11,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -181,6 +182,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         } else {
             updateFavorites();
         }
+        UI.hideKeyBoard(getActivity());
     }
 
     private void updateCarriers() {

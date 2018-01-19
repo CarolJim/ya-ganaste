@@ -17,6 +17,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -393,6 +395,15 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
 
+
+                edtReferenceNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if(hasFocus){
+
+                        }
+                    }
+                });
                 //edtServiceImport.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
