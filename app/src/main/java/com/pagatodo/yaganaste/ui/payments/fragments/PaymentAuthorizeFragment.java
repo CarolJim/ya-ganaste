@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -106,6 +107,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView txtBanco;
     @BindView(R.id.txt_data)
     StyleTextView txt_data;
+    @BindView(R.id.txt_username_payment)
+    StyleTextView txt_username_payment;
 
     @BindView(R.id.txt_monto)
     MontoTextView txt_monto;
@@ -215,9 +218,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void initViews() {
         ButterKnife.bind(this, rootview);
         SingletonUser dataUser = SingletonUser.getInstance();
-
+        UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
         txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
-
+        txt_username_payment.setText(usuario.getNombre());
         if ( prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
 
 
