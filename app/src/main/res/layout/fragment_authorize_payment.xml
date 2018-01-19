@@ -124,8 +124,8 @@
                                 android:gravity="center"
                                 android:text="FM"
                                 android:textColor="@color/whiteColor"
-                                android:textSize="18sp"
-                                android:visibility="gone" />
+                                android:textSize="24sp"
+                                android:visibility="visible" />
 
                         </RelativeLayout>
 
