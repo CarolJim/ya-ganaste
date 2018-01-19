@@ -440,7 +440,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     /**
      * Encargada de hacer Set de la imagen y del borde.
-     * @param imageDataPhoto es la imagen que se usa para hacer Set de los logos de Carriers
+     *
+     * @param imageDataPhoto   es la imagen que se usa para hacer Set de los logos de Carriers
      * @param circuleDataPhoto es la imagen que se usa para hacer Set de los logos de favoritos y borde
      *                         en ambos casos
      * @param mType
@@ -503,6 +504,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     /**
      * Obtenemos los resultados de onActivityResult desde PaymentActivity. LAs respuestas de los servicios
      * y tomar un contacto de la agenda
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -521,17 +523,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             } else {
 
                 // Mostramos los errores por medio de un dialogo, siempre resultCode 190
-                try{
+                try {
                     Bundle MBuddle = data.getExtras();
-                    String MMessage = MBuddle .getString(MESSAGE);
-                    String resultError = MBuddle .getString(RESULT_ERROR);
-                    if(!resultError.equals(RESULT_ERROR)) {
+                    String MMessage = MBuddle.getString(MESSAGE);
+                    String resultError = MBuddle.getString(RESULT_ERROR);
+                    if (!resultError.equals(RESULT_ERROR)) {
                         UI.createSimpleCustomDialog(
                                 App.getInstance().getResources().getString(R.string.new_tittle_error_interno),
                                 MMessage,
                                 getActivity().getSupportFragmentManager(), getFragmentTag());
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
         } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
@@ -607,6 +609,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     /**
      * * Errores del servicio de Recargas
+     *
      * @param error
      */
     @Override
@@ -619,6 +622,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     /**
      * Errores del servicio de PDS
+     *
      * @param error
      */
     @Override
@@ -631,6 +635,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     /**
      * Success del presentes de PDS
+     *
      * @param importe
      */
     @Override
@@ -653,6 +658,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     /**
      * Success del presenter de  Recargas
+     *
      * @param importe
      */
     @Override
@@ -684,9 +690,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     protected void sendPayment() {
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
-        if(isRecarga) {
+        if (isRecarga) {
             intent.putExtra("TAB", Constants.PAYMENT_RECARGAS);
-        }else{
+        } else {
             intent.putExtra("TAB", Constants.PAYMENT_SERVICIOS);
         }
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
