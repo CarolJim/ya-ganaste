@@ -889,6 +889,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
+            referenceFavorite=null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             cardNumber.setText("");
@@ -917,6 +918,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             textchange();
 
         } else if (position == NUMERO_TELEFONO.getId()) {
+            referenceFavorite=null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             editListServ.setDrawableImage(R.drawable.menu_canvas);
@@ -943,6 +945,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 isfavo = false;
             }
         } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
+            referenceFavorite=null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             maxLength = 22;
@@ -969,6 +972,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 isfavo = false;
             }
         } else if (position == QR_CODE.getId()) {
+
+            referenceFavorite=null;
+            cardNumber.setText("");
             maxLength = 22;
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
             cardNumber.addTextChangedListener(textWatcher);
