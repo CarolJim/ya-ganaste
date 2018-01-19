@@ -44,6 +44,7 @@ import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
@@ -60,6 +61,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
@@ -306,6 +308,10 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_QUICK_PAYMENT:
                 //loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadQuickPayment();
+                /*Intent intent = new Intent(this, WalletMainActivity.class);
+                intent.putExtra(ID_OPERATION, 6);
+                intent.putExtra("CURRENT_PAGE", pageCurrent);
+                startActivity(intent);*/
                 break;
 
             case EVENT_SECURE_CODE_BACK:

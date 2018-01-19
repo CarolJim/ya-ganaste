@@ -280,8 +280,10 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
                 UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
-                mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
-                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+                if (usuarioClienteResponse.getCuentas().size() != 0 ) {
+                    mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+                    mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+                }
             } else {
                 pager_indicator.removeAllViews();
                 walletPresenter.getWalletsCards();

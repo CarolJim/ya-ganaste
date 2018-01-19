@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
@@ -7,10 +8,19 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
@@ -18,10 +28,17 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
-public class WalletMainActivity extends SupportFragmentActivity implements View.OnClickListener {
+public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
 
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
     @BindView(R.id.btn_back)
@@ -114,7 +131,45 @@ public class WalletMainActivity extends SupportFragmentActivity implements View.
     }
 
     @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+        switch (event){
+            case EVENT_GO_INSERT_DONGLE:
+                loadFragment(InsertDongleFragment.newInstance(),  R.id.fragment_container, Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_TRANSACTION_RESULT:
+                loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
+                        R.id.fragment_container, Direction.FORDWARD, false);
+                showBack(false);
+                break;
+            case AdqActivity.EVENT_GO_REMOVE_CARD:
+                loadFragment(RemoveCardFragment.newInstance(), R.id.fragment_container,Direction.FORDWARD, false);
+                showBack(false);
+                break;
+            case EVENT_GO_GET_SIGNATURE:
+                loadFragment(GetSignatureFragment.newInstance(), R.id.fragment_container,Direction.FORDWARD, false);
+                showBack(false);
+                break;
+            case EVENT_GO_DETAIL_TRANSACTION:
+                loadFragment(DetailTransactionFragment.newInstance(), R.id.fragment_container,Direction.FORDWARD, false);
+                showBack(false);
+                break;
+            case EVENT_GO_MAINTAB:
+                finish();
+                break;
+            case EVENT_GO_LOGIN_FRAGMENT:
+                setResult(Activity.RESULT_OK);
+                finish();
+                break;
+            case EVENT_RETRY_PAYMENT:
+                loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                break;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         finish();
     }
+
 }
