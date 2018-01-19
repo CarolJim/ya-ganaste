@@ -8,12 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.GridView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -143,10 +142,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         newPaymentPresenter = new NewPaymentPresenter(this, App.getContext());
 
         typeView = TYPE_CARRIER;
-        btnSwitch.setOnClickListener(new View.OnClickListener() {
+        btnSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (btnSwitch.isChecked()) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     boolean isOnline = Utils.isDeviceOnline();
                     if (isOnline) {
                         updateFavorites();
@@ -154,7 +153,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         btnSwitch.setChecked(false);
                         createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access), 0);
                     }
-
                 } else {
                     updateCarriers();
                 }
@@ -164,6 +162,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     /**
      * Crea dialogos sencillos sin acciones, solo informativos
+     *
      * @param mTittle
      * @param mMessage
      * @param mAction
@@ -177,9 +176,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void onResume() {
         super.onResume();
 
-        if(typeView == TYPE_CARRIER) {
+        if (typeView == TYPE_CARRIER) {
             updateCarriers();
-        }else{
+        } else {
             updateFavorites();
         }
     }
