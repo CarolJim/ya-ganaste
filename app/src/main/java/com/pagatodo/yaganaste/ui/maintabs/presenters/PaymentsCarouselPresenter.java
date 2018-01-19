@@ -168,7 +168,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-              //  paymentsManager.errorgetdatabank();
+
             }
         } else {
             paymentsManager.errorgetdatabank();

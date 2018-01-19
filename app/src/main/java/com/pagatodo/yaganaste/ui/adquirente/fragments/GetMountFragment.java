@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
@@ -33,6 +35,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener {
@@ -60,6 +63,13 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         return new GetMountFragment();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEventListener) {
+            this.onEventListener = (OnEventListener) context;
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,8 +195,9 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     et_amount.setText("0");
                     edtConcept.setText(null);
                     mySeekBar.setProgress(0);
-                    NumberCalcTextWatcher.cleanData();
-*/
+                    NumberCalcTextWatcher.cleanData();*/
+
+                    //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));

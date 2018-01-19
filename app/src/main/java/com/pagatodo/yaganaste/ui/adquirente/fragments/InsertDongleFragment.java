@@ -102,7 +102,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private boolean isCancelation = false;
     private AppCompatImageView btnBack;
     private static boolean banderaCacelachevron = false;
-    CircleImageView imageView;
+    private ImageView imageView;
     ImageView deposito_Share;
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
@@ -307,7 +307,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgNotifications);
+        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
         deposito_Share = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         deposito_Share.setVisibility(View.GONE);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
