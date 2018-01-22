@@ -193,7 +193,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getTipoSaldo());
     }
 
-
     @Override
     public void onItemClick(ElementView elementView) {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
@@ -266,7 +265,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     private void checkDataCard() {
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            // Verificamos el estado de bloqueo de la Card
+            //Verificamos el estado de bloqueo de la Card
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
                 UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
