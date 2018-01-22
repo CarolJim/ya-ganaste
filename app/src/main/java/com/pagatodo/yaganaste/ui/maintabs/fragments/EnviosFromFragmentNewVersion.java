@@ -172,6 +172,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     PaymentsTabFragment fragment;
     List<DataFavoritos> backUpResponseFavoritos;
     ArrayList<CarouselItem> backUpResponse;
+    ArrayList<CarouselItem> finalList;
+    ArrayList<CarouselItem> backUpResponsefinal;
     ArrayList<CarouselItem> backUpResponsefavo;
     IEnviosPaymentPresenter newPaymentPresenter;
     private boolean isUp;
@@ -339,10 +341,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                  */
 
                 if (bancoselected) {
-                    ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                    ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(finalList);
                     dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                     dialogFragment.setOnListServiceListener(this);
-
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
                 }
                 break;
@@ -813,15 +814,50 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         backUpResponse = new ArrayList<>();
+        ArrayList<Integer> orderBy = new ArrayList<>();
+        finalList = new ArrayList<>();
+
+
+        orderBy.add(8609);
+        orderBy.add(785);
+        orderBy.add(779);
+        orderBy.add(787);
+        orderBy.add(809);
+        orderBy.add(790);
+        orderBy.add(799);
+        orderBy.add(796);
+        orderBy.add(832);
+
+        backUpResponsefinal = new ArrayList<>();
+
         mResponse = Utils.removeNullCarouselItem(mResponse);
         for (CarouselItem carouselItem : mResponse) {
-            backUpResponse.add(carouselItem);
+                backUpResponse.add(carouselItem);
         }
+
+        /**
+         * Buscamos en nuestro orderBy cada elemento en un ciclo adicional de originalList, si el ID existe
+         * lo agregamos a nuesta finalList. Y eliminamos ese elemnto de originalList
+         */
+        for (Integer miList : orderBy) {
+            for (int x = 0; x < backUpResponse.size(); x++) {
+                if (backUpResponse.get(x).getComercio().getIdComercio() == miList) {
+                    finalList.add(backUpResponse.get(x));
+                    backUpResponse.remove(x);
+                }
+            }
+        }
+
+
+
+
+
 
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
                 return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+
                 /*if (o1.getComercio()!=null && o2.getComercio()!=null) {
                     return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
                 }else {
@@ -831,6 +867,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
 
         });
+
+        for (int x = 0; x < backUpResponse.size(); x++) {
+            finalList.add(backUpResponse.get(x));
+        }
 
     }
 
