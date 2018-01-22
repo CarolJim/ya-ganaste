@@ -164,7 +164,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         NumberCalcTextWatcher.cleanData();
         et_amount.setText("0");
         et_amount.requestFocus();
-
+        SingletonUser dataUser = SingletonUser.getInstance();
+        saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
     }
 
     @Override
