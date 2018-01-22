@@ -178,6 +178,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     IEnviosPaymentPresenter newPaymentPresenter;
     private boolean isUp;
     String myReferencia;
+    boolean isfavoedit=false;
     private OnListServiceListener onListServiceListener;
 
     public static EnviosFromFragmentNewVersion newInstance(Double monto) {
@@ -324,6 +325,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onResume() {
         super.onResume();
+
+        if (isfavoedit)
+        paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
     @Override
@@ -680,11 +684,11 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     public  void idcomercioqr(int myIdTipoComercio){
         for (int x = 0; x < backUpResponse.size(); x++) {
-            if (backUpResponse.get(x).getComercio().getIdComercio() == myIdTipoComercio) {
-                comercioItem = backUpResponse.get(x).getComercio();
-                editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
-                idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
-                idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+            if (finalList.get(x).getComercio().getIdComercio() == myIdTipoComercio) {
+                comercioItem = finalList.get(x).getComercio();
+                editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                idComercio = finalList.get(x).getComercio().getIdComercio();
             }
         }
 
@@ -764,12 +768,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                             2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
                             3 - IguLAS comercioItem CON CarouselItem2*/
 
-                    for (int x = 0; x < backUpResponse.size(); x++) {
-                        if (backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio) {
-                            comercioItem = backUpResponse.get(x).getComercio();
-                            editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
-                            idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
-                            idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+                    for (int x = 0; x < finalList.size(); x++) {
+                        if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                            comercioItem = finalList.get(x).getComercio();
+                            editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                            idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                            idComercio = finalList.get(x).getComercio().getIdComercio();
 
                         }
                     }
@@ -779,12 +783,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
             @Override
             public void onLongClick(View v, int position) {
-                if (backUpResponseFavoritos.size() == 3) {
+                if (backUpResponseFavoritos.get(position).getIdComercio() !=0) {
+                    isfavoedit=true;
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
                     vibrator.vibrate(100);
                     Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
-                    intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponsefavo.get(position).getFavoritos());
+                    intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
                     intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, current_tab);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
