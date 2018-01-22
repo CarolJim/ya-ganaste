@@ -110,6 +110,7 @@ public class DtoRequestPayment implements Parcelable {
         return hash;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -123,6 +124,9 @@ public class DtoRequestPayment implements Parcelable {
         dest.writeString(this.reference);
         dest.writeString(this.colorBank);
         dest.writeString(this.urlImage);
+        dest.writeString(this.message);
+        dest.writeString(this.headMessage);
+        dest.writeString(this.footMessage);
     }
 
     protected DtoRequestPayment(Parcel in) {
@@ -132,6 +136,9 @@ public class DtoRequestPayment implements Parcelable {
         this.reference = in.readString();
         this.colorBank = in.readString();
         this.urlImage = in.readString();
+        this.message = in.readString();
+        this.headMessage = in.readString();
+        this.footMessage = in.readString();
     }
 
     public static final Parcelable.Creator<DtoRequestPayment> CREATOR = new Parcelable.Creator<DtoRequestPayment>() {
