@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.utils.Constants;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONTO;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_ENVIOS = "EVENT_GO_ENVIOS";
@@ -50,7 +51,8 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
+        if (requestCode == CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE
+                || requestCode == CREDITCARD_READER_REQUEST_CODE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
     }

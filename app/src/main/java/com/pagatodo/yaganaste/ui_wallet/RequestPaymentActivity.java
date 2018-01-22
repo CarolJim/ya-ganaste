@@ -52,8 +52,14 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        if (!isLoaderShow) {
+            Fragment currentFragment = getCurrentFragment();
+            if (currentFragment instanceof ProcessRequestPaymentFragment) {
+                loadFragment(PaymentRequestFragment.newInstance(monto, data), R.id.container_request_payment);
+            } else {
+                super.onBackPressed();
+            }
+        }
     }
 
     @Override

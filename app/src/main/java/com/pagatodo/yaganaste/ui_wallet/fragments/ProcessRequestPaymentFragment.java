@@ -63,8 +63,6 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
     StyleButton btnSendPayment;
     private int count;
 
-
-
     private ArrayList<DtoRequestPayment> lstRequest;
     private float monto;
 
