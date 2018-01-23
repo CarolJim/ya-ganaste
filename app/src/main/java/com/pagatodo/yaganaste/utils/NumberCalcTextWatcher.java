@@ -62,7 +62,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
          * Iniciamos la vista con un $0.00
          */
         if ((CustomKeyboardView.getCodeKey() == 0)) {
-            etMonto.setText("$0.00");
+            etMonto.setText("$00.00");
             Selection.setSelection(etMonto.getText(), "$0.00".length());
             CustomKeyboardView.setCodeKey(99);
         }
@@ -82,6 +82,9 @@ public class NumberCalcTextWatcher implements TextWatcher {
                 if (montos.length == 2) {
                     if (tvMontoEntero != null)
                         tvMontoEntero.setText(montos[0]);
+                    if (tvMontoEntero.getText().equals("0")){
+                        tvMontoEntero.setText("00");
+                    }
                     if (tvMontoDecimal != null)
                         if (montos[1].toString().equals("0")) {
                             tvMontoDecimal.setText("00");
@@ -169,8 +172,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
                         if (tmpAMount.length() > 0 && !tmpAMount.equals("")) {
                             tmpAMount = tmpAMount.substring(0, amount.length() - 1);
                         }
-                        if (tmpAMount.length() > 0
-                                && tmpAMount.substring(tmpAMount.length() - 1).equals("."))
+                        if (tmpAMount.length() > 0 && tmpAMount.substring(tmpAMount.length() - 1).equals("."))
                             tmpAMount = tmpAMount.substring(0, tmpAMount.length() - 1);
                         break;
                     default:
@@ -203,6 +205,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
 
                     // Hacemos un set vacio en el concepto al reiniciarse la cantidad
                     if(tmp.equals("0.00")){
+                        tvMontoEntero.setText("00");
                         if(edtConcept != null){
                             edtConcept.setText("");
                         }
