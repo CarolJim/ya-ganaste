@@ -624,6 +624,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
                 sendPayment();
+
+                getActivity().finish();
+
             }
         }
     }
@@ -769,9 +772,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                         }
                     }
                 }
-
             }
-
             @Override
             public void onLongClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
