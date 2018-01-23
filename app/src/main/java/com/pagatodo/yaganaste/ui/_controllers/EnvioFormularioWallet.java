@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
@@ -13,12 +14,17 @@ import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.utils.Constants;
 
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
+
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONTO;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
-    public final static String EVENT_GO_ENVIOS = "EVENT_GO_ENVIOS";
+
+    final public static String EVENT_GO_ENVIOS = "EVENT_GO_ENVIOS";
+
     private Preferencias pref;
     private Double monto;
 
@@ -55,5 +61,6 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
                 || requestCode == CREDITCARD_READER_REQUEST_CODE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
+
     }
 }

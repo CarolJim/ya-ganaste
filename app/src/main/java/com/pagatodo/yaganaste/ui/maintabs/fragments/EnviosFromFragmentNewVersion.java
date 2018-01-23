@@ -116,6 +116,7 @@ import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
 public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implements
         EnviosManager, TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener {
 
+
     List<String> tipoPago = new ArrayList<>();
     int idTipoComercio;
     int idComercio;
@@ -366,13 +367,23 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
             case R.id.layoutScanCard:
-                /*Intent scanIntent = new Intent(getActivity(), CardIOActivity.class);
+                Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
+
                 // customize these values to suit your needs.
                 scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, false); // default: false
                 scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
                 scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
+                scanIntent.putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, 8);
+
                 // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-                getActivity().startActivityForResult(scanIntent, CREDITCARD_READER_REQUEST_CODE);*/
+                getActivity().startActivityForResult(scanIntent, CREDITCARD_READER_REQUEST_CODE);
                 break;
             case R.id.envio_from_slide_view:
                 onSlideViewButtonClick(slideViewLl);
@@ -562,7 +573,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void onFailGetTitulaName() {
         isCuentaValida = false;
         clearTitularName();
-
     }
 
     @Override
@@ -639,7 +649,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         solicitabanco = true;
         int myIdComercio = Integer.parseInt(idcomercioresponse);
         for (int x = 0; x < backUpResponse.size(); x++) {
-            if (backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio) {
+            if (backUpResponse.get(x).getComercio().getIdComercio() == 787) {
                 comercioItem = backUpResponse.get(x).getComercio();
                 editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
                 idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
@@ -1032,7 +1042,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
             layoutScanCard.setVisibility(View.GONE);
-            layoutScanCard.setOnClickListener(null);
+            layoutScanCard.setOnClickListener(this);
             selectedType = null;
             referenceFavorite = null;
         }
@@ -1132,7 +1142,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             String resultDisplayStr;
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
-                resultDisplayStr = "Card Number: " + scanResult.getRedactedCardNumber() + "\n";
+                resultDisplayStr = "Card Number: " + scanResult.getFormattedCardNumber();
+                cardNumber.setText(scanResult.getFormattedCardNumber().trim());
             } else {
                 resultDisplayStr = "Scan was canceled.";
             }
@@ -1171,4 +1182,5 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             receiverName.setText(nameDisplay);
         }
     }
+
 }
