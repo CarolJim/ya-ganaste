@@ -63,7 +63,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
          */
         if ((CustomKeyboardView.getCodeKey() == 0)) {
             etMonto.setText("$00.00");
-            Selection.setSelection(etMonto.getText(), "$0.00".length());
+            Selection.setSelection(etMonto.getText(), "$00.00".length());
             CustomKeyboardView.setCodeKey(99);
         }
 

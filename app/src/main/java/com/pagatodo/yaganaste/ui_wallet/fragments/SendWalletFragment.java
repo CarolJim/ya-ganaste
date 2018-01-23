@@ -165,12 +165,10 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         super.onResume();
         NumberCalcTextWatcher.cleanData();
 
-        et_amount.setText("00");
-
         et_amount.requestFocus();
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
-        tvMontoEntero.setText("00");
+      //  tvMontoEntero.setText("00");
     }
 
     @Override
@@ -193,7 +191,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 int positionMoney = valueAmount.indexOf("$");
                 if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
-                    tvMontoEntero.setText("00");
+
                 }
                 monto = Double.parseDouble(valueAmount);
                 current_mount = Float.parseFloat(valueAmount);
@@ -219,7 +217,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
             et_amount.requestFocus();
         } else if (et_amount != null) {
             NumberCalcTextWatcher.cleanData();
-            et_amount.setText("00");
+
             //edtConcept.setText(null);
         }
     }
