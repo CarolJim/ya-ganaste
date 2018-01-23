@@ -3,12 +3,10 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -21,12 +19,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class NotificacionesPrefFragment extends SupportFragment implements MenuAdapter.OnItemClickListener{
+public class NotificacionesPrefFragment extends SupportFragment implements MenuAdapter.OnItemClickListener {
 
     @BindView(R.id.security_item)
     ListView listView;
     @BindView(R.id.title_menu)
     StyleTextView titleMenu;
+    @BindView(R.id.subtitle_menu)
+    StyleTextView subtitleMenu;
 
     protected OnEventListener onEventListener;
 
@@ -61,7 +61,8 @@ public class NotificacionesPrefFragment extends SupportFragment implements MenuA
     @Override
     public void initViews() {
         titleMenu.setText(getContext().getResources().getString(R.string.ajustes_notificar_option));
-        listView.setAdapter(new MenuAdapter(getContext(),new OptionMenuItem(getContext()).SETTINGS_NOTIFICACIONES(),this));
+        subtitleMenu.setVisibility(View.VISIBLE);
+        listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).SETTINGS_NOTIFICACIONES(), this));
     }
 
     @Override

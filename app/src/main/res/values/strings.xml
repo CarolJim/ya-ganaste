@@ -1185,6 +1185,7 @@
 
     <string name="security_huella_option">Huella Digital</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
+    <string name="ajustes_notificar_suboption">Selecciona Las Notificaciones Que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>
     <string name="notific_discreption">Selecciona las Notificaciones que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="notific_pagos_option">Pagos con Tarjeta</string>
