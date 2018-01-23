@@ -712,12 +712,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             @Override
             public void onClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                    isfavoedit = true;
+                    isFavEdit = true;
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
                     startActivity(intentAddFavorite);
-                    isFavEdit = true;
+
                 } else {
                     // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
