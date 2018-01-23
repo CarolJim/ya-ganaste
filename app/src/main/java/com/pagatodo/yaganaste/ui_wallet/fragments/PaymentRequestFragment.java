@@ -25,11 +25,11 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.FavoritesRequestPaymentAdapter;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RequestPaymentVerticalAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dialog.DialogAddRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IAddRequestPayment;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -428,11 +428,11 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void showLoader(String text) {
-
+        ((RequestPaymentActivity) getActivity()).showLoader(text);
     }
 
     @Override
     public void hideLoader() {
-
+        ((RequestPaymentActivity) getActivity()).hideLoader();
     }
 }

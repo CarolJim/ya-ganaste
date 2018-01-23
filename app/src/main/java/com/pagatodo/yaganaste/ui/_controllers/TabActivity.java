@@ -249,7 +249,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         resetPinPresenter.setResetNIPView(this);
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         nameUser = (TextView) findViewById(R.id.txt_name_user);
-        nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
+        if (pref.loadData(StringConstants.SIMPLE_NAME).contains(" ")) {
+            String name[] = pref.loadData(StringConstants.SIMPLE_NAME).split(" ");
+            nameUser.setText(name[0]);
+        } else {
+            nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
+        }
         navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
     }
@@ -302,7 +307,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else {*/
         hideLoader();
         //}
-
     }
 
 
