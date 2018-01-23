@@ -183,7 +183,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     IEnviosPaymentPresenter newPaymentPresenter;
     private boolean isUp;
     String myReferencia;
-    boolean isfavoedit = false;
+    private boolean isFavEdit = false;
     private OnListServiceListener onListServiceListener;
 
     public static EnviosFromFragmentNewVersion newInstance(Double monto) {
@@ -330,9 +330,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onResume() {
         super.onResume();
-
-        if (isfavoedit)
+        if (isFavEdit) {
+            isFavEdit = false;
             paymentsCarouselPresenter.getFavoriteCarouselItems();
+        }
     }
 
     @Override
@@ -634,6 +635,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
                 sendPayment();
+
+                getActivity().finish();
+
             }
         }
     }
@@ -718,10 +722,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             @Override
             public void onClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
+                    isFavEdit = true;
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
                     startActivity(intentAddFavorite);
+
                 } else {
                     // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
@@ -779,13 +785,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                         }
                     }
                 }
-
             }
 
             @Override
             public void onLongClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
-                    isfavoedit = true;
+                    isFavEdit = true;
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
                     vibrator.vibrate(100);
