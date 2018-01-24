@@ -83,9 +83,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/colorAccent"
+                    android:text="@string/formato_password_change"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,14 +156,6 @@
 
                 </LinearLayout>
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/colorAccent"
-                    android:text="@string/formato_password"/>
 
             </LinearLayout>
 

@@ -559,7 +559,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void showError(String text) {
         if (!TextUtils.isEmpty(text)) {
-          //  UI.createSimpleCustomDialog("Error de Text", text, getActivity().getSupportFragmentManager(), getFragmentTag());
+
+          if (text.equals("Por Favor Verifica Que la Longitud de la Referencia Sea Correcta")){
+
+          }else {
+              UI.createSimpleCustomDialog("Error de Text", text, getActivity().getSupportFragmentManager(), getFragmentTag());
+          }
         }
 
     }
@@ -732,6 +737,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                     // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
                     // TODO Armando Estos son los datos que son necesario, solo queda hacer el Set en los campos
+                    idComercio =0;
                     isfavo = true;
                     bancoselected = true;
                     long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
@@ -747,12 +753,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                             receiverName.setText(myName);
                             cardNumber.setText("");
                             cardNumber.setText(myReferencia);
-                            if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                                referenciaLayout.setVisibility(GONE);
-                                numberReference.setText("123456");
-                                concept.setImeOptions(IME_ACTION_DONE);
-                                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                            }
+
                             break;
                         case 16:
                             myReferencia = backUpResponseFavoritos.get(position).getReferencia();
@@ -925,7 +926,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             maxLength = 19;
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
-            if (keyIdComercio == IDCOMERCIO_YA_GANASTE || idComercio == IDCOMERCIO_YA_GANASTE) {
+            if (idComercio == IDCOMERCIO_YA_GANASTE) {
                 numberCardTextWatcher.setOnITextChangeListener(this);
             } else {
                 receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
@@ -962,7 +963,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutScanCard.setVisibility(View.GONE);
             layoutScanCard.setOnClickListener(null);
             PhoneTextWatcher phoneTextWatcher = new PhoneTextWatcher(cardNumber);
-            if (keyIdComercio == IDCOMERCIO_YA_GANASTE || idComercio == IDCOMERCIO_YA_GANASTE) {
+            if (idComercio == IDCOMERCIO_YA_GANASTE) {
                 phoneTextWatcher.setOnITextChangeListener(this);
                 concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
             } else {
