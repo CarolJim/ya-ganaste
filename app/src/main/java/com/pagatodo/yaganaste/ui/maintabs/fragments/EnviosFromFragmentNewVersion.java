@@ -652,12 +652,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         hideLoader();
         solicitabanco = true;
         int myIdComercio = Integer.parseInt(idcomercioresponse);
-        for (int x = 0; x < backUpResponse.size(); x++) {
-            if (backUpResponse.get(x).getComercio().getIdComercio() == 787) {
-                comercioItem = backUpResponse.get(x).getComercio();
-                editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
-                idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
-                idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+        for (int x = 0; x < finalList.size(); x++) {
+            if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                comercioItem = finalList.get(x).getComercio();
+                editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                idComercio = finalList.get(x).getComercio().getIdComercio();
             }
         }
 
@@ -827,8 +827,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         backUpResponse = new ArrayList<>();
         ArrayList<Integer> orderBy = new ArrayList<>();
         finalList = new ArrayList<>();
-
-
         orderBy.add(8609);
         orderBy.add(785);
         orderBy.add(779);
