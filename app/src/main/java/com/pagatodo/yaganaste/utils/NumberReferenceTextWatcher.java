@@ -7,11 +7,10 @@ import android.widget.EditText;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
- * Created by Armando Sandoval on 07/08/2017.
+ * Created by FManzo on 25/01/2018.
  */
 
 public class NumberReferenceTextWatcher implements TextWatcher {
-
     protected EditText editText;
     private int maxLength;
 

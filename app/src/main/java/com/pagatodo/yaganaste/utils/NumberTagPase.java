@@ -59,7 +59,9 @@ public class NumberTagPase implements TextWatcher {
         editText.setSelection(Math.min(maxLength, editText.getText().length()));
         editText.addTextChangedListener(this);
 
-   /*     if (response.length() == 16) {
+   /*
+       Codigo original, eliminar en las ultimas pruebas
+    if (response.length() == 16) {
 
             //response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
             editText.setText(response);
@@ -69,7 +71,13 @@ public class NumberTagPase implements TextWatcher {
             } else {
 
             }
-        }*/
+        }
+
+        editText.setText(response);
+        editText.setSelection(Math.min(maxLength, editText.getText().length()));
+        editText.addTextChangedListener(this);
+
+        */
 
 
     }
