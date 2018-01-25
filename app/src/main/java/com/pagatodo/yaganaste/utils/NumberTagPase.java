@@ -15,6 +15,8 @@ public class NumberTagPase implements TextWatcher {
 
     protected EditText editText;
     private int maxLength;
+    private String finalText = "";
+    private String auxText = "";
 
     public NumberTagPase(EditText e, int maxLength) {
         editText = e;
@@ -22,12 +24,21 @@ public class NumberTagPase implements TextWatcher {
     }
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+        finalText = "";
+        auxText = "";
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        auxText = charSequence.toString().replaceAll(" ", "");
 
+        if (auxText.length() > 13) {
+            editText.removeTextChangedListener(this);
+            String subString = String.valueOf(charSequence.subSequence(0, 13));
+            editText.setText(subString);
+            editText.addTextChangedListener(this);
+            finalText = subString;
+        }
     }
 
     @Override
@@ -37,18 +48,29 @@ public class NumberTagPase implements TextWatcher {
         String response = StringUtils.genericFormat(text.replaceAll(" ", ""), SPACE);
        // String response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
 
-        if (response.length() == 16) {
-            response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
+        if (finalText.length() > 0) {
+            response = StringUtils.format(finalText.toString().replaceAll(" ", ""), SPACE, 4,8,1);
+
+        } else {
+            response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4,8,1);
+        }
+
+        editText.setText(response);
+        editText.setSelection(Math.min(maxLength, editText.getText().length()));
+        editText.addTextChangedListener(this);
+
+   /*     if (response.length() == 16) {
+
+            //response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
             editText.setText(response);
         } else {
             if (response.length() > maxLength) {
                 editText.setText(response.substring(response.length() - maxLength, response.length()));
             } else {
-                editText.setText(response);
+
             }
-        }
-            editText.setSelection(Math.min(maxLength, editText.getText().length()));
-            editText.addTextChangedListener(this);
+        }*/
+
 
     }
 }

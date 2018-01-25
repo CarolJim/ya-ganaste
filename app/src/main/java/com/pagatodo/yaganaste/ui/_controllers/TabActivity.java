@@ -155,6 +155,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         return new Intent(from, TabActivity.class);
     }
 
+    public static final String TAG = TabActivity.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
@@ -199,6 +200,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         String tokenFBExist = pref.loadData(TOKEN_FIREBASE_STATUS);
         String tokenFB = pref.loadData(TOKEN_FIREBASE);
         if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
+            Log.d(TAG, "FBPresenter " + tokenFB);
             fbmPresenter.registerFirebaseToken(tokenFB);
         }
     }

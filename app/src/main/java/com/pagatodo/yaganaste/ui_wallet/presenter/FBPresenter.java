@@ -35,13 +35,13 @@ public class FBPresenter implements IFBPresenter, IFBInteractor.IFBInteractorLis
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-        //Log.d("FBPresenter", "Cool");
+        Log.d("FBPresenter", "Cool");
         prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, StringConstants.TOKEN_FIREBASE_SUCCESS);
     }
 
     @Override
     public void onError(DataSourceResult error) {
-        //Log.d("FBPresenter", "Not Cool");
+        Log.d("FBPresenter", "Not Cool");
         prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, StringConstants.TOKEN_FIREBASE_FAIL);
     }
 

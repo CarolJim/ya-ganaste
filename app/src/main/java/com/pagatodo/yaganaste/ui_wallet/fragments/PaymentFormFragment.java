@@ -52,6 +52,7 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.IPaymentFromFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.IPresenterPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
 import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
@@ -227,7 +228,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
-        edtPhoneNumber.setCursorVisible(true);
+       // edtPhoneNumber.setCursorVisible(true);
 
         // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
@@ -235,6 +236,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
                 lytContainerRecargas.setVisibility(View.VISIBLE);
 
+                edtPhoneNumber.setLongClickable(true);
+                edtPhoneNumber.setSingleLine();
                 /**
                  * Cargamos el nombre del Carrier, imagen y borde
                  * tipoPhoto 1 = Favorito 2 = Carrier
@@ -333,6 +336,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
                 lytContainerServicios.setVisibility(View.VISIBLE);
 
+                edtReferenceNumber.setLongClickable(true);
+                edtReferenceNumber.setSingleLine();
+
                 int tipoPhoto;
                 String nameRefer;
                 if (dataFavoritos != null) {
@@ -358,7 +364,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 if (comercioResponse.getFormato().equals("AN")) {
                     edtReferenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
                 }
-                edtReferenceNumber.addTextChangedListener(new NumberTagPase(edtReferenceNumber, maxLength));
+                edtReferenceNumber.addTextChangedListener(new NumberReferenceTextWatcher(edtReferenceNumber, maxLength));
                 if (comercioResponse.getSobrecargo() > 0) {
                     txtComisionServicio.setText(String.format(getString(R.string.comision_service_payment),
                             StringUtils.getCurrencyValue(comercioResponse.getSobrecargo())));
