@@ -227,6 +227,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
+        edtPhoneNumber.setCursorVisible(true);
 
         // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {

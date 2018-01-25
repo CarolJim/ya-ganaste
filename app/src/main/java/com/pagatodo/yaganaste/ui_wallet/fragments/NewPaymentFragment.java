@@ -182,7 +182,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         } else {
             updateFavorites();
         }
-        UI.hideKeyBoard(getActivity());
+        //UI.hideKeyBoard(getActivity());
     }
 
     private void updateCarriers() {
