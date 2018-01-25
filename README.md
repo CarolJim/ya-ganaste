@@ -33,13 +33,16 @@ Descripción al desarrollador:
     * Corrección de textos de reglas para registro de contraseña a 6 Dígitos.
     * Implementación de lectura de QR para agilizar Traspaso a Mismo Banco.
     * Se eliminaron los coachmarks de inicio de sesión (Emisor/Adquiriente).
+    * Implementación búsqueda de Titular de Ya Ganaste vía CLABE.
+    * Implementación lectura de número de tarjeta.
  
 Funcionalidad:
 
     * Nuevos diseños intuitivos de Wallet.
     * Notificaciones Push.
     * Agilizar llenado de formulario de Envíos.
-    * Solicitud de Pago vía SMS.
+    * Solicitud de Pago vía SMS y Notificación Push
+    
   
 **_VERSION 1.7.2 - 5 de Diciembre del 2017 al 4 de Enero del 2018 (ID:4052)_**
 

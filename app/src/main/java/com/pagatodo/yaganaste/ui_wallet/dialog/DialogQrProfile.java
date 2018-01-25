@@ -3,17 +3,14 @@ package com.pagatodo.yaganaste.ui_wallet.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -26,11 +23,10 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IAddRequestPayment;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.content.Context.WINDOW_SERVICE;
 
 public class DialogQrProfile extends DialogFragment {
 
@@ -104,19 +100,19 @@ public class DialogQrProfile extends DialogFragment {
 
     private void showQRCode(String name, String cellPhone, CuentaResponse usuario) {
         //Find screen size
-        WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
+        /*WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
         int width = point.x;
         int height = point.y;
         int smallerDimension = width < height ? width : height;
-        smallerDimension = smallerDimension * 3 / 4;
+        smallerDimension = smallerDimension * 4 / 5;*/
         QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjeta(), usuario.getCLABE());
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
         Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
-        QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), smallerDimension/*Utils.convertDpToPixels(500)*/);
+        QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), /*smallerDimension*/Utils.convertDpToPixels(500));
         try {
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
             imgQrProfile.setImageBitmap(bitmap);

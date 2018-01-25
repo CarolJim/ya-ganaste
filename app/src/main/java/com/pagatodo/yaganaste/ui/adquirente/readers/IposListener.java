@@ -83,7 +83,6 @@ public class IposListener implements QPOSServiceListener {
     @Override
     public void onRequestTransactionLog(String tlv) {
         Log.i("IposListener: ", "------onRequestTransactionLog");
-
     }
 
     @Override
