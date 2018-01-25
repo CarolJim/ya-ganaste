@@ -21,6 +21,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +88,8 @@ import java.util.Formatter;
 import java.util.List;
 
 import butterknife.BindView;
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
@@ -95,13 +98,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity.FAV_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.ValidateForm.AMEX;
 import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
@@ -111,9 +114,9 @@ import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
  */
 
 public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implements
-        EnviosManager, TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener
+        EnviosManager, TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener {
 
-{
+
     List<String> tipoPago = new ArrayList<>();
     int idTipoComercio;
     int idComercio;
@@ -126,7 +129,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     Boolean isfavo = false;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    boolean solicitabanco=true;
+    boolean solicitabanco = true;
     @BindView(R.id.montotosend)
     MontoTextView montotosend;
     @BindView(R.id.cardNumber)
@@ -147,6 +150,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     RelativeLayout layoutImageContact;
     @BindView(R.id.layoutScanQr)
     RelativeLayout layoutScanQr;
+    @BindView(R.id.layoutScanCard)
+    RelativeLayout layoutScanCard;
     @BindView(R.id.imgMakePaymentContact)
     ImageView imgMakePaymentContact;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
@@ -172,10 +177,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     PaymentsTabFragment fragment;
     List<DataFavoritos> backUpResponseFavoritos;
     ArrayList<CarouselItem> backUpResponse;
+    ArrayList<CarouselItem> finalList;
+    ArrayList<CarouselItem> backUpResponsefinal;
     ArrayList<CarouselItem> backUpResponsefavo;
     IEnviosPaymentPresenter newPaymentPresenter;
     private boolean isUp;
     String myReferencia;
+    private boolean isFavEdit = false;
     private OnListServiceListener onListServiceListener;
 
     public static EnviosFromFragmentNewVersion newInstance(Double monto) {
@@ -322,6 +330,10 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onResume() {
         super.onResume();
+        if (isFavEdit) {
+            isFavEdit = false;
+            paymentsCarouselPresenter.getFavoriteCarouselItems();
+        }
     }
 
     @Override
@@ -339,10 +351,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                  */
 
                 if (bancoselected) {
-                    ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                    ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(finalList);
                     dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                     dialogFragment.setOnListServiceListener(this);
-
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "FragmentDialog");
                 }
                 break;
@@ -355,6 +366,25 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                 getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+                break;
+            case R.id.layoutScanCard:
+                Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
+
+                // customize these values to suit your needs.
+                scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
+                scanIntent.putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, 8);
+
+                // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+                getActivity().startActivityForResult(scanIntent, CREDITCARD_READER_REQUEST_CODE);
                 break;
             case R.id.envio_from_slide_view:
                 onSlideViewButtonClick(slideViewLl);
@@ -379,7 +409,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         animate.setFillAfter(true);
         view.startAnimation(animate);
         triBlue.setImageResource(R.drawable.triangule_blue_down);
-
     }
 
     // slide the view from its current position to below itself
@@ -391,14 +420,11 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 view.getHeight()); // toYDelta
         animate.setDuration(500);
         animate.setFillAfter(true);
-
         view.startAnimation(animate);
         triBlue.setImageResource(R.drawable.triangule_blue_up);
-
         slideViewL1.setVisibility(View.INVISIBLE);
         referenciaLayout.setVisibility(View.INVISIBLE);
         view.setVisibility(View.INVISIBLE);
-
     }
 
     public void onSlideViewButtonClick(View view) {
@@ -533,7 +559,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void showError(String text) {
         if (!TextUtils.isEmpty(text)) {
-            UI.createSimpleCustomDialog("Error de Text", text, getActivity().getSupportFragmentManager(), getFragmentTag());
+
+          if (text.equals("Por Favor Verifica Que la Longitud de la Referencia Sea Correcta")){
+
+          }else {
+              UI.createSimpleCustomDialog("Error de Text", text, getActivity().getSupportFragmentManager(), getFragmentTag());
+          }
         }
 
     }
@@ -548,7 +579,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void onFailGetTitulaName() {
         isCuentaValida = false;
         clearTitularName();
-
     }
 
     @Override
@@ -610,20 +640,11 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
                 sendPayment();
+
+                getActivity().finish();
+
             }
         }
-
-        /*
-            referencia = cardNumber.getText().toString().trim();
-            referencia = referencia.replaceAll(" ", "");
-            nombreDestinatario=receiverName.getText().toString();
-            concepto = concept.getText().toString().trim();
-            nombreDestinatario = receiverName.getText().toString().trim();
-            referenciaNumber = numberReference.getText().toString().trim();
-            payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
-                    favoriteItem != null);
-            sendPayment();
-            */
     }
 
     @Override
@@ -634,14 +655,14 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void setDataBank(String idcomercioresponse, String nombrebank) {
         hideLoader();
-        solicitabanco=true;
+        solicitabanco = true;
         int myIdComercio = Integer.parseInt(idcomercioresponse);
-        for (int x = 0; x < backUpResponse.size(); x++) {
-            if (backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio) {
-                comercioItem = backUpResponse.get(x).getComercio();
-                editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
-                idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
-                idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+        for (int x = 0; x < finalList.size(); x++) {
+            if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                comercioItem = finalList.get(x).getComercio();
+                editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                idComercio = finalList.get(x).getComercio().getIdComercio();
             }
         }
 
@@ -651,7 +672,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void errorgetdatabank() {
         hideLoader();
         bancoselected = true;
-        solicitabanco=true;
+        solicitabanco = true;
         editListServ.setDrawableImage(R.drawable.menu_canvas);
         UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
                 new DialogDoubleActions() {
@@ -669,21 +690,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                     }
                 },
                 true, false);
-
-       // UI.createSimpleCustomDialog("", "Selecciona tu Banco", getActivity().getSupportFragmentManager(), getFragmentTag());
-        //  editListServ.setDrawableImage(R.drawable.menu_canvas);
-
-
-
     }
 
-    public  void idcomercioqr(int myIdTipoComercio){
+    public void idcomercioqr(int myIdTipoComercio) {
         for (int x = 0; x < backUpResponse.size(); x++) {
-            if (backUpResponse.get(x).getComercio().getIdComercio() == myIdTipoComercio) {
-                comercioItem = backUpResponse.get(x).getComercio();
-                editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
-                idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
-                idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+            if (finalList.get(x).getComercio().getIdComercio() == myIdTipoComercio) {
+                comercioItem = finalList.get(x).getComercio();
+                editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                idComercio = finalList.get(x).getComercio().getIdComercio();
             }
         }
 
@@ -712,16 +727,19 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             @Override
             public void onClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
+                    isFavEdit = true;
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, current_tab);
                     startActivity(intentAddFavorite);
+
                 } else {
                     // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
                     // TODO Armando Estos son los datos que son necesario, solo queda hacer el Set en los campos
+                    idComercio =0;
                     isfavo = true;
-                    bancoselected=true;
+                    bancoselected = true;
                     long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
                     String myName = backUpResponseFavoritos.get(position).getNombre();
 
@@ -735,6 +753,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                             receiverName.setText(myName);
                             cardNumber.setText("");
                             cardNumber.setText(myReferencia);
+
                             break;
                         case 16:
                             myReferencia = backUpResponseFavoritos.get(position).getReferencia();
@@ -757,26 +776,27 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                             2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
                             3 - IguLAS comercioItem CON CarouselItem2*/
 
-                    for (int x = 0; x < backUpResponse.size(); x++) {
-                        if (backUpResponse.get(x).getComercio().getIdComercio() == myIdComercio) {
-                            comercioItem = backUpResponse.get(x).getComercio();
-                            editListServ.setText(backUpResponse.get(x).getComercio().getNombreComercio());
-                            idTipoComercio = backUpResponse.get(x).getComercio().getIdTipoComercio();
-                            idComercio = backUpResponse.get(x).getComercio().getIdComercio();
+                    for (int x = 0; x < finalList.size(); x++) {
+                        if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                            comercioItem = finalList.get(x).getComercio();
+                            editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                            idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                            idComercio = finalList.get(x).getComercio().getIdComercio();
+
                         }
                     }
                 }
-
             }
 
             @Override
             public void onLongClick(View v, int position) {
-                if (backUpResponseFavoritos.size() == 3) {
+                if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
+                    isFavEdit = true;
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
                     vibrator.vibrate(100);
                     Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
-                    intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponsefavo.get(position).getFavoritos());
+                    intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
                     intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, current_tab);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
@@ -806,25 +826,47 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         backUpResponse = new ArrayList<>();
+        ArrayList<Integer> orderBy = new ArrayList<>();
+        finalList = new ArrayList<>();
+        orderBy.add(8609);
+        orderBy.add(785);
+        orderBy.add(779);
+        orderBy.add(787);
+        orderBy.add(809);
+        orderBy.add(790);
+        orderBy.add(799);
+        orderBy.add(796);
+        orderBy.add(832);
+
+        backUpResponsefinal = new ArrayList<>();
+
         mResponse = Utils.removeNullCarouselItem(mResponse);
         for (CarouselItem carouselItem : mResponse) {
             backUpResponse.add(carouselItem);
         }
 
+        /**
+         * Buscamos en nuestro orderBy cada elemento en un ciclo adicional de originalList, si el ID existe
+         * lo agregamos a nuesta finalList. Y eliminamos ese elemnto de originalList
+         */
+        for (Integer miList : orderBy) {
+            for (int x = 0; x < backUpResponse.size(); x++) {
+                if (backUpResponse.get(x).getComercio().getIdComercio() == miList) {
+                    finalList.add(backUpResponse.get(x));
+                    backUpResponse.remove(x);
+                }
+            }
+        }
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
                 return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
-                /*if (o1.getComercio()!=null && o2.getComercio()!=null) {
-                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
-                }else {
-                    return 0;
-                }
-                */
             }
 
         });
-
+        for (int x = 0; x < backUpResponse.size(); x++) {
+            finalList.add(backUpResponse.get(x));
+        }
     }
 
     @Override
@@ -843,7 +885,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         formatoComercio = item.getComercio().getFormato();
         longitudRefer = item.getComercio().getLongitudReferencia();
 
-
         /**
          * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
          * Esto se controlar con la posicion del Tab que seleccionamos
@@ -851,7 +892,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         if (current_tab == 3) {
             LinearLayout taeLL = (LinearLayout) getActivity().findViewById(R.id.add_favorites_list_serv);
             taeLL.setVisibility(View.VISIBLE);
-
         }
         if (idComercio == IDCOMERCIO_YA_GANASTE) {
             receiverName.setEnabled(false);
@@ -867,25 +907,17 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             concept.setImeOptions(IME_ACTION_NEXT);
             concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
         }
-
-
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
-       /*
-        editListServ.setText("");
-        receiverName.setText("");
-        */
-
         cardNumber.setText("");
         cardNumber.removeTextChangedListener();
-
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
-            referenceFavorite=null;
+            referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             cardNumber.setText("");
@@ -894,9 +926,9 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             maxLength = 19;
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
-            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+            if (idComercio == IDCOMERCIO_YA_GANASTE) {
                 numberCardTextWatcher.setOnITextChangeListener(this);
-            }else {
+            } else {
                 receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
                 concept.setImeOptions(IME_ACTION_NEXT);
                 concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
@@ -906,6 +938,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.VISIBLE);
+            layoutScanCard.setOnClickListener(this);
             selectedType = NUMERO_TARJETA;
             if (isfavo == true && !myReferencia.isEmpty()) {
                 referenceFavorite = myReferencia;
@@ -914,7 +948,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             textchange();
 
         } else if (position == NUMERO_TELEFONO.getId()) {
-            referenceFavorite=null;
+            referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             editListServ.setDrawableImage(R.drawable.menu_canvas);
@@ -926,10 +960,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setOnClickListener(this);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             PhoneTextWatcher phoneTextWatcher = new PhoneTextWatcher(cardNumber);
-            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+            if (idComercio == IDCOMERCIO_YA_GANASTE) {
                 phoneTextWatcher.setOnITextChangeListener(this);
-            }else {
+                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            } else {
                 receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
                 concept.setImeOptions(IME_ACTION_NEXT);
                 concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
@@ -941,7 +978,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 isfavo = false;
             }
         } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
-            referenceFavorite=null;
+            referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             maxLength = 22;
@@ -956,11 +993,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             selectedType = CLABE;
-            if (idComercio != IDCOMERCIO_YA_GANASTE){
-                    receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
-                    concept.setImeOptions(IME_ACTION_NEXT);
-                    concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+            if (idComercio != IDCOMERCIO_YA_GANASTE) {
+                receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
+                concept.setImeOptions(IME_ACTION_NEXT);
+                concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
             }
 
             if (isfavo == true && !myReferencia.isEmpty()) {
@@ -969,7 +1008,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             }
         } else if (position == QR_CODE.getId()) {
 
-            referenceFavorite=null;
+            referenceFavorite = null;
             cardNumber.setText("");
             maxLength = 22;
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
@@ -979,6 +1018,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setOnClickListener(null);
             layoutScanQr.setVisibility(View.VISIBLE);
             layoutScanQr.setOnClickListener(this);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             cardNumber.setHint(getString(R.string.transfer_qr));
             cardNumber.setEnabled(false);
             editListServ.setText(getString(R.string.app_name));
@@ -994,8 +1035,6 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             concept.setImeOptions(IME_ACTION_DONE);
             concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
 
-
-
         } else {
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
@@ -1006,6 +1045,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutImageContact.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(this);
             selectedType = null;
             referenceFavorite = null;
         }
@@ -1031,7 +1072,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
                 if (card.length() == 22 && solicitabanco) {
                     //   Toast.makeText(getActivity(), "22 Digitos ingresados", Toast.LENGTH_SHORT).show();
-                    solicitabanco=false;
+                    solicitabanco = false;
                     onEventListener.onEvent(EVENT_SHOW_LOADER, "");
                     paymentsCarouselPresenter.getdatabank(cardNumber.getText().toString(), "clave");
                     InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1047,22 +1088,18 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     }
 
     private void textchange() {
-
         cardNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String card = cardNumber.getText().toString();
                 card = card.replaceAll(" ", "");
-
                 if (card.length() == 16 && solicitabanco) {
                     //   Toast.makeText(getActivity(), "6 Digitos ingresados", Toast.LENGTH_SHORT).show();
-                    solicitabanco=false;
+                    solicitabanco = false;
                     onEventListener.onEvent(EVENT_SHOW_LOADER, "");
                     paymentsCarouselPresenter.getdatabank(card, "bin");
                     InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1105,6 +1142,17 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 }
             }
         }
+        if (requestCode == CREDITCARD_READER_REQUEST_CODE) {
+            String resultDisplayStr;
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                resultDisplayStr = "Card Number: " + scanResult.getFormattedCardNumber();
+                cardNumber.setText(scanResult.getFormattedCardNumber().trim());
+            } else {
+                resultDisplayStr = "Scan was canceled.";
+            }
+            Log.e(getActivity().getString(R.string.app_name), "@CreditCard Scanner: " + resultDisplayStr);
+        }
     }
 
     private void contactPicked(Intent data) {
@@ -1138,4 +1186,5 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             receiverName.setText(nameDisplay);
         }
     }
+
 }

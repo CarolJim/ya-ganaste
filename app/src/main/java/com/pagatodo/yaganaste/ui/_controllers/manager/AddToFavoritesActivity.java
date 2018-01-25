@@ -74,7 +74,6 @@ import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -117,9 +116,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
-    public static boolean BACK_STATE_NEWFAVORITE = true;
     public static final String FAV_PROCESS = "FAV_PROCESS";
     public static final String CURRENT_TAB_ID = "currentTabId";
+    public static boolean LOADER_SHOWED = false;
 
     @BindView(R.id.scrollView)
     ScrollView scrollView;
@@ -626,6 +625,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
      */
     @Override
     public void toViewErrorServer(String mMensaje) {
+        LOADER_SHOWED = false;
         showDialogMesage("", mMensaje, 0);
     }
 
@@ -636,19 +636,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
      */
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
-
-        //showDialogMesage(mResponse.getMensaje(), 1);
+        LOADER_SHOWED = false;
         showDialogMesage(getString(R.string.title_dialog_favorite),
                 getString(R.string.respond_ok_add_new_favorite), 1);
-
-        /*int idFavorito = mResponse.getData().getIdFavorito();
-        *//**
-         * Camino para enviar la foto al servicio
-         *//*
-        AddFotoFavoritesRequest addFotoFavoritesRequest =
-                new AddFotoFavoritesRequest(stringFoto, "png");
-
-        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);*/
     }
 
     @Override
@@ -658,11 +648,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void toViewSuccessAdd(FavoritosDatosResponse response) {
-
+        LOADER_SHOWED = false;
     }
 
     @Override
     public void toViewSuccessDeleteFavorite(String mensaje) {
+        LOADER_SHOWED = false;
         Log.d(TAG, "toViewSuccessDeleteFavorite " + mensaje);
     }
 
@@ -791,7 +782,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         //ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
         // Enviamos al presenter
         //mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
-        BACK_STATE_NEWFAVORITE = true;
+        LOADER_SHOWED = false;
         hideLoader();
     }
 
@@ -983,6 +974,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
             favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
             favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
+            LOADER_SHOWED = true;
         } else {
              /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
             UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
@@ -1024,6 +1016,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @Override
     public void showProgress(String mMensaje) {
         showLoader(getString(R.string.load_photo_favorite));
+        LOADER_SHOWED = true;
     }
 
     @Override
@@ -1313,17 +1306,14 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void errorgetdatabank() {
-
     }
 
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
-
     }
 
     @Override
     public void setFavolist(List<DataFavoritos> lista) {
-
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
@@ -1335,9 +1325,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         Collections.sort(backUpResponse, new Comparator<CarouselItem>() {
             @Override
             public int compare(CarouselItem o1, CarouselItem o2) {
-                if (o1.getComercio()!=null && o2.getComercio()!=null) {
+                if (o1.getComercio() != null && o2.getComercio() != null) {
                     return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
-                }else {
+                } else {
                     return 0;
                 }
             }
@@ -1354,13 +1344,14 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @Override
     public void onCropper(Uri uri) {
         showLoader(getString(R.string.load_photo_favorite));
-        BACK_STATE_NEWFAVORITE = false;
+        LOADER_SHOWED = true;
         startActivityForResult(CropActivity.callingIntent(this, uri), CROP_RESULT);
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
         hideLoader();
+        LOADER_SHOWED = false;
         cameraManager.setCropImage(croppedUri);
     }
 
@@ -1372,7 +1363,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @Override
     public void onHideProgress() {
         hideLoader();
-        BACK_STATE_NEWFAVORITE = true;
+        LOADER_SHOWED = false;
     }
 
     @Override
@@ -1389,7 +1380,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void onBackPressed() {
-        if (BACK_STATE_NEWFAVORITE) {
+        if (!LOADER_SHOWED) {
             super.onBackPressed();
         }
     }

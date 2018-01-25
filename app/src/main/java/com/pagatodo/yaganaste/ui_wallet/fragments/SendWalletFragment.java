@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.R2.id.tv_monto_entero;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_ENVIAR;
 import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_SOLICITAR;
 
@@ -85,6 +86,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
 
     @Override
     public void initViews() {
+
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         SingletonUser dataUser = SingletonUser.getInstance();
@@ -162,9 +164,11 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     public void onResume() {
         super.onResume();
         NumberCalcTextWatcher.cleanData();
-        et_amount.setText("0");
-        et_amount.requestFocus();
 
+        et_amount.requestFocus();
+        SingletonUser dataUser = SingletonUser.getInstance();
+        saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
+      //  tvMontoEntero.setText("00");
     }
 
     @Override
@@ -187,6 +191,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 int positionMoney = valueAmount.indexOf("$");
                 if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
+
                 }
                 monto = Double.parseDouble(valueAmount);
                 current_mount = Float.parseFloat(valueAmount);
@@ -212,7 +217,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
             et_amount.requestFocus();
         } else if (et_amount != null) {
             NumberCalcTextWatcher.cleanData();
-            et_amount.setText("0");
+
             //edtConcept.setText(null);
         }
     }

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -43,7 +42,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         SwitchCompat switchItem;
     }
 
-    public MenuAdapter(Context context,ArrayList<OptionMenuItem> listItems, OnItemClickListener listener) {
+    public MenuAdapter(Context context, ArrayList<OptionMenuItem> listItems, OnItemClickListener listener) {
         super(context, R.layout.menu_navegation_drawwer_adpater);
         this.listItems = listItems;
         this.listener = listener;
@@ -52,7 +51,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        
+
         ViewHolderMenu viewHolder; // view lookup cache stored in tag
 
         viewHolder = new ViewHolderMenu();
@@ -78,13 +77,24 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
                 viewHolder.rawItem.setVisibility(View.VISIBLE);
             }
             if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.SWITCH) {
-                viewHolder.switchItem.setVisibility(View.VISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FingerprintManager fingerprintManager = (FingerprintManager) getContext().getSystemService(FINGERPRINT_SERVICE);
                     if (fingerprintManager.isHardwareDetected()) {
-                        //myFingerprint.setVisibility(View.VISIBLE);
+                        viewHolder.switchItem.setVisibility(View.VISIBLE);
                         viewHolder.switchItem.setChecked(App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true));
+                    } else {
+                        viewHolder.txttitle.setVisibility(View.GONE);
+                        viewHolder.ic_item.setVisibility(View.GONE);
+                        viewHolder.rawItem.setVisibility(View.GONE);
+                        viewHolder.switchItem.setVisibility(View.GONE);
+                        viewHolder.dividerList.setVisibility(View.GONE);
                     }
+                } else {
+                    viewHolder.txttitle.setVisibility(View.GONE);
+                    viewHolder.ic_item.setVisibility(View.GONE);
+                    viewHolder.rawItem.setVisibility(View.GONE);
+                    viewHolder.switchItem.setVisibility(View.GONE);
+                    viewHolder.dividerList.setVisibility(View.GONE);
                 }
                 viewHolder.switchItem.setOnCheckedChangeListener(this);
             }
@@ -123,7 +133,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, isChecked);
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(OptionMenuItem optionMenuItem);
     }
 

@@ -796,7 +796,7 @@
     <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
     <string name="mount_valid">Ingresa un Monto Válido</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
-    <string name="mount_cero">$0.00</string>
+    <string name="mount_cero">$00.00</string>
     <string name="send_to_txt">Para:</string>
     <string name="from_txt">De:</string>
     <string name="cuenta_ordenante">Cuenta Ordenante:</string>
@@ -1170,7 +1170,10 @@
     <string name="confirmar_contrase">La Contraseña no Coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato Para Que Accedas Más Rápido\n\nIngresa Una Contraseña de 6 Dígitos</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
-    <string name="formato_password">Tu Nueva Contraseña no Puede Incluir\n3 Números Iguales Seguidos\nni Números Consecutivos</string>
+    <string name="formato_password">Tu Nueva Contraseña Debe\nTener 6 Digitos</string>
+    <string name="formato_password_change">Tu Contraseña Debe\nTener 6 Digitos</string>
+
+
 
     <!-- Transitions -->
     <string name="transition_name_mov">transition:MOVE</string>
@@ -1185,6 +1188,7 @@
 
     <string name="security_huella_option">Huella Digital</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
+    <string name="ajustes_notificar_suboption">Selecciona Las Notificaciones Que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>
     <string name="notific_discreption">Selecciona las Notificaciones que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="notific_pagos_option">Pagos con Tarjeta</string>

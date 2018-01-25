@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,16 +15,12 @@ import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
+import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RequestPaymentHorizontalAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
 import com.pagatodo.yaganaste.utils.UI;
@@ -46,7 +41,7 @@ import static com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity.EVENT_SOLI
  * Use the {@link ProcessRequestPaymentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProcessRequestPaymentFragment extends GenericFragment implements View.OnClickListener{
+public class ProcessRequestPaymentFragment extends GenericFragment implements View.OnClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String REQUEST_LIST = "REQUEST_LIST";
@@ -62,8 +57,6 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
     @BindView(R.id.btn_send_payment)
     StyleButton btnSendPayment;
     private int count;
-
-
 
     private ArrayList<DtoRequestPayment> lstRequest;
     private float monto;
@@ -95,7 +88,7 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
             monto = getArguments().getFloat(TOTAL_AMOUNT);
         }
         count = 0;
-       // enviosPresenter = new EnviosPresenter(this);
+        // enviosPresenter = new EnviosPresenter(this);
     }
 
     @Override
@@ -118,9 +111,9 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
     @Override
     public void onClick(View v) {
         if (lstRequest.size() > 0) {
-            UI.showToastShort("Enviando Mensaje", getActivity());
+            ((RequestPaymentActivity) getActivity()).showLoader("Enviando Mensajes");
             //Validacion de telefonos de yaganaste
-            for(count = 0; count < lstRequest.size(); count++) {
+            for (count = 0; count < lstRequest.size(); count++) {
                 sendSMS(lstRequest.get(count).getReference(),
                         lstRequest.get(count).getHeadMessage() +
                                 " " + edtMessagePayment.getText().toString() +
@@ -153,20 +146,25 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
         public void onReceive(Context arg0, Intent arg1) {
             switch (getResultCode()) {
                 case Activity.RESULT_OK:
-                    if (count == lstRequest.size()){
+                    if (count == lstRequest.size()) {
+                        ((RequestPaymentActivity) getActivity()).hideLoader();
                         showDialogMesage(getContext().getResources().getString(R.string.solicitud_enviada));
                     }
                     break;
                 case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    ((RequestPaymentActivity) getActivity()).hideLoader();
                     UI.showToastShort(getString(R.string.fallo_envio), getActivity());
                     break;
                 case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    ((RequestPaymentActivity) getActivity()).hideLoader();
                     UI.showToastShort(getString(R.string.sin_servicio), getActivity());
                     break;
                 case SmsManager.RESULT_ERROR_NULL_PDU:
+                    ((RequestPaymentActivity) getActivity()).hideLoader();
                     UI.showToastShort(getString(R.string.null_pdu), getActivity());
                     break;
                 case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    ((RequestPaymentActivity) getActivity()).hideLoader();
                     UI.showToastShort(getString(R.string.sin_senial), getActivity());
                     break;
             }
@@ -188,7 +186,7 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
                     @Override
                     public void actionConfirm(Object... params) {
                         //Utils.sessionExpired();
-                        onEventListener.onEvent(EVENT_SOLICITAR_PAGO,null);
+                        onEventListener.onEvent(EVENT_SOLICITAR_PAGO, null);
                     }
 
                     @Override

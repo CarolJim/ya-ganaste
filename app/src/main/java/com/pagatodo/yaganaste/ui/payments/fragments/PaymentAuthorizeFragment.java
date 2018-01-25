@@ -541,6 +541,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void onValidationSuccess() {
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
+
     }
 
     @Override

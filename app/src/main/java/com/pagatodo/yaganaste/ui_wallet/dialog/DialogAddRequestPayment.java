@@ -2,7 +2,11 @@ package com.pagatodo.yaganaste.ui_wallet.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -12,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
@@ -26,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 
 public class DialogAddRequestPayment extends DialogFragment {
 
@@ -40,6 +47,8 @@ public class DialogAddRequestPayment extends DialogFragment {
     ErrorMessage errorPhone;
     @BindView(R.id.btn_add_request)
     StyleButton btnAddRequest;
+    @BindView(R.id.layoutImageContact)
+    RelativeLayout layoutImageContact;
 
     IAddRequestPayment addRequestPaymentListener;
 
@@ -119,5 +128,52 @@ public class DialogAddRequestPayment extends DialogFragment {
                 }
             }
         });
+        layoutImageContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CONTACTS_CONTRACT && resultCode != 0)  {
+            contactPicked(data);
+        }
+    }
+
+    private void contactPicked(Intent data) {
+        Cursor cursor;
+        String phoneNo = null;
+        String nameDisplay = "";
+        Uri uri = data.getData();
+        cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            //get column index of the Phone Number
+            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            // column index of the contact name
+            //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
+            nameDisplay = cursor.getString(nameIndex);
+            if (phoneNo.length() > 10) {
+                phoneNo = phoneNo.substring(phoneNo.length() - 10);
+            }
+        }
+        edtPhoneNumber.setText(phoneNo);
+
+        /**
+         * Validacion de nombre vacio
+         */
+        try {
+            int oneNumbre = Integer.parseInt(nameDisplay.substring(0, 2));
+            //receiverName.setText("");
+        } catch (Exception e) {
+            edtReceiver.setText(nameDisplay);
+        }
     }
 }

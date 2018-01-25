@@ -12,6 +12,34 @@ Las intrucciones de uso son las siguientes:
     4. Descripciones breves:  Una vez que el código de un branch ya sea autorizado para subirse a master se deberá crear una descripción breve de los cambios que se realizaron en el código.
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
+    
+**_VERSION 1.7.3 - 5 de Enero al 23 de Enero del 2018 (ID:?)_**
+
+Descripción al desarrollador:
+
+    * Implementación pegar información en campos de TAE/PDS/Envíos.
+    * Implementación de nuevo diseño de Wallet para pantalla principal.
+    * Nuevo diseño de Formulario de Pagos.
+    * Nuevo diseño de Formulario de Envíos.
+    * Nueva Pantalla de Solicitud de Pago.
+    * Cambio en el flujo de pantallas para menu desplegable lateral.
+    * Nuevo elemento para visualizacion específica de Favoritos dependiendo el Tipo.
+    * Cambio de Configuración de Firebase por nueva cuenta Ya Ganaste.
+    * Nuevo diseño para Autorización de Envío.
+    * Implementación de nueva lógica para formulario de Envío.
+    * Implementación de QR para cada perfil Ya Ganaste.
+    * Implementación de servicio para obtener banco dependiendo tarjeta de débito o CLABE.
+    * Corrección de flujo para cobro y cancelación de Adquiriente.
+    * Corrección de textos de reglas para registro de contraseña a 6 Dígitos.
+    * Implementación de lectura de QR para agilizar Traspaso a Mismo Banco.
+    * Se eliminaron los coachmarks de inicio de sesión (Emisor/Adquiriente).
+ 
+Funcionalidad:
+
+    * Nuevos diseños intuitivos de Wallet.
+    * Notificaciones Push.
+    * Agilizar llenado de formulario de Envíos.
+    * Solicitud de Pago vía SMS.
   
 **_VERSION 1.7.2 - 5 de Diciembre del 2017 al 4 de Enero del 2018 (ID:4052)_**
 

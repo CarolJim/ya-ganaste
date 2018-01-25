@@ -121,7 +121,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     @BindView(R.id.imgShare)
     LinearLayout imageshae;
-
+    boolean enviotrue=false;
     Payments pago;
     EjecutarTransaccionResponse result;
     /****/
@@ -220,8 +220,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
                 title.setText(R.string.title_envio_success);
+                enviotrue=true;
             } else {
                 title.setText(R.string.title_envio_in_proccess);
+                enviotrue=true;
             }
             nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
             layoutFavoritos.setVisibility(View.GONE);
@@ -230,7 +232,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                     getContext().getResources().getString(R.string.envia_comprobante_a)
                             + " " + StringUtils.formatSingleName(fullName)
                             + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
-            isMailAviable = true;
+
 
             titleReferencia.setText(((Envios) pago).getTipoEnvio().getShortName());
             if (!result.getData().getClaveRastreo().isEmpty()) {
@@ -374,6 +376,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @Override
     public void finalizePayment() {
         getActivity().finish();
+
+        if (enviotrue){
+            getActivity().finish();
+        }
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
@@ -385,6 +391,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             } else {
                 finalizePayment();
             }
+
         } else if (v.getId() == R.id.imgShare) {
             if (!DEBUG) {
                 Answers.getInstance().logShare(new ShareEvent());

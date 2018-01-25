@@ -26,6 +26,8 @@ import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
+import io.card.payment.CardIOActivity;
+
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
@@ -49,25 +51,12 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onActivityResumed(Activity activity) {
-        /*if (isInBackground &&
-                !(activity instanceof MainActivity || activity instanceof AccountActivity
-                        || activity instanceof SplashActivity || activity instanceof LandingApprovedActivity || activity instanceof OnlineTxActivity)) {
-            if ((activity instanceof LandingActivity || activity instanceof ScannVisionActivity)) {
-                goToLoginScreen(activity);
-            } else if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
-                goToLoginScreen(activity);
-            } else if ((activity instanceof LandingApprovedActivity)) {
 
-            }else if ((activity instanceof TabActivity)) {
-
-            }else if ((activity instanceof PreferUserActivity)) {
-
-            }
-        }*/
-
-        App.getInstance().resetTimer((SupportFragmentActivity)activity);
-        Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
-        isInBackground = false;
+        if (!(activity instanceof CardIOActivity)) {
+            App.getInstance().resetTimer((SupportFragmentActivity) activity);
+            Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
+            isInBackground = false;
+        }
     }
 
     private void goToLoginScreen(Activity activity) {
