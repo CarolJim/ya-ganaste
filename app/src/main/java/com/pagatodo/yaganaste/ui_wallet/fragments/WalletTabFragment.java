@@ -132,20 +132,24 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     }
 
     @Override
-    public void completed() {
+    public void completed(boolean error) {
         progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = new CardWalletAdpater();
-        if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
-            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
-        } else {
+        if (error) {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
+        } else if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
+            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
+            } else {
+            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
+
+
+            if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+                cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
+            } else {
+                cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
+            }
         }
 
-        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-            cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
-        } else {
-            cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
-        }
         viewPagerWallet.setAdapter(cardWalletAdpater);
         viewPagerWallet.setCurrentItem(pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
@@ -229,13 +233,14 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
         pager_indicator.removeAllViews();
-        walletPresenter.getWalletsCards();
+        walletPresenter.getWalletsCards(false);
 
     }
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
-        showDialogMesage("Error De Inicio De Sesión");
+        //showDialogMesage("Error De Inicio De Sesión");
+        walletPresenter.getWalletsCards(true);
     }
 
     @Override
@@ -275,7 +280,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                 }
             } else {
                 pager_indicator.removeAllViews();
-                walletPresenter.getWalletsCards();
+                walletPresenter.getWalletsCards(false);
             }
 
 

@@ -137,6 +137,7 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
     public void toIteractorEstatusCuenta(EstatusCuentaRequest request) {
         try {
             ApiTrans.estatusCuenta(request, this);
+
         } catch (OfflineException e) {
             // e.printStackTrace();
             tarjetaUserPresenter.showExceptionBloquearCuentaToPresenter(e.toString());

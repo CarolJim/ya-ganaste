@@ -24,9 +24,9 @@ public class WalletPresenterImpl implements WalletPresenter, WlletNotifaction {
     }
 
     @Override
-    public void getWalletsCards(){
+    public void getWalletsCards(boolean error){
         walletView.showProgress();
-        walletInteractor.getWalletsCards(this);
+        walletInteractor.getWalletsCards(error, this);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class WalletPresenterImpl implements WalletPresenter, WlletNotifaction {
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(boolean error) {
         if (walletView != null){
-            walletView.completed();
+            walletView.completed(error);
         }
     }
 

@@ -6,5 +6,5 @@ package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 public interface WlletNotifaction {
     void onFailed(int errorCode, int action, String error);
-    void onSuccess();
+    void onSuccess(boolean error);
 }
