@@ -49,10 +49,10 @@ public class EnviosInteractor implements IEnviosInteractor {
 
             switch (type) {
                 case CLABE:
-                    if (!ValidateForm.isValidCABLE(number)) {
-                        listener.onNumberErrorCABLE();
-                        return;
-                    }
+                  //  if (!ValidateForm.isValidCABLE(number)) {
+                   //     listener.onNumberErrorCABLE();
+                    //    return;
+                   // }
                     break;
                 case NUMERO_TARJETA:
                     if (!ValidateForm.isValidCreditCard(number, typeCard)) {

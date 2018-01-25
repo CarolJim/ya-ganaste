@@ -79,6 +79,7 @@ import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -244,10 +245,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-            //receiverName.setVisibility(GONE);
-            receiverName.setEnabled(false);
-            receiverName.cancelLongPress();
-            receiverName.setClickable(false);
+
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
             //cardNumber.setOnFocusChangeListener(this);
@@ -613,19 +611,20 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 concepto,
                 referenciaNumber);
 
-
+        /*
         if (!isCuentaValida) {
             Formatter formatter = new Formatter();
             showError(formatter.format(getString(R.string.error_cuenta_no_valida), tipoEnvio.getSelectedItem().toString()).toString());
             formatter.close();
             //mySeekBar.setProgress(0);
-        } else if (!isValid) {
+        } else
+          */
+            if (!isValid) {
             showError();
             //mySeekBar.setProgress(0);
         } else if (comercioItem == null) {
             UI.createSimpleCustomDialog("Error", "Por Favor Elige un Banco ", getActivity().getSupportFragmentManager(), getFragmentTag());
         } else {
-
             if (!UtilsNet.isOnline(getActivity())) {
                 UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
             } else {
@@ -640,9 +639,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 payment = new Envios(selectedType, referencia, montoa, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
                 sendPayment();
-
                 getActivity().finish();
-
             }
         }
     }
@@ -663,6 +660,31 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
                 idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
                 idComercio = finalList.get(x).getComercio().getIdComercio();
+            }
+        }
+
+        if (selectedType==CLABE && idComercio== IDCOMERCIO_YA_GANASTE){
+            String card = cardNumber.getText().toString();
+            card = card.replaceAll(" ", "");
+            if (card.length()==18) {
+                enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+            }
+            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        }
+        if (selectedType==NUMERO_TELEFONO && idComercio== IDCOMERCIO_YA_GANASTE){
+            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            String card = cardNumber.getText().toString();
+            card = card.replaceAll(" ", "");
+            if (card.length()==10) {
+                enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+            }
+        }
+        if (selectedType==NUMERO_TARJETA && idComercio== IDCOMERCIO_YA_GANASTE){
+            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+            String card = cardNumber.getText().toString();
+            card = card.replaceAll(" ", "");
+            if (card.length()==16) {
+                enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
             }
         }
 
@@ -894,13 +916,36 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             taeLL.setVisibility(View.VISIBLE);
         }
         if (idComercio == IDCOMERCIO_YA_GANASTE) {
-            receiverName.setEnabled(false);
-            receiverName.cancelLongPress();
-            receiverName.setClickable(false);
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
             concept.setImeOptions(IME_ACTION_DONE);
             concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+
+            if (selectedType==NUMERO_TELEFONO) {
+                String card = cardNumber.getText().toString();
+                card = card.replaceAll(" ", "");
+
+                if (card.length() == 10) {
+                    enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+                }
+            }
+
+            if (selectedType==NUMERO_TARJETA){
+                String card = cardNumber.getText().toString();
+                card = card.replaceAll(" ", "");
+                if (card.length()==16) {
+                    enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+                }
+            }
+
+            if (selectedType==CLABE){
+                String card = cardNumber.getText().toString();
+                card = card.replaceAll(" ", "");
+                if (card.length()==18) {
+                    enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+                }
+            }
+
 
         } else {
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
@@ -914,6 +959,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         layout_cardNumber.setVisibility(View.VISIBLE);
         cardNumber.setText("");
         cardNumber.removeTextChangedListener();
+        if (!isfavo) {
+            editListServ.setText("");
+            editListServ.setHintText("Banco");
+            receiverName.setText("");
+            idComercio=0;
+        }
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
@@ -927,7 +978,15 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                numberCardTextWatcher.setOnITextChangeListener(this);
+
+                if (selectedType==NUMERO_TARJETA){
+                    String card = cardNumber.getText().toString();
+                    card = card.replaceAll(" ", "");
+                    if (card.length()==16) {
+                        enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+                    }
+                }
+
             } else {
                 receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
                 concept.setImeOptions(IME_ACTION_NEXT);
@@ -997,9 +1056,16 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             layoutScanCard.setOnClickListener(null);
             selectedType = CLABE;
             if (idComercio != IDCOMERCIO_YA_GANASTE) {
-                receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
                 concept.setImeOptions(IME_ACTION_NEXT);
                 concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+            }else {
+                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                    String card = cardNumber.getText().toString();
+                    card = card.replaceAll(" ", "");
+                    if (card.length()==18) {
+                        enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+                    }
+
             }
 
             if (isfavo == true && !myReferencia.isEmpty()) {
@@ -1070,7 +1136,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 String card = cardNumber.getText().toString();
                 card = card.replaceAll(" ", "");
 
-                if (card.length() == 22 && solicitabanco) {
+                if (card.length() == 18) {
                     //   Toast.makeText(getActivity(), "22 Digitos ingresados", Toast.LENGTH_SHORT).show();
                     solicitabanco = false;
                     onEventListener.onEvent(EVENT_SHOW_LOADER, "");

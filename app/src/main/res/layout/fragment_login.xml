@@ -60,6 +60,16 @@
                     app:tipo="Titulo" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editUserName"
+                    style="@style/GenericInputTextForms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:formato="email"
+                    app:hintText="@string/txt_escribe_tu_correo"
+                    app:isTextEnabled="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/asignar_edittext"
                     android:layout_width="1px"
                     android:layout_height="1px"
@@ -70,16 +80,6 @@
                     android:id="@+id/customkeyboard"
                     layout="@layout/login_fragment_passwordedittext_custom"
                     android:visibility="gone" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editUserName"
-                    style="@style/GenericInputTextForms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    app:formato="email"
-                    app:hintText="@string/txt_escribe_tu_correo"
-                    app:isTextEnabled="true" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserPassword"

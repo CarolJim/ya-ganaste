@@ -57,7 +57,8 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CONTACTS_CONTRACT) {
+        if (requestCode == CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE
+                || requestCode == CREDITCARD_READER_REQUEST_CODE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
 
