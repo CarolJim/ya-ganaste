@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 
 /**
@@ -92,6 +94,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     private float monto;
     private IEnviosPresenter enviosPresenter;
     private DtoRequestPayment dtoRequestPayment;
+    private DialogAddRequestPayment dialogAddRequestPayment;
 
     public PaymentRequestFragment() {
         // Required empty public constructor
@@ -172,7 +175,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
             case R.id.rlt_add_request:
                 // Add Request
                 if (calculateAmountPerPerson() >= 1) {
-                    DialogAddRequestPayment dialogAddRequestPayment = new DialogAddRequestPayment();
+                    dialogAddRequestPayment = new DialogAddRequestPayment();
                     dialogAddRequestPayment.setAddRequestPaymentListener(this);
                     dialogAddRequestPayment.show(getFragmentManager(), "Dialog Add Request Payment");
                 } else {
@@ -312,7 +315,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                 } else {
                     // Add Request
                     if (calculateAmountPerPerson() >= 1) {
-                        DialogAddRequestPayment dialogAddRequestPayment = new DialogAddRequestPayment();
+                        dialogAddRequestPayment = new DialogAddRequestPayment();
                         dialogAddRequestPayment.setAddRequestPaymentListener(this);
                         dialogAddRequestPayment.show(getFragmentManager(), "Dialog Add Request Payment");
                     } else {
@@ -434,5 +437,13 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     @Override
     public void hideLoader() {
         ((RequestPaymentActivity) getActivity()).hideLoader();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CONTACTS_CONTRACT) {
+            dialogAddRequestPayment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

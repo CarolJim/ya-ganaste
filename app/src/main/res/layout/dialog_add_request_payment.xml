@@ -28,11 +28,27 @@
             style="@style/GenericStyleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="18"
             android:digits="@string/input_letters"
             android:hint="@string/name_cupo_hint"
             android:inputType="textCapWords|textNoSuggestions"
             android:lines="1"
             android:maxLines="1" />
+
+        <RelativeLayout
+            android:id="@+id/layoutImageContact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="90"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imgMakePaymentContact"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/icono_agenda" />
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -63,6 +79,8 @@
             android:inputType="number"
             android:longClickable="false"
             android:maxLength="12" />
+
+
 
     </LinearLayout>
 

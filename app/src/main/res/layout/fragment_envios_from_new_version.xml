@@ -96,7 +96,7 @@
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:background="@drawable/rounded_border_edittext"
                     android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:visibility="visible">transfer_phone_cellphone
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                         android:id="@+id/cardNumber"
