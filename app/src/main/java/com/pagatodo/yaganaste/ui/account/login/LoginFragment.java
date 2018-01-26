@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -115,6 +116,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.txtVersionApp)
     TextView txtVersionApp;
+
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
 
     LinearLayout layout_control;
     TextView tv1Num;
@@ -424,6 +428,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 if (hasFocus) {
                     edtUserName.imageViewIsGone(true);
                 } else {
+                    scrollView.smoothScrollTo(0,0);
                     if (edtUserName.getText().isEmpty() || !edtUserName.isValidText()) {
                         edtUserName.setIsInvalid();
                     } else if (edtUserName.isValidText()) {

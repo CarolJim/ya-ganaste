@@ -51,6 +51,14 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/asignar_edittext"
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:layout_marginTop="12dp"
+                    android:inputType="textPassword"
+                    />
+
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/textNameUser"
                     android:layout_width="wrap_content"
@@ -67,14 +75,10 @@
                     android:clickable="true"
                     app:formato="email"
                     app:hintText="@string/txt_escribe_tu_correo"
-                    app:isTextEnabled="true" />
+                    app:isTextEnabled="true"
+                    android:imeOptions="actionNext"/>
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/asignar_edittext"
-                    android:layout_width="1px"
-                    android:layout_height="1px"
-                    android:layout_marginTop="12dp"
-                    android:inputType="numberPassword" />
+
 
                 <include
                     android:id="@+id/customkeyboard"
