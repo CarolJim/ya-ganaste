@@ -13,19 +13,31 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class NumberReferenceTextWatcher implements TextWatcher {
     protected EditText editText;
     private int maxLength;
+    private String finalText = "";
+    private String auxText = "";
 
     public NumberReferenceTextWatcher(EditText e, int maxLength) {
         editText = e;
         this.maxLength = maxLength;
     }
+
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+        finalText = "";
+        auxText = "";
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        auxText = StringUtils.genericFormat(charSequence.toString().replaceAll(" ", ""), SPACE);
 
+        if (auxText.length() > maxLength) {
+            editText.removeTextChangedListener(this);
+            String subString = String.valueOf(auxText.subSequence(0, maxLength));
+            editText.setText(subString);
+            editText.addTextChangedListener(this);
+            finalText = subString;
+        }
     }
 
     @Override
@@ -33,20 +45,16 @@ public class NumberReferenceTextWatcher implements TextWatcher {
         editText.removeTextChangedListener(this);
         String text = s.toString();
         String response = StringUtils.genericFormat(text.replaceAll(" ", ""), SPACE);
-        // String response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
 
-        if (response.length() == 16) {
-            response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
-            editText.setText(response);
+        if (finalText.length() > 0) {
+            response = StringUtils.genericFormat(finalText.toString().replaceAll(" ", ""), SPACE);
+
         } else {
-            if (response.length() > maxLength) {
-                editText.setText(response.substring(response.length() - maxLength, response.length()));
-            } else {
-                editText.setText(response);
-            }
+            response = StringUtils.genericFormat(s.toString().replaceAll(" ", ""), SPACE);
         }
+
+        editText.setText(response);
         editText.setSelection(Math.min(maxLength, editText.getText().length()));
         editText.addTextChangedListener(this);
-
     }
 }
