@@ -304,6 +304,7 @@
                 style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="@string/input_alphanumeric_space_reference"
                 android:hint="@string/hint_concepto"
                 android:inputType="textCapSentences"
                 android:longClickable="false"

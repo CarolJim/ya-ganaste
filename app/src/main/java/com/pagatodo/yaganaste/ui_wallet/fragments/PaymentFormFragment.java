@@ -352,6 +352,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 txtData.setText(nameRefer);
 
                 imgReferencePayment.setOnClickListener(this);
+                edtServiceImport.setLongClickable(true);
+                edtServiceImport.setSingleLine();
                 edtServiceImport.addTextChangedListener(new NumberTextWatcher(edtServiceImport));
 
                 if (comercioResponse.getLongitudReferencia() > 0) {
@@ -376,6 +378,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     //edtReferenceNumber.setEnabled(false);
                 }
 
+                edtServiceConcept.setLongClickable(true);
+                edtServiceConcept.setSingleLine();
                 edtServiceImport.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
