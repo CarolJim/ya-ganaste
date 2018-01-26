@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,6 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.ProcessRequestPaymentFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,8 +66,8 @@ public class RequestPaymentActivity extends LoaderActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
-        if (fragmentList.get(0) instanceof ProcessRequestPaymentFragment) {
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment instanceof ProcessRequestPaymentFragment) {
             loadFragment(PaymentRequestFragment.newInstance(monto, data), R.id.container_request_payment);
         } else {
             finish();

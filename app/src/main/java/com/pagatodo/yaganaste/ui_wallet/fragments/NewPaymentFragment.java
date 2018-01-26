@@ -205,7 +205,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mRecargarGrid.clear();
         mPagarGrid.clear();
         newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);
-        //   newPaymentPresenter.getFavoritesItems(TYPE_SERVICE);
+        //newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
     }
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {

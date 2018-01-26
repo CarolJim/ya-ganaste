@@ -8,15 +8,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
@@ -25,29 +22,20 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
-
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
-import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
@@ -82,11 +70,9 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     ImageView iconBattery;
 
 
-
     private AudioManager audioManager;
     public Preferencias prefs;
     //CircleImageView imageView;
-
 
     private IntentFilter broadcastEMVSwipe;
     private int currentVolumenDevice;
@@ -100,9 +86,8 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     private boolean mensajeuno = false;
 
 
-
-
     View rootview;
+
     public MyDongleFragment() {
         // Required empty public constructor
     }
@@ -128,7 +113,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
                     String batteryPorcentage = intent.getStringExtra(Recursos.BATTERY_PORCENTAGE);
                     //Toast.makeText(context, "La bataca es: "+batteryLevel, Toast.LENGTH_LONG).show();
-                    int n = Integer.parseInt(batteryPorcentage.toString().trim(),16);
+                    int n = Integer.parseInt(batteryPorcentage.toString().trim(), 16);
                     //Toast.makeText(context, "El porcentage de la bateria es: "+n, Toast.LENGTH_SHORT).show();
                     //App.getInstance().pos.getQposId();
                     setNumberBattery(n);
@@ -176,22 +161,22 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     break;
                 case SW_ERROR:
 
-                     if (mensajeuno==false) {
-                         mensajeuno = true;
-                         showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
-                                 new DialogDoubleActions() {
-                                     @Override
-                                     public void actionConfirm(Object... params) {
-                                         showInsertDongle();
-                                     }
+                    if (mensajeuno == false) {
+                        mensajeuno = true;
+                        showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
+                                new DialogDoubleActions() {
+                                    @Override
+                                    public void actionConfirm(Object... params) {
+                                        showInsertDongle();
+                                    }
 
-                                     @Override
-                                     public void actionCancel(Object... params) {
+                                    @Override
+                                    public void actionCancel(Object... params) {
 
-                                     }
-                                 });
+                                    }
+                                });
 
-                     }
+                    }
 
                     //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
                     Log.i("IposListener: ", "=====>>    SW_Error");
@@ -201,7 +186,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     App.getInstance().pos.getQposInfo();
                     break;
                 default:
-
+                    Log.i("IposListener: ", "=====>>    DEFAULT:" + mensaje);
                     break;
             }
 
@@ -230,11 +215,11 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                             txtNumberBattery.setSelected(true);
                             hideLoader();
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
 
-                       // showInsertDongle();
+                        // showInsertDongle();
                         Log.i("IposListener: ", "isReaderConected  false");
                         break;
                     case 1:
@@ -250,7 +235,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
                             Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                             App.getInstance().pos.getQposInfo();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
                         }
                         break;
@@ -261,19 +246,21 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
             }
         }
     };
+
     public static MyDongleFragment newInstance() {
         MyDongleFragment fragment = new MyDongleFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onResume() {
         super.onResume();
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-       // imageView.setVisibility(View.GONE);
+        // imageView.setVisibility(View.GONE);
         txtLastPayment.setVisibility(View.GONE);
         txtNumberBattery.setGravity(Gravity.START);
         txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
@@ -282,6 +269,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
         txtNumberBattery.setSelected(true);
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -293,11 +281,9 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
-       // App.getInstance().initEMVListener();// Inicializamos el listener
+        // App.getInstance().initEMVListener();// Inicializamos el listener
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
-
-
 
 
     }
@@ -306,7 +292,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-      //  return inflater.inflate(R.layout.fragment_my_dongle, container, false);
+        //  return inflater.inflate(R.layout.fragment_my_dongle, container, false);
         rootview = inflater.inflate(R.layout.fragment_my_dongle, container, false);
         initViews();
 
@@ -325,42 +311,42 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     private void setNumberBattery(int mPorcentaje) {
         // Procesimiento para cambiar la imagen de manera dinamica, dependiendo del rango de carga
 
-        int porcent=mPorcentaje;
+        int porcent = mPorcentaje;
 
-        txtNumberBattery.setText(" "+mPorcentaje+"%");
-        mensajeuno=true;
+        txtNumberBattery.setText(" " + mPorcentaje + "%");
+        mensajeuno = true;
 
 
         txtNumberBattery.setGravity(Gravity.END);
         txtNumberBattery.setTextColor(getResources().getColor(R.color.textColorAlternative));
-        if(mPorcentaje >0 && mPorcentaje < 25){
+        if (mPorcentaje > 0 && mPorcentaje < 25) {
             // Bateria Roja
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria25);
             // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
-        }else if(mPorcentaje > 25 && mPorcentaje <= 50){
+        } else if (mPorcentaje > 25 && mPorcentaje <= 50) {
             // Bateria Amarilla
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria50);
             // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
-        }else if(mPorcentaje > 50 && mPorcentaje<=85){
+        } else if (mPorcentaje > 50 && mPorcentaje <= 85) {
             // Bateria Verde
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria75);
 
             // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
-        }else if(mPorcentaje > 85 && mPorcentaje<=100){
+        } else if (mPorcentaje > 85 && mPorcentaje <= 100) {
             // Bateria Verde
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria100);
             // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
-        } else if(mPorcentaje <= 0){
+        } else if (mPorcentaje <= 0) {
             // Bateria 0 conectar
-             iconBattery.setVisibility(View.VISIBLE);
-             iconBattery.setBackgroundResource(R.drawable.bateria0);
+            iconBattery.setVisibility(View.VISIBLE);
+            iconBattery.setBackgroundResource(R.drawable.bateria0);
         }
 
-       // txtNumberBattery.setText(mPorcentaje);
+        // txtNumberBattery.setText(mPorcentaje);
     }
 
     private void setLastPayment(String mDate) {
@@ -370,7 +356,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     private void setCompanyName(String mName) {
         //txtCompanyName.setText(mName);
-        txtCompanyName.setText("\" "+SingletonUser.getInstance().getDataUser().getUsuario().getNombreNegocio()+" \"");
+        txtCompanyName.setText("\" " + SingletonUser.getInstance().getDataUser().getUsuario().getNombreNegocio() + " \"");
     }
 
     @Override

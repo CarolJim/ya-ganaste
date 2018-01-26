@@ -166,7 +166,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
                     String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".", "");
                     if (isCancelation) {
-                        amountCard = "150";
+                        amountCard = dataMovimientoAdq.getMonto().replace(".", "");
                     }
 
                     App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);

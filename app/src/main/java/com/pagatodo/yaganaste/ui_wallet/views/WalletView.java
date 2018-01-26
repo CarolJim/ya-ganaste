@@ -7,5 +7,5 @@ package com.pagatodo.yaganaste.ui_wallet.views;
 public interface WalletView  extends MainWalletView{
 
     void setError();
-    void completed();
+    void completed(boolean error);
 }

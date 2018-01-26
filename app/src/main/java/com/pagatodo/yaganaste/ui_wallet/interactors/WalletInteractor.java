@@ -11,7 +11,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WlletNotifaction;
 
 public interface WalletInteractor extends IRequestResult<DataSourceResult> {
 
-    void getWalletsCards(WlletNotifaction listener);
+    void getWalletsCards(boolean error, WlletNotifaction listener);
     void getMovementsAdq(ConsultarMovimientosRequest request, WlletNotifaction listener);
 
 }

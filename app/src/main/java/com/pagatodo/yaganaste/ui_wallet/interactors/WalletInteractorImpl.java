@@ -23,11 +23,11 @@ public class WalletInteractorImpl implements WalletInteractor {
     }
 
     @Override
-    public void getWalletsCards(final WlletNotifaction listener) {
+    public void getWalletsCards(final boolean error, final WlletNotifaction listener) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                listener.onSuccess();
+                listener.onSuccess(error);
             }
         },1000);
 
