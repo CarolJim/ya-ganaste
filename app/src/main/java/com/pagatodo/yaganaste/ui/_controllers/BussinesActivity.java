@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
@@ -21,10 +22,12 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 
 import java.util.List;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_ERROR_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
@@ -66,8 +69,22 @@ public class BussinesActivity extends LoaderActivity {
 
         setUpActionBar();
         setVisibilityPrefer(false);
+        int Idestatus;
+        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
 
-        if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+    if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && Idestatus == IdEstatus.I7.getId()) {
+        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+            && Idestatus == IdEstatus.I8.getId()) {
+        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+            Idestatus == IdEstatus.I9.getId()) {
+        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+         }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+            Idestatus == IdEstatus.I11.getId()) {
+        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+       }  else if  (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
@@ -84,6 +101,12 @@ public class BussinesActivity extends LoaderActivity {
     public void onEvent(String event, Object o) {
         super.onEvent(event, o);
         switch (event) {
+
+
+            case EVENT_ERROR_DOCUMENTS:
+                loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
+                break;
+
             case EVENT_GO_BUSSINES_DATA:
                 loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
                 break;
