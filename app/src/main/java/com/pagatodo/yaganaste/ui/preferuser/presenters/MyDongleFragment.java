@@ -74,7 +74,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     public Preferencias prefs;
     //CircleImageView imageView;
 
-
     private IntentFilter broadcastEMVSwipe;
     private int currentVolumenDevice;
     private int maxVolumenDevice;
