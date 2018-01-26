@@ -168,7 +168,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         et_amount.requestFocus();
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
-      //  tvMontoEntero.setText("00");
+       tvMontoEntero.setText("00");
+       tvMontoDecimal.setText("00");
     }
 
     @Override
@@ -191,7 +192,6 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                 int positionMoney = valueAmount.indexOf("$");
                 if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
-
                 }
                 monto = Double.parseDouble(valueAmount);
                 current_mount = Float.parseFloat(valueAmount);

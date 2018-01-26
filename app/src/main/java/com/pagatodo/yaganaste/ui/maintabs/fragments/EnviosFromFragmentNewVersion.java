@@ -693,25 +693,28 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void errorgetdatabank() {
         hideLoader();
-        bancoselected = true;
-        solicitabanco = true;
         editListServ.setDrawableImage(R.drawable.menu_canvas);
-        UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        editListServ.setText("");
-                        editListServ.setDrawableImage(R.drawable.menu_canvas);
-                        editListServ.setHintText("Banco");
-                        comercioItem = null;
-                    }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+        if (!solicitabanco) {
+            UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            solicitabanco = true;
+                            editListServ.setText("");
+                            editListServ.setDrawableImage(R.drawable.menu_canvas);
+                            editListServ.setHintText("Banco");
+                            comercioItem = null;
+                        }
 
-                    }
-                },
-                true, false);
+                        @Override
+                        public void actionCancel(Object... params) {
+                            solicitabanco = true;
+                        }
+                    },
+                    true, false);
+        }
+        solicitabanco = true;
     }
 
     public void idcomercioqr(int myIdTipoComercio) {
