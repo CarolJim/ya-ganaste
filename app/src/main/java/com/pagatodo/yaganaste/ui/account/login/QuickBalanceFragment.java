@@ -102,7 +102,14 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
-        accountPresenter.setPurseReference(this);
+
+       try {
+           accountPresenter.setPurseReference(this);
+       }catch (Exception e){
+
+       }
+
+
         // quickBalanceManager Obtenemos la referencia a la interfase desde  QuickBalanceContainerFragment
         Status = App.getInstance().getStatusId();
     }
