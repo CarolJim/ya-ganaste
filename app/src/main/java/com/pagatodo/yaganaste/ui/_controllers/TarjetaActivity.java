@@ -103,7 +103,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
     @Override
     public void showLoader(String message) {
-        super.showLoader(message);
+        super.showLoader(getString(R.string.update_data));
     }
 
     @Override
@@ -235,7 +235,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     // }
     @Override
     public boolean requiresTimer() {
-        return false;
+        return true;
     }
 
     public String nombre() {
@@ -350,7 +350,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
         hideLoader();
-        sendErrorBloquearCuentaToView("No hay internet ");
+        showDialogCustom(getResources().getString(R.string.no_internet_access));
     }
 
     @Override
@@ -403,4 +403,6 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
             }
         }
     }
+
+
 }
