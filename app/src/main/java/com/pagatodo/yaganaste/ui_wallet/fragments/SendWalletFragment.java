@@ -143,6 +143,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                         Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                         intent.putExtra(MONTO, monto);
                         startActivity(intent);
+                        current_mount=0;
+                        monto=00.00;
                     }
                 }
                 break;
@@ -170,6 +172,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
        tvMontoEntero.setText("00");
        tvMontoDecimal.setText("00");
+       et_amount.setText("$00.00");
+
     }
 
     @Override

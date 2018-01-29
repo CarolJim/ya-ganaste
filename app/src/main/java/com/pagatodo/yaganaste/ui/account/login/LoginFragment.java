@@ -243,6 +243,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                         if (s.toString().length() == 6) {
                             if (!UtilsNet.isOnline(getActivity())) {
                                 UI.createSimpleCustomDialog("Ocurrió un Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
+                                edtPin.setText("");
                             } else {
                                 keyboardView.hideCustomKeyboard();
                                 //  Servicio para consumir usuario y contraseña
@@ -368,6 +369,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             validateForm();
         } else {
             UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
+            edtPin.setText("");
         }
     }
 
