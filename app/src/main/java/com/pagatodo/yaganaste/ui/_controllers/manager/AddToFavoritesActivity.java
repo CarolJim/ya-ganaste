@@ -1252,7 +1252,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         } else if (position == CLABE.getId()) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
-            cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber));
+            cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber, maxLength));
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
             selectedType = CLABE;
