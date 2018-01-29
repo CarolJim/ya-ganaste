@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -42,6 +43,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 
 /**
  *
@@ -135,6 +138,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     public void completed(boolean error) {
         progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = new CardWalletAdpater();
+
         if (error) {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
         } else if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
@@ -145,6 +149,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
             if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
                 cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
+
             } else {
                 cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
             }
@@ -155,7 +160,11 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
-        updateOperations(pageCurrent);
+
+
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+            walletPresenter.updateBalance();
+        }
     }
 
     private void setUiPageViewController() {
@@ -205,6 +214,13 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         startActivity(intent);
     }
 
+
+    @Override
+    public void getSaldo() {
+        cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
+        //cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
+        updateOperations(pageCurrent);
+    }
 
     @Override
     public void onResume() {

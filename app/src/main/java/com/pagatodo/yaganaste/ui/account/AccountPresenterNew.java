@@ -465,7 +465,13 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void onSuccesBalance() {
-        ((IBalanceView) this.accountView).updateBalance();
+        try {
+            ((IBalanceView) this.accountView).updateBalance();
+        } catch (ClassCastException exception) {
+            exception.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     @Override

@@ -7,10 +7,17 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WlletNotifaction;
 import com.pagatodo.yaganaste.utils.Recursos;
+
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -18,8 +25,10 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 public class WalletInteractorImpl implements WalletInteractor {
 
+    private WlletNotifaction listener;
 
-    public WalletInteractorImpl(){
+    public WalletInteractorImpl(WlletNotifaction listener){
+        this.listener = listener;
     }
 
     @Override
@@ -43,10 +52,27 @@ public class WalletInteractorImpl implements WalletInteractor {
         }
     }
 
+    @Override
+    public void getBalance() {
+        try {
+            ApiAdq.consultaSaldoCupo(this);
+        } catch (OfflineException e) {
+            //No-op
+        }
+    }
+
     //REQUEST
     @Override
     public void onSuccess(DataSourceResult result) {
+        switch (result.getWebService()) {
 
+            case CONSULTAR_SALDO_ADQ:
+                //validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
+                this.listener.onSuccessADQ(((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
+                break;
+
+
+        }
     }
 
     @Override

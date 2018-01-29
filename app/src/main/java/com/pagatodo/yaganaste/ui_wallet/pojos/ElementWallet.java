@@ -89,7 +89,8 @@ public class ElementWallet {
 
     public ElementWallet getCardLectorAdq(Context context){
         return new ElementWallet(R.mipmap.lector_front,
-                Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
+                //Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
+                Utils.getCurrencyValue("0.00"),
                 new ElementView().getListLectorAdq(),
                 context.getResources().getString(R.string.saldo_reembolso));
     }
