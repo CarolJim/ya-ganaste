@@ -72,6 +72,22 @@ android:layout_height="match_parent">
         app:strokeWidth="15dp"
         />
 
+
+    <com.pagatodo.yaganaste.utils.customviews.StatusViewCupo
+        xmlns:custom="http://schemas.android.com/apk/res/com.pagatodo.yaganaste"
+        android:id="@+id/status_view_sol_rechazada"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        app:bgColor="@color/progreso_cupo_Rechazado"
+        app:firstColor="@color/progreso_cupo_first"
+        app:secondColor="@color/progreso_cupo_second"
+        app:errorColor="@color/progreso_cupo_error"
+        app:percent="0"
+        android:visibility="gone"
+        app:startAngle="0"
+        app:strokeWidth="15dp"
+        />
+
     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
         android:visibility="gone"
         android:id="@+id/txt_importe"

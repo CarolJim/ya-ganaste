@@ -66,6 +66,9 @@
     <color name="yellow">#ECDF00</color>
 
     <!--Colores Barra de progreso cupo-->
+
+
+    <color name="progreso_cupo_Rechazado">#808080</color>
     <color name="progreso_cupo_first">#00A1E1</color>
     <color name="registerColorButton">#00A1E1</color>
     <color name="loginColorButton">#0280B2</color>
