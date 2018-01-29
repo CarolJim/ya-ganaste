@@ -150,6 +150,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     FBPresenter fbmPresenter;
     private ListView listView;
+    public boolean isDialogShowned = false;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -236,8 +237,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     private void openQrProfile() {
-        DialogQrProfile dialogQrProfile = new DialogQrProfile();
-        dialogQrProfile.show(getSupportFragmentManager(), "Dialog Qr Profile");
+        if (!isDialogShowned) {
+            isDialogShowned = true;
+            DialogQrProfile dialogQrProfile = new DialogQrProfile();
+            dialogQrProfile.show(getSupportFragmentManager(), "Dialog Qr Profile");
+        }
     }
 
     private void load() {

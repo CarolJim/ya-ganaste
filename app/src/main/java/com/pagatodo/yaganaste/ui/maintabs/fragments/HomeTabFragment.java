@@ -226,13 +226,14 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void onLongClickBlockCard() {
-        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
+        /*Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+
         v.vibrate(100);
         String nombre = nombre();
         String cuenta = cuenta();
         Intent intent = new Intent(getContext(), TarjetaActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     private String cuenta() {

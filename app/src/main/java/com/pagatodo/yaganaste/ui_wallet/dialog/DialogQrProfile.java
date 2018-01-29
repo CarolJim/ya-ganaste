@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IAddRequestPayment;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -33,7 +34,8 @@ public class DialogQrProfile extends DialogFragment {
     View rootView;
     @BindView(R.id.img_qr_profile)
     ImageView imgQrProfile;
-
+   /* @BindView(R.id.img_logo)
+    ImageView imgLogo;*/
 
     IAddRequestPayment addRequestPaymentListener;
 
@@ -119,5 +121,13 @@ public class DialogQrProfile extends DialogFragment {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        /*imgLogo.getLayoutParams().width = imgQrProfile.getWidth();
+        imgLogo.getLayoutParams().height = imgQrProfile.getHeight();*/
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((TabActivity) getActivity()).isDialogShowned = false;
     }
 }

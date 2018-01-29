@@ -68,6 +68,8 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
     private static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
     private int ESTADO_ACTUAL = 0;
 
+    @BindView(R.id.status_view_sol_rechazada)
+    StatusViewCupo status_view_sol_rechazada;
     @BindView(R.id.status_view)
     StatusViewCupo statusViewCupo;
     @BindView(R.id.status_view_revisando_docs)
@@ -129,6 +131,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         statusViewCupo.setVisibility(View.GONE);
         statusViewadqrevsolc.setVisibility(View.GONE);
         statusViewadqrevdocs.setVisibility(View.GONE);
+        status_view_sol_rechazada.setVisibility(View.GONE);
         mTextContact.setOnClickListener(this);
 
         if (Idestatus == IdEstatus.I7.getId()) {
@@ -167,6 +170,16 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
             statusViewCupo.setVisibility(View.VISIBLE);
             mTextContact.setVisibility(View.GONE);
             mButtonContinue.setVisibility(View.VISIBLE);
+        } else if (Idestatus == IdEstatus.I10.getId()) {
+            statusTextInfo.setText("Tu Solicitud no\nPudo Ser Completada");
+            statusText.setText("Solicitud\nInterrumpida");
+           // statusViewCupo.updateError(50, 0);
+            status_view_sol_rechazada.updateStatus(0, 0);
+            status_view_sol_rechazada.setVisibility(View.VISIBLE);
+            mButtonContinue.setVisibility(View.GONE);
+            mTextContact.setVisibility(View.VISIBLE);
+            mTextContact.setText(getString(R.string.txt_contacto_registro_circulos_rechazada));
+            mTextContact.setTextSize(12);
         } else {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
@@ -177,9 +190,17 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
             mTextContact.setTextSize(12);
             mButtonContinue.setVisibility(View.GONE);
         }
-        SpannableString ss = new SpannableString(getString(R.string.txt_contacto_registro_circulos));
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.circlecarousel1)), 27, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mTextContact.setText(ss);
+        SpannableString ss;
+        if (Idestatus == IdEstatus.I10.getId()){
+            ss = new SpannableString(getString(R.string.txt_contacto_registro_circulos_rechazada));
+            ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.circlecarousel1)), 65, 81, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mTextContact.setText(ss);
+        }else {
+            ss = new SpannableString(getString(R.string.txt_contacto_registro_circulos));
+            ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.circlecarousel1)), 27, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mTextContact.setText(ss);
+        }
+
     }
 
     private void showDialogCallIntent() {

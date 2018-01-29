@@ -239,7 +239,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
-        //showDialogMesage("Error De Inicio De Sesión");
         walletPresenter.getWalletsCards(true);
     }
 

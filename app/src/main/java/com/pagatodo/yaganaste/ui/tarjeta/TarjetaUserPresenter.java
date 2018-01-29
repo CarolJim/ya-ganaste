@@ -146,7 +146,7 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
 
     @Override
     public void toPresenterBloquearCuenta(int operation) {
-        mView.showLoader("Actualizando Datos");
+        mView.showLoader("");
         // Creamos el objeto BloquearCuentaRequest 1= Bloquear 2= Desbloquear
         BloquearCuentaRequest bloquearCuentaRequest = new BloquearCuentaRequest("" + operation);
         iPreferUserIteractor.toIteractorBloquearCuenta(bloquearCuentaRequest);
@@ -154,7 +154,6 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
 
     @Override
     public void showExceptionBloquearCuentaToPresenter(String s) {
-        mView.hideLoader();
         mView.sendErrorBloquearCuentaToView("No Hay conexion a internet ");
 
     }

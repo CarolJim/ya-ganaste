@@ -1094,7 +1094,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             editListServ.setText(getString(R.string.app_name));
             editListServ.setEnabled(false);
             idcomercioqr(IDCOMERCIO_YA_GANASTE);
-
+            selectedType = CLABE;
 
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");

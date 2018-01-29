@@ -739,7 +739,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event, data);
+        getActivity().finish();
     }
 
     @Override
