@@ -213,6 +213,26 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="gone" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                            android:id="@+id/editCurp"
+                            style="@style/FragmentElementWithValidation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusableInTouchMode="true"
+                            android:inputType="textCapSentences"
+                            android:visibility="gone"
+                            app:formato="text"
+                            app:hintText="@string/curp"
+                            app:imageIsGone="true"
+                            app:isTextEnabled="true" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                            android:id="@+id/errorCurp"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -243,9 +263,9 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackPersonalInfo"
-                android:visibility="gone"
                 style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton" />
+                android:text="@string/backButton"
+                android:visibility="gone" />
 
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"

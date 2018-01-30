@@ -62,7 +62,11 @@ public class RequestPaymentVerticalAdapter extends RecyclerView.Adapter<RequestP
             holder.crlImageReq.setBorderColor(android.graphics.Color.parseColor(item.getColorBank()));
             if (item.getName().contains(" ")) {
                 String shortName[] = item.getName().split(" ");
-                holder.txtNameReq.setText(shortName[0] + " " + shortName[1]);
+                try {
+                    holder.txtNameReq.setText(shortName[0] + " " + shortName[1]);
+                } catch (Exception e) {
+                    holder.txtNameReq.setText(item.getName());
+                }
             } else {
                 holder.txtNameReq.setText(item.getName());
             }
@@ -114,7 +118,7 @@ public class RequestPaymentVerticalAdapter extends RecyclerView.Adapter<RequestP
     private String getIniciales(String fullName) {
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
-        if (spliName.length == 2) {
+        if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
         } else {
             sIniciales = fullName.substring(0, 2).toUpperCase();

@@ -17,13 +17,13 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.S
 
 public class OptionMenuItem {
 
-    private  int idItem;
+    private int idItem;
     private Context context;
     private int resourceItem;
     private String title;
     private INDICATION indication;
 
-    public OptionMenuItem(int idItem,String title, INDICATION indication) {
+    public OptionMenuItem(int idItem, String title, INDICATION indication) {
         this.idItem = idItem;
         this.title = title;
         this.indication = indication;
@@ -80,40 +80,41 @@ public class OptionMenuItem {
         this.idItem = idItem;
     }
 
-    public ArrayList<OptionMenuItem> MAINMENU(){
+    public ArrayList<OptionMenuItem> MAINMENU() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_SEGURIDAD,R.mipmap.ic_seguridad,this.context.getResources().getString(R.string.navigation_drawer_menu_seguridad)));
+        optionMenuItems.add(new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, this.context.getResources().getString(R.string.navigation_drawer_menu_seguridad)));
         //optionMenuItems.add(new OptionMenuItem(R.mipmap.ic_chat,this.context.getResources().getString(R.string.navigation_drawer_menu_chat)));
-        optionMenuItems.add(new OptionMenuItem(ID_AJUSTES,R.mipmap.ic_ajustes,this.context.getResources().getString(R.string.navigation_drawer_menu_ajustes)));
-        optionMenuItems.add(new OptionMenuItem(ID_ACERCA_DE,R.mipmap.ic_acerca,this.context.getResources().getString(R.string.navigation_drawer_menu_acerca)));
+        optionMenuItems.add(new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, this.context.getResources().getString(R.string.navigation_drawer_menu_ajustes)));
+        optionMenuItems.add(new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, this.context.getResources().getString(R.string.navigation_drawer_menu_acerca)));
+        optionMenuItems.add(new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_acerca, this.context.getResources().getString(R.string.navigation_drawer_logout)));
         return optionMenuItems;
     }
 
-    public ArrayList<OptionMenuItem> SECURITY_MENU(){
+    public ArrayList<OptionMenuItem> SECURITY_MENU() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_CCAMBIAR_PASS,this.context.getResources().getString(R.string.change_your_pass),RAW));
-        optionMenuItems.add(new OptionMenuItem(-1,this.context.getResources().getString(R.string.security_huella_option),SWITCH));
+        optionMenuItems.add(new OptionMenuItem(ID_CCAMBIAR_PASS, this.context.getResources().getString(R.string.change_your_pass), RAW));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.security_huella_option), SWITCH));
         return optionMenuItems;
     }
 
-    public ArrayList<OptionMenuItem> SETTINGS_MENU(){
+    public ArrayList<OptionMenuItem> SETTINGS_MENU() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_NOTIFICACIONES,this.context.getResources().getString(R.string.ajustes_notificar_option),RAW));
-        optionMenuItems.add(new OptionMenuItem(ID_DESVINCULAR,this.context.getResources().getString(R.string.ajustes_desvincular_option),RAW));
+        optionMenuItems.add(new OptionMenuItem(ID_NOTIFICACIONES, this.context.getResources().getString(R.string.ajustes_notificar_option), RAW));
+        optionMenuItems.add(new OptionMenuItem(ID_DESVINCULAR, this.context.getResources().getString(R.string.ajustes_desvincular_option), RAW));
         return optionMenuItems;
     }
 
-    public ArrayList<OptionMenuItem> SETTINGS_NOTIFICACIONES(){
+    public ArrayList<OptionMenuItem> SETTINGS_NOTIFICACIONES() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(-1,this.context.getResources().getString(R.string.notific_pagos_option),SWITCHNORMAL));
-        optionMenuItems.add(new OptionMenuItem(-1,this.context.getResources().getString(R.string.notific_retiros_option),SWITCHNORMAL));
-        optionMenuItems.add(new OptionMenuItem(-1,this.context.getResources().getString(R.string.notific_depositos_option),SWITCHNORMAL));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_pagos_option), SWITCHNORMAL));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_retiros_option), SWITCHNORMAL));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_depositos_option), SWITCHNORMAL));
         return optionMenuItems;
     }
 
-   public enum INDICATION{
-        RAW,SWITCH,SWITCHNORMAL
-   }
+    public enum INDICATION {
+        RAW, SWITCH, SWITCHNORMAL
+    }
 
     final public static int ID_SEGURIDAD = 1;
     final public static int ID_AJUSTES = 2;
@@ -121,6 +122,6 @@ public class OptionMenuItem {
     final public static int ID_CCAMBIAR_PASS = 4;
     final public static int ID_NOTIFICACIONES = 5;
     final public static int ID_DESVINCULAR = 6;
-
+    final public static int ID_LOGOUT = 7;
 
 }
