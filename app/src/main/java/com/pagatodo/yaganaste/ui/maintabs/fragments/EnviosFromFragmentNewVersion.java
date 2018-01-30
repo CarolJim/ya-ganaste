@@ -896,6 +896,29 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     @Override
     public void showErrorService() {
+        hideLoader();
+        editListServ.setDrawableImage(R.drawable.menu_canvas);
+
+        if (!solicitabanco) {
+            UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            solicitabanco = true;
+                            editListServ.setText("");
+                            editListServ.setDrawableImage(R.drawable.menu_canvas);
+                            editListServ.setHintText("Banco");
+                            comercioItem = null;
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+                            solicitabanco = true;
+                        }
+                    },
+                    true, false);
+        }
+        solicitabanco = true;
 
     }
 

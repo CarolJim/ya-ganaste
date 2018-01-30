@@ -277,7 +277,8 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                         lstRequestPayment.add(dto);
                         notifyRequestContainer();
                     } else {
-                        UI.showToastShort(App.getContext().getString(R.string.error_add_fav), getActivity());
+                        UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_fav), getActivity().getSupportFragmentManager(), getFragmentTag());
+                       // UI.showToastShort(App.getContext().getString(R.string.error_add_fav), getActivity());
                     }
                 } else {
                     UI.createSimpleCustomDialog(getActivity().getString(R.string.title_error), getActivity().getString(R.string.txt_error_calculate_amount), getFragmentManager(), new DialogDoubleActions() {
@@ -344,17 +345,25 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     @Override
     public void onAddNewRequest(DtoRequestPayment dtoRequestPayment) {
         // Delete add request item
-        if (lstRequestPayment.size() > 1) {
-            lstRequestPayment.remove(lstRequestPayment.size() - 1);
-        }
-        this.dtoRequestPayment = dtoRequestPayment;
-        String msj = "Hola, " + "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
-        this.dtoRequestPayment.setHeadMessage(msj);
-        enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
-        //lstRequestPayment.add(dtoRequestPayment);
-        //notifyRequestContainer();
-    }
 
+
+        if (!lstRequestPayment.contains(dtoRequestPayment)) {
+
+                if (lstRequestPayment.size() > 1) {
+                    lstRequestPayment.remove(lstRequestPayment.size() - 1);
+                }
+                this.dtoRequestPayment = dtoRequestPayment;
+                String msj = "Hola, " + "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
+                this.dtoRequestPayment.setHeadMessage(msj);
+                enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
+                //lstRequestPayment.add(dtoRequestPayment);
+                //notifyRequestContainer();
+
+        }else {
+            UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_numero), getActivity().getSupportFragmentManager(), getFragmentTag());
+            //UI.showToastShort(App.getContext().getString(R.string.error_add_numero), getActivity());
+        }
+    }
     private void setBackUpResponseFav(List<DataFavoritos> mResponse) {
         lstFavorites = new ArrayList<>();
         for (DataFavoritos item : mResponse) {

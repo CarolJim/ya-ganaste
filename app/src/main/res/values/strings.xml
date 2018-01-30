@@ -1199,6 +1199,7 @@
     <string name="synch_favorites">Obteniendo Favoritos</string>
     <string name="synch_carrier">Obteniendo Carriers</string>
     <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>
+    <string name="error_add_numero">El Destinatario ya se Encuentra Agregado</string>
 
     <!-- Procesos de PaymentActivity-->
     <string name="txt_recargas">Recargas</string>
