@@ -102,6 +102,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
         return mViews.get(position);
     }
 
-
-
+    public void updateSaldo(int position, String saldo){
+        elementViewList.get(position).setSaldo(saldo);
+    }
 }

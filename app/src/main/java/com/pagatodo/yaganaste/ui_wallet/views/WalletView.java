@@ -8,4 +8,5 @@ public interface WalletView  extends MainWalletView{
 
     void setError();
     void completed(boolean error);
+    void getSaldo();
 }
