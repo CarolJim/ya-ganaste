@@ -164,8 +164,11 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
             walletPresenter.updateBalance();
+        } else {
+            updateOperations(pageCurrent);
         }
     }
+
 
     private void setUiPageViewController() {
         dotsCount = cardWalletAdpater.getCount();

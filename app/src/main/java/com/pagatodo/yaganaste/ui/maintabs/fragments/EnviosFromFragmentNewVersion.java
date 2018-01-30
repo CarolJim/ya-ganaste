@@ -379,7 +379,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 scanIntent.putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, true);
                 scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true);
                 scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, true);
-                scanIntent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, 8);
+                //scanIntent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, 8);
 
                 // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
                 getActivity().startActivityForResult(scanIntent, CREDITCARD_READER_REQUEST_CODE);
