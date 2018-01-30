@@ -457,7 +457,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
-            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
+            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
             cardNumber.addTextChangedListener(textWatcher);
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);

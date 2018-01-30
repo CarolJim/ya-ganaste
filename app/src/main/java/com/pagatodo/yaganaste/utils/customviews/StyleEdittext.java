@@ -7,13 +7,16 @@ import android.text.Spannable;
 import android.text.TextWatcher;
 import android.text.method.MovementMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.FontCache;
@@ -66,6 +69,7 @@ public class StyleEdittext extends AppCompatEditText {
 
         @Override
         public boolean onTouchEvent(TextView textView, Spannable spannable, MotionEvent motionEvent) {
+            Log.d("StyleEdit", "onTouchEvent");
             return false;
         }
 
@@ -154,22 +158,25 @@ public class StyleEdittext extends AppCompatEditText {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return false;
+            Log.d("StyleEdit", "onActionItemClicked");
+            return true;
         }
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            return false;
+            Log.d("StyleEdit", "onCreateActionMode");
+            return true;
         }
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-
+            Log.d("StyleEdit", "onDestroyActionMode");
         }
 
         @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
+            Log.d("StyleEdit", "onPrepareActionMode");
+            return true;
         }
     }
 

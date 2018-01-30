@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.5dp"
                         android:gravity="center"
-                        android:text="Recargas"
+                        android:text="@string/btn_recharge_txt"
                         android:textColor="@android:color/holo_blue_bright" />
 
                     <GridView
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15.5dp"
                         android:gravity="center"
-                        android:text="Pagar"
+                        android:text="@string/btn_payment_txt"
                         android:textColor="@android:color/holo_blue_bright" />
 
                     <GridView

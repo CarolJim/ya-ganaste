@@ -352,6 +352,7 @@
     <string name="birthDay">Fecha de Nacimiento</string>
     <string name="county">País de Nacimiento</string>
     <string name="country_nationality">Nacionalidad</string>
+    <string name="curp">CURP</string>
     <!-- Datos Personales -->
     <string name="datos_personal_nombre">Ingresa tu Nombre</string>
     <string name="datos_personal_paterno">Ingresa tu Primer Apellido</string>
@@ -438,7 +439,7 @@
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Wallet</string>
     <string name="main_tab_pagos">Pagar</string>
-    <string name="main_tab_depositos">Enviar</string>
+    <string name="main_tab_depositos">Envíos</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Movimientos</string>
@@ -956,6 +957,7 @@
 
     <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
     <string name="input_alphanumeric_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
+    <string name="input_alphanumeric_space_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890\u0020</string>
     <string name="input_letters_concepto">ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz\u0020</string>
 
     <string name="details_monto">Monto</string>
@@ -1170,14 +1172,13 @@
     <string name="confirma_nueva_contraseña">Confirmar Nueva Contraseña</string>
     <string name="confirmar_contrase">La Contraseña no Coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato Para Que Accedas Más Rápido\n\nIngresa Una Contraseña de 6 Dígitos</string>
-    <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Digitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
-    <string name="formato_password">Tu Nueva Contraseña Debe\nTener 6 Digitos</string>
-    <string name="formato_password_change">Tu Contraseña Debe\nTener 6 Digitos</string>
-
+    <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Dígitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
+    <string name="formato_password">Tu Nueva Contraseña Debe\nTener 6 Dígitos</string>
+    <string name="formato_password_change">Tu Contraseña Debe\nTener 6 Dígitos</string>
 
 
     <!-- Transitions -->
-    <string name="transition_name_mov">transition:MOVE</string>
+    <string name="transition_name_mov">transition:MO|VE</string>
 
     <!--Navegation Drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -1186,6 +1187,7 @@
     <string name="navigation_drawer_menu_chat">Chat</string>
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
     <string name="navigation_drawer_menu_acerca">Acerca De</string>
+    <string name="navigation_drawer_logout">Cerrar Sesión</string>
 
     <string name="security_huella_option">Huella Digital</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
@@ -1199,6 +1201,7 @@
     <string name="synch_favorites">Obteniendo Favoritos</string>
     <string name="synch_carrier">Obteniendo Carriers</string>
     <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>
+    <string name="error_add_numero">El Destinatario ya se Encuentra Agregado</string>
 
     <!-- Procesos de PaymentActivity-->
     <string name="txt_recargas">Recargas</string>

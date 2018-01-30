@@ -116,6 +116,12 @@ public class PaymentAdapterRV extends BaseAdapter {
                         mContext.sendData(position, mType);
                     }
                 });
+                imageViewBorder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.sendData(position, mType);
+                    }
+                });
 
             } else {
                 // Procesos para favoritos
@@ -175,6 +181,12 @@ public class PaymentAdapterRV extends BaseAdapter {
                         mContext.sendData(position, mType);
                     }
                 });
+                imageViewBorder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.sendData(position, mType);
+                    }
+                });
 
                 imageView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -218,7 +230,7 @@ public class PaymentAdapterRV extends BaseAdapter {
     private String getIniciales(String fullName) {
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
-        if (spliName.length == 2) {
+        if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
         } else {
             sIniciales = fullName.substring(0, 2).toUpperCase();

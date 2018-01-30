@@ -182,6 +182,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="textVisiblePassword"
                 android:longClickable="false"
+                android:cursorVisible="true"
                 android:maxLength="12"
                 android:maxLines="1" />
 
@@ -303,6 +304,7 @@
                 style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:digits="@string/input_alphanumeric_space_reference"
                 android:hint="@string/hint_concepto"
                 android:inputType="textCapSentences"
                 android:longClickable="false"

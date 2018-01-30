@@ -90,10 +90,12 @@ import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
@@ -156,6 +158,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         return new Intent(from, TabActivity.class);
     }
 
+    public static final String TAG = TabActivity.class.getSimpleName();
+    public static final String TAG2 = "RegistroToken";
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
@@ -199,7 +203,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         fbmPresenter = new FBPresenter(this, new FBInteractor());
         String tokenFBExist = pref.loadData(TOKEN_FIREBASE_STATUS);
         String tokenFB = pref.loadData(TOKEN_FIREBASE);
+        //Log.d(TAG2, "tokenFB " + tokenFB);
+        //Log.d(TAG2, "tokenFBExist " + tokenFBExist);
         if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
+            //  Log.d(TAG2, "FBPresenter " + tokenFB);
             fbmPresenter.registerFirebaseToken(tokenFB);
         }
     }
@@ -332,7 +339,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         if (pref.containsData(CUPO_COMPLETE) && pref.loadDataBoolean(CUPO_COMPLETE, false)) {
             pref.saveDataBool(CUPO_COMPLETE, false);
-            Log.e("Test", "Mostrar Ventana Tutorial");
         }
 
         updatePhoto();
@@ -641,8 +647,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void onItemClick(OptionMenuItem optionMenuItem) {
         //Intent intent = new Intent(getApplication(),PreferUserActivity.class);
         Intent intent = new Intent(this, PreferUserActivity.class);
-
-
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:
                 intent.putExtra(MENU, MENU_SEGURIDAD);
@@ -655,6 +659,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             case ID_ACERCA_DE:
                 intent.putExtra(MENU, MENU_TERMINOS);
                 //startActivityForResult(intent, CODE_LOG_OUT);
+                break;
+            case ID_LOGOUT:
+                intent.putExtra(MENU, MENU_LOGOUT);
                 break;
             default:
                 Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();

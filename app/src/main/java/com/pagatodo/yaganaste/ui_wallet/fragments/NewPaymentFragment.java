@@ -182,7 +182,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         } else {
             updateFavorites();
         }
-        UI.hideKeyBoard(getActivity());
+        //UI.hideKeyBoard(getActivity());
     }
 
     private void updateCarriers() {
@@ -506,7 +506,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 break;
             case SEARCH_FAVORITO_RECARGA:
                 if (mDataRecargarFav != null) {
-                    if (mDataRecargarFav.get(position).getNombreComercio().equals("Buscar")) {
+                    if (mDataRecargarFav.get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();
@@ -529,7 +529,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 break;
             case SEARCH_FAVORITO_PAGOS:
                 if (mDataPagarFav != null) {
-                    if (mDataPagarFav.get(position).getNombreComercio().equals("Buscar")) {
+                    if (mDataPagarFav.get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();

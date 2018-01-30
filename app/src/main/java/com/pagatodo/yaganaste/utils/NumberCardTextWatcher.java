@@ -20,6 +20,8 @@ public class NumberCardTextWatcher implements TextWatcher {
     private EditText cardNumber;
     private ITextChangeListener listener;
     private int maxLength;
+    private String finalText = "";
+    private String auxText = "";
 
     public NumberCardTextWatcher(EditText cardNumber, int maxLength) {
         this.cardNumber = cardNumber;
@@ -32,12 +34,26 @@ public class NumberCardTextWatcher implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        finalText = "";
+        auxText = "";
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+        String newString = "";
+        auxText = charSequence.toString().replaceAll(" ", "");
 
+        // Procesamos si el texto se sale de los rangos permitidos de maxlenght
+        if (auxText.length() > maxLength - 3) {
+            // Procesamos el recorte
+            int baseNum = maxLength - 3;
+            newString = charSequence.toString().substring(0, baseNum);
+            auxText = StringUtils.genericFormat(newString.toString().replaceAll(" ", ""), SPACE);
+            cardNumber.removeTextChangedListener(this);
+            cardNumber.setText(auxText);
+            cardNumber.addTextChangedListener(this);
+            finalText = auxText;
+        }
     }
 
     /**
@@ -51,13 +67,14 @@ public class NumberCardTextWatcher implements TextWatcher {
     public void afterTextChanged(Editable s) {
         cardNumber.removeTextChangedListener(this);
         String newS;
-        newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,4);
-        /*if (maxLength == 19) {//Formato 4 4 4 4
-            newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,4);
-        } else { //Formato Amex: 4 6 5
-            //newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,6,5);
-            newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,3);
-        }*/
+        // newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,4);
+
+        if (finalText.length() > 0) {
+            newS = StringUtils.format(finalText.toString().replace(" ", ""), SPACE, 4, 4, 4, 4);
+        } else {
+            newS = StringUtils.format(s.toString().replace(" ", ""), SPACE, 4, 4, 4, 4);
+        }
+
         cardNumber.setText(newS);
         cardNumber.setSelection(newS.length());
         cardNumber.addTextChangedListener(this);

@@ -51,10 +51,9 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_NOTIFICACIONES;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
@@ -161,8 +160,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         //loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
         //loadFragment(MyUserFragment.newInstance());
-        if (getIntent().getIntExtra(MENU,0) == 3){
+        if (getIntent().getIntExtra(MENU, 0) == MENU_TERMINOS) {
             loadFragment(ListaAyudaLegalesFragment.newInstance());
+        } else if (getIntent().getIntExtra(MENU, 0) == MENU_LOGOUT) {
+            onEvent(PREFER_USER_CLOSE, null);
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0)));
         }
@@ -392,7 +393,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_MY_USER_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
-                loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0)),Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0)), Direction.BACK, false);
 
                 break;
 
@@ -430,11 +431,11 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
 
             case "PREFER_NOTIFICACIONES":
-                loadFragment(NotificacionesPrefFragment.newInstance(),Direction.FORDWARD, false);
+                loadFragment(NotificacionesPrefFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case "PREFER_NOTIFICACIONES_BACK":
-                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES),Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES), Direction.BACK, false);
                 break;
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
@@ -499,9 +500,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
             } else if (currentFragment instanceof MyNotifyConfigFragment) {
                 onEvent(PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK, null);
-            }else if (currentFragment instanceof SecurityFragment){
+            } else if (currentFragment instanceof SecurityFragment) {
                 onEvent(PREFER_USER_LISTA, null);
-            }else if (currentFragment instanceof NotificacionesPrefFragment){
+            } else if (currentFragment instanceof NotificacionesPrefFragment) {
                 onEvent(PREFER_NOTIFICACIONES_BACK, null);
             } else {
                 super.onBackPressed();

@@ -79,13 +79,11 @@ import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
-import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Formatter;
 import java.util.List;
 
 import butterknife.BindView;
@@ -243,6 +241,8 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
         tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
         tipoPago.add(QR_CODE.getId(), QR_CODE.getName(getContext()));
 
+        cardNumber.setLongClickable(true);
+        cardNumber.setSingleLine();
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
 
@@ -896,6 +896,29 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
 
     @Override
     public void showErrorService() {
+        hideLoader();
+        editListServ.setDrawableImage(R.drawable.menu_canvas);
+
+        if (!solicitabanco) {
+            UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            solicitabanco = true;
+                            editListServ.setText("");
+                            editListServ.setDrawableImage(R.drawable.menu_canvas);
+                            editListServ.setHintText("Banco");
+                            comercioItem = null;
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+                            solicitabanco = true;
+                        }
+                    },
+                    true, false);
+        }
+        solicitabanco = true;
 
     }
 
@@ -1048,7 +1071,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             bancoselected = false;
             cardNumber.setText("");
             cardNumber.setHint(getString(R.string.transfer_cable));
-            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
+            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
             cardNumber.addTextChangedListener(textWatcher);
             textchangeclabe();
             layoutImageContact.setVisibility(View.GONE);
@@ -1080,7 +1103,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
             referenceFavorite = null;
             cardNumber.setText("");
             maxLength = 22;
-            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
+            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
             cardNumber.addTextChangedListener(textWatcher);
             textchangeclabe();
             layoutImageContact.setVisibility(View.GONE);
