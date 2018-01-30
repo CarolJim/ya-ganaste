@@ -19,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
@@ -108,6 +107,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     CustomValidationEditText editCountry;
     @BindView(R.id.errorCountryMessage)
     ErrorMessage errorCountryMessage;
+    @BindView(R.id.editCurp)
+    CustomValidationEditText editCurp;
+    @BindView(R.id.errorCurp)
+    ErrorMessage errorCurp;
+
     StatesSpinnerAdapter adapterBirthPlace;
     Calendar newDate;
     Calendar actualDate;
@@ -117,6 +121,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String apPaterno = "";
     private String apMaterno = "";
     private String fechaNacimiento = "";
+    private String curp = "";
     private Countries country;
     int year;
     int month;
@@ -215,6 +220,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         errorFLastNameMessage.setVisibilityImageError(false);
         errorBirthDayMessage.setVisibilityImageError(false);
         errorBirthPlaceMessage.setVisibilityImageError(false);
+        errorCurp.setVisibilityImageError(false);
 
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
         editBirthDay.setDrawableImage(R.drawable.calendar);
@@ -241,6 +247,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 return false;
             }
         });
+        editCurp.setCurpFormat();
 
         //radioBtnMale.setChecked(true);/
         setCurrentData();// Seteamos datos si hay registro en proceso.
@@ -260,7 +267,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.editCountry:
                 onCountryClick();
                 break;
-
             case R.id.imageViewValidation:
                 onCountryClick();
                 break;
@@ -545,7 +551,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         /*if (BuildConfig.DEBUG) {
             onValidationSuccess();
         } else {*/
-            accountPresenter.validatePersonData();
+        accountPresenter.validatePersonData();
         //}
     }
 
@@ -721,5 +727,4 @@ public class DatosPersonalesFragment extends GenericFragment implements
             }
         }
     }
-
 }

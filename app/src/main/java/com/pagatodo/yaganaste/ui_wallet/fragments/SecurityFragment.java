@@ -2,19 +2,14 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.content.Context;
-import android.hardware.fingerprint.FingerprintManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -25,27 +20,25 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.content.Context.FINGERPRINT_SERVICE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_NOTIFICACIONES;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_EMAIL;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_NOTIFICACIONES;
-import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SecurityFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SecurityFragment extends SupportFragment implements MenuAdapter.OnItemClickListener{
+public class SecurityFragment extends SupportFragment implements MenuAdapter.OnItemClickListener {
 
     public static String MENU = "MENU";
     public static int MENU_SEGURIDAD = 1;
     public static int MENU_AJUSTES = 2;
     public static int MENU_TERMINOS = 3;
+    public static int MENU_LOGOUT = 4;
     final public static int MENU_NOTIFICACIONES = 3;
     private int TYPE_MENU;
 
@@ -90,17 +83,17 @@ public class SecurityFragment extends SupportFragment implements MenuAdapter.OnI
 
     @Override
     public void initViews() {
-        if (getArguments() != null){
+        if (getArguments() != null) {
             TYPE_MENU = getArguments().getInt(MENU);
         }
 
-        switch (TYPE_MENU){
+        switch (TYPE_MENU) {
             case 1:
-                listView.setAdapter(new MenuAdapter(getContext(),new OptionMenuItem(getContext()).SECURITY_MENU(),this));
+                listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).SECURITY_MENU(), this));
                 //listView.setOnItemClickListener(this);
                 break;
             case 2:
-                listView.setAdapter(new MenuAdapter(getContext(),new OptionMenuItem(getContext()).SETTINGS_MENU(),this));
+                listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).SETTINGS_MENU(), this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
                 break;
             case 3:
@@ -108,16 +101,16 @@ public class SecurityFragment extends SupportFragment implements MenuAdapter.OnI
                 //listView.setAdapter(new MenuAdapter(getContext(),new OptionMenuItem(getContext()).SETTINGS_NOTIFICACIONES(),this));
                 break;
 
-                default:
-                    Toast.makeText(getContext(),"Intentar Mas Tarde",Toast.LENGTH_SHORT).show();
-                    break;
+            default:
+                Toast.makeText(getContext(), "Intentar Mas Tarde", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
 
     @Override
     public void onItemClick(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()){
+        switch (optionMenuItem.getIdItem()) {
             case ID_CCAMBIAR_PASS:
                 onEventListener.onEvent(PREFER_USER_PASS, null);
                 break;
@@ -127,9 +120,9 @@ public class SecurityFragment extends SupportFragment implements MenuAdapter.OnI
             case ID_DESVINCULAR:
                 onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
                 break;
-                default:
+            default:
 
-                    break;
+                break;
         }
     }
 }

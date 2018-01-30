@@ -87,7 +87,7 @@ public class FavoritesRequestPaymentAdapter extends RecyclerView.Adapter<Favorit
     private String getIniciales(String fullName) {
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
-        if (spliName.length == 2) {
+        if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
         } else {
             sIniciales = fullName.substring(0, 2).toUpperCase();

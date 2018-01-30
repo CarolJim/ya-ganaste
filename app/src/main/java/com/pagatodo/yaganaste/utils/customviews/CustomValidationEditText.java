@@ -13,14 +13,11 @@ import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.Patterns;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +25,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -37,8 +33,6 @@ import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 
-import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
-import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 
 /**
@@ -186,10 +180,10 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         int childCount = parent.getChildCount();
         View child;
         StyleEdittext found = null;
-        for (int n = 0 ; n < childCount ; n++) {
+        for (int n = 0; n < childCount; n++) {
             child = parent.getChildAt(n);
             if (child instanceof ViewGroup) {
-                found =  findRecursiveEditText((ViewGroup) child);
+                found = findRecursiveEditText((ViewGroup) child);
             } else if (child instanceof StyleEdittext) {
                 return (StyleEdittext) child;
             }
@@ -209,11 +203,11 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                     setValidationListener(txt);
                     break;
                 case "1"://password
-                    if (pref.loadDataBoolean(TECLADO_CUSTOM,false)){
+                    if (pref.loadDataBoolean(TECLADO_CUSTOM, false)) {
 
                         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
-                    }else {
+                    } else {
                         editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     }
                     setValidationListener(txt);
@@ -345,6 +339,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         imageView.setImageResource(image);
         this.pinnedIcon = image;
     }
+
     public void cleanImage() {
         imageView.setVisibility(GONE);
     }
@@ -411,6 +406,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     /**
      * Asignamos el onEditorActionListener al EditText que lo solicite por emdio de este metodo
      * Es necesario recibir una clase internar que reaccionara a las pulsaciones
+     *
      * @param onEditorActionListener
      */
     public void addCustomEditorActionListener(TextView.OnEditorActionListener onEditorActionListener) {
@@ -426,8 +422,11 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     }
 
     public boolean imageViewIsVisible() {
-
         return imageView.getVisibility() == VISIBLE ? true : false;
+    }
+
+    public void setCurpFormat() {
+        editText.setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(18)});
     }
 
     private void setIconPinned(int pinnedIcon) {
