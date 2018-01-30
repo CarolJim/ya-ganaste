@@ -116,6 +116,12 @@ public class PaymentAdapterRV extends BaseAdapter {
                         mContext.sendData(position, mType);
                     }
                 });
+                imageViewBorder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.sendData(position, mType);
+                    }
+                });
 
             } else {
                 // Procesos para favoritos
@@ -170,6 +176,12 @@ public class PaymentAdapterRV extends BaseAdapter {
                 }
 
                 imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.sendData(position, mType);
+                    }
+                });
+                imageViewBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mContext.sendData(position, mType);

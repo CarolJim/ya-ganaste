@@ -11,6 +11,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
 import com.pagatodo.yaganaste.utils.StringConstants;
 
+import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_SUCCESS;
+
 /**
  * Created by FranciscoManzo on 17/01/2018.
  * Presenter exclusivo para eventos relacionados con FBMessage
@@ -22,6 +24,7 @@ public class FBPresenter implements IFBPresenter, IFBInteractor.IFBInteractorLis
     IFBView mView;
     IFBInteractor fbInteractor;
     private Preferencias prefs = App.getInstance().getPrefs();
+    public static final String TAG2 = "RegistroToken";
 
     public FBPresenter(IFBView mView, FBInteractor fbInteractor) {
         this.mView = mView;
@@ -35,13 +38,13 @@ public class FBPresenter implements IFBPresenter, IFBInteractor.IFBInteractorLis
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-        Log.d("FBPresenter", "Cool");
-        prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, StringConstants.TOKEN_FIREBASE_SUCCESS);
+        //  Log.d(TAG2, "onSuccess " + TOKEN_FIREBASE_SUCCESS + " " + dataSourceResult.getData());
+        prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, TOKEN_FIREBASE_SUCCESS);
     }
 
     @Override
     public void onError(DataSourceResult error) {
-        Log.d("FBPresenter", "Not Cool");
+        // Log.d(TAG2, "onError " + error.getData());
         prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, StringConstants.TOKEN_FIREBASE_FAIL);
     }
 

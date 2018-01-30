@@ -157,6 +157,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     public static final String TAG = TabActivity.class.getSimpleName();
+    public static final String TAG2 = "RegistroToken";
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
@@ -200,8 +201,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         fbmPresenter = new FBPresenter(this, new FBInteractor());
         String tokenFBExist = pref.loadData(TOKEN_FIREBASE_STATUS);
         String tokenFB = pref.loadData(TOKEN_FIREBASE);
+        //Log.d(TAG2, "tokenFB " + tokenFB);
+        //Log.d(TAG2, "tokenFBExist " + tokenFBExist);
         if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
-            Log.d(TAG, "FBPresenter " + tokenFB);
+            //  Log.d(TAG2, "FBPresenter " + tokenFB);
             fbmPresenter.registerFirebaseToken(tokenFB);
         }
     }
@@ -334,7 +337,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         if (pref.containsData(CUPO_COMPLETE) && pref.loadDataBoolean(CUPO_COMPLETE, false)) {
             pref.saveDataBool(CUPO_COMPLETE, false);
-            Log.e("Test", "Mostrar Ventana Tutorial");
         }
 
         updatePhoto();
