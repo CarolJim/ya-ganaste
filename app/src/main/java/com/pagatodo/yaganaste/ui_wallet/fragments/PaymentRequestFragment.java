@@ -87,7 +87,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     RecyclerView rcvRequestPayment;
     @BindView(R.id.btn_continue_payment)
     StyleButton btnSolicitar;
-
+    boolean isadd=false;
     PaymentsCarouselPresenter paymentsCarouselPresenter;
     List<DataFavoritos> lstFavorites;
     ArrayList<DtoRequestPayment> lstRequestPayment;
@@ -345,24 +345,29 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     @Override
     public void onAddNewRequest(DtoRequestPayment dtoRequestPayment) {
         // Delete add request item
+    isadd=false;
 
-
-        if (!lstRequestPayment.contains(dtoRequestPayment)) {
-
-                if (lstRequestPayment.size() > 1) {
-                    lstRequestPayment.remove(lstRequestPayment.size() - 1);
-                }
-                this.dtoRequestPayment = dtoRequestPayment;
-                String msj = "Hola, " + "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
-                this.dtoRequestPayment.setHeadMessage(msj);
-                enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
-                //lstRequestPayment.add(dtoRequestPayment);
-                //notifyRequestContainer();
-
-        }else {
-            UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_numero), getActivity().getSupportFragmentManager(), getFragmentTag());
-            //UI.showToastShort(App.getContext().getString(R.string.error_add_numero), getActivity());
+        for (int i=0;i<lstRequestPayment.size();i++) {
+            if (lstRequestPayment.get(i).getReference().equals(dtoRequestPayment.getReference())) {
+                isadd=true;
+            }
         }
+                if (!isadd) {
+                    isadd=false;
+                    if (lstRequestPayment.size() > 1) {
+                        lstRequestPayment.remove(lstRequestPayment.size() - 1);
+                    }
+                    this.dtoRequestPayment = dtoRequestPayment;
+                    String msj = "Hola, " + "" + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
+                    this.dtoRequestPayment.setHeadMessage(msj);
+                    enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
+                    //lstRequestPayment.add(dtoRequestPayment);
+                    //notifyRequestContainer();
+                }else {
+                    UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_numero), getActivity().getSupportFragmentManager(), getFragmentTag());
+                }
+
+
     }
     private void setBackUpResponseFav(List<DataFavoritos> mResponse) {
         lstFavorites = new ArrayList<>();
