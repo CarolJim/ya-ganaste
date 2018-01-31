@@ -421,4 +421,11 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         super.onResume();
         updatePhoto();
     }
-}
+
+            @Override
+            public void setLogOutSession() {
+
+            }
+
+        }
+

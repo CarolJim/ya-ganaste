@@ -36,4 +36,6 @@ public interface IPreferUserIteractor {
 
     void enviarCorreoContactanos(EnviarCorreoContactanosRequest enviarCorreoContactanosRequest);
 
+    void logOutSession();
+
 }

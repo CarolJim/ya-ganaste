@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
@@ -78,8 +79,12 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 logout();
             }
         }
+    }
 
-
+    @Override
+    public void logOutSession() {
+        logOutBefore = true;
+        logout();
     }
 
     @Override
@@ -231,9 +236,13 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
      */
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-        if (dataSourceResult.getData() instanceof CerrarSesionRequest) {
+        if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
+            RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
             App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
+            //CerrarSesionRequest response = (CerrarSesionRequest) dataSourceResult.getData();
+            preferUserPresenter.successGenericToPresenter(dataSourceResult);
+
         }
 
         /**

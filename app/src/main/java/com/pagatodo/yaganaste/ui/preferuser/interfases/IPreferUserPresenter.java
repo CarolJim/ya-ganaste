@@ -58,4 +58,5 @@ public interface IPreferUserPresenter {
 
     void sendErrorServerCorreoContactanosPresenter(String s);
 
+    void logOutSession();
 }

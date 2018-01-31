@@ -1394,5 +1394,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public void showError(Errors error) {
     }
 
+    @Override
+    public void setLogOutSession() {
 
+    }
 }

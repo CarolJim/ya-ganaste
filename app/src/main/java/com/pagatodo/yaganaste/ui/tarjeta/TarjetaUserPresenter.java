@@ -183,4 +183,9 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
         iMyHelpMensajeContactanos.hideLoader();
         iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(s);
     }
+
+    @Override
+    public void logOutSession() {
+
+    }
 }

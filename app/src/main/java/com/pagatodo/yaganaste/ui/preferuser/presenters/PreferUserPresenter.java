@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
@@ -126,6 +127,11 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         mView.showLoader(App.getContext().getResources().getString(R.string.user_change_desasociar));
         DesasociarDispositivoRequest desasociarRequest = new DesasociarDispositivoRequest();
         iPreferUserIteractor.desasociarToIteracto(desasociarRequest);
+    }
+
+    @Override
+    public void logOutSession() {
+        iPreferUserIteractor.logOutSession();
     }
 
     /**
@@ -294,6 +300,15 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         if (dataSourceResult.getData() instanceof DesasociarDispositivoResponse) {
             DesasociarDispositivoResponse response = (DesasociarDispositivoResponse) dataSourceResult.getData();
             iPreferDesasociarView.sendSuccessDesasociarToView(response.getMensaje());
+        }
+
+        /**
+         * Cerrar sesison
+         */
+        if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
+            //DesasociarDispositivoResponse response = (DesasociarDispositivoResponse) dataSourceResult.getData();
+            //iPreferDesasociarView.sendSuccessDesasociarToView(response.getMensaje());
+            iListaOpcionesView.setLogOutSession();
         }
 
         /**

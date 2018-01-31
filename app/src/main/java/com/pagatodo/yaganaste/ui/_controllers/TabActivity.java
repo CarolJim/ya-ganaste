@@ -45,6 +45,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
@@ -188,7 +189,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         });
 
         showBack(false);
-       /* if (!pref.containsData(COUCHMARK_EMISOR)) {
+        /*if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
         }*/
@@ -645,29 +646,50 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void onItemClick(OptionMenuItem optionMenuItem) {
-        //Intent intent = new Intent(getApplication(),PreferUserActivity.class);
-        Intent intent = new Intent(this, PreferUserActivity.class);
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:
-                intent.putExtra(MENU, MENU_SEGURIDAD);
-                //startActivityForResult(intent, CODE_LOG_OUT);
+                actionMenu(MENU_SEGURIDAD);
                 break;
             case ID_AJUSTES:
-                intent.putExtra(MENU, MENU_AJUSTES);
-                //startActivityForResult(intent, CODE_LOG_OUT);
+                actionMenu(MENU_AJUSTES);
                 break;
             case ID_ACERCA_DE:
-                intent.putExtra(MENU, MENU_TERMINOS);
-                //startActivityForResult(intent, CODE_LOG_OUT);
+                actionMenu(MENU_TERMINOS);
                 break;
             case ID_LOGOUT:
-                intent.putExtra(MENU, MENU_LOGOUT);
+                logOut();
                 break;
             default:
                 Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();
                 break;
         }
+
+    }
+    public void actionMenu(int opcionMenu){
+        Intent intent = new Intent(this, PreferUserActivity.class);
+        intent.putExtra(MENU, opcionMenu);
         startActivityForResult(intent, CODE_LOG_OUT);
+    }
+
+    public void logOut(){
+        UI.createSimpleCustomDialog("",
+                App.getContext().getResources().getString(R.string.desea_cerrar_sesion),
+                getSupportFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        Intent intent = new Intent(TabActivity.this, MainActivity.class);
+                        intent.putExtra(SELECTION, MAIN_SCREEN);
+                        startActivity(intent);
+                        mPreferPresenter.logOutSession();
+                        finish();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, true, true);
     }
 
     //Avatar
@@ -761,5 +783,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void onCropFailed(Throwable e) {
         e.printStackTrace();
+    }
+
+    @Override
+    public void setLogOutSession() {
+
     }
 }

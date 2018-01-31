@@ -1407,5 +1407,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     }
 
+    @Override
+    public void setLogOutSession() {
 
+    }
 }

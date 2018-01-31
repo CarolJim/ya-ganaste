@@ -153,4 +153,9 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
             tarjetaUserPresenter.showExceptionCorreoContactanosPresenter(App.getContext().getString(R.string.no_internet_access));
         }
     }
+
+    @Override
+    public void logOutSession() {
+
+    }
 }
