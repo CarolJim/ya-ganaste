@@ -694,6 +694,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void errorgetdatabank() {
         hideLoader();
         editListServ.setDrawableImage(R.drawable.menu_canvas);
+        bancoselected=true;
 
         if (!solicitabanco) {
             UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
@@ -898,7 +899,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     public void showErrorService() {
         hideLoader();
         editListServ.setDrawableImage(R.drawable.menu_canvas);
-
+        bancoselected=true;
         if (!solicitabanco) {
             UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
                     new DialogDoubleActions() {
