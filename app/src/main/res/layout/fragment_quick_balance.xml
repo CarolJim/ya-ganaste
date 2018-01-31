@@ -13,7 +13,7 @@
             android:id="@+id/txt_name_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium" android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center"
             android:text="@string/bienvenido_usuario"
             android:textColor="@color/bluecolor_disable"
@@ -81,7 +81,6 @@
 
 
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/layoutBtns"
             android:layout_width="match_parent"
