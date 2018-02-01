@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,9 @@ import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
+import com.pagatodo.yaganaste.ui_wallet.adapters.AdapterPagosClass;
 import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterRV;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
@@ -55,7 +58,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
  * Frank Manzo 27-12-17
  * Nuevo fragmento que contiene la nueva vista de pagos
  */
-public class NewPaymentFragment extends GenericFragment implements IPaymentFragment {
+public class NewPaymentFragment extends GenericFragment implements IPaymentFragment, IPaymentAdapter {
 
     @BindView(R.id.gvRecargas)
     GridView gvRecargas;
@@ -67,6 +70,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     TextView errorRecargas;
     @BindView(R.id.tvErrorServicios)
     TextView errorServicios;
+    @BindView(R.id.mRecyclerView)
+    RecyclerView mRecyclerView;
 
     private View rootview;
     private ArrayList myDataset;
@@ -200,8 +205,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     private void updateFavorites() {
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-        onEventListener.onEvent("DISABLE_BACK", true);
+        //  onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        // onEventListener.onEvent("DISABLE_BACK", true);
         mRecargarGrid.clear();
         mPagarGrid.clear();
         newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);
@@ -210,8 +215,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
-        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        onEventListener.onEvent("DISABLE_BACK", false);
+      //  onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        ////  onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -287,8 +292,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @Override
     public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
-        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        onEventListener.onEvent("DISABLE_BACK", false);
+        //onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        //onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -303,6 +308,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              */
             mDataRecargarFav = dataFavoritos;
             mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
+
+            AdapterPagosClass adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
+                    mRecyclerView, gvRecargas);
+
+            adapterPagosClass.createRecycler();
 
             // Creamos la lista que enviaremos al Grid con los datos del Recargas
             if (mDataRecargarFav.size() > 0) {
@@ -357,7 +367,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
          * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
          */
         if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+           // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
             newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
             typeView = TYPE_FAVORITE;
         }
