@@ -41,6 +41,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener {
 
     private static final int MY_PERMISSIONS_REQUEST_SOUND = 100;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 101;
     @BindView(R.id.et_amount)
     EditText et_amount;
     @BindView(R.id.edtConcept)
@@ -214,12 +215,20 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
         int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
                 Manifest.permission.RECORD_AUDIO);
+        int permissionLocation = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission_group.LOCATION);
 
         // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
         if (permissionCall == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
                     new String[]{Manifest.permission.RECORD_AUDIO},
                     MY_PERMISSIONS_REQUEST_SOUND);
+            isValid = false;
+        }
+        if (permissionLocation == -1){
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission_group.LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
             isValid = false;
         }
 
