@@ -464,12 +464,12 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
     @Override
     public void onTextChanged() {
         isCuentaValida = false;
-        receiverName.setText("");
+     //   receiverName.setText("");
     }
 
     @Override
     public void onTextComplete() {
-        enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+     //   enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
     }
 
     @Override
@@ -808,7 +808,13 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                             editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
                             idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
                             idComercio = finalList.get(x).getComercio().getIdComercio();
-
+                            if (idComercio == IDCOMERCIO_YA_GANASTE) {
+                                referenciaLayout.setVisibility(GONE);
+                                concept.setImeOptions(IME_ACTION_DONE);
+                                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                            }else {
+                                referenciaLayout.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                 }
@@ -953,6 +959,7 @@ public class EnviosFromFragmentNewVersion extends PaymentFormBaseFragment implem
                 card = card.replaceAll(" ", "");
 
                 if (card.length() == 10) {
+
                     enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
                 }
             }
