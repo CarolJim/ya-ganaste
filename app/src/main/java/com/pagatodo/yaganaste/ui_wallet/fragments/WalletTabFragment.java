@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
  */
 public class WalletTabFragment extends SupportFragment implements WalletView,
         ElementsWalletAdpater.OnItemClickListener, IMyCardViewHome,
-        ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ID_OPERATION = "ID_OPERATION";
     @BindView(R.id.progressGIF)
@@ -66,6 +67,8 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     LinearLayout pager_indicator;
     @BindView(R.id.tipo_saldo)
     StyleTextView tipoSaldo;
+    @BindView(R.id.swipe_container)
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     private WalletPresenter walletPresenter;
@@ -112,6 +115,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void initViews() {
+        swipeRefreshLayout.setOnRefreshListener(this);
         GridLayoutManager llm = new GridLayoutManager(getContext(), 3);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
@@ -136,6 +140,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void completed(boolean error) {
+        swipeRefreshLayout.setRefreshing(false);
         progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = new CardWalletAdpater();
 
@@ -323,5 +328,9 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                 true, false);
     }
 
+    @Override
+    public void onRefresh() {
+        checkDataCard();
+    }
 }
 
