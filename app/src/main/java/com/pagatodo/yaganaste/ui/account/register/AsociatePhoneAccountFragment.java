@@ -61,6 +61,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
+    public static final int MY_PERMISSIONS_REQUEST_SEND_CALL = 118;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
     int counterRetry = 1;
@@ -140,15 +141,19 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     protected void continuePayment() {
-        int permissionCheck = ContextCompat.checkSelfPermission(getContext(),
+        int permissionSms = ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.SEND_SMS);
-        Log.d("AsociatePhone", "permissionCheck " + permissionCheck);
-
+        int permissionCall = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CALL_PHONE);
         // Si no tenemos el permiso lo solicitamos, en cawso contrario entramos al proceso de envio del MSN
-        if (permissionCheck == -1) {
+        if (permissionSms == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
                     new String[]{Manifest.permission.SEND_SMS},
                     MY_PERMISSIONS_REQUEST_SEND_SMS);
+        } else if(permissionCall == -1){
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_SEND_CALL);
         } else {
             onRequestPermissionsResult();
         }
