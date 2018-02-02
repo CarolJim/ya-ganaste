@@ -164,7 +164,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void onResume() {
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+       // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
         paymentsCarouselPresenter.getFavoriteCarouselItems();
         super.onResume();
     }
