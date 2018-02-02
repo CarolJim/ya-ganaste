@@ -67,6 +67,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         this.iListaOpcionesView = iListaOpcionesView;
         this.iPreferUserIteractor = new PreferUserIteractor(this);
     }
+
     public PreferUserPresenter(IMyCardView myCardView) {
         iPreferUserIteractor = new PreferUserIteractor(this);
     }
@@ -177,6 +178,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     /**
      * Enviamos al Iteractor la operacion para Bloquear o Desbloquear temporalmente la TDC,
      * depenciendo de la constante @param operation
+     *
      * @param operation
      */
     @Override
@@ -189,6 +191,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
 
     /**
      * Enviamos al Iteractor la operacion para obtener el estatus de la TDC,
+     *
      * @param mTDC
      */
     public void toPresenterEstatusCuenta(String mTDC) {
@@ -306,9 +309,9 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
          * Cerrar sesison
          */
         if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
-            //DesasociarDispositivoResponse response = (DesasociarDispositivoResponse) dataSourceResult.getData();
-            //iPreferDesasociarView.sendSuccessDesasociarToView(response.getMensaje());
-            iListaOpcionesView.setLogOutSession();
+            if (iListaOpcionesView != null) {
+                iListaOpcionesView.setLogOutSession();
+            }
         }
 
         /**
@@ -432,8 +435,9 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     }
 
     /**
-     *  Recibe el error del Iteractor y usamos el metodo de sendErrorDatosCuentaToView para enviar el mensaje
+     * Recibe el error del Iteractor y usamos el metodo de sendErrorDatosCuentaToView para enviar el mensaje
      * de error a nuestra vista iPreferDesasociarView, asi no creamos otro metodo adicional en la vista
+     *
      * @param mensaje
      */
     public void sendErrorServerDatosCuentaToPresenter(String mensaje) {
@@ -483,6 +487,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         mView.hideLoader();
         mView.sendErrorEstatusCuentaToView(mensaje);
     }
+
     @Override
     public void enviarCorreoContactanosPresenter(EnviarCorreoContactanosRequest request) {
         iPreferUserIteractor.enviarCorreoContactanos(request);
