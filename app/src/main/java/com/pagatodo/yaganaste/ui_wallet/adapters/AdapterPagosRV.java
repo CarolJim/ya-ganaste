@@ -5,29 +5,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by FranciscoManzo on 31/01/2018.
+ * Genera el RecyclarView y en cada posicion, usa la lista general, para hacer una posicion 0,1,N
+ * con sublistas de 8 elementos o menos
  */
 
-class AdapterPagosRV extends RecyclerView.Adapter<AdapterPagosRV.ViewHolder>
-implements IPaymentFragment {
+class AdapterPagosRV extends RecyclerView.Adapter<AdapterPagosRV.ViewHolder> {
     ArrayList<ArrayList<DataFavoritos>> mFullListaFav;
     ArrayList<DataFavoritos> mAuxFav, mAuxFav2;
     private ArrayList mRecargarGrid;
+    IPaymentFragment mView;
+    int mType, typeOperation;
 
-    public AdapterPagosRV(ArrayList<ArrayList<DataFavoritos>> mFullListaFav) {
+    public AdapterPagosRV(ArrayList<ArrayList<DataFavoritos>> mFullListaFav, IPaymentFragment mView,
+                          int mType, int typeOperation) {
         this.mFullListaFav = mFullListaFav;
+        this.mView = mView;
+        this.mType = mType;
+        this.typeOperation = typeOperation;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -46,16 +50,28 @@ implements IPaymentFragment {
         return vh;
     }
 
+    /**
+     * Generamos el GridView en cada posicion del RV, es importante notar que pasamos la vista que
+     * de la interfase que respondera, y la position del RV.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         //holder.myText.setText(mDataset[position]);
         mAuxFav = new ArrayList<>();
         mRecargarGrid = new ArrayList<>();
         mRecargarGrid = getDataList(position);
-        holder.gvHolder.setAdapter(new PaymentAdapterRV(mRecargarGrid, this,
-                1, 1));
+        holder.gvHolder.setAdapter(new PaymentAdapterGV(mRecargarGrid, mView,
+                mType, typeOperation, position));
     }
 
+    /**
+     * Genera una lista particular para el View del GridView, con elementos sencillos, solo color de marca
+     * nombre y url de la imagen, para no trabajar con todas las propiedades de DataFavorites
+     * @param position
+     * @return
+     */
     private ArrayList getDataList(int position) {
         mAuxFav = mFullListaFav.get(position);
 
@@ -72,35 +88,5 @@ implements IPaymentFragment {
     @Override
     public int getItemCount() {
         return mFullListaFav.size();
-    }
-
-    @Override
-    public void sendData(int position, int mType) {
-
-    }
-
-    @Override
-    public void editFavorite(int position, int mType) {
-
-    }
-
-    @Override
-    public void setDataFavorite(List<DataFavoritos> catalogos, int typeDataFav) {
-
-    }
-
-    @Override
-    public void sendFavoriteToView(DataFavoritos dataFavoritos, int mType) {
-
-    }
-
-    @Override
-    public void errorFail(DataSourceResult error) {
-
-    }
-
-    @Override
-    public void errorService() {
-
     }
 }

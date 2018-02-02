@@ -26,21 +26,28 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.TYPE
 
 /**
  * Created by FranciscoManzo on 27/12/2017.
+ * Genera un GridView. En dos casos diferentes:
+ * 1 - Es un simple GridView que pinta en la View para Carriers
+ * 2 - Pinta los datos de Favoritos en un Recycler
+ *
+ * Para que este metodo se mantenga estable para ambos casos, se agrega adicional typePosition, que es
+ * la posicion del RecyclerView
+ * 1 - Siempre tendra un -1 al generarse en los Carriers
+ * 2 - TEndra una posicion del 0 al N
  */
 
-public class PaymentAdapterRV extends BaseAdapter {
-    private static DisplayMetrics metrics = null;
+public class PaymentAdapterGV extends BaseAdapter {
     ArrayList<DataFavoritosGridView> myDataset;
     IPaymentFragment mContext;
-    int mType, mOperation;
+    int mType, mOperation, typePosition;
 
-    public PaymentAdapterRV(ArrayList<DataFavoritosGridView> myDataset, IPaymentFragment mContext,
-                            int mType, int typeOperation) {
+    public PaymentAdapterGV(ArrayList<DataFavoritosGridView> myDataset, IPaymentFragment mContext,
+                            int mType, int typeOperation, int typePosition) {
         this.myDataset = myDataset;
         this.mContext = mContext;
         this.mType = mType;
         this.mOperation = typeOperation;
-        metrics = App.getContext().getResources().getDisplayMetrics();
+        this.typePosition = typePosition;
     }
 
     @Override
@@ -113,13 +120,13 @@ public class PaymentAdapterRV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType);
+                        mContext.sendData(position, mType, typePosition);
                     }
                 });
                 imageViewBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType);
+                        mContext.sendData(position, mType, typePosition);
                     }
                 });
 
@@ -178,20 +185,20 @@ public class PaymentAdapterRV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType);
+                        mContext.sendData(position, mType, typePosition);
                     }
                 });
                 imageViewBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType);
+                        mContext.sendData(position, mType, typePosition);
                     }
                 });
 
                 imageView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        mContext.editFavorite(position, mType);
+                        mContext.editFavorite(position, mType, typePosition);
                         return true;
                     }
                 });
@@ -274,8 +281,4 @@ public class PaymentAdapterRV extends BaseAdapter {
         //imageView.setImageResource(myDataset.get(position).getmDrawable());
         imageView.setImageResource(R.mipmap.ic_launcher);
         return imageView;*/
-
-    public static int toPixels(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
-    }
 }

@@ -1,28 +1,27 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
-import android.nfc.Tag;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
-import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by FranciscoManzo on 31/01/2018.
+ * Controla el generar un RecycerView, en cada posicion del RV crea un GridView, que a su vez muestra
+ * los items de favoritos
  */
 
 public class AdapterPagosClass {
     private static final String TAG = AdapterPagosClass.class.getSimpleName();
 
-    IPaymentAdapter mView;
+    IPaymentFragment mView;
     ArrayList<DataFavoritos> mDataset;
     ArrayList<DataFavoritos> mDataAux;
     ArrayList<DataFavoritos> mDataAux2;
@@ -34,7 +33,7 @@ public class AdapterPagosClass {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public AdapterPagosClass(IPaymentAdapter mView, List<DataFavoritos> mDataset, RecyclerView mRecyclerView, GridView mGridView) {
+    public AdapterPagosClass(IPaymentFragment mView, List<DataFavoritos> mDataset, RecyclerView mRecyclerView, GridView mGridView) {
         this.mView = mView;
         this.mDataset = (ArrayList<DataFavoritos>) mDataset;
         this.mRecyclerView = mRecyclerView;
@@ -43,6 +42,10 @@ public class AdapterPagosClass {
         initData();
     }
 
+    /**
+     * Iniciamos las listas, el objetivo es hacer una lista general, que contenga sublistas en formato
+     * 8,8,3 por ejemplo.
+     */
     private void initData() {
         maxItem = mDataset.size();
         numGrids = maxItem / 8;
@@ -57,29 +60,35 @@ public class AdapterPagosClass {
                 countItem++;
             } else {
                 mFullListaFav.add(mDataAux);
-                mDataAux  = new ArrayList<>();
+                mDataAux = new ArrayList<>();
                 countItem = 0;
             }
         }
 
-        if(mDataAux.size() > 0){
+        if (mDataAux.size() > 0) {
             mFullListaFav.add(mDataAux);
-            mDataAux  = new ArrayList<>();
+            mDataAux = new ArrayList<>();
             countItem = 0;
         }
-
-        Log.d(TAG, "Punto Control");
     }
 
-
-    public void createRecycler() {
+    /**
+     * Inicializa los elementos para el RV
+     * @param mType
+     * @param typeOperation
+     */
+    public void createRecycler(int mType, int typeOperation) {
         mRecyclerView.setHasFixedSize(true);
 
+        // Hacemos el Set Horizontal para el RV
         mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new AdapterPagosRV(mFullListaFav);
+        mAdapter = new AdapterPagosRV(mFullListaFav, mView, mType, typeOperation);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public ArrayList<ArrayList<DataFavoritos>> getmFullListaFav() {
+        return mFullListaFav;
     }
 }

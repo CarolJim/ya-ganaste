@@ -12,7 +12,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.AdapterPagosClass;
-import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterRV;
+import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterGV;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
@@ -47,7 +46,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
@@ -70,8 +68,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     TextView errorRecargas;
     @BindView(R.id.tvErrorServicios)
     TextView errorServicios;
-    @BindView(R.id.mRecyclerView)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.mRVRecargas)
+    RecyclerView mRVRecargas;
+    @BindView(R.id.mRVPagos)
+    RecyclerView mRVPagos;
 
     private View rootview;
     private ArrayList myDataset;
@@ -82,6 +82,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     // Constantes para operaciones en el Grid
     public static final int TYPE_CARRIER = 1;
     public static final int TYPE_FAVORITE = 2;
+    public static final int TYPE_POSITION = -1;
+    // Esta constante es para lograr obtener la posicion en el AdapterPagos de 0,1,2,n
+    // Pero en Carriesrs no es necesario trabajar posiciones de 0 a N
 
     public static final int SEARCH_CARRIER_RECARGA = 1;
     public static final int SEARCH_CARRIER_PAGOS = 2;
@@ -95,6 +98,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private List<ComercioResponse> mDataPagar;
     private List<DataFavoritos> mDataRecargarFav;
     private List<DataFavoritos> mDataPagarFav;
+    ArrayList<ArrayList<DataFavoritos>> mFullListaRecar;
+    ArrayList<ArrayList<DataFavoritos>> mFullListaServ;
 
     public NewPaymentFragment() {
         // Required empty public constructor
@@ -199,6 +204,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         // Reiniciamos el Switch a false
         btnSwitch.setChecked(false);
 
+        /**
+         * Ocultamos los RV de favoritos y mostramos los GV de Carriers
+         */
+        gvRecargas.setVisibility(View.VISIBLE);
+        gvServicios.setVisibility(View.VISIBLE);
+        mRVRecargas.setVisibility(View.GONE);
+        mRVPagos.setVisibility(View.GONE);
+
         newPaymentPresenter.getCarriersItems(PAYMENT_RECARGAS);
         newPaymentPresenter.getCarriersItems(PAYMENT_SERVICIOS);
         typeView = TYPE_CARRIER;
@@ -215,7 +228,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
-      //  onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        //  onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         ////  onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
@@ -248,8 +261,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
 
                 errorRecargas.setVisibility(View.GONE);
-                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this,
-                        SEARCH_CARRIER_RECARGA, TYPE_CARRIER));
+                gvRecargas.setAdapter(new PaymentAdapterGV(mRecargarGrid, this,
+                        SEARCH_CARRIER_RECARGA, TYPE_CARRIER, TYPE_POSITION));
                 onEventListener.onEvent(EVENT_HIDE_LOADER, "");
                 onEventListener.onEvent("DISABLE_BACK", false);
                 // mRecargarGrid.clear();
@@ -277,8 +290,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
 
                 errorServicios.setVisibility(View.GONE);
-                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this,
-                        SEARCH_CARRIER_PAGOS, TYPE_CARRIER));
+                gvServicios.setAdapter(new PaymentAdapterGV(mPagarGrid, this,
+                        SEARCH_CARRIER_PAGOS, TYPE_CARRIER, TYPE_POSITION));
                 onEventListener.onEvent(EVENT_HIDE_LOADER, "");
                 onEventListener.onEvent("DISABLE_BACK", false);
                 // mRecargarGrid.clear();
@@ -291,6 +304,15 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     @Override
     public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
+
+        /**
+         * Mostramos los RV de favoritos y ocultamos los GV de Carriers
+         */
+        gvRecargas.setVisibility(View.GONE);
+        gvServicios.setVisibility(View.GONE);
+        mRVRecargas.setVisibility(View.VISIBLE);
+        mRVPagos.setVisibility(View.VISIBLE);
+
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
         //onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         //onEventListener.onEvent("DISABLE_BACK", false);
@@ -310,15 +332,17 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
 
             AdapterPagosClass adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
-                    mRecyclerView, gvRecargas);
+                    mRVRecargas, gvRecargas);
 
-            adapterPagosClass.createRecycler();
+            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, TYPE_FAVORITE);
+            mFullListaRecar = adapterPagosClass.getmFullListaFav();
 
-            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+/*            // Creamos la lista que enviaremos al Grid con los datos del Recargas
+                // TODO ELiminar despues de pruebas de estabilidad
             if (mDataRecargarFav.size() > 0) {
-                /**
-                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
-                 */
+                *//**
+             * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+             *//*
                 int llaveRecargas = mDataRecargarFav.size() > 8 ? 8 : mDataRecargarFav.size();
 
                 for (int x = 0; x < llaveRecargas; x++) {
@@ -328,23 +352,30 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                             mDataRecargarFav.get(x).getImagenURL()));
                 }
 
-                gvRecargas.setAdapter(new PaymentAdapterRV(mRecargarGrid, this,
+                gvRecargas.setAdapter(new PaymentAdapterGV(mRecargarGrid, this,
                         SEARCH_FAVORITO_RECARGA, TYPE_FAVORITE));
                 errorRecargas.setVisibility(View.GONE);
             } else {
                 gvRecargas.setVisibility(View.GONE);
                 errorRecargas.setVisibility(View.VISIBLE);
-            }
+            }*/
         } else if (typeDataFav == 2) {
             mDataPagarFav = dataFavoritos;
-            //mDataPagarFav.clear();
             mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
 
+            AdapterPagosClass adapterPagosClass = new AdapterPagosClass(this, mDataPagarFav,
+                    mRVPagos, gvRecargas);
+
+            adapterPagosClass.createRecycler(SEARCH_FAVORITO_PAGOS, TYPE_FAVORITE);
+            mFullListaServ = adapterPagosClass.getmFullListaFav();
+
             // Creamos la lista que enviaremos al Grid con los datos del Recargas
-            if (mDataPagarFav.size() > 0) {
-                /**
-                 * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
-                 */
+          /*
+            // TODO ELiminar despues de pruebas de estabilidad
+          if (mDataPagarFav.size() > 0) {
+                *//**
+             * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
+             *//*
                 int llaveServicios = mDataPagarFav.size() > 8 ? 8 : mDataPagarFav.size();
 
                 for (int x = 0; x < llaveServicios; x++) {
@@ -354,20 +385,20 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                             mDataPagarFav.get(x).getImagenURL()));
                 }
 
-                gvServicios.setAdapter(new PaymentAdapterRV(mPagarGrid, this,
-                        SEARCH_FAVORITO_PAGOS, TYPE_FAVORITE));
+                gvServicios.setAdapter(new PaymentAdapterGV(mPagarGrid, this,
+                        SEARCH_FAVORITO_PAGOS, TYPE_FAVORITE, TYPE_POSITION));
                 errorServicios.setVisibility(View.GONE);
             } else {
                 gvServicios.setVisibility(View.GONE);
                 errorServicios.setVisibility(View.VISIBLE);
-            }
+            }*/
         }
 
         /**
          * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
          */
         if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
-           // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+            // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
             newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
             typeView = TYPE_FAVORITE;
         }
@@ -485,7 +516,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     @Override
-    public void sendData(int position, int mType) {
+    public void sendData(int position, int mType, int typePosition) {
         Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);
         switch (mType) {
             case SEARCH_CARRIER_RECARGA:
@@ -515,7 +546,30 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
                 break;
             case SEARCH_FAVORITO_RECARGA:
-                if (mDataRecargarFav != null) {
+                if (mFullListaRecar != null) {
+                    if (mFullListaRecar.get(typePosition).get(position).getNombre().equals("Buscar")) {
+                        NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
+                                newPaymentPresenter, mType);
+                        dialog.show();
+                    } else if (mFullListaRecar.get(typePosition).get(position).getNombre().equals("Nuevo")) {
+                        // Iniciamos la actividad de Favoritos para recargas
+                        Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
+                        intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                        } else {
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE);
+                        }
+                    } else {
+                        intentPayment.putExtra(PAYMENT_DATA, mFullListaRecar.get(typePosition).get(position));
+                        intentPayment.putExtra(PAYMENT_IS_FAV, true);
+                        startActivity(intentPayment);
+                    }
+                }
+                break;
+                /* // TODO eliminar despues de pruebas de estabilidad
+                 if (mDataRecargarFav != null) {
                     if (mDataRecargarFav.get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
                                 newPaymentPresenter, mType);
@@ -536,8 +590,32 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         startActivity(intentPayment);
                     }
                 }
-                break;
+                break;*/
             case SEARCH_FAVORITO_PAGOS:
+                if (mFullListaServ != null) {
+                    if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Buscar")) {
+                        NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
+                                newPaymentPresenter, mType);
+                        dialog.show();
+                    } else if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Nuevo")) {
+                        // Iniciamos la actividad de Favoritos
+                        Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
+                        intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                        } else {
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE);
+                        }
+                    } else {
+                        intentPayment.putExtra(PAYMENT_DATA, mFullListaServ.get(typePosition).get(position));
+                        intentPayment.putExtra(PAYMENT_IS_FAV, true);
+                        startActivity(intentPayment);
+                    }
+                }
+                break;
+                /*
+                // TODO eliminar despues de pruebas de estabilidad
                 if (mDataPagarFav != null) {
                     if (mDataPagarFav.get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
@@ -559,7 +637,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         startActivity(intentPayment);
                     }
                 }
-                break;
+                break;*/
             default:
                 break;
         }
@@ -567,16 +645,17 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     @Override
-    public void editFavorite(int position, int mType) {
+    public void editFavorite(int position, int mType, int typePosition) {
         Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
         switch (mType) {
             case SEARCH_FAVORITO_RECARGA:
-                if (mDataRecargarFav != null) {
-                    if (!mDataRecargarFav.get(position).getNombreComercio().equals("Buscar") && !mDataRecargarFav.get(position).getNombre().equals("Nuevo")) {
+                if (mFullListaRecar != null) {
+                    if (!mFullListaRecar.get(typePosition).get(position).getNombreComercio().equals("Buscar")
+                            && !mFullListaRecar.get(typePosition).get(position).getNombre().equals("Nuevo")) {
                         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                         // Vibrate for 500 milliseconds
                         v.vibrate(100);
-                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mDataRecargarFav.get(position));
+                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaRecar.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, mType);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
@@ -587,12 +666,13 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
                 break;
             case SEARCH_FAVORITO_PAGOS:
-                if (mDataPagarFav != null) {
-                    if (!mDataPagarFav.get(position).getNombreComercio().equals("Buscar") && !mDataPagarFav.get(position).getNombre().equals("Nuevo")) {
+                if (mFullListaServ != null) {
+                    if (!mFullListaServ.get(typePosition).get(position).getNombreComercio().equals("Buscar")
+                            && !mFullListaServ.get(typePosition).get(position).getNombre().equals("Nuevo")) {
                         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                         // Vibrate for 500 milliseconds
                         v.vibrate(100);
-                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mDataPagarFav.get(position));
+                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaServ.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, mType);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
