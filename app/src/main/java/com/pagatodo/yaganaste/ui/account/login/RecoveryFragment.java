@@ -241,8 +241,6 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
                 onValidationSuccess();
             }
         }
-
-
     }
 
     @Override

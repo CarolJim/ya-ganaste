@@ -255,6 +255,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void recoveryPassword(String email) {
         accountView.showLoader("");
+        RequestHeaders.setUsername(email);
         RecuperarContraseniaRequest request = new RecuperarContraseniaRequest(email);
         accountIteractor.recoveryPassword(request);
     }
