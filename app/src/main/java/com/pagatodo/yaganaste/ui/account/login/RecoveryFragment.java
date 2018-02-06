@@ -138,15 +138,12 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
             String userEmailCifrado = StringUtils.cifrarPass(userEmail);
             tvCorreoRegistrado.setVisibility(View.VISIBLE);
             tvCorreoRegistrado.setText(userEmailCifrado);
-
         } else {
             tvCorreoRegistrado.setVisibility(View.GONE);
-
             // Asignamos el texto de enlace de correo
             String mTextEnlace = getContext().getResources()
                     .getString(R.string.ingresa_correo_registrado);
             txtHeaderRecovery.setText(mTextEnlace);
-
             edtCorreoRegistrado.setVisibility(View.VISIBLE);
         }
     }

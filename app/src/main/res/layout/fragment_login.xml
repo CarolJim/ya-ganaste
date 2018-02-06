@@ -88,6 +88,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserPassword"
                     style="@style/GenericInputTextForms"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -98,6 +99,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtLoginExistUserRecoverPass"
                     style="@style/textDescInputs"
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -211,6 +213,7 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLoginExistUser"
             style="@style/buttonSquareRoundedBlue"
+            android:background="@drawable/button_rounded_blue"
             android:layout_marginBottom="@dimen/margin_error"
             android:text="@string/txt_ingresar" />
 

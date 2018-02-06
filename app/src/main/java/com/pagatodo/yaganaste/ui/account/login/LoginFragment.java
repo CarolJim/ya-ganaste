@@ -6,7 +6,10 @@ import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -77,6 +80,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
+
+
+
 
     @BindView(R.id.txtBlockCard)
     StyleTextView txtBlockCard;
@@ -194,6 +200,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         accessCode.setOnClickListener(this);
         quickPayment.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
+        SpannableString ss;
+        ss = new SpannableString(getString(R.string.recover_pass));
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 26, 47, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        txtLoginExistUserRecoverPass.setText(ss);
+
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {

@@ -17,6 +17,7 @@
     <dimen name="margin_doble">25dp</dimen>
     <dimen name="margin_regular">16dp</dimen>
     <dimen name="margin_big">24dp</dimen>
+    <dimen name="margin_smalledittext">1dp</dimen>
 
 
     <dimen name="space_between_elements">8dp</dimen>

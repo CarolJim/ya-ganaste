@@ -214,7 +214,7 @@
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar Sesión</string>
-    <string name="recover_pass"><u>Olvidé mi Contraseña</u></string>
+    <string name="recover_pass"><u>¿Olvidaste tu Contraseña?\nAquí Podemos Ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
