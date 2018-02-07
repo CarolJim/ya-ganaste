@@ -10,9 +10,9 @@ import java.util.List;
  */
 
 public interface IPaymentFragment {
-    void sendData(int position, int mType);
+    void sendData(int position, int mType, int typePosition);
 
-    void editFavorite(int position, int mType);
+    void editFavorite(int position, int mType, int typePosition);
 
     void setDataFavorite(List<DataFavoritos> catalogos, int typeDataFav);
 

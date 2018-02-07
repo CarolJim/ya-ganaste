@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:minHeight="?android:attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorAccent"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     <ImageView
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/back_canvas"
         android:adjustViewBounds="false"
+        android:tint="@color/whiteColor"
         android:scaleType="center"
         android:layout_gravity="center_vertical|left"
         android:paddingLeft="15dp"

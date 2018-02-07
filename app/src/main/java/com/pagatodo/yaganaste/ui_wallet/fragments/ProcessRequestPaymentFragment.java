@@ -116,7 +116,7 @@ public class ProcessRequestPaymentFragment extends GenericFragment implements Vi
             for (count = 0; count < lstRequest.size(); count++) {
                 sendSMS(lstRequest.get(count).getReference(),
                         lstRequest.get(count).getHeadMessage() +
-                                " " + edtMessagePayment.getText().toString() +
+                                ". " + edtMessagePayment.getText().toString() +
                                 " " + lstRequest.get(count).getFootMessage());
             }
         }

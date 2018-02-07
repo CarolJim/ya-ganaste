@@ -381,7 +381,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void recoveryPassword(RecuperarContraseniaRequest request) {
-
         try {
             ApiAdtvo.recuperarContrasenia(request, this);
         } catch (OfflineException e) {

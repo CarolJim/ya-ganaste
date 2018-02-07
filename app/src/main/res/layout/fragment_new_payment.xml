@@ -58,6 +58,11 @@
                         android:text="@string/btn_recharge_txt"
                         android:textColor="@android:color/holo_blue_bright" />
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mRVRecargas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <GridView
                         android:id="@+id/gvRecargas"
                         android:layout_width="match_parent"
@@ -102,6 +107,11 @@
                         android:gravity="center"
                         android:text="@string/btn_payment_txt"
                         android:textColor="@android:color/holo_blue_bright" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mRVPagos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                     <GridView
                         android:id="@+id/gvServicios"

@@ -350,8 +350,16 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         edtConcept.setText(null);
         mySeekBar.setProgress(0);
         et_amount.requestFocus();
-
     }
+
+    public boolean isCustomKeyboardVisible() {
+        return keyboardView.getVisibility() == View.VISIBLE;
+    }
+
+    public void hideKeyboard() {
+        keyboardView.hideCustomKeyboard();
+    }
+
 
     @Override
     public void onImeBack() {

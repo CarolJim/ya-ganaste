@@ -73,7 +73,7 @@
 
     <style name="textDescInputs">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/texthint</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
@@ -227,7 +227,7 @@
             @dimen/edittext_margin_left
         </item>
         <item name="android:textColorHint">@color/inputTextColorHint</item>
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/inputTextColorHint</item>
         <item name="android:background">@null</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/transparent</item>
         <item name="android:paddingTop">@dimen/edittext_padding</item>
@@ -269,9 +269,9 @@
     </style>
 
     <style name="BorderLayoutContent">
-        <item name="android:layout_marginTop">45dp</item>
-        <item name="android:layout_marginLeft">23dp</item>
-        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginBottom">25dp</item>
     </style>
 
@@ -291,8 +291,8 @@
 
     <style name="FragmentElement">
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
-        <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColorHint">@color/whiteColor</item>
+        <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
@@ -317,8 +317,8 @@
     </style>
 
     <style name="BorderTitleStyle">
-        <item name="android:layout_marginLeft">@dimen/margin_big</item>
-        <item name="android:layout_marginRight">@dimen/margin_big</item>
+        <item name="android:layout_marginLeft">@dimen/margin_smalledittext</item>
+        <item name="android:layout_marginRight">@dimen/margin_smalledittext</item>
         <item name="android:layout_marginTop">@dimen/margin_medium</item>
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
@@ -431,7 +431,7 @@
     </style>
 
     <style name="generic_text_style_2">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Text</item>
     </style>
@@ -455,7 +455,7 @@
     </style>
 
     <style name="generic_text_style_3">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
@@ -511,7 +511,7 @@
     <!-- Genericos para los campos de CustomValidationEditText en todos los fotmulrios-->
     <style name="GenericCustomValidationEditText">
         <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
@@ -542,7 +542,7 @@
 
     <style name="GenericStyleEditText" parent="StyleEditText">
         <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/edittext</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
