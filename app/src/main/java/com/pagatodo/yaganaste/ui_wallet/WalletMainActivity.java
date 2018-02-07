@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.ui_wallet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -41,6 +43,7 @@ import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
 
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
+    public static final int REQUEST_CHECK_SETTINGS = 91;
     @BindView(R.id.btn_back)
     AppCompatImageView back;
     //@BindView(R.id.main_tab)
@@ -108,6 +111,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REGISTER_ADQUIRENTE_CODE) {
             showMainTab();
+        } else {
+            if (data != null) {
+                getCurrentFragment().onActivityResult(requestCode, resultCode, data);
+            }
         }
 
     }
@@ -172,4 +179,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         finish();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        try {
+            getCurrentFragment().onRequestPermissionsResult(requestCode,permissions,grantResults);
+
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

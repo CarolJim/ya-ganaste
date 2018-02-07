@@ -25,9 +25,6 @@ public class WalletPresenterImpl implements WalletPresenter, WlletNotifaction {
         this.walletInteractor = new WalletInteractorImpl(this);
     }
 
-    public WalletPresenterImpl(){
-
-    }
 
     @Override
     public void getWalletsCards(boolean error){
@@ -38,11 +35,6 @@ public class WalletPresenterImpl implements WalletPresenter, WlletNotifaction {
     @Override
     public void onDestroy() {
         walletView = null;
-    }
-
-    @Override
-    public void getMovementsAdq() {
-        walletView.showProgress();
     }
 
     @Override

@@ -18,7 +18,6 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
  */
 public class MovementsGenericFragment extends SupportFragment{
 
-    private WalletPresenter walletPresenter;
 
     public static MovementsGenericFragment newInstance() {
         return new MovementsGenericFragment();
@@ -27,14 +26,13 @@ public class MovementsGenericFragment extends SupportFragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        walletPresenter = new WalletPresenterImpl();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movements_generic, container, false);
-        //walletPresenter.getMovementsAdq();
         return view;
     }
 

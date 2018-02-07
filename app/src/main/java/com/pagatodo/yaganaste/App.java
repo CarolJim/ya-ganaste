@@ -70,6 +70,8 @@ public class App extends Application {
     public QPOSService pos;
     public IposListener emvListener;
     private Preferencias prefs;
+    //currentMount
+    private String currentMount;
     //variable de status de cuenta
     private String statusId;
     private boolean cancel;
@@ -172,6 +174,16 @@ public class App extends Application {
 
     public void setStatusId(String statusId) {
         this.statusId = statusId;
+    }
+
+    //Curren Mount
+
+    public String getCurrentMount() {
+        return currentMount;
+    }
+
+    public void setCurrentMount(String currentMount) {
+        this.currentMount = currentMount;
     }
 
     //Get & Set huella
@@ -336,4 +348,6 @@ public class App extends Application {
                 nameData, typeData, fileDownloadListener);
         fileDownload.execute("");
     }
+
+
 }

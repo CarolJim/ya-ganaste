@@ -1,12 +1,28 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AppOpsManager;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.UserHandle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.Selection;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,9 +34,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -28,22 +54,28 @@ import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
-public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener {
+public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse> {
 
-    private static final int MY_PERMISSIONS_REQUEST_SOUND = 100;
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 101;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 900;
+
+
     @BindView(R.id.et_amount)
-    EditText et_amount;
+    public EditText et_amount;
     @BindView(R.id.edtConcept)
     StyleEdittext edtConcept;
     @BindView(R.id.keyboard_view)
@@ -53,7 +85,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     LinearLayout layout_amount;
     private float MIN_AMOUNT = 1.0f;
-
+    boolean isValid;
+    private int[] perrmisionArray = {1,1};
     private StyleTextView tvMontoEntero, tvMontoDecimal;
 
     public GetMountFragment() {
@@ -74,6 +107,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isValid = true;
     }
 
     @Override
@@ -166,8 +200,39 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         et_amount.requestFocus();
     }
 
+    @Override
+    protected void continuePayment() {
+        App.getInstance().setCurrentMount(et_amount.getText().toString().trim());
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);
+        int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionLocation = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.RECORD_AUDIO},
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+
+        }else{
+            isValid = true;
+            setLocationSetting();
+        }
+
+    }
+    private void setLocationSetting(){
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        Task<LocationSettingsResponse> result =
+                LocationServices.getSettingsClient(getContext()).checkLocationSettings(builder.build());
+        result.addOnCompleteListener(this);
+
+    }
     private void actionCharge() {
-        String valueAmount = et_amount.getText().toString().trim();
+        //String valueAmount = et_amount.getText().toString().trim();
+        String valueAmount = App.getInstance().getCurrentMount();
 
         // Limpiamos del "," que tenemos del EditText auxiliar
         int positionQuote = valueAmount.indexOf(",");
@@ -178,6 +243,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
         if (valueAmount.length() > 0 && !valueAmount.equals(getString(R.string.mount_cero))) {
             try {
+
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
 
                 // Limpiamos del caracter $ en caso de tenerlo
@@ -199,6 +265,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
+
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
@@ -210,30 +277,62 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     }
 
     @Override
-    protected void continuePayment() {
-        boolean isValid = true;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
-                Manifest.permission.RECORD_AUDIO);
-        int permissionLocation = ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission_group.LOCATION);
+        switch (requestCode) {
+            case REQUEST_ID_MULTIPLE_PERMISSIONS:
 
-        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
-        if (permissionCall == -1) {
-            ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.RECORD_AUDIO},
-                    MY_PERMISSIONS_REQUEST_SOUND);
-            isValid = false;
-        }
-        if (permissionLocation == -1){
-            ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission_group.LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION);
-            isValid = false;
+                isValid = grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (isValid){
+                    setLocationSetting();
+                } else {
+                    //et_amount.setText(App.getInstance().getCurrentMount());
+                }
+                break;
+
         }
 
-        if(isValid){
+    }
+
+
+
+    @Override
+    public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+        try {
+            LocationSettingsResponse response = task.getResult(ApiException.class);
             actionCharge();
+        } catch (final ApiException exception) {
+            switch (exception.getStatusCode()) {
+                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                    showDialogMesage(exception,getContext().getResources().getString(R.string.eneable_gps));
+                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                    // Location settings are not satisfied. However, we have no way to fix the
+                    // settings so we won't show the dialog.
+                    //showDialogMesage(null,getContext().getResources().getString(R.string.new_tittle_error_interno));
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CHECK_SETTINGS:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+
+                        actionCharge();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        //et_amount.setText(App.getInstance().getCurrentMount());
+                        break;
+                    default:
+                        break;
+                }
+                break;
         }
     }
 
@@ -242,32 +341,16 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         mySeekBar.setProgress(0);
     }
 
-    private void setData(String amount, String concept) {
-        //    Log.d("GetMount", "setData After Amount " + amount);
-        et_amount.setText(amount);
-        Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
-        edtConcept.setText(concept);
-        //    Log.d("GetMount", "setData Before Amount " + amount);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         NumberCalcTextWatcher.cleanData();
         et_amount.setText("0");
+        //et_amount.setText(App.getInstance().getCurrentMount());
         edtConcept.setText(null);
         mySeekBar.setProgress(0);
         et_amount.requestFocus();
 
-    }
-
-    public boolean isCustomKeyboardVisible() {
-        return keyboardView.getVisibility() == View.VISIBLE;
-    }
-
-
-    public void hideKeyboard() {
-        keyboardView.hideCustomKeyboard();
     }
 
     @Override
@@ -286,5 +369,32 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             edtConcept.setText(null);
         }
     }
+
+    private void showDialogMesage(final ApiException exception, final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        if (exception != null) {
+                            try {
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                resolvable.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
+                            } catch (IntentSender.SendIntentException e) {
+                                e.printStackTrace();
+                            } catch (ClassCastException e) {
+                                e.printStackTrace();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
 }
 

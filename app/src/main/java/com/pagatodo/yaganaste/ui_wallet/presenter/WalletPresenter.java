@@ -7,6 +7,5 @@ package com.pagatodo.yaganaste.ui_wallet.presenter;
 public interface WalletPresenter {
     void getWalletsCards(boolean error);
     void updateBalance();
-    void getMovementsAdq();
     void onDestroy();
 }

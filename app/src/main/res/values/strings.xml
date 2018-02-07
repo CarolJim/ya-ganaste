@@ -1218,6 +1218,7 @@
     <string name="txt_message_request_empty">No Cuenta Con Solicitudes Agregadas</string>
     <string name="txt_confirm_request">Confirma tu Solicitud</string>
     <string name="txt_add_message_request">Agregar un mensaje</string>
+    <string name="eneable_gps">Se Necesita Habilitar el GPS</string>
 
     <!-- Solicitar Pago-->
 
