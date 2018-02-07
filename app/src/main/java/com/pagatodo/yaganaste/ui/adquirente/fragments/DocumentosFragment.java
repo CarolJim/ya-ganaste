@@ -10,7 +10,6 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +17,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +38,11 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
-import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
-import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -116,8 +115,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private int documentProcessed = 0;
     private int documentPendientes = 0;
     private int documentApproved = 0;
-    private BitmapLoader bitmapLoader;
-
 
     private String imgs[] = new String[4];
     private ArrayList<String> contador;
@@ -308,6 +305,13 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         btnRegresar.setOnClickListener(this);
     }
 
+    public String bitmapToBase64(Bitmap bitmap, String path) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(path.getBytes().length);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        byte[] bytes = outputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -315,20 +319,22 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             showLoader("");
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
-            bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
-                @Override
-                public void onBegin() {
-                    //TODO ShowLoader
+            try {
+                Bitmap original = BitmapFactory.decodeFile(path);
+                Bitmap scaled;
+                int width = original.getWidth();
+                int height = original.getHeight();
+                if (height > width) {
+                    scaled = Bitmap.createScaledBitmap(original, 500, 888, false);
+                } else {
+                    scaled = Bitmap.createScaledBitmap(original, 888, 500, false);
                 }
-
-                @Override
-                public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
-                    //enableItems(true);
-                    saveBmpImgUser(bitmap, imgbase64);
-                    hideLoader();
-                }
-            });
-            bitmapLoader.execute();
+                saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
+                hideLoader();
+            } catch (Exception e) {
+                e.printStackTrace();
+                UI.createSimpleCustomDialog("", getString(R.string.error_cargar_imagen), getActivity().getSupportFragmentManager(), null, true, false);
+            }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             Cursor cursor = null;
             Uri selectedImage = data.getData();
@@ -344,20 +350,17 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                     path = cursor.getString(columnIndex);
                 }
-                bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
-                    @Override
-                    public void onBegin() {
-                        //TODO showLoader
-                    }
-
-                    @Override
-                    public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
-                        //enableItems(true);
-                        saveBmpImgUser(bitmap, imgbase64);
-                        hideLoader();
-                    }
-                });
-                bitmapLoader.execute();
+                Bitmap original = BitmapFactory.decodeFile(path);
+                Bitmap scaled;
+                int width = original.getWidth();
+                int height = original.getHeight();
+                if (height > width) {
+                    scaled = Bitmap.createScaledBitmap(original, 500, 888, false);
+                } else {
+                    scaled = Bitmap.createScaledBitmap(original, 888, 500, false);
+                }
+                saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
+                hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
                 UI.createSimpleCustomDialog("", getString(R.string.error_cargar_imagen), getActivity().getSupportFragmentManager(), null, true, false);
@@ -450,7 +453,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             if (bitmap.isRecycled()) {
                 bitmap.recycle();
             }
-            bitmap = null;
             btnWeNeedSmFilesNext.setVisibility(VISIBLE);
             btnRegresar.setVisibility(GONE);
             lnr_buttons.setVisibility(VISIBLE);
@@ -462,12 +464,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
+        File storageDir = App.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         /*Guardamos el path temporal*/
         SingletonUser.getInstance().setPathPictureTemp(image.getAbsolutePath());
         return image;

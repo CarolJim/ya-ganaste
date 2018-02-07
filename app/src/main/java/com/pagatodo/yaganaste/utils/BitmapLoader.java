@@ -3,23 +3,16 @@ package com.pagatodo.yaganaste.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.Serializable;
-import java.text.Format;
-
-import id.zelory.compressor.Compressor;
 
 /**
  * Created by Gorro on 20/11/16.
  */
 
-public class BitmapLoader extends AsyncTask{
+public class BitmapLoader extends AsyncTask {
 
     private static final String TAG = BitmapLoader.class.getSimpleName();
     private BitmapBase64Listener listener;
@@ -49,28 +42,24 @@ public class BitmapLoader extends AsyncTask{
     protected Bitmap doInBackground(Object... params) {
         try {
             if (bitmap != null) {
-
                 imgBase64 = bitmapToBase64(bitmap);
                 return bitmap;
             } else {
-               // Bitmap btm = Compressor.getDefault(context).compressToBitmap(new File(filePath));
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
+                // Bitmap btm = Compressor.getDefault(context).compressToBitmap(new File(filePath));
                 Bitmap btm = BitmapFactory.decodeFile(filePath);
                 int anchooriginal = btm.getWidth();
-                int altooriginal  =btm.getHeight();
+                int altooriginal = btm.getHeight();
 
-                if (altooriginal>anchooriginal){
+                if (altooriginal > anchooriginal) {
                     btm = btm.createScaledBitmap(btm, 500, 888, false);
-                }else {
+                } else {
                     btm = btm.createScaledBitmap(btm, 888, 500, false);
                 }
-
                 imgBase64 = bitmapToBase64(btm);
                 return btm;
             }
         } catch (Exception e) {
-            // Log.d("BitmapLoader", "Exception " + e);
+            e.printStackTrace();
             return null;
         }
     }
@@ -86,7 +75,6 @@ public class BitmapLoader extends AsyncTask{
     }
 
     public String bitmapToBase64(Bitmap bitmap) {
-
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(filePath.getBytes().length);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         byte[] bytes = outputStream.toByteArray();

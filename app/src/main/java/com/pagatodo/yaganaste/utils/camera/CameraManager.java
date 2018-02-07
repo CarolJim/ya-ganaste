@@ -298,8 +298,7 @@ public class CameraManager {
 
     }
 
-    private void
-    saveBmpImgUser(Bitmap bitmap, String imgBase64) {
+    private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
         Boolean validateDuplicado;
         contador.add(imgBase64);
         validateDuplicado = checkDuplicate(contador);
@@ -395,7 +394,7 @@ public class CameraManager {
                 if (path.equals(".jpg") || path.equals(".jpge")) {
                     this.listener.onCropper(selectedImage);
                 } else {
-                   // Toast.makeText(getContext(), "No es jpg", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "No es jpg", Toast.LENGTH_SHORT).show();
                     this.listener.failLoadJpg();
                 }
 

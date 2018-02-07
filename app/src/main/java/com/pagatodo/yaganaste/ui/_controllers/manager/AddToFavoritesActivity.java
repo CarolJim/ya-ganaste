@@ -725,11 +725,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 contactPicked(data, 1);
                 // Ocultamos el mensaje de error si esta visible
                 editReferError.setVisibilityImageError(false);
-            }
-        }
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == CONTACTS_CONTRACT_LOCAL) {
+            } else if (requestCode == CONTACTS_CONTRACT_LOCAL) {
                 contactPicked(data, 2);
                 // Ocultamos el mensaje de error si esta visible
                 editReferError.setVisibilityImageError(false);

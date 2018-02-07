@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +60,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
-    public static final int MY_PERMISSIONS_REQUEST_SEND_CALL = 118;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
     int counterRetry = 1;
@@ -144,16 +142,12 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         int permissionSms = ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.SEND_SMS);
         int permissionCall = ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.CALL_PHONE);
+                Manifest.permission.READ_PHONE_STATE);
         // Si no tenemos el permiso lo solicitamos, en cawso contrario entramos al proceso de envio del MSN
-        if (permissionSms == -1) {
+        if (permissionSms == -1 || permissionCall == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.SEND_SMS},
+                    new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE},
                     MY_PERMISSIONS_REQUEST_SEND_SMS);
-        } else if(permissionCall == -1){
-            ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    MY_PERMISSIONS_REQUEST_SEND_CALL);
         } else {
             onRequestPermissionsResult();
         }
@@ -189,9 +183,9 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
-        if (preferencias.loadDataBoolean(PASSWORD_CHANGE,false)) {
+        if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
             nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
-        }else {
+        } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
         //}
