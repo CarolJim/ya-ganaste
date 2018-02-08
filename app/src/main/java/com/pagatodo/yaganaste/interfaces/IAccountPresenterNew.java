@@ -22,6 +22,8 @@ public interface IAccountPresenterNew {
 
     void validatePersonData();
 
+    void validateVersion();
+
     void getNeighborhoods(String zipCode);
 
     void assignAccount();

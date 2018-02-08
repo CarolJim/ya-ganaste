@@ -68,13 +68,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
@@ -143,6 +143,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void validatePersonData() {
         accountView.showLoader(context.getString(R.string.msg_renapo));
         accountIteractor.validatePersonData();
+    }
+
+    @Override
+    public void validateVersion() {
+        accountView.showLoader("");
+        accountIteractor.validateVersionApp();
     }
 
     @Override
@@ -255,7 +261,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void recoveryPassword(String email) {
         accountView.showLoader("");
-        RequestHeaders.setUsername(email);
+        RequestHeaders.NombreUsuario = email;
         RecuperarContraseniaRequest request = new RecuperarContraseniaRequest(email);
         accountIteractor.recoveryPassword(request);
     }
@@ -334,7 +340,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else if (accountView instanceof IDocumentApproved) {
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
-            if (ws == INICIAR_SESION_SIMPLE) {
+            if (ws == VALIDAR_VERSION) {
                 //RequestHeaders.setUsername("");
             }
             accountView.showError(error);
@@ -349,6 +355,18 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else {
             accountView.showError(error);
         }
+    }
+
+    @Override
+    public void onForcedUpdate() {
+        this.accountView.hideLoader();
+        ((ILoginView) accountView).forceUpdate();
+    }
+
+    @Override
+    public void onWarningUpdate() {
+        this.accountView.hideLoader();
+        ((ILoginView) accountView).warningUpdate();
     }
 
     @Override
@@ -455,6 +473,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             Log.i(TAG, context.getString(R.string.sesion_close));
         } else if (accountView instanceof IDocumentApproved) {
             ((IDocumentApproved) accountView).dataUpdated(data.toString());
+        } else if (accountView instanceof ILoginView) {
+            if (ws == VALIDAR_VERSION) {
+                ((ILoginView) accountView).versionOk();
+            }
         }
 
         if (accountView instanceof IMyPassValidation) {

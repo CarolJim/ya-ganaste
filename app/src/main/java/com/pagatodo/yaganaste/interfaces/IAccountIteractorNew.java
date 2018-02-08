@@ -42,6 +42,8 @@ public interface IAccountIteractorNew<T> {
 
     void validatePersonData();
 
+    void validateVersionApp();
+
     void getNeighborhoodByZipCode(String zipCode);
 
     void assigmentAccountAvaliable(int idAccount);

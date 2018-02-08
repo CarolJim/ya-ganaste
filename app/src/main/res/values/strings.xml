@@ -71,6 +71,7 @@
     <string name="obtenerMontos">/ObtenerCatalogoMontosPLD</string>
     <string name="obtenerOrigenRecursos">/ObtenerCatalogoOrigenRecursosPLD</string>
     <string name="obtenerDestinoRecursos">/ObtenerCatalogoDestinoRecursosPLD</string>
+    <string name="obtenerVersionAplicacion">/ObtenerVersionAplicacion</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
@@ -582,7 +583,6 @@
     <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara</string>
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
-
     <string name="no_tiene_tarjeta">No te Preocupes\n¡Ya te Asignamos Una!</string>
     <string name="si_tiene_tarjeta">Ingresa tu Número de Tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
@@ -593,6 +593,9 @@
     <string name="title_reintentar">Reintentar</string>
     <string name="title_llamar">Llamar</string>
     <string name="title_error">Ocurrió un Error</string>
+    <string name="title_update">Actualización</string>
+    <string name="text_update_forced">Para Poder Continuar es Necesario Actualizar tu App</string>
+    <string name="text_update_warn">Hay Una Nueva Versión de Ya Ganaste, ¿Deseas Descargarla Ahora?</string>
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>

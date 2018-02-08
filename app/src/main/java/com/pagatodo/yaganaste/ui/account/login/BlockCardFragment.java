@@ -720,6 +720,21 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     }
 
     @Override
+    public void versionOk() {
+
+    }
+
+    @Override
+    public void forceUpdate() {
+
+    }
+
+    @Override
+    public void warningUpdate() {
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
 
