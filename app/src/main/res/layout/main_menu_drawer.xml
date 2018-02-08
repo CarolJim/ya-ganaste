@@ -38,6 +38,12 @@
                 android:dividerHeight="15dp"
                 android:layout_weight="1" />
 
+            <ImageView
+                android:src="@drawable/logo_header_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
     </android.support.design.widget.NavigationView>
 

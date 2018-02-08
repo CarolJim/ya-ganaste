@@ -1202,6 +1202,9 @@
     <string name="synch_carrier">Obteniendo Carriers</string>
     <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>
     <string name="error_add_numero">El Destinatario ya se Encuentra Agregado</string>
+    <string name="security_huella_option_subtitle">Usa tu huella para autorizar operaciones</string>
+    <string name="legales">Legales</string>
+
 
     <!-- Procesos de PaymentActivity-->
     <string name="txt_recargas">Recargas</string>

@@ -97,4 +97,14 @@
     <item name="textColorPrimary" type="color">@android:color/white</item>
     <item name="text_grey" type="color">#8f8f8f</item>
 
+    <!-- Navegtin Drawer-->
+    <color name="head_menu">#f3f3f3</color>
+    <color name="text_item_color">#888888</color>
+    <color name="decoration_item_color">#979797</color>
+
+    <color name="switch_color_stroke">#0084b8</color>
+    <color name="switch_color_traker_true">#a2e4ff</color>
+    <color name="switch_color_traker_false">#d0d0d0</color>
+
+
 </resources>

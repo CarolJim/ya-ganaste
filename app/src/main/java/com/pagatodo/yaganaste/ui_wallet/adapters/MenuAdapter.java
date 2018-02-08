@@ -40,6 +40,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         View dividerList;
         AppCompatImageView rawItem;
         SwitchCompat switchItem;
+        TextView subtitle;
     }
 
     public MenuAdapter(Context context, ArrayList<OptionMenuItem> listItems, OnItemClickListener listener) {
@@ -57,10 +58,11 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         viewHolder = new ViewHolderMenu();
         LayoutInflater inflater = LayoutInflater.from(getContext());
         convertView = inflater.inflate(R.layout.menu_navegation_drawwer_adpater, parent, false);
-        viewHolder.txttitle = (TextView) convertView.findViewById(R.id.title);
-        viewHolder.ic_item = (ImageView) convertView.findViewById(R.id.ic_item);
-        viewHolder.rawItem = (AppCompatImageView) convertView.findViewById(R.id.raw_item);
-        viewHolder.switchItem = (SwitchCompat) convertView.findViewById(R.id.switch_item);
+        viewHolder.txttitle = convertView.findViewById(R.id.title);
+        viewHolder.subtitle = convertView.findViewById(R.id.subtitle);
+        viewHolder.ic_item = convertView.findViewById(R.id.ic_item);
+        viewHolder.rawItem = convertView.findViewById(R.id.raw_item);
+        viewHolder.switchItem = convertView.findViewById(R.id.switch_item);
         viewHolder.dividerList = convertView.findViewById(R.id.dividerList);
 
         convertView.setTag(viewHolder);
@@ -106,6 +108,9 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
 
                     }
                 });
+            } if (listItems.get(position).getSubtitle() != null && !listItems.get(position).getSubtitle().isEmpty() ) {
+                viewHolder.subtitle.setVisibility(View.VISIBLE);
+                viewHolder.subtitle.setText(listItems.get(position).getSubtitle());
             }
 
         }

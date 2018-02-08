@@ -21,14 +21,17 @@ public class OptionMenuItem {
     private Context context;
     private int resourceItem;
     private String title;
+    private String subtitle;
     private INDICATION indication;
 
-    public OptionMenuItem(int idItem, String title, INDICATION indication) {
+    public OptionMenuItem(int idItem, String title, String subtitle, INDICATION indication) {
         this.idItem = idItem;
         this.title = title;
         this.indication = indication;
         this.resourceItem = -1;
+        this.subtitle = subtitle;
     }
+
 
     public OptionMenuItem(int idItem, @Nullable int resourceItem, String title) {
         this.idItem = idItem;
@@ -64,6 +67,14 @@ public class OptionMenuItem {
         this.title = title;
     }
 
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
     public INDICATION getIndication() {
         return indication;
     }
@@ -86,29 +97,29 @@ public class OptionMenuItem {
         //optionMenuItems.add(new OptionMenuItem(R.mipmap.ic_chat,this.context.getResources().getString(R.string.navigation_drawer_menu_chat)));
         optionMenuItems.add(new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, this.context.getResources().getString(R.string.navigation_drawer_menu_ajustes)));
         optionMenuItems.add(new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, this.context.getResources().getString(R.string.navigation_drawer_menu_acerca)));
-        optionMenuItems.add(new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_acerca, this.context.getResources().getString(R.string.navigation_drawer_logout)));
+        optionMenuItems.add(new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, this.context.getResources().getString(R.string.navigation_drawer_logout)));
         return optionMenuItems;
     }
 
     public ArrayList<OptionMenuItem> SECURITY_MENU() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_CCAMBIAR_PASS, this.context.getResources().getString(R.string.change_your_pass), RAW));
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.security_huella_option), SWITCH));
+        optionMenuItems.add(new OptionMenuItem(ID_CCAMBIAR_PASS, this.context.getResources().getString(R.string.change_your_pass),"", RAW));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.security_huella_option), this.context.getResources().getString(R.string.security_huella_option_subtitle), SWITCH));
         return optionMenuItems;
     }
 
     public ArrayList<OptionMenuItem> SETTINGS_MENU() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_NOTIFICACIONES, this.context.getResources().getString(R.string.ajustes_notificar_option), RAW));
-        optionMenuItems.add(new OptionMenuItem(ID_DESVINCULAR, this.context.getResources().getString(R.string.ajustes_desvincular_option), RAW));
+        optionMenuItems.add(new OptionMenuItem(ID_NOTIFICACIONES, this.context.getResources().getString(R.string.ajustes_notificar_option), "",RAW));
+        optionMenuItems.add(new OptionMenuItem(ID_DESVINCULAR, this.context.getResources().getString(R.string.ajustes_desvincular_option),"", RAW));
         return optionMenuItems;
     }
 
     public ArrayList<OptionMenuItem> SETTINGS_NOTIFICACIONES() {
         ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_pagos_option), SWITCHNORMAL));
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_retiros_option), SWITCHNORMAL));
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_depositos_option), SWITCHNORMAL));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_pagos_option),"", SWITCHNORMAL));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_retiros_option),"", SWITCHNORMAL));
+        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_depositos_option),"", SWITCHNORMAL));
         return optionMenuItems;
     }
 
