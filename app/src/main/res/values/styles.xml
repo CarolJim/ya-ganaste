@@ -247,11 +247,9 @@
     </style>
 
     <style name="RadioButtonTheme" parent="@style/AppTheme">
-        <item name="android:button">@null</item>
-        <item name="colorControlActivated">@color/transparent</item>
-        <item name="colorControlNormal">@color/transparent</item>
-
-        <item name="android:padding">@dimen/margin_xsmall</item>
+        <item name="android:colorControlNormal">#64dd17</item>
+        <item name="android:colorControlActivated">#460745</item>
+        <item name="android:colorControlHighlight">#c51162</item>
     </style>
 
     <style name="CustomRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
@@ -313,8 +311,7 @@
     </style>
 
     <style name="FragmentElementTop" parent="FragmentElement">
-        <item name="android:layout_marginTop">@dimen/margin_doble</item>
-        <item name="android:button">@null</item>
+
     </style>
 
     <style name="FragmentElementBottom" parent="FragmentElement">
