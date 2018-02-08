@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="3dp"
-    android:layout_marginLeft="23dp"
-    android:layout_marginRight="23dp"
+    android:layout_marginLeft="53dp"
+    android:layout_marginRight="53dp"
     android:elevation="3dp"
     android:background="@drawable/rounded_border_edittext"
     android:orientation="horizontal">
@@ -14,9 +14,8 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/editTextCustomSpinner"
         style="@style/StyleEditText"
-        android:padding="12dp"
-
-        android:elevation="3dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"

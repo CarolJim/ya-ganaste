@@ -83,7 +83,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="@string/female" />
+                            android:text="@string/female"
+
+
+
+
+
+                            />
 
                         <android.support.v4.widget.Space
                             android:layout_width="0dp"
@@ -195,7 +201,6 @@
                             android:layout_margin="@dimen/margin_xsmall"
                             android:layout_marginRight="5dp"
                             android:layout_marginLeft="5dp"
-
                             android:backgroundTint="@color/transparent" />
 
 

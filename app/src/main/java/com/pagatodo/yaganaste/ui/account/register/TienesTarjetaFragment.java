@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -327,6 +329,7 @@ if (f!=null){
                 break;
             case R.id.radioBtnNo:
                 txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
+                txtMessageCard.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
                 generateCardNumberRamdon();
                 keyboardView.hideCustomKeyboard();
                 btnNextTienesTarjeta.setVisibility(View.VISIBLE);

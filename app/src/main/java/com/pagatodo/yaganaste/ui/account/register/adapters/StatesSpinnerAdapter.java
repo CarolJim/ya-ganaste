@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.ui.account.register.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +41,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
@@ -61,6 +64,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         if (position == 0) {
             holder.txtTitle.setText("");
             holder.txtTitle.setHint(item.getName());
+            holder.txtTitle.setHintTextColor(Color.GRAY);
         } else {
             holder.txtTitle.setText(item.getName());
         }

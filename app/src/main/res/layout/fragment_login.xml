@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:gravity="center"
-                android:padding="@dimen/generic_padig">
+                android:padding="3dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgLoginExistProfile"
@@ -44,10 +44,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginRight="@dimen/activity_vertical_margin"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -55,56 +54,19 @@
                     android:id="@+id/asignar_edittext"
                     android:layout_width="1px"
                     android:layout_height="1px"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="0dp"
                     android:inputType="textPassword"
                     />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/textNameUser"
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:tipo="Titulo" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editUserName"
-                    style="@style/GenericInputTextForms"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    app:formato="email"
-                    app:hintText="@string/txt_escribe_tu_correo"
-                    app:isTextEnabled="true"
-                    android:imeOptions="actionNext"/>
-
-
-
-                <include
-                    android:id="@+id/customkeyboard"
-                    layout="@layout/login_fragment_passwordedittext_custom"
-                    android:visibility="gone" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editUserPassword"
-                    style="@style/GenericInputTextForms"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    app:formato="password"
-                    app:hintText="@string/txt_escribe_tu_pass"
-                    app:isTextEnabled="true" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtLoginExistUserRecoverPass"
-                    style="@style/textDescInputs"
-                    android:textAlignment="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:padding="@dimen/margin_medium"
-                    android:text="@string/recover_pass" />
 
                 <LinearLayout
                     android:id="@+id/opciones_login"
@@ -184,6 +146,46 @@
                             android:text="@string/cobroRapido" />
                     </LinearLayout>
                 </LinearLayout>
+
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editUserName"
+                    style="@style/GenericInputTextForms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:formato="email"
+                    app:hintText="@string/txt_escribe_tu_correo"
+                    app:isTextEnabled="true"
+                    android:imeOptions="actionNext"/>
+
+                <include
+                    android:id="@+id/customkeyboard"
+                    layout="@layout/login_fragment_passwordedittext_custom"
+                    android:visibility="gone" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editUserPassword"
+                    style="@style/GenericInputTextForms"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:formato="password"
+                    app:hintText="@string/txt_escribe_tu_pass"
+                    app:isTextEnabled="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtLoginExistUserRecoverPass"
+                    style="@style/textDescInputs"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:padding="@dimen/margin_medium"
+                    android:text="@string/recover_pass" />
+
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -195,7 +197,8 @@
         android:layout_above="@+id/relativeAd"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"
+        android:keyTextColor="#bcbcbc"
+        android:background="@android:color/darker_gray"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/material_key_drawable"
