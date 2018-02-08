@@ -135,17 +135,22 @@ public enum WebService {
     DELETE_FAVORITE,
     /**
      * Servicios CUPO
-     * */
+     */
     CONSULTA_STATUS_REGISTRO_CUPO,
     CREA_SOLICITUD_CUPO,
     CARGA_DOCUMENTOS_CUPO,
     OBTENER_ESTADO_DOCUMENTOS_CUPO,
     ACTUALIZA_DOCUMENTOS_CUPO,
     ACTUALIZA_REFERENCIAS,
-    /** Servicios para DataFavoritos */
+    /**
+     * Servicios para DataFavoritos
+     */
     OBTENER_FAVORITOS,
-
-    /** Operaciones FBM **/
-    FB_REGISTER_TOKEN
+    /**
+     * Operaciones FBM
+     **/
+    FB_REGISTER_TOKEN,
+    /* Validar version de la App */
+    VALIDAR_VERSION
 }
 

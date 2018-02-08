@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.content.Intent;
 import android.inputmethodservice.Keyboard;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -11,7 +12,6 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -80,8 +80,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
-
-
 
 
     @BindView(R.id.txtBlockCard)
@@ -441,7 +439,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 if (hasFocus) {
                     edtUserName.imageViewIsGone(true);
                 } else {
-                    scrollView.smoothScrollTo(0,0);
+                    scrollView.smoothScrollTo(0, 0);
                     if (edtUserName.getText().isEmpty() || !edtUserName.isValidText()) {
                         edtUserName.setIsInvalid();
                     } else if (edtUserName.isValidText()) {
@@ -556,16 +554,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-        if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                accountPresenter.login(username, nip); // Realizamos el  Login
-
-            } else {
-                accountPresenter.login(username, password); // Realizamos el  Login
-            }
-        } else {
-            accountPresenter.login(username, password); // Realizamos el  Login
-        }
+        accountPresenter.validateVersion();
     }
 
     @Override
@@ -577,13 +566,62 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
-
         App.getInstance().getStatusId();
         SingletonUser.getInstance().setCardStatusId(null);
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);
         startActivity(intentLogin);
         getActivity().finish();
+    }
 
+    @Override
+    public void versionOk() {
+        if (!RequestHeaders.getTokenauth().isEmpty()) {
+            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                accountPresenter.login(username, nip); // Realizamos el  Login
+            } else {
+                accountPresenter.login(username, password); // Realizamos el  Login
+            }
+        } else {
+            accountPresenter.login(username, password); // Realizamos el  Login
+        }
+    }
+
+    @Override
+    public void forceUpdate() {
+        setEnableViews(true);
+        UI.createSimpleCustomDialog(getString(R.string.title_update),
+                getString(R.string.text_update_forced), getFragmentManager(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, true, true);
+    }
+
+    @Override
+    public void warningUpdate() {
+        setEnableViews(true);
+        UI.createSimpleCustomDialog(getString(R.string.title_update),
+                getString(R.string.text_update_warn), getFragmentManager(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+                        versionOk();
+                    }
+                }, true, true);
     }
 
     private void setEnableViews(boolean isEnable) {

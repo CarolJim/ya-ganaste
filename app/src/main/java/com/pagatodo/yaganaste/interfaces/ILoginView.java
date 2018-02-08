@@ -8,4 +8,10 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface ILoginView extends INavigationView {
     void loginSucced();
+
+    void versionOk();
+
+    void forceUpdate();
+
+    void warningUpdate();
 }

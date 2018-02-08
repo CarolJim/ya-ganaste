@@ -4,7 +4,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -18,9 +17,18 @@ public class MainMenuPresenterImp extends AprovPresenter {
 
     }
 
-
     @Override
     public void goToNextStepAccount(String event, Object data) {
+
+    }
+
+    @Override
+    public void onForcedUpdate() {
+
+    }
+
+    @Override
+    public void onWarningUpdate() {
 
     }
 

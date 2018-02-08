@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -26,6 +27,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContr
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarVersionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
@@ -48,6 +50,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarCont
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarVersionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
@@ -96,6 +99,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
@@ -165,7 +169,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.cambiarContrasenia6digits(request, this);
         } catch (OfflineException e) {
             // e.printStackTrace();
-            accountManager.onError(CHANGE_PASS_6,e.toString());
+            accountManager.onError(CHANGE_PASS_6, e.toString());
         }
     }
 
@@ -323,6 +327,17 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
         }
 
+    }
+
+    @Override
+    public void validateVersionApp() {
+        try {
+            ValidarVersionRequest request = new ValidarVersionRequest(2);
+            ApiAdtvo.validateVersionApp(request, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            accountManager.onError(VALIDAR_VERSION, "");
+        }
     }
 
     @Override
@@ -539,6 +554,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             case LOGIN_ADQ:
                 processLoginAdq(dataSourceResult);
                 break;
+            case VALIDAR_VERSION:
+                validateLocalVersion(dataSourceResult);
+                break;
             default:
                 break;
         }
@@ -551,7 +569,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onSuccesChangePass6(dataSourceResult);
         } else {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
-            accountManager.onError(CHANGE_PASS_6,response.getMensaje());
+            accountManager.onError(CHANGE_PASS_6, response.getMensaje());
         }
 
     }
@@ -705,7 +723,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
-                        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                    if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                            //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                        /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
+                            loginAdq();
+                            return;
+                        } else {*/
+                            checkAfterLogin();
+                            return;
+                            //}
+                        } else {//Requiere setear el NIP
+                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                        }
+                    } else {
+
+                        if (!dataUser.isRequiereActivacionSMS()) {
+
+                            stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
+                        } else {
+
                             if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
                                 //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
@@ -718,32 +755,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                             } else {//Requiere setear el NIP
                                 stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                             }
-                        } else {
 
-                            if (!dataUser.isRequiereActivacionSMS()) {
-
-                                stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
-                            }else {
-
-                                if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                                    //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
-                        /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
-                            loginAdq();
-                            return;
-                        } else {*/
-                                    checkAfterLogin();
-                                    return;
-                                    //}
-                                } else {//Requiere setear el NIP
-                                    stepByUserStatus = EVENT_GO_ASSIGN_PIN;
-                                }
-
-                            }
                         }
+                    }
 
                 } else { // No tiene cuenta asignada.
 
-                        stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
+                    stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
 
                 }
 
@@ -955,9 +973,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
 
             Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
-            if(FirebaseInstanceId.getInstance().getToken() != null){
+            if (FirebaseInstanceId.getInstance().getToken() != null) {
                 prefs.saveData(StringConstants.TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
-               // prefs.saveData(StringConstants.TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);
+                // prefs.saveData(StringConstants.TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);
             }
             MessageValidation messageValidation = new MessageValidation(phone, message);
             accountManager.onSucces(response.getWebService(), messageValidation);
@@ -1016,6 +1034,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
+    }
+
+    /* Método para validar la versión de la App de manera local contra los datos que vienen del servicio */
+    private void validateLocalVersion(DataSourceResult response) {
+        ValidarVersionResponse data = (ValidarVersionResponse) response.getData();
+        // Si el código de Respuesta fue exitoso
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            if (data.getData().getVersion().equals(BuildConfig.VERSION_NAME)) {
+                // Validar primero que la versión sea la misma
+                accountManager.onSucces(response.getWebService(), data.getMensaje());
+            } else if (data.getData().isForcedUpdate()) {
+                // Si no es la misma entonces hay que validar si necesita una actualización forzosa
+                accountManager.onForcedUpdate();
+            } else {
+                // En caso de que no coincida la version y no necesite una actualización forzosa, se debe permitir al usuario que proceda con el Login
+                accountManager.onWarningUpdate();
+            }
+        } else {
+            accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
 }

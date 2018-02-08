@@ -98,6 +98,16 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
     }
 
     @Override
+    public void onForcedUpdate() {
+
+    }
+
+    @Override
+    public void onWarningUpdate() {
+
+    }
+
+    @Override
     public void hideLoader() {
         iNavigationView.hideLoader();
     }

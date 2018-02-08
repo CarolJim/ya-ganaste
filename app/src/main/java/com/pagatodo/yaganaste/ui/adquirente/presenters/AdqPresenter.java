@@ -169,6 +169,16 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
+    public void onForcedUpdate() {
+
+    }
+
+    @Override
+    public void onWarningUpdate() {
+
+    }
+
+    @Override
     public void hideLoader() {
         iAdqView.hideLoader();
     }
