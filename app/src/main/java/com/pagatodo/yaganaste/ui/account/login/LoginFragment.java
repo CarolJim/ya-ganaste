@@ -206,11 +206,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
                 int widthp = metrics.widthPixels; // ancho absoluto en pixels
-                int paramentroT = widthp / 3;
+                int paramentroT = widthp / 4;
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 params.width = paramentroT;
                 params.height = paramentroT;
@@ -218,7 +217,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
 
                 Preferencias preferencias = App.getInstance().getPrefs();
-                textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+                //textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+                textNameUser.setText("¡Hola "+preferencias.loadData(StringConstants.SIMPLE_NAME)+"\n¿Qué Quieres Hacer? ");
                 edtUserName.setText(RequestHeaders.getUsername());
                 edtUserName.setVisibility(GONE);
                 textNameUser.setOnClickListener(this);
@@ -291,7 +291,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 edtPin.requestEditFocus();
 
             } else {
-                textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+                textNameUser.setText("¡Hola "+preferencias.loadData(StringConstants.SIMPLE_NAME)+"\n¿Qué Quieres Hacer? ");
                 edtUserName.setText(RequestHeaders.getUsername());
                 edtUserName.setVisibility(GONE);
                 textNameUser.setOnClickListener(this);

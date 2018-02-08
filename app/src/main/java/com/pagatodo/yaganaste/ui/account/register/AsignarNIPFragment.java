@@ -45,7 +45,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActi
 public class AsignarNIPFragment extends GenericFragment implements ValidationForms, IAccountCardNIPView {
 
     private static int PIN_LENGHT = 4;
-    @BindView(R.id.asignar_edittext)
+    @BindView(R.id.nip)
     CustomValidationEditText edtPin;
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
@@ -100,7 +100,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
         // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
         // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.nip);
         edtPin.setMaxLength(4); // Se asigna un maximo de 4 caracteres para no tener problrmas
         edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
         edtPin.addCustomTextWatcher(new TextWatcher() {
@@ -130,7 +130,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
             @Override
             public void onClick(View v) {
                 edtPin.requestFocus();
-                keyboardView.showCustomKeyboard(v);
+               // keyboardView.showCustomKeyboard(v);
             }
         });
 
@@ -141,7 +141,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
                 int inType = edittext.getInputType();       // Backup the input type
                 edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
                 edittext.onTouchEvent(event);               // Call native handler
-                keyboardView.showCustomKeyboard(v);
+               // keyboardView.showCustomKeyboard(v);
                 edittext.setInputType(inType);              // Restore input type
                 return true; // Consume touch event
             }
@@ -153,7 +153,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
             }
         });
         setValidationRules();
-        keyboardView.showCustomKeyboard(rootview);
+       // keyboardView.showCustomKeyboard(rootview);
         edtPin.requestEditFocus();
     }
 

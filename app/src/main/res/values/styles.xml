@@ -247,8 +247,10 @@
     </style>
 
     <style name="RadioButtonTheme" parent="@style/AppTheme">
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/whiteColor</item>
+        <item name="android:button">@null</item>
+        <item name="colorControlActivated">@color/transparent</item>
+        <item name="colorControlNormal">@color/transparent</item>
+
         <item name="android:padding">@dimen/margin_xsmall</item>
     </style>
 
@@ -266,6 +268,8 @@
     <style name="SpinnerNoArrow" parent="CustomSpinner">
         <item name="android:focusable">true</item>
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
+        <item name="android:layout_margin">@dimen/margin_medium</item>
+        <item name="android:elevation">7dp</item>
     </style>
 
     <style name="BorderLayoutContent">
@@ -310,6 +314,7 @@
 
     <style name="FragmentElementTop" parent="FragmentElement">
         <item name="android:layout_marginTop">@dimen/margin_doble</item>
+        <item name="android:button">@null</item>
     </style>
 
     <style name="FragmentElementBottom" parent="FragmentElement">
@@ -433,6 +438,7 @@
     <style name="generic_text_style_2">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="android:button">@color/transparent</item>
         <item name="tipo">Text</item>
     </style>
     <style name="generic_text_style_2_conoce">
@@ -472,7 +478,7 @@
     </style>
 
     <style name="generic_text_style_4">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_4_value</item>
         <item name="tipo">Text</item>
     </style>

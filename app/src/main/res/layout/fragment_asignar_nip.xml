@@ -9,7 +9,15 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
-
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:text="@string/asigna_nip"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_style_2_value" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,9 +29,10 @@
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_marginRight="@dimen/margin_big"
-            android:layout_marginTop="@dimen/margin_big"
+            android:layout_alignLeft="@+id/layoutBtns"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/layoutBtns"
+            android:layout_marginTop="32dp"
             android:gravity="center"
             app:title="@string/asigna_nip">
 
@@ -43,7 +52,9 @@
                 android:layout_marginTop="20dp"
                 android:inputType="numberPassword" />
 
-            <include layout="@layout/asignar_pin_layout" />
+            <include layout="@layout/asignar_pin_layout"
+                android:visibility="gone"
+                />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessageCard"
@@ -55,7 +66,31 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
                 android:text="@string/longitud_nip"
-                android:visibility="visible" />
+                android:visibility="gone" />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/nip"
+                android:layout_width="match_parent"
+                style="@style/FragmentElementWithValidation"
+                android:layout_height="wrap_content"
+                app:formato="password"
+                app:hintText="@string/introduce_nip"
+                app:isSingleLine="true"
+                android:inputType="phone"
+                app:maxLength="4" />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/confim_nip"
+                android:layout_width="match_parent"
+                style="@style/FragmentElementWithValidation"
+                android:layout_height="wrap_content"
+                app:formato="password"
+                app:hintText="@string/confirma_nip"
+                app:isSingleLine="true"
+                android:inputType="phone"
+                app:maxLength="4" />
 
             <!--     <RelativeLayout
                      android:layout_width="match_parent"

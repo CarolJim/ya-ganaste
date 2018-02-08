@@ -323,6 +323,8 @@
     <string name="userDataTitle">Datos de Usuario</string>
     <string name="confirmEmail">Confirma Correo</string>
     <string name="password">Contraseña</string>
+    <string name="introduce_nip">NIP (4 Dígitos)</string>
+    <string name="confirma_nip">Confirma tu NIP</string>
     <string name="new_password">Nueva Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
@@ -583,7 +585,7 @@
     <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara</string>
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
-    <string name="no_tiene_tarjeta">No te Preocupes\n¡Ya te Asignamos Una!</string>
+    <string name="no_tiene_tarjeta">No te Preocupes, te Asignaremos Una Tarheta\nDigital y Podrás Solicitar Una Física en el Futuro</string>
     <string name="si_tiene_tarjeta">Ingresa tu Número de Tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="tarjeta_cancelada">Tu Tarjeta Esta Cancelada</string>

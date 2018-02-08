@@ -15,7 +15,15 @@
     android:layout_toEndOf="@+id/progressLayout"
     android:layout_toRightOf="@+id/progressLayout"
     -->
-
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/size_text_style_2_value"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="35dp"
+        android:text="@string/currentAddressTitle"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -133,7 +141,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
-                        android:background="@null"
+                        android:layout_margin="@dimen/margin_xsmall"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
                         android:backgroundTint="@color/transparent" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
@@ -209,6 +219,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtLegales"
+                        android:textColor="@color/texthint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -242,7 +253,8 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextDomicilioActual"
-                style="@style/buttonDirecctionNext"
+                style="@style/buttonSquareRoundedBlue"
+                android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
                 android:text="@string/nextButton" />
         </LinearLayout>
