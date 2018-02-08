@@ -3,49 +3,36 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_ABOUT;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_CONTACT;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_TUTORIALES;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ListaAyudaLegalesFragment extends GenericFragment implements View.OnClickListener {
 
-    @BindView(R.id.fragment_lista_ayuda_tutoriales)
-    LinearLayout lllista_ayuda_tutoriales;
-    @BindView(R.id.fragment_lista_ayuda_contactanos)
-    LinearLayout lllista_ayuda_contactanos;
-    @BindView(R.id.fragment_lista_ayuda_acerca_app)
-    LinearLayout lllista_ayuda_acerca;
-    @BindView(R.id.fragment_lista_legales_aviso)
-    LinearLayout ll_aviso;
-    @BindView(R.id.fragment_lista_legales_terminos)
-    LinearLayout ll_terminos;
+public class ListaAyudaLegalesFragment extends GenericFragment implements MenuAdapter.OnItemClickListener {
+
+    @BindView(R.id.listview_generic)
+    ListView listView;
     @BindView(R.id.txtVersionApp)
-
     StyleTextView version;
 
     View rootview;
 
     public ListaAyudaLegalesFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -70,34 +57,22 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements View.O
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        lllista_ayuda_tutoriales.setOnClickListener(this);
-        lllista_ayuda_contactanos.setOnClickListener(this);
-        lllista_ayuda_acerca.setOnClickListener(this);
-        ll_aviso.setOnClickListener(this);
-        ll_terminos.setOnClickListener(this);
-        version.setText("Versión: " + BuildConfig.VERSION_NAME);
+        listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).ACERCA_DE(), this));
+        version.setText("Ya Ganaste Versión: " + BuildConfig.VERSION_NAME);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fragment_lista_ayuda_tutoriales:
-                onEventListener.onEvent(PREFER_USER_HELP_TUTORIALES, 1);
-                break;
-            case R.id.fragment_lista_ayuda_contactanos:
-                onEventListener.onEvent(PREFER_USER_HELP_CONTACT, 1);
-                break;
-            case R.id.fragment_lista_ayuda_acerca_app:
-                onEventListener.onEvent(PREFER_USER_HELP_ABOUT, 1);
-                break;
-            case R.id.fragment_lista_legales_aviso:
-                //   Toast.makeText(getContext(), "Click User", Toast.LENGTH_SHORT).show();
+    public void onItemClick(OptionMenuItem optionMenuItem) {
+        switch (optionMenuItem.getIdItem()){
+            case 1:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD, 1);
                 break;
-            case R.id.fragment_lista_legales_terminos:
-                //  Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();
+            case 2:
                 onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
                 break;
         }
+         /*onEventListener.onEvent(PREFER_USER_HELP_TUTORIALES, 1);
+         onEventListener.onEvent(PREFER_USER_HELP_CONTACT, 1);
+         onEventListener.onEvent(PREFER_USER_HELP_ABOUT, 1);*/
     }
 }

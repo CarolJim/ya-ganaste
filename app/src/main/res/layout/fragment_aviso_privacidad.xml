@@ -1,5 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,106 +7,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/textView2"
+            style="@style/generic_text_style_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:text="@string/aviso_privacidad" />
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/textView2"
-                style="@style/generic_text_style_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/aviso_privacidad" />
-
-        </LinearLayout>
-
-
-
-        <!-- Contenedor que tiene todas las opciones terminos y condiciones -->
-        <LinearLayout
+        <ListView
+            android:id="@+id/listview_generic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:divider="@android:color/transparent"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/borderLayoutColor" />
-
-
-            <LinearLayout
-                android:id="@+id/fragment_aviso_cuenta_ya_ganaste"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="2"
-                    android:text="@string/aviso_privacidad_cuenta_ganaste" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/borderLayoutColor" />
-
-            <LinearLayout
-                android:id="@+id/fragment_aviso_linea_credito_linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:paddingTop="10dp">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="2"
-                    android:text="@string/aviso_privacidad_linea_credito" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:id="@+id/fragment_aviso_linea_credito_view"
-                android:visibility="gone"
-                android:background="@color/borderLayoutColor" />
-
-        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
+

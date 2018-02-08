@@ -123,6 +123,19 @@ public class OptionMenuItem {
         return optionMenuItems;
     }
 
+    public ArrayList<OptionMenuItem> ACERCA_DE() {
+        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
+        optionMenuItems.add(new OptionMenuItem(1, this.context.getResources().getString(R.string.legales),"", RAW));
+        optionMenuItems.add(new OptionMenuItem(2, this.context.getResources().getString(R.string.aviso_privacidad),"", RAW));
+        return optionMenuItems;
+    }
+
+    public ArrayList<OptionMenuItem> LEGALES() {
+        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
+        optionMenuItems.add(new OptionMenuItem(1, this.context.getResources().getString(R.string.aviso_privacidad_cuenta_ganaste),"", RAW));
+        return optionMenuItems;
+    }
+
     public enum INDICATION {
         RAW, SWITCH, SWITCHNORMAL
     }

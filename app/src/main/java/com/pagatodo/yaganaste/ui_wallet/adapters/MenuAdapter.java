@@ -122,6 +122,9 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
                 listener.onItemClick(listItems.get(position));
             }
         });
+        if (listItems.size() == 1){
+            viewHolder.dividerList.setVisibility(View.GONE);
+        }
         /*if (position == listItems.size() - 1)
             viewHolder.dividerList.setVisibility(View.GONE);*/
         return convertView;
