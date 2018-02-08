@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:theme="@style/RadioButtonTheme">
+                        >
 
                         <android.support.v4.widget.Space
                             android:layout_width="0dp"
@@ -67,6 +67,7 @@
                         <RadioButton
                             android:button="@null"
                             android:id="@+id/radioBtnNo"
+                            style="@style/RadioButtonTheme"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -92,23 +93,20 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="@string/yes"
+                            android:text="si"
                             android:layout_weight="1"
                             android:background="@drawable/rbtn_selector"
                             android:button="@null"
                             android:padding="5dp"
+
                             android:textColor="@drawable/rbtn_textcolor_selector"
 
-
-
                             />
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
                     </RadioGroup>
+
+
+
+
 
 
 
@@ -182,10 +180,11 @@
         android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+            android:keyTextColor="#bcbcbc"
+            android:background="@android:color/darker_gray"
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@android:color/transparent"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:keyBackground="@drawable/material_key_drawable"
