@@ -328,7 +328,7 @@
     </style>
 
     <style name="MainTabText">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/texthint</item>
         <item name="android:textSize">10sp</item>
         <item name="tipo">Subtitulo</item>
     </style>

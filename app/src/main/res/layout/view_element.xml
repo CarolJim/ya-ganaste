@@ -2,17 +2,17 @@
 <LinearLayout
     android:id="@+id/content_element"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/color_background_image_docs"
+    android:background="@drawable/border_option_backgraund"
     android:orientation="vertical"
     android:gravity="center"
     android:visibility="visible">
 
     <LinearLayout
         android:id="@+id/view_element"
-        android:layout_width="match_parent"
-        android:layout_height="102dp"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center">
@@ -26,16 +26,17 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             style="@style/generic_text_style_5"
+            android:textColor="@color/colorAccent"
             android:id="@+id/text_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Administracion"/>
+            android:text="Estado de Cuenta"/>
     </LinearLayout>
 
-    <View
+    <!--<View
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
-        android:layout_height="2dp"/>
+        android:layout_height="2dp"/>-->
 
 </LinearLayout>

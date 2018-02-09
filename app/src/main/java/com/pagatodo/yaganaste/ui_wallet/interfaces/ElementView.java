@@ -59,6 +59,7 @@ public class ElementView implements Serializable{
         elementViews.add(new ElementView(1, R.mipmap.icono_movimientos,"Movimientos"));
         elementViews.add(new ElementView(2, R.mipmap.icono_deposito,"Depósitos"));
         elementViews.add(new ElementView(3, R.mipmap.card_icon,"Administración"));
+        elementViews.add(new ElementView(3, R.mipmap.card_icon,"Estado de Cuenta"));
         return elementViews;
     }
 
