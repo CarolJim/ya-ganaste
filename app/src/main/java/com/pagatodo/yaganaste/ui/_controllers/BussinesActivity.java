@@ -82,9 +82,15 @@ public class BussinesActivity extends LoaderActivity {
             Idestatus == IdEstatus.I9.getId()) {
         loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
          }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+            Idestatus == IdEstatus.I10.getId()) {
+        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
             Idestatus == IdEstatus.I11.getId()) {
         loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-       }  else if  (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+        }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+            Idestatus == IdEstatus.I13.getId()) {
+        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        }else if  (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {

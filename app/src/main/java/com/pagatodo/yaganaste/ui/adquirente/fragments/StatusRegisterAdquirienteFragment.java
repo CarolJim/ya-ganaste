@@ -180,7 +180,17 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
             mTextContact.setVisibility(View.VISIBLE);
             mTextContact.setText(getString(R.string.txt_contacto_registro_circulos_rechazada));
             mTextContact.setTextSize(12);
-        } else {
+        } else if (Idestatus == IdEstatus.I13.getId()) {
+            statusTextInfo.setText("Tu Solicitud no\nPudo Ser Completada");
+            statusText.setText("Solicitud\nInterrumpida");
+            // statusViewCupo.updateError(50, 0);
+            status_view_sol_rechazada.updateStatus(0, 0);
+            status_view_sol_rechazada.setVisibility(View.VISIBLE);
+            mButtonContinue.setVisibility(View.GONE);
+            mTextContact.setVisibility(View.VISIBLE);
+            mTextContact.setText(getString(R.string.txt_contacto_registro_circulos_rechazada));
+            mTextContact.setTextSize(12);
+        }else {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
             statusText.setText("Revisando Tus \nDocumentos");

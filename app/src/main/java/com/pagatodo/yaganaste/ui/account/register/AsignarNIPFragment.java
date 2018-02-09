@@ -134,27 +134,9 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
             }
         });
 
-        edtPin.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-               // keyboardView.showCustomKeyboard(v);
-                edittext.setInputType(inType);              // Restore input type
-                return true; // Consume touch event
-            }
-        });
-        btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateForm();
-            }
-        });
+
         setValidationRules();
-       // keyboardView.showCustomKeyboard(rootview);
-        edtPin.requestEditFocus();
+
     }
 
     /*Implementación de ValidationForms*/
