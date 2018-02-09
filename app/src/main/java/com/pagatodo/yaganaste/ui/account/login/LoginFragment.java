@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -317,7 +318,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             accessCode.setVisibility(View.VISIBLE);
             boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
             if (isAdquirente) {
-                quickPayment.setVisibility(View.VISIBLE);
+                int Idestatus;
+                Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+                if (Idestatus== IdEstatus.I10.getId() ||Idestatus== IdEstatus.I13.getId() ){
+                    quickPayment.setVisibility(View.GONE);
+                }else {
+                    quickPayment.setVisibility(View.VISIBLE);
+                }
             } else {
                 quickPayment.setVisibility(View.GONE);
             }

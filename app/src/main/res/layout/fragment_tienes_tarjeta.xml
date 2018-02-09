@@ -76,7 +76,6 @@
                             android:layout_weight="1"
                             android:background="@drawable/rbtn_selector"
                             android:checked="true"
-                            android:padding="5dp"
                             android:textColor="@drawable/rbtn_textcolor_selector"
 
                             />
@@ -97,8 +96,6 @@
                             android:layout_weight="1"
                             android:background="@drawable/rbtn_selector"
                             android:button="@null"
-                            android:padding="5dp"
-
                             android:textColor="@drawable/rbtn_textcolor_selector"
 
                             />
