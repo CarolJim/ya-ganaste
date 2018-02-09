@@ -304,8 +304,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         toggle.syncState();
 
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburguesita);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
         listView = (ListView) findViewById(R.id.lst_menu_items);
         MenuAdapter menuAdapter = new MenuAdapter(this, new OptionMenuItem(this).MAINMENU(), this);
