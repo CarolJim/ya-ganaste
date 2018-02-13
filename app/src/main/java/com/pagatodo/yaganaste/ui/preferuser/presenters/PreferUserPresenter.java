@@ -166,7 +166,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
 
 
     @Override
-    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
+            public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
         iPreferUserIteractor.sendIteractorActualizarAvatar(avatarRequest);
     }
 

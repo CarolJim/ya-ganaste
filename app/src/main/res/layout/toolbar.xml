@@ -10,9 +10,9 @@
         android:id="@+id/toolbarTest"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:minHeight="?android:attr/actionBarSize"
         android:background="@color/colorAccent"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        android:minHeight="?android:attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <ImageView
         android:id="@+id/imgToolbar"
@@ -24,21 +24,21 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/btn_back"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/back_canvas"
-        android:adjustViewBounds="false"
-        android:tint="@color/whiteColor"
-        android:scaleType="center"
         android:layout_gravity="center_vertical|left"
-        android:paddingLeft="15dp"
-        android:paddingStart="15dp"
-        android:paddingRight="15dp"
-        android:paddingEnd="15dp"
+        android:adjustViewBounds="false"
         android:foreground="?attr/selectableItemBackground"
-        android:visibility="visible"/>
+        android:paddingBottom="5dp"
+        android:paddingEnd="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:scaleType="center"
+        android:tint="@color/whiteColor"
+        android:visibility="visible"
+        app:srcCompat="@drawable/back_canvas" />
 
     <ImageView
         android:id="@+id/imgToRight"
@@ -62,24 +62,24 @@
 
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical|end"
         android:layout_marginRight="15dp"
         android:visibility="gone"
         app:srcCompat="@drawable/profile_1_canvas"
-        tools:ignore="ContentDescription"
-        android:id="@+id/imageView" />
+        tools:ignore="ContentDescription" />
 
     <ImageView
+        android:id="@+id/imgNotifications"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical|end"
         android:layout_marginRight="15dp"
         android:visibility="gone"
         app:srcCompat="@mipmap/bell"
-        tools:ignore="ContentDescription"
-        android:id="@+id/imgNotifications" />
+        tools:ignore="ContentDescription" />
     <!--
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgToRight_prefe"

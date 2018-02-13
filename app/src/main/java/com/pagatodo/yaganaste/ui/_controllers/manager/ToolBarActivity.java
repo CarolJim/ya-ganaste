@@ -10,12 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui_wallet.NotificationActivity;
 import com.pagatodo.yaganaste.utils.UI;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,6 +37,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
     private View toolbarLayout;
     public String mUserImage;
+    private ImageView imgNotif;
     //CircleImageView imageView;
     //ImageView imageView;
     //static CircleImageView imageViewdes;
@@ -52,12 +55,17 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         //imageView = (ImageView) findViewById(R.id.imgToRight_prefe);
         //imageViewdes= (ImageView) findViewById(R.id.imgToRight_prefe);
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
+        imgNotif = (ImageView) findViewById(R.id.imgNotifications);
         //if (imageView != null) {
-       //     imageView.setOnClickListener(this);
-       // }
+        //     imageView.setOnClickListener(this);
+        // }
 
         if (btnBack != null) {
             btnBack.setOnClickListener(this);
+        }
+
+        if (imgNotif != null) {
+            imgNotif.setOnClickListener(this);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
@@ -73,28 +81,40 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     /**
      * Metodo que heredamos, controla el que se muestre el icono con la foto como visible o no, en
      * todos sus descendientes
+     *
      * @param mBoolean
      */
-    public void setVisibilityPrefer(Boolean mBoolean){
-        if(mBoolean){
+    public void setVisibilityPrefer(Boolean mBoolean) {
+        if (mBoolean) {
             //imageView.setVisibility(View.VISIBLE);
-        }else{
-           // imageView.setVisibility(View.GONE);
+        } else {
+            // imageView.setVisibility(View.GONE);
         }
     }
 
-    public void setVisibilityBack(boolean mBoolean){
+    /**
+     * POSIBLE metodo para mostrar el icono de notificaciones, por medio de su padre y no en la propia
+     * actividad hija
+     * @param mBoolean
+     */
+    public void setVisibilityNotif(boolean mBoolean){
+        if (mBoolean) {
+            imgNotif.setVisibility(View.VISIBLE);
+        } else {
+            imgNotif.setVisibility(View.GONE);
+        }
+    }
+
+    public void setVisibilityBack(boolean mBoolean) {
         if (mBoolean) {
             btnBack.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btnBack.setVisibility(View.GONE);
         }
     }
 
 
-
-
-    public static void setVisibleshare(){
+    public static void setVisibleshare() {
         //imageViewdes.setVisibility(View.GONE);
     }
 
@@ -111,7 +131,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         }*/
     }
 
- public void changeToolbarVisibility(boolean visibility) {
+    public void changeToolbarVisibility(boolean visibility) {
         if (toolbarLayout != null) {
             if (visibility) {
                 toolbarLayout.setVisibility(View.VISIBLE);
@@ -124,7 +144,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-     //   getMenuInflater().inflate(R.menu.my_account_menu, menu);
+        //   getMenuInflater().inflate(R.menu.my_account_menu, menu);
         return true;
     }
 
@@ -168,6 +188,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
     /**
      * Abrimos la actividad de las preferencias
+     *
      * @param v
      */
     @Override
@@ -176,6 +197,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
             case R.id.btn_back:
                 UI.hideKeyBoard(this);
                 onBackPressed();
+                break;
+            case R.id.imgNotifications:
+               // Toast.makeText(ToolBarActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, NotificationActivity.class));
                 break;
 
             default:

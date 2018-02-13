@@ -178,7 +178,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         });
         imageNotification = (ImageView) findViewById(R.id.imgNotifications);
-        imageNotification.setVisibility(View.GONE);
+        imageNotification.setVisibility(View.VISIBLE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
         btnQrProfile = (ImageButton) findViewById(R.id.btn_qr_profile);
         btnQrProfile.setOnClickListener(new View.OnClickListener() {
