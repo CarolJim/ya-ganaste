@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Genero;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -74,12 +75,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     Boolean seencuentra = false;
     private final int EXTRANJERO = 2;
-    @BindView(R.id.radioGender)
-    RadioGroup radioGroupGender;
-    @BindView(R.id.radioBtnFemale)
-    RadioButton radioBtnFemale;
-    @BindView(R.id.radioBtnMale)
-    RadioButton radioBtnMale;
+
     @BindView(R.id.editNames)
     CustomValidationEditText editNames;
     @BindView(R.id.editFirstLastName)
@@ -90,6 +86,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
     CustomValidationEditText editBirthDay;
     @BindView(R.id.spinnerBirthPlace)
     AppCompatSpinner spinnerBirthPlace;
+    @BindView(R.id.spinnergenero)
+    AppCompatSpinner spinnergenero;
     @BindView(R.id.btnBackPersonalInfo)
     Button btnBackDatosPersonales;
     @BindView(R.id.btnNextPersonalInfo)
@@ -116,6 +114,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     ErrorMessage errorCurp;
 
     StatesSpinnerAdapter adapterBirthPlace;
+    StatesSpinnerAdapter adaptergenero;
     Calendar newDate;
     Calendar actualDate;
     private View rootview;
@@ -228,10 +227,16 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
         editBirthDay.setDrawableImage(R.drawable.calendar);
         editBirthDay.imageViewIsGone(true);
+        adaptergenero= new StatesSpinnerAdapter(getContext(),R.layout.spinner_layout, Genero.values(),this);
+
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
                 States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
+
+        spinnergenero.setAdapter(adaptergenero);
+        spinnergenero.setOnItemSelectedListener(this);
+
 
         editCountry.imageViewIsGone(false);
         editCountry.setEnabled(false);
@@ -373,12 +378,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
             }
         });
 
-        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                hideValidationError(radioGroupGender.getId());
-            }
-        });
 
     }
 
@@ -389,7 +388,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         boolean isValid = true;
 
         if (genero == null || genero.equals("")) {
-            showValidationError(radioGroupGender.getId(), getString(R.string.datos_personal_genero));
+            showValidationError(spinnergenero.getId(), getString(R.string.datos_personal_genero));
             isValid = false;
         }
 
@@ -467,7 +466,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setMessageText(error.toString());
                 break;
-            case R.id.radioGender:
+            case R.id.spinnergenero:
                 errorGenderMsessage.setMessageText(error.toString());
                 break;
             case R.id.editCountry:
@@ -497,7 +496,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setVisibilityImageError(false);
                 break;
-            case R.id.radioGender:
+            case R.id.spinnergenero:
                 errorGenderMsessage.setVisibilityImageError(false);
                 break;
             case R.id.editCountry:
@@ -575,10 +574,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void getDataForm() {
-        genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
+        //genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
         nombre = editNames.getText();
         apPaterno = editFirstLastName.getText();
         apMaterno = editSecoundLastName.getText();
+        if (spinnergenero.getSelectedItemPosition() != 0) {
+            genero =spinnergenero.getSelectedItemPosition() == 1 ?"H":spinnergenero.getSelectedItemPosition() == 2? "M":"";
+        }
+
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
@@ -589,9 +592,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private void setCurrentData() {
         RegisterUser registerUser = RegisterUser.getInstance();
         if (registerUser.getGenero().equals("H")) {
-            radioBtnMale.setChecked(true);
+            spinnergenero.setSelection(1);
         } else if (registerUser.getGenero().equals("M")) {
-            radioBtnFemale.setChecked(true);
+            spinnergenero.setSelection(2);
         }
 
         editNames.setText(registerUser.getNombre());

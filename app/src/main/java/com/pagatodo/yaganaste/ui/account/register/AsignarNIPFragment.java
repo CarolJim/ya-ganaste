@@ -20,7 +20,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -47,6 +49,8 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     private static int PIN_LENGHT = 4;
     @BindView(R.id.nip)
     CustomValidationEditText edtPin;
+    @BindView(R.id.confim_nip)
+    CustomValidationEditText confim_nip;
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
     @BindView(R.id.keyboard_view)
@@ -61,8 +65,13 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     ImageView asignar_iv1;
     private View rootview;
     private String nip = "";
+    private String conf_nip = "";
     private Keyboard keyboard;
     ImageView imageView;
+    private AccountPresenterNew accountPresenter;
+
+
+
     public AsignarNIPFragment() {
     }
 
@@ -77,6 +86,8 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+        accountPresenter.setIView(this);
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -88,43 +99,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setVisibility(View.GONE);
 
-        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-        keyboardView.setPreviewEnabled(false);
-
-        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
-        imageView.setVisibility(View.GONE);
-        tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
-        tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
-        tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
-        tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-
-        // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
-        // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.nip);
-        edtPin.setMaxLength(4); // Se asigna un maximo de 4 caracteres para no tener problrmas
-        edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
-        edtPin.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().length() == 4) {
-                    keyboardView.hideCustomKeyboard();
-                    btnNextAsignarPin.setVisibility(View.VISIBLE);
-                    //validateForm();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
         //Si ocamos el area especial del Layout abrimos el Keyboard
         layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +109,8 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         });
 
 
-        setValidationRules();
+
+
 
     }
 
@@ -150,8 +125,11 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public void validateForm() {
         getDataForm();
 
-        if (nip.length() < PIN_LENGHT) {
+        if (nip.length() < PIN_LENGHT || conf_nip.length() < PIN_LENGHT)  {
             showValidationError(getString(R.string.asignar_pin));
+            return;
+        }else if (!nip.equals(conf_nip)){
+            showValidationError(getString(R.string.confirmar_pin));
             return;
         }
 
@@ -187,12 +165,13 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void onValidationSuccess() {
-        nextScreen(EVENT_GO_CONFIRM_PIN, nip);
+        accountPresenter.assignNIP(nip);
     }
 
     @Override
     public void getDataForm() {
         nip = edtPin.getText().toString().trim();
+        conf_nip = confim_nip.getEditText().toString().trim();
     }
 
     @Override

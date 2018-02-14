@@ -41,77 +41,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/generTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/seleccionaGenero"
-                            style="@style/generic_text_style_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/selecciona_genero" />
-
-                        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                            android:id="@+id/errorGenderMessage"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:visibility="visible" />
-
-                    </LinearLayout>
-
-                    <RadioGroup
-                        android:id="@+id/radioGender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:theme="@style/RadioButtonTheme">
-
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnFemale"
-                            style="@style/generic_text_style_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/female"
-
-
-
-
-
-                            />
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnMale"
-                            style="@style/generic_text_style_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/male" />
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-
-                    </RadioGroup>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -168,13 +98,26 @@
                             app:imageIsGone="true"
                             app:isSingleLine="true"
                             app:maxLength="30" />
-
                         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                             style="@style/generic_text_style_2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="visible" />
 
+                        <Spinner
+                            android:id="@+id/spinnergenero"
+                            style="@style/SpinnerNoArrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_xsmall"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:backgroundTint="@color/transparent" />
+                        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                            android:id="@+id/errorGenderMessage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible" />
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editBirthDay"
                             style="@style/FragmentElementWithValidation"

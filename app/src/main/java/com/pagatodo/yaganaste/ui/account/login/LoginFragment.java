@@ -318,11 +318,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             accessCode.setVisibility(View.VISIBLE);
             boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
             if (isAdquirente) {
-                int Idestatus;
-                Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-                if (Idestatus== IdEstatus.I10.getId() ||Idestatus== IdEstatus.I13.getId() ){
+                if (App.getInstance().getPrefs().loadDataBoolean(StringConstants.ESTADO_RECHAZADO, false)) {
                     quickPayment.setVisibility(View.GONE);
-                }else {
+                } else {
                     quickPayment.setVisibility(View.VISIBLE);
                 }
             } else {

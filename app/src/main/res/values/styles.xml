@@ -139,6 +139,16 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
+    <style name="buttonSquareRoundedBlueNewWallet" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns_big</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
     <style name="RowTitle">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
@@ -296,6 +306,9 @@
         <item name="android:textColorHint">@color/whiteColor</item>
         <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
+
+
+
         <item name="tipo">Descripcion</item>
     </style>
 
@@ -308,6 +321,23 @@
     <style name="FragmentElementWithValidation" parent="FragmentElement">
         <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
 
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="android:statusBarColor">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+
+    </style>
+
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/transparent</item>
+        <item name="colorControlActivated">@color/transparent</item>
+        <item name="colorControlHighlight">@color/transparent</item>
     </style>
 
     <style name="FragmentElementTop" parent="FragmentElement">
@@ -328,7 +358,7 @@
     </style>
 
     <style name="MainTabText">
-        <item name="android:textColor">@color/texthint</item>
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">10sp</item>
         <item name="tipo">Subtitulo</item>
     </style>
