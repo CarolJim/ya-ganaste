@@ -121,6 +121,11 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
+
+
+
+
+
     }
 
     @Override

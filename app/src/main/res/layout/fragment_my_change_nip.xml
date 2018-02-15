@@ -5,21 +5,25 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui.preferuser.MyChangeNip">
 
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/textView2"
+        style="@style/generic_text_style_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_fragment_nip"
+        android:layout_marginTop="20dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/textView2"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Cambia tu NIP" />
+
 
         <View
             android:layout_width="match_parent"
@@ -97,6 +101,16 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/list_view_nip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:padding="20dp">
+
+    </ListView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,7 +124,7 @@
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center"
-            android:text="Confirmar" />
+            android:text="@string/confrimacion" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
             android:id="@+id/keyboard_view"

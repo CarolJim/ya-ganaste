@@ -46,6 +46,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
     }
 
 
+
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
         //movementsView.showLoader("");
