@@ -2,10 +2,11 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataListaNotificationArray;
 import com.pagatodo.yaganaste.interfaces.INotificationHistory;
-import com.pagatodo.yaganaste.ui_wallet.fragments.NotificationHistoryFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.GenericDummyData;
 
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
  * Se encarga de tener siempre las bases comunes de los recyclers, en su constructor, se pasan los datos
  * necesarios, y en su metodo, se pasa el AdapterCustom de cada clase. Asi evitamos lineas de codigo
  * extras en la vista principal. Y alimentamos por medio de su interfase de constructor
+ * <p>
+ * Ademas de agregar un sistema de EndlessRecyclerViewScrollListener que detecta cuando vemos la ultima
+ * parte de los datos
  */
 
 public class RecyclerGenericBase {
@@ -23,23 +27,68 @@ public class RecyclerGenericBase {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager2;
+    private int lastPos;
+    private int mTotalItem;
+    ArrayList<DataListaNotificationArray> myDataset;
+    public static int VERTICAL_ORIENTATION = 1;
+    public static int HORIZONTAL_ORIENTATION = 2;
+
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public RecyclerGenericBase(RecyclerView rv_notification, int mOrientation) {
+        /**
+         * Bloque comun de funcionalidad de RV
+         */
         mRecyclerView = rv_notification;
         mRecyclerView.setHasFixedSize(true);
 
         // Hacemos de la orientacion
-        if(mOrientation == 1){
-            mLayoutManager = new LinearLayoutManager(App.getContext());
-        }else{
-            mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        if (mOrientation == VERTICAL_ORIENTATION) {
+            mLayoutManager2 = new LinearLayoutManager(App.getContext());
+        } else {
+            mLayoutManager2 = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
         }
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        // Hacemos Set del LayoutManager en el RV
+        mRecyclerView.setLayoutManager(mLayoutManager2);
     }
 
-    public void createRecycler(INotificationHistory iView, ArrayList<GenericDummyData> myDataset) {
+    /**
+     * Creamos el RV con las especificaciones necesarias, y se agrega un Listener
+     * @param iView
+     * @param myDataset
+     */
+    public void createRecyclerList(final INotificationHistory iView, final ArrayList<DataListaNotificationArray> myDataset) {
+        this.myDataset = myDataset;
         mAdapter = new AdapterNotificationRV(iView, myDataset);
         mRecyclerView.setAdapter(mAdapter);
+
+        // Creamos nuestro EndlessRecyclerViewScrollListener que se encarga de detectar el final del Scroll
+        scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager2) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                //Toast.makeText(App.getContext(), "LoadMoreData", Toast.LENGTH_SHORT).show();
+
+                // Enviamos el control al View con IdNotificacion para pedir el siguiente bloque
+                iView.loadNextDataToView(myDataset.get(myDataset.size() - 1).getIdNotificacion());
+            }
+        };
+        mRecyclerView.addOnScrollListener(scrollListener);
+
+    }
+
+    /**
+     * Cargamos el nuevo bloque de datos en nuestra lista original y actualizamos el adapter
+     *
+     * @param mDatasetNext
+     */
+    public void loadNextData(ArrayList<DataListaNotificationArray> mDatasetNext) {
+        if (mDatasetNext != null && mDatasetNext.size() > 0) {
+            for (int x = 0; x < mDatasetNext.size(); x++) {
+                myDataset.add(mDatasetNext.get(x));
+            }
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

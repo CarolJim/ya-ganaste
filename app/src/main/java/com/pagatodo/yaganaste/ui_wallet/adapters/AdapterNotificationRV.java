@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataListaNotificationArray;
 import com.pagatodo.yaganaste.interfaces.INotificationHistory;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
@@ -23,13 +24,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by FranciscoManzo on 12/02/2018.
+ * Adapter de RV para las notificaciones
  */
 
 public class AdapterNotificationRV extends RecyclerView.Adapter<AdapterNotificationRV.ViewHolder> {
-    ArrayList<GenericDummyData> myDataset;
+    ArrayList<DataListaNotificationArray> myDataset;
     INotificationHistory mView;
 
-    public AdapterNotificationRV(INotificationHistory mView, ArrayList<GenericDummyData> myDataset) {
+    public AdapterNotificationRV(INotificationHistory mView, ArrayList<DataListaNotificationArray> myDataset) {
         this.mView = mView;
         this.myDataset = myDataset;
 
@@ -63,18 +65,18 @@ public class AdapterNotificationRV extends RecyclerView.Adapter<AdapterNotificat
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTittle.setText(myDataset.get(position).getTitle());
-        holder.mDesc.setText(myDataset.get(position).getDesc());
+        holder.mTittle.setText(myDataset.get(position).getIdNotificacion() + " " +myDataset.get(position).getTitulo());
+        holder.mDesc.setText(myDataset.get(position).getMensaje());
 
-        int mImagenUrl = myDataset.get(position).getLogo();
+      /*  int mImagenUrl = myDataset.get(position).getLogo();
         if(mImagenUrl > 0){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.imageViewBorder.setBackground(App.getContext().getDrawable(mImagenUrl));
             }
-        }
+        }*/
 
         // Bloques para mostrar los items ya leidos
-        if(myDataset.get(position).getExtraInt() == 2){
+        if(myDataset.get(position).isLeido()){
 
         holder.mTittle.setTextColor(Color.parseColor("#aebfc5"));
         holder.mDesc.setTextColor(Color.parseColor("#aebfc5"));

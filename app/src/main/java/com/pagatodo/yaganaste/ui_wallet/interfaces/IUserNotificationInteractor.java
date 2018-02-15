@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
+import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ListaNotificationRequest;
 import com.pagatodo.yaganaste.ui_wallet.presenter.UserNotificationPresenter;
 
 /**
@@ -8,10 +10,12 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.UserNotificationPresenter;
 
 public interface IUserNotificationInteractor {
 
-    interface OnUserNotifListener{
-        void onSuccess();
-        void onError();
-    }
+    void getFirstDataToInteractor(UserNotificationPresenter userNotificationPresenter, ListaNotificationRequest listaNotificationRequest);
 
-    void test(int i, int i1, UserNotificationPresenter userNotificationPresenter);
+    void getNextDataToInteractor(ListaNotificationRequest listaNotificationRequest);
+
+    interface OnUserNotifListener{
+        void onSuccess(DataSourceResult dataSourceResult);
+        void onError(DataSourceResult error);
+    }
 }

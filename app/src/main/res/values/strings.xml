@@ -106,6 +106,9 @@
     <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
 
+    <!-- Cadenas de Notificaciones -->
+    <string name="queryNotifUser">ConsultarNotificacionesUsuario</string>
+
     <!-- Fabric Custom Name Events -->
     <string name="ce_pays">Pagos</string>
     <string name="ce_pays_type">Tipo de Pago</string>

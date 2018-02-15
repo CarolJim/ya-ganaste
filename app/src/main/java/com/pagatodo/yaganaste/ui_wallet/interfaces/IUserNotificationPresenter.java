@@ -5,5 +5,7 @@ package com.pagatodo.yaganaste.ui_wallet.interfaces;
  */
 
 public interface IUserNotificationPresenter {
-    void createTest();
+     void getFirstDataToPresenter();
+
+     void getNextDataToPresenter(int idNotificacion);
 }
