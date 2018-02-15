@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 
@@ -55,7 +56,7 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Men
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).LEGALES(), this));
+        listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
     }
 
     @Override

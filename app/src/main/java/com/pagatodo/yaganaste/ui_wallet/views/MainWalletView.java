@@ -5,6 +5,7 @@ package com.pagatodo.yaganaste.ui_wallet.views;
  */
 
 public interface MainWalletView {
+    void setError();
     void showProgress();
     void hideProgress();
 }

@@ -1236,5 +1236,7 @@
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
     <string name="link_message">https://goo.gl/eiCgN6</string>
 
+    <string name="administracion">Administración</string>
+    <string name="title_fragment_nip">Cambia tu NIP</string>
 
 </resources>

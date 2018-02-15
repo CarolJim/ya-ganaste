@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -57,7 +58,7 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements MenuAd
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).ACERCA_DE(), this));
+        listView.setAdapter(ContainerBuilder.ACERCA_DE(getContext(),this));
         version.setText("Ya Ganaste Versión: " + BuildConfig.VERSION_NAME);
     }
 

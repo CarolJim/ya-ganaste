@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -89,16 +90,16 @@ public class SecurityFragment extends SupportFragment implements MenuAdapter.OnI
 
         switch (TYPE_MENU) {
             case 1:
-                listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).SECURITY_MENU(), this));
+                listView.setAdapter(ContainerBuilder.SECURITY_MENU(getContext(),this));
                 //listView.setOnItemClickListener(this);
                 break;
             case 2:
-                listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).SETTINGS_MENU(), this));
+                listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
                 break;
             case 3:
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_acerca));
-                //listView.setAdapter(new MenuAdapter(getContext(),new OptionMenuItem(getContext()).SETTINGS_NOTIFICACIONES(),this));
+
                 break;
 
             default:

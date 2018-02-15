@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -20,6 +23,8 @@ import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -67,6 +72,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     ErrorMessage errorNewNip;
     @BindView(R.id.errorNewNipConfirmMessage)
     ErrorMessage errorNewNipConfirm;
+
+    @BindView(R.id.list_view_nip)
+    ListView listView;
     TextView tv1Num;
     TextView tv2Num;
     TextView tv3Num;
@@ -94,7 +102,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     private AccountPresenterNew accountPresenter;
     boolean isValid;
     public final static String EVENT_GO_CHANGE_NIP_SUCCESS = "EVENT_GO_CHANGE_NIP_SUCCESS";
-
+    private InputTexAdapter adapter;
 
     public MyChangeNip() {
     }
@@ -111,6 +119,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         }
         accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
         accountPresenter.setIView(this);
+
     }
 
     @Override
@@ -125,6 +134,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        adapter = ContainerBuilder.NIP(getContext());
+        listView.setAdapter(adapter);
 
         finishBtn.setOnClickListener(this);
 
@@ -370,26 +381,38 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void getDataForm() {
-        nip = edtPin.getText().toString().trim();
+        /*nip = edtPin.getText().toString().trim();
         nipNew = edtPin2.getText().toString().trim();
-        nipNewConfirm = edtPin3.getText().toString().trim();
+        nipNewConfirm = edtPin3.getText().toString().trim();*/
+
+        nip = adapter.getInpuText(0);
+        nipNew = adapter.getInpuText(1);
+        nipNewConfirm = adapter.getInpuText(2);
     }
 
     @Override
     public void onClick(View v) {
         getDataForm();
         isValid = true;
-
-        validateEt1();
-        validateEt2();
+        if (nip.isEmpty())
+            isValid = false;
+        if (nipNew.isEmpty())
+            isValid = false;
+        if (nipNewConfirm.isEmpty())
+            isValid = false;
+        if (!nipNewConfirm.equalsIgnoreCase(nipNew)){
+            isValid = false;
+        }
+        //validateEt1();
+        //validateEt2();
         //  validateEt3();
 
-        validateEt1_Et2();
-        validateEt2_Et3();
-
+        //validateEt1_Et2();
+        //validateEt2_Et3();
+        Toast.makeText(getContext(), "" + isValid, Toast.LENGTH_SHORT).show();
         if (isValid) {
             // Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
-            onValidationSuccess();
+            //onValidationSuccess();
         }
     }
 

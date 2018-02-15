@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -62,7 +63,7 @@ public class NotificacionesPrefFragment extends SupportFragment implements MenuA
     public void initViews() {
         titleMenu.setText(getContext().getResources().getString(R.string.ajustes_notificar_option));
         subtitleMenu.setVisibility(View.VISIBLE);
-        listView.setAdapter(new MenuAdapter(getContext(), new OptionMenuItem(getContext()).SETTINGS_NOTIFICACIONES(), this));
+        listView.setAdapter(ContainerBuilder.SETTINGS_NOTIFICACIONES(getContext(),this));
     }
 
     @Override

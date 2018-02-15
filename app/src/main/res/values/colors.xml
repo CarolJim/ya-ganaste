@@ -23,7 +23,7 @@
     <color name="landingTransparent">#904D5C6B</color>
     <color name="borderLayoutColor">#ffff</color>
     <color name="amout_color_req">#adadad</color>
-    <color name="margin_lines">#AFAFAF</color>
+    <color name="margin_lines">#979797</color>
     <color name="inputTextColorHint">#A2AEB6</color>
     <color name="lightGrayColor">#beb8b8</color>
     <color name="colorLoaderAlpha">#71393943</color>
@@ -40,7 +40,7 @@
 
 
     <!-- Color alternativo para textos-->
-    <color name="textColorAlternative">#A2AEB6</color>
+    <color name="textColorAlternative">#adadad</color>
 
     <!-- Colores oficiales 12-07-17 -->
     <color name="colorAccent">#00A1E1</color>
@@ -106,5 +106,6 @@
     <color name="switch_color_traker_true">#a2e4ff</color>
     <color name="switch_color_traker_false">#d0d0d0</color>
 
-
+    <color name="item_movement">#f7f7f7</color>
+    <color name="tab_movement_undselected">#95d7f1</color>
 </resources>

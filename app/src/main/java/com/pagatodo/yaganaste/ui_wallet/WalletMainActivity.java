@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsEmisorFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +78,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         switch (idoperation) {
             case 1:
                 loadFragment(HomeTabFragment.newInstance(currentPage), R.id.fragment_container);
+                //loadFragment(MovementsEmisorFragment.newInstance(), R.id.fragment_container);
                 break;
             case 2:
                 loadFragment(DepositsFragment.newInstance(), R.id.fragment_container);

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -35,6 +36,9 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
+import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -66,6 +70,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     TextView txtCableNumber;
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
+
+    @BindView(R.id.text_data_list)
+    ListView listView;
 
     private View rootView;
     String mensaje, cardNumber;
@@ -143,6 +150,13 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         txtNumberCard.setText(cardNumber);
 
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
+
+        Container list = new Container();
+        list.addTextData(new TextData(R.string.datos_deposito_titular,name));
+        list.addTextData(new TextData(R.string.datos_depsito_numero_celular, celPhone));
+        list.addTextData(new TextData(R.string.datos_deposito_clabe, clabe));
+        list.addTextData(new TextData(R.string.datos_deposito_num_card, cardNumber));
+        listView.setAdapter(ContainerBuilder.DEPOSITO(getContext(),list));
     }
 
     @Override
