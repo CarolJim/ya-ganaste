@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,18 +10,27 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@+id/lyt_princpal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/colorAccent"/>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/textView2"
@@ -30,299 +38,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Mi Tarjeta" />
+                android:text="@string/administracion"
+                android:textColor="@color/whiteColor"/>
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
+                android:id="@+id/imgYaGanasteCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView2"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"/>
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/list_view_admon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/imgYaGanasteCard"
                 android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/borderLayoutColor"
-                    android:visibility="invisible" />
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="30dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="30dp"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
-                            android:id="@+id/imgYaGanasteCard"
-                            android:layout_width="200dp"
-                            android:layout_height="match_parent"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerInside"
-                            android:layout_gravity="center"/>
-                    </LinearLayout>
-                    <!--  Comienza la tabla  -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="@dimen/margin_doble"
-                        android:layout_marginLeft="@dimen/margin_doble"
-                        android:layout_marginRight="@dimen/margin_doble"
-                        android:layout_marginStart="@dimen/margin_doble"
-                        android:layout_weight="50"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-
-                        <LinearLayout
-                            android:id="@+id/layout_enviado"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/detail_movements_row_height"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="start"
-                                    android:text="@string/datos_nombre_titular"
-                                    android:textColor="@color/whiteColor" />
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    android:id="@+id/txtNameTitular"
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="end" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="0.5px"
-                                android:background="@color/margin_lines" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/item_change_nip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:visibility="visible">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginTop="5dp"
-                                android:orientation="horizontal">
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20"
-                                    android:gravity="start"
-                                    android:text="@string/my_card_change_nip"
-                                    android:textColor="@color/whiteColor" />
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/arrow_canvas_blue" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="0.5px"
-                                android:background="@color/margin_lines" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/item_report_card"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:visibility="visible">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginTop="5dp"
-                                android:orientation="horizontal">
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="20"
-                                    android:gravity="start"
-                                    android:text="@string/my_card_report"
-                                    android:textColor="@color/whiteColor" />
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
-                                    android:layout_weight="1"
-                                    app:srcCompat="@drawable/arrow_canvas_blue" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="0.5px"
-                                android:background="@color/margin_lines" />
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:id="@+id/layout_fecha"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/detail_movements_row_height"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="start"
-                                    android:text="@string/ultimoPago" />
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    android:id="@+id/txtultimopago"
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="25dp"
-                                    android:layout_weight="1"
-                                    android:ellipsize="marquee"
-                                    android:focusable="true"
-                                    android:focusableInTouchMode="true"
-                                    android:gravity="end"
-                                    android:marqueeRepeatLimit="marquee_forever"
-                                    android:maxLines="1"
-                                    android:scrollHorizontally="true"
-                                    android:singleLine="true"
-                                    tools:text="1%"
-
-
-                                    />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="0.5px"
-                                android:background="@color/margin_lines" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/layout_compania"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="visible">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/detail_movements_row_height"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    android:id="@+id/txtBlockCardDesc"
-                                    style="@style/generic_text_style_2.1"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="start"
-                                    android:text="@string/bloquear_tarjeta"
-                                    android:textColor="@color/whiteColor" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="right"
-                                    android:orientation="horizontal">
-
-                                    <android.support.v7.widget.SwitchCompat
-                                        android:id="@+id/mycard_switch"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:theme="@style/SCBSwitch"
-                                        android:thumb="@drawable/block_card_switch"
-                                        app:track="@drawable/switch_compat_custom_track" />
-
-                                    <android.support.v7.widget.AppCompatImageView
-                                        android:id="@+id/img_status"
-                                        android:layout_width="20dp"
-                                        android:layout_height="20dp"
-                                        android:layout_marginLeft="15dp"
-                                        android:layout_marginRight="10dp"
-                                        android:visibility="gone"
-                                        app:srcCompat="@drawable/ic_candado_open" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="0.5px"
-                                android:background="@color/margin_lines" />
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <!--  Termina la tabla  -->
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+
 </LinearLayout>

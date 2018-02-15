@@ -50,8 +50,8 @@ public class YaGanasteCard extends AppCompatImageView {
             setCardDate(typedArray.getString(R.styleable.YaGanasteCard_expirationDate));
             setMasked(typedArray.getBoolean(R.styleable.YaGanasteCard_isMasked, false));
         }
-        setImageResource(R.mipmap.main_card_zoom_blue);
-        setAdjustViewBounds(true);
+        setImageResource(R.drawable.tarjeta_yg);
+        //setAdjustViewBounds(true);
     }
 
     @Override

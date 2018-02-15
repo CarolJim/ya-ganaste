@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -22,6 +23,7 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import java.util.ArrayList;
 
 import static android.content.Context.FINGERPRINT_SERVICE;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -32,6 +34,9 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
 
     private ArrayList<OptionMenuItem> listItems;
     private final OnItemClickListener listener;
+    private Context context;
+    private ViewHolderMenu viewHolder;
+    private int position;
 
     // View lookup cache
     private static class ViewHolderMenu {
@@ -45,17 +50,20 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
 
     public MenuAdapter(Context context, ArrayList<OptionMenuItem> listItems, OnItemClickListener listener) {
         super(context, R.layout.menu_navegation_drawwer_adpater);
+        this.context = context;
         this.listItems = listItems;
         this.listener = listener;
+        this.viewHolder = new ViewHolderMenu();
     }
 
+    @SuppressLint("ViewHolder")
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        ViewHolderMenu viewHolder; // view lookup cache stored in tag
+        // view lookup cache stored in tag
 
-        viewHolder = new ViewHolderMenu();
+        this.position = position;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         convertView = inflater.inflate(R.layout.menu_navegation_drawwer_adpater, parent, false);
         viewHolder.txttitle = convertView.findViewById(R.id.title);
@@ -102,20 +110,24 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
             }
             if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.SWITCHNORMAL) {
                 viewHolder.switchItem.setVisibility(View.VISIBLE);
+                viewHolder.switchItem.setChecked(listItems.get(position).isStatusSwtich());
                 viewHolder.switchItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                        listener.onItemClick(listItems.get(position));
                     }
                 });
-            } if (listItems.get(position).getSubtitle() != null && !listItems.get(position).getSubtitle().isEmpty() ) {
+
+            }
+
+            if (listItems.get(position).getSubtitle() != 0) {
                 viewHolder.subtitle.setVisibility(View.VISIBLE);
                 viewHolder.subtitle.setText(listItems.get(position).getSubtitle());
             }
 
         }
 
-        viewHolder.txttitle.setText(listItems.get(position).getTitle());
+        viewHolder.txttitle.setText(this.context.getResources().getString(listItems.get(position).getResourceTitle()));
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,5 +157,12 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         void onItemClick(OptionMenuItem optionMenuItem);
     }
 
+
+    public void setStatus(boolean status){
+        OptionMenuItem o = listItems.get(1);
+        o.setStatusSwtich(status);
+        listItems.set(1,o);
+        notifyDataSetChanged();
+    }
 
 }

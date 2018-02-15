@@ -60,6 +60,8 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dialog.DialogQrProfile;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
@@ -307,9 +309,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
-        listView = (ListView) findViewById(R.id.lst_menu_items);
-        MenuAdapter menuAdapter = new MenuAdapter(this, new OptionMenuItem(this).MAINMENU(), this);
-        listView.setAdapter(menuAdapter);
+        listView = findViewById(R.id.lst_menu_items);
+        //listView.setAdapter(new MenuAdapter(this, ContainerBuilder.MAINMENU(), this));
+        listView.setAdapter(ContainerBuilder.MAINMENU(this,this));
+
     }
 
     @Override

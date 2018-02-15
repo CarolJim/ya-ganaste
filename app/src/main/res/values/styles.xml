@@ -577,6 +577,7 @@
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/edittext</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="android:textCursorDrawable">@null</item>
         <item name="tipo">Descripcion</item>
     </style>
     <style name="GenericStyleEditTextpass" >
@@ -673,6 +674,17 @@
     <style name="SwitchCompatStyle" >
         <item name="android:thumb">@drawable/switch_thumb</item>
         <item name="trackTint">@color/switch_color</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <!--<item name="android:statusBarColor">@color/colorAccent</item>-->
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+
     </style>
 
 </resources>

@@ -20,23 +20,33 @@ public class OptionMenuItem {
     private int idItem;
     private Context context;
     private int resourceItem;
-    private String title;
-    private String subtitle;
+    private int resourceTitle;
+    private int subtitle;
     private INDICATION indication;
+    private boolean statusSwtich = false;
 
-    public OptionMenuItem(int idItem, String title, String subtitle, INDICATION indication) {
+    public OptionMenuItem(int idItem, int resourceTitle, int subtitle, INDICATION indication) {
         this.idItem = idItem;
-        this.title = title;
+        this.resourceTitle = resourceTitle;
         this.indication = indication;
         this.resourceItem = -1;
         this.subtitle = subtitle;
+        this.statusSwtich = false;
     }
 
-
-    public OptionMenuItem(int idItem, @Nullable int resourceItem, String title) {
+    public OptionMenuItem(int idItem, @Nullable int resourceItem, @Nullable int resourceTitle) {
         this.idItem = idItem;
         this.resourceItem = resourceItem;
-        this.title = title;
+        this.resourceTitle = resourceTitle;
+        this.statusSwtich = false;
+    }
+
+    public boolean isStatusSwtich() {
+        return statusSwtich;
+    }
+
+    public void setStatusSwtich(boolean statusSwtich) {
+        this.statusSwtich = statusSwtich;
     }
 
     public OptionMenuItem(Context context) {
@@ -59,19 +69,19 @@ public class OptionMenuItem {
         this.resourceItem = resourceItem;
     }
 
-    public String getTitle() {
-        return title;
+    public int getResourceTitle() {
+        return resourceTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setResourceTitle(int resourceTitle) {
+        this.resourceTitle = resourceTitle;
     }
 
-    public String getSubtitle() {
+    public int getSubtitle() {
         return subtitle;
     }
 
-    public void setSubtitle(String subtitle) {
+    public void setSubtitle(int subtitle) {
         this.subtitle = subtitle;
     }
 
@@ -91,50 +101,9 @@ public class OptionMenuItem {
         this.idItem = idItem;
     }
 
-    public ArrayList<OptionMenuItem> MAINMENU() {
-        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, this.context.getResources().getString(R.string.navigation_drawer_menu_seguridad)));
-        //optionMenuItems.add(new OptionMenuItem(R.mipmap.ic_chat,this.context.getResources().getString(R.string.navigation_drawer_menu_chat)));
-        optionMenuItems.add(new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, this.context.getResources().getString(R.string.navigation_drawer_menu_ajustes)));
-        optionMenuItems.add(new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, this.context.getResources().getString(R.string.navigation_drawer_menu_acerca)));
-        optionMenuItems.add(new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, this.context.getResources().getString(R.string.navigation_drawer_logout)));
-        return optionMenuItems;
-    }
 
-    public ArrayList<OptionMenuItem> SECURITY_MENU() {
-        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_CCAMBIAR_PASS, this.context.getResources().getString(R.string.change_your_pass),"", RAW));
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.security_huella_option), this.context.getResources().getString(R.string.security_huella_option_subtitle), SWITCH));
-        return optionMenuItems;
-    }
 
-    public ArrayList<OptionMenuItem> SETTINGS_MENU() {
-        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(ID_NOTIFICACIONES, this.context.getResources().getString(R.string.ajustes_notificar_option), "",RAW));
-        optionMenuItems.add(new OptionMenuItem(ID_DESVINCULAR, this.context.getResources().getString(R.string.ajustes_desvincular_option),"", RAW));
-        return optionMenuItems;
-    }
 
-    public ArrayList<OptionMenuItem> SETTINGS_NOTIFICACIONES() {
-        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_pagos_option),"", SWITCHNORMAL));
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_retiros_option),"", SWITCHNORMAL));
-        optionMenuItems.add(new OptionMenuItem(-1, this.context.getResources().getString(R.string.notific_depositos_option),"", SWITCHNORMAL));
-        return optionMenuItems;
-    }
-
-    public ArrayList<OptionMenuItem> ACERCA_DE() {
-        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(1, this.context.getResources().getString(R.string.legales),"", RAW));
-        optionMenuItems.add(new OptionMenuItem(2, this.context.getResources().getString(R.string.aviso_privacidad),"", RAW));
-        return optionMenuItems;
-    }
-
-    public ArrayList<OptionMenuItem> LEGALES() {
-        ArrayList<OptionMenuItem> optionMenuItems = new ArrayList<>();
-        optionMenuItems.add(new OptionMenuItem(1, this.context.getResources().getString(R.string.aviso_privacidad_cuenta_ganaste),"", RAW));
-        return optionMenuItems;
-    }
 
     public enum INDICATION {
         RAW, SWITCH, SWITCHNORMAL
