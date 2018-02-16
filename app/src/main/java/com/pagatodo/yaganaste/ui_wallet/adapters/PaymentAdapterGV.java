@@ -79,13 +79,19 @@ public class PaymentAdapterGV extends BaseAdapter {
 
             // Agregamos el color del borde para todos los casos, en los casos particulares se reescribe
             CircleImageView imageViewBorder = (CircleImageView) grid.findViewById(R.id.imgItemGalleryMark);
-            imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+            // BORDE COLORES imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
+            imageViewBorder.setBorderColor(Color.GRAY);
 
 
             // Procesos para Carriers
             if (mOperation == TYPE_CARRIER) {
-                GradientDrawable gd = createCircleDrawable(Color.BLACK,
+                GradientDrawable gd = createCircleDrawable(Color.WHITE, Color.GRAY);
+
+                /*
+                BORDE COLORES
+                GradientDrawable gd = createCircleDrawable(Color.WHITE,
                         Color.parseColor(myDataset.get(position).getmColor()));
+                */
                 imageViewBorder.setBackground(gd);
 
                 // Validacion para cambiar Strings por texto especifico ejemplo IAVE a Pase Urbano
@@ -105,7 +111,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                 // Cargamos la lupa en caso de existir
                 ImageView imageView = (ImageView) grid.findViewById(R.id.imgItemGalleryPay);
                 if (myDataset.get(position).getUrlLogo().equals("R.mipmap.buscar_con_texto")) {
-                    GradientDrawable gdCarrier = createCircleDrawable(Color.BLACK, Color.WHITE);
+                    GradientDrawable gdCarrier = createCircleDrawable(Color.WHITE, Color.GRAY);
                     imageViewBorder.setBackground(gdCarrier);
 
                     imageView.setBackground(App.getContext().getResources().getDrawable(R.mipmap.new_fav_search));
@@ -147,7 +153,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                 if (urlImage.equals("R.mipmap.buscar_con_texto")) {
                     //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
-                    GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.WHITE);
+                    GradientDrawable gd = createCircleDrawable(Color.WHITE, Color.GRAY);
                     imageViewBorder.setBackground(gd);
 
                     imageView.setBackground(App.getContext().getResources().getDrawable(R.mipmap.new_fav_search));
@@ -159,7 +165,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                 } else if (urlImage.equals("R.mipmap.ic_add_new_favorite")) {
                     //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
-                    GradientDrawable gd = createCircleDrawable(Color.BLACK, Color.GRAY);
+                    GradientDrawable gd = createCircleDrawable(Color.WHITE, Color.GRAY);
                     imageViewBorder.setBackground(gd);
 
                     imageView.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_add));
@@ -177,6 +183,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                         String sIniciales = getIniciales(myDataset.get(position).getName());
                         textIniciales.setText(sIniciales);
                     } else {
+                        imageViewBorder.setBorderColor(Color.GRAY);
                         setImagePicasoFav(imageViewBorder, urlImage);
                     }
                     //imageView.setBackground(App.getContext().getDrawable(R.drawable.ic_add_new_favorite));
@@ -248,16 +255,16 @@ public class PaymentAdapterGV extends BaseAdapter {
     private void setImagePicaso(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
                 .load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.logo_ya_ganaste)
+              // .placeholder(R.mipmap.logo_ya_ganaste)
+                // .error(R.mipmap.logo_ya_ganaste)
                 .into(imageView);
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
                 .load(urlLogo)
-                .placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.icon_user)
+                 .placeholder(R.mipmap.icon_user)
+                 .error(R.mipmap.icon_user)
                 .into(imageView);
 
         /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)

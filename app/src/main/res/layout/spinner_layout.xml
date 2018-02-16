@@ -11,6 +11,7 @@
     android:longClickable="false"
     android:padding="7dp"
     android:text="Hola"
+    android:textColorHint="@color/colorAccent"
     android:textColor="@color/colorAccent"
     app:tipo="Titulo">
 
