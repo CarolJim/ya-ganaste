@@ -33,7 +33,6 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     public static DepositsFragment newInstance() {
         DepositsFragment depositsFragment = new DepositsFragment();
         Bundle args = new Bundle();
-
         depositsFragment.setArguments(args);
         return depositsFragment;
     }
@@ -48,6 +47,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
+
     }
 
     @Override

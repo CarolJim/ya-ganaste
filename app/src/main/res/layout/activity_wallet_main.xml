@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
         android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_wallet" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarLy"
+        />
 
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
@@ -21,4 +24,4 @@
         android:background="@color/colorPrimaryAlpha"
         android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

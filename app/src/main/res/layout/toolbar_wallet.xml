@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/toolbar_wallet"
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/colorAccent"
-    android:paddingTop="10dp">
+    android:layout_height="?android:attr/actionBarSize">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_wallet"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:minHeight="?android:attr/actionBarSize"/>
-
-    <ImageView
-        android:id="@+id/menu"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/menu"
-        android:layout_alignParentLeft="true"/>
+        android:background="@color/colorAccent"
+        android:minHeight="?android:attr/actionBarSize"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:gravity="top"/>
 
     <ImageView
         android:id="@+id/imgToolbar"
@@ -29,11 +22,6 @@
         android:layout_gravity="center"
         android:src="@drawable/logo_header"
         tools:ignore="ContentDescription"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/bell"
-        android:layout_alignParentRight="true"/>
 </RelativeLayout>

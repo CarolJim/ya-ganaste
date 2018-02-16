@@ -14,7 +14,17 @@
 
     </style>
 
-    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">s
+    <style name="AppThemeWallet" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+
+
+    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -24,7 +34,7 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="AppTheme.Translucent">

@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Created by Jordan on 07/04/2017.
  * Updated by jguerras on 15/06/2017.
+ * Updated by ICruz on 16/02/2018.
  */
 
 public abstract class SupportFragment extends GenericFragment {
@@ -86,5 +87,8 @@ public abstract class SupportFragment extends GenericFragment {
             ((ToolBarActivity)getActivity()).showBack(isBackShowing);
         }
     }
+
+
+
 
 }

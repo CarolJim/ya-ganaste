@@ -60,7 +60,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     DepositsManager depositsManager;
     @BindView(R.id.imgYaGanasteQR)
     ImageView imgYaGanasteQR;
-    @BindView(R.id.txtNameTitular)
+    /*@BindView(R.id.txtNameTitular)
     TextView txtNameTitular;
     @BindView(R.id.txtNumberCard)
     TextView txtNumberCard;
@@ -69,16 +69,16 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @BindView(R.id.txtCableNumber)
     TextView txtCableNumber;
     @BindView(R.id.btnDepositar)
-    Button btnDepositar;
+    Button btnDepositar;*/
 
     @BindView(R.id.text_data_list)
     ListView listView;
 
     private View rootView;
     String mensaje, cardNumber;
-    ImageView imageshae;
+    //ImageView imageshae;
     boolean onlineNetWork, onlineGPS;
-    ImageView imageView;
+    //ImageView imageView;
 
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
@@ -91,8 +91,8 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
-        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
+        //imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        //imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
 
     }
 
@@ -133,7 +133,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
         //txtNameTitular.setText(name);
         String name = nombreprimerUser + " " + apellidoMostrarUser;
-        txtNameTitular.setText(name);
+        //txtNameTitular.setText(name);
 
         String celPhone = "";
         String clabe = "";
@@ -145,9 +145,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             clabe = cuenta.getCLABE();
         }
         showQRCode(name, celPhone, usuario.getCuentas().get(0));
-        txtCableNumber.setText(clabe);
-        txtCellPhone.setText(celPhone);
-        txtNumberCard.setText(cardNumber);
+        //txtCableNumber.setText(clabe);
+        //txtCellPhone.setText(celPhone);
+        //txtNumberCard.setText(cardNumber);
 
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
@@ -162,20 +162,20 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        btnDepositar.setOnClickListener(this);
-        imageshae.setOnClickListener(this);
+        //btnDepositar.setOnClickListener(this);
+        //imageshae.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         getStatusGPS();
-        if (v.getId() == R.id.btnDepositar) {
+        /*f (v.getId() == R.id.btnDepositar) {
             if (onlineNetWork || onlineGPS) {
                 depositsManager.onTapButton();
             } else {
                 showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }
-        }
+        }*/
         if (v.getId() == R.id.deposito_Share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -208,15 +208,15 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         switch (state) {
             case "0":
                 //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
-                txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
+                //txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //printCard(cardNumber);
-                txtNumberCard.setText(cardNumber);
+                //txtNumberCard.setText(cardNumber);
                 break;
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
                 //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
-                txtNumberCard.setText(cardNumber);
+                //txtNumberCard.setText(cardNumber);
                 break;
             default:
                 //printCard(cardNumber);

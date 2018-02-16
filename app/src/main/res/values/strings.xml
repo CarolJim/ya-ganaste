@@ -1245,4 +1245,10 @@
     <string name="administracion">Administración</string>
     <string name="title_fragment_nip">Cambia tu NIP</string>
 
+    <!-- Toolbar Item Menu -->
+    <string name="item_menu_share">Compartir</string>
+    <string name="item_menu_remmbolsar">Rembolsar cobro</string>
+    <string name="item_menu_reenviar">Reenviar ticket</string>
+    <string name="item_menu_cancelar">Cancelar</string>
+
 </resources>
