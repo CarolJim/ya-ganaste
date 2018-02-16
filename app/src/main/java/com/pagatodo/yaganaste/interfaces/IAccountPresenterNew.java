@@ -38,7 +38,7 @@ public interface IAccountPresenterNew {
 
     void updateBalance();
 
-    void geEstatusCuenta(String numberCard);
+    void getEstatusCuenta(String numberCard);
 
     void updateBalanceAdq();
 

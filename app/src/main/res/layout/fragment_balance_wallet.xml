@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile_balance"
+                android:layout_width="67dp"
+                android:layout_height="67dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="7dp"
+                android:src="@mipmap/icon_user"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_username_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="@string/bienvenido_usuario"
+                android:textColor="@color/colorAccent"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/lyt_dots_indicator_balance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_balance"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="@android:color/transparent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingEnd="@dimen/card_padding"
+                android:paddingLeft="@dimen/card_padding"
+                android:paddingRight="@dimen/card_padding"
+                android:paddingStart="@dimen/card_padding" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                        android:id="@+id/txt_balance_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="7dp"
+                        android:text="00"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="11sp"
+                        android:visibility="gone"
+                        app:dotBottom="false"
+                        app:symbolSmaller="true" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_balance_type_payment"
+                        style="@style/generic_text_style_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/saldo_disponible"
+                        android:textColor="@color/hint_color"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_refresh_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_reload" />
+
+            </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_balance_card_desc"
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="7dp"
+                android:text="@string/saldo_disponible"
+                android:textColor="@color/colorAccent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_balance_card_desc2"
+                style="@style/generic_text_style_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="@string/saldo_disponible"
+                android:textColor="@color/hint_color" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_balance_elements"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/margin_wallet"
+                android:layout_marginRight="@dimen/margin_wallet"
+                android:layout_marginTop="10dp"
+                android:layoutAnimation="@anim/layout_animation"
+                android:visibility="visible" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_balance_login"
+        style="@style/buttonRoundedBlue"
+        android:layout_width="@dimen/width_btns_big"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="@string/txt_ingresar"
+        android:textAllCaps="false" />
+
+</LinearLayout>

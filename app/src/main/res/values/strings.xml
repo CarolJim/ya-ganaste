@@ -106,6 +106,9 @@
     <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
 
+    <!-- Cadenas de Notificaciones -->
+    <string name="queryNotifUser">ConsultarNotificacionesUsuario</string>
+
     <!-- Fabric Custom Name Events -->
     <string name="ce_pays">Pagos</string>
     <string name="ce_pays_type">Tipo de Pago</string>
@@ -307,7 +310,7 @@
     <string name="rfchomoclave">Homoclave</string>
     <string name="title_activity_plug_card_reader_to_register">PlugCardReaderToRegisterActivity</string>
     <string name="cuenta_personal">CUENTA PERSONAL</string>
-    <string name="cobros_con_tarjeta">COBROS CON TARJETA</string>
+    <string name="cobros_con_tarjeta">Cobros con tarjeta</string>
     <string name="saldo_comercial">SALDO COMERCIAL</string>
 
     <string name="authorize_payment_title">Autoriza el Envío</string>
@@ -816,7 +819,7 @@
     <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta ya ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
-    <string name="emisor_validate_card_fail_2"><u>Número de Tarjeta Inválido_Número de Tarjeta Que Ingresaste no es  Inválido, Por Favor Intenta Nuevamente</u></string>
+    <string name="emisor_validate_card_fail_2"><u>Número de Tarjeta Inválido_Número de Tarjeta Que Ingresaste no es Válido, Por Favor Intenta Nuevamente</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
     <!--  Menu de ayuda-->
@@ -843,8 +846,6 @@
     <string name="tu_línea_credito">Tu Línea de Crédito</string>
     <string name="txt_bloquear">Bloquear</string>
     <string name="txt_desbloquear">Desbloquear</string>
-    <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloquear Tarjeta</string>
     <string name="bloquear_tu_tarjeta">Bloqueo de Tarjeta</string>
     <string name="desbloquear_tu_tarjeta">Desbloqueo de Tarjeta</string>
     <string name="codigoAcceso">Código de Seguridad</string>
@@ -1171,6 +1172,12 @@
     <string name="ingresa_monto">Ingresa el Monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
+    <string name="bloquear_tarjeta">Bloquear tarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloquear\nTarjeta</string>
+    <string name="generar_codigo">Generar\ncódigo</string>
+    <string name="realizar_cobro">Realizar\ncobro</string>
+    <string name="calcular_comisiones">Calcular comisiones</string>
+    <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1236,6 +1243,9 @@
     <string name="foot_message">Descarga la app y realiza envios mas rapido con Ya Ganaste</string>
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
     <string name="link_message">https://goo.gl/eiCgN6</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="administracion">Administración</string>
     <string name="title_fragment_nip">Cambia tu NIP</string>

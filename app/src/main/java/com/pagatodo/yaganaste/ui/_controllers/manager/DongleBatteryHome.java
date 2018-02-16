@@ -52,15 +52,6 @@ public class DongleBatteryHome extends LoaderActivity implements OnEventListener
         }
     }
 
-
-
-
-
-
-
-
-
-
     @Override
     public boolean requiresTimer() {
         return true;

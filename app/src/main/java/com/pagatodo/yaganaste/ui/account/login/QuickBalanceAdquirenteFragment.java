@@ -94,7 +94,6 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     LinearLayout couchMarkdongle;
 
     private AccountPresenterNew accountPresenter;
-    private AccountPresenterNew accountPresenterdongle;
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
     private Preferencias prefs;
@@ -114,7 +113,6 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
-        accountPresenterdongle = ((AccountActivity) getActivity()).getPresenter();
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
         try {
@@ -318,7 +316,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         String f = SingletonUser.getInstance().getCardStatusId();
         if (f == null || f.isEmpty() || f.equals("0")) {
             String mTDC = prefs.loadData(CARD_NUMBER);
-            accountPresenter.geEstatusCuenta(mTDC);
+            accountPresenter.getEstatusCuenta(mTDC);
         } else {
             Status = f;
             App.getInstance().setStatusId(f);

@@ -612,17 +612,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void validateStatusRespond(EstatusCuentaResponse dataSourceResult) {
-
-
         if (dataSourceResult.getCodigoRespuesta() == Recursos.CODE_OK) {
-            //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
-            //tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
             App.getInstance().setStatusId(dataSourceResult.getData().getStatusId());
             accountManager.onSuccesStateCuenta();
-
         } else {
-            //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
-            //tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
             accountManager.onError(ESTATUS_CUENTA, null);
         }
 

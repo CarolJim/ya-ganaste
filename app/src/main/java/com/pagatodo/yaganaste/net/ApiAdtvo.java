@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoCo
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ListaNotificationRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.LocalizarSucursalesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerBancoBinRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
@@ -61,6 +62,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewF
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
@@ -85,6 +87,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
@@ -116,6 +119,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FB_REGISTER_TOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GENERAR_CODIGO_RECUPERACION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_FIRST_DATA_NOTIFICATION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_NEXT_DATA_NOTIFICATION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_BANCOSBIN;
@@ -866,5 +871,25 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(VALIDAR_VERSION,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerVersionAplicacion),
                 headers, request, ValidarVersionResponse.class, result);
+    }
+
+    public static void getFirstDataNotification(IRequestResult result, ListaNotificationRequest request) throws OfflineException {
+        Map<String, String> headers = new HashMap<>();
+        //int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getIdCuenta();
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(GET_FIRST_DATA_NOTIFICATION,
+                METHOD_POST, URL_SERVER_FB + App.getContext().getString(R.string.queryNotifUser),
+                headers, request, ListaNotificationResponse.class, result);
+    }
+
+    public static void getNextDataNotification(IRequestResult result, ListaNotificationRequest request) throws OfflineException {
+        Map<String, String> headers = new HashMap<>();
+        //int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getIdCuenta();
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(GET_NEXT_DATA_NOTIFICATION,
+                METHOD_POST, URL_SERVER_FB + App.getContext().getString(R.string.queryNotifUser),
+                headers, request, ListaNotificationResponse.class, result);
     }
 }
