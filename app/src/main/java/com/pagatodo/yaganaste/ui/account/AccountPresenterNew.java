@@ -376,7 +376,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
-    public void geEstatusCuenta(String numberCard) {
+    public void getEstatusCuenta(String numberCard) {
         this.accountView.showLoader("");
         EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(numberCard);
         accountIteractor.onStatusCuenta(estatusCuentaRequest);
