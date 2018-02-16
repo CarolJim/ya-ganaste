@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,7 +66,8 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
 
         Preferencias prefs = App.getInstance().getPrefs();
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
-            loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
+            //loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
+            loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, true);
             showBack(false);
         } else {
             loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
@@ -90,15 +92,6 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
      */
     public void loadBlockFragment() {
         loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, true);
-        showBack(true);
-    }
-
-    /**
-     * Se encarga de eliminar BlockCardFragment a nivel correcto para las transiciones. Se carga
-     * LoginFragment
-     */
-    public void loadLoginBackFragment() {
-        loadFragment(LoginFragment.newInstance(), Direction.BACK, true);
         showBack(true);
     }
 
@@ -131,8 +124,8 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     }
 
     public void onBackActions() {
-        if (getChildFragmentManager().findFragmentById(R.id.container) instanceof QuickBalanceContainerFragment) {
-            ((QuickBalanceContainerFragment) getChildFragmentManager().findFragmentById(R.id.container)).onBackPress();
+        if (getChildFragmentManager().findFragmentById(R.id.container) instanceof BalanceWalletFragment) {
+            ((BalanceWalletFragment) getChildFragmentManager().findFragmentById(R.id.container)).onBackPress();
         } else {
             if (getChildFragmentManager().getBackStackEntryCount() > 0) {
                 if (getChildFragmentManager().findFragmentById(R.id.container) instanceof LoginFragment) {

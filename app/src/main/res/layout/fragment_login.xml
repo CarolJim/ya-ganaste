@@ -54,15 +54,15 @@
                     android:id="@+id/asignar_edittext"
                     android:layout_width="1px"
                     android:layout_height="1px"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:layout_marginTop="0dp"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/textNameUser"
-                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:tipo="Titulo" />
@@ -96,8 +96,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:gravity="center"
-                            android:text="@string/bloquear_tarjeta" />
+                            android:gravity="center" />
 
                     </LinearLayout>
 
@@ -153,11 +152,12 @@
                     style="@style/GenericInputTextForms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     android:clickable="true"
+                    android:imeOptions="actionNext"
                     app:formato="email"
                     app:hintText="@string/txt_escribe_tu_correo"
-                    app:isTextEnabled="true"
-                    android:imeOptions="actionNext"/>
+                    app:isTextEnabled="true" />
 
                 <include
                     android:id="@+id/customkeyboard"
@@ -167,10 +167,11 @@
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserPassword"
                     style="@style/GenericInputTextForms"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:clickable="true"
+                    android:background="@android:drawable/dialog_holo_light_frame"
                     app:formato="password"
                     app:hintText="@string/txt_escribe_tu_pass"
                     app:isTextEnabled="true" />
@@ -178,12 +179,12 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtLoginExistUserRecoverPass"
                     style="@style/textDescInputs"
-                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:padding="@dimen/margin_medium"
-                    android:text="@string/recover_pass" />
+                    android:text="@string/recover_pass"
+                    android:textAlignment="center" />
 
 
             </LinearLayout>
@@ -197,11 +198,11 @@
         android:layout_above="@+id/relativeAd"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:keyTextColor="#bcbcbc"
         android:background="@android:color/darker_gray"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/material_key_drawable"
+        android:keyTextColor="#bcbcbc"
         android:visibility="gone" />
 
     <LinearLayout
@@ -216,8 +217,8 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLoginExistUser"
             style="@style/buttonSquareRoundedBlue"
-            android:background="@drawable/button_rounded_blue"
             android:layout_marginBottom="@dimen/margin_error"
+            android:background="@drawable/button_rounded_blue"
             android:text="@string/txt_ingresar" />
 
         <TextView
@@ -225,7 +226,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/whiteColor"
-            android:textSize="@dimen/size_text_style_3_value"/>
+            android:textSize="@dimen/size_text_style_3_value" />
     </LinearLayout>
 
 

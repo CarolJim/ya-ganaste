@@ -20,8 +20,8 @@ import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
-import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
@@ -33,11 +33,10 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.R2.id.tv_monto_entero;
-import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_ENVIAR;
-import static com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView.ID_SOLICITAR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.ID_ENVIAR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.ID_SOLICITAR;
 
-public class SendWalletFragment extends GenericFragment implements ElementsWalletAdpater.OnItemClickListener,
+public class SendWalletFragment extends GenericFragment implements ElementsWalletAdapter.OnItemClickListener,
         EditTextImeBackListener {
 
     public static final String MONTO = "Monto";
@@ -95,11 +94,11 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
-        //rcvOpciones.setAdapter(new ElementsWalletAdpater(getContext(), new ElementView().getListEnviar(getContext()), this));
-        ElementsWalletAdpater elementsWalletAdpater = new ElementsWalletAdpater(getContext(), this, ElementView.getListEnviar(getContext()));
-        rcvOpciones.setAdapter(elementsWalletAdpater);
-        //elementsWalletAdpater.setList(ElementView.getListEnviar(getContext()));
-        elementsWalletAdpater.notifyDataSetChanged();
+        //rcvOpciones.setAdapter(new ElementsWalletAdapter(getContext(), new ElementView().getListEnviar(getContext()), this));
+        ElementsWalletAdapter elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListEnviar(getContext()));
+        rcvOpciones.setAdapter(elementsWalletAdapter);
+        //elementsWalletAdapter.setList(ElementView.getListEnviar(getContext()));
+        elementsWalletAdapter.notifyDataSetChanged();
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null));
 
         //keyboardView.setPreviewEnabled(false);

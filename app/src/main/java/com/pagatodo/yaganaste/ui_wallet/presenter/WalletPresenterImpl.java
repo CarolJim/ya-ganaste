@@ -9,7 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosRe
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.WlletNotifaction;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.views.MovementsEmisorView;
 import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -24,7 +24,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_A
  * Created by icruz on 12/12/2017.
  */
 
-public class WalletPresenterImpl implements WalletPresenter, WlletNotifaction {
+public class WalletPresenterImpl implements WalletPresenter, WalletNotification {
 
     private WalletView walletView;
     private MovementsEmisorView movementsEmisorView;

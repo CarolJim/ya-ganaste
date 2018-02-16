@@ -79,8 +79,6 @@
 
 
     <color name="progreso_cupo_Rechazado">#808080</color>
-    <color name="progreso_cupo_first">#00A1E1</color>
-    <color name="registerColorButton">#00A1E1</color>
     <color name="loginColorButton">#0280B2</color>
     <color name="progreso_cupo_second">#1CC65D</color>
     <color name="progreso_cupo_error">#E70050</color>

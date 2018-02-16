@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -281,7 +280,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             //String mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
             String mTDC = preferencias.loadData(CARD_NUMBER);
             if (!isCancel(mTDC)) {
-                accountPresenter.geEstatusCuenta(mTDC);
+                accountPresenter.getEstatusCuenta(mTDC);
                 App.getInstance().setCancel(false);
             }
             else {

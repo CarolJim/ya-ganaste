@@ -13,8 +13,6 @@ public class StringConstants {
     public static final String PASSWORD_CHANGE = "PASSWORD_CHANGE";
 
 
-
-
     public static final String IS_CUPO = "IS_CUPO";
     public static final String NAME_USER = "NAME_USER";
     public static final String FULL_NAME_USER = "FULL_NAME_USER";
@@ -28,6 +26,9 @@ public class StringConstants {
     public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
     public static final String CUPO_BALANCE = "CUPO_BALANCE";
     public static final String ADQUIRENTE_APPROVED = "ADQUIRENTE_APPROVED";
+    public static final String PHONE_NUMBER = "PHONE_NUMBER";
+    public static final String CLABE_NUMBER = "CLABE_NUMBER";
+    public static final String COMPANY_NAME = "COMPANY_NAME";
     public static final String CATALOG_VERSION = "CATALOG_VERSION";
     public static final String SIMPLE_NAME = "SIMPLE_NAME";
     public static final String PSW_CPR = "PSW_CPR";
