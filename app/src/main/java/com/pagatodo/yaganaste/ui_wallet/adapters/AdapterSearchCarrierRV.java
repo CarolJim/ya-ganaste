@@ -44,6 +44,9 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
         this.mDataSetCarrier = mDataSetCarrier;
         this.mDataSetCarrierFilter = mDataSetCarrier;
 
+        /**
+         * Agregamos un TextWatcher para usar el filtro de palabra
+         */
         TextWatcher filterTextWatcher = new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -93,7 +96,8 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
         holder.mLinearl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // mDataSetCarrierFilter.get(position)
+                // Enviamos como resultado el objeto en el que hacemos clic, se envia el objeto
+                // Porque la lista puede cambiar
                 mView.setData(mDataSetCarrierFilter.get(position));
             }
         });

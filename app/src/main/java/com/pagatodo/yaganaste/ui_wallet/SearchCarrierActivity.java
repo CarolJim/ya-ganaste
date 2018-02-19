@@ -24,6 +24,11 @@ import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerGenericBase.VERTICAL_ORIENTATION;
 
+/**
+ * Ecargada de mostrar un RV con el RecyclerGenericBase, ademas de un EditText para realizar un filtro
+ * de resultados en la busqueda
+ */
+
 public class SearchCarrierActivity extends LoaderActivity implements ISearchCarrier {
 
     @BindView(R.id.recyclerView)
@@ -34,7 +39,6 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
     public static final String SEARCH_DATA = "SEARCH_DATA";
     public static final String SEARCH_IS_RELOAD = "SEARCH_IS_RELOAD";
     private ArrayList<ComercioResponse> comercioResponse;
-    private ArrayList<DataFavoritos> dataFavoritos;
     private boolean isReload;
     private RecyclerGenericBase recyclerGenericBase;
 
@@ -61,6 +65,9 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
     private void initViews() {
         ButterKnife.bind(this);
 
+        /**
+         * Creamos el RV con los elementos adicionales del EditText
+         */
         recyclerGenericBase = new RecyclerGenericBase(recyclerView, VERTICAL_ORIENTATION);
         recyclerGenericBase.createRecyclerList(this, comercioResponse, searchEditText);
 
@@ -75,17 +82,20 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
 
     @Override
     public void setData(ComercioResponse posCcomercioResponse) {
-      //  Toast.makeText(this, "Pos " + posCcomercioResponse, Toast.LENGTH_SHORT).show();
+        /**
+         * Enviamos el objeto resultante a nuestra actividad de pagos, con un bandera para eliminar
+         * la actividad SearchCarrier del BackStack
+         */
         Intent intentPayment = new Intent(App.getContext(), PaymentActivity.class);
         intentPayment.putExtra(PAYMENT_DATA, posCcomercioResponse);
         intentPayment.putExtra(PAYMENT_IS_FAV, false);
+        intentPayment.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intentPayment);
         finish();
     }
 
     @Override
     protected void onStop() {
-     //   searchEditText.removeTextChangedListener(filterTextWatcher);
         super.onStop();
     }
 }

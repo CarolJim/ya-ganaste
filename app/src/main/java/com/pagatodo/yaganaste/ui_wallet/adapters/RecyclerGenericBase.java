@@ -99,6 +99,12 @@ public class RecyclerGenericBase {
         }
     }
 
+    /**
+     * Cargamos un RV especifico, para las busquedas, pasando nuestra referencia la EditText
+     * @param iView
+     * @param mDataSetCarrier
+     * @param searchEditText
+     */
     public void createRecyclerList(ISearchCarrier iView, ArrayList<ComercioResponse> mDataSetCarrier,
                                    EditText searchEditText) {
         this.mDataSetCarrier = mDataSetCarrier;
@@ -106,23 +112,5 @@ public class RecyclerGenericBase {
         mDataSetCarrier.remove(0); // Removemos el item 0 que es la Lupa en la lista original
         mAdapter = new AdapterSearchCarrierRV(iView, mDataSetCarrier, searchEditText);
         mRecyclerView.setAdapter(mAdapter);
-
-  /*      mAdapter
-
-        TextWatcher filterTextWatcher = new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-//
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                mAdapter.getFilter().filter(s);
-            }
-        };*/
     }
 }

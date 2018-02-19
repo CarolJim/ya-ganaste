@@ -526,9 +526,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             case SEARCH_CARRIER_RECARGA:
                 if (mDataRecargar != null) {
                     if (mDataRecargar.get(position).getNombreComercio().equals("Buscar")) {
-                       /* NewListDialog dialog = new NewListDialog(getContext(), mDataRecargar, newPaymentPresenter,
-                                mType);
-                        dialog.show();*/
+                       // Iniciamos la actividad de busquedas, pasando el arreglo de mDataRecargar
                         Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
                         intent.putExtra(SEARCH_DATA, (Serializable) mDataRecargar);
                         intent.putExtra(SEARCH_IS_RELOAD, true);
@@ -543,9 +541,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             case SEARCH_CARRIER_PAGOS:
                 if (mDataPagar != null) {
                     if (mDataPagar.get(position).getNombreComercio().equals("Buscar")) {
-                        /*NewListDialog dialog = new NewListDialog(getContext(), mDataPagar, newPaymentPresenter,
-                                mType);
-                        dialog.show();*/
+                        // Iniciamos la actividad de busquedas, pasando el arreglo de mDataPagar
                         Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
                         intent.putExtra(SEARCH_DATA, (Serializable) mDataPagar);
                         intent.putExtra(SEARCH_IS_RELOAD, false);
