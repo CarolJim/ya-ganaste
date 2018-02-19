@@ -2,25 +2,17 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -33,7 +25,6 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -41,11 +32,9 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
-import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -56,17 +45,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_QUICK_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
-import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
@@ -76,15 +60,18 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView,
         ValidationForms {
     private Preferencias prefs = App.getInstance().getPrefs();
+
+    @BindView(R.id.img_header_yg_login)
+    ImageView imgHeaderLogin;
+
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
 
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
 
-
-    @BindView(R.id.txtBlockCard)
-    StyleTextView txtBlockCard;
+    @BindView(R.id.txt_set_credentials)
+    StyleTextView txtSetCredentials;
 
     @BindView(R.id.editUserName)
     CustomValidationEditText edtUserName;
@@ -98,47 +85,14 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
 
-    @BindView(R.id.blockCard)
-    LinearLayout blockCard;
-
-    @BindView(R.id.accessCode)
-    LinearLayout accessCode;
-
-    @BindView(R.id.quickPayment)
-    LinearLayout quickPayment;
-
-    @BindView(R.id.customkeyboard)
-    LinearLayout customkeyboard;
-
-    @BindView(R.id.keyboard_view)
-    CustomKeyboardView keyboardView;
-
     @BindView(R.id.linerar_principal)
     LinearLayout linerar_principal;
-
-    @BindView(R.id.opciones_login)
-    LinearLayout opciones_login;
 
     @BindView(R.id.txtVersionApp)
     TextView txtVersionApp;
 
     @BindView(R.id.scrollView)
     ScrollView scrollView;
-
-    LinearLayout layout_control;
-    TextView tv1Num;
-    TextView tv2Num;
-    TextView tv3Num;
-    TextView tv4Num;
-    TextView tv5Num;
-    TextView tv6Num;
-    private String nip = "";
-    private Keyboard keyboard;
-    ImageView asignar_iv1;
-    private static int PIN_LENGHT = 6;
-    @BindView(R.id.asignar_edittext)
-    CustomValidationEditText edtPin;
-
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -157,11 +111,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         prefs.saveDataBool(HUELLA_FAIL, true);
-        prefs.saveDataBool(TECLADO_CUSTOM, false);
         this.preferencias = App.getInstance().getPrefs();
     }
 
@@ -190,151 +142,32 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
-
-        customkeyboard.setOnClickListener(this);
         linerar_principal.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-        blockCard.setOnClickListener(this);
-        accessCode.setOnClickListener(this);
-        quickPayment.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
         SpannableString ss;
         ss = new SpannableString(getString(R.string.recover_pass));
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 26, 47, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         txtLoginExistUserRecoverPass.setText(ss);
 
-
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                DisplayMetrics metrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                int widthp = metrics.widthPixels; // ancho absoluto en pixels
-                int paramentroT = widthp / 4;
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                params.width = paramentroT;
-                params.height = paramentroT;
-                imgLoginExistProfile.setLayoutParams(params);
-
-
-                Preferencias preferencias = App.getInstance().getPrefs();
-                //textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
-                textNameUser.setText("¡Hola "+preferencias.loadData(StringConstants.SIMPLE_NAME)+"\n¿Qué Quieres Hacer? ");
-                edtUserName.setText(RequestHeaders.getUsername());
-                edtUserName.setVisibility(GONE);
-                textNameUser.setOnClickListener(this);
-                edtUserPass.setVisibility(GONE);
-                customkeyboard.setVisibility(VISIBLE);
-                keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-                keyboardView.setPreviewEnabled(false);
-                // keyboardView.showCustomKeyboard(rootview);
-                btnLogin.setVisibility(VISIBLE);
-                //imageView.setVisibility(View.GONE);
-                tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
-                tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
-                tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
-                tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-                tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
-                tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
-
-                // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
-                // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-                edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
-                edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
-                edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
-                edtPin.addCustomTextWatcher(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (s.toString().length() == 6) {
-                            if (!UtilsNet.isOnline(getActivity())) {
-                                UI.createSimpleCustomDialog("Ocurrió un Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
-                                edtPin.setText("");
-                            } else {
-                                keyboardView.hideCustomKeyboard();
-                                //  Servicio para consumir usuario y contraseña
-                                validateForm();
-                                edtPin.setText("");
-                                edtPin.isFocused();
-                            }
-
-
-                        }
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                    }
-                });
-
-
-                edtPin.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        EditText edittext = (EditText) v;
-                        int inType = edittext.getInputType();       // Backup the input type
-                        edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                        edittext.onTouchEvent(event);               // Call native handler
-                        keyboardView.showCustomKeyboard(v);
-                        edittext.setInputType(inType);              // Restore input type
-                        txtVersionApp.setVisibility(GONE);
-                        return true; // Consume touch event
-                    }
-                });
-                //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
-                setValidationRules();
-                //   keyboardView.showCustomKeyboard(rootview);
-                edtPin.requestEditFocus();
-
-            } else {
-                textNameUser.setText("¡Hola "+preferencias.loadData(StringConstants.SIMPLE_NAME)+"\n¿Qué Quieres Hacer? ");
-                edtUserName.setText(RequestHeaders.getUsername());
-                edtUserName.setVisibility(GONE);
-                textNameUser.setOnClickListener(this);
-            }
-
+            textNameUser.setText("¡Hola " + preferencias.loadData(StringConstants.SIMPLE_NAME) + "!");
+            btnLogin.setText(getString(R.string.txt_iniciar_sesion));
+            edtUserName.setText(RequestHeaders.getUsername());
+            edtUserName.setVisibility(GONE);
+            imgHeaderLogin.setVisibility(GONE);
+            textNameUser.setOnClickListener(this);
         } else {
-
+            ((AccountActivity) getActivity()).changeToolbarVisibility(false);
+            imgLoginExistProfile.setVisibility(GONE);
+            txtSetCredentials.setVisibility(GONE);
+            textNameUser.setText(getString(R.string.set_credentials_login));
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
-            textNameUser.setVisibility(GONE);
 
         }
         setValidationRules();
-
-        // Mostramos los elementos de facil acceso, solo si tenemos session
-        Preferencias prefs = App.getInstance().getPrefs();
-        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
-            if (App.getInstance().isCancel()) {
-                blockCard.setVisibility(GONE);
-            } else {
-                blockCard.setVisibility(VISIBLE);
-            }
-            accessCode.setVisibility(View.VISIBLE);
-            boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
-            if (isAdquirente) {
-                int Idestatus;
-                Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-                if (Idestatus== IdEstatus.I10.getId() ||Idestatus== IdEstatus.I13.getId() ){
-                    quickPayment.setVisibility(View.GONE);
-                }else {
-                    quickPayment.setVisibility(View.VISIBLE);
-                }
-            } else {
-                quickPayment.setVisibility(View.GONE);
-            }
-        } else {
-            blockCard.setVisibility(View.INVISIBLE);
-            accessCode.setVisibility(View.INVISIBLE);
-            quickPayment.setVisibility(View.INVISIBLE);
-        }
         txtVersionApp.setText("Versión: " + BuildConfig.VERSION_NAME);
-
     }
 
     @Override
@@ -348,33 +181,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 break;
             case R.id.textNameUser:
                 if (BuildConfig.DEBUG) {
-                    textNameUser.setVisibility(GONE);
                     edtUserName.setText(RequestHeaders.getUsername());
                     edtUserName.setVisibility(VISIBLE);
                 }
                 break;
-            case R.id.blockCard:
-                nextScreen(EVENT_BLOCK_CARD, null);
-                break;
-            case R.id.accessCode:
-                nextScreen(EVENT_SECURE_CODE, null);
-                break;
-            case R.id.quickPayment:
-                nextScreen(EVENT_QUICK_PAYMENT, null);
-                break;
-            case R.id.linerar_principal:
-                opciones_login.setVisibility(VISIBLE);
-                keyboardView.hideCustomKeyboard();
-                btnLogin.setVisibility(VISIBLE);
-                txtVersionApp.setVisibility(VISIBLE);
-                break;
-            case R.id.customkeyboard:
-                opciones_login.setVisibility(GONE);
-                keyboardView.showCustomKeyboard(rootview);
-                btnLogin.setVisibility(GONE);
-                txtVersionApp.setVisibility(GONE);
-                break;
-
             default:
                 break;
         }
@@ -385,7 +195,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             validateForm();
         } else {
             UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
-            edtPin.setText("");
         }
     }
 
@@ -411,7 +220,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-
         if (!dialogErrorShown) {
             dialogErrorShown = true;
             UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
@@ -423,14 +231,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                             edtUserPass.setText("");
                             password = "";
                             dialogErrorShown = false;
-                            opciones_login.setVisibility(VISIBLE);
-                            keyboardView.hideCustomKeyboard();
                         }
 
                         @Override
                         public void actionCancel(Object... params) {
-                            opciones_login.setVisibility(VISIBLE);
-                            keyboardView.hideCustomKeyboard();
                         }
                     });
         }
@@ -514,14 +318,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-
-                if (nip.isEmpty() || nip.length() < 6) {
+                if (password.isEmpty() || password.length() < 6) {
                     errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
                     edtUserPass.setIsInvalid();
                     isValid = false;
                 }
-
-
             } else {
                 if (password.isEmpty()) {
                     errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
@@ -568,7 +369,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void getDataForm() {
         username = edtUserName.getText().trim();
         password = edtUserPass.getText().trim();
-        nip = edtPin.getText().toString().trim();
     }
 
     @Override
@@ -582,15 +382,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void versionOk() {
-        if (!RequestHeaders.getTokenauth().isEmpty()) {
-            if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                accountPresenter.login(username, nip); // Realizamos el  Login
-            } else {
-                accountPresenter.login(username, password); // Realizamos el  Login
-            }
-        } else {
-            accountPresenter.login(username, password); // Realizamos el  Login
-        }
+        accountPresenter.login(username, password); // Realizamos el  Login
     }
 
     @Override
@@ -641,25 +433,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         accountPresenter.setIView(this);
-        edtPin.requestEditFocus();
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             edtUserName.setText(RequestHeaders.getUsername());
-
         }
-
         if (preferencias.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             updatePhoto();
-        }
-
-        // Cambiamos el estado de mostrar el bloqueo de tarjeta
-        // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
-        String cardStatusId = App.getInstance().getStatusId();
-        if (cardStatusId.equals("1")) {
-            // Significa que la card esta bloqueada, despues de la operacion pasa a desbloqueada
-            txtBlockCard.setText(getContext().getResources().getString(R.string.bloquear_tarjeta));
-        } else {
-            // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
-            txtBlockCard.setText(getContext().getResources().getString(R.string.desbloquear_tarjeta));
         }
     }
 
@@ -686,7 +464,5 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             return false;
         }
     }
-
-
 }
 

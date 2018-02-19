@@ -120,7 +120,6 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
                 onBackActions();
             }
         }, 0);
-
     }
 
     public void onBackActions() {

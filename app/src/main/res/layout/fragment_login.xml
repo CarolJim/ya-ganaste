@@ -21,25 +21,44 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/layoutImagenLogin"
+            <ImageView
+                android:id="@+id/img_header_yg_login"
+                android:layout_width="match_parent"
+                android:layout_height="172dp"
+                android:background="@color/colorAccent"
+                android:padding="32dp"
+                app:srcCompat="@drawable/ic_logo_header" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgLoginExistProfile"
+                android:layout_width="61dp"
+                android:layout_height="61dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:src="@mipmap/icon_user"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/textNameUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:gravity="center"
-                android:padding="3dp">
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="17sp"
+                app:tipo="Titulo" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgLoginExistProfile"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/icon_user"
-                    app:civ_border_color="@color/colorAccent"
-                    app:civ_border_width="2dp" />
-            </RelativeLayout>
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_set_credentials"
+                style="@style/generic_text_style_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:padding="@dimen/margin_medium"
+                android:text="@string/set_credentials_login_2"
+                android:textAlignment="center" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,103 +68,6 @@
                 android:layout_marginTop="0dp"
                 android:gravity="center"
                 android:orientation="vertical">
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/asignar_edittext"
-                    android:layout_width="1px"
-                    android:layout_height="1px"
-                    android:background="@android:drawable/dialog_holo_light_frame"
-                    android:layout_marginTop="0dp"
-                    android:inputType="textPassword" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/textNameUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
-                    app:tipo="Titulo" />
-
-
-                <LinearLayout
-                    android:id="@+id/opciones_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/blockCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@mipmap/ic_block_card" />
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/txtBlockCard"
-                            style="@style/generic_text_style_4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:gravity="center" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/accessCode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@mipmap/ic_access_token" />
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            style="@style/generic_text_style_4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:gravity="center"
-                            android:text="@string/codigoAcceso" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/quickPayment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@mipmap/ic_quick_payment" />
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            style="@style/generic_text_style_4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_small"
-                            android:gravity="center"
-                            android:text="@string/cobroRapido" />
-                    </LinearLayout>
-                </LinearLayout>
-
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserName"
@@ -159,19 +81,14 @@
                     app:hintText="@string/txt_escribe_tu_correo"
                     app:isTextEnabled="true" />
 
-                <include
-                    android:id="@+id/customkeyboard"
-                    layout="@layout/login_fragment_passwordedittext_custom"
-                    android:visibility="gone" />
-
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editUserPassword"
                     style="@style/GenericInputTextForms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:clickable="true"
                     android:background="@android:drawable/dialog_holo_light_frame"
+                    android:clickable="true"
                     app:formato="password"
                     app:hintText="@string/txt_escribe_tu_pass"
                     app:isTextEnabled="true" />
@@ -191,20 +108,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
-        android:id="@+id/keyboard_view"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_above="@+id/relativeAd"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/darker_gray"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:keyBackground="@drawable/material_key_drawable"
-        android:keyTextColor="#bcbcbc"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/layoutBtns"
         android:layout_width="match_parent"
@@ -219,13 +122,13 @@
             style="@style/buttonSquareRoundedBlue"
             android:layout_marginBottom="@dimen/margin_error"
             android:background="@drawable/button_rounded_blue"
-            android:text="@string/txt_ingresar" />
+            android:text="@string/next" />
 
         <TextView
             android:id="@+id/txtVersionApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/whiteColor"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/size_text_style_3_value" />
     </LinearLayout>
 

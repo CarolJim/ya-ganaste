@@ -54,11 +54,11 @@ import javax.crypto.KeyGenerator;
 
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
+import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -275,6 +275,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(AsignarNIPFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_ASOCIATE_PHONE:
+                changeToolbarVisibility(true);
+                showBack(false);
                 loadFragment(AsociatePhoneAccountFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
@@ -336,20 +338,18 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
 
                 // Lineas de prueba, comentar al tener version lista para pruebas
-                //tokenSesionAdquirente = "MiSuperTokenAdquirente";
-                //isAdquirente = "";
                 if (!DEBUG) {
                     Answers.getInstance().logLogin(new LoginEvent());
                 }
-                if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
+                /*if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
                     // getActivity().finish();
                     Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
                     startActivity(intent);
-                } else {
-                    Intent intent = new Intent(AccountActivity.this, TabActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                } else {*/
+                Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                startActivity(intent);
+                finish();
+                //}
                 break;
         }
     }

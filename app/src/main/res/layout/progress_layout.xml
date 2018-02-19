@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@color/transparent">
+        android:background="@color/colorAccentTransparent">
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -21,14 +21,24 @@
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/imgloader"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/load_reloj"
-                android:visibility="visible"
                 tools:ignore="ContentDescription" />
+
+            <!--<ProgressBar
+                android:id="@+id/pgbLoader"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:indeterminate="true"
+                android:theme="@style/CustomProgressBar"
+                android:visibility="visible" />-->
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessage"
@@ -39,7 +49,9 @@
                 android:gravity="center"
                 android:text="Cargando..."
                 android:textColor="@color/whiteColor"
+                android:textSize="14sp"
                 android:visibility="visible" />
+
         </FrameLayout>
 
     </FrameLayout>

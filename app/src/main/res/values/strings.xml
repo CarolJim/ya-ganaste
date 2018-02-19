@@ -387,8 +387,8 @@
     <string name="msg_renapo">Validando Información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste</string>
-    <string name="activacion_sms_mes_2">Desliza el Botón y Enviaremos un \nSMS Para Realizar el Proceso</string>
+    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu\ncuenta Ya Ganaste</string>
+    <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -630,8 +630,8 @@
 
     <string name="entendido_titulo">Entendido</string>
     <string name="no_sim_titulo">¡Atención!</string>
-    <string name="no_sim_mensaje">Este Dispositivo no\nCuenta Con Una Tarjeta SIM</string>
-    <string name="no_sim_mensajenuevo">Este Dispositivo no Cuenta Con Una Tarjeta SIM,\n Inserta Una Para Continuar</string>
+    <string name="no_sim_mensaje">Este dispositivo no cuenta con una tarjeta SIM</string>
+    <string name="no_sim_mensajenuevo">Este dispositivo no cuenta con una tarjeta SIM,\n Inserta una para continuar</string>
     <string name="no_sim_desc">No Puedes Usar Esta Aplicación\n Sin Tarjeta SIM</string>
 
     <!-- Mensajes de Espera para Registro adquirente -->
@@ -1166,7 +1166,7 @@
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
     <string name="saldo_disponible_enviar">Saldo Disponible: </string>
-    <string name="Monto_a_enviar">Monto a Enviar: </string>
+    <string name="monto_a_enviar">Monto a Enviar: </string>
     <string name="solicitar_pago_text">Solicitar Pago Por: </string>
     <string name="ingresa_monto">Ingresa el Monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
@@ -1177,6 +1177,9 @@
     <string name="realizar_cobro">Realizar\ncobro</string>
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
+    <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
+    <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
+    <string name="send_sms">Envia SMS</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1187,7 +1190,6 @@
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Dígitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
     <string name="formato_password">Tu Nueva Contraseña Debe\nTener 6 Dígitos</string>
     <string name="formato_password_change">Tu Contraseña Debe\nTener 6 Dígitos</string>
-
 
     <!-- Transitions -->
     <string name="transition_name_mov">transition:MO|VE</string>

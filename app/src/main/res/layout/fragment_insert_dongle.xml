@@ -6,53 +6,47 @@
     android:gravity="center_horizontal"
     tools:context="com.pagatodo.yaganaste.ui._controllers.AdqActivity">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLy">
-
-         <pl.droidsonroids.gif.GifImageView
-             android:id="@+id/imgInsertDongle"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:scaleType="centerCrop"
-             android:src="@mipmap/dongle_insert"
-             tools:ignore="ContentDescription" />
-
-         <pl.droidsonroids.gif.GifImageView
-             android:id="@+id/imgInsertCard"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:scaleType="centerCrop"
-             android:src="@mipmap/dongle_insert_card"
-             android:visibility="invisible"
-             tools:ignore="ContentDescription" />
-
-        <!--<VideoView
-            android:id="@+id/videoDongle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            tools:ignore="ContentDescription" />-->
+        android:layout_below="@+id/toolbarLy"
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/tv_txt_lector"
             style="@style/GenericSubTextTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="@string/inserta_el_lector_para_ncontinuar"
             android:textColor="@color/whiteColor"
             app:tipo="Text" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/insertDongleAnimation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/insert_dongle" />
 
-    </RelativeLayout>
+        <!--<pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imgInsertDongle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/dongle_insert"
+            tools:ignore="ContentDescription" />
 
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imgInsertCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/dongle_insert_card"
+            android:visibility="invisible"
+            tools:ignore="ContentDescription" />-->
 
-    <!--com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progressLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/-->
-
+    </LinearLayout>
 </RelativeLayout>
