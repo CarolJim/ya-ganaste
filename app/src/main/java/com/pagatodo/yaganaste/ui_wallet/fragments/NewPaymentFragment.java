@@ -477,32 +477,29 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         int lenghtArray = originalList.size();
         if (lenghtArray < 9) {
 
-            // Agregamos nuestros elementos que van en la lista, estos tienen item valido
-            for (int x = 0; x < lenghtArray; x++) {
-                finalList.add(originalList.get(x));
-            }
-
             DataFavoritos itemAdd = new DataFavoritos(-2);
             itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
             itemAdd.setNombre("Nuevo");
             finalList.add(itemAdd);
+
+            // Agregamos nuestros elementos que van en la lista, estos tienen item valido
+            for (int x = 0; x < lenghtArray; x++) {
+                finalList.add(originalList.get(x));
+            }
         }
 
         if (lenghtArray > 8 && lenghtArray != 0) {
-            DataFavoritos itemLupa = new DataFavoritos(-1);
-            itemLupa.setImagenURL("R.mipmap.buscar_con_texto");
-            itemLupa.setNombre("Buscar");
-            finalList.add(itemLupa);
+            DataFavoritos itemAdd = new DataFavoritos(-2);
+            itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
+            itemAdd.setNombre("Nuevo");
+            finalList.add(itemAdd);
 
             // Agregamos los elementos de Favortios en las posiciones 1-6. 0 = Lupa 7=Agregar
             for (int x = 0; x < 6; x++) {
                 finalList.add(originalList.get(x));
             }
 
-            DataFavoritos itemAdd = new DataFavoritos(-2);
-            itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
-            itemAdd.setNombre("Nuevo");
-            finalList.add(itemAdd);
+
 
             /**
              * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
