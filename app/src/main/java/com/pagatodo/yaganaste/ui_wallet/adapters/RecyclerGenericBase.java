@@ -2,11 +2,16 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataListaNotificationArray;
 import com.pagatodo.yaganaste.interfaces.INotificationHistory;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.ISearchCarrier;
 import com.pagatodo.yaganaste.ui_wallet.views.GenericDummyData;
 
 import java.util.ArrayList;
@@ -31,8 +36,10 @@ public class RecyclerGenericBase {
     private int lastPos;
     private int mTotalItem;
     ArrayList<DataListaNotificationArray> myDataset;
+    private ArrayList<ComercioResponse> mDataSetCarrier;
     public static int VERTICAL_ORIENTATION = 1;
     public static int HORIZONTAL_ORIENTATION = 2;
+    public EditText searchEditText;
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
@@ -90,5 +97,32 @@ public class RecyclerGenericBase {
             }
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void createRecyclerList(ISearchCarrier iView, ArrayList<ComercioResponse> mDataSetCarrier,
+                                   EditText searchEditText) {
+        this.mDataSetCarrier = mDataSetCarrier;
+        this.searchEditText = searchEditText;
+        mDataSetCarrier.remove(0); // Removemos el item 0 que es la Lupa en la lista original
+        mAdapter = new AdapterSearchCarrierRV(iView, mDataSetCarrier, searchEditText);
+        mRecyclerView.setAdapter(mAdapter);
+
+  /*      mAdapter
+
+        TextWatcher filterTextWatcher = new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+//
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                mAdapter.getFilter().filter(s);
+            }
+        };*/
     }
 }

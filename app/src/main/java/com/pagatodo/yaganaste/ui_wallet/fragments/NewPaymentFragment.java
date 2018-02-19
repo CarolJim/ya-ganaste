@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
+import com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.AdapterPagosClass;
 import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterGV;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentAdapter;
@@ -38,6 +39,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.NewListDialog;
 import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,8 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
+import static com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity.SEARCH_DATA;
+import static com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity.SEARCH_IS_RELOAD;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
@@ -522,9 +526,13 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             case SEARCH_CARRIER_RECARGA:
                 if (mDataRecargar != null) {
                     if (mDataRecargar.get(position).getNombreComercio().equals("Buscar")) {
-                        NewListDialog dialog = new NewListDialog(getContext(), mDataRecargar, newPaymentPresenter,
+                       /* NewListDialog dialog = new NewListDialog(getContext(), mDataRecargar, newPaymentPresenter,
                                 mType);
-                        dialog.show();
+                        dialog.show();*/
+                        Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
+                        intent.putExtra(SEARCH_DATA, (Serializable) mDataRecargar);
+                        intent.putExtra(SEARCH_IS_RELOAD, true);
+                        startActivity(intent);
                     } else {
                         intentPayment.putExtra(PAYMENT_DATA, mDataRecargar.get(position));
                         intentPayment.putExtra(PAYMENT_IS_FAV, false);
@@ -535,9 +543,13 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             case SEARCH_CARRIER_PAGOS:
                 if (mDataPagar != null) {
                     if (mDataPagar.get(position).getNombreComercio().equals("Buscar")) {
-                        NewListDialog dialog = new NewListDialog(getContext(), mDataPagar, newPaymentPresenter,
+                        /*NewListDialog dialog = new NewListDialog(getContext(), mDataPagar, newPaymentPresenter,
                                 mType);
-                        dialog.show();
+                        dialog.show();*/
+                        Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
+                        intent.putExtra(SEARCH_DATA, (Serializable) mDataPagar);
+                        intent.putExtra(SEARCH_IS_RELOAD, false);
+                        startActivity(intent);
                     } else {
                         intentPayment.putExtra(PAYMENT_DATA, mDataPagar.get(position));
                         intentPayment.putExtra(PAYMENT_IS_FAV, false);
