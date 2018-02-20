@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
+    tools:context=".ui._controllers.MainActivity">
 
     <com.jude.rollviewpager.RollPagerView
         android:id="@+id/rollPager"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/logo_header"
+            app:srcCompat="@drawable/ic_logo_header"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
 </RelativeLayout>

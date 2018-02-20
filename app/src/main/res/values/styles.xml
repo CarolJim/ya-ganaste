@@ -130,7 +130,7 @@
     </style>
 
     <style name="buttonSquareRoundedBlue" parent="AppButton">
-        <item name="android:layout_width">@dimen/width_btns</item>
+        <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/button_rectangle_blue_selector</item>
         <item name="android:textColor">@android:color/white</item>
@@ -468,11 +468,13 @@
         <item name="android:button">@color/transparent</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="generic_text_style_2_conoce">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="generic_text_style_2.5">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
@@ -492,6 +494,7 @@
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="generic_text_style_4.3">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_8_value</item>
@@ -580,7 +583,8 @@
         <item name="android:textCursorDrawable">@null</item>
         <item name="tipo">Descripcion</item>
     </style>
-    <style name="GenericStyleEditTextpass" >
+
+    <style name="GenericStyleEditTextpass">
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
@@ -621,6 +625,7 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
+
     <style name="GenericInputTextFormsComentario">
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/whiteColor</item>
@@ -632,7 +637,6 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
-
 
 
     <style name="styleSign">
@@ -664,14 +668,14 @@
     </style>
 
     <!-- ToolBar -->
-    <style name="ToolBarTheme.ToolBarStyle"   parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="ToolBarTheme.ToolBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
     </style>
 
 
-    <style name="SwitchCompatStyle" >
+    <style name="SwitchCompatStyle">
         <item name="android:thumb">@drawable/switch_thumb</item>
         <item name="trackTint">@color/switch_color</item>
     </style>
@@ -685,6 +689,10 @@
         <item name="colorControlNormal">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent</item>
 
+    </style>
+
+    <style name="CustomProgressBar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/whiteColor</item>
     </style>
 
 </resources>

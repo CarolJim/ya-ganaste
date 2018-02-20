@@ -44,6 +44,7 @@
 
     <!-- Colores oficiales 12-07-17 -->
     <color name="colorAccent">#00A1E1</color>
+    <color name="colorAccentTransparent">#6400a1e1</color>
     <color name="greenColorPositiveMovements">#00E000</color>
     <color name="redColorNegativeMovements">#FF2A5B</color>
     <!--   <color name="backgroundEditText">#445C6C</color>  -->
@@ -61,8 +62,6 @@
     <color name="redErrorColor2">#D0011B</color>
     <color name="circlegreen222">#00c900</color>
     <color name="greencolor222">#00E000</color>
-
-    <color name="colorAccentTransparent">#8810B2E6</color>
 
     <color name="circlecarousel7">#0041c2</color>
     <color name="circlecarousel1">#00b6df</color>

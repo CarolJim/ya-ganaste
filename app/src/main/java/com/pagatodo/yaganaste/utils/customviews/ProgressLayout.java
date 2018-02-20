@@ -44,7 +44,6 @@ public class ProgressLayout extends LinearLayout implements View.OnClickListener
         li.inflate(R.layout.progress_layout, this, true);
         txtMessage = ButterKnife.findById(this, R.id.txtMessage);
         frameProgresGif = ButterKnife.findById(this, R.id.frameProgresGif);
-        setBackgroundResource(R.color.bg_progress);
         setOnClickListener(this);
     }
 

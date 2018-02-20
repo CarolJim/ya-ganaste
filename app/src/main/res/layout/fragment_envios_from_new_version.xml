@@ -17,7 +17,7 @@
             style="@style/generic_text_style_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Monto_a_enviar" />
+            android:text="@string/monto_a_enviar" />
 
         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
             android:id="@+id/montotosend"

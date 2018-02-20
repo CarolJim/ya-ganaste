@@ -293,10 +293,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         }
     }
 
-    public void onBackPress() {
-        getActivity().finish();
-    }
-
     public void onRefresh() {
         if (!UtilsNet.isOnline(getActivity())) {
             UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
@@ -321,6 +317,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         } else {
             Status = f;
             App.getInstance().setStatusId(f);
+            setBalanceCards();
         }
     }
 

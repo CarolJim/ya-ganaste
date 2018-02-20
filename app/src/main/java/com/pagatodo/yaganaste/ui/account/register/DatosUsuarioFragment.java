@@ -35,7 +35,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSO
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
-import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -100,7 +99,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         this.preferencias = App.getInstance().getPrefs();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
-        prefs.saveDataBool(TECLADO_CUSTOM,true);
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
         preferencias.saveDataBool(Recursos.HUELLA_FAIL,true);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
