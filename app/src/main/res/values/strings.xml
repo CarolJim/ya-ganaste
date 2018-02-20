@@ -220,7 +220,7 @@
     <string name="txt_iniciar_sesion">Iniciar Sesión</string>
     <string name="recover_pass"><u>¿Olvidaste tu Contraseña?\nAquí Podemos Ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
-    <string name="txt_mail">Correo Electrónico</string>
+    <string name="txt_mail">Correo electrónico</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
     <string name="txt_escribe_tu_correo">Correo Electrónico</string>
@@ -236,7 +236,6 @@
     <string name="txt_validacion_docs_2">No te Preocupes, Puedes Seguir Usando tu App Para Realizar Recargas y Pagos de Servicios Personales</string>
     <string name="backButton">Volver</string>
     <string name="nextButton">Continuar</string>
-    <string name="recoveryButton">Recuperar</string>
     <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
     <string name="txt_dialogo_subir_documentos_marcados">Debes de Subir Los Documentos Marcados Con el Signo de Admiración</string>
     <string name="txt_selecciona_archivo">Selecciona Archivo</string>
@@ -619,9 +618,10 @@
     <string name="selecciona_genero">Selecciona tu Género</string>
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Restablece tu Contraseña</string>
-    <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
-    <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
+    <string name="recupera_contrasenia_title">Restablece tu contraseña</string>
+    <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
+    <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes generar una\nnueva, te enviaremos las instrucciones.\n\nSe enviará un correo a:</string>
+    <string name="ingresa_correo_registrado">Ingresa el correo electrónico con el que te\nregistraste para enviarte las instrucciones</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
 
     <string name="carrouse_title_1">Cobra Con Tarjeta\nal Mejor Precio</string>
@@ -1180,6 +1180,7 @@
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
     <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
     <string name="send_sms">Envia SMS</string>
+    <string name="send_email">Enviar correo electrónico</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>

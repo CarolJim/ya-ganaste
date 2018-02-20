@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -25,7 +26,6 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -42,6 +42,10 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
  */
 public class RecoveryFragment extends GenericFragment implements View.OnClickListener, RecoveryPasswordView, ValidationForms {
 
+    @BindView(R.id.img_header_recover_pass)
+    ImageView imgHeaderRecover;
+    @BindView(R.id.img_recover_pass_blue)
+    ImageView imgRecoverBlue;
     @BindView(R.id.edtCorreoRegistrado)
     CustomValidationEditText edtCorreoRegistrado;
     @BindView(R.id.btnNextRecuperar)
@@ -50,8 +54,6 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     StyleButton btnBack;
     @BindView(R.id.errorMessage)
     ErrorMessage errorMessageView;
-    @BindView(R.id.progressIndicator)
-    ProgressLayout progressLayout;
     @BindView(R.id.tvCorreoRegistrado)
     StyleTextView tvCorreoRegistrado;
     @BindView(R.id.txtHeaderRecovery)
@@ -111,8 +113,17 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (!prefs.containsData(HAS_SESSION) && RequestHeaders.getTokenauth().isEmpty()) {
+            ((AccountActivity) getActivity()).changeToolbarVisibility(false);
+        }
+    }
+
+    @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        ((AccountActivity) getActivity()).changeToolbarVisibility(true);
         errorMessageView.setVisibilityImageError(false);
         btnBack.setOnClickListener(this);
         btnRecuperarContrasenia.setOnClickListener(this);
@@ -125,6 +136,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
          * 2 - Trabajo con un EditText para acomodar el nueo texto
          */
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            imgHeaderRecover.setVisibility(View.GONE);
             edtCorreoRegistrado.setVisibility(View.GONE);
 
             // Asignamos el texto de enlace de correo
@@ -139,6 +151,8 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
             tvCorreoRegistrado.setVisibility(View.VISIBLE);
             tvCorreoRegistrado.setText(userEmailCifrado);
         } else {
+            ((AccountActivity) getActivity()).showImageToolbar(false);
+            imgRecoverBlue.setVisibility(View.GONE);
             tvCorreoRegistrado.setVisibility(View.GONE);
             // Asignamos el texto de enlace de correo
             String mTextEnlace = getContext().getResources()

@@ -23,13 +23,13 @@
             android:textColor="@color/whiteColor"
             app:tipo="Text" />
 
-        <com.airbnb.lottie.LottieAnimationView
+        <!--<com.airbnb.lottie.LottieAnimationView
             android:id="@+id/insertDongleAnimation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/insert_dongle" />
+            app:lottie_rawRes="@raw/insert_dongle" />-->
 
         <!--<pl.droidsonroids.gif.GifImageView
             android:id="@+id/imgInsertDongle"

@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -86,8 +85,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     ImageView imgInsertDongle;*/
     @BindView(R.id.imgInsertCard)
     GifImageView imgInsertCard;
-    @BindView(R.id.insertDongleAnimation)
-    LottieAnimationView insertDongle;
+   /* @BindView(R.id.insertDongleAnimation)
+    LottieAnimationView insertDongle;*/
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
     DataMovimientoAdq dataMovimientoAdq;
@@ -389,7 +388,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        insertDongle.setImageAssetsFolder("images");
+        //insertDongle.setImageAssetsFolder("images");
     }
 
     @Override
@@ -453,7 +452,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertDongle() {
-        insertDongle.setVisibility(VISIBLE);
+        //insertDongle.setVisibility(VISIBLE);
         imgInsertCard.setVisibility(View.INVISIBLE);
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
@@ -461,10 +460,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertCard() {
-        insertDongle.setVisibility(View.GONE);
-        insertDongle.pauseAnimation();
+       /* insertDongle.setVisibility(View.GONE);
+        insertDongle.pauseAnimation();*/
         String message;
-
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);

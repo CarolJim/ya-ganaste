@@ -150,12 +150,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         switch (action) {
             case GO_TO_LOGIN:
                 App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
-                loadFragment(loginContainerFragment, Direction.FORDWARD, false);
+                loadFragment(loginContainerFragment);
                 break;
 
             case GO_TO_REGISTER:
                 App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
-                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DatosUsuarioFragment.newInstance());
 
                 // TODO: 28/04/2017
                 resetRegisterData();
@@ -197,8 +197,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
 
             case EVENT_RECOVERY_PASS:
-                //loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
-                //loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadRecoveryFragment();
                 break;
 
