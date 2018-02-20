@@ -187,9 +187,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         if(isEditable){
             tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
             isEditable = false;
+            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 1);
         }else{
             tvEditarFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
             isEditable = true;
+            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 2);
         }
 
     }
@@ -363,7 +365,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
                     mRVRecargas, gvRecargas);
 
-            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, TYPE_FAVORITE);
+            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 1);
+            //adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 2);
             mFullListaRecar = adapterPagosClass.getmFullListaFav();
 
 /*            // Creamos la lista que enviaremos al Grid con los datos del Recargas
@@ -395,7 +398,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             AdapterPagosClass adapterPagosClass = new AdapterPagosClass(this, mDataPagarFav,
                     mRVPagos, gvRecargas);
 
-            adapterPagosClass.createRecycler(SEARCH_FAVORITO_PAGOS, TYPE_FAVORITE);
+            adapterPagosClass.createRecycler(SEARCH_FAVORITO_PAGOS, 1);
             mFullListaServ = adapterPagosClass.getmFullListaFav();
 
             // Creamos la lista que enviaremos al Grid con los datos del Recargas

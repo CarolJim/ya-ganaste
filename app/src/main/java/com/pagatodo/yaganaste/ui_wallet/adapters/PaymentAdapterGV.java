@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -16,12 +17,15 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
+import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.SEARCH_CARRIER_PAGOS;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.SEARCH_CARRIER_RECARGA;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.TYPE_CARRIER;
 
 /**
@@ -29,7 +33,7 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.TYPE
  * Genera un GridView. En dos casos diferentes:
  * 1 - Es un simple GridView que pinta en la View para Carriers
  * 2 - Pinta los datos de Favoritos en un Recycler
- *
+ * <p>
  * Para que este metodo se mantenga estable para ambos casos, se agrega adicional typePosition, que es
  * la posicion del RecyclerView
  * 1 - Siempre tendra un -1 al generarse en los Carriers
@@ -41,6 +45,31 @@ public class PaymentAdapterGV extends BaseAdapter {
     IPaymentFragment mContext;
     int mType, mOperation, typePosition;
 
+    /**
+     * @param myDataset
+     * @param mContext
+     * @param mType         Funciona para identificar con que tipo de elemento trabajamos.
+     *                      SEARCH_CARRIER_RECARGA = 1;
+     *                      SEARCH_CARRIER_PAGOS = 2;
+     *                      SEARCH_FAVORITO_RECARGA = 3;
+     *                      SEARCH_FAVORITO_PAGOS = 4;
+     * @param mOperation Controla la operacion que vamos a hacer
+     *                      1 : PAgar Favorito
+     *                      2 : Editar Favorito
+     *                      >3 : Valor para Carriers e ignoramos el camino
+     * @param typePosition  Controla la posicion del RV para obtener la referencia en el GV. En el caso
+     *                       de carriersm se puede manejar una constante TYPE_POSITION = -1
+     */
+    public PaymentAdapterGV(ArrayList<DataFavoritosGridView> myDataset, IPaymentFragment mContext,
+                            int mType, int mOperation, int typePosition) {
+        this.myDataset = myDataset;
+        this.mContext = mContext;
+        this.mType = mType;
+        this.mOperation = mOperation;
+        this.typePosition = typePosition;
+    }
+
+   /*
     public PaymentAdapterGV(ArrayList<DataFavoritosGridView> myDataset, IPaymentFragment mContext,
                             int mType, int typeOperation, int typePosition) {
         this.myDataset = myDataset;
@@ -49,6 +78,7 @@ public class PaymentAdapterGV extends BaseAdapter {
         this.mOperation = typeOperation;
         this.typePosition = typePosition;
     }
+    */
 
     @Override
     public int getCount() {
@@ -82,9 +112,11 @@ public class PaymentAdapterGV extends BaseAdapter {
             // BORDE COLORES imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
             imageViewBorder.setBorderColor(Color.GRAY);
 
+            CircleImageView imageCircleEdit = grid.findViewById(R.id.imgItemGalleryStatus);
 
             // Procesos para Carriers
-            if (mOperation == TYPE_CARRIER) {
+            if (mType == SEARCH_CARRIER_RECARGA || mType == SEARCH_CARRIER_PAGOS) {
+                imageCircleEdit.setVisibility(View.GONE);
                 GradientDrawable gd = createCircleDrawable(Color.WHITE, Color.GRAY);
 
                 /*
@@ -138,6 +170,10 @@ public class PaymentAdapterGV extends BaseAdapter {
 
             } else {
                 // Procesos para favoritos
+                if(mOperation == 2 && position != 0){
+                    imageCircleEdit.setImageDrawable(ContextCompat.getDrawable(App.getContext(), R.drawable.edit_icon));
+                    imageCircleEdit.setVisibility(View.VISIBLE);
+                }
 
                 // Localizamos el elementos de TextView para Iniciales
                 TextView textIniciales = (TextView) grid.findViewById(R.id.textIniciales);
@@ -192,23 +228,31 @@ public class PaymentAdapterGV extends BaseAdapter {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType, typePosition);
+                        if(mOperation == 2 && position != 0){
+                            mContext.editFavorite(position, mType, typePosition);
+                        }else{
+                            mContext.sendData(position, mType, typePosition);
+                        }
                     }
                 });
                 imageViewBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mContext.sendData(position, mType, typePosition);
+                        if(mOperation == 2 && position != 0){
+                            mContext.editFavorite(position, mType, typePosition);
+                        }else{
+                            mContext.sendData(position, mType, typePosition);
+                        }
                     }
                 });
 
-                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                /*imageView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         mContext.editFavorite(position, mType, typePosition);
                         return true;
                     }
-                });
+                });*/
             }
         } else {
             grid = (View) convertView;
@@ -255,7 +299,7 @@ public class PaymentAdapterGV extends BaseAdapter {
     private void setImagePicaso(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
                 .load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
-              // .placeholder(R.mipmap.logo_ya_ganaste)
+                // .placeholder(R.mipmap.logo_ya_ganaste)
                 // .error(R.mipmap.logo_ya_ganaste)
                 .into(imageView);
     }
@@ -263,8 +307,8 @@ public class PaymentAdapterGV extends BaseAdapter {
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext())
                 .load(urlLogo)
-                 .placeholder(R.mipmap.icon_user)
-                 .error(R.mipmap.icon_user)
+                .placeholder(R.mipmap.icon_user)
+                .error(R.mipmap.icon_user)
                 .into(imageView);
 
         /*Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)

@@ -87,22 +87,12 @@ public class AdapterPagosClass {
 
         mAdapter = new AdapterPagosRV(mFullListaFav, mView, mType, typeOperation);
         mRecyclerView.setAdapter(mAdapter);
-        Toast.makeText(App.getContext(), "Trabajamos con Favoritos", Toast.LENGTH_SHORT).show();
+        if(typeOperation == 1) {
+            Toast.makeText(App.getContext(), "Pagamos Favoritos", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(App.getContext(), "Editamos Favoritos", Toast.LENGTH_SHORT).show();
+        }
     }
-
-    public void loadAdapterEditFavorites(int mType, int typeOperation) {
-        mRecyclerView.setHasFixedSize(true);
-
-        // Hacemos el Set Horizontal para el RV
-        mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new AdapterPagosRV(mFullListaFav, mView, mType, typeOperation);
-        mRecyclerView.setAdapter(mAdapter);
-        Toast.makeText(App.getContext(), "Editamos Favoritos", Toast.LENGTH_SHORT).show();
-    }
-
-
 
     public ArrayList<ArrayList<DataFavoritos>> getmFullListaFav() {
         return mFullListaFav;

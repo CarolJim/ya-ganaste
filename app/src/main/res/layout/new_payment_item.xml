@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    tools:background="#a2a2a2"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -21,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            app:civ_border_color="#FF09CC20"
+            app:civ_border_color="#09CC20"
              />
 
         <ImageView
@@ -32,6 +33,17 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgItemGalleryStatus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="invisible"
+            android:src="@color/bgColor"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="2dp"
+            android:layout_alignRight="@+id/layoutImg"
+            />
 
         <TextView
             android:id="@+id/textIniciales"
