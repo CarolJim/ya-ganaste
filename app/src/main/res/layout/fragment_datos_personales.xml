@@ -18,6 +18,18 @@
         android:textColor="@color/colorAccent"
         android:layout_marginTop="35dp"
         android:text="@string/personalInfoTitle"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/titulo_datos_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:text="@string/sub_titulo_datos_personales"
+        android:textAlignment="center"
+        android:textColor="@color/adadad"
+        android:textSize="14sp"
+        app:tipo="Titulo" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -41,6 +53,93 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/generTitle"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/seleccionaGenero"
+                            style="@style/generic_text_style_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/genero" />
+                    <RadioGroup
+                        android:id="@+id/radioGender"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:theme="@style/RadioButtonTheme">
+
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnFemale"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:background="@drawable/ico_female"
+                             />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnMale"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:background="@drawable/ico_male"
+                            />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+
+                    </RadioGroup>
+
+                    </LinearLayout>
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/text_nombre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:textColorHint="@color/texthint"
+                            app:passwordToggleTint="@color/hint_color"
+                            android:theme="@style/TextLabel"
+                            android:paddingLeft="17dp"
+                            android:background="@drawable/inputtext_normal"
+                            tools:ignore="UnusedAttribute">
+
+                            <EditText
+                                android:id="@+id/edit_nombre"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:textColor="@color/texthint"
+                                android:text="@string/datos_personal_nombre"
+                                android:background="@android:color/transparent"/>
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
 
 
                     <LinearLayout

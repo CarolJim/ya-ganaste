@@ -103,9 +103,9 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                 editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.inputTextColorHint)));
 
                 pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
-                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+              //  inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 editText.setInputType(inputType);
-                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+               // inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 textSize = typedArray.getDimension(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
 
             } catch (Exception e) {
@@ -115,7 +115,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
             }
 
             if (inputType != EditorInfo.TYPE_NULL) {
-                editText.setInputType(inputType);
+         //       editText.setInputType(inputType);
             } else {
                 //  editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
             }

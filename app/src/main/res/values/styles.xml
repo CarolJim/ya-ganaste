@@ -281,7 +281,7 @@
     </style>
 
     <style name="BorderLayoutContent">
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginBottom">25dp</item>
@@ -680,16 +680,7 @@
         <item name="trackTint">@color/switch_color</item>
     </style>
 
-    <style name="TextLabel" parent="TextAppearance.AppCompat">
-        <!-- Hint color and label color in FALSE state -->
 
-        <item name="colorControlHighlight">@color/colorAccent</item>
-        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <!--<item name="android:statusBarColor">@color/colorAccent</item>-->
-        <item name="colorControlNormal">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
-
-    </style>
 
     <style name="CustomProgressBar" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/whiteColor</item>

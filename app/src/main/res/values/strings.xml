@@ -617,6 +617,8 @@
     <string name="input_decimal">-.0123456789</string>
 
     <string name="selecciona_genero">Selecciona tu Género</string>
+    <string name="genero">Género</string>
+
     <string name="cargando">Cargando</string>
 
     <string name="recupera_contrasenia_title">Restablece tu contraseña</string>
@@ -1252,5 +1254,13 @@
 
     <string name="administracion">Administración</string>
     <string name="title_fragment_nip">Cambia tu NIP</string>
+
+
+    <!-- Registro Emisor  -->
+    <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
+    <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
+
+    <string name="datos_personal_nombre_b">Nombre(s)</string>
+
 
 </resources>

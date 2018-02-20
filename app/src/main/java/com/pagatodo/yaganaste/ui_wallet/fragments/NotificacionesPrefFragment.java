@@ -47,7 +47,6 @@ public class NotificacionesPrefFragment extends SupportFragment implements MenuA
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
