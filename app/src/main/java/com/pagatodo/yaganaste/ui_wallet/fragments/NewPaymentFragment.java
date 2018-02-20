@@ -45,6 +45,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -76,12 +77,15 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     RecyclerView mRVRecargas;
     @BindView(R.id.mRVPagos)
     RecyclerView mRVPagos;
+    @BindView(R.id.fragment_newpayment_editar_textview)
+    TextView tvEditarFav;
 
     private View rootview;
     private ArrayList myDataset;
     private ArrayList mRecargarGrid;
     private ArrayList mPagarGrid;
     private int typeView;
+    private boolean isEditable = false;
 
     // Constantes para operaciones en el Grid
     public static final int TYPE_CARRIER = 1;
@@ -104,6 +108,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private List<DataFavoritos> mDataPagarFav;
     ArrayList<ArrayList<DataFavoritos>> mFullListaRecar;
     ArrayList<ArrayList<DataFavoritos>> mFullListaServ;
+    private AdapterPagosClass adapterPagosClass;
 
     public NewPaymentFragment() {
         // Required empty public constructor
@@ -173,6 +178,20 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
             }
         });
+
+    }
+
+    // Agregamos Listener para hacer Click en accion de editar
+    @OnClick(R.id.fragment_newpayment_editar_textview)
+    public void submit(View view) {
+        if(isEditable){
+            tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
+            isEditable = false;
+        }else{
+            tvEditarFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
+            isEditable = true;
+        }
+
     }
 
     /**
@@ -219,6 +238,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         newPaymentPresenter.getCarriersItems(PAYMENT_RECARGAS);
         newPaymentPresenter.getCarriersItems(PAYMENT_SERVICIOS);
         typeView = TYPE_CARRIER;
+
+        // Ocultamos el boton para editar favoritos
+        tvEditarFav.setVisibility(View.GONE);
     }
 
     private void updateFavorites() {
@@ -228,6 +250,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mPagarGrid.clear();
         newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);
         //newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
+
+        // Mostramos el boton para editar favoritos
+        tvEditarFav.setVisibility(View.VISIBLE);
     }
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
@@ -335,7 +360,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             mDataRecargarFav = dataFavoritos;
             mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
 
-            AdapterPagosClass adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
+             adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
                     mRVRecargas, gvRecargas);
 
             adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, TYPE_FAVORITE);

@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
@@ -86,7 +87,22 @@ public class AdapterPagosClass {
 
         mAdapter = new AdapterPagosRV(mFullListaFav, mView, mType, typeOperation);
         mRecyclerView.setAdapter(mAdapter);
+        Toast.makeText(App.getContext(), "Trabajamos con Favoritos", Toast.LENGTH_SHORT).show();
     }
+
+    public void loadAdapterEditFavorites(int mType, int typeOperation) {
+        mRecyclerView.setHasFixedSize(true);
+
+        // Hacemos el Set Horizontal para el RV
+        mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new AdapterPagosRV(mFullListaFav, mView, mType, typeOperation);
+        mRecyclerView.setAdapter(mAdapter);
+        Toast.makeText(App.getContext(), "Editamos Favoritos", Toast.LENGTH_SHORT).show();
+    }
+
+
 
     public ArrayList<ArrayList<DataFavoritos>> getmFullListaFav() {
         return mFullListaFav;
