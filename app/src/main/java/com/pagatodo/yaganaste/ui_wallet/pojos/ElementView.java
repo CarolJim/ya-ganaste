@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_DESBLOQUEADA;
 
 /**
@@ -96,7 +97,7 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListEmisorBalance(Context context) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        if (App.getInstance().getStatusId() == ESTATUS_CUENTA_DESBLOQUEADA) {
+        if (App.getInstance().getStatusId() == ESTATUS_CUENTA_BLOQUEADA) {
             elementViews.add(new ElementView(1, R.drawable.ic_bloquear, context.getResources().getString(R.string.desbloquear_tarjeta)));
         } else {
             elementViews.add(new ElementView(1, R.drawable.ic_bloquear, context.getResources().getString(R.string.bloquear_tarjeta)));

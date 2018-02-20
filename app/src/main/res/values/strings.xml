@@ -229,7 +229,6 @@
 
 
     <string name="txt_referencia_envio">Referencia de Envío</string>
-    <string name="hint_referencia_numerica">Referencia Numérica (6 Dígitos)</string>
     <string name="txt_referencia_servicio">Referencia</string>
     <string name="title_aviso">Aviso</string>
     <string name="txt_validacion_docs">La Validación de Documentos\nPodría Tomar Hasta 24 Horas.</string>
@@ -247,15 +246,11 @@
     <string name="txt_ubica">Ubica Los Puntos Donde Puedes Realizar Tus Depósitos YA!</string>
     <string name="txt_depositar_cuenta">Depositar a mi Cuenta</string>
     <string name="txt_ver_mapa">VER MAPA</string>
-    <string name="hint_importe">Importe</string>
-    <string name="hint_importe_envio">Importe a Enviar</string>
-    <string name="hint_name_destinatario">Nombre del Destinatario</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
     <string name="beneficiario">A:</string>
     <string name="txt_enter_password">Ingresa tu Contraseña Para \nAutorizar Este Movimiento</string>
     <string name="txt_fecha_hora">Fecha y Hora:</string>
-    <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
     <string name="txt_clave_rastreo">Clave Rastreo:</string>
     <string name="txt_numero_referencia">Número de Referencia:</string>
@@ -273,8 +268,6 @@
     <string name="something_is_wrong_try_again">Algo Salió Mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG </string>
 
-    <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
-    <string name="card_number_hint">Número de Tarjeta (16 Dígitos)</string>
     <string name="msgJsonObj">Mensaje</string>
     <string name="actionJsonObj">CodigoRespuesta</string>
     <string name="omitir">OMITIR</string>
@@ -890,7 +883,6 @@
     <string name="actualiza_proveedor">Actualiza Referencia de Proveedor</string>
     <string name="referencias_actualizadas">Referecias Actualizadas con Éxito</string>
 
-
     <string name="sigue_siendo_tu_domicilio">¿Sigue Siendo Éste tu Domicilio?</string>
     <string name="cuentanos_mas_de_ti">Cuéntanos Más de ti</string>
     <string name="en_los_ultimos_anios">En Los Últimos Seis Años:</string>
@@ -1104,12 +1096,6 @@
     <string name="new_body_envios_refer_error">Por Favor Ingresa el Número de Referencia</string>
     <string name="new_tittle_error_interno">Error Interno</string>
 
-    <!-- Informacion adicional 2-->
-    <string name="hint_cobros_mensual">Cobros Mensuales</string>
-    <string name="hint_monto_mensual_estimado">Monto Mensual Estimado</string>
-    <string name="hint_origen_recursos">Origen de los Recursos</string>
-    <string name="hint_destino_recursos">Destino de los Recursos</string>
-
     <string name="text_error_cobros_mensual">Cobro Requerido, Verifique su Información</string>
     <string name="text_error_monto_mensual">Monto Requerido, Verifique su Información</string>
     <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
@@ -1174,7 +1160,7 @@
     <string name="ingresa_monto">Ingresa el Monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
-    <string name="bloquear_tarjeta">Bloquear tarjeta</string>
+    <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
     <string name="desbloquear_tarjeta">Desbloquear\nTarjeta</string>
     <string name="generar_codigo">Generar\ncódigo</string>
     <string name="realizar_cobro">Realizar\ncobro</string>
@@ -1184,6 +1170,10 @@
     <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
     <string name="send_sms">Envia SMS</string>
     <string name="send_email">Enviar correo electrónico</string>
+    <string name="block_your_card_title">¡Bloquea tu tarjeta!</string>
+    <string name="block_your_card_subtitle">Si tienes algún problema con tu tarjeta bloquéala\ntemporalmente ingresando tu contraseña</string>
+    <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
+    <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1249,18 +1239,26 @@
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
     <string name="link_message">https://goo.gl/eiCgN6</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="administracion">Administración</string>
     <string name="title_fragment_nip">Cambia tu NIP</string>
 
+    <!-- Hint's -->
+    <string name="hint_referencia_numerica">Referencia Numérica (6 Dígitos)</string>
+    <string name="hint_importe">Importe</string>
+    <string name="hint_importe_envio">Importe a Enviar</string>
+    <string name="hint_name_destinatario">Nombre del Destinatario</string>
+    <string name="hint_concepto">Concepto</string>
+    <string name="hint_phone_number">Teléfono (10 Dígitos)</string>
+    <string name="hint_card_number">Número de Tarjeta (16 Dígitos)</string>
+    <string name="hint_password">Contraseña (6 dígitos)</string>
+    <string name="hint_cobros_mensual">Cobros Mensuales</string>
+    <string name="hint_monto_mensual_estimado">Monto Mensual Estimado</string>
+    <string name="hint_origen_recursos">Origen de los Recursos</string>
+    <string name="hint_destino_recursos">Destino de los Recursos</string>
 
     <!-- Registro Emisor  -->
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
     <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
-
     <string name="datos_personal_nombre_b">Nombre(s)</string>
-
 
 </resources>

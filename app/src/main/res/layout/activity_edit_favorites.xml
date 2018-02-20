@@ -265,7 +265,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        android:hint="@string/card_number_hint"
+                        android:hint="@string/hint_card_number"
                         android:inputType="number"
                         android:longClickable="false"
                         android:maxLength="50" />

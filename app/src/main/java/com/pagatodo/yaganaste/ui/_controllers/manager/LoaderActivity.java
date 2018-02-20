@@ -8,12 +8,9 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
@@ -44,7 +41,7 @@ import javax.crypto.KeyGenerator;
  */
 
 public abstract class LoaderActivity extends ToolBarActivity implements OnEventListener, IProgressView<ErrorObject>,
-        FingerprintAuthenticationDialogFragment.generateCodehuella{
+        FingerprintAuthenticationDialogFragment.generateCodehuella {
 
     public static final String EVENT_SHOW_LOADER = "EVENT_SHOW_LOADER";
     public static final String EVENT_HIDE_LOADER = "EVENT_HIDE_LOADER";
@@ -173,12 +170,13 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
             throw new RuntimeException(e);
         }
     }
+
     private void showConfirmation(byte[] encrypted) {
         //findViewById(R.id.confirmation_message).setVisibility(View.VISIBLE);
         //if (encrypted != null) {
-            //TextView v = (TextView) findViewById(R.id.encrypted_message);
-            //  v.setVisibility(View.VISIBLE);
-            //v.setText(Base64.encodeToString(encrypted, 0 /* flags */));
+        //TextView v = (TextView) findViewById(R.id.encrypted_message);
+        //  v.setVisibility(View.VISIBLE);
+        //v.setText(Base64.encodeToString(encrypted, 0 /* flags */));
         //}
     }
 
@@ -196,6 +194,7 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
             //Log.e(TAG, "Failed to encrypt the data with the generated key." + e.getMessage());
         }
     }
+
     /**
      * Proceed the purchase operation
      *
@@ -222,11 +221,11 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
     @Override
     public void generatecodehue(Fragment fm) {
         if (fm instanceof AccessCodeGenerateFragment)
-            ((AccessCodeGenerateFragment)fm).loadOtpHuella();
+            ((AccessCodeGenerateFragment) fm).loadOtpHuella();
         if (fm instanceof PaymentAuthorizeFragment)
-            ((PaymentAuthorizeFragment)fm).loadOtpHuella();
+            ((PaymentAuthorizeFragment) fm).loadOtpHuella();
         if (fm instanceof BlockCardFragment)
-            ((BlockCardFragment)fm).loadOtpHuella();
+            ((BlockCardFragment) fm).loadOtpHuella();
 
     }
 }

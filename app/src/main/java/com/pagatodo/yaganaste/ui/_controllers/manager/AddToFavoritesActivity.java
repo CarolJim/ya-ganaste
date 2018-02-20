@@ -1118,7 +1118,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             layoutImageContact.setVisibility(View.GONE);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);
-            recargaNumber.setHint(getString(R.string.phone_number_hint));
+            recargaNumber.setHint(getString(R.string.hint_phone_number));
             layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
         }
