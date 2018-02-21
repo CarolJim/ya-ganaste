@@ -1273,6 +1273,11 @@
     <string name="hint_destino_recursos">Destino de los Recursos</string>
 
     <!-- Registro Emisor  -->
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="correo_electronico_confirm">Confirma correo</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="contrasena_confirma">Confirma contraseña</string>
+
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
     <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
     <string name="datos_personal_nombre_b">Nombre(s)</string>

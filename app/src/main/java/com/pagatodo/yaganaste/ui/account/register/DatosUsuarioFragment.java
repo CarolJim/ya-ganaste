@@ -93,8 +93,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
      * Datos del la lista y adaptador
      */
     private InputTexAdapter adapter;
-    @BindView(R.id.list_view_datos_usuario)
-    ListView listView;
+
 
     EditText editMail;
     EditText edtitConfirmEmail;
@@ -143,10 +142,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
          * Nueva implementacion de formularios
          *
          */
-
-        //adapter = ContainerBuilder.DatosUsuario(getContext(),this);
-        listView.setAdapter(adapter);
-
 
         editMail=(EditText)adapter.getView(0,rootview,null).findViewById(R.id.editTextpass);
         edtitConfirmEmail=(EditText)adapter.getView(1,rootview,null).findViewById(R.id.editTextpass);

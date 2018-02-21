@@ -295,7 +295,7 @@
 
 
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
-        <item name="android:background">@android:drawable/edit_text</item>
+
         <item name="android:padding">0dp</item>
     </style>
 

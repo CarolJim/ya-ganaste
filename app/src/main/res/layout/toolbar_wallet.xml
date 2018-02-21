@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorAccent"
     android:orientation="vertical"
     android:paddingTop="10dp">
@@ -13,14 +13,22 @@
         android:id="@+id/toolbar_wallet"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:minHeight="?android:attr/actionBarSize" />
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?attr/colorAccent"
+        app:theme="@style/ToolBarTheme.ToolBarStyle"
+        app:popupTheme="@style/PopupTheme"
+        android:gravity="top"/>
 
-    <ImageView
-        android:id="@+id/menu"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/menu" />
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/whiteColor"
+        android:scaleType="center"
+        app:srcCompat="@drawable/back_canvas"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
 
 
     <ImageView
@@ -32,11 +40,5 @@
         app:srcCompat="@drawable/ic_logo_header"
         tools:ignore="ContentDescription" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:src="@mipmap/bell"
-        android:visibility="gone"/>
 
 </RelativeLayout>
