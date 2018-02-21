@@ -331,7 +331,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
 
-        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), current_tab != PAYMENT_ENVIOS ? R.mipmap.new_fav_search : R.drawable.new_fav_add,
+        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), current_tab != PAYMENT_ENVIOS ? R.drawable.new_fav_search : R.drawable.new_fav_add,
                 current_tab != PAYMENT_ENVIOS ? "#FFFFFF" : "#808080", CarouselItem.CLICK, null, null);
         carouselItemSearch.setSearchImageViewMargin();
 

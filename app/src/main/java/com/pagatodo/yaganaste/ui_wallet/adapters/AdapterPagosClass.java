@@ -85,12 +85,17 @@ public class AdapterPagosClass {
         mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        if(mAdapter != null){
+            mAdapter = null;
+        }
+
         mAdapter = new AdapterPagosRV(mFullListaFav, mView, mType, typeOperation);
         mRecyclerView.setAdapter(mAdapter);
+
         if(typeOperation == 1) {
-            Toast.makeText(App.getContext(), "Pagamos Favoritos", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(App.getContext(), "Pagamos Favoritos", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(App.getContext(), "Editamos Favoritos", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(App.getContext(), "Editamos Favoritos", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -36,7 +36,6 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.customviews.NewListDialog;
 import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
 
 import java.io.Serializable;
@@ -79,6 +78,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     RecyclerView mRVPagos;
     @BindView(R.id.fragment_newpayment_editar_textview)
     TextView tvEditarFav;
+    @BindView(R.id.newpayment_pagar_editar_tv)
+    TextView tvPDSEditFav;
 
     private View rootview;
     private ArrayList myDataset;
@@ -86,6 +87,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private ArrayList mPagarGrid;
     private int typeView;
     private boolean isEditable = false;
+    private boolean isPDSEditable = false;
 
     // Constantes para operaciones en el Grid
     public static final int TYPE_CARRIER = 1;
@@ -94,10 +96,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     // Esta constante es para lograr obtener la posicion en el AdapterPagos de 0,1,2,n
     // Pero en Carriesrs no es necesario trabajar posiciones de 0 a N
 
-    public static final int SEARCH_CARRIER_RECARGA = 1;
-    public static final int SEARCH_CARRIER_PAGOS = 2;
-    public static final int SEARCH_FAVORITO_RECARGA = 3;
-    public static final int SEARCH_FAVORITO_PAGOS = 4;
+    public static final int ITEM_CARRIER_RECARGA = 1;
+    public static final int ITEM_CARRIER_PAGOS = 2;
+    public static final int ITEM_FAVORITO_RECARGA = 3;
+    public static final int ITEM_FAVORITO_PAGOS = 4;
 
     private ArrayList myDatasetAux;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
@@ -109,6 +111,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     ArrayList<ArrayList<DataFavoritos>> mFullListaRecar;
     ArrayList<ArrayList<DataFavoritos>> mFullListaServ;
     private AdapterPagosClass adapterPagosClass;
+    private AdapterPagosClass adapterPDSClass;
 
     public NewPaymentFragment() {
         // Required empty public constructor
@@ -181,17 +184,31 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     }
 
-    // Agregamos Listener para hacer Click en accion de editar
+    // Agregamos Listener para hacer Click en editar para recargas
     @OnClick(R.id.fragment_newpayment_editar_textview)
     public void submit(View view) {
         if(isEditable){
             tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
             isEditable = false;
-            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 1);
+            adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
         }else{
             tvEditarFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
             isEditable = true;
-            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 2);
+            adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
+        }
+
+    }
+    // Agregamos Listener para hacer Click en editar para Pagar
+    @OnClick(R.id.newpayment_pagar_editar_tv)
+    public void editarPDS(View view) {
+        if(isPDSEditable){
+            tvPDSEditFav.setTextColor(getResources().getColor(R.color.texthint));
+            isPDSEditable = false;
+            adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 1);
+        }else{
+            tvPDSEditFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
+            isPDSEditable = true;
+            adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 2);
         }
 
     }
@@ -216,6 +233,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             updateCarriers();
         } else {
             updateFavorites();
+            // Regresamos los estados de editar favoritos a false
+            tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
+            isEditable = false;
+            tvPDSEditFav.setTextColor(getResources().getColor(R.color.texthint));
+            isPDSEditable = false;
         }
         //UI.hideKeyBoard(getActivity());
     }
@@ -243,6 +265,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         // Ocultamos el boton para editar favoritos
         tvEditarFav.setVisibility(View.GONE);
+        tvPDSEditFav.setVisibility(View.GONE);
     }
 
     private void updateFavorites() {
@@ -255,6 +278,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         // Mostramos el boton para editar favoritos
         tvEditarFav.setVisibility(View.VISIBLE);
+        tvPDSEditFav.setVisibility(View.VISIBLE);
     }
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
@@ -293,7 +317,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
                 errorRecargas.setVisibility(View.GONE);
                 gvRecargas.setAdapter(new PaymentAdapterGV(mRecargarGrid, this,
-                        SEARCH_CARRIER_RECARGA, TYPE_CARRIER, TYPE_POSITION));
+                        ITEM_CARRIER_RECARGA, TYPE_CARRIER, TYPE_POSITION));
                 onEventListener.onEvent(EVENT_HIDE_LOADER, "");
                 onEventListener.onEvent("DISABLE_BACK", false);
                 // mRecargarGrid.clear();
@@ -322,7 +346,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
                 errorServicios.setVisibility(View.GONE);
                 gvServicios.setAdapter(new PaymentAdapterGV(mPagarGrid, this,
-                        SEARCH_CARRIER_PAGOS, TYPE_CARRIER, TYPE_POSITION));
+                        ITEM_CARRIER_PAGOS, TYPE_CARRIER, TYPE_POSITION));
                 onEventListener.onEvent(EVENT_HIDE_LOADER, "");
                 onEventListener.onEvent("DISABLE_BACK", false);
                 // mRecargarGrid.clear();
@@ -365,65 +389,19 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
                     mRVRecargas, gvRecargas);
 
-            adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 1);
-            //adapterPagosClass.createRecycler(SEARCH_FAVORITO_RECARGA, 2);
+            adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
             mFullListaRecar = adapterPagosClass.getmFullListaFav();
 
-/*            // Creamos la lista que enviaremos al Grid con los datos del Recargas
-                // TODO ELiminar despues de pruebas de estabilidad
-            if (mDataRecargarFav.size() > 0) {
-                *//**
-             * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
-             *//*
-                int llaveRecargas = mDataRecargarFav.size() > 8 ? 8 : mDataRecargarFav.size();
-
-                for (int x = 0; x < llaveRecargas; x++) {
-                    mRecargarGrid.add(new DataFavoritosGridView(
-                            mDataRecargarFav.get(x).getColorMarca(),
-                            mDataRecargarFav.get(x).getNombre(),
-                            mDataRecargarFav.get(x).getImagenURL()));
-                }
-
-                gvRecargas.setAdapter(new PaymentAdapterGV(mRecargarGrid, this,
-                        SEARCH_FAVORITO_RECARGA, TYPE_FAVORITE));
-                errorRecargas.setVisibility(View.GONE);
-            } else {
-                gvRecargas.setVisibility(View.GONE);
-                errorRecargas.setVisibility(View.VISIBLE);
-            }*/
         } else if (typeDataFav == 2) {
             mDataPagarFav = dataFavoritos;
             mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
 
-            AdapterPagosClass adapterPagosClass = new AdapterPagosClass(this, mDataPagarFav,
+            adapterPDSClass = new AdapterPagosClass(this, mDataPagarFav,
                     mRVPagos, gvRecargas);
 
-            adapterPagosClass.createRecycler(SEARCH_FAVORITO_PAGOS, 1);
-            mFullListaServ = adapterPagosClass.getmFullListaFav();
+            adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 1);
+            mFullListaServ = adapterPDSClass.getmFullListaFav();
 
-            // Creamos la lista que enviaremos al Grid con los datos del Recargas
-          /*
-            // TODO ELiminar despues de pruebas de estabilidad
-          if (mDataPagarFav.size() > 0) {
-                *//**
-             * Creamos llaveRecargas: Esto es para evitar que creemos mas de 8 iconos
-             *//*
-                int llaveServicios = mDataPagarFav.size() > 8 ? 8 : mDataPagarFav.size();
-
-                for (int x = 0; x < llaveServicios; x++) {
-                    mPagarGrid.add(new DataFavoritosGridView(
-                            mDataPagarFav.get(x).getColorMarca(),
-                            mDataPagarFav.get(x).getNombre(),
-                            mDataPagarFav.get(x).getImagenURL()));
-                }
-
-                gvServicios.setAdapter(new PaymentAdapterGV(mPagarGrid, this,
-                        SEARCH_FAVORITO_PAGOS, TYPE_FAVORITE, TYPE_POSITION));
-                errorServicios.setVisibility(View.GONE);
-            } else {
-                gvServicios.setVisibility(View.GONE);
-                errorServicios.setVisibility(View.VISIBLE);
-            }*/
         }
 
         /**
@@ -548,7 +526,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void sendData(int position, int mType, int typePosition) {
         Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);
         switch (mType) {
-            case SEARCH_CARRIER_RECARGA:
+            case ITEM_CARRIER_RECARGA:
                 if (mDataRecargar != null) {
                     if (mDataRecargar.get(position).getNombreComercio().equals("Buscar")) {
                        // Iniciamos la actividad de busquedas, pasando el arreglo de mDataRecargar
@@ -563,7 +541,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     }
                 }
                 break;
-            case SEARCH_CARRIER_PAGOS:
+            case ITEM_CARRIER_PAGOS:
                 if (mDataPagar != null) {
                     if (mDataPagar.get(position).getNombreComercio().equals("Buscar")) {
                         // Iniciamos la actividad de busquedas, pasando el arreglo de mDataPagar
@@ -578,7 +556,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     }
                 }
                 break;
-            case SEARCH_FAVORITO_RECARGA:
+            case ITEM_FAVORITO_RECARGA:
                 if (mFullListaRecar != null) {
                     if (mFullListaRecar.get(typePosition).get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
@@ -624,7 +602,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     }
                 }
                 break;*/
-            case SEARCH_FAVORITO_PAGOS:
+            case ITEM_FAVORITO_PAGOS:
                 if (mFullListaServ != null) {
                     if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
@@ -681,7 +659,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     public void editFavorite(int position, int mType, int typePosition) {
         Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
         switch (mType) {
-            case SEARCH_FAVORITO_RECARGA:
+            case ITEM_FAVORITO_RECARGA:
                 if (mFullListaRecar != null) {
                     if (!mFullListaRecar.get(typePosition).get(position).getNombreComercio().equals("Buscar")
                             && !mFullListaRecar.get(typePosition).get(position).getNombre().equals("Nuevo")) {
@@ -698,7 +676,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     }
                 }
                 break;
-            case SEARCH_FAVORITO_PAGOS:
+            case ITEM_FAVORITO_PAGOS:
                 if (mFullListaServ != null) {
                     if (!mFullListaServ.get(typePosition).get(position).getNombreComercio().equals("Buscar")
                             && !mFullListaServ.get(typePosition).get(position).getNombre().equals("Nuevo")) {
