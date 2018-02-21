@@ -8,14 +8,17 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.List;
 
 /**
  * Created by Jordan on 07/04/2017.
  * Updated by jguerras on 15/06/2017.
+ * Updated by ICruz on 16/02/2018.
  */
 
 public abstract class SupportFragment extends GenericFragment {
@@ -86,5 +89,22 @@ public abstract class SupportFragment extends GenericFragment {
             ((ToolBarActivity)getActivity()).showBack(isBackShowing);
         }
     }
+
+    protected void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+
 
 }

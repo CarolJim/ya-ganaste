@@ -11,10 +11,27 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
+    </style>
+
+    <style name="PopupTheme" parent="ThemeOverlay.AppCompat.Light">
+
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:background">@color/whiteColor</item>
 
     </style>
 
-    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">s
+    <style name="Toolbar" parent="Base.ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Toolbar_Popup" parent="Base.ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+
+    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -24,7 +41,7 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="AppTheme.Translucent">
@@ -130,7 +147,17 @@
     </style>
 
     <style name="buttonSquareRoundedBlue" parent="AppButton">
-        <item name="android:layout_width">@dimen/width_btns</item>
+        <item name="android:layout_width">@dimen/width_btns_big</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <style name="buttonSquareRoundedBlueNewWallet" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/button_rectangle_blue_selector</item>
         <item name="android:textColor">@android:color/white</item>
@@ -258,20 +285,27 @@
         <item name="android:drawablePadding">8dp</item>
     </style>
 
+    <style name="RadioButtonMenu" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/backgraund_radiobutton</item>
+        <item name="android:textColor">@drawable/text_radiobutton</item>
+    </style>
+
+
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
-        <item name="android:background">@android:drawable/edit_text</item>
+
         <item name="android:padding">0dp</item>
     </style>
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
         <item name="android:focusable">true</item>
-        <item name="android:layout_marginTop">@dimen/space_between_elements</item>
-        <item name="android:layout_margin">@dimen/margin_medium</item>
-        <item name="android:elevation">7dp</item>
+
     </style>
 
     <style name="BorderLayoutContent">
-        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginBottom">25dp</item>
@@ -296,6 +330,9 @@
         <item name="android:textColorHint">@color/whiteColor</item>
         <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
+
+
+
         <item name="tipo">Descripcion</item>
     </style>
 
@@ -308,6 +345,23 @@
     <style name="FragmentElementWithValidation" parent="FragmentElement">
         <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
 
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="android:statusBarColor">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+
+    </style>
+
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/transparent</item>
+        <item name="colorControlActivated">@color/transparent</item>
+        <item name="colorControlHighlight">@color/transparent</item>
     </style>
 
     <style name="FragmentElementTop" parent="FragmentElement">
@@ -328,7 +382,7 @@
     </style>
 
     <style name="MainTabText">
-        <item name="android:textColor">@color/texthint</item>
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">10sp</item>
         <item name="tipo">Subtitulo</item>
     </style>
@@ -438,11 +492,25 @@
         <item name="android:button">@color/transparent</item>
         <item name="tipo">Text</item>
     </style>
+
+
+    <!-- Estilo para titulos de fragments -->
+    <style name="title_fragment">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="android:button">@color/transparent</item>
+        <item name="tipo">Text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/fragment_pading</item>
+        <item name="android:layout_marginBottom">@dimen/fragment_title_buttom_margin</item>
+    </style>
+
     <style name="generic_text_style_2_conoce">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="generic_text_style_2.5">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
@@ -462,6 +530,7 @@
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="generic_text_style_4.3">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_8_value</item>
@@ -550,7 +619,8 @@
         <item name="android:textCursorDrawable">@null</item>
         <item name="tipo">Descripcion</item>
     </style>
-    <style name="GenericStyleEditTextpass" >
+
+    <style name="GenericStyleEditTextpass">
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
@@ -591,6 +661,7 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
+
     <style name="GenericInputTextFormsComentario">
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/whiteColor</item>
@@ -602,7 +673,6 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
-
 
 
     <style name="styleSign">
@@ -635,26 +705,22 @@
 
     <!-- ToolBar -->
     <style name="ToolBarTheme.ToolBarStyle"   parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textColorPrimary">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textColorPrimaryInverse">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/whiteColor</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimaryInverse">@color/black</item>
+
     </style>
 
 
-    <style name="SwitchCompatStyle" >
+    <style name="SwitchCompatStyle">
         <item name="android:thumb">@drawable/switch_thumb</item>
         <item name="trackTint">@color/switch_color</item>
     </style>
 
-    <style name="TextLabel" parent="TextAppearance.AppCompat">
-        <!-- Hint color and label color in FALSE state -->
 
-        <item name="colorControlHighlight">@color/colorAccent</item>
-        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <!--<item name="android:statusBarColor">@color/colorAccent</item>-->
-        <item name="colorControlNormal">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
 
+    <style name="CustomProgressBar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/whiteColor</item>
     </style>
 
 </resources>

@@ -355,7 +355,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         return actualLocation;
     }
 
-    private void showDialogMesage(final String mensaje) {
+    /*private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -375,7 +375,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                     }
                 },
                 true, false);
-    }
+    }*/
 
     public void addMarker(DataLocalizaSucursal sucursal) {
         Marker m = map.addMarker(new MarkerOptions()

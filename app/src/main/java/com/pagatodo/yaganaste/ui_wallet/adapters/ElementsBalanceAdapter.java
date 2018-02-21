@@ -34,7 +34,7 @@ public class ElementsBalanceAdapter extends RecyclerView.Adapter<ButtonsViewHold
     @Override
     public ButtonsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ButtonsViewHolder(inflater.inflate(R.layout.balance_element, parent, false));
+        return new ButtonsViewHolder(this.context,inflater.inflate(R.layout.balance_element, parent, false));
     }
 
     @Override

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui_wallet.WalletMainActivity">
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/item_menu_share"
+        android:icon="@drawable/ic_share_toolbar"
+        app:showAsAction="ifRoom"/>
+
+    <!--<item android:id="@+id/action_rembolsar"
+        android:title="@string/item_menu_remmbolsar"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_reenviar_ticket"
+        android:title="@string/item_menu_reenviar"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_cancelar_cobro"
+        android:title="@string/item_menu_cancelar"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+        -->
+</menu>

@@ -30,7 +30,7 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<ButtonsViewHolde
     @Override
     public ButtonsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ButtonsViewHolder(inflater.inflate(R.layout.view_element, parent, false));
+        return new ButtonsViewHolder(this.context,inflater.inflate(R.layout.view_element, parent, false));
     }
 
     @Override

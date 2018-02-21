@@ -10,67 +10,76 @@
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/img_header_recover_pass"
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:background="@color/colorAccent"
+        android:paddingBottom="31dp"
+        app:srcCompat="@drawable/ic_recover_pass_white" />
+
+    <ImageView
+        android:id="@+id/img_recover_pass_blue"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/ic_recover_pass_blue" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-            android:id="@+id/borderLayout"
-            style="@style/BorderTitleStyle"
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtTitleRecovery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/recupera_contrasenia_title">
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="@string/recupera_contrasenia_title"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_text_style_2_value" />
 
-            <LinearLayout
-                style="@style/BorderLayoutContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtHeaderRecovery"
+            style="@style/textDescInputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/enviaremos_enlace_restablecer"
+            android:textSize="@dimen/size_text_style_3_value" />
 
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/edtCorreoRegistrado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            app:formato="email"
+            app:hintText="@string/txt_mail"
+            app:isSingleLine="true" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtHeaderRecovery"
-                    style="@style/FragmentElement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/enviaremos_enlace_restablecer"
-                    android:textSize="@dimen/size_text_style_3_value" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/tvCorreoRegistrado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="dantestark@gmail.com"
+            android:textColor="@color/colorAccent"
+            android:visibility="visible" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/edtCorreoRegistrado"
-                    style="@style/FragmentElement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:formato="email"
-                    app:hintText="@string/txt_mail"
-                    app:isSingleLine="true" />
+        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+            android:id="@+id/errorMessage"
+            style="@style/generic_text_style_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/tvCorreoRegistrado"
-                    style="@style/FragmentElement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="dantestark@gmail.com"
-                    android:textColor="@color/colorAccent"
-                    android:visibility="gone" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorMessage"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible" />
-
-            </LinearLayout>
-
-        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-
-
-    </RelativeLayout>
-
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutBottom"
@@ -102,7 +111,7 @@
                 android:id="@+id/btnNextRecuperar"
                 style="@style/buttonSquareRoundedBlue"
                 android:gravity="center"
-                android:text="@string/recoveryButton" />
+                android:text="@string/send_email" />
         </LinearLayout>
     </LinearLayout>
 

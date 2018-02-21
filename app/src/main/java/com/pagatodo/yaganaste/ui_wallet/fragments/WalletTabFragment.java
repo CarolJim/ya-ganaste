@@ -315,7 +315,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         }
     }
 
-    private void showDialogMesage(final String mensaje) {
+    /*private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -329,7 +329,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                     }
                 },
                 true, false);
-    }
+    }*/
 
     @Override
     public void onRefresh() {

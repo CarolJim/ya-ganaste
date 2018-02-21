@@ -33,7 +33,6 @@ import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 
-import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -104,9 +103,9 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                 editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.inputTextColorHint)));
 
                 pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
-                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+              //  inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 editText.setInputType(inputType);
-                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+               // inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 textSize = typedArray.getDimension(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
 
             } catch (Exception e) {
@@ -116,7 +115,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
             }
 
             if (inputType != EditorInfo.TYPE_NULL) {
-                editText.setInputType(inputType);
+         //       editText.setInputType(inputType);
             } else {
                 //  editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
             }
@@ -203,13 +202,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                     setValidationListener(txt);
                     break;
                 case "1"://password
-                    if (pref.loadDataBoolean(TECLADO_CUSTOM, false)) {
-
-                        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
-                    } else {
-                        editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    }
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     setValidationListener(txt);
                     break;
                 case "2"://phone

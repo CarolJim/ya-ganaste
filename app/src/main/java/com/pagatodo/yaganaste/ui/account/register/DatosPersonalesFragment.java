@@ -4,11 +4,14 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,11 +36,13 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Genero;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
+import com.pagatodo.yaganaste.ui_wallet.views.Color;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.CustomDatePicker;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -45,6 +51,7 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,15 +88,33 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.radioBtnMale)
     RadioButton radioBtnMale;
     @BindView(R.id.editNames)
-    CustomValidationEditText editNames;
+    CustomValidationEditText editNamesold;
+    @BindView(R.id.edit_nombre)
+    EditText editNames;
+
+
     @BindView(R.id.editFirstLastName)
-    CustomValidationEditText editFirstLastName;
+    CustomValidationEditText editFirstLastNameold;
+    @BindView(R.id.edit_appater)
+    EditText editFirstLastName;
+
+
+
+
+
     @BindView(R.id.editSecoundLastName)
-    CustomValidationEditText editSecoundLastName;
+    CustomValidationEditText editSecoundLastNameold;
+    @BindView(R.id.edit_apmaterno)
+    EditText editSecoundLastName;
+
+
+
     @BindView(R.id.editBirthDay)
     CustomValidationEditText editBirthDay;
     @BindView(R.id.spinnerBirthPlace)
     AppCompatSpinner spinnerBirthPlace;
+    @BindView(R.id.spinnergenero)
+    AppCompatSpinner spinnergenero;
     @BindView(R.id.btnBackPersonalInfo)
     Button btnBackDatosPersonales;
     @BindView(R.id.btnNextPersonalInfo)
@@ -115,7 +140,15 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.errorCurp)
     ErrorMessage errorCurp;
 
+    @BindView(R.id.seleccionaGenero)
+    StyleTextView seleccionaGenero;
+
+
+
+
+
     StatesSpinnerAdapter adapterBirthPlace;
+    StatesSpinnerAdapter adaptergenero;
     Calendar newDate;
     Calendar actualDate;
     private View rootview;
@@ -216,8 +249,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        radioBtnMale.setOnClickListener(this);
+        radioBtnFemale.setOnClickListener(this);
         errorGenderMsessage.alingCenter();
-
         errorGenderMsessage.setVisibilityImageError(false);
         errorNameMessage.setVisibilityImageError(false);
         errorFLastNameMessage.setVisibilityImageError(false);
@@ -228,10 +262,16 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
         editBirthDay.setDrawableImage(R.drawable.calendar);
         editBirthDay.imageViewIsGone(true);
+        adaptergenero= new StatesSpinnerAdapter(getContext(),R.layout.spinner_layout, Genero.values(),this);
+
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
                 States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
+
+        spinnergenero.setAdapter(adaptergenero);
+        spinnergenero.setOnItemSelectedListener(this);
+
 
         editCountry.imageViewIsGone(false);
         editCountry.setEnabled(false);
@@ -240,8 +280,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
 
-        editSecoundLastName.getEditText().setImeOptions(IME_ACTION_DONE);
-        editSecoundLastName.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        editSecoundLastName.setImeOptions(IME_ACTION_DONE);
+        editSecoundLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == IME_ACTION_DONE) {
@@ -256,6 +296,23 @@ public class DatosPersonalesFragment extends GenericFragment implements
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
     }
+
+    public void changecolorradio(){
+        if (radioBtnMale.isChecked()){
+            //radioBtnMale.setHighlightColor(getResources().getColor(R.color.colorAccent));
+            radioBtnMale.setBackgroundResource(R.drawable.ico_maleb);
+            radioBtnFemale.setBackgroundResource(R.drawable.ico_female);
+            seleccionaGenero.setTextColor((int) R.color.colorAccent);
+        }else {
+            if (radioBtnFemale.isChecked()){
+                radioBtnMale.setBackgroundResource(R.drawable.ico_male);
+                radioBtnFemale.setBackgroundResource(R.drawable.ico_femaleb);
+                seleccionaGenero.setTextColor((int) R.color.colorAccent);
+            }
+        }
+
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -273,6 +330,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.imageViewValidation:
                 onCountryClick();
                 break;
+            case R.id.radioBtnFemale:
+                changecolorradio();
+                break;
+            case R.id.radioBtnMale:
+                changecolorradio();
+                break;
+
             default:
                 break;
         }
@@ -326,18 +390,19 @@ public class DatosPersonalesFragment extends GenericFragment implements
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editNames.getId());
-                    editNames.imageViewIsGone(true);
+                  //  editNames.imageViewIsGone(true);
                 } else {
-                    if (editNames.getText().isEmpty()) {
+                    if (editNames.getText().toString().isEmpty()) {
                         showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
-                        editNames.setIsInvalid();
+                    //    editNames.setIsInvalid();
                     } else {
                         hideValidationError(editNames.getId());
-                        editNames.setIsValid();
+                        //editNames.setIsValid();
                     }
                 }
             }
         });
+        /*
 
         editNames.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
@@ -346,24 +411,26 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 editNames.imageViewIsGone(true);
             }
         });
+        */
 
         editFirstLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editFirstLastName.getId());
-                    editFirstLastName.imageViewIsGone(true);
+               //     editFirstLastName.imageViewIsGone(true);
                 } else {
-                    if (editFirstLastName.getText().isEmpty()) {
+                    if (editFirstLastName.getText().toString().isEmpty()) {
                         showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
-                        editFirstLastName.setIsInvalid();
+                 //       editFirstLastName.setIsInvalid();
                     } else {
                         hideValidationError(editFirstLastName.getId());
-                        editFirstLastName.setIsValid();
+                   //     editFirstLastName.setIsValid();
                     }
                 }
             }
         });
+        /*
 
         editFirstLastName.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
@@ -372,13 +439,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 editFirstLastName.imageViewIsGone(true);
             }
         });
-
-        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                hideValidationError(radioGroupGender.getId());
-            }
-        });
+            */
 
     }
 
@@ -389,18 +450,18 @@ public class DatosPersonalesFragment extends GenericFragment implements
         boolean isValid = true;
 
         if (genero == null || genero.equals("")) {
-            showValidationError(radioGroupGender.getId(), getString(R.string.datos_personal_genero));
+            showValidationError(spinnergenero.getId(), getString(R.string.datos_personal_genero));
             isValid = false;
         }
 
         if (nombre.isEmpty()) {
             showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
-            editNames.setIsInvalid();
+          //  editNames.setIsInvalid();
             isValid = false;
         }
         if (apPaterno.isEmpty()) {
             showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
-            editFirstLastName.setIsInvalid();
+          //  editFirstLastName.setIsInvalid();
             isValid = false;
         }
 
@@ -467,7 +528,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setMessageText(error.toString());
                 break;
-            case R.id.radioGender:
+            case R.id.spinnergenero:
                 errorGenderMsessage.setMessageText(error.toString());
                 break;
             case R.id.editCountry:
@@ -497,7 +558,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setVisibilityImageError(false);
                 break;
-            case R.id.radioGender:
+            case R.id.spinnergenero:
                 errorGenderMsessage.setVisibilityImageError(false);
                 break;
             case R.id.editCountry:
@@ -576,9 +637,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void getDataForm() {
         genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
-        nombre = editNames.getText();
-        apPaterno = editFirstLastName.getText();
-        apMaterno = editSecoundLastName.getText();
+        nombre = editNames.getText().toString();
+        apPaterno = editFirstLastName.getText().toString();
+        apMaterno = editSecoundLastName.getText().toString();
+      /*
+        if (spinnergenero.getSelectedItemPosition() != 0) {
+            genero =spinnergenero.getSelectedItemPosition() == 1 ?"H":spinnergenero.getSelectedItemPosition() == 2? "M":"";
+        }
+        */
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
@@ -590,8 +656,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
         RegisterUser registerUser = RegisterUser.getInstance();
         if (registerUser.getGenero().equals("H")) {
             radioBtnMale.setChecked(true);
+            radioBtnMale.setBackgroundResource(R.drawable.ico_maleb);
         } else if (registerUser.getGenero().equals("M")) {
             radioBtnFemale.setChecked(true);
+            radioBtnFemale.setBackgroundResource(R.drawable.ico_femaleb);
         }
 
         editNames.setText(registerUser.getNombre());

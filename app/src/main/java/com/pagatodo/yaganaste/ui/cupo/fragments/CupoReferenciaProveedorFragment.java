@@ -19,7 +19,6 @@ import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.cupo.CupoSpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
@@ -35,7 +34,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PROVEEDOR;
 
 /**
@@ -141,7 +139,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
 
         editPhoneReferenciaCupoProveedor.setInputType(InputType.TYPE_CLASS_NUMBER);
         editPhoneReferenciaCupoProveedor.addTextChangedListener(new PhoneTextWatcher(editPhoneReferenciaCupoProveedor));
-        editPhoneReferenciaCupoProveedor.setHint(getString(R.string.phone_number_hint));
+        editPhoneReferenciaCupoProveedor.setHint(getString(R.string.hint_phone_number));
 
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);

@@ -3,14 +3,6 @@ package com.pagatodo.yaganaste.ui_wallet.pojos;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.pagatodo.yaganaste.R;
-
-import java.util.ArrayList;
-
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.SWITCH;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.SWITCHNORMAL;
-
 /**
  * Created by icruz on 08/01/2018.
  */
@@ -23,7 +15,7 @@ public class OptionMenuItem {
     private int resourceTitle;
     private int subtitle;
     private INDICATION indication;
-    private boolean statusSwtich = false;
+    private boolean toggleState = false;
 
     public OptionMenuItem(int idItem, int resourceTitle, int subtitle, INDICATION indication) {
         this.idItem = idItem;
@@ -31,22 +23,22 @@ public class OptionMenuItem {
         this.indication = indication;
         this.resourceItem = -1;
         this.subtitle = subtitle;
-        this.statusSwtich = false;
+        this.toggleState = false;
     }
 
     public OptionMenuItem(int idItem, @Nullable int resourceItem, @Nullable int resourceTitle) {
         this.idItem = idItem;
         this.resourceItem = resourceItem;
         this.resourceTitle = resourceTitle;
-        this.statusSwtich = false;
+        this.toggleState = false;
     }
 
     public boolean isStatusSwtich() {
-        return statusSwtich;
+        return toggleState;
     }
 
     public void setStatusSwtich(boolean statusSwtich) {
-        this.statusSwtich = statusSwtich;
+        this.toggleState = statusSwtich;
     }
 
     public OptionMenuItem(Context context) {
@@ -106,7 +98,7 @@ public class OptionMenuItem {
 
 
     public enum INDICATION {
-        RAW, SWITCH, SWITCHNORMAL
+        RAW, TOGGLE
     }
 
     final public static int ID_SEGURIDAD = 1;

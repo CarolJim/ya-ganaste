@@ -5,8 +5,6 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
@@ -28,14 +26,146 @@
             android:id="@+id/layoutBorder"
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:title="@string/userDataTitle">
 
             <LinearLayout
                 style="@style/BorderLayoutContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/titulo_datos_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="32dp"
+                    android:text="@string/titulo_datos_usuario"
+                    android:textAlignment="center"
+                    android:textColor="@color/adadad"
+                    android:textSize="14sp"
+                    app:tipo="Titulo" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/correo_electronico"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:textColor="@color/texthint" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_emailconfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/correo_electronico_confirm"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_emailconfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:singleLine="true"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/texthint"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/contrasena"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:singleLine="true"
+                        android:inputType="textPassword|number"
+                        android:password="true"
+                        android:imeOptions="actionNext"
+                        android:maxLength="6"
+                        android:textColor="@color/texthint"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_passwordconfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/contrasena_confirma"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_passwordconfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword|number"
+                        android:password="true"
+                        android:singleLine="true"
+                        android:textColor="@color/texthint"
+                        android:maxLength="6" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtitEmail"
@@ -45,13 +175,14 @@
                     app:formato="email"
                     app:hintText="@string/txt_mail"
                     app:isSingleLine="true"
+                    android:visibility="gone"
                     app:maxLength="50" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorMailMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtitConfirmEmail"
@@ -61,13 +192,14 @@
                     app:formato="email"
                     app:hintText="@string/confirmEmail"
                     app:isSingleLine="true"
+                    android:visibility="gone"
                     app:maxLength="50" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorConfirmaMailMessage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editPassword"
@@ -77,6 +209,7 @@
                     app:formato="password"
                     app:hintText="@string/password"
                     app:isSingleLine="true"
+                    android:visibility="gone"
                     android:inputType="phone"
                     app:maxLength="6" />
 
@@ -85,7 +218,7 @@
                     android:layout_width="match_parent"
                     style="@style/generic_text_style_2"
                     android:layout_height="match_parent"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editPasswordConfirmation"
@@ -95,6 +228,7 @@
                     app:formato="password"
                     app:hintText="@string/passwordConfirm"
                     app:isSingleLine="true"
+                    android:visibility="gone"
                     android:inputType="phone"
                     app:maxLength="6" />
 
@@ -103,11 +237,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/generic_text_style_2"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
+
 
             </LinearLayout>
 
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
     </ScrollView>
 
     <LinearLayout
@@ -115,26 +251,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="0dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/btn_navigation_bottom">
-
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/size_text_style_3_value"
-            android:textColor="@color/whiteColor"
-            android:text="@string/formato_password"/>
+        android:layout_marginBottom="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+
             android:gravity="center_horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
@@ -147,17 +273,16 @@
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent" />
-
-
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextDatosUsuario"
-                style="@style/buttonSquareRoundedBlue"
+                style="@style/buttonSquareRoundedBlueNewWallet"
                 android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
                 android:text="@string/nextButton" />
-
-            
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 

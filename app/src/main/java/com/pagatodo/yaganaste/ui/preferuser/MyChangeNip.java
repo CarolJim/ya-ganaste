@@ -3,10 +3,12 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -75,6 +77,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @BindView(R.id.list_view_nip)
     ListView listView;
+
+
     TextView tv1Num;
     TextView tv2Num;
     TextView tv3Num;
@@ -104,6 +108,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     public final static String EVENT_GO_CHANGE_NIP_SUCCESS = "EVENT_GO_CHANGE_NIP_SUCCESS";
     private InputTexAdapter adapter;
 
+
+    private ViewGroup mLinearLayout;
+
     public MyChangeNip() {
     }
 
@@ -115,17 +122,45 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
         }
-        accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
-        accountPresenter.setIView(this);
+        //accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
+        //accountPresenter.setIView(this);
 
+    }
+
+    private void addLayout() {
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.adapter_input_text, mLinearLayout, false);
+
+        TextInputLayout inputLayout = layout.findViewById(R.id.passwordnew);
+/*
+        Button button1 = (Button) layout2.findViewById(R.id.button2);
+        Button button2 = (Button) layout2.findViewById(R.id.button3);
+
+        textView1.setText(textViewText);
+        button1.setText(buttonText1);
+        button2.setText(buttonText2);
+*/
+        mLinearLayout.addView(layout);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
+        mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
+        addLayout();
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
@@ -376,7 +411,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onValidationSuccess() {
         showLoader(getContext().getResources().getString(R.string.msg_renapo));
-        accountPresenter.assignNIP(nip, nipNewConfirm);
+        //accountPresenter.assignNIP(nip, nipNewConfirm);
     }
 
     @Override
@@ -384,6 +419,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         /*nip = edtPin.getText().toString().trim();
         nipNew = edtPin2.getText().toString().trim();
         nipNewConfirm = edtPin3.getText().toString().trim();*/
+
 
         nip = adapter.getInpuText(0);
         nipNew = adapter.getInpuText(1);

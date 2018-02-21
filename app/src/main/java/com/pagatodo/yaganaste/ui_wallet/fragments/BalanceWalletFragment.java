@@ -18,7 +18,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -144,7 +143,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         rcvElementsBalance.addItemDecoration(itemDecoration);
         rcvElementsBalance.setLayoutManager(llm);
         rcvElementsBalance.setHasFixedSize(true);
-        onRefresh();
         setBalanceCards();
     }
 
@@ -152,6 +150,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void onResume() {
         super.onResume();
         updatePhoto();
+        onRefresh();
     }
 
     @Override
@@ -293,21 +292,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         }
     }
 
-    public void onBackPress() {
-        getActivity().finish();
-    }
-
     public void onRefresh() {
         if (!UtilsNet.isOnline(getActivity())) {
-            UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
-                @Override
-                public void actionConfirm(Object... params) {
-                }
-
-                @Override
-                public void actionCancel(Object... params) {
-                }
-            }, true, false);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access));
         } else {
             accountPresenter.updateBalance();
         }
@@ -321,6 +308,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         } else {
             Status = f;
             App.getInstance().setStatusId(f);
+            setBalanceCards();
         }
     }
 

@@ -15,7 +15,6 @@ import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -33,17 +32,18 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
-
-import java.util.Timer;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
+import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -54,23 +54,20 @@ import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView,
+public class AsociatePhoneAccountFragment extends GenericFragment implements IVerificationSMSView,
         IAprovView, IResetNIPView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
-    public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
-    @BindView(R.id.progressLayout)
-    ProgressLayout progressLayout;
+    private View view;
+    @BindView(R.id.txt_send_sms)
+    StyleTextView txtSendSms;
     int counterRetry = 1;
-    Timer timer = new Timer();
     BroadcastReceiver broadcastReceiver;
     private WebService failed;
     private AccountPresenterNew accountPresenter;
     private Preferencias preferencias;
     App aplicacion;
-
-    ImageView imageView;
 
     /**
      * BroadcastReceiver para realizar el envío del SMS
@@ -116,7 +113,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.preferencias = App.getInstance().getPrefs();
-        imageView = (ImageView) getActivity().findViewById(R.id.btn_back);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
@@ -124,21 +120,31 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        imageView.setVisibility(View.GONE);
         aplicacion = new App();
-        rootview = inflater.inflate(R.layout.fragment_associate_sms, container, false);
-        initViews();
-        return rootview;
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_associate_sms, container, false);
+            initViews();
+        }
+        return view;
     }
 
     @Override
     public void initViews() {
-        super.initViews();
+        ButterKnife.bind(this, view);
         hideLoader();
+        txtSendSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Utils.isDeviceOnline()) {
+                    continuePayment();
+                } else {
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access));
+                }
+            }
+        });
     }
 
-    @Override
-    protected void continuePayment() {
+    private void continuePayment() {
         int permissionSms = ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.SEND_SMS);
         int permissionCall = ContextCompat.checkSelfPermission(getContext(),
@@ -154,7 +160,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     public void onRequestPermissionsResult() {
-        mySeekBar.setEnabled(false);
         accountPresenter.gerNumberToSMS();
     }
 
@@ -184,7 +189,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
-            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+            nextScreen(EVENT_GO_MAINTAB, null);
         } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
@@ -198,12 +203,12 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     public void finishReseting() {
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_GO_MAINTAB, null);
     }
 
     @Override
     public void onResetingFailed() {
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_GO_MAINTAB, null);
     }
 
 
@@ -249,8 +254,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                             if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
                                 onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
                             }
-                            mySeekBar.setEnabled(true);
-                            mySeekBar.setProgress(0);
                         }
 
                         @Override
@@ -315,14 +318,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         try {
             getActivity().unregisterReceiver(broadcastReceiverSend);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
             getActivity().unregisterReceiver(broadcastReceiver);
         } catch (Exception e) {
             e.printStackTrace();
@@ -332,7 +329,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private void goLoginAlert(String message) {
         hideLoader();
         if (!message.toString().isEmpty())
-
             UI.createCustomDialogSMS("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                 @Override
                 public void actionConfirm(Object... params) {
@@ -345,8 +341,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                     //No-Op
                     aplicacion.cerrarAppsms();
                     goToLogin();
-
-
                 }
             }, "Reintentar", "Cancelar");
 
@@ -361,8 +355,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        mySeekBar.setEnabled(true);
-        mySeekBar.setProgress(0);
     }
 }
 

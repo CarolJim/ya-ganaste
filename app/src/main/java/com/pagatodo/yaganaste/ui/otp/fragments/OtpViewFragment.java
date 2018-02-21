@@ -37,14 +37,12 @@ import static com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity.OTP_PASS;
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class OtpViewFragment extends GenericFragment implements View.OnClickListener, OtpView {
+public class OtpViewFragment extends GenericFragment implements OtpView {
 
     @BindView(R.id.txt_code)
     StyleTextView txtCode;
     @BindView(R.id.txt_time_remaining)
     StyleTextView txtTime;
-    @BindView(R.id.btn_back)
-    StyleButton btnBack;
     @BindView(R.id.progress_view)
     StatusViewCupo progressView;
     private View rootView;
@@ -84,7 +82,6 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        btnBack.setOnClickListener(this);
         otpPResenter.generateOTP(shaPass);
     }
 
@@ -123,19 +120,6 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
         }
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         super.onDetach();
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_back:
-                getActivity().onBackPressed();
-                break;
-
-            default:
-                break;
-        }
     }
 
     @Override
@@ -157,18 +141,13 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
                 getActivity().onBackPressed();
             }
         };
-
         UI.createSimpleCustomDialog("", error.getMessage(), getActivity().getSupportFragmentManager(),
                 actions, true, error.allowsReintent());
-
-
-
     }
 
     @Override
     public void onOtpGenerated(String otp) {
         reload(otp);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-
     }
 }

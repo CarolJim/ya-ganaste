@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.holders;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,17 +22,19 @@ public class ButtonsViewHolder extends RecyclerView.ViewHolder implements Runnab
     public TextView textOption;
     public View itemView;
     private Animation animSlideUp;
+    private Context context;
 
-    public ButtonsViewHolder(View itemView) {
+    public ButtonsViewHolder(Context context,View itemView) {
         super(itemView);
+        this.context = context;
         this.itemView = itemView;
         this.button = (ImageView) itemView.findViewById(R.id.button_item);
-        this.textOption = (TextView) itemView.findViewById(R.id.text_option);
+        this.textOption = itemView.findViewById(R.id.text_option);
     }
 
     public void bind(final ElementView elementView, final ElementsWalletAdapter.OnItemClickListener listener) {
         this.button.setBackgroundResource(elementView.getResource());
-        this.textOption.setText(elementView.getTitle());
+        this.textOption.setText(context.getString(elementView.getTitle()));
         this.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

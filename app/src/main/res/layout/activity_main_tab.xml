@@ -32,13 +32,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorGrayMenuDivider" />
+            android:background="@color/texthint" />
 
         <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
             android:id="@+id/main_tab"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="53dp"
             app:tabIndicatorColor="@color/colorAccent"
+            app:tabTextColor="@color/texthint"
+            app:tabSelectedTextColor="@color/colorAccent"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed" />
     </LinearLayout>

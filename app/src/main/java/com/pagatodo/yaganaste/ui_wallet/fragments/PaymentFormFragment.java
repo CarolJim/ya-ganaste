@@ -12,23 +12,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -284,7 +279,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     layoutImageContact.setVisibility(View.GONE);
                 } else {
                     edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
-                    edtPhoneNumber.setHint(getString(R.string.phone_number_hint));
+                    edtPhoneNumber.setHint(getString(R.string.hint_phone_number));
 
                     layoutImageContact.setOnClickListener(this);
                 }

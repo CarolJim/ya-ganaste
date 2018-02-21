@@ -1,256 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_child_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:weightSum="100">
+    android:focusableInTouchMode="true">
 
-
-
-    <RelativeLayout
+    <View
+        android:id="@+id/toolbar_alternative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/bar_height"
+        android:background="@drawable/bacgraund_tooblar"/>
 
-        <View
-            android:background="@color/colorAccent"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"/>
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/txtDepositTitle"
-            style="@style/generic_text_style_2"
-            android:textColor="@color/whiteColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="@string/datos_deposito" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtDepositTitle"
-            android:layout_marginTop="10dp" >
-
-            <ImageView
-                android:id="@+id/imgYaGanasteQR"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:foregroundGravity="center"
-                android:scaleType="center"
-                app:srcCompat="@mipmap/ic_launcher"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
-
-
-    </RelativeLayout>
-
-
-
-        <ListView
-            android:id="@+id/text_data_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_card"
-            android:layout_margin="8dp"
-            android:paddingBottom="30dp"
-            android:paddingTop="30dp"
-            android:paddingRight="25dp"
-            android:paddingLeft="25dp"
-            android:visibility="visible">
-        </ListView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginEnd="@dimen/margin_doble"
-        android:layout_marginLeft="@dimen/margin_doble"
-        android:layout_marginRight="@dimen/margin_doble"
-        android:layout_marginStart="@dimen/margin_doble"
-        android:layout_weight="50"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-
-        <LinearLayout
-            android:id="@+id/layout_enviado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_movements_row_height"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="@string/datos_deposito_titular" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtNameTitular"
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.5px"
-                android:background="@color/margin_lines" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_fecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_movements_row_height"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="@string/datos_depsito_numero_celular" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtCellPhone"
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:maxLines="1" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.5px"
-                android:background="@color/margin_lines" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_compania"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_movements_row_height"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="@string/datos_deposito_clabe" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtCableNumber"
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.5px"
-                android:background="@color/margin_lines" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_referencia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_movements_row_height"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/titleReferencia"
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="@string/datos_deposito_num_card" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtNumberCard"
-                    style="@style/generic_text_style_2.1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:maxLines="1" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.5px"
-                android:background="@color/margin_lines" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtDepositTitle"
+        style="@style/title_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:gravity="bottom"
-        android:visibility="gone">
+        android:text="@string/datos_deposito"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnDepositar"
-            style="@style/buttonSquareRoundedBlue"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:text="@string/datos_deposito_donde_depos"
-            android:textAllCaps="false"
-            android:visibility="invisible" />
+    <RelativeLayout
+        android:id="@+id/qr_zone"
+        android:layout_below="@id/txtDepositTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
 
+        <ImageView
+            android:id="@+id/imgYaGanasteQR"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:background="@drawable/blue_border_rectangle"
+            />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:scaleType="center"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
+    <ListView
+        android:id="@+id/text_data_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_card"
+        android:layout_margin="8dp"
+        android:paddingBottom="30dp"
+        android:paddingTop="30dp"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:visibility="visible"
+        android:layout_below="@id/qr_zone">
+    </ListView>
 
-</LinearLayout>
+
+</RelativeLayout>

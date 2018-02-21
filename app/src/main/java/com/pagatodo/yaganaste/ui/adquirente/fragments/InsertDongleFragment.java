@@ -40,7 +40,6 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -82,10 +81,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private static String DATA_MOVEMENTS = "data_movimiento_adq";
     public Preferencias prefs;
     protected boolean isReaderConected = false;
-    @BindView(R.id.imgInsertDongle)
-    ImageView imgInsertDongle;
+    /*@BindView(R.id.imgInsertDongle)
+    ImageView imgInsertDongle;*/
     @BindView(R.id.imgInsertCard)
     GifImageView imgInsertCard;
+   /* @BindView(R.id.insertDongleAnimation)
+    LottieAnimationView insertDongle;*/
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
     DataMovimientoAdq dataMovimientoAdq;
@@ -387,6 +388,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        //insertDongle.setImageAssetsFolder("images");
     }
 
     @Override
@@ -405,7 +407,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         /*if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
         } else {*/
-            imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.GONE);
         //}
     }
 
@@ -450,7 +452,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertDongle() {
-        imgInsertDongle.setVisibility(VISIBLE);
+        //insertDongle.setVisibility(VISIBLE);
         imgInsertCard.setVisibility(View.INVISIBLE);
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
@@ -458,9 +460,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertCard() {
-        imgInsertDongle.setVisibility(View.INVISIBLE);
+       /* insertDongle.setVisibility(View.GONE);
+        insertDongle.pauseAnimation();*/
         String message;
-
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);

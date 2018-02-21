@@ -96,11 +96,11 @@ public class ElementWallet {
                 context.getResources().getString(R.string.saldo_disponible));
     }
 
-    public ElementWallet getCardStarBucks(Context context) {
+    /*public ElementWallet getCardStarBucks(Context context) {
         return new ElementWallet(R.drawable.starbucks_card,
                 "$11,350.00", new ElementView().getListStartBuck(),
                 context.getResources().getString(R.string.saldo_disponible));
-    }
+    }*/
 
     public ElementWallet getCardLectorAdq(Context context) {
         return new ElementWallet(R.mipmap.lector_front,

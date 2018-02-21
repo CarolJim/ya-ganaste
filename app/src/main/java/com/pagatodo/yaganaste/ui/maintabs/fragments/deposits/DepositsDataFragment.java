@@ -14,15 +14,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
@@ -38,6 +40,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
@@ -47,7 +50,6 @@ import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.WINDOW_SERVICE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -57,28 +59,15 @@ import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
  */
 
 public class DepositsDataFragment extends SupportFragment implements View.OnClickListener {
-    DepositsManager depositsManager;
+    //DepositsManager depositsManager;
     @BindView(R.id.imgYaGanasteQR)
     ImageView imgYaGanasteQR;
-    @BindView(R.id.txtNameTitular)
-    TextView txtNameTitular;
-    @BindView(R.id.txtNumberCard)
-    TextView txtNumberCard;
-    @BindView(R.id.txtCellPhone)
-    TextView txtCellPhone;
-    @BindView(R.id.txtCableNumber)
-    TextView txtCableNumber;
-    @BindView(R.id.btnDepositar)
-    Button btnDepositar;
-
     @BindView(R.id.text_data_list)
     ListView listView;
-
     private View rootView;
-    String mensaje, cardNumber;
-    ImageView imageshae;
+    String mensaje,cardNumber;
     boolean onlineNetWork, onlineGPS;
-    ImageView imageView;
+
 
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
@@ -90,9 +79,35 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
-        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
+        //depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            /*case android.R.id.home:
+                onBackPressed();
+                return true;*/
+            case R.id.action_share:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                //String shareBodyText = "Check it out. Your message goes here";
+                /*String shareBodyText = getContext().getString(R.string.string_share_deposits) + "\n" +
+                        "Titular: " + dataDeposit.getTitular() + "\n" +
+                        "Teléfono: " + dataDeposit.getTelefono() + "\n" +
+                        "CLABE: " + dataDeposit.getClabe() + "\n" +
+                        "TARJETA: " + dataDeposit.getTarjeta();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");*/
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, mensaje);
+                startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
 
     }
 
@@ -102,6 +117,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
         return inflater.inflate(R.layout.fragment_deposito_datos, container, false);
     }
+
 
 
     private void getStatusGPS() {
@@ -133,7 +149,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
         //txtNameTitular.setText(name);
         String name = nombreprimerUser + " " + apellidoMostrarUser;
-        txtNameTitular.setText(name);
+        //txtNameTitular.setText(name);
 
         String celPhone = "";
         String clabe = "";
@@ -145,9 +161,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             clabe = cuenta.getCLABE();
         }
         showQRCode(name, celPhone, usuario.getCuentas().get(0));
-        txtCableNumber.setText(clabe);
-        txtCellPhone.setText(celPhone);
-        txtNumberCard.setText(cardNumber);
 
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
@@ -162,27 +175,34 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        btnDepositar.setOnClickListener(this);
-        imageshae.setOnClickListener(this);
+        //btnDepositar.setOnClickListener(this);
+        //imageshae.setOnClickListener(this);
+        WalletMainActivity.showToolBarMenu();
     }
 
     @Override
     public void onClick(View v) {
         getStatusGPS();
-        if (v.getId() == R.id.btnDepositar) {
+        /*f (v.getId() == R.id.btnDepositar) {
             if (onlineNetWork || onlineGPS) {
                 depositsManager.onTapButton();
             } else {
                 showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }
-        }
+        }*/
         if (v.getId() == R.id.deposito_Share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
 
-            intent.putExtra(Intent.EXTRA_TEXT, mensaje);
+            //intent.putExtra(Intent.EXTRA_TEXT, mensaje);
             startActivity(Intent.createChooser(intent, "Compartir con.."));
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @SuppressLint("RestrictedApi")
@@ -204,19 +224,20 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
     }
 
+
     private void checkState(String state) {
         switch (state) {
             case "0":
                 //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
-                txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
+                //txtNumberCard.setText(getString(R.string.transfer_card_unavailable));
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //printCard(cardNumber);
-                txtNumberCard.setText(cardNumber);
+                //txtNumberCard.setText(cardNumber);
                 break;
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
                 //imgYaGanasteQR.setImageResource(R.mipmap.main_card_zoom_gray);
-                txtNumberCard.setText(cardNumber);
+                //txtNumberCard.setText(cardNumber);
                 break;
             default:
                 //printCard(cardNumber);
@@ -247,7 +268,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
     }
 
-    private void showDialogMesage(final String mensaje) {
+    /*private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -265,7 +286,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                     }
                 },
                 true, false);
-    }
+    }*/
 
     private void printCard(String cardNumber) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
@@ -295,4 +316,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
         imgYaGanasteQR.setImageBitmap(bitmap);
     }
+
+
+
 }

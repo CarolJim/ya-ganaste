@@ -2,19 +2,21 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.hardware.fingerprint.FingerprintManager;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -22,8 +24,6 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 
 import java.util.ArrayList;
 
-import static android.content.Context.FINGERPRINT_SERVICE;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -36,7 +36,6 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
     private final OnItemClickListener listener;
     private Context context;
     private ViewHolderMenu viewHolder;
-    private int position;
 
     // View lookup cache
     private static class ViewHolderMenu {
@@ -44,8 +43,10 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         ImageView ic_item;
         View dividerList;
         AppCompatImageView rawItem;
-        SwitchCompat switchItem;
         TextView subtitle;
+        RadioGroup radioGroup;
+        RadioButton radioButtonLeft;
+        RadioButton radioButtonRight;
     }
 
     public MenuAdapter(Context context, ArrayList<OptionMenuItem> listItems, OnItemClickListener listener) {
@@ -61,18 +62,16 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        // view lookup cache stored in tag
-
-        this.position = position;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         convertView = inflater.inflate(R.layout.menu_navegation_drawwer_adpater, parent, false);
         viewHolder.txttitle = convertView.findViewById(R.id.title);
         viewHolder.subtitle = convertView.findViewById(R.id.subtitle);
         viewHolder.ic_item = convertView.findViewById(R.id.ic_item);
         viewHolder.rawItem = convertView.findViewById(R.id.raw_item);
-        viewHolder.switchItem = convertView.findViewById(R.id.switch_item);
         viewHolder.dividerList = convertView.findViewById(R.id.dividerList);
-
+        viewHolder.radioGroup = convertView.findViewById(R.id.radio_group);
+        viewHolder.radioButtonLeft = convertView.findViewById(R.id.radiobutton_no);
+        viewHolder.radioButtonRight = convertView.findViewById(R.id.radiobutton_si);
         convertView.setTag(viewHolder);
 
         viewHolder = (ViewHolderMenu) convertView.getTag();
@@ -82,49 +81,36 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
             viewHolder.ic_item.setVisibility(View.GONE);
         }
 
+        //----- Subtitulos ----//
+        if (listItems.get(position).getSubtitle() != 0) {
+            viewHolder.txttitle.setTextColor(getContext().getResources().getColor(R.color.colorAccent));
+            viewHolder.subtitle.setVisibility(View.VISIBLE);
+            viewHolder.subtitle.setText(listItems.get(position).getSubtitle());
+        }
+
         if (listItems.get(position).getIndication() != null) {
-            if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.RAW) {
-                viewHolder.rawItem.setVisibility(View.VISIBLE);
-            }
-            if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.SWITCH) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    FingerprintManager fingerprintManager = (FingerprintManager) getContext().getSystemService(FINGERPRINT_SERVICE);
-                    if (fingerprintManager.isHardwareDetected()) {
-                        viewHolder.switchItem.setVisibility(View.VISIBLE);
-                        viewHolder.switchItem.setChecked(App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true));
-                    } else {
-                        viewHolder.txttitle.setVisibility(View.GONE);
-                        viewHolder.ic_item.setVisibility(View.GONE);
-                        viewHolder.rawItem.setVisibility(View.GONE);
-                        viewHolder.switchItem.setVisibility(View.GONE);
-                        viewHolder.dividerList.setVisibility(View.GONE);
-                    }
-                } else {
-                    viewHolder.txttitle.setVisibility(View.GONE);
-                    viewHolder.ic_item.setVisibility(View.GONE);
-                    viewHolder.rawItem.setVisibility(View.GONE);
-                    viewHolder.switchItem.setVisibility(View.GONE);
-                    viewHolder.dividerList.setVisibility(View.GONE);
-                }
-                viewHolder.switchItem.setOnCheckedChangeListener(this);
-            }
-            if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.SWITCHNORMAL) {
-                viewHolder.switchItem.setVisibility(View.VISIBLE);
-                viewHolder.switchItem.setChecked(listItems.get(position).isStatusSwtich());
-                viewHolder.switchItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            //----Toggle----//
+            if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.TOGGLE) {
+                viewHolder.radioGroup.setVisibility(View.VISIBLE);
+                viewHolder.radioButtonLeft.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        listener.onItemClick(listItems.get(position));
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                    }
+                });
+
+                viewHolder.radioButtonRight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        Log.d("TOGGLE RIGTH",b+"");
                     }
                 });
 
             }
-
-            if (listItems.get(position).getSubtitle() != 0) {
-                viewHolder.subtitle.setVisibility(View.VISIBLE);
-                viewHolder.subtitle.setText(listItems.get(position).getSubtitle());
+            if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.RAW) {
+                viewHolder.rawItem.setVisibility(View.VISIBLE);
             }
-
         }
 
         viewHolder.txttitle.setText(this.context.getResources().getString(listItems.get(position).getResourceTitle()));
@@ -137,8 +123,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         if (listItems.size() == 1){
             viewHolder.dividerList.setVisibility(View.GONE);
         }
-        /*if (position == listItems.size() - 1)
-            viewHolder.dividerList.setVisibility(View.GONE);*/
+
         return convertView;
     }
 

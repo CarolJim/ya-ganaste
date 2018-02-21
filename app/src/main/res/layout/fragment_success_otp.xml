@@ -5,76 +5,63 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/styleTextView2"
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="56dp"
         android:gravity="center"
         android:text="@string/tu_codigo" />
 
-
     <FrameLayout
-        android:layout_marginTop="14dp"
-        android:layout_width="300dp"
-        android:layout_height="300dp">
+        android:layout_width="212dp"
+        android:layout_height="212dp">
 
         <com.pagatodo.yaganaste.utils.customviews.StatusViewCupo
             android:id="@+id/progress_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:firstColor="@color/colorAccent"
             app:bgColor="@color/bg_card_confirmation"
+            app:firstColor="@color/colorAccent"
             app:percent="100"
-            app:strokeWidth="15dp"/>
+            app:strokeWidth="15dp" />
 
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_code"
-            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="@dimen/online_movements_big"
+            android:textColor="@color/colorAccent"
+            android:textSize="26sp"
             app:tipo="Text"
             tools:text="1234 4566" />
 
-
     </FrameLayout>
 
-
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:text="@string/caduca_en_2"
+        android:textColor="@color/textColorAlternative"
+        android:textSize="@dimen/size_text_style_3_value"
+        app:tipo="Text" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_time_remaining"
-        style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="@dimen/margin_big"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_style_1_value"
+        app:tipo="Text"
         tools:text="@string/caduca_en" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/btn_navigation_bottom"
-        android:gravity="bottom|center_horizontal"
-        android:orientation="vertical">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btn_back"
-            style="@style/buttonDirecctionBack"
-            android:visibility="gone"
-            android:text="@string/volver" />
-
-    </LinearLayout>
-
-
 
 </LinearLayout>

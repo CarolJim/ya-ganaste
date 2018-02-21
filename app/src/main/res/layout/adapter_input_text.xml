@@ -12,20 +12,17 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:textColorHint="@color/texthint"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/colorAccent"
+        app:passwordToggleTint="@color/hint_color"
         android:theme="@style/TextLabel"
-        android:layout_marginBottom="1dp"
-        android:paddingTop="4dp"
+        
+        android:paddingLeft="17dp"
         android:background="@drawable/inputtext_normal"
         tools:ignore="UnusedAttribute">
 
         <EditText
             android:id="@+id/editTextpass"
-            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:layout_height="40dp"
             android:textColor="@color/texthint"
             android:background="@android:color/transparent"/>
 

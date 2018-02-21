@@ -8,13 +8,31 @@ public class InputText {
 
     private String hintText;
     private String contentText;
-    private boolean isPassqord;
+    private String tipo;
+
 
     public InputText(String hintText) {
 
         this.hintText = hintText;
         this.contentText = "";
+    }
 
+    public InputText(String hintText, String isPassqord) {
+        this.hintText = hintText;
+        this.contentText = "";
+        this.tipo=isPassqord;
+    }
+/*Saber si el textlayout necesita se tipopassword
+*
+ *
+  * */
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getContentText() {
