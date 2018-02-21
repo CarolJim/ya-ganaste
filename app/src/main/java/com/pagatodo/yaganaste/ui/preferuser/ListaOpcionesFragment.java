@@ -392,7 +392,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
 
-    private void showDialogMesage(final String mensaje) {
+    /*private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -405,7 +405,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                     }
                 },
                 true, false);
-    }
+    }*/
 
     public CameraManager getCameraManager() {
         return cameraManager;

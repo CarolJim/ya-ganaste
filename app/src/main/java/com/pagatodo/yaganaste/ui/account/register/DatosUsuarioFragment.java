@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -19,6 +20,9 @@ import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
+import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -41,7 +45,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosUsuarioFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IUserDataRegisterView,
-        View.OnFocusChangeListener {
+        View.OnFocusChangeListener{
     private Preferencias prefs = App.getInstance().getPrefs();
     private static int MIN_LENGHT_VALIDATION_PASS = 8;
     private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
@@ -138,6 +142,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     }
 
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnNextDatosUsuario) {
@@ -154,6 +159,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     }
 
     /*Implementación de ValidationForms*/
+
+
 
     @Override
     public void setValidationRules() {

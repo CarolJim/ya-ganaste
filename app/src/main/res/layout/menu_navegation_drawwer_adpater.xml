@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/generic_text_style_2"
-            android:textColor="@color/text_item_color"
+            android:textColor="@color/texthint"
 
             />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             style="@style/generic_text_style_3"
-            android:textColor="@color/text_item_color"
+            android:textColor="@color/texthint"
             android:visibility="gone"/>
     </LinearLayout>
 
@@ -57,17 +57,41 @@
         android:visibility="gone"
         android:id="@+id/raw_item"/>
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:theme="@style/SCBSwitch"
-        android:thumb="@drawable/block_card_switch"
-        app:track="@drawable/switch_compat_custom_track"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"/>
+
+
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                android:id="@+id/radiobutton_no"
+                style="@style/RadioButtonMenu"
+                android:layout_width="45dp"
+                android:layout_height="25dp"
+                android:checked="true"
+                android:text="No"/>
+
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                android:id="@+id/radiobutton_si"
+                style="@style/RadioButtonMenu"
+                android:layout_width="45dp"
+                android:layout_height="25dp"
+                android:checked="false"
+                android:text="Si"/>
+        </RadioGroup>
+
+
+
+
+
 
     <View
         android:id="@+id/dividerList"

@@ -44,7 +44,6 @@ import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
@@ -61,12 +60,14 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.FIREBASE_KEY;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
+import static com.pagatodo.yaganaste.utils.StringConstants.CLABE_NUMBER;
+import static com.pagatodo.yaganaste.utils.StringConstants.COMPANY_NAME;
+import static com.pagatodo.yaganaste.utils.StringConstants.PHONE_NUMBER;
 
 
 public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella {
@@ -177,7 +178,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-       // setVisibilityBack(back);
+        // setVisibilityBack(back);
     }
 
     @Override
@@ -329,6 +330,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
 
                 Preferencias prefs = App.getInstance().getPrefs();
+                prefs.saveData(COMPANY_NAME, SingletonUser.getInstance().getDataUser().getUsuario().getNombreNegocio());
+                prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
+                prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getCLABE());
                 boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
 
                 // Lineas de prueba, comentar al tener version lista para pruebas
@@ -374,15 +378,14 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     showDialogOut();
                 }*/
             } else if (currentFragment instanceof AsignarNIPFragment) {
-                    if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
-                        //((AsignarNIPFragment) currentFragment).hideKeyboard();
-                    } else {
-                        resetRegisterData();// Eliminamos la información de registro almacenada.
-                        showDialogOut();
-                    }
+                if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                    //((AsignarNIPFragment) currentFragment).hideKeyboard();
+                } else {
+                    resetRegisterData();// Eliminamos la información de registro almacenada.
+                    showDialogOut();
+                }
 
-            }
-            else if (currentFragment instanceof NewPasswordLoginChange) {
+            } else if (currentFragment instanceof NewPasswordLoginChange) {
                 if (((NewPasswordLoginChange) currentFragment).isCustomKeyboardVisible()) {
                     //((AsignarNIPFragment) currentFragment).hideKeyboard();
                 } else {
@@ -390,13 +393,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     showDialogOut();
                 }
 
-            }else if (currentFragment instanceof ConfirmarNIPFragment) {
+            } else if (currentFragment instanceof ConfirmarNIPFragment) {
                 if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
                     ((ConfirmarNIPFragment) currentFragment).hideKeyboard();
                 } else {
                     onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
                 }
-            }else if (currentFragment instanceof NewConfirmPasswordLogin) {
+            } else if (currentFragment instanceof NewConfirmPasswordLogin) {
                 if (((NewConfirmPasswordLogin) currentFragment).isCustomKeyboardVisible()) {
                     ((NewConfirmPasswordLogin) currentFragment).hideKeyboard();
                 } else {

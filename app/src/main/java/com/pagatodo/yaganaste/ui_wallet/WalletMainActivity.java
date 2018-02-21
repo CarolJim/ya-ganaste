@@ -8,7 +8,9 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
@@ -26,9 +28,14 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsEmisorFragment;
+
+import java.security.Provider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,22 +52,27 @@ import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
 
+    public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91;
+
+
     @BindView(R.id.toolbar_wallet)
     Toolbar toolbar;
-    //@BindView(R.id.main_tab)
-    //TabLayout mainTab;
+    @BindView(R.id.btn_back)
+    AppCompatImageView back;
 
     private int idOperation;
     private int currentPage;
+
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_main);
         this.init();
-        //back.setOnClickListener(this);
+        back.setOnClickListener(this);
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
@@ -76,6 +88,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     }
 
+    public void showToolbarShadow(){
+            ///android:background="@color/colorAccent"
+        toolbar.setBackgroundResource(R.drawable.bacgraund_tooblar);
+
+    }
+
     private void init(){
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -83,14 +101,40 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    public void showToolBarMenu() {
+    public static void showToolBarMenu() {
         //getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_wallet, menu);
-        return true;
+        switch (idOperation){
+            case 2:
+                getMenuInflater().inflate(R.menu.menu_wallet, menu);
+                /*MenuItem edit_item = menu.add(0, R.menu.menu_wallet, 0, R.string.item_menu_share);
+                edit_item.setIcon(R.drawable.ic_share_toolbar);
+                edit_item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+                menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Item name");
+
+                MenuItem delete_item = menu.add(0, MenuItem_DeleteId, 1, R.string.edit);
+                delete_item.setIcon(R.drawable.delete);
+                delete_item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);*/
+                //return super.onCreateOptionsMenu(menu);
+                return true;
+                default:
+                    return false;
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     private void getLoadFragment(int idoperation) {
@@ -100,13 +144,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 //loadFragment(MovementsEmisorFragment.newInstance(), R.id.fragment_container);
                 break;
             case 2:
-                loadFragment(DepositsFragment.newInstance(), R.id.fragment_container);
+                loadFragment(DepositsDataFragment.newInstance(), R.id.fragment_container);
                 break;
             case 3:
                 switch (currentPage) {
                     case PAGE_EMISOR:
-                        startActivity(new Intent(this, TarjetaActivity.class));
-                        finish();
+                        loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
                         break;
                     case PAGE_ADQ:
                         loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container);
@@ -152,11 +195,36 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         return true;
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
-    }
+        //finish();
+        /* Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
+        if (!disableBackButton) {
+            if (actualFragment instanceof PaymentsTabFragment) {
+                PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
+                if (paymentsTabFragment.isOnForm) {
+                    paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
+                } else {
+                    goHome();
+                }
+            } else if (actualFragment instanceof DepositsFragment) {
+                imageNotification.setVisibility(View.GONE);
+                imageshare.setVisibility(View.VISIBLE);
+                ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
+            } else if (actualFragment instanceof GetMountFragment) {
+                goHome();
+            } else if (actualFragment instanceof HomeTabFragment) {
+                showDialogOut();
+            } else if (actualFragment instanceof WalletTabFragment) {
+                showDialogOut();
+            } else if (actualFragment instanceof SendWalletFragment) {
+                goHome();
+            } else {
+                goHome();
+            }
+        }
+    }*/
 
     @Override
     public void onEvent(String event, Object data) {
@@ -191,6 +259,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_RETRY_PAYMENT:
                 loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_NIP_CHANGE:
+                loadFragment(MyChangeNip.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
                 break;
         }
     }

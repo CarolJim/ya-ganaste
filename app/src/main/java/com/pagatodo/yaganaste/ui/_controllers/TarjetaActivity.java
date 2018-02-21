@@ -73,7 +73,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     boolean statusOperation = true;
     private TarjetaUserPresenter mPreferPresenter;
     private AccountPresenterNew presenterAccount;
-    MenuAdapter menuAdapter;
+    private MenuAdapter menuAdapter;
 
 
     @Override
@@ -148,14 +148,14 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
                 menuAdapter.setStatus(false);
                 //imgStatus.setImageResource(R.drawable.ic_candado_open);
-                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                imgYaGanasteCard.setImageResource(R.drawable.tarjeta_yg);
                 //txtBlockCardDesc.setText(getString(R.string.bloquear_tarjeta));
                 //   printCard(cuenta());
                 break;
             default:
                 menuAdapter.setStatus(false);
                 //imgStatus.setImageResource(R.drawable.ic_candado_open);
-                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                imgYaGanasteCard.setImageResource(R.drawable.tarjeta_yg);
                 //txtBlockCardDesc.setText(getString(R.string.bloquear_tarjeta));
                 // printCard(cuenta());
                 break;

@@ -18,8 +18,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_NOTIFICACIONES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.SWITCH;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.SWITCHNORMAL;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.TOGGLE;
 
 /**
  * Created by icruz on 09/02/2018.
@@ -39,7 +38,7 @@ public class ContainerBuilder {
     public static MenuAdapter SECURITY_MENU(Context context, MenuAdapter.OnItemClickListener listener){
         Container s = new Container();
         s.addOption(new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
-        s.addOption(new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, SWITCH));
+        s.addOption(new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, TOGGLE));
         return new MenuAdapter(context,s.getOptions(),listener);
     }
 
@@ -52,9 +51,9 @@ public class ContainerBuilder {
 
     public static MenuAdapter SETTINGS_NOTIFICACIONES(Context context, MenuAdapter.OnItemClickListener listener){
         Container s = new Container();
-        s.addOption(new OptionMenuItem(-1, R.string.notific_pagos_option,0, SWITCHNORMAL));
-        s.addOption(new OptionMenuItem(-1, R.string.notific_retiros_option,0, SWITCHNORMAL));
-        s.addOption(new OptionMenuItem(-1, R.string.notific_depositos_option,0, SWITCHNORMAL));
+        s.addOption(new OptionMenuItem(-1, R.string.notific_pagos_option,0, TOGGLE));
+        s.addOption(new OptionMenuItem(-1, R.string.notific_retiros_option,0, TOGGLE));
+        s.addOption(new OptionMenuItem(-1, R.string.notific_depositos_option,0, TOGGLE));
         return new MenuAdapter(context,s.getOptions(),listener);
     }
 
@@ -74,8 +73,8 @@ public class ContainerBuilder {
     public static MenuAdapter ADMINISTRACION(Context context, MenuAdapter.OnItemClickListener listener){
         Container s = new Container();
         s.addOption(new OptionMenuItem(1, R.string.my_card_change_nip,0, RAW));
-        //s.addOption(new OptionMenuItem(2, R.string.my_card_report,0, RAW));
-        s.addOption(new OptionMenuItem(3, R.string.bloquear_tarjeta,0, SWITCHNORMAL));
+        s.addOption(new OptionMenuItem(2, R.string.my_card_report,0, RAW));
+        s.addOption(new OptionMenuItem(3, R.string.bloquear_tarjeta,R.string.subtitle_bloquear_tarjeta, TOGGLE));
         return new MenuAdapter(context,s.getOptions(),listener);
     }
 

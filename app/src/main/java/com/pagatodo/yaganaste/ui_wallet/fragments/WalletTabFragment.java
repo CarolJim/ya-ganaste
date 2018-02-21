@@ -29,8 +29,8 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
-import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdpater;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
@@ -51,7 +51,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
  *
  */
 public class WalletTabFragment extends SupportFragment implements WalletView,
-        ElementsWalletAdpater.OnItemClickListener, IMyCardViewHome,
+        ElementsWalletAdapter.OnItemClickListener, IMyCardViewHome,
         ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ID_OPERATION = "ID_OPERATION";
@@ -74,7 +74,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     private WalletPresenter walletPresenter;
     private TarjetaUserPresenter mPreferPresenter;
     private CardWalletAdpater cardWalletAdpater;
-    private ElementsWalletAdpater elementsWalletAdpater;
+    private ElementsWalletAdapter elementsWalletAdapter;
     protected OnEventListener onEventListener;
 
     private int dotsCount;
@@ -153,7 +153,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
         } else if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
-            } else {
+        } else {
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
 
 
@@ -202,18 +202,16 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     private void updateOperations(int psition) {
         pageCurrent = psition;
         if (psition == 0) {
-            elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListEmisor());
-
+            elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListEmisor());
         }
-
         if (psition == 1) {
             if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-                elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListLectorAdq());
+                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorAdq());
             } else {
-                elementsWalletAdpater = new ElementsWalletAdpater(getContext(),this,ElementView.getListLectorEmi());
+                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorEmi());
             }
         }
-        rcvOpciones.setAdapter(elementsWalletAdpater);
+        rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
         txtSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getSaldo());
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getTipoSaldo());
@@ -230,7 +228,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void getSaldo() {
-        cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
+        cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         //cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);
     }
@@ -302,7 +300,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
                 UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
-                if (usuarioClienteResponse.getCuentas().size() != 0 ) {
+                if (usuarioClienteResponse.getCuentas().size() != 0) {
                     mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
                     mPreferPresenter.toPresenterEstatusCuenta(mTDC);
                 }
@@ -317,7 +315,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         }
     }
 
-    private void showDialogMesage(final String mensaje) {
+    /*private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -331,7 +329,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                     }
                 },
                 true, false);
-    }
+    }*/
 
     @Override
     public void onRefresh() {

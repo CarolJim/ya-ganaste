@@ -13,30 +13,31 @@
         android:id="@+id/toolbar_alternative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
-        android:background="@color/colorAccent"/>
+        android:background="@drawable/bacgraund_tooblar"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDepositTitle"
-        style="@style/generic_text_style_2"
-        android:textColor="@color/whiteColor"
+        style="@style/title_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/datos_deposito"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"/>
+        android:text="@string/datos_deposito"/>
 
     <RelativeLayout
         android:id="@+id/qr_zone"
         android:layout_below="@id/txtDepositTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
         <ImageView
             android:id="@+id/imgYaGanasteQR"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:background="@drawable/blue_border_rectangle"
+            />
 
         <ImageView
             android:id="@+id/imageView3"

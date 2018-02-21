@@ -310,7 +310,7 @@
     <string name="rfchomoclave">Homoclave</string>
     <string name="title_activity_plug_card_reader_to_register">PlugCardReaderToRegisterActivity</string>
     <string name="cuenta_personal">CUENTA PERSONAL</string>
-    <string name="cobros_con_tarjeta">COBROS CON TARJETA</string>
+    <string name="cobros_con_tarjeta">Cobros con tarjeta</string>
     <string name="saldo_comercial">SALDO COMERCIAL</string>
 
     <string name="authorize_payment_title">Autoriza el Envío</string>
@@ -780,7 +780,7 @@
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
 
-    <string name="string_share_deposits">¡Hola! Estos Son Los Datos de Depósito de mi Cuenta Ya Ganaste
+    <string name="string_share_deposits">¡Hola! Estos son los datos de depósito de mi cuenta ya ganaste
         \nTitular: %1$s\nN° Celular: %2$s\nCLABE: %3$s\nN° Tarjeta: %4$s</string>
 
 
@@ -818,7 +818,7 @@
     <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta ya ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
-    <string name="emisor_validate_card_fail_2"><u>Número de Tarjeta Inválido_Número de Tarjeta Que Ingresaste no es  Inválido, Por Favor Intenta Nuevamente</u></string>
+    <string name="emisor_validate_card_fail_2"><u>Número de Tarjeta Inválido_Número de Tarjeta Que Ingresaste no es Válido, Por Favor Intenta Nuevamente</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
     <!--  Menu de ayuda-->
@@ -845,8 +845,6 @@
     <string name="tu_línea_credito">Tu Línea de Crédito</string>
     <string name="txt_bloquear">Bloquear</string>
     <string name="txt_desbloquear">Desbloquear</string>
-    <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloquear Tarjeta</string>
     <string name="bloquear_tu_tarjeta">Bloqueo de Tarjeta</string>
     <string name="desbloquear_tu_tarjeta">Desbloqueo de Tarjeta</string>
     <string name="codigoAcceso">Código de Seguridad</string>
@@ -1173,6 +1171,13 @@
     <string name="ingresa_monto">Ingresa el Monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
+    <string name="bloquear_tarjeta">Bloquear tarjeta</string>
+    <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
+    <string name="desbloquear_tarjeta">Desbloquear\nTarjeta</string>
+    <string name="generar_codigo">Generar\ncódigo</string>
+    <string name="realizar_cobro">Realizar\ncobro</string>
+    <string name="calcular_comisiones">Calcular comisiones</string>
+    <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1250,5 +1255,15 @@
     <string name="item_menu_remmbolsar">Rembolsar cobro</string>
     <string name="item_menu_reenviar">Reenviar ticket</string>
     <string name="item_menu_cancelar">Cancelar</string>
+
+    <!--Tittle Operaciones-->
+    <string name="operation_movimientos">Consultar\nmovimientos</string>
+    <string name="operation_deposito">Ver datos\ndepósito</string>
+    <string name="operation_administracion">Administrar\ntarjeta</string>
+
+    <string name="operation_cobro">Realizar\nun cobro</string>
+    <string name="operation_configurar">Configurar lector\nde tarjetas</string>
+
+    <string name="operation_registrar">Registrar</string>
 
 </resources>

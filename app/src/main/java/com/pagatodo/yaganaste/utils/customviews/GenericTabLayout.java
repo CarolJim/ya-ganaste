@@ -172,7 +172,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         private ImageView mImage;
 
         private TabHolder(View view) {
-            this.mText = (TextView) view.findViewById(android.R.id.text1);
+            this.mText = view.findViewById(android.R.id.text1);
             this.mImage = (ImageView) view.findViewById(android.R.id.icon);
         }
     }
