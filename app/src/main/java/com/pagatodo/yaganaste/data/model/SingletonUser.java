@@ -94,6 +94,10 @@ public class    SingletonUser {
 
         }
 
+        if (dataUser.getIdEstatus() == IdEstatus.I10.getId() ||dataUser.getIdEstatus() == IdEstatus.I13.getId()) {
+            prefs.saveDataBool(StringConstants.ESTADO_RECHAZADO, true);
+        }
+
         if (dataUser.getIdEstatus() == IdEstatus.CUPO.getId()) {
             prefs.saveDataBool(StringConstants.IS_CUPO, true);
         }

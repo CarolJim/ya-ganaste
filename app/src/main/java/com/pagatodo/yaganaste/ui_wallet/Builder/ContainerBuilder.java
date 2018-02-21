@@ -84,10 +84,20 @@ public class ContainerBuilder {
 
     public static InputTexAdapter NIP(Context context){
         Container s = new Container();
-        s.addInputText(new InputText("Nip Actual"));
-        s.addInputText(new InputText("Nuevo Nip"));
-        s.addInputText(new InputText("Confirma Nuevo Nip"));
+        s.addInputText(new InputText("Nip Actual","PAS"));
+        s.addInputText(new InputText("Nuevo Nip","PAS"));
+        s.addInputText(new InputText("Confirma Nuevo Nip","PAS"));
         return new InputTexAdapter(context,s.getInputTextList());
     }
+    public static InputTexAdapter DatosUsuario(Context context, InputTexAdapter.ChangeEditListener listener){
+        Container s = new Container();
+        s.addInputText(new InputText("Correo electrónico","EMA"));
+        s.addInputText(new InputText("Confirma Correo","EMA"));
+        s.addInputText(new InputText("Contraseña","PAS"));
+        s.addInputText(new InputText("Confirma Contraseña","PAS"));
+        return new InputTexAdapter(context,s.getInputTextList(),listener);
+    }
+
+
 
 }

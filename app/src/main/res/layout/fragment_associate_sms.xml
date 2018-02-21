@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,48 +26,45 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessage1"
-                style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_big"
                 android:gravity="center"
-                android:text="@string/activacion_sms_mes_1" />
+                android:text="@string/activacion_sms_mes_1"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/size_text_style_2_value" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
-                android:text="@string/activacion_sms_mes_2" />
+                android:text="@string/activacion_sms_mes_2"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/size_text_style_2_value" />
 
 
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:layout_marginLeft="@dimen/seekbar_margin"
-        android:layout_marginRight="@dimen/seekbar_margin">
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBarEnviar
-            android:id="@+id/myseek"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/seek_background"
-            android:clickable="false"
-            android:max="100"
-            android:progressDrawable="@android:color/transparent"
-            android:thumb="@drawable/thumb_size"
-            android:thumbOffset="15dp"
-            app:text="Enviar" />
-    </LinearLayout>
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_send_sms"
+        android:layout_width="214dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/detail_movements_margin_top_elements"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/white_round_button"
+        android:gravity="center"
+        android:text="@string/send_sms"
+        android:textAlignment="center"
+        android:textSize="16sp" />
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
+
+
 </LinearLayout>

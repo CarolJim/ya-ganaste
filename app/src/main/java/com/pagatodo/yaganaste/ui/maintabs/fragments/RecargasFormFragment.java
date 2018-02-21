@@ -131,7 +131,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             layoutImageContact.setVisibility(View.GONE);
         } else {
             recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
-            recargaNumber.setHint(getString(R.string.phone_number_hint));
+            recargaNumber.setHint(getString(R.string.hint_phone_number));
 
             layoutImageContact.setOnClickListener(this);
         }

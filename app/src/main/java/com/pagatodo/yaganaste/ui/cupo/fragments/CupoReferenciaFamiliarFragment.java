@@ -2,8 +2,6 @@ package com.pagatodo.yaganaste.ui.cupo.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -23,10 +21,8 @@ import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
 import com.pagatodo.yaganaste.interfaces.enums.ParentescoCUPO;
-import com.pagatodo.yaganaste.interfaces.enums.Relaciones;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.cupo.CupoSpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
@@ -39,15 +35,10 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.app.Activity.RESULT_OK;
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_FAMILIAR;
 
 /**
@@ -138,7 +129,7 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
 
         editPhoneReferenciaCupo.setInputType(InputType.TYPE_CLASS_NUMBER);
         editPhoneReferenciaCupo.addTextChangedListener(new PhoneTextWatcher(editPhoneReferenciaCupo));
-        editPhoneReferenciaCupo.setHint(getString(R.string.phone_number_hint));
+        editPhoneReferenciaCupo.setHint(getString(R.string.hint_phone_number));
 
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);

@@ -77,6 +77,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @BindView(R.id.list_view_nip)
     ListView listView;
+
+
     TextView tv1Num;
     TextView tv2Num;
     TextView tv3Num;
@@ -417,6 +419,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         /*nip = edtPin.getText().toString().trim();
         nipNew = edtPin2.getText().toString().trim();
         nipNewConfirm = edtPin3.getText().toString().trim();*/
+
 
         nip = adapter.getInpuText(0);
         nipNew = adapter.getInpuText(1);

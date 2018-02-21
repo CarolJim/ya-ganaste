@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.AppCompatImageView;
@@ -10,17 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui_wallet.NotificationActivity;
 import com.pagatodo.yaganaste.utils.UI;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -37,7 +31,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
     private View toolbarLayout;
     public String mUserImage;
-    private ImageView imgNotif;
+    private ImageView imgNotif, imgToolbar;
     //CircleImageView imageView;
     //ImageView imageView;
     //static CircleImageView imageViewdes;
@@ -56,6 +50,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         //imageViewdes= (ImageView) findViewById(R.id.imgToRight_prefe);
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
         imgNotif = (ImageView) findViewById(R.id.imgNotifications);
+        imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
         //if (imageView != null) {
         //     imageView.setOnClickListener(this);
         // }
@@ -71,6 +66,14 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+        }
+    }
+
+    public void showImageToolbar(boolean mBoolean) {
+        if (mBoolean) {
+            imgToolbar.setVisibility(View.VISIBLE);
+        } else {
+            imgToolbar.setVisibility(View.GONE);
         }
     }
 
@@ -95,9 +98,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     /**
      * POSIBLE metodo para mostrar el icono de notificaciones, por medio de su padre y no en la propia
      * actividad hija
+     *
      * @param mBoolean
      */
-    public void setVisibilityNotif(boolean mBoolean){
+    public void setVisibilityNotif(boolean mBoolean) {
         if (mBoolean) {
             imgNotif.setVisibility(View.VISIBLE);
         } else {
@@ -199,7 +203,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
                 onBackPressed();
                 break;
             case R.id.imgNotifications:
-               // Toast.makeText(ToolBarActivity.this, "Click", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(ToolBarActivity.this, "Click", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, NotificationActivity.class));
                 break;
 

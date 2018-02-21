@@ -112,7 +112,6 @@ public class Recursos {
     public static String SHA_256_FREJA = "SHA_256_FREJA";
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
-    public static String TECLADO_CUSTOM = "TECLADO_CUSTOM";
     public static String PASSWORD_CHANGE = "PASSWORD_CHANGE";
     public static String VERSION_APP = "VERSION_APP";
     public static String FIREBASE_KEY = "FIREBASE_KEY";

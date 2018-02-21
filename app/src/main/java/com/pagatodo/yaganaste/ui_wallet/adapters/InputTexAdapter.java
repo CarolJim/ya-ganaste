@@ -6,17 +6,23 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 
 
 import java.util.ArrayList;
@@ -27,10 +33,11 @@ import java.util.ArrayList;
 
 public class InputTexAdapter extends ArrayAdapter<String> {
 
-
+    String txt;
+    ChangeEditListener changeEditListener;
     private ArrayList<InputText> listItems;
     private View convertView;
-    private Listener listener;
+    //private Listener listener;
 
     private static class ViewHolderInputText {
         EditText editText;
@@ -41,10 +48,17 @@ public class InputTexAdapter extends ArrayAdapter<String> {
         super(context, R.layout.adapter_input_text);
         this.listItems = listItems;
     }
-    public InputTexAdapter(Context context, ArrayList<InputText> listItems, Listener listener ) {
+    /*public InputTexAdapter(Context context, ArrayList<InputText> listItems, Listener listener ) {
         super(context, R.layout.adapter_input_text);
         this.listItems = listItems;
         this.listener = listener;
+    }*/
+
+
+    public InputTexAdapter(Context context, ArrayList<InputText> listItems, ChangeEditListener changeEditListener) {
+        super(context, R.layout.adapter_input_text);
+        this.listItems = listItems;
+        this.changeEditListener = changeEditListener;
     }
 
 
@@ -63,6 +77,32 @@ public class InputTexAdapter extends ArrayAdapter<String> {
         viewHolder.inputLayout = convertView.findViewById(R.id.passwordnew);
         viewHolder.inputLayout.setHint(listItems.get(position).getHintText());
 
+      if (listItems.get(position).getTipo().equals("PAS")) {
+            viewHolder.inputLayout.setPasswordVisibilityToggleEnabled(true);
+            viewHolder.editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            viewHolder.editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
+        }
+        if (listItems.get(position).getTipo().equals("EMA")) {
+            viewHolder.inputLayout.setPasswordVisibilityToggleEnabled(false);
+            viewHolder.editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }
+
+            /*
+
+            viewHolder.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasfocus) {
+                    if (!hasfocus) {
+                        changeEditListener.ChangeEdit(listItems.get(position).getContentText());
+
+                    }
+                }
+            });
+
+*/
+
+
+
         viewHolder.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -80,20 +120,21 @@ public class InputTexAdapter extends ArrayAdapter<String> {
             }
         });
 
-        viewHolder.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        /*viewHolder.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 listener.setOnFocus(viewHolder.editText);
 
-                /*if (hasFocus) {
+                if (hasFocus) {
                     // code to execute when EditText loses focus
                     viewHolder.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
 
                 }else {
                     viewHolder.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-                }*/
+                }
             }
-        });
+        });*/
 
         return convertView;
     }
@@ -113,12 +154,15 @@ public class InputTexAdapter extends ArrayAdapter<String> {
     }
 
 
-    public String getInpuText(int position){
+    public String getInpuText(int position) {
         return listItems.get(position).getContentText();
     }
 
-    public interface Listener {
-        void setOnFocus(EditText editText);
-    }
+    public interface ChangeEditListener{
+
+        public void ChangeEdit(String text);
+
+}
+
 
 }

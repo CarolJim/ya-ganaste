@@ -41,7 +41,6 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.Recursos.TECLADO_CUSTOM;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 
 /**
@@ -94,7 +93,6 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         super.onCreate(savedInstanceState);
         mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         mPreferPresenter.setIView(this);
-        prefs.saveDataBool(TECLADO_CUSTOM,true);
         accountPresenter = ((PreferUserActivity) getActivity()).getPresenterAccount();
         accountPresenter.setIView(this);
         this.changeNipPresenterImp = new ChangeNipPresenterImp();

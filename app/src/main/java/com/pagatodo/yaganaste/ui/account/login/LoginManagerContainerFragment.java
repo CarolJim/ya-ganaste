@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     @BindView(R.id.container)
     FrameLayout container;
     private View rootView;
+    private Preferencias prefs = App.getInstance().getPrefs();
 
     public static LoginManagerContainerFragment newInstance() {
         LoginManagerContainerFragment fragment = new LoginManagerContainerFragment();
@@ -63,11 +65,9 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
-        Preferencias prefs = App.getInstance().getPrefs();
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             //loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
-            loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, true);
+            loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);
             showBack(false);
         } else {
             loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
@@ -106,11 +106,6 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     }
 
     @Override
-    public void popBackStack() {
-        getChildFragmentManager().popBackStack();
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Handler handler = new Handler(Looper.getMainLooper());
@@ -120,21 +115,27 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
                 onBackActions();
             }
         }, 0);
-
     }
 
     public void onBackActions() {
-        if (getChildFragmentManager().findFragmentById(R.id.container) instanceof BalanceWalletFragment) {
-            ((BalanceWalletFragment) getChildFragmentManager().findFragmentById(R.id.container)).onBackPress();
-        } else {
-            if (getChildFragmentManager().getBackStackEntryCount() > 0) {
-                if (getChildFragmentManager().findFragmentById(R.id.container) instanceof LoginFragment) {
-                    showBack(false);
-                }
-                popBackStack();
+        Fragment currentFragment = getChildFragmentManager().findFragmentById(R.id.container);
+        if (currentFragment instanceof GetMountFragment
+                || currentFragment instanceof OtpContainerFratgment
+                || currentFragment instanceof BlockCardFragment) {
+            showBack(false);
+            loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
+        } else if (currentFragment instanceof RecoveryFragment){
+            showBack(true);
+            loadFragment(LoginFragment.newInstance(), Direction.BACK, false);
+        } else if (currentFragment instanceof LoginFragment){
+            if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+                showBack(false);
+                loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
             } else {
                 getActivity().finish();
             }
+        } else {
+            getActivity().finish();
         }
     }
 

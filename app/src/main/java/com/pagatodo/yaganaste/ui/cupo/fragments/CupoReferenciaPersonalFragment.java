@@ -35,14 +35,10 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PERSONAL;
 
 /**
@@ -135,7 +131,7 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
 
         editPhoneReferenciaCupo.setInputType(InputType.TYPE_CLASS_NUMBER);
         editPhoneReferenciaCupo.addTextChangedListener(new PhoneTextWatcher(editPhoneReferenciaCupo));
-        editPhoneReferenciaCupo.setHint(getString(R.string.phone_number_hint));
+        editPhoneReferenciaCupo.setHint(getString(R.string.hint_phone_number));
 
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);

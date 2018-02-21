@@ -171,7 +171,7 @@
 
     <dimen name="margin_form_top">35dp</dimen>
     <dimen name="margin_form_bottom">25dp</dimen>
-    <dimen name="btn_navigation_bottom">20dp</dimen>
+    <dimen name="btn_navigation_bottom">40dp</dimen>
     <dimen name="margin_error">10dp</dimen>
 
     <dimen name="custom_validation_edittext_imagelay_width">40dp</dimen>

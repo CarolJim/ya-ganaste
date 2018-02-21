@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!--  Nuevos colores wallet
     -->
     <color name="colorTituloDialog">#00a1e1</color>
     <color name="texthint">#adadad</color>
-
+    <color name="adadad">#adadad</color>
 
     <color name="colorPrimaryDark">#008cc4</color>
     <color name="black">#000000</color>
     <color name="edittext">#ADADAD</color>
     <color name="colorPrimary">#293943</color>
     <color name="line_border">#23313C</color>
-    <color name="bg_card_confirmation">#1e2429</color>
+    <color name="bg_card_confirmation">#e6e6e6</color>
     <color name="bgColor">#ffff</color>
     <color name="edittext_back">#435D6E</color>
     <color name="colorPrimaryAlpha">#c0293943</color>
@@ -44,6 +43,7 @@
 
     <!-- Colores oficiales 12-07-17 -->
     <color name="colorAccent">#00A1E1</color>
+    <color name="colorAccentTransparent">#8000a1e1</color>
     <color name="greenColorPositiveMovements">#00E000</color>
     <color name="redColorNegativeMovements">#FF2A5B</color>
     <!--   <color name="backgroundEditText">#445C6C</color>  -->
@@ -57,12 +57,11 @@
 
     <!-- Colores a liminar -->
     <color name="circlecarousel22">#e20c0f</color>
+    <color name="redColor">#df2b30</color>
     <color name="redcolor23">#D50000</color>
     <color name="redErrorColor2">#D0011B</color>
     <color name="circlegreen222">#00c900</color>
     <color name="greencolor222">#00E000</color>
-
-    <color name="colorAccentTransparent">#8810B2E6</color>
 
     <color name="circlecarousel7">#0041c2</color>
     <color name="circlecarousel1">#00b6df</color>
@@ -85,7 +84,7 @@
     <color name="progreso_cupo_rechazo">#808080</color>
 
 
-<!-- Colores de FingerPrint-->
+    <!-- Colores de FingerPrint-->
     <color name="warning_color">#f4511e</color>
     <color name="hint_color">#42000000</color>
     <color name="success_color">#009688</color>

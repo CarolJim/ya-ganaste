@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_DESBLOQUEADA;
 
 /**

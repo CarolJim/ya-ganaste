@@ -9,5 +9,4 @@ public interface ILoginContainerManager {
 
     void loadRecoveryFragment();
 
-    void popBackStack();
 }

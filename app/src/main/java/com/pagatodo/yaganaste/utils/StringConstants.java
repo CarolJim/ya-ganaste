@@ -14,6 +14,7 @@ public class StringConstants {
 
 
     public static final String IS_CUPO = "IS_CUPO";
+    public static final String ESTADO_RECHAZADO = "ESTADO_RECHAZADO";
     public static final String NAME_USER = "NAME_USER";
     public static final String FULL_NAME_USER = "FULL_NAME_USER";
     public static final String LAST_NAME = "LAST_NAME";
