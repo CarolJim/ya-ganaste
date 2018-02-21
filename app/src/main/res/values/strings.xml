@@ -354,8 +354,8 @@
     <string name="curp">CURP</string>
     <!-- Datos Personales -->
     <string name="datos_personal_nombre">Ingresa tu Nombre</string>
-    <string name="datos_personal_paterno">Ingresa tu Primer Apellido</string>
-    <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información</string>
+    <string name="datos_personal_paterno">Primer Apellido</string>
+    <string name="datos_personal_materno">Segundo Apellido</string>
     <string name="datos_personal_fecha">Ingresa tu Fecha de Nacimiento</string>
     <string name="datos_personal_estado">Indica tu Lugar de Nacimiento</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información</string>

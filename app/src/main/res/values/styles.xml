@@ -275,9 +275,7 @@
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
         <item name="android:focusable">true</item>
-        <item name="android:layout_marginTop">@dimen/space_between_elements</item>
-        <item name="android:layout_margin">@dimen/margin_medium</item>
-        <item name="android:elevation">7dp</item>
+
     </style>
 
     <style name="BorderLayoutContent">
