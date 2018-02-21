@@ -12,7 +12,7 @@
     <color name="edittext">#ADADAD</color>
     <color name="colorPrimary">#293943</color>
     <color name="line_border">#23313C</color>
-    <color name="bg_card_confirmation">#1e2429</color>
+    <color name="bg_card_confirmation">#e6e6e6</color>
     <color name="bgColor">#ffff</color>
     <color name="edittext_back">#435D6E</color>
     <color name="colorPrimaryAlpha">#c0293943</color>

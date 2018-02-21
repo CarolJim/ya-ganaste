@@ -7,108 +7,61 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-
     tools:context="com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtTitleRecovery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="@string/generate_code_title"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_style_2_value" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/seleccionaGenero"
+        style="@style/generic_text_style_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/generate_code_subtitle" />
+
+
+    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+        android:id="@+id/editPassword"
+        style="@style/GenericCustomValidationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        app:formato="password"
+        app:hintText="@string/password"
+        app:isSingleLine="true"
+        app:maxLength="50" />
+
+    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+        android:id="@+id/errorPasswordMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:visibility="visible" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-            android:id="@+id/layoutBorder"
-            style="@style/BorderTitleStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:title="@string/security_code">
-
-            <LinearLayout
-                style="@style/BorderLayoutContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!--<TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="Coloque la su yema del dedo en el botón de Inicio para verificar su identidad \n \n  O"
-                    android:id="@+id/textView2"
-                    />-->
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/seleccionaGenero"
-                    style="@style/generic_text_style_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/access_code_text" />
-
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editPassword"
-                    style="@style/GenericCustomValidationEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    app:formato="password"
-                    app:hintText="@string/password"
-                    app:isSingleLine="true"
-                    app:maxLength="50" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/asignar_edittext"
-                    android:layout_width="1px"
-                    android:layout_height="1px"
-                    android:layout_marginTop="3dp"
-                    android:inputType="numberPassword" />
-
-                <include
-                    android:id="@+id/customkeyboard"
-                    layout="@layout/login_fragment_passwordedittext_custom"
-                    android:visibility="gone" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorPasswordMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:visibility="visible" />
-
-            </LinearLayout>
-
-        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
-            android:id="@+id/keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_above="@+id/relativeAd"
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnGenerateCode"
+            style="@style/buttonSquareRoundedBlue"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:keyBackground="@drawable/material_key_drawable"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/layoutBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/btn_navigation_bottom">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnGenerateCode"
-                style="@style/buttonSquareRoundedBlue"
-                android:gravity="center"
-                android:text="@string/generate" />
-        </LinearLayout>
-
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:text="@string/generate" />
     </RelativeLayout>
+
+
 </LinearLayout>

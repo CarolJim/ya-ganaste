@@ -91,8 +91,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.txtVersionApp)
     TextView txtVersionApp;
 
-    @BindView(R.id.scrollView)
-    ScrollView scrollView;
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -250,7 +248,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 if (hasFocus) {
                     edtUserName.imageViewIsGone(true);
                 } else {
-                    scrollView.smoothScrollTo(0, 0);
                     if (edtUserName.getText().isEmpty() || !edtUserName.isValidText()) {
                         edtUserName.setIsInvalid();
                     } else if (edtUserName.isValidText()) {
