@@ -81,7 +81,7 @@
                     android:gravity="center_vertical"
                     android:textColorHint="@color/texthint"
                     app:passwordToggleTint="@color/hint_color"
-                    android:hint="@string/datos_personal_paterno"
+                    android:hint="@string/correo_electronico_confirm"
                     android:theme="@style/TextLabel"
                     android:paddingLeft="17dp"
                     android:maxLines="1"
@@ -123,8 +123,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:singleLine="true"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textPassword|number"
+                        android:password="true"
                         android:imeOptions="actionNext"
+                        android:maxLength="6"
                         android:textColor="@color/texthint"
                         android:background="@android:color/transparent"/>
 
@@ -152,11 +154,13 @@
                         android:id="@+id/edit_passwordconfirm"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword|number"
+                        android:password="true"
                         android:singleLine="true"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
                         android:textColor="@color/texthint"
-                        android:background="@android:color/transparent"/>
+                        android:maxLength="6" />
 
                 </android.support.design.widget.TextInputLayout>
 
