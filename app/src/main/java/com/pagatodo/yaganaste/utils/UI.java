@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.utils.customviews.CustomDocumentsErrorDialog;
@@ -171,8 +173,9 @@ public class UI {
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }
+
     public static void createCustomDialogSMS(String title, String message, FragmentManager fragmentManager, String tag,
-                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+                                             DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message,
                 title, message, true, true);
 
@@ -197,22 +200,22 @@ public class UI {
     }
 
     public static void createCustomDialogCancelacionCobro(String title, String message, FragmentManager fragmentManager, String tag,
-                                                    DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+                                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_cancelar_cobro_message,
                 title, message, true, false);
 
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
-       // customErrorDialog.setTitleBtnCancel(btnCancelar);
+        // customErrorDialog.setTitleBtnCancel(btnCancelar);
 
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }
+
     public static CustomErrorDialog createCustomDialogGeneraciondeCodigo(String title, String message, FragmentManager fragmentManager, String tag,
-                                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+                                                                         DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_generar_codigo_huella_digital,
                 title, message, true, false);
-
 
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
@@ -224,7 +227,7 @@ public class UI {
     }
 
     public static CustomErrorDialog createCustomDialogIraConfiguracion(String title, String message, FragmentManager fragmentManager, String tag,
-                                                                         DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+                                                                       DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_generar_codigo_huella_digital,
                 title, message, true, true);
 
@@ -237,12 +240,8 @@ public class UI {
     }
 
 
-
-
-
-
-    public static void createCustomDialogCardHome(String title, String message,String nombre,String cuenta, FragmentManager fragmentManager, String tag,
-                                                    DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+    public static void createCustomDialogCardHome(String title, String message, String nombre, String cuenta, FragmentManager fragmentManager, String tag,
+                                                  DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_block_card,
                 title, message, false, false);
 
@@ -254,6 +253,7 @@ public class UI {
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }
+
     public static void createSimpleCustomDialogNoCancel(String title, String message,
                                                         FragmentManager fragmentManager, final DialogDoubleActions actions) {
         createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
@@ -310,5 +310,12 @@ public class UI {
         customErrorDialog.setCancelable(true);
         customErrorDialog.setTitleBtnAcept(titleBtnAcept);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
+    }
+
+    public static void showErrorSnackBar(Activity rootView, String message) {
+        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        view.setBackgroundColor(App.getContext().getResources().getColor(R.color.redColorTransparent));
+        snack.show();
     }
 }

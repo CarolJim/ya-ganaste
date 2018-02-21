@@ -32,16 +32,16 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -135,7 +135,11 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         txtSendSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                continuePayment();
+                if (Utils.isDeviceOnline()) {
+                    continuePayment();
+                } else {
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access));
+                }
             }
         });
     }
@@ -185,7 +189,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
-            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+            nextScreen(EVENT_GO_MAINTAB, null);
         } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
@@ -199,12 +203,12 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
     @Override
     public void finishReseting() {
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_GO_MAINTAB, null);
     }
 
     @Override
     public void onResetingFailed() {
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_GO_MAINTAB, null);
     }
 
 
