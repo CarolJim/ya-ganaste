@@ -47,14 +47,121 @@
                     android:textSize="14sp"
                     app:tipo="Titulo" />
 
-                <ListView
-                    android:id="@+id/list_view_datos_usuario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="300dp"
-                    android:layout_below="@id/textView2"
-                    >
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/correo_electronico"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
 
-                </ListView>
+                    <EditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:textColor="@color/texthint" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_emailconfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/datos_personal_paterno"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_emailconfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:singleLine="true"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/texthint"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/contrasena"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:singleLine="true"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/texthint"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_passwordconfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/texthint"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/hint_color"
+                    android:hint="@string/contrasena_confirma"
+                    android:theme="@style/TextLabel"
+                    android:paddingLeft="17dp"
+                    android:maxLines="1"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_passwordconfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:singleLine="true"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:textColor="@color/texthint"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtitEmail"

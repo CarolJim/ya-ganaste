@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -87,11 +88,27 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.radioBtnMale)
     RadioButton radioBtnMale;
     @BindView(R.id.editNames)
-    CustomValidationEditText editNames;
+    CustomValidationEditText editNamesold;
+    @BindView(R.id.edit_nombre)
+    EditText editNames;
+
+
     @BindView(R.id.editFirstLastName)
-    CustomValidationEditText editFirstLastName;
+    CustomValidationEditText editFirstLastNameold;
+    @BindView(R.id.edit_appater)
+    EditText editFirstLastName;
+
+
+
+
+
     @BindView(R.id.editSecoundLastName)
-    CustomValidationEditText editSecoundLastName;
+    CustomValidationEditText editSecoundLastNameold;
+    @BindView(R.id.edit_apmaterno)
+    EditText editSecoundLastName;
+
+
+
     @BindView(R.id.editBirthDay)
     CustomValidationEditText editBirthDay;
     @BindView(R.id.spinnerBirthPlace)
@@ -125,6 +142,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @BindView(R.id.seleccionaGenero)
     StyleTextView seleccionaGenero;
+
+
+
+
 
     StatesSpinnerAdapter adapterBirthPlace;
     StatesSpinnerAdapter adaptergenero;
@@ -259,8 +280,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
 
-        editSecoundLastName.getEditText().setImeOptions(IME_ACTION_DONE);
-        editSecoundLastName.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        editSecoundLastName.setImeOptions(IME_ACTION_DONE);
+        editSecoundLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == IME_ACTION_DONE) {
@@ -369,18 +390,19 @@ public class DatosPersonalesFragment extends GenericFragment implements
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editNames.getId());
-                    editNames.imageViewIsGone(true);
+                  //  editNames.imageViewIsGone(true);
                 } else {
-                    if (editNames.getText().isEmpty()) {
+                    if (editNames.getText().toString().isEmpty()) {
                         showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
-                        editNames.setIsInvalid();
+                    //    editNames.setIsInvalid();
                     } else {
                         hideValidationError(editNames.getId());
-                        editNames.setIsValid();
+                        //editNames.setIsValid();
                     }
                 }
             }
         });
+        /*
 
         editNames.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
@@ -389,24 +411,26 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 editNames.imageViewIsGone(true);
             }
         });
+        */
 
         editFirstLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editFirstLastName.getId());
-                    editFirstLastName.imageViewIsGone(true);
+               //     editFirstLastName.imageViewIsGone(true);
                 } else {
-                    if (editFirstLastName.getText().isEmpty()) {
+                    if (editFirstLastName.getText().toString().isEmpty()) {
                         showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
-                        editFirstLastName.setIsInvalid();
+                 //       editFirstLastName.setIsInvalid();
                     } else {
                         hideValidationError(editFirstLastName.getId());
-                        editFirstLastName.setIsValid();
+                   //     editFirstLastName.setIsValid();
                     }
                 }
             }
         });
+        /*
 
         editFirstLastName.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
@@ -415,7 +439,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 editFirstLastName.imageViewIsGone(true);
             }
         });
-
+            */
 
     }
 
@@ -432,12 +456,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
         if (nombre.isEmpty()) {
             showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
-            editNames.setIsInvalid();
+          //  editNames.setIsInvalid();
             isValid = false;
         }
         if (apPaterno.isEmpty()) {
             showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
-            editFirstLastName.setIsInvalid();
+          //  editFirstLastName.setIsInvalid();
             isValid = false;
         }
 
@@ -612,14 +636,15 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void getDataForm() {
-        //genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
-        nombre = editNames.getText();
-        apPaterno = editFirstLastName.getText();
-        apMaterno = editSecoundLastName.getText();
+        genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
+        nombre = editNames.getText().toString();
+        apPaterno = editFirstLastName.getText().toString();
+        apMaterno = editSecoundLastName.getText().toString();
+      /*
         if (spinnergenero.getSelectedItemPosition() != 0) {
             genero =spinnergenero.getSelectedItemPosition() == 1 ?"H":spinnergenero.getSelectedItemPosition() == 2? "M":"";
         }
-
+        */
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
@@ -630,9 +655,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private void setCurrentData() {
         RegisterUser registerUser = RegisterUser.getInstance();
         if (registerUser.getGenero().equals("H")) {
-            spinnergenero.setSelection(1);
+            radioBtnMale.setChecked(true);
+            radioBtnMale.setBackgroundResource(R.drawable.ico_maleb);
         } else if (registerUser.getGenero().equals("M")) {
-            spinnergenero.setSelection(2);
+            radioBtnFemale.setChecked(true);
+            radioBtnFemale.setBackgroundResource(R.drawable.ico_femaleb);
         }
 
         editNames.setText(registerUser.getNombre());
