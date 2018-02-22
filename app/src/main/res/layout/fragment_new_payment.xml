@@ -8,12 +8,12 @@
     tools:context="com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment">
 
     <LinearLayout
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12.5dp"
         android:layout_marginRight="12dp"
-        android:layout_marginBottom="13.5dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -26,9 +26,39 @@
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/btnSwitch"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/SwitchCompatStyle"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:background="#fbfbfb"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                android:id="@+id/radiobutton_no"
+                style="@style/RadioButtonFavorites"
+                android:layout_width="45dp"
+                android:layout_height="25dp"
+                android:checked="true"
+                android:text="No"/>
+
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                android:id="@+id/radiobutton_si"
+                style="@style/RadioButtonFavorites"
+                android:layout_width="45dp"
+                android:layout_height="25dp"
+                android:checked="false"
+                android:text="Sí"/>
+        </RadioGroup>
     </LinearLayout>
 
     <ScrollView
@@ -58,9 +88,10 @@
                         android:layout_height="wrap_content">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:layout_width="match_parent"
+                           android:id="@+id/newpayment_recarga_tv" android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="15.5dp"
+                            android:textSize="14sp"
                             android:gravity="center"
                             android:text="@string/btn_recharge_txt"
                             android:textColor="@color/colorTituloDialog" />
@@ -69,7 +100,7 @@
                             android:id="@+id/fragment_newpayment_editar_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10.5dp"
+                            android:layout_marginTop="13.5dp"
                             android:layout_marginRight="8.5dp"
                             android:paddingRight="10dp"
                             android:paddingLeft="10dp"
@@ -134,7 +165,7 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/newpayment_pds_tv"      android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:gravity="center"
                             android:text="@string/btn_payment_txt"

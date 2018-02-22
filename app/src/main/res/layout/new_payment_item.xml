@@ -65,14 +65,14 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/grid_text"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:textColor="@color/texthint"
-        android:textSize="12sp"
-        tools:text="Nombre Contacto largo"></TextView>
+        android:textSize="11sp"
+        tools:text="Nombre Contacto largo" />
 
 </LinearLayout>

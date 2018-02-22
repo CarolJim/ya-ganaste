@@ -293,6 +293,14 @@
         <item name="android:textColor">@drawable/text_radiobutton</item>
     </style>
 
+    <style name="RadioButtonFavorites" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/backgraund_radiobutton_favorites</item>
+        <item name="android:textColor">@drawable/text_radiobutton</item>
+    </style>
+
 
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
 

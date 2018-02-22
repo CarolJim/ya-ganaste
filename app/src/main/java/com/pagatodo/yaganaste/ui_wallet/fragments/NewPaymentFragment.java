@@ -36,7 +36,9 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomRadioButton;
 import com.pagatodo.yaganaste.utils.customviews.NewListFavoriteDialog;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,6 +70,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     GridView gvServicios;
     @BindView(R.id.btnSwitch)
     SwitchCompat btnSwitch;
+    @BindView(R.id.newpayment_recarga_tv)
+    StyleTextView recargaTittle;
+    @BindView(R.id.newpayment_pds_tv)
+    StyleTextView pdsTittle;
+    @BindView(R.id.radiobutton_no)
+    CustomRadioButton radiobutton_no;
+    @BindView(R.id.radiobutton_si)
+    CustomRadioButton radiobutton_si;
     @BindView(R.id.tvErrorRecargas)
     TextView errorRecargas;
     @BindView(R.id.tvErrorServicios)
@@ -165,6 +175,31 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         newPaymentPresenter = new NewPaymentPresenter(this, App.getContext());
 
         typeView = TYPE_CARRIER;
+        radiobutton_si.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    boolean isOnline = Utils.isDeviceOnline();
+                    if (isOnline) {
+                        updateFavorites();
+                    } else {
+                        //btnSwitch.setChecked(false);
+                        radiobutton_no.setChecked(true);
+                        createSimpleCustomDialog("", getResources().getString(R.string.no_internet_access), 0);
+                    }
+                }
+            }
+        });
+
+        radiobutton_no.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    updateCarriers();
+                }
+            }
+        });
+
         btnSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -181,31 +216,31 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                 }
             }
         });
-
     }
 
     // Agregamos Listener para hacer Click en editar para recargas
     @OnClick(R.id.fragment_newpayment_editar_textview)
     public void submit(View view) {
-        if(isEditable){
+        if (isEditable) {
             tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
             isEditable = false;
             adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
-        }else{
+        } else {
             tvEditarFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
             isEditable = true;
             adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
         }
 
     }
+
     // Agregamos Listener para hacer Click en editar para Pagar
     @OnClick(R.id.newpayment_pagar_editar_tv)
     public void editarPDS(View view) {
-        if(isPDSEditable){
+        if (isPDSEditable) {
             tvPDSEditFav.setTextColor(getResources().getColor(R.color.texthint));
             isPDSEditable = false;
             adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 1);
-        }else{
+        } else {
             tvPDSEditFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
             isPDSEditable = true;
             adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 2);
@@ -250,6 +285,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mPagarGrid.clear();
         // Reiniciamos el Switch a false
         btnSwitch.setChecked(false);
+        radiobutton_no.setChecked(true);
 
         /**
          * Ocultamos los RV de favoritos y mostramos los GV de Carriers
@@ -266,6 +302,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         // Ocultamos el boton para editar favoritos
         tvEditarFav.setVisibility(View.GONE);
         tvPDSEditFav.setVisibility(View.GONE);
+
+        // Cambiamos los titulos de las CardView
+        recargaTittle.setText("" + getResources().getString(R.string.btn_recharge_txt));
+        pdsTittle.setText("" + getResources().getString(R.string.btn_payment_txt));
     }
 
     private void updateFavorites() {
@@ -273,12 +313,18 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         // onEventListener.onEvent("DISABLE_BACK", true);
         mRecargarGrid.clear();
         mPagarGrid.clear();
+        mDataRecargarFav.clear();
+        mDataPagarFav.clear();
         newPaymentPresenter.getFavoritesItems(PAYMENT_RECARGAS);
         //newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
 
         // Mostramos el boton para editar favoritos
         tvEditarFav.setVisibility(View.VISIBLE);
         tvPDSEditFav.setVisibility(View.VISIBLE);
+
+        // Cambiamos los titulos de las CardView
+        recargaTittle.setText("" + getResources().getString(R.string.btn_recharge_favorites_txt));
+        pdsTittle.setText("" + getResources().getString(R.string.btn_payment_favorites_txt));
     }
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
@@ -386,13 +432,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             mDataRecargarFav = dataFavoritos;
             mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
 
-             adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
+            adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
                     mRVRecargas, gvRecargas);
 
             adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
             mFullListaRecar = adapterPagosClass.getmFullListaFav();
 
         } else if (typeDataFav == 2) {
+
             mDataPagarFav = dataFavoritos;
             mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
 
@@ -506,7 +553,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             }
 
 
-
             /**
              * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
              * finalList
@@ -529,7 +575,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
             case ITEM_CARRIER_RECARGA:
                 if (mDataRecargar != null) {
                     if (mDataRecargar.get(position).getNombreComercio().equals("Buscar")) {
-                       // Iniciamos la actividad de busquedas, pasando el arreglo de mDataRecargar
+                        // Iniciamos la actividad de busquedas, pasando el arreglo de mDataRecargar
                         Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
                         intent.putExtra(SEARCH_DATA, (Serializable) mDataRecargar);
                         intent.putExtra(SEARCH_IS_RELOAD, true);
@@ -719,6 +765,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         onEventListener.onEvent("DISABLE_BACK", false);
 
         btnSwitch.setChecked(false);
+        radiobutton_no.setChecked(true);
         updateCarriers();
         createSimpleCustomDialog("", error.getData().toString(), 0);
     }
@@ -730,6 +777,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
 
         btnSwitch.setChecked(false);
+        radiobutton_no.setChecked(true);
         updateCarriers();
         createSimpleCustomDialog("", "Error en Consulta. Intente de Nuevo", 0);
     }
@@ -739,4 +787,6 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         super.onDestroy();
         typeView = TYPE_CARRIER;
     }
+
+
 }

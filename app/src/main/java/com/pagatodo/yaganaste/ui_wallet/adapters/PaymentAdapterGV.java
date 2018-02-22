@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                 imageCircleCenter.setBackground(gd);
 
                 // Validacion para cambiar Strings por texto especifico ejemplo IAVE a Pase Urbano
-                TextView textView = (TextView) grid.findViewById(R.id.grid_text);
+                StyleTextView textView =  grid.findViewById(R.id.grid_text);
                 if (myDataset.get(position).getName().equals("IAVE/Pase Urbano")) {
                     textView.setText("Tag");
                 } else if (myDataset.get(position).getName().equals("Telcel Datos")) {
@@ -173,7 +174,7 @@ public class PaymentAdapterGV extends BaseAdapter {
 
 
                 // Validacion para cambiar IAVE a Pase Urbano
-                TextView textView = (TextView) grid.findViewById(R.id.grid_text);
+                StyleTextView textView = grid.findViewById(R.id.grid_text);
                 textView.setText("" + myDataset.get(position).getName());
 
                 String urlImage = myDataset.get(position).getUrlLogo();
