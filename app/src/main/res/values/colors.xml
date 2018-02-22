@@ -47,6 +47,7 @@
     <color name="colorAccentTransparent">#8000a1e1</color>
     <color name="greenColorPositiveMovements">#00E000</color>
     <color name="redColorNegativeMovements">#FF2A5B</color>
+    <color name="redGreenTransparent">#b322af48</color>
     <!--   <color name="backgroundEditText">#445C6C</color>  -->
     <color name="backgroundEditText">#445C6C</color>
     <color name="colorGrayMenuDivider">#374149</color>

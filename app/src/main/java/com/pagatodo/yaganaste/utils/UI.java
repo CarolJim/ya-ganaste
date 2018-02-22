@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -315,7 +317,20 @@ public class UI {
     public static void showErrorSnackBar(Activity rootView, String message) {
         Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, Snackbar.LENGTH_LONG);
         View view = snack.getView();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+        params.gravity = Gravity.BOTTOM;
+        view.setLayoutParams(params);
         view.setBackgroundColor(App.getContext().getResources().getColor(R.color.redColorTransparent));
+        snack.show();
+    }
+
+    public static void showSuccessSnackBar(Activity rootView, String message) {
+        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+        params.gravity = Gravity.BOTTOM;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(App.getContext().getResources().getColor(R.color.redGreenTransparent));
         snack.show();
     }
 }
