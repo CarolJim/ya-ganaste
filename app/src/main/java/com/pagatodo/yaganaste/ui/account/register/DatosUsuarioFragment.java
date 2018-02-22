@@ -50,6 +50,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private Preferencias prefs = App.getInstance().getPrefs();
     private static int MIN_LENGHT_VALIDATION_PASS = 8;
     private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
+    /*
     @BindView(R.id.edtitEmail)
     CustomValidationEditText editMaildos;
     @BindView(R.id.edtitConfirmEmail)
@@ -58,6 +59,17 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     CustomValidationEditText editPassworddos;
     @BindView(R.id.editPasswordConfirmation)
     CustomValidationEditText editPasswordConfirmdos;
+*/
+
+    @BindView(R.id.edit_email)
+    EditText editMail;
+    @BindView(R.id.edit_emailconfirm)
+    EditText edtitConfirmEmail;
+    @BindView(R.id.edit_password)
+    EditText editPassword;
+    @BindView(R.id.edit_passwordconfirm)
+    EditText editPasswordConfirm;
+
 
     @BindView(R.id.btnNextDatosUsuario)
     StyleButton btnNextDatosUsuario;
@@ -93,15 +105,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
      * Datos del la lista y adaptador
      */
     private InputTexAdapter adapter;
-
-
-    EditText editMail;
-    EditText edtitConfirmEmail;
-    EditText editPassword;
-    EditText editPasswordConfirm;
-
-
-
 
     public DatosUsuarioFragment() {
     }
@@ -143,11 +146,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
          *
          */
 
-        editMail=(EditText)adapter.getView(0,rootview,null).findViewById(R.id.editTextpass);
-        edtitConfirmEmail=(EditText)adapter.getView(1,rootview,null).findViewById(R.id.editTextpass);
-        editPassword=(EditText)adapter.getView(2,rootview,null).findViewById(R.id.editTextpass);
-        editPasswordConfirm=(EditText)adapter.getView(3,rootview,null).findViewById(R.id.editTextpass);
-
         errorConfirmPasswordMessage.setVisibilityImageError(false);
         errorPasswordMessage.setVisibilityImageError(false);
         errorConfirmaMailMessage.setVisibilityImageError(false);
@@ -174,8 +172,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnNextDatosUsuario) {
-            //validateForm();
-            nextScreen(EVENT_PERSONAL_DATA, null);//Mostramos la siguiente pantalla de registro.
+            validateForm();
+            //nextScreen(EVENT_PERSONAL_DATA, null);//Mostramos la siguiente pantalla de registro.
         } else if (view.getId() == R.id.btnBackDatosUsuario) {
             getActivity().onBackPressed();
         }
@@ -195,14 +193,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public void setValidationRules() {
 
 
-
-
-
-
-
-
-
-
         editMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -213,6 +203,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     if (!UtilsNet.isOnline(getActivity())) {
                      //   editMail.setIsInvalid();
                         showValidationError(editMail.getId(), getString(R.string.no_internet_access));
+                        
                     }else if (editMail.getText().toString().isEmpty()) {
                        // editMail.setIsInvalid();
                         showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
@@ -374,7 +365,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         //Validate if Email exist
         if (userExist) {
-            showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_existe));
+         //   showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_existe));
+            Toast.makeText(getActivity(), getString(R.string.datos_usuario_correo_existe), Toast.LENGTH_SHORT).show();
          //   editPasswordConfirm.setIsInvalid();
             isValid = false;
             //return;

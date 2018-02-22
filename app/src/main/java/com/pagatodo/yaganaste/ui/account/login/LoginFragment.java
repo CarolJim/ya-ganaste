@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -192,7 +191,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (UtilsNet.isOnline(getActivity())) {
             validateForm();
         } else {
-            UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access));
         }
     }
 
@@ -219,22 +218,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void showError(Object error) {
         if (!dialogErrorShown) {
-            dialogErrorShown = true;
-            UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
-                    error.toString(), getFragmentManager(), new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-                            edtUserName.clearFocus();
-                            edtUserPass.clearFocus();
-                            edtUserPass.setText("");
-                            password = "";
-                            dialogErrorShown = false;
-                        }
-
-                        @Override
-                        public void actionCancel(Object... params) {
-                        }
-                    });
+            dialogErrorShown = false;
+            UI.showErrorSnackBar(getActivity(), error.toString());
+            edtUserName.clearFocus();
+            edtUserPass.clearFocus();
+            edtUserPass.setText("");
+            password = "";
         }
         setEnableViews(true);
     }

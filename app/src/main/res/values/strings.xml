@@ -263,7 +263,7 @@
     <string name="text_insert_or_slide">Inserta o Desliza tu Tarjeta</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o Desliza la tarjeta</string>
-    <string name="no_internet_access">Verifica Que Cuentes Con Conexión a Internet</string>
+    <string name="no_internet_access">Verifica que cuentes con conexión a internet</string>
     <string name="no_internet_accessnuevo">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salió Mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG </string>
@@ -324,7 +324,7 @@
     <string name="new_password">Nueva Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
-    <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
+    <string name="datos_usuario_correo">El correo no es correcto, revísalo y vuelve a intentar.</string>
     <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide</string>
@@ -432,8 +432,8 @@
     <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
     <string name="datos_negocio_preguntas">Debes Contestar Todas Las Preguntas</string>
     <!--Server problem-->
-    <string name="message_generic_ws">Ocurrió un Error de Conexión</string>
-    <string name="message_generic_wsnuevo">Ocurrió un Error de Conexión al Intentar Realizar la Operación</string>
+    <string name="message_generic_ws">Ocurrió un error de conexión</string>
+    <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Wallet</string>
@@ -473,8 +473,7 @@
     <string name="adq_aproved">Aprobada</string>
     <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta</string>
     <string name="adq_error_signature">No se ha Capturado Una Firma</string>
-
-    <string name="usuario_no_existe">Este Correo no se Encuentra Registrado</string>
+    <string name="usuario_no_existe">Este correo no se encuentra registrado</string>
 
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
@@ -762,8 +761,8 @@
     <string name="desea_cerrar_sesion">¿Desea Realmente Cerrar Sesión?</string>
     <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
-    <string name="password_required">Contraseña Requerida, Verifique su Información</string>
-    <string name="password_required_seis">Contraseña Requerida a 6 Digitos, Verifique su Información</string>
+    <string name="password_required">La contraseña no es correcta, revísala y vuelve a intentar.</string>
+    <string name="password_required_seis">La contraseña no es correcta, revísala y vuelve a intentar.</string>
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>

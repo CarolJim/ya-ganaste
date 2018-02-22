@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -23,7 +22,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -284,22 +282,12 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordSuccess(String message) {
-        UI.createSimpleCustomDialog("", message, getFragmentManager(), new DialogDoubleActions() {
-            @Override
-            public void actionConfirm(Object... params) {
-                backScreen(null, null);
-            }
-
-            @Override
-            public void actionCancel(Object... params) {
-
-            }
-        }, true, false);
+        UI.showSuccessSnackBar(getActivity(), message);
     }
 
     @Override
     public void recoveryPasswordFailed(String message) {
-        UI.createSimpleCustomDialog("", message, getFragmentManager(), CustomErrorDialog.TAG);
+        UI.showErrorSnackBar(getActivity(), message);
         setEnableViews(true);
     }
 
