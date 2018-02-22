@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
@@ -53,8 +54,10 @@ import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
 
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
+    public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91;
+    public static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
 
 
     @BindView(R.id.toolbar_wallet)
@@ -262,6 +265,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_NIP_CHANGE:
                 loadFragment(MyChangeNip.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_CARD_REPORT:
+                loadFragment(MyCardReportaTarjetaFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
                 break;
         }
     }

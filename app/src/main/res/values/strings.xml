@@ -767,16 +767,16 @@
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>
-    <string name="datos_depsito_numero_celular">N° Celular </string>
-    <string name="datos_deposito_titular">Titular </string>
-    <string name="datos_deposito_num_card">N° Tarjeta </string>
-    <string name="datos_deposito_clabe">CLABE </string>
+    <string name="datos_depsito_numero_celular">Teléfono</string>
+    <string name="datos_deposito_titular">Titular</string>
+    <string name="datos_deposito_num_card">Tarjeta</string>
+    <string name="datos_deposito_clabe">CLABE</string>
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
 
-    <string name="string_share_deposits">¡Hola! Estos son los datos de depósito de mi cuenta ya ganaste
-        \nTitular: %1$s\nN° Celular: %2$s\nCLABE: %3$s\nN° Tarjeta: %4$s</string>
+    <string name="string_share_deposits">¡Hola!\nEstos son los datos de depósito de mi cuenta Ya Ganaste\n
+        \nTitular: %1$s\nN° Teléfono: %2$s\nCLABE: %3$s\nTarjeta: %4$s</string>
 
 
     <!-- Landing -->
@@ -824,7 +824,7 @@
     <string name="enviar_email">Enviar Mail</string>
     <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
     <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
-    <string name="comunicate_reporta">Comunícate Con Nosotros Para\nAyudarte Con la Reposición de tu Tarjeta\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
+    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue robada o la\nextraviaste, repórtala para desactivarla y\nbrindarte una nueva\n\nPonte en contacto con nosotros</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>
@@ -1159,7 +1159,7 @@
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
-    <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
+    <string name="bloquear_tarjeta">Bloquear tarjeta</string>
     <string name="desbloquear_tarjeta">Desbloquear\nTarjeta</string>
     <string name="generar_codigo">Generar\ncódigo</string>
     <string name="realizar_cobro">Realizar\ncobro</string>
@@ -1175,7 +1175,8 @@
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
     <string name="generate_code_subtitle">Con él podrás autorizar movimientos desde la\nweb. Ingresa tu contraseña para generarlo.</string>
-
+    <string name="olvidaste_nip">¿Olvidaste tu NIP?\nLlámanos, podemos ayudarte</string>
+    <string name="numero"><u>01800-500-1000</u></string>
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
     <string name="confirma_nueva_contrasena">Confirma tu Contraseña</string>

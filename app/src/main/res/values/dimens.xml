@@ -221,7 +221,7 @@
     <dimen name="profile_image_cirle">61dp</dimen>
 
     <dimen name="fragment_pading">15dp</dimen>
-    <dimen name="fragment_title_buttom_margin">20dp</dimen>
+    <dimen name="fragment_title_buttom_margin">14dp</dimen>
 
 
 </resources>

@@ -5,7 +5,9 @@
     -->
     <color name="colorTituloDialog">#00a1e1</color>
     <color name="texthint">#adadad</color>
+    <color name="texthint_edittext">#7a7c7d</color>
     <color name="adadad">#adadad</color>
+    <color name="backgraund_wallet">#fbfbfb</color>
 
     <color name="colorPrimaryDark">#008cc4</color>
     <color name="black">#000000</color>

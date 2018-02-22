@@ -7,12 +7,12 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/textView2"
-        style="@style/generic_text_style_2"
+        style="@style/title_fragment"
+        android:textColor="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/title_fragment_nip"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/title_fragment_nip" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,49 +105,46 @@
         android:id="@+id/content_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
-    <ListView
-        android:id="@+id/list_view_nip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@id/textView2"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"
-        android:padding="20dp"
-        android:visibility="gone">
-
-    </ListView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/fragment_myemail_btn"
-            style="@style/buttonSquareRoundedBlue"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:gravity="center"
-            android:text="@string/confrimacion" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
-            android:id="@+id/keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_above="@+id/relativeAd"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:keyBackground="@drawable/material_key_drawable"
-            android:visibility="gone" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
     </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/olvidaste_nip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/generic_text_style_5"
+        android:textColor="@color/texthint"
+        android:text="@string/olvidaste_nip"
+        android:layout_below="@id/content_linearlayout"
+        android:layout_marginTop="32dp"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/call_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/generic_text_style_2"
+        android:text="@string/numero"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/olvidaste_nip"/>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/fragment_myemail_btn"
+        style="@style/buttonSquareRoundedBlue"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="center"
+        android:text="@string/confrimacion" />
+
+
+
 
 
 </RelativeLayout>

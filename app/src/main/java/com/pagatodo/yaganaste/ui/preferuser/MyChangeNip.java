@@ -1,10 +1,14 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
+import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -25,16 +30,21 @@ import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
+import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
+import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +52,8 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.MY_PERMISSIONS_REQUEST_PHONE;
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,8 +64,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         IChangeNIPView {
 
     private static int PIN_LENGHT = 4;
-    @BindView(R.id.keyboard_view)
-    CustomKeyboardView keyboardView;
+
     @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
     @BindView(R.id.asignar_edittext2)
@@ -75,8 +86,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @BindView(R.id.errorNewNipConfirmMessage)
     ErrorMessage errorNewNipConfirm;
 
-    @BindView(R.id.list_view_nip)
-    ListView listView;
+    @BindView(R.id.call_phone)
+    TextView call_phone;
 
 
     TextView tv1Num;
@@ -106,8 +117,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     private AccountPresenterNew accountPresenter;
     boolean isValid;
     public final static String EVENT_GO_CHANGE_NIP_SUCCESS = "EVENT_GO_CHANGE_NIP_SUCCESS";
-    private InputTexAdapter adapter;
-
 
     private ViewGroup mLinearLayout;
 
@@ -131,20 +140,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     }
 
-    private void addLayout() {
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.adapter_input_text, mLinearLayout, false);
 
-        TextInputLayout inputLayout = layout.findViewById(R.id.passwordnew);
-/*
-        Button button1 = (Button) layout2.findViewById(R.id.button2);
-        Button button2 = (Button) layout2.findViewById(R.id.button3);
-
-        textView1.setText(textViewText);
-        button1.setText(buttonText1);
-        button2.setText(buttonText2);
-*/
-        mLinearLayout.addView(layout);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -160,18 +156,36 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
         mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
-        addLayout();
+
+
+        ArrayList<InputText.ViewHolderInputText> list = ContainerBuilder.NIP(getContext(),mLinearLayout);
+        InputText.ViewHolderInputText viewNip = list.get(0);
+        InputText.ViewHolderInputText viewNuevoNip = list.get(1);
+        InputText.ViewHolderInputText viewConfirmarNuevoNip = list.get(2);
+
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
     }
 
+    /*private void addLayout() {
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.adapter_input_text, mLinearLayout, false);
+
+        TextInputLayout inputLayout = layout.findViewById(R.id.passwordnew);
+
+        mLinearLayout.addView(layout);
+    }*/
+
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        adapter = ContainerBuilder.NIP(getContext());
-        listView.setAdapter(adapter);
 
+        call_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createCallIntent();
+            }
+        });
         finishBtn.setOnClickListener(this);
 
         backgroundGrey = getContext().getResources()
@@ -179,9 +193,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
         backgroundRed = getContext().getResources()
                 .getDrawable(R.drawable.rounded_border_red_edittext);
-
-        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip_tarjeta);
-        keyboardView.setPreviewEnabled(false);
 
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_nip1_contol);
         layout_control2 = (LinearLayout) rootview.findViewById(R.id.asignar_nip2_contol);
@@ -234,7 +245,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 if (s.toString().length() == 4) {
                     //validateForm();
                     layout_control.setBackground(backgroundGrey);
-                    keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
                     validateEt1();
                 } else if (s.toString().length() == 0) {
@@ -258,7 +268,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 if (s.toString().length() == 4) {
                     //validateForm();
                     layout_control2.setBackground(backgroundGrey);
-                    keyboardView.hideCustomKeyboard();
+
                     finishBtn.setVisibility(View.VISIBLE);
                     //validateEt2();
                     validateEt1_Et2();
@@ -283,7 +293,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 if (s.toString().length() == 4) {
                     //validateForm();
                     layout_control3.setBackground(backgroundGrey);
-                    keyboardView.hideCustomKeyboard();
+
                     finishBtn.setVisibility(View.VISIBLE);
                     validateEt2_Et3();
                 } else if (s.toString().length() == 0) {
@@ -300,7 +310,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 layout_control.setBackground(backgroundRed);
                 layout_control2.setBackground(backgroundGrey);
                 layout_control3.setBackground(backgroundGrey);
-                keyboardView.showCustomKeyboard(v);
+
                 finishBtn.setVisibility(View.GONE);
             }
         });
@@ -312,7 +322,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 layout_control.setBackground(backgroundGrey);
                 layout_control2.setBackground(backgroundRed);
                 layout_control3.setBackground(backgroundGrey);
-                keyboardView.showCustomKeyboard(v);
+
                 finishBtn.setVisibility(View.GONE);
             }
         });
@@ -324,7 +334,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 layout_control.setBackground(backgroundGrey);
                 layout_control2.setBackground(backgroundGrey);
                 layout_control3.setBackground(backgroundRed);
-                keyboardView.showCustomKeyboard(v);
                 finishBtn.setVisibility(View.GONE);
             }
         });
@@ -378,11 +387,11 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     }
 
     public boolean isCustomKeyboardVisible() {
-        return keyboardView.getVisibility() == View.VISIBLE;
+        return true;
     }
 
     public void hideKeyboard() {
-        keyboardView.hideCustomKeyboard();
+
         finishBtn.setVisibility(View.VISIBLE);
         layout_control.setBackground(backgroundGrey);
         layout_control2.setBackground(backgroundGrey);
@@ -421,9 +430,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         nipNewConfirm = edtPin3.getText().toString().trim();*/
 
 
-        nip = adapter.getInpuText(0);
+        /*nip = adapter.getInpuText(0);
         nipNew = adapter.getInpuText(1);
-        nipNewConfirm = adapter.getInpuText(2);
+        nipNewConfirm = adapter.getInpuText(2);*/
     }
 
     @Override
@@ -580,5 +589,50 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                         }
                     },
                     true, false);
+    }
+
+    private void showDialogCallIntent() {
+        boolean isValid = true;
+
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.CALL_PHONE);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCall == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_PHONE);
+            isValid = false;
+        }
+
+        if(isValid){
+            UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
+                    doubleActions, true, true);
+        }
+    }
+    DialogDoubleActions doubleActions = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            createCallIntent();
+        }
+
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
+
+    private void createCallIntent() {
+        String number = getString(R.string.numero_telefono_contactanos);
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel:" + number));
+
+        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+            ValidatePermissions.checkPermissions(getActivity(), new String[]{
+                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+        } else {
+            getActivity().startActivity(callIntent);
+        }
     }
 }

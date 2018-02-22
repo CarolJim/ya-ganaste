@@ -1,5 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.pojos;
 
+import android.support.design.widget.TextInputLayout;
+import android.widget.EditText;
+
 /**
  * Created by icruz on 14/02/2018.
  */
@@ -51,5 +54,10 @@ public class InputText {
         this.hintText = hintText;
     }
 
+    public static class ViewHolderInputText {
+        public EditText editText;
+        public TextInputLayout inputLayout;
 
+
+    }
 }
