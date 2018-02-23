@@ -6,6 +6,8 @@ import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.ServiciosInteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IServiciosInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFromFragment;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IPresenterPaymentFragment;
 
 /**
  * Created by FranciscoManzo on 10/01/2018.

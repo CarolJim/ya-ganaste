@@ -120,7 +120,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void initViews() {
-        tabLayoutEmAd = (TabLayoutEmAd) rootView.findViewById(R.id.tab_em_adq);
+        tabLayoutEmAd = rootView.findViewById(R.id.tab_em_adq);
         pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
         tabLayoutEmAd.setInviteAdquirenteCallback(this);

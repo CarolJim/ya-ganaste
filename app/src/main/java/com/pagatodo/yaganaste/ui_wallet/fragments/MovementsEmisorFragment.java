@@ -13,16 +13,13 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
-import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
 import com.pagatodo.yaganaste.ui_wallet.views.MovementsEmisorView;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;

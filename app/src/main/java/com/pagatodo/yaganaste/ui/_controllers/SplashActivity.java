@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -45,14 +47,16 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
     private CatalogsDbApi api;
     private Preferencias preferencias;
     private static final String TAG = "SplashActivity";
+    public static final int SPLASH_ACTIVITY_RESULT = 0;
     boolean downloadFile = false;
+    ImageView imgLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
-
+        imgLogo = (ImageView) findViewById(R.id.img_logo_splash);
         // Codigo para mostrar el token y los datos de las notificaciones FCM. Solo necesitamos
         // acomodar el Data con valores validos
         Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken());
@@ -158,9 +162,10 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
 
     private void callNextActivity() {
         Intent intent = null;
-        /*TODO Flujo para Evitar validacions de Cuenta y Dispositivo*/
-        //intent = new Intent(SplashActivity.this, MainActivity.class);
-        //intent.putExtra(SELECTION, MAIN_SCREEN);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, imgLogo, "transition");
+        int revealX = (int) (imgLogo.getX() + (imgLogo.getWidth() - 1) / 2);
+        int revealY = (int) (imgLogo.getY() + (imgLogo.getHeight() - 1) / 2);
 
         /*TODO Descomentar para validar flujo correctamente*/
         if (ValidatePermissions.validateSIMCard(this)) {
@@ -170,10 +175,14 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             }else {*/
             intent = new Intent(SplashActivity.this, MainActivity.class);
             intent.putExtra(SELECTION, MAIN_SCREEN);
+            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
             //}
         } else {
             intent = new Intent(SplashActivity.this, MainActivity.class);
             intent.putExtra(SELECTION, NO_SIM_CARD);
+            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
+            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
         }
 
         /**
@@ -182,8 +191,8 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
          * descargar y abrir por el hilo de notificacion
          */
         if (!downloadFile) {
-            startActivity(intent);
-            SplashActivity.this.finish();
+            startActivityForResult(intent, SPLASH_ACTIVITY_RESULT, options.toBundle());
+            //SplashActivity.this.finish();
         }
 
     }
@@ -220,5 +229,13 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         startActivity(intent);
         hideLoader();
         this.finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SPLASH_ACTIVITY_RESULT && resultCode == RESULT_OK) {
+            this.finish();
+        }
     }
 }

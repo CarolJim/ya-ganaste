@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -282,12 +283,12 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordSuccess(String message) {
-        UI.showSuccessSnackBar(getActivity(), message);
+        UI.showSuccessSnackBar(getActivity(), message, Snackbar.LENGTH_LONG);
     }
 
     @Override
     public void recoveryPasswordFailed(String message) {
-        UI.showErrorSnackBar(getActivity(), message);
+        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_LONG);
         setEnableViews(true);
     }
 

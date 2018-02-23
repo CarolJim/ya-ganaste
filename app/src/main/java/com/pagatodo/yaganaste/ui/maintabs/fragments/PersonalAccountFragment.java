@@ -1,10 +1,15 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.ClipData;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
+import android.view.View;
+import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.R;
@@ -150,5 +155,37 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         );
         ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
         */
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
+            Toast.makeText(getContext(),"" + position,Toast.LENGTH_SHORT).show();
+            // get the removed item name to display it in snack bar
+            //String name = cartList.get(viewHolder.getAdapterPosition()).getName();
+
+            // backup of removed item for undo purpose
+            //final ClipData.Item deletedItem = cartList.get(viewHolder.getAdapterPosition());
+            //final int deletedIndex = viewHolder.getAdapterPosition();
+
+            // remove the item from recycler view
+            //mAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            // showing snack bar with Undo option
+            /*Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    //mAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();*/
+        } else {
+            Toast.makeText(getContext(),"" + position,Toast.LENGTH_SHORT).show();
+        }
     }
 }

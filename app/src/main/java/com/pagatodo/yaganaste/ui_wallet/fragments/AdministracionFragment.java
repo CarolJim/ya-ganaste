@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_REPORT;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
 
 /**
@@ -88,7 +89,7 @@ public class AdministracionFragment extends SupportFragment implements MenuAdapt
                 }
                 break;
             case 2:
-                loadFragment(MyCardReportaTarjetaFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                onEventListener.onEvent(EVENT_GO_CARD_REPORT,null);
                 break;
             case 3:
                 /**

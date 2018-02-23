@@ -3,6 +3,7 @@
     <dimen name="general_padding">16dp</dimen>
     <dimen name="image">50dp</dimen>
     <dimen name="row_padding">8dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_horizontal_double_margin">24dp</dimen>
@@ -205,6 +206,7 @@
 
     <dimen name="pager_dot_size">11dp</dimen>
     <dimen name="item_offset">4dp</dimen>
+    <dimen name="item_offset_mov">1dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
     <dimen name="card_padding">75dp</dimen>
     <dimen name="margin_wallet">15dp</dimen>
@@ -215,13 +217,13 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
 
     <dimen name="bar_height">140dp</dimen>
-
+    <dimen name="bar_height_medium">100dp</dimen>
 
     <!-- Balance Wallet -->
     <dimen name="profile_image_cirle">61dp</dimen>
 
     <dimen name="fragment_pading">15dp</dimen>
-    <dimen name="fragment_title_buttom_margin">20dp</dimen>
+    <dimen name="fragment_title_buttom_margin">14dp</dimen>
 
 
 </resources>

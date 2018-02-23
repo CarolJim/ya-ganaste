@@ -31,7 +31,7 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.AdapterPagosClass;
 import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterGV;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.pagatodo.yaganaste.utils.UI;

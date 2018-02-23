@@ -5,8 +5,10 @@
     -->
     <color name="colorTituloDialog">#00a1e1</color>
     <color name="texthint">#adadad</color>
+    <color name="texthint_edittext">#7a7c7d</color>
     <color name="adadad">#adadad</color>
     <color name="fbfbfb">#fbfbfb</color>
+    <color name="backgraund_wallet">#fbfbfb</color>
 
     <color name="colorPrimaryDark">#008cc4</color>
     <color name="black">#000000</color>
@@ -44,7 +46,7 @@
 
     <!-- Colores oficiales 12-07-17 -->
     <color name="colorAccent">#00A1E1</color>
-    <color name="colorAccentTransparent">#8000a1e1</color>
+    <color name="colorAccentTransparent">#df00a1e1</color>
     <color name="greenColorPositiveMovements">#00E000</color>
     <color name="redColorNegativeMovements">#FF2A5B</color>
     <color name="redGreenTransparent">#b322af48</color>
@@ -108,4 +110,5 @@
 
     <color name="item_movement">#f7f7f7</color>
     <color name="tab_movement_undselected">#95d7f1</color>
+    <color name="colr_item_movement">#e1e1e1</color>
 </resources>

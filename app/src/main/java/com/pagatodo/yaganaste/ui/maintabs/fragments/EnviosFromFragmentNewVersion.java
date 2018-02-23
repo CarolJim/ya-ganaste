@@ -64,7 +64,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouse
 import com.pagatodo.yaganaste.ui_wallet.adapters.MaterialPaletteAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.presenter.EnviosPaymentPresenter;
-import com.pagatodo.yaganaste.ui_wallet.presenter.IEnviosPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;

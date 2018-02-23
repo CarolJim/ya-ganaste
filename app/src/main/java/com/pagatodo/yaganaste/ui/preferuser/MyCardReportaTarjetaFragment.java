@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -33,49 +34,30 @@ import butterknife.ButterKnife;
 public class MyCardReportaTarjetaFragment extends GenericFragment implements View.OnClickListener {
 
     private static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
-    @BindView(R.id.textView2)
-    StyleTextView txtTitle;
+    @BindView(R.id.call_phone)
+    StyleTextView call_phone;
 
-    @BindView(R.id.ll_contactanos_llamasr)
-    LinearLayout ll_llamar1;
-
-    @BindView(R.id.ll_contactanos_correo)
-    LinearLayout ll_correo;
     View rootview;
 
     public static MyCardReportaTarjetaFragment newInstance() {
-        MyCardReportaTarjetaFragment fragmentreportatarjeta = new MyCardReportaTarjetaFragment();
-        return fragmentreportatarjeta;
+        return new MyCardReportaTarjetaFragment();
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         rootview = inflater.inflate(R.layout.fragment_my_card_reporta_tarjeta, container, false);
         initViews();
         return rootview;
 
     }
 
-
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
-            case (R.id.btnllamar):
-                showDialogCallIntent();
-                break;
-            case (R.id.ll_contactanos_llamasr):
-                showDialogCallIntent();
-                break;
-            case (R.id.imgtelefonocontactanos):
-                showDialogCallIntent();
-                break;
-            case (R.id.ll_contactanos_correo):
-                //onEventListener.onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA, 1);
-                ((TarjetaActivity) getActivity()).onSendEmail();
+            case (R.id.call_phone):
+                createCallIntent();
                 break;
         }
     }
@@ -83,10 +65,7 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals(""))
-            txtTitle.setText(getString(R.string.tarjeta_cancelada));
-        ll_llamar1.setOnClickListener(this);
-        ll_correo.setOnClickListener(this);
+        call_phone.setOnClickListener(this);
     }
 
     private void showDialogCallIntent() {

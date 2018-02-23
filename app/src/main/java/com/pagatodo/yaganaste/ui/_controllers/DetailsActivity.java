@@ -11,7 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -66,8 +68,9 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_CLOSE_ACT = "EVENT_CLOSE_ACT";
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
-    ImageView imageView;
-    ImageView imageshare;
+    //ImageView imageView;
+    //ImageView imageshare;
+    Toolbar toolbar;
     private DataMovimientoAdq dataMovimentTmp;
     private Serializable serializable;
     private Object types;
@@ -132,10 +135,14 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_em_adq);
         Bundle extras = getIntent().getExtras();
-        imageView = (ImageView) findViewById(R.id.imgNotifications);
-        imageView.setVisibility(View.GONE);
-        imageshare = (ImageView) findViewById(R.id.deposito_Share);
-        imageshare.setVisibility(View.GONE);
+        toolbar = findViewById(R.id.toolbar_wallet);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //imageView = (ImageView) findViewById(R.id.imgNotifications);
+        //imageView.setVisibility(View.GONE);
+        //imageshare = (ImageView) findViewById(R.id.deposito_Share);
+        //imageshare.setVisibility(View.GONE);
         // Se comenta esta imagen de compartir, arriba esta la de notificaciones
 
         if (extras != null && extras.getSerializable(DATA) != null
@@ -153,6 +160,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     protected void loadFragment(TYPES type, Serializable data) {
         if (type != null) {
             if (type.equals(TYPES.EMISOR)) {
+
                 loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data));
             } else if (type.equals(TYPES.ADQUIRENTE)) {
                 /**
@@ -235,23 +243,29 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
+        if (types != null) {
+            if (types.equals(TYPES.EMISOR)) {
+                //Menu Emisor
+                getMenuInflater().inflate(R.menu.menu_emisor, menu);
+                return true;
+            } else if (types.equals(TYPES.ADQUIRENTE)) {
+                //Menu Adquiriente
+                //dataMovimentTmp = (DataMovimientoAdq) data;
+                //loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data));
+                return true;
+            }
+            return true;
+        } else {
+            //throw new NullObjectExcepcion("Type is not recognized");
+            return false;
+        }
+
     }
 
-    /*        View v1 = getWindow().getDecorView().getRootView();
-          v1.setDrawingCacheEnabled(true);
-          Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-          v1.setDrawingCacheEnabled(false);
-          File carpeta = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
-          if (!carpeta.exists()) {
-              carpeta.mkdir();
-          }
-          File imageFile = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image) + "/", System.currentTimeMillis() + ".jpg");
-          FileOutputStream outputStream = new FileOutputStream(imageFile);
-          int quality = 100;
-          bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-          outputStream.flush();
-          outputStream.close();*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 
     private void takeScreenshot() {
         try {

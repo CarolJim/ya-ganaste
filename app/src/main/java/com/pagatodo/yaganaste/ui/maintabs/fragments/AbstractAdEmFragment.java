@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,8 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
+import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
+import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -43,7 +48,7 @@ import static com.pagatodo.yaganaste.R2.color.colorLoaderAlpha;
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
 
     public SwipyRefreshLayoutDirection direction;
     public static final int MOVEMENTS = 1;
@@ -122,6 +127,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerMovements.setLayoutManager(layoutManager);
         recyclerMovements.setHasFixedSize(true);
+        //recyclerMovements.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset_mov));
+        recyclerMovements.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
         movementsPresenter.getPagerData(getTab());
     }
 
@@ -187,6 +195,31 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             //txtInfoMovements.setVisibility(View.GONE);
         }*/
         recyclerMovements.setAdapter(adapter);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerMovements);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback1 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // Row is swiped from recycler view
+                // remove it from adapter
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+
+        // attaching the touch helper to recycler view
+        new ItemTouchHelper(itemTouchHelperCallback1).attachToRecyclerView(recyclerMovements);
+
+
         recyclerMovements.setVisibility(View.VISIBLE);
 
     }

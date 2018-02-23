@@ -153,6 +153,10 @@ public enum WebService {
     /* Validar version de la App */
     VALIDAR_VERSION,
     GET_FIRST_DATA_NOTIFICATION, // Lista de notificaciones del usuario
-    GET_NEXT_DATA_NOTIFICATION // Lista de notificaciones del usuario
+    GET_NEXT_DATA_NOTIFICATION, // Lista de notificaciones del usuario
+    /* Obtiene lista de tipos de reembolso */
+    GET_TYPE_REPAYMENT,
+    /* Actualiza el tipo de reembolso */
+    UPDATE_TYPE_REPAYMENT
 }
 

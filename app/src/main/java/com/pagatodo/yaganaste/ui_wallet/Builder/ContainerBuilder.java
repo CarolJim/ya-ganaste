@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.Builder;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
@@ -9,6 +11,8 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
+
+import java.util.ArrayList;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
@@ -98,6 +102,13 @@ public class ContainerBuilder {
         return new InputTexAdapter(context,s.getInputTextList(),listener);
     }
 
+    public static ArrayList<InputText.ViewHolderInputText> NIP(Context context, ViewGroup parent){
+        Container s = new Container(context);
+        s.addLayout(parent, new InputText("Nip Actual","PAS"));
+        s.addLayout(parent, new InputText("Nuevo Nip","PAS"));
+        s.addLayout(parent, new InputText("Confirma Nuevo Nip","PAS"));
+        return s.getArrayListInput();
+    }
 
 
 }

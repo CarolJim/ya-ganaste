@@ -10,12 +10,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -42,7 +44,6 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
@@ -62,11 +63,14 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     private View view;
     @BindView(R.id.txt_send_sms)
     StyleTextView txtSendSms;
+    @BindView(R.id.anim_send_sms)
+    LottieAnimationView animSendSms;
     int counterRetry = 1;
     BroadcastReceiver broadcastReceiver;
     private WebService failed;
     private AccountPresenterNew accountPresenter;
     private Preferencias preferencias;
+    private boolean showAnimation = false;
     App aplicacion;
 
     /**
@@ -77,7 +81,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         public void onReceive(Context arg0, Intent arg1) {
             switch (getResultCode()) {
                 case Activity.RESULT_OK:
-                    UI.showToastShort("Mensaje Enviado", getActivity());
+                    UI.showSuccessSnackBar(getActivity(), "Mensaje Enviado", Snackbar.LENGTH_SHORT);
 
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
@@ -131,14 +135,14 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     @Override
     public void initViews() {
         ButterKnife.bind(this, view);
-        hideLoader();
+        animSendSms.setProgress(0.5f);
         txtSendSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Utils.isDeviceOnline()) {
                     continuePayment();
                 } else {
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access));
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
                 }
             }
         });
@@ -179,7 +183,9 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
     @Override
     public void showErrorAprov(ErrorObject error) {
-        hideLoader();
+        //hideLoader();
+        animSendSms.pauseAnimation();
+        animSendSms.setProgress(0.5f);
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
@@ -234,17 +240,23 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
     @Override
     public void showLoader(String message) {
-        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+        if (!showAnimation) {
+            onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+        } else {
+            showAnimation = false;
+        }
     }
 
     @Override
     public void hideLoader() {
+        txtSendSms.setVisibility(View.VISIBLE);
+        animSendSms.pauseAnimation();
+        animSendSms.setProgress(0.5f);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
     public void showError(final Object error) {
-
         if (error != null && !error.toString().isEmpty()) {
             //  UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
@@ -298,10 +310,13 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             public void onReceive(Context context, Intent intent) {
                 switch (getResultCode()) {
                     case Activity.RESULT_OK:
-                        UI.showToastShort("SMS Entregado", getActivity());
+                        //UI.showToastShort("SMS Entregado", getActivity());
+                        UI.showSuccessSnackBar(getActivity(), "SMS entregado", Snackbar.LENGTH_SHORT);
                         break;
                     case Activity.RESULT_CANCELED:
-                        UI.showToastShort("SMS No Entregado", getActivity());
+                        //UI.showToastShort("SMS No Entregado", getActivity());
+                        UI.showErrorSnackBar(getActivity(), "SMS no entregado", Snackbar.LENGTH_SHORT);
+                        txtSendSms.setVisibility(View.VISIBLE);
                         break;
                 }
                 getActivity().unregisterReceiver(this);
@@ -310,9 +325,12 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
         getActivity().registerReceiver(broadcastReceiver, new IntentFilter(DELIVERED));
 
-        showLoader(getContext().getString(R.string.verificando_sms_esperanuevo));
+        //showLoader(getContext().getString(R.string.verificando_sms_esperanuevo));
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+        txtSendSms.setVisibility(View.INVISIBLE);
+        animSendSms.playAnimation();
+        showAnimation = true;
     }
 
     @Override

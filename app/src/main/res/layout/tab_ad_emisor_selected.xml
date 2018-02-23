@@ -19,7 +19,8 @@
         android:layout_width="8dp"
         android:layout_height="8dp"
         android:background="@drawable/blue_circle"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        android:visibility="gone"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@android:id/text1"

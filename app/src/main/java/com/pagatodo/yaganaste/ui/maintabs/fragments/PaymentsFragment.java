@@ -102,4 +102,9 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
         }
     }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+    }
 }
