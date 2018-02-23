@@ -12,11 +12,14 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_ERROR;
 
 public class PaymentActivity extends LoaderActivity implements View.OnClickListener {
 
@@ -75,6 +78,18 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         PaymentFormFragment myFragment = (PaymentFormFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         myFragment.onActivityResult(requestCode, resultCode, data);
+      //  UI.showErrorSnackBar(this, "LOL");
+
+        // Mostramos los Snack de Error
+        try {
+            Bundle MBuddle = data.getExtras();
+            String MMessage = MBuddle.getString(MESSAGE);
+            String resultError = MBuddle.getString(RESULT);
+            if (resultError.equals(RESULT_ERROR)) {
+                UI.showErrorSnackBar(this, MMessage);
+            }
+        } catch (Exception e) {
+        }
     }
 
 

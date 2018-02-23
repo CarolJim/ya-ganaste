@@ -233,7 +233,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(RESULT, Constants.RESULT_ERROR);
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(RESULT_CODE_FAIL, intent);
-        showDialogMesage(message);
+        finish();
+       // showDialogMesage(message);
 
     }
 

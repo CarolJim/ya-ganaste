@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.utils.Constants;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 
 public class SpinnerArrayAdapter extends ArrayAdapter {
-    private static String CANTIDAD_HINT = "Importe";
+    private static String CANTIDAD_HINT = App.getContext().getResources().getString(R.string.details_monto);
     private static String TIPO_ENVIO_HINT = "Tipo de Envío";
     Context mContext;
     List<?> mItems;

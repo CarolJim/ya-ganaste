@@ -211,6 +211,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_payment_form, container, false);
+
     }
 
     @Override
@@ -223,11 +224,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
-       // edtPhoneNumber.setCursorVisible(true);
+        // edtPhoneNumber.setCursorVisible(true);
 
         // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
             if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
+                btnContinue.setText(getResources().getString(R.string.btn_recharge_txt));
+
                 txtTitleFragment.setText(getResources().getString(R.string.txt_recargas));
                 lytContainerRecargas.setVisibility(View.VISIBLE);
 
@@ -279,7 +282,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     layoutImageContact.setVisibility(View.GONE);
                 } else {
                     edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
-                    edtPhoneNumber.setHint(getString(R.string.hint_phone_number));
+                    edtPhoneNumber.setHint(getString(R.string.numero_telefono));
 
                     layoutImageContact.setOnClickListener(this);
                 }
@@ -328,7 +331,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     }
                 });
             } else {
-                txtTitleFragment.setText(getResources().getString(R.string.txt_servicios));
+                btnContinue.setText(getResources().getString(R.string.btn_payment_txt));
+
+                txtTitleFragment.setText(getResources().getString(R.string.txt_pago_servicios));
                 lytContainerServicios.setVisibility(View.VISIBLE);
 
                 edtReferenceNumber.setLongClickable(true);
@@ -363,8 +368,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 }
                 edtReferenceNumber.addTextChangedListener(new NumberReferenceTextWatcher(edtReferenceNumber, maxLength));
                 if (comercioResponse.getSobrecargo() > 0) {
-                    txtComisionServicio.setText(String.format(getString(R.string.comision_service_payment),
-                            StringUtils.getCurrencyValue(comercioResponse.getSobrecargo())));
+                    txtComisionServicio.setText(StringUtils.getCurrencyValue(comercioResponse.getSobrecargo()));
                 } else {
                     txtComisionServicio.setVisibility(View.INVISIBLE);
                 }
@@ -405,7 +409,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 edtReferenceNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
-                        if(hasFocus){
+                        if (hasFocus) {
 
                         }
                     }
@@ -472,7 +476,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                         .placeholder(R.mipmap.icon_user)
                         .into(circuleDataPhoto);
             }
-            circuleDataPhoto.setBorderColor(Color.parseColor(dataFavoritos.getColorMarca()));
+            //  circuleDataPhoto.setBorderColor(Color.parseColor(dataFavoritos.getColorMarca()));
         }
 
         if (mType == 2) {
@@ -482,7 +486,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
                         .into(imageDataPhoto);
             }
-            circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
+            //  circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
         }
     }
 
@@ -537,7 +541,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
             if (resultCode == Constants.RESULT_CODE_OK_CLOSE) {
                 getActivity().finish();
-            } else {
+            }
+
+        /* Eliminar este Codigo cuando ya no se usen en los errores
+        else {
 
                 // Mostramos los errores por medio de un dialogo, siempre resultCode 190
                 try {
@@ -545,6 +552,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     String MMessage = MBuddle.getString(MESSAGE);
                     String resultError = MBuddle.getString(RESULT_ERROR);
                     if (!resultError.equals(RESULT_ERROR)) {
+                        //  UI.showErrorSnackBar(getActivity(), MMessage);
                         UI.createSimpleCustomDialog(
                                 App.getInstance().getResources().getString(R.string.new_tittle_error_interno),
                                 MMessage,
@@ -552,7 +560,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     }
                 } catch (Exception e) {
                 }
-            }
+            }*/
         } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {

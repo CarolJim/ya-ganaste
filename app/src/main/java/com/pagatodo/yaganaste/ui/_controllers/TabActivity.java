@@ -719,7 +719,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void showProgress(String mMensaje) {
         navDrawer.closeDrawers();
-        showProgressLayout(getString(R.string.listaopciones_load_image_wait));
+      //  showProgressLayout(getString(R.string.listaopciones_load_image_wait));
     }
 
     @Override

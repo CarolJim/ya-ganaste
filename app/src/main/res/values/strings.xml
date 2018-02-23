@@ -253,7 +253,7 @@
     <string name="txt_fecha_hora">Fecha y Hora:</string>
     <string name="txt_concepto">Concepto:</string>
     <string name="txt_clave_rastreo">Clave Rastreo:</string>
-    <string name="txt_numero_referencia">Número de Referencia:</string>
+    <string name="txt_numero_referencia">Número de referencia</string>
     <string name="txt_referencia_num">Referencia Numérica:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta tu Lector de Tarjetas\nYa Ganaste</string>
     <!--<string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>-->
@@ -479,6 +479,7 @@
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
     <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
+    <string name="comision_service_payment_without_iva">La Comisión es de:   </string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_in_proccess">¡Envío en Proceso!</string>
@@ -728,6 +729,7 @@
     <string name="numero_telefono_contactanos">018005001000</string>
 
 
+    <string name="numero_telefono">Número de teléfono</string>
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
     <string name="numero_telefono_incorrecto">Número de Teléfono Inválido</string>
@@ -997,6 +999,7 @@
     <string name="close_sesion_bodynuevo">Por Favor Inicia Sesión Nuevamente</string>
 
     <string name="addFavorites">Agregar a Favoritos</string>
+    <string name="addFoto">Agregar foto</string>
     <string name="editarFavorites">Editar Favorito</string>
     <string name="addFavoritesAlias">Nombre</string>
     <string name="addFavoritesServicio">Servicio</string>
@@ -1219,6 +1222,7 @@
     <!-- Procesos de PaymentActivity-->
     <string name="txt_recargas">Recargas</string>
     <string name="txt_servicios">Servicios</string>
+    <string name="txt_pago_servicios">Pago de Servicio</string>
 
     <!-- Request Payment -->
     <string name="txt_name_dest">Nuevo Destinatario:</string>
