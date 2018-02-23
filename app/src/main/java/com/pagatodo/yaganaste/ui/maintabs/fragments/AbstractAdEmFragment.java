@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
+import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -126,6 +127,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerMovements.setLayoutManager(layoutManager);
         recyclerMovements.setHasFixedSize(true);
+        //recyclerMovements.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset_mov));
         recyclerMovements.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
         movementsPresenter.getPagerData(getTab());

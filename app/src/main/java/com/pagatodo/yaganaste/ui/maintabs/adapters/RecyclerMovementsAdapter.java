@@ -110,14 +110,19 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
             //txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
             //updown.se
-
+            if (position%2 == 0) {
+                //System.out.println("El número es par");
+                viewForeground.setBackgroundResource(R.color.item_movement);
+            } else {
+                viewForeground.setBackgroundResource(R.color.whiteColor);
+            }
             if (((MovimientosResponse)itemMovements.getMovement()) != null){
 
             }
             txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
             txtSubTituloDetalle.setText(itemMovements.getSubtituloDetalle());
 
-            //txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
+            txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
 
             txtItemMovDate.setText(itemMovements.getDate());
             txtItemMovMonth.setText(itemMovements.getMonth());
