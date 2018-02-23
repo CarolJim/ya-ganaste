@@ -151,4 +151,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
         */
     }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+    }
 }

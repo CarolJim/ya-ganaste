@@ -8,8 +8,12 @@
     <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
         android:id="@+id/tab_months"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIndicatorHeight="0dp" />
+        android:layout_height="58dp"
+        app:tabTextColor="@color/switch_color_traker_false"
+        app:tabSelectedTextColor="@color/whiteColor"
+        app:tabBackground="@drawable/button_tab"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"/>
 
 
     <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -24,12 +28,22 @@
         android:text="@string/no_movimientos"
         android:textSize="@dimen/frag_inicio_tab_no_movements_text_size"
         android:visibility="visible" /-->
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/title"
+        style="@style/generic_text_style_5"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"
+        android:paddingLeft="18dp"
+        android:gravity="center_vertical"
+        android:background="@color/tab_movement_undselected"
+        android:text="Movimientos recientes"
+        android:layout_below="@id/tab_months"/>
 
     <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tab_months">
+        android:layout_below="@+id/title">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_movements"

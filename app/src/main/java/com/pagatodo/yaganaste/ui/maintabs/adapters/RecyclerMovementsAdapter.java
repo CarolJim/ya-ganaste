@@ -7,11 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -75,14 +79,17 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    static class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
+    public class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
 
         View layoutMovementTypeColor;
+        ImageView updown;
         TextView txtItemMovDate;
         TextView txtItemMovMonth;
         TextView txtTituloDescripcion;
         TextView txtSubTituloDetalle;
         MontoTextView txtMonto;
+        public RelativeLayout viewBackground;
+        public LinearLayout viewForeground;
 
         private RecyclerViewHolderMovements(View itemView) {
             super(itemView);
@@ -93,22 +100,30 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             txtSubTituloDetalle = (TextView) itemView.findViewById(R.id.txtSubTituloDetalle);
             txtMonto = (MontoTextView) itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
+            viewBackground = itemView.findViewById(R.id.view_background);
+            viewForeground = itemView.findViewById(R.id.view_foreground);
+            updown = itemView.findViewById(R.id.up_down);
         }
 
         void bindData(ItemMovements itemMovements, int position, View.OnClickListener clickListener) {
             //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
             layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
-            txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
+            //txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
+            //updown.se
+
+            if (((MovimientosResponse)itemMovements.getMovement()) != null){
+
+            }
             txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
             txtSubTituloDetalle.setText(itemMovements.getSubtituloDetalle());
 
-            txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
+            //txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
 
             txtItemMovDate.setText(itemMovements.getDate());
             txtItemMovMonth.setText(itemMovements.getMonth());
 
             if (itemMovements.getColor() == android.R.color.transparent) {
-                txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), R.color.colorAccent));
+                //txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), R.color.colorAccent));
             }
 
             itemView.setOnClickListener(clickListener);

@@ -1,26 +1,60 @@
-<android.support.v7.widget.CardView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:layout_marginTop="4dp"
-    app:cardUseCompatPadding="false">
+    android:orientation="vertical">
 
+
+    <RelativeLayout
+        android:id="@+id/view_background"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorAccent">
+
+        <RelativeLayout
+            android:layout_width="83dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorAccent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ico_start"
+                android:layout_width="18dp"
+                android:layout_height="17dp"
+                android:src="@drawable/start_switch"
+                android:layout_centerInParent="true"/>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_4"
+                android:textColor="@color/whiteColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_favorite_txt"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/ico_start"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/view_foreground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/item_movement"
-        android:orientation="horizontal">
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/whiteColor">
 
         <View
             android:id="@+id/layout_movement_type_color"
             android:layout_width="3dp"
             android:layout_height="match_parent"
-            android:background="@color/redColorNegativeMovements" />
+            android:background="@color/redColorNegativeMovements"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -42,7 +76,8 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_item_mov_date"
-                    style="@style/generic_text_style_2"
+                    style="@style/generic_text_style_3"
+                    android:textColor="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:tipo="Text"
@@ -50,9 +85,10 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_item_mov_month"
-                    style="@style/generic_text_style_4"
+                    style="@style/generic_text_style_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/texthint"
                     tools:text="Feb" />
 
             </LinearLayout>
@@ -69,7 +105,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtTituloDescripcion"
-                    style="@style/generic_text_style_2"
+                    style="@style/generic_text_style_3"
                     android:transitionName="@string/transition_name_mov"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,9 +115,10 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSubTituloDetalle"
-                    style="@style/generic_text_style_3.1"
+                    style="@style/generic_text_style_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/texthint"
                     android:maxLines="1"
                     tools:text="Pago de servicio" />
 
@@ -91,8 +128,8 @@
                 android:id="@+id/layout_movement_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="17dp"
-                android:layout_marginRight="17dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="9dp"
                 android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -102,7 +139,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="200.00"
-                    android:textSize="9dp"
                     app:decimalLenght="2"
                     app:dotBottom="true"
                     app:symbolSmaller="false"
@@ -129,9 +165,15 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/up_down"
+                android:layout_width="6dp"
+                android:layout_height="9dp"
+                android:src="@drawable/up"
+                android:layout_marginRight="12dp"
+                android:contentDescription="@string/app_name"
+                android:layout_marginEnd="12dp" />
 
         </LinearLayout>
-
-
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</FrameLayout>
