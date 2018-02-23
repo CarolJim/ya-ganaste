@@ -8,8 +8,7 @@
     android:focusableInTouchMode="true">
 
     <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar_wallet" />
 
     <FrameLayout
         android:id="@+id/container"

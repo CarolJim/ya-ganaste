@@ -358,7 +358,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     mRecargarGrid.add(new DataFavoritosGridView(
                             mDataRecargar.get(x).getColorMarca(),
                             mDataRecargar.get(x).getNombreComercio(),
-                            mDataRecargar.get(x).getLogoURL()));
+                            mDataRecargar.get(x).getLogoURLColor()));
                 }
 
                 errorRecargas.setVisibility(View.GONE);
@@ -387,7 +387,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     mPagarGrid.add(new DataFavoritosGridView(
                             mDataPagar.get(x).getColorMarca(),
                             mDataPagar.get(x).getNombreComercio(),
-                            mDataPagar.get(x).getLogoURL()));
+                            mDataPagar.get(x).getLogoURLColor()));
                 }
 
                 errorServicios.setVisibility(View.GONE);
@@ -469,7 +469,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         int lenghtArray = originalList.size();
         if (lenghtArray > 8 && lenghtArray != 0) {
             ComercioResponse itemLupa = new ComercioResponse();
-            itemLupa.setLogoURL("R.mipmap.buscar_con_texto");
+            itemLupa.setLogoURLColor("R.mipmap.buscar_con_texto");
             itemLupa.setNombreComercio("Buscar");
             finalList.add(itemLupa);
         }

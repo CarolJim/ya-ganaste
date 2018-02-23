@@ -91,7 +91,7 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
     @Override
     public void onBindViewHolder(AdapterSearchCarrierRV.ViewHolder holder, final int position) {
         holder.mTittle.setText(mDataSetCarrierFilter.get(position).getNombreComercio());
-        setImagePicasso(holder.mImageView, mDataSetCarrierFilter.get(position).getLogoURL());
+        setImagePicasso(holder.mImageView, mDataSetCarrierFilter.get(position).getLogoURLColor());
 
         holder.mLinearl.setOnClickListener(new View.OnClickListener() {
             @Override

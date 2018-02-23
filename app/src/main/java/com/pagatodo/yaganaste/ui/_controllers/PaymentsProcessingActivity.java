@@ -8,6 +8,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +27,7 @@ import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
@@ -60,7 +62,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
  * Created by Jordan on 25/04/2017.
  */
 
-public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
+public class PaymentsProcessingActivity extends ToolBarPositionActivity implements PaymentsProcessingManager, ISessionExpired {
 
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final String NOMBRE_COMERCIO = "nombreComercio";
@@ -75,6 +77,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
     @BindView(R.id.container)
     FrameLayout container;
+    @BindView(R.id.toolbar_wallet)
+    Toolbar toolbar;
 
     private View llMain;
 
@@ -100,12 +104,14 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_generic_fragment_container);
+
         presenter = new PaymentsProcessingPresenter(this);
         pago = getIntent().getExtras().get("pagoItem");
         typeOperation = (int) getIntent().getExtras().get("TAB");
         llMain = findViewById(R.id.ll_main);
 
         initViews();
+        setSupportActionBar(toolbar);
 
         if (typeOperation != PAYMENT_ENVIOS) {
             changeToolbarVisibility(false);
@@ -242,6 +248,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_wallet, menu);
+
         return false;
     }
 

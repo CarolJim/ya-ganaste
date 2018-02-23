@@ -65,7 +65,7 @@
     <string name="updateFavoritos">/ActualizarFavorito</string>
     <string name="deleteFavorito">/EliminarFavorito</string>
     <!--<string name="url_images_logos">http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/logos/android/</string>-->
-    <string name="url_images_logos">https://www.yaganaste.com/Logos/android/</string>
+    <string name="url_images_logos">https://www.yaganaste.com/Logos/</string>
     <string name="obtenerCobrosMensuales">/ObtenerCatalogoOperacionesPLD</string>
     <string name="obtenerPaisesPLD">/ObtenerPaisesPLD</string>
     <string name="obtenerMontos">/ObtenerCatalogoMontosPLD</string>

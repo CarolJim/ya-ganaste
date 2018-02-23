@@ -136,12 +136,12 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
 
-
+                <!-- Elemento de Sppiner para escoger servicio del favorito -->
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_list_serv"
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:focusableInTouchMode="false"
                     android:visibility="visible"
                     android:windowSoftInputMode="stateHidden"

@@ -70,7 +70,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
-    MontoTextView importe;
+    StyleTextView importe;
     @BindView(R.id.titleReferencia)
     TextView titleReferencia;
     @BindView(R.id.txtReferencia)
