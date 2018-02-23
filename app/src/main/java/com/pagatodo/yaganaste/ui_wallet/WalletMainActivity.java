@@ -62,8 +62,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     @BindView(R.id.toolbar_wallet)
     Toolbar toolbar;
-    @BindView(R.id.btn_back)
-    AppCompatImageView back;
+
 
     private int idOperation;
     private int currentPage;
@@ -75,7 +74,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_main);
         this.init();
-        back.setOnClickListener(this);
         if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;

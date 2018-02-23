@@ -205,10 +205,10 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                     movimientosResponse);
         }
 
-        txtMonto.setTextColor(ContextCompat.getColor(getContext(), item.getColor()));
+        //txtMonto.setTextColor(ContextCompat.getColor(getContext(), item.getColor()));
         txtMonto.setText(StringUtils.getCurrencyValue(item.getMonto()));
         if (item.getColor() == android.R.color.transparent) {
-            txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            //txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         }
 
 
