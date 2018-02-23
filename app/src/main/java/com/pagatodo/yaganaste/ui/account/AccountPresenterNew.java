@@ -244,7 +244,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void gerNumberToSMS() {
-        accountView.showLoader(context.getString(R.string.verificando_sms_esperanuevo));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         accountIteractor.getSMSNumber();
     }
 

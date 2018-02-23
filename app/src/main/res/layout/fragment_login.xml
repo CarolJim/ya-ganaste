@@ -112,12 +112,11 @@
                 android:background="@drawable/button_rounded_blue"
                 android:text="@string/next" />
 
-            <TextView
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtVersionApp"
+                style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/size_text_style_3_value" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

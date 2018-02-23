@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.presenter;
+package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 /**
  * Created by icruz on 12/12/2017.

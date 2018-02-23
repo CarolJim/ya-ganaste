@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
@@ -24,6 +26,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -38,6 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -57,22 +61,20 @@ import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 /**
  * Armando Sandoval 16/10/2017
  */
-public class MyDongleFragment extends GenericFragment implements View.OnClickListener,
+public class MyDongleFragment extends GenericFragment implements
         IAdqTransactionRegisterView, IPreferUserGeneric {
     protected boolean isReaderConected = false;
     @BindView(R.id.txtCompanyName)
     StyleTextView txtCompanyName;
-    @BindView(R.id.txtLastPayment)
-    StyleTextView txtLastPayment;
     @BindView(R.id.txtNumberBattery)
     StyleTextView txtNumberBattery;
     @BindView(R.id.iconBattery)
     ImageView iconBattery;
-
+    @BindView(R.id.lyt_config_repayment)
+    LinearLayout lytConfigRepayment;
 
     private AudioManager audioManager;
     public Preferencias prefs;
-    //CircleImageView imageView;
 
     private IntentFilter broadcastEMVSwipe;
     private int currentVolumenDevice;
@@ -85,7 +87,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     private boolean mensajeuno = false;
 
-
     View rootview;
 
     public MyDongleFragment() {
@@ -96,10 +97,8 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         @SuppressLint("SimpleDateFormat")
         @Override
         public void onReceive(Context context, Intent intent) {
-
             int mensaje = intent.getIntExtra(MSJ, -1);
             String error = intent.getStringExtra(ERROR);
-
             switch (mensaje) {
                 case LECTURA_OK:
 
@@ -135,7 +134,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     if (isCancelation) {
                         amountCard = "150";
                     }
-
                     App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);
                     break;
                 case REQUEST_TIME:
@@ -157,10 +155,8 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     break;
                 case SW_TIMEOUT:
                     //initListenerDongle();
-
                     break;
                 case SW_ERROR:
-
                     if (mensajeuno == false) {
                         mensajeuno = true;
                         showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
@@ -177,7 +173,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                                 });
 
                     }
-
                     //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
                     Log.i("IposListener: ", "=====>>    SW_Error");
                     break;
@@ -189,16 +184,12 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     Log.i("IposListener: ", "=====>>    DEFAULT:" + mensaje);
                     break;
             }
-
-            // }
         }
     };
-
 
     private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
@@ -209,7 +200,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         mensajeuno = false;
                         try {
                             txtNumberBattery.setGravity(Gravity.START);
-                            txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
+                            txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
                             txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
                             iconBattery.setVisibility(View.GONE);
                             txtNumberBattery.setSelected(true);
@@ -218,8 +209,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         } catch (Exception e) {
 
                         }
-
-                        // showInsertDongle();
                         Log.i("IposListener: ", "isReaderConected  false");
                         break;
                     case 1:
@@ -227,7 +216,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                             txtNumberBattery.setText("");
                             isReaderConected = true;
                             txtNumberBattery.setGravity(Gravity.START);
-                            txtNumberBattery.setText("Obteniendo el Nivel de Batería");
+                            txtNumberBattery.setText(getString(R.string.receiving_dongle_battery));
                             txtNumberBattery.setTextColor(getResources().getColor(R.color.yellow));
                             iconBattery.setVisibility(View.GONE);
                             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
@@ -240,7 +229,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         }
                         break;
                     default:
-
                         break;
                 }
             }
@@ -261,31 +249,25 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
         // imageView.setVisibility(View.GONE);
-        txtLastPayment.setVisibility(View.GONE);
         txtNumberBattery.setGravity(Gravity.START);
-        txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
+        txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
         txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
         iconBattery.setVisibility(View.GONE);
-
         txtNumberBattery.setSelected(true);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        setHasOptionsMenu(true);
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
-        // App.getInstance().initEMVListener();// Inicializamos el listener
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
-
-
     }
 
     @Override
@@ -295,27 +277,28 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         //  return inflater.inflate(R.layout.fragment_my_dongle, container, false);
         rootview = inflater.inflate(R.layout.fragment_my_dongle, container, false);
         initViews();
-
         return rootview;
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        //  txtCompanyName txtLastPayment txtNumberBattery iconBattery
-        setCompanyName("Floreria JessLou");
-
-
+        lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!UtilsNet.isOnline(getActivity())) {
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+                } else {
+                    onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
+                }
+            }
+        });
     }
 
     private void setNumberBattery(int mPorcentaje) {
         // Procesimiento para cambiar la imagen de manera dinamica, dependiendo del rango de carga
-
-        int porcent = mPorcentaje;
-
         txtNumberBattery.setText(" " + mPorcentaje + "%");
         mensajeuno = true;
-
 
         txtNumberBattery.setGravity(Gravity.END);
         txtNumberBattery.setTextColor(getResources().getColor(R.color.textColorAlternative));
@@ -323,45 +306,23 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
             // Bateria Roja
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria25);
-            // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
         } else if (mPorcentaje > 25 && mPorcentaje <= 50) {
             // Bateria Amarilla
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria50);
-            // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
         } else if (mPorcentaje > 50 && mPorcentaje <= 85) {
             // Bateria Verde
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria75);
-
-            // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
         } else if (mPorcentaje > 85 && mPorcentaje <= 100) {
             // Bateria Verde
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria100);
-            // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
         } else if (mPorcentaje <= 0) {
             // Bateria 0 conectar
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria0);
         }
-
-        // txtNumberBattery.setText(mPorcentaje);
-    }
-
-    private void setLastPayment(String mDate) {
-        // Proceso para convertir la fecha y obtgener el formato que necesitamos
-        txtLastPayment.setText(mDate);
-    }
-
-    private void setCompanyName(String mName) {
-        //txtCompanyName.setText(mName);
-        txtCompanyName.setText("\" " + SingletonUser.getInstance().getDataUser().getUsuario().getNombreNegocio() + " \"");
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     @Override
@@ -391,8 +352,9 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showSimpleDialogError(String message, DialogDoubleActions actions) {
-        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
-                getFragmentManager(), actions);
+        /*UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
+                getFragmentManager(), actions);*/
+        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_SHORT);
     }
 
     @Override

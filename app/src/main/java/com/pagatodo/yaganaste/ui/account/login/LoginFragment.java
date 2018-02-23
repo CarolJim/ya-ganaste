@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -191,7 +192,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (UtilsNet.isOnline(getActivity())) {
             validateForm();
         } else {
-            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access));
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
         }
     }
 
@@ -219,7 +220,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void showError(Object error) {
         if (!dialogErrorShown) {
             dialogErrorShown = false;
-            UI.showErrorSnackBar(getActivity(), error.toString());
+            UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_LONG);
             edtUserName.clearFocus();
             edtUserPass.clearFocus();
             edtUserPass.setText("");
@@ -271,6 +272,18 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         edtUserPass.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
+                if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                    if (s.toString().length() == 6) {
+                        UI.hideKeyBoard(getActivity());
+                        if (!UtilsNet.isOnline(getActivity())) {
+                            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+                        } else {
+                            //  Servicio para consumir usuario y contraseña
+                            validateForm();
+                            edtUserPass.setText("");
+                        }
+                    }
+                }
                 edtUserPass.imageViewIsGone(true);
             }
         });
@@ -322,9 +335,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 edtUserPass.setIsInvalid();
                 isValid = false;
             }
-
         }
-
         if (isValid) {
             onValidationSuccess();
         } else {

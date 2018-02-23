@@ -8,7 +8,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui_wallet.interactors.EnviosPaymentIteractor;
-import com.pagatodo.yaganaste.ui_wallet.interactors.IEnviosPaymentIteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentIteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentPresenter;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by Armando Sandoval on 10/01/2018.
  */
 
-public class EnviosPaymentPresenter implements  IEnviosPaymentPresenter{
+public class EnviosPaymentPresenter implements IEnviosPaymentPresenter {
 
     EnviosFromFragmentNewVersion mView;
     IEnviosPaymentIteractor mInteractor;

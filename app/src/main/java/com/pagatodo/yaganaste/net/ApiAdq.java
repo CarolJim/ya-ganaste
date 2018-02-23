@@ -14,13 +14,16 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDeviceDa
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.TypeRepaymentRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.AutenticaNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSesionAgenteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.EnviarTicketCompraResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneTiposReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistraNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistraNotificacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDeviceDataResponse;
@@ -41,6 +44,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_TYPE_REPAYMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NIP;
@@ -49,6 +53,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DEVICE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_TYPE_REPAYMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
 /**
@@ -277,5 +282,31 @@ public class ApiAdq extends Api {
         NetFacade.consumeWS(OBTIENE_DATOS_CUPO,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetDatosCupo),
                 headers, null, ObtieneDatosCupoResponse.class, result);
+    }
+
+    /**
+     * @param result
+     * @throws OfflineException
+     */
+    public static void obtieneTiposReembolso(IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        NetFacade.consumeWS(GET_TYPE_REPAYMENT,
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetTypeRepayment),
+                headers, null, ObtieneTiposReembolsoResponse.class, result);
+    }
+
+    /**
+     * @param result
+     * @throws OfflineException
+     */
+    public static void actualizaTipoReembolso(TypeRepaymentRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        NetFacade.consumeWS(UPDATE_TYPE_REPAYMENT,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqUpdateTypeRepayment),
+                headers, request, DataResultAdq.class, result);
     }
 }

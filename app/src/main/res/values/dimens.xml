@@ -217,7 +217,7 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
 
     <dimen name="bar_height">140dp</dimen>
-
+    <dimen name="bar_height_medium">100dp</dimen>
 
     <!-- Balance Wallet -->
     <dimen name="profile_image_cirle">61dp</dimen>

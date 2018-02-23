@@ -1,77 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui._controllers.MainActivity">
-
-    <com.jude.rollviewpager.RollPagerView
-        android:id="@+id/rollPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:rollviewpager_play_delay="5000" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnMainCreateAccount"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorAccent"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="@string/txt_registrate"
-            android:textAllCaps="false"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/size_text_style_2_value" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnLogin"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/loginColorButton"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="@string/inicia_sesion"
-            android:textAllCaps="false"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/size_text_style_2_value" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:visibility="gone">
-
-        <include
-            android:id="@+id/toolbarLy"
-            layout="@layout/toolbar" />
-    </LinearLayout>
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:padding="@dimen/generic_padig"
-        android:visibility="gone">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/imgToolbar"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anim_onboarding"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_logo_header"
-            tools:ignore="ContentDescription" />
+            android:layout_height="match_parent"
+            app:lottie_imageAssetsFolder="images/onboarding"
+            app:lottie_rawRes="@raw/onboarding" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </RelativeLayout>
-</RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_create_user"
+        style="@style/buttonSquareRoundedBlue"
+        android:background="@drawable/blue_rounded_white_button"
+        android:text="@string/txt_registrate"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_login_user"
+        style="@style/buttonSquareRoundedBlue"
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/white_round_button"
+        android:text="@string/txt_iniciar_sesion"
+        android:textColor="@color/whiteColor"
+        android:textSize="16sp" />
+
+</LinearLayout>

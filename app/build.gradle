@@ -109,10 +109,10 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    // Onboarding
+    implementation 'com.matthew-tamlin:sliding-intro-screen:3.2.0'
     // Swipe Fragments Viewer
     compile 'com.github.omadahealth:swipy:1.2.3@aar'
-    // ViewPager Roller
-    compile 'com.jude:rollviewpager:1.4.5'
     // Circle Image Viewer
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // GIF Viewer
@@ -132,6 +132,8 @@ dependencies {
     compile 'eu.davidea:flipview:1.1.3'
     // Lottie Animation Lottie
     compile 'com.airbnb.android:lottie:2.5.0'
+    // Splash Dots Loader
+    compile 'com.agrawalsuneet.androidlibs:dotsloader:0.8'
 
     // Network Gradle Compilations
     compile 'com.google.code.gson:gson:2.8.0'
