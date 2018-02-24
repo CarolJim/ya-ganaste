@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,9 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         btnNextDatosUsuario.setOnClickListener(this);
         btnBackDatosUsuario.setOnClickListener(this);
         edtitConfirmEmail.setOnFocusChangeListener(this);
+
+        editPassword.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
+        editPasswordConfirm.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
         editPassword.setOnFocusChangeListener(this);
         editPasswordConfirm.setOnFocusChangeListener(this);
 
@@ -202,21 +206,22 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                 } else {
                     if (!UtilsNet.isOnline(getActivity())) {
                      //   editMail.setIsInvalid();
-                        showValidationError(editMail.getId(), getString(R.string.no_internet_access));
-                        
+                       // showValidationError(editMail.getId(), getString(R.string.no_internet_access));
+                    //    UI.showErrorSnackBar(getActivity(),getString(R.string.no_internet_access));
                     }else if (editMail.getText().toString().isEmpty()) {
                        // editMail.setIsInvalid();
-                        showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
+                        //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
+                     //   UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo));
                     } else if ( !emailValidatedByWS) {
                        // editMail.setIsInvalid();
-                        showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_formato));
+                        //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_formato));
+                     //   UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo_formato));
                     } else if (!emailValidatedByWS) {
                         accountPresenter.validateEmail(editMail.getText().toString());
                     } else if (emailValidatedByWS) {
                         hideValidationError(editMail.getId());
                        // editMail.setIsValid();
                     }
-
 
                 }
             }
@@ -527,14 +532,10 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void getDataForm() {
 
-
-
-        email = adapter.getInpuText(0);
-        emailConfirmation = adapter.getInpuText(1);
-        password = adapter.getInpuText(2);
-        passwordConfirmation = adapter.getInpuText(3);
-
-
+        email = editMail.getText().toString();
+        emailConfirmation =edtitConfirmEmail.getText().toString();
+        password = editPassword.getText().toString();
+        passwordConfirmation = editPasswordConfirm.getText().toString();
 
 
     }

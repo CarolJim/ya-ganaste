@@ -158,8 +158,8 @@
     <string name="colonia">Colonia</string>
     <string name="terms_and_conditions">Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones</string>
     <string name="postal_code">C.P.</string>
-    <string name="intern_number">No. Interior</string>
-    <string name="outside_number">No. Exterior</string>
+    <string name="intern_number">Número Interior</string>
+    <string name="outside_number">Número Exterior</string>
     <string name="are_you_want_get_payments">¿Te Gustaría Recibir\nPagos Con Tarjeta?</string>
     <string name="yes_i_want_card_payments">SÍ QUIERO ACEPTAR TARJETA</string>
     <string name="i_dont_want_card_payments">NO QUIERO ACEPTAR TARJETA</string>
@@ -394,7 +394,7 @@
     <string name="tienes_tarjeta_asignando_nipnuevo">Estamos Registrando el NIP de tu Tarjeta</string>
     <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
-    <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
+    <string name="doYouHaveCardTitle">Activa tu tarjeta Ya Ganaste</string>
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos Los Permisos Para el Correcto Funcionamiento de Ya Ganaste</string>
     <string name="change_nip_block_card">Para Cambiar tu Nip, Por Favor Desbloquea tu Tarjeta</string>
@@ -579,8 +579,8 @@
     <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara</string>
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
-    <string name="no_tiene_tarjeta">No te Preocupes, te Asignaremos Una Tarheta\nDigital y Podrás Solicitar Una Física en el Futuro</string>
-    <string name="si_tiene_tarjeta">Ingresa tu Número de Tarjeta</string>
+    <string name="no_tiene_tarjeta">No te Preocupes, te Asignaremos Una Tarjeta\nDigital y Podrás Solicitar Una Física en el Futuro</string>
+    <string name="si_tiene_tarjeta">Ingresa tu los últimos 8 dígitos que se encuentran\nen la parte frontal de tu Tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="tarjeta_cancelada">Tu Tarjeta Esta Cancelada</string>
     <string name="title_aceptar">Aceptar</string>
@@ -1301,5 +1301,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tituloselfie">Sube una foto para añadirla a tu perfil</string>
+    <string name="tituloselfietegusta">Esta es tu foto de perfil ¿Te gusta?</string>
+    <string name="tomar_foto">Tomar foto</string>
+    <string name="selecttiona_foto">Seleccionar de la galeria</string>
+    <string name="confirm">Confirmar</string>
+    <string name="reintentar">Reintentar</string>
+
+
+    <string name="sub_titulo_domicilio_personal">¿Donde vives? es muy importante tener tus datos\ncompletos para continuar con tu registro</string>
+
+
+    <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
+    <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
+    <string name="nip">NIP (4dígitos)</string>
+    <string name="nipconfirma">Confirma tu NIP</string>
 
 </resources>

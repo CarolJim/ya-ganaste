@@ -52,14 +52,20 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     private static int PIN_LENGHT = 4;
     @BindView(R.id.borderLayout)
     BorderTitleLayout borderTitleLayout;
-    @BindView(R.id.asignar_edittext)
-    CustomValidationEditText edtPin;
+    @BindView(R.id.nip)
+    EditText edtPin;
+    @BindView(R.id.confim_nip)
+    EditText edtPinconfirm;
+
+
+
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
-    @BindView(R.id.keyboard_view)
-    CustomKeyboardView keyboardView;
+
+
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
+
     LinearLayout layout_control;
     TextView tv1Num;
     TextView tv2Num;
@@ -84,7 +90,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        nipToConfirm = getArguments().getString(PIN_TO_CONFIRM);
+
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
@@ -109,66 +115,14 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setOnClickListener(this);
-
-        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-        keyboardView.setPreviewEnabled(false);
-        keyboardView.showCustomKeyboard(rootview);
-
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
-
         tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
         tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
         tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
         borderTitleLayout.setTitle(getString(R.string.confirma_pin));
         imageView.setVisibility(View.VISIBLE);
-        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
-        edtPin.setMaxLength(4); // Se asigna un maximo de 4 caracteres para no tener problrmas
-        edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
-        edtPin.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().length() == 4) {
-                    buttonIsVisible(true);
-                    keyboardView.hideCustomKeyboard();
-                    //validateForm();
-                }
-            }
-        });
-
-
-        layout_control.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonIsVisible(false);
-                edtPin.requestFocus();
-                keyboardView.showCustomKeyboard(v);
-            }
-        });
-
-        edtPin.getEditText().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                buttonIsVisible(false);
-                keyboardView.showCustomKeyboard(v);
-                edittext.setInputType(inType);              // Restore input type
-                return true; // Consume touch event
-            }
-        });
-        setValidationRules();
-        edtPin.requestEditFocus();
     }
 
     @Override
@@ -240,7 +194,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void getDataForm() {
-        nip = edtPin.getText().toString().trim();
+        nip = edtPin.getText().toString();
+        nipToConfirm=edtPinconfirm.getText().toString();
     }
 
     @Override
@@ -260,7 +215,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event, data);
+       // onEventListener.onEvent(event, data);
     }
 
     @Override

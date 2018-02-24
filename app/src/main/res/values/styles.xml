@@ -538,6 +538,12 @@
         <item name="tipo">Text</item>
     </style>
 
+    <style name="generic_text_style_3.3">
+        <item name="android:textColor">@color/textColorAlternative</item>
+        <item name="android:textSize">11sp</item>
+        <item name="tipo">Text</item>
+    </style>
+
     <style name="generic_text_style_4.3">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_8_value</item>

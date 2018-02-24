@@ -43,9 +43,10 @@
                     android:layout_marginBottom="32dp"
                     android:text="@string/titulo_datos_usuario"
                     android:textAlignment="center"
+
                     android:textColor="@color/adadad"
                     android:textSize="14sp"
-                    app:tipo="Titulo" />
+                    app:tipo="Text" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_email"
@@ -56,7 +57,8 @@
                     app:passwordToggleTint="@color/hint_color"
                     android:hint="@string/correo_electronico"
                     android:theme="@style/TextLabel"
-                    android:paddingLeft="17dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="6dp"
                     android:maxLines="1"
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"
@@ -83,7 +85,8 @@
                     app:passwordToggleTint="@color/hint_color"
                     android:hint="@string/correo_electronico_confirm"
                     android:theme="@style/TextLabel"
-                    android:paddingLeft="17dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="6dp"
                     android:maxLines="1"
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"
@@ -112,7 +115,8 @@
                     app:passwordToggleTint="@color/hint_color"
                     android:hint="@string/contrasena"
                     android:theme="@style/TextLabel"
-                    android:paddingLeft="17dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="6dp"
                     android:maxLines="1"
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"
@@ -144,7 +148,8 @@
                     app:passwordToggleTint="@color/hint_color"
                     android:hint="@string/contrasena_confirma"
                     android:theme="@style/TextLabel"
-                    android:paddingLeft="17dp"
+                    android:paddingLeft="6dp"
+                    android:layout_marginTop="1dp"
                     android:maxLines="1"
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"

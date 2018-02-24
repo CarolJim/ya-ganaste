@@ -43,9 +43,12 @@ import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
+import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import java.security.KeyStore;
@@ -84,6 +87,10 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_DATA_USER_BACK = "EVENT_GO_DATA_USER_BACK";
     public final static String EVENT_PERSONAL_DATA = "EVENT_GO_PERSONAL_DATA";
     public final static String EVENT_PERSONAL_DATA_BACK = "EVENT_GO_PERSONAL_DATA_BACK";
+
+    public final static String EVENT_SELFIE = "EVENT_SELFIE";
+    public final static String EVENT_SELFIE_BACK = "EVENT_SELFIE_BACK";
+
     public final static String EVENT_ADDRESS_DATA = "EVENT_GO_ADDRESS_DATA";
     public final static String EVENT_ADDRESS_DATA_BACK = "EVENT_GO_ADDRESS_DATA_BACK";
     public final static String EVENT_GO_ASSIGN_PIN = "EVENT_GO_ASSIGN_PIN";
@@ -222,7 +229,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
-            case EVENT_PERSONAL_DATA_BACK:
+            case EVENT_SELFIE_BACK:
                 registerUser = RegisterUser.getInstance();
                 registerUser.setCalle("");
                 registerUser.setNumExterior("");
@@ -233,12 +240,31 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 registerUser.setIdColonia("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
+
+            case EVENT_PERSONAL_DATA_BACK:
+
+                loadFragment(SelfieFragment.newInstance(), Direction.BACK, false);
+                break;
             case EVENT_ADDRESS_DATA:
+               ///Ahora cargamos la selfie
                 loadFragment(DomicilioActualFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
+            case EVENT_SELFIE:
+                loadFragment(SelfieFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
             case EVENT_ADDRESS_DATA_BACK:
-                loadFragment(DomicilioActualFragment.newInstance(), Direction.BACK, false);
+                ///aHORA CARGAMOS LA SELFIE
+                registerUser = RegisterUser.getInstance();
+                registerUser.setCalle("");
+                registerUser.setNumExterior("");
+                registerUser.setNumInterior("");
+                registerUser.setCodigoPostal("");
+                registerUser.setEstadoDomicilio("");
+                registerUser.setColonia("");
+                registerUser.setIdColonia("");
+                loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
                 back = false;
@@ -259,7 +285,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
                 break;
             case EVENT_GO_ASSIGN_PIN:
-                loadFragment(AsignarNIPFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(ConfirmarNIPFragment.newInstance("nada"), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIRM_PIN:
                 loadFragment(ConfirmarNIPFragment.newInstance(o.toString()), Direction.FORDWARD, false);
@@ -363,6 +389,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 showDialogOut();
             } else if (currentFragment instanceof DatosPersonalesFragment) {
                 onEvent(EVENT_DATA_USER_BACK, null);
+            }else if (currentFragment instanceof SelfieFragment) {
+                onEvent(EVENT_SELFIE_BACK, null);
             } else if (currentFragment instanceof DomicilioActualFragment) {
                 onEvent(EVENT_PERSONAL_DATA_BACK, null);
             } else if (currentFragment instanceof TienesTarjetaFragment) {
@@ -382,7 +410,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     showDialogOut();
                 }
 
-            } else if (currentFragment instanceof NewPasswordLoginChange) {
+            }else if (currentFragment instanceof ConfirmarNIPFragment) {
+                    resetRegisterData();// Eliminamos la información de registro almacenada.
+                    showDialogOut();
+
+            }  else if (currentFragment instanceof NewPasswordLoginChange) {
                 if (((NewPasswordLoginChange) currentFragment).isCustomKeyboardVisible()) {
                     //((AsignarNIPFragment) currentFragment).hideKeyboard();
                 } else {
@@ -446,6 +478,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             loginContainerFragment.onActivityResult(requestCode, resultCode, data);
+        }else {
+            SelfieFragment mFragment = (SelfieFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+            CameraManager cameraManager = mFragment.getCameraManager();
+            // Enviamos datos recibidos al CameraManager
+            cameraManager.setOnActivityResult(requestCode, resultCode, data);
         }
     }
 
