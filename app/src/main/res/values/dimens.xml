@@ -213,7 +213,7 @@
     <dimen name="card_height">80dp</dimen>
 
     <!-- Hamburgesa-->
-    <dimen name="nav_header_height">100dp</dimen>
+    <dimen name="nav_header_height">152dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
 
     <dimen name="bar_height">140dp</dimen>

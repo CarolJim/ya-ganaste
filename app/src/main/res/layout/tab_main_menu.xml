@@ -16,12 +16,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <View
-            android:id="@+id/tab_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorAccent"
-            android:visibility="gone" />
 
         <ImageView
             android:id="@android:id/icon"
@@ -38,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Deposito"
-
             android:textSize="@dimen/frag_inicio_tab_month_normal_text_size"
             app:tipo="Descripcion" />
     </LinearLayout>

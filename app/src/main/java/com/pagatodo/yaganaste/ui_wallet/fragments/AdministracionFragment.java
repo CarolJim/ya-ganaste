@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
@@ -34,10 +35,10 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_C
  * Use the {@link AdministracionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdministracionFragment extends SupportFragment implements MenuAdapter.OnItemClickListener{
+public class AdministracionFragment extends SupportFragment implements OptionMenuItem.OnMenuItemClickListener{
 
-    @BindView(R.id.list_view_admon)
-    ListView listView;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
 
     private View rootView;
     private MenuAdapter menuAdapter;
@@ -68,8 +69,9 @@ public class AdministracionFragment extends SupportFragment implements MenuAdapt
     @Override
     public void initViews() {
         ButterKnife.bind(this, this.rootView);
-        menuAdapter = ContainerBuilder.ADMINISTRACION(getContext(),this);
-        listView.setAdapter(menuAdapter);
+        //menuAdapter = ContainerBuilder.ADMINISTRACION(getContext(),this);
+        ContainerBuilder.ADMINISTRACION(getContext(),mLinearLayout,this);
+        //listView.setAdapter(menuAdapter);
     }
 
     @Override
@@ -77,8 +79,9 @@ public class AdministracionFragment extends SupportFragment implements MenuAdapt
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()){
             case 1:
                 if (SingletonUser.getInstance().getCardStatusId().equals(Recursos.ESTATUS_CUENTA_DESBLOQUEADA)) {
@@ -136,6 +139,4 @@ public class AdministracionFragment extends SupportFragment implements MenuAdapt
 
         }
     }
-
-
 }

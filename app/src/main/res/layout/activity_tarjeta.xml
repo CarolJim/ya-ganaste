@@ -50,13 +50,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"/>
 
-            <ListView
-                android:id="@+id/list_view_admon"
+            <LinearLayout
+                android:id="@+id/content_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/imgYaGanasteCard"
-                android:layout_marginTop="20dp"
-                />
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical"
+                android:layout_below="@id/textView2">
+            </LinearLayout>
 
         </RelativeLayout>
 

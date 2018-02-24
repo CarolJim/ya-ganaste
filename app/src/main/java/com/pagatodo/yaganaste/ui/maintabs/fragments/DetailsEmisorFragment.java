@@ -133,7 +133,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     Button btnVolver;
     private View rootView;
     private MovimientosResponse movimientosResponse;
-    ImageView imageView;
+
 
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
         DetailsEmisorFragment detailsEmisorFragment = new DetailsEmisorFragment();
@@ -147,20 +147,12 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
+
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
         } else {
             throw new IllegalCallException(DetailsEmisorFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
-    }
-
-    public void setVisibilityPrefer(Boolean mBoolean) {
-        /*if (mBoolean) {
-            imageView.setVisibility(View.VISIBLE);
-        } else {*/
-            imageView.setVisibility(View.GONE);
-        //}
     }
 
     @Override
@@ -169,15 +161,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        setVisibilityPrefer(false);
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
-        //loadViews();
         initViews();
     }
 

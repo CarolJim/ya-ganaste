@@ -20,11 +20,14 @@
             android:gravity="center"
             android:text="@string/navigation_drawer_menu_acerca" />
 
-        <ListView
-            android:id="@+id/listview_generic"
+        <LinearLayout
+            android:id="@+id/content_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@android:color/transparent"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_below="@id/textView2">
+        </LinearLayout>
 
     </LinearLayout>
 

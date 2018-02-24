@@ -21,7 +21,9 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD_CUENTA_YA;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_CUENTA_YA;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_LINEA_CREDITO;
@@ -29,9 +31,10 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TerminosyCondicionesFragment extends GenericFragment implements MenuAdapter.OnItemClickListener{
-    @BindView(R.id.listview_generic)
-    ListView listView;
+public class TerminosyCondicionesFragment extends GenericFragment implements OptionMenuItem.OnMenuItemClickListener{
+
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
 
     View rootview;
 
@@ -56,11 +59,12 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Men
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
+        //listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
+        ContainerBuilder.LEGALES(getContext(),mLinearLayout,this);
     }
 
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()){
             case 1:
                 onEventListener.onEvent(PREFER_USER_TERMINOS_CUENTA_YA, 1);

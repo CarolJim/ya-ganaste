@@ -773,7 +773,8 @@
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
-
+    <string name="tu_codigo_qr">Tú código QR</string>
+    <string name="text_tu_qr">Muéstralo para recibir envíos de dinero\nen tu cuenta</string>
     <string name="string_share_deposits">¡Hola!\nEstos son los datos de depósito de mi cuenta Ya Ganaste\n
         \nTitular: %1$s\nN° Teléfono: %2$s\nCLABE: %3$s\nTarjeta: %4$s</string>
 
@@ -1192,6 +1193,7 @@
     <!--Navegation Drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_menu_mi_qr">Mi código QR</string>
     <string name="navigation_drawer_menu_seguridad">Seguridad</string>
     <string name="navigation_drawer_menu_chat">Chat</string>
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
@@ -1283,5 +1285,8 @@
     <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

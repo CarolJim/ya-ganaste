@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -51,6 +52,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
@@ -164,6 +166,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             loadFragment(ListaAyudaLegalesFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_LOGOUT) {
             onEvent(PREFER_USER_CLOSE, null);
+        } else  if (getIntent().getIntExtra(MENU, 0) == MENU_CODE) {
+            loadFragment(QRFragment.newInstance());
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0)));
         }

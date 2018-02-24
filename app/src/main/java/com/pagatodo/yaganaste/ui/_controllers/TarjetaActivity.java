@@ -1,22 +1,10 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.SwitchCompat;
-import android.text.TextPaint;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -35,14 +23,11 @@ import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
-import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
 import butterknife.BindView;
@@ -51,18 +36,16 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
-import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome,
-        MenuAdapter.OnItemClickListener{
+        OptionMenuItem.OnMenuItemClickListener{
 
     private String nombreCompleto, ultimaTransaccion;
     @BindView(R.id.imgYaGanasteCard)
     YaGanasteCard imgYaGanasteCard;
-    @BindView(R.id.list_view_admon)
-    ListView listView;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
     @BindView(R.id.container)
     FrameLayout container;
     @BindView(R.id.lyt_princpal)
@@ -73,7 +56,6 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     boolean statusOperation = true;
     private TarjetaUserPresenter mPreferPresenter;
     private AccountPresenterNew presenterAccount;
-    private MenuAdapter menuAdapter;
 
 
     @Override
@@ -100,8 +82,9 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     }
 
     void init(){
-        menuAdapter = ContainerBuilder.ADMINISTRACION(this,this);
-        listView.setAdapter(menuAdapter);
+        //menuAdapter = ContainerBuilder.ADMINISTRACION(this,this);
+        ContainerBuilder.ADMINISTRACION(this,mLinearLayout,this);
+        //listView.setAdapter(menuAdapter);
         //intitCard();
         estadotarjeta();
     }
@@ -138,7 +121,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     private void checkState(String state) {
         switch (state) {
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
-                menuAdapter.setStatus(true);
+                //menuAdapter.setStatus(true);
                 //imgStatus.setImageResource(R.drawable.ic_candado_closed);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
                 //txtBlockCardDesc.setText(getString(R.string.desbloquear_tarjeta));
@@ -146,14 +129,14 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
 
-                menuAdapter.setStatus(false);
+                //menuAdapter.setStatus(false);
                 //imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.drawable.tarjeta_yg);
                 //txtBlockCardDesc.setText(getString(R.string.bloquear_tarjeta));
                 //   printCard(cuenta());
                 break;
             default:
-                menuAdapter.setStatus(false);
+                //menuAdapter.setStatus(false);
                 //imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.drawable.tarjeta_yg);
                 //txtBlockCardDesc.setText(getString(R.string.bloquear_tarjeta));
@@ -342,7 +325,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     }
 
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()){
             case 3:
                 /**
@@ -375,12 +358,12 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                         if (optionMenuItem.isStatusSwtich()) {
                             statusOperation = false;
 
-                            menuAdapter.setStatus(false);
+                            //menuAdapter.setStatus(false);
                             statusOperation = true;
                         } else {
                             statusOperation = false;
 
-                            menuAdapter.setStatus(true);
+                            //menuAdapter.setStatus(true);
                             statusOperation = true;
                         }
                     }
@@ -402,6 +385,5 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 break;
                 */
         }
-
     }
 }

@@ -67,7 +67,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         viewHolder.txttitle = convertView.findViewById(R.id.title);
         viewHolder.subtitle = convertView.findViewById(R.id.subtitle);
         viewHolder.ic_item = convertView.findViewById(R.id.ic_item);
-        viewHolder.rawItem = convertView.findViewById(R.id.raw_item);
+
         viewHolder.dividerList = convertView.findViewById(R.id.dividerList);
         viewHolder.radioGroup = convertView.findViewById(R.id.radio_group);
         viewHolder.radioButtonLeft = convertView.findViewById(R.id.radiobutton_no);
@@ -91,23 +91,23 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         if (listItems.get(position).getIndication() != null) {
 
             //----Toggle----//
-            if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.TOGGLE) {
+            /*if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.TOGGLE) {
                 viewHolder.radioGroup.setVisibility(View.VISIBLE);
                 viewHolder.radioButtonLeft.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                        listener.onItemClick(listItems.get(position));
                     }
                 });
 
                 viewHolder.radioButtonRight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        Log.d("TOGGLE RIGTH",b+"");
+                        listener.onItemClick(listItems.get(position));
                     }
                 });
 
-            }
+            }*/
             if (listItems.get(position).getIndication() == OptionMenuItem.INDICATION.RAW) {
                 viewHolder.rawItem.setVisibility(View.VISIBLE);
             }

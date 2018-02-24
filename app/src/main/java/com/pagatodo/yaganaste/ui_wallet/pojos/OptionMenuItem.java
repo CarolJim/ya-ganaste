@@ -2,6 +2,13 @@ package com.pagatodo.yaganaste.ui_wallet.pojos;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+
+import com.pagatodo.yaganaste.utils.customviews.CustomRadioButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 /**
  * Created by icruz on 08/01/2018.
@@ -16,6 +23,7 @@ public class OptionMenuItem {
     private int subtitle;
     private INDICATION indication;
     private boolean toggleState = false;
+    private boolean divider = true;
 
     public OptionMenuItem(int idItem, int resourceTitle, int subtitle, INDICATION indication) {
         this.idItem = idItem;
@@ -31,6 +39,22 @@ public class OptionMenuItem {
         this.resourceItem = resourceItem;
         this.resourceTitle = resourceTitle;
         this.toggleState = false;
+    }
+
+    public OptionMenuItem(int idItem, @Nullable int resourceItem, @Nullable int resourceTitle, boolean divider) {
+        this.idItem = idItem;
+        this.resourceItem = resourceItem;
+        this.resourceTitle = resourceTitle;
+        this.toggleState = false;
+        this.divider = divider;
+    }
+
+    public boolean isDivider() {
+        return divider;
+    }
+
+    public void setDivider(boolean divider) {
+        this.divider = divider;
     }
 
     public boolean isStatusSwtich() {
@@ -98,7 +122,7 @@ public class OptionMenuItem {
 
 
     public enum INDICATION {
-        RAW, TOGGLE
+        RAW, RADIOBUTTON
     }
 
     final public static int ID_SEGURIDAD = 1;
@@ -108,5 +132,27 @@ public class OptionMenuItem {
     final public static int ID_NOTIFICACIONES = 5;
     final public static int ID_DESVINCULAR = 6;
     final public static int ID_LOGOUT = 7;
+    final public static int ID_CODE = 8;
 
+
+    public static class ViewHolderOptionMenuItme {
+        public RelativeLayout relativeLayout;
+        public ImageView imageView;
+        public StyleTextView title;
+        public View dividerList;
+    }
+
+    public static class ViewHolderMenuSegurity {
+        public RelativeLayout relativeLayout;
+        public ImageView raw;
+        public StyleTextView title;
+        public StyleTextView subtitle;
+        public CustomRadioButton radioButtonNo;
+        public CustomRadioButton radioButtonSi;
+        public RadioGroup radioGroup;
+    }
+
+    public interface OnMenuItemClickListener {
+        void OnMenuItem(OptionMenuItem optionMenuItem);
+    }
 }

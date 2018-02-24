@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,18 +36,19 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_NOTIFICAC
  * Use the {@link SecurityFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SecurityFragment extends SupportFragment implements MenuAdapter.OnItemClickListener {
+public class SecurityFragment extends SupportFragment implements OptionMenuItem.OnMenuItemClickListener {
 
     public static String MENU = "MENU";
     public static int MENU_SEGURIDAD = 1;
     public static int MENU_AJUSTES = 2;
     public static int MENU_TERMINOS = 3;
     public static int MENU_LOGOUT = 4;
+    public static int MENU_CODE = 5;
     final public static int MENU_NOTIFICACIONES = 3;
     private int TYPE_MENU;
 
-    @BindView(R.id.security_item)
-    ListView listView;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
     @BindView(R.id.title_menu)
     StyleTextView titleMenu;
     @BindView(R.id.notific_discreption)
@@ -90,27 +94,24 @@ public class SecurityFragment extends SupportFragment implements MenuAdapter.OnI
 
         switch (TYPE_MENU) {
             case 1:
-                listView.setAdapter(ContainerBuilder.SECURITY_MENU(getContext(),this));
-                //listView.setOnItemClickListener(this);
+                ContainerBuilder.SECURITY_MENU(getContext(),mLinearLayout,this);
                 break;
             case 2:
-                listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
+                //listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
+                ContainerBuilder.SETTINGS_MENU(getContext(),mLinearLayout,this);
                 break;
             case 3:
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_acerca));
-
                 break;
-
             default:
                 Toast.makeText(getContext(), "Intentar Mas Tarde", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()) {
             case ID_CCAMBIAR_PASS:
                 onEventListener.onEvent(PREFER_USER_PASS, null);
@@ -121,9 +122,18 @@ public class SecurityFragment extends SupportFragment implements MenuAdapter.OnI
             case ID_DESVINCULAR:
                 onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
                 break;
+            case -1:
+                break;
             default:
 
                 break;
         }
     }
+
+    /*
+    @Override
+    public void onItemClick(OptionMenuItem optionMenuItem) {
+
+    }
+    */
 }
