@@ -58,7 +58,6 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
 
     Double monto;
 
-
     public static SendWalletFragment newInstance() {
         SendWalletFragment fragment = new SendWalletFragment();
         Bundle args = new Bundle();

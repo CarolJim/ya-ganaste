@@ -36,6 +36,7 @@ import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -353,13 +354,13 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     private void updateOperations(int position) {
         pageCurrent = position;
         if (position == 0) {
-            txtAmountBalance.setText(balanceEmisor);
+            txtAmountBalance.setText(Utils.getCurrencyValue(balanceEmisor));
             txtCardDescBalance.setText(getString(R.string.tarjeta_yg));
             txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance(getContext()));
         }
         if (position == 1) {
-            txtAmountBalance.setText(balanceAdq);
+            txtAmountBalance.setText(Utils.getCurrencyValue(balanceAdq));
             txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
             txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance(getContext()));

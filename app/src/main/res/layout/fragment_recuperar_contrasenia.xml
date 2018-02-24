@@ -36,7 +36,7 @@
             android:id="@+id/txtTitleRecovery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/recupera_contrasenia_title"
             android:textColor="@color/colorAccent"
@@ -70,6 +70,7 @@
             android:gravity="center"
             android:text="dantestark@gmail.com"
             android:textColor="@color/colorAccent"
+            android:textSize="17sp"
             android:visibility="visible" />
 
         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
@@ -101,11 +102,6 @@
                 style="@style/buttonDirecctionBackSmall"
                 android:text="@string/backButton"
                 android:visibility="gone" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="@dimen/btns_separation"
-                android:layout_height="match_parent" />
-
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextRecuperar"

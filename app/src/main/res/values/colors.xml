@@ -80,8 +80,6 @@
     <color name="yellow">#ECDF00</color>
 
     <!--Colores Barra de progreso cupo-->
-
-
     <color name="progreso_cupo_Rechazado">#808080</color>
     <color name="loginColorButton">#0280B2</color>
     <color name="progreso_cupo_second">#1CC65D</color>
@@ -111,4 +109,10 @@
     <color name="item_movement">#f7f7f7</color>
     <color name="tab_movement_undselected">#95d7f1</color>
     <color name="colr_item_movement">#e1e1e1</color>
+
+    <!-- Wallet Letters -->
+    <color name="blue_text_wallet">#00a1e1</color>
+    <color name="white_text_wallet">#ffffff</color>
+    <color name="gray_text_wallet">#adadad</color>
+    <color name="gray_text_wallet_2">#888888</color>
 </resources>

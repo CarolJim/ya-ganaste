@@ -26,9 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="7dp"
-                android:src="@mipmap/icon_user"
-                app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="2dp" />
+                android:src="@mipmap/icon_user" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_username_balance"

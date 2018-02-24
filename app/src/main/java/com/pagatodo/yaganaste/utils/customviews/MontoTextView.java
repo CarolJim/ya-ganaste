@@ -88,11 +88,11 @@ public class MontoTextView extends StyleTextView {
              /*Cambiamos tamaño del símbolo $*/
                 if (symbolSmaller) {
                 /*Centramos símbolo de $*/
-                    text.setSpan(new CustomCharacterSpan(0.3),
+                    text.setSpan(new CustomCharacterSpan(0),
                             0, 1,
                             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             /*Seteamos elevación de decimales*/
-                    text.setSpan(new CustomCharacterSpan(0.8),
+                    text.setSpan(new CustomCharacterSpan(0.5),
                             DotBottom ? index + 1 : index, lenght,
                             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             /*Seteamos escala de font de decimales*/
@@ -105,10 +105,10 @@ public class MontoTextView extends StyleTextView {
                             lenght - (decimalsLenght + 1)/*omitimos el punto decimal*/,
                             0); // aumentamos el tamaño
 
-                    text.setSpan(new RelativeSizeSpan(0.6f), 0, 1, 0); // aumentamos el tamaño del simbolo $
+                    text.setSpan(new RelativeSizeSpan(1f), 0, 1, 0); // aumentamos el tamaño del simbolo $
                 } else {
                /*Seteamos elevación de decimales*/
-                    text.setSpan(new CustomCharacterSpan(0.8),
+                    text.setSpan(new CustomCharacterSpan(0.5),
                             DotBottom ? index + 1 : index, lenght,
                             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             /*Seteamos escala de font de decimales*/

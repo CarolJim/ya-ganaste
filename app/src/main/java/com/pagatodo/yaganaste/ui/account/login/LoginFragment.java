@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,10 +147,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         SpannableString ss;
         ss = new SpannableString(getString(R.string.recover_pass));
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 26, 47, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new UnderlineSpan(), 26, 47, 0);
         txtLoginExistUserRecoverPass.setText(ss);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            textNameUser.setText("¡Hola " + preferencias.loadData(StringConstants.SIMPLE_NAME) + "!");
+            textNameUser.setText("¡Hola " + prefs.loadData(StringConstants.NAME_USER) + "!");
             btnLogin.setText(getString(R.string.txt_iniciar_sesion));
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);

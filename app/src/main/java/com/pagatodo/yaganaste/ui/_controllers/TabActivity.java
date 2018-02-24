@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -17,11 +16,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -181,11 +178,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         imageNotification = (ImageView) findViewById(R.id.imgNotifications);
         imageNotification.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
-       // rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
+        // rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
         //mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
 
         ViewGroup mLinearLayout = findViewById(R.id.content_linearlayout);
-        ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> list = ContainerBuilder.MAINMENU(this,mLinearLayout,this);
+        ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> list = ContainerBuilder.MAINMENU(this, mLinearLayout, this);
         StyleTextView textViewversion = findViewById(R.id.txtVersionApp);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         showBack(false);
@@ -243,7 +240,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
 
-
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);
         pref = App.getInstance().getPrefs();
@@ -255,14 +251,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         resetPinPresenter.setResetNIPView(this);
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         nameUser = (TextView) findViewById(R.id.txt_name_user);
-        if (pref.loadData(StringConstants.SIMPLE_NAME).contains(" ")) {
-            String name[] = pref.loadData(StringConstants.SIMPLE_NAME).split(" ");
-            nameUser.setText(name[0]);
-        } else {
-            nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
-        }
+        nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
         navDrawer = findViewById(R.id.drawer_layout);
-
     }
 
     @Override
@@ -683,13 +673,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         }
         */
-    public void actionMenu(int opcionMenu){
+    public void actionMenu(int opcionMenu) {
         Intent intent = new Intent(this, PreferUserActivity.class);
         intent.putExtra(MENU, opcionMenu);
         startActivityForResult(intent, CODE_LOG_OUT);
     }
 
-    public void logOut(){
+    public void logOut() {
         UI.createSimpleCustomDialog("",
                 App.getContext().getResources().getString(R.string.desea_cerrar_sesion),
                 getSupportFragmentManager(),
@@ -734,7 +724,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void showProgress(String mMensaje) {
         navDrawer.closeDrawers();
-      //  showProgressLayout(getString(R.string.listaopciones_load_image_wait));
+        //  showProgressLayout(getString(R.string.listaopciones_load_image_wait));
     }
 
     @Override
