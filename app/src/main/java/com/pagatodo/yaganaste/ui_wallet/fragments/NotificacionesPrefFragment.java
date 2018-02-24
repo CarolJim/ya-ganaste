@@ -22,8 +22,7 @@ import butterknife.ButterKnife;
 
 public class NotificacionesPrefFragment extends SupportFragment implements MenuAdapter.OnItemClickListener {
 
-    @BindView(R.id.security_item)
-    ListView listView;
+
     @BindView(R.id.title_menu)
     StyleTextView titleMenu;
     @BindView(R.id.subtitle_menu)
@@ -62,7 +61,7 @@ public class NotificacionesPrefFragment extends SupportFragment implements MenuA
     public void initViews() {
         titleMenu.setText(getContext().getResources().getString(R.string.ajustes_notificar_option));
         subtitleMenu.setVisibility(View.VISIBLE);
-        listView.setAdapter(ContainerBuilder.SETTINGS_NOTIFICACIONES(getContext(),this));
+        //listView.setAdapter(ContainerBuilder.SETTINGS_NOTIFICACIONES(getContext(),this));
     }
 
     @Override

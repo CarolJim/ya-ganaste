@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.BuildConfig;
@@ -16,6 +17,8 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,10 +26,11 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS;
 
 
-public class ListaAyudaLegalesFragment extends GenericFragment implements MenuAdapter.OnItemClickListener {
+public class ListaAyudaLegalesFragment extends GenericFragment implements OptionMenuItem.OnMenuItemClickListener {
 
-    @BindView(R.id.listview_generic)
-    ListView listView;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
+
     @BindView(R.id.txtVersionApp)
     StyleTextView version;
 
@@ -58,12 +62,13 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements MenuAd
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        listView.setAdapter(ContainerBuilder.ACERCA_DE(getContext(),this));
+        //listView.setAdapter(ContainerBuilder.ACERCA_DE(getContext(),this));
+        ContainerBuilder.ACERCA_DE(getContext(),mLinearLayout,this);
         version.setText("Ya Ganaste Versión: " + BuildConfig.VERSION_NAME);
     }
 
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()){
             case 1:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD, 1);
@@ -72,8 +77,5 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements MenuAd
                 onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
                 break;
         }
-         /*onEventListener.onEvent(PREFER_USER_HELP_TUTORIALES, 1);
-         onEventListener.onEvent(PREFER_USER_HELP_CONTACT, 1);
-         onEventListener.onEvent(PREFER_USER_HELP_ABOUT, 1);*/
     }
 }

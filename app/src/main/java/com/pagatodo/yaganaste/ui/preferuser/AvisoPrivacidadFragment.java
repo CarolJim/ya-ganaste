@@ -17,6 +17,8 @@ import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,11 +30,11 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AvisoPrivacidadFragment extends GenericFragment implements MenuAdapter.OnItemClickListener{
+public class AvisoPrivacidadFragment extends GenericFragment implements OptionMenuItem.OnMenuItemClickListener{
 
     //private int Idestatus;
-    @BindView(R.id.listview_generic)
-    ListView listView;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
 
     View rootview;
 
@@ -55,17 +57,16 @@ public class AvisoPrivacidadFragment extends GenericFragment implements MenuAdap
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
+        //listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
+        ArrayList<OptionMenuItem.ViewHolderMenuSegurity> list = ContainerBuilder.LEGALES(getContext(),mLinearLayout,this);
     }
 
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()){
             case 1:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD_CUENTA_YA, 1);
                 break;
         }
-        //onEventListener.onEvent(PREFER_USER_PRIVACIDAD_LINEA_CREDITO, 1);
     }
-
 }

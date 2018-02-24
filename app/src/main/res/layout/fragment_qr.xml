@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgraund_wallet">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtDepositTitle"
+        style="@style/title_fragment"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tu_codigo_qr"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_description"
+        style="@style/generic_text_style_3"
+        android:layout_below="@id/txtDepositTitle"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="@string/text_tu_qr"
+        android:layout_marginBottom="32dp"/>
+
+    <RelativeLayout
+        android:id="@+id/qr_zone"
+        android:layout_below="@id/txt_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="6dp">
+
+        <ImageView
+            android:id="@+id/imgYaGanasteQR"
+            android:layout_width="285dp"
+            android:layout_height="285dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:background="@drawable/blue_border_rectangle"/>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:scaleType="center"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

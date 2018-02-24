@@ -1,16 +1,18 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/backgraund_wallet">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/title_menu"
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/navigation_drawer_menu_seguridad" />
+        android:text="@string/navigation_drawer_menu_seguridad"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="32dp"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/subtitle_menu"
@@ -34,11 +36,20 @@
         android:textColor="@color/colorAccent"
         android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/security_item"
+    <View
+        android:id="@+id/dividerList"
+        android:background="@color/decoration_item_color"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:divider="@android:color/transparent"/>
+        android:layout_height="0.5dp"
+        android:layout_below="@id/title_menu"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/content_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/dividerList">
+
+    </LinearLayout>
+
+</RelativeLayout>

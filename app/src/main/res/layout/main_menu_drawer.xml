@@ -21,30 +21,51 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/nav_header_menu_drawer" />
+            <include
+                android:id="@+id/head" layout="@layout/nav_header_menu_drawer" />
 
-            <ListView
-                android:id="@+id/lst_menu_items"
+            <LinearLayout
+                android:id="@+id/content_linearlayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="16dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="15dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:src="@drawable/logo_header_menu"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"/>
-        </LinearLayout>
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical"
+                android:layout_marginTop="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_below="@id/head">
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/colorAccent"
+                android:layout_alignParentBottom="true">
+
+                <ImageView
+                    android:id="@+id/image_logo"
+                    android:layout_width="22.5dp"
+                    android:layout_height="22.5dp"
+                    android:layout_centerHorizontal="true"
+                    app:srcCompat="@drawable/ic_logo_header"
+                    tools:ignore="ContentDescription"
+                    android:layout_marginTop="8.5dp"
+                    android:layout_marginBottom="4.5dp"/>
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_5"
+                    android:id="@+id/txtVersionApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_logo"
+                    android:text="Ya Ganaste 3.0"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
     </android.support.design.widget.NavigationView>
 
     

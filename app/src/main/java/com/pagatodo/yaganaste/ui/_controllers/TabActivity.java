@@ -17,18 +17,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
@@ -45,7 +45,6 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
-import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
@@ -60,10 +59,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
-import com.pagatodo.yaganaste.ui_wallet.dialog.DialogQrProfile;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
@@ -80,9 +76,11 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -93,11 +91,12 @@ import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
@@ -119,7 +118,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, MenuAdapter.OnItemClickListener,
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OptionMenuItem.OnMenuItemClickListener,
         IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
@@ -149,12 +148,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     TextView nameUser;
     ImageView imageNotification;
     ImageView imageshare;
-    ImageButton btnQrProfile;
     App aplicacion;
     private boolean disableBackButton = false;
 
     FBPresenter fbmPresenter;
-    private ListView listView;
+
     public boolean isDialogShowned = false;
 
     public static Intent createIntent(Context from) {
@@ -166,6 +164,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,14 +181,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         imageNotification = (ImageView) findViewById(R.id.imgNotifications);
         imageNotification.setVisibility(View.GONE);
         imageshare = (ImageView) findViewById(R.id.deposito_Share);
-        btnQrProfile = (ImageButton) findViewById(R.id.btn_qr_profile);
-        btnQrProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openQrProfile();
-            }
-        });
+       // rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
+        //mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
 
+        ViewGroup mLinearLayout = findViewById(R.id.content_linearlayout);
+        ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> list = ContainerBuilder.MAINMENU(this,mLinearLayout,this);
+        StyleTextView textViewversion = findViewById(R.id.txtVersionApp);
+        textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         showBack(false);
         /*if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
@@ -244,19 +242,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
-    private void openQrProfile() {
-        if (!isDialogShowned) {
-            isDialogShowned = true;
-            DialogQrProfile dialogQrProfile = new DialogQrProfile();
-            dialogQrProfile.show(getSupportFragmentManager(), "Dialog Qr Profile");
-        }
-    }
+
 
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);
         pref = App.getInstance().getPrefs();
         mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
-        mainTab = (TabLayout) findViewById(R.id.main_tab);
+        mainTab = findViewById(R.id.main_tab);
         progressGIF = (ProgressLayout) findViewById(R.id.progressGIF);
         progressGIF.setVisibility(View.GONE);
         resetPinPresenter = new ResetPinPresenterImp(false);
@@ -269,7 +261,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else {
             nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
         }
-        navDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navDrawer = findViewById(R.id.drawer_layout);
 
     }
 
@@ -282,13 +274,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setCurrentItem(1);
         mainTab.setupWithViewPager(mainViewPager);
         //mainTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
-        LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
+        /*LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         GradientDrawable drawable = new GradientDrawable();
         drawable.setColor(ContextCompat.getColor(this, R.color.colorGrayMenuDivider));
         drawable.setSize(1, 1);
         linearLayout.setDividerPadding(0);
-        linearLayout.setDividerDrawable(drawable);
+        linearLayout.setDividerDrawable(drawable);*/
 
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
@@ -306,12 +298,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         toggle.syncState();
 
         getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
-        listView = findViewById(R.id.lst_menu_items);
-        //listView.setAdapter(new MenuAdapter(this, ContainerBuilder.MAINMENU(), this));
-        listView.setAdapter(ContainerBuilder.MAINMENU(this,this));
 
     }
 
@@ -648,7 +635,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
+    public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:
                 actionMenu(MENU_SEGURIDAD);
@@ -662,12 +649,40 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             case ID_LOGOUT:
                 logOut();
                 break;
+            case ID_CODE:
+                actionMenu(MENU_CODE);
+                break;
             default:
                 Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();
                 break;
         }
-
     }
+
+    /*@Override
+        public void onItemClick(OptionMenuItem optionMenuItem) {
+            switch (optionMenuItem.getIdItem()) {
+                case ID_SEGURIDAD:
+                    actionMenu(MENU_SEGURIDAD);
+                    break;
+                case ID_AJUSTES:
+                    actionMenu(MENU_AJUSTES);
+                    break;
+                case ID_ACERCA_DE:
+                    actionMenu(MENU_TERMINOS);
+                    break;
+                case ID_LOGOUT:
+                    logOut();
+                    break;
+                case ID_CODE:
+                    actionMenu(MENU_CODE);
+                    break;
+                default:
+                    Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        }
+        */
     public void actionMenu(int opcionMenu){
         Intent intent = new Intent(this, PreferUserActivity.class);
         intent.putExtra(MENU, opcionMenu);
