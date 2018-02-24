@@ -7,9 +7,10 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovim
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
-import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.MovementsEmisorView;
 import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
 import com.pagatodo.yaganaste.utils.DateUtil;

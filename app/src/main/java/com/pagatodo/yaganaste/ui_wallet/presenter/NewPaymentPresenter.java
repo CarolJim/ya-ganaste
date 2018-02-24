@@ -11,8 +11,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.interactors.INewPaymentInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.NewPaymentInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;

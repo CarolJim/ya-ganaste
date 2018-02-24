@@ -65,7 +65,7 @@
     <string name="updateFavoritos">/ActualizarFavorito</string>
     <string name="deleteFavorito">/EliminarFavorito</string>
     <!--<string name="url_images_logos">http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/logos/android/</string>-->
-    <string name="url_images_logos">https://www.yaganaste.com/Logos/android/</string>
+    <string name="url_images_logos">https://www.yaganaste.com/Logos/</string>
     <string name="obtenerCobrosMensuales">/ObtenerCatalogoOperacionesPLD</string>
     <string name="obtenerPaisesPLD">/ObtenerPaisesPLD</string>
     <string name="obtenerMontos">/ObtenerCatalogoMontosPLD</string>
@@ -85,7 +85,14 @@
     <string name="adqTransactionCard">/agMov/transactionEMVSwipe</string>
     <string name="adqSignatureVaucher">/agMov/signBankTransaction</string>
     <string name="adqConsultTransaction">/agMov/getStatusTransactionEMVSwipe</string>
-
+    <string name="adqSendTicket">/agMov/sendTicketADQ</string>
+    <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
+    <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
+    <string name="adqGetBalance">/agMov/getSaldo</string>
+    <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
+    <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
+    <string name="adqGetTypeRepayment">/agMov/ObtieneTipoReembolso</string>
+    <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
 
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
@@ -97,14 +104,6 @@
     <string name="cupoObtenerEstadoDeDocumentos">/ObtenerDocumentosCupo</string>
     <string name="cupoActualizaDocumentosCupo">/ActualizaDocumentosCupo</string>
     <string name="cupoActualizaReferenciasCupo">/ActualizarReferenciaCupo</string>
-
-    <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
-    <string name="adqSendTicket">/agMov/sendTicketADQ</string>
-    <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
-    <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
-    <string name="adqGetBalance">/agMov/getSaldo</string>
-    <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
-    <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
 
     <!-- Cadenas de Notificaciones -->
     <string name="queryNotifUser">ConsultarNotificacionesUsuario</string>
@@ -217,7 +216,7 @@
     <string name="txt_escribe_tu_pass">Contraseña</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
-    <string name="txt_iniciar_sesion">Iniciar Sesión</string>
+    <string name="txt_iniciar_sesion">Iniciar sesión</string>
     <string name="recover_pass"><u>¿Olvidaste tu Contraseña?\nAquí Podemos Ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo electrónico</string>
@@ -588,7 +587,7 @@
     <string name="title_guardar">Guardar</string>
     <string name="title_reintentar">Reintentar</string>
     <string name="title_llamar">Llamar</string>
-    <string name="title_error">Ocurrió un Error</string>
+    <string name="title_error">Ocurrió un error</string>
     <string name="title_update">Actualización</string>
     <string name="text_update_forced">Para Poder Continuar es Necesario Actualizar tu App</string>
     <string name="text_update_warn">Hay Una Nueva Versión de Ya Ganaste, ¿Deseas Descargarla Ahora?</string>
@@ -752,7 +751,7 @@
     <string name="catalogo_version_init">0</string>
     <string name="asigna_nip">Asigna tu NIP</string>
 
-    <string name="vuelve_conectar_lector">Vuelve a Conectar el Lector</string>
+    <string name="vuelve_conectar_lector">Vuelve a conectar el lector</string>
     <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido</string>
     <string name="verificando_email">Verificando Correo Electrónico</string>
     <string name="actualizando_saldo"> </string>
@@ -921,8 +920,8 @@
     <string name="solicitud_cupo">Estamos Enviando tu Información \nNos Tomará Sólo Unos Segundos</string>
 
     <string name="security_code">Código de Seguridad</string>
-    <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
-    <string name="verificando_sms_esperanuevo">Estamos Vinculando tu Celular \n a tu Cuenta</string>
+    <string name="verificando_sms_espera">Obteniendo número de celular</string>
+    <string name="verificando_sms_esperanuevo">Estamos vinculando tu celular a tu cuenta</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="use_fingerprint">Uso de Huella Digital</string>
@@ -1175,8 +1174,17 @@
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
     <string name="generate_code_subtitle">Con él podrás autorizar movimientos desde la\nweb. Ingresa tu contraseña para generarlo.</string>
+    <string name="title_configure_dongle">Configurar lector de tarjetas</string>
+    <string name="dongle_battery">Batería del lector</string>
+    <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
+    <string name="receiving_dongle_battery">Obteniendo el nivel de batería</string>
+    <string name="time_repayment">Tiempo de reembolso</string>
+    <string name="time_repayment_desc">Selecciona en cuánto tiempo deseas recibir\nlos reembolsos de tus cobros</string>
+    <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
+    <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nLlámanos, podemos ayudarte</string>
     <string name="numero"><u>01800-500-1000</u></string>
+
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
     <string name="confirma_nueva_contrasena">Confirma tu Contraseña</string>
@@ -1244,7 +1252,6 @@
 
     <string name="administracion">Administración</string>
     <string name="title_fragment_nip">Cambia tu NIP</string>
-
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>

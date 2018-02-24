@@ -1,10 +1,10 @@
-package com.pagatodo.yaganaste.ui_wallet.interactors;
+package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 /**
- * Created by Armando Sandoval on 10/01/2018.
+ * Created by FranciscoManzo on 28/12/2017.
  */
 
-public interface IEnviosPaymentIteractor {
+public interface INewPaymentInteractor {
     void getCatalogosRecargarFromService();
 
     void getCatalogosFromDB(int mType);

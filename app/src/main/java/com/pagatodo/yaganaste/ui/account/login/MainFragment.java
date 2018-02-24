@@ -1,33 +1,28 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.util.DisplayMetrics;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
+import android.widget.Button;
+import android.widget.Scroller;
 
-import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.hintview.ColorPointHintView;
+import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
-import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.CustomTypefaceSpan;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,17 +39,19 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public final static String GO_TO_REGISTER = "GO_TO_REGISTER";
     public final static String NO_SIM_CARD = "NO_SIM_CARD";
     public final static String MAIN_SCREEN = "MAIN_SCREEN";
-    @BindView(R.id.btnMainCreateAccount)
-    AppCompatButton btnMainCreateAccount;
-
-    @BindView(R.id.btnLogin)
-    AppCompatButton btnLogin;
-
-    //@BindView(R.id.viewpager)
-    //AutoScrollViewPager pager;
-    @BindView(R.id.rollPager)
-    RollPagerView rollPagerView;
+    private float[] ANIMATION_TIMES = {0f, 0.25f, 0.50f, 0.75f, 1f, 1f};
+    private final int NUM_PAGES = 5;
     private View rootview;
+
+    @BindView(R.id.vp_onboarding)
+    ViewPager mPager;
+    @BindView(R.id.anim_onboarding)
+    LottieAnimationView animOnboarding;
+    @BindView(R.id.btn_create_user)
+    Button btnMainCreateAccount;
+    @BindView(R.id.btn_login_user)
+    Button btnLogin;
+    private PagerAdapter pagerAdapter;
 
     public static MainFragment newInstance() {
         MainFragment fragmentRegister = new MainFragment();
@@ -77,28 +74,39 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         ButterKnife.bind(this, rootview);
         btnMainCreateAccount.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        animOnboarding.setSpeed(2f);
+        pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
+        mPager.setAdapter(pagerAdapter);
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                setAnimationProgress(position, positionOffset);
+            }
 
-        // Se encarga de hacer Set en el Adapter
-        rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
-        ColorPointHintView ss = new ColorPointHintView(getActivity(), Color.WHITE, Color.parseColor("#7fffffff"));
-        rollPagerView.setHintView(ss);
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int height = metrics.heightPixels; // alto absoluto en pixels
-        rollPagerView.setHintPadding(0, 0, 0, height / 7);
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        setViewPagerScroller();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnMainCreateAccount:
+            case R.id.btn_create_user:
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
                 startActivity(intent);
                 //getActivity().finish();
                 break;
 
-            case R.id.btnLogin:
+            case R.id.btn_login_user:
                 intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
@@ -106,5 +114,76 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         }
     }
 
+    private void setAnimationProgress(int position, float positionOffset) {
+        float startProgress = ANIMATION_TIMES[position];
+        float endProgress = ANIMATION_TIMES[position + 1];
+        animOnboarding.setProgress(lerp(startProgress, endProgress, positionOffset));
+    }
+
+    private float lerp(float startValue, float endValue, float f) {
+        return startValue + f * (endValue - startValue);
+    }
+
+    private void setViewPagerScroller() {
+        //noinspection TryWithIdenticalCatches
+        try {
+            Field scrollerField = ViewPager.class.getDeclaredField("mScroller");
+            scrollerField.setAccessible(true);
+            Field interpolator = ViewPager.class.getDeclaredField("sInterpolator");
+            interpolator.setAccessible(true);
+
+            Scroller scroller = new Scroller(getActivity(), (Interpolator) interpolator.get(null)) {
+                @Override
+                public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+                    super.startScroll(startX, startY, dx, dy, duration * 7);
+                }
+            };
+            scrollerField.set(mPager, scroller);
+        } catch (NoSuchFieldException e) {
+            // Do nothing.
+        } catch (IllegalAccessException e) {
+            // Do nothing.
+        }
+    }
+
+    /**
+     * A simple pager adapter that represents 5 {@link EmptyFragment} objects, in
+     * sequence.
+     */
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        private ArrayList<EmptyFragment> emptyList = new ArrayList<>();
+
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+            for (int i = 0; i < NUM_PAGES; i++) {
+                emptyList.add(EmptyFragment.newInstance());
+            }
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return emptyList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
+    }
+
+    @SuppressLint("ValidFragment")
+    public static class EmptyFragment extends Fragment {
+
+        public static EmptyFragment newInstance() {
+            return new EmptyFragment();
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_empty, container, false);
+        }
+    }
 }
 

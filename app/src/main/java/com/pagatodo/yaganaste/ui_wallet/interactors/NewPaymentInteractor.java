@@ -7,7 +7,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.ui_wallet.presenter.INewPaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 
 import java.util.List;
 

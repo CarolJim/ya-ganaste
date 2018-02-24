@@ -314,8 +314,8 @@ public class UI {
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
 
-    public static void showErrorSnackBar(Activity rootView, String message) {
-        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, Snackbar.LENGTH_LONG);
+    public static void showErrorSnackBar(Activity rootView, String message, int length) {
+        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, length);
         View view = snack.getView();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
         params.gravity = Gravity.BOTTOM;
@@ -324,8 +324,8 @@ public class UI {
         snack.show();
     }
 
-    public static void showSuccessSnackBar(Activity rootView, String message) {
-        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, Snackbar.LENGTH_LONG);
+    public static void showSuccessSnackBar(Activity rootView, String message, int length) {
+        Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, length);
         View view = snack.getView();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
         params.gravity = Gravity.BOTTOM;

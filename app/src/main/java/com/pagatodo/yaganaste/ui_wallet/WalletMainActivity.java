@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +16,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
-import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
@@ -29,14 +25,11 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsEmisorFragment;
-
-import java.security.Provider;
+import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +47,8 @@ import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
 
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
+    public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
+    public final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91;
@@ -89,13 +84,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     }
 
-    public void showToolbarShadow(){
-            ///android:background="@color/colorAccent"
+    public void showToolbarShadow() {
+        ///android:background="@color/colorAccent"
         toolbar.setBackgroundResource(R.drawable.bacgraund_tooblar);
 
     }
 
-    private void init(){
+    private void init() {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -108,7 +103,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        switch (idOperation){
+        switch (idOperation) {
             case 2:
                 getMenuInflater().inflate(R.menu.menu_wallet, menu);
                 /*MenuItem edit_item = menu.add(0, R.menu.menu_wallet, 0, R.string.item_menu_share);
@@ -122,8 +117,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 delete_item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);*/
                 //return super.onCreateOptionsMenu(menu);
                 return true;
-                default:
-                    return false;
+            default:
+                return false;
         }
 
     }
@@ -132,7 +127,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                if (getCurrentFragment() instanceof TimeRepaymentFragment){
+                    onEvent(EVENT_GO_CONFIG_REPAYMENT_BACK, null);
+                } else {
+                    onBackPressed();
+                }
         }
         return super.onOptionsItemSelected(item);
 
@@ -230,9 +229,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
-        switch (event){
+        switch (event) {
             case EVENT_GO_INSERT_DONGLE:
-                loadFragment(InsertDongleFragment.newInstance(),  R.id.fragment_container, Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
@@ -240,15 +239,15 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 showBack(false);
                 break;
             case AdqActivity.EVENT_GO_REMOVE_CARD:
-                loadFragment(RemoveCardFragment.newInstance(), R.id.fragment_container,Direction.FORDWARD, false);
+                loadFragment(RemoveCardFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 showBack(false);
                 break;
             case EVENT_GO_GET_SIGNATURE:
-                loadFragment(GetSignatureFragment.newInstance(), R.id.fragment_container,Direction.FORDWARD, false);
+                loadFragment(GetSignatureFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 showBack(false);
                 break;
             case EVENT_GO_DETAIL_TRANSACTION:
-                loadFragment(DetailTransactionFragment.newInstance(), R.id.fragment_container,Direction.FORDWARD, false);
+                loadFragment(DetailTransactionFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 showBack(false);
                 break;
             case EVENT_GO_MAINTAB:
@@ -267,6 +266,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case EVENT_GO_CARD_REPORT:
                 loadFragment(MyCardReportaTarjetaFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
                 break;
+            case EVENT_GO_CONFIG_REPAYMENT:
+                loadFragment(TimeRepaymentFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_CONFIG_REPAYMENT_BACK:
+                loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container, Direction.BACK, false);
+                break;
         }
     }
 
@@ -279,11 +284,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         try {
-            getCurrentFragment().onRequestPermissionsResult(requestCode,permissions,grantResults);
-
-        } catch (NullPointerException e){
+            getCurrentFragment().onRequestPermissionsResult(requestCode, permissions, grantResults);
+        } catch (NullPointerException e) {
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -126,7 +126,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     private KeyGenerator mKeyGenerator;
     private SharedPreferences mSharedPreferences;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
