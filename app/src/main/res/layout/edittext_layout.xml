@@ -5,25 +5,7 @@
     android:layout_height="wrap_content">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:background="@drawable/rounded_border_edittext"
-        android:elevation="2dp"
-        android:orientation="vertical">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/fechanacimiento"
-            style="@style/generic_text_style_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="6dp"
-            android:elevation="10dp"
-            android:text="Fecha de Nacimiento"
-            android:textColor="@color/colorAccent" />
 
 
         <LinearLayout
@@ -49,7 +31,5 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter" />
             </RelativeLayout>
-
-        </LinearLayout>
     </LinearLayout>
 </merge>

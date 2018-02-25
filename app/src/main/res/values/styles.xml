@@ -387,6 +387,12 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Text</item>
     </style>
+    <style name="BorderTitleStylewallet">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
 
     <style name="MainTabText">
         <item name="android:textColor">@color/whiteColor</item>
