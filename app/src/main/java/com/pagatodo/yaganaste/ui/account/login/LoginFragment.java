@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +41,7 @@ import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -75,10 +81,16 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     StyleTextView txtSetCredentials;
 
     @BindView(R.id.editUserName)
-    CustomValidationEditText edtUserName;
+    EditText edtUserName;
 
     @BindView(R.id.editUserPassword)
-    CustomValidationEditText edtUserPass;
+    EditText edtUserPass;
+
+    @BindView(R.id.text_email)
+    TextInputLayout text_email;
+
+    @BindView(R.id.text_password)
+    TextInputLayout text_password;
 
     @BindView(R.id.btnLoginExistUser)
     StyleButton btnLogin;
@@ -154,8 +166,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             textNameUser.setText("¡Hola " + prefs.loadData(StringConstants.NAME_USER) + "!");
             btnLogin.setText(getString(R.string.txt_iniciar_sesion));
             edtUserName.setText(RequestHeaders.getUsername());
-            edtUserName.setVisibility(GONE);
+            text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
+            edtUserPass.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             textNameUser.setOnClickListener(this);
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);
@@ -163,7 +176,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             txtSetCredentials.setVisibility(GONE);
             textNameUser.setText(getString(R.string.set_credentials_login));
             edtUserName.setText(RequestHeaders.getUsername());
-            edtUserName.setVisibility(VISIBLE);
+            text_email.setVisibility(VISIBLE);
 
         }
         setValidationRules();
@@ -182,7 +195,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             case R.id.textNameUser:
                 if (BuildConfig.DEBUG) {
                     edtUserName.setText(RequestHeaders.getUsername());
-                    edtUserName.setVisibility(VISIBLE);
+                    text_email.setVisibility(VISIBLE);
                 }
                 break;
             default:
@@ -238,21 +251,14 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    edtUserName.imageViewIsGone(true);
+                    text_email.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
-                    if (edtUserName.getText().isEmpty() || !edtUserName.isValidText()) {
-                        edtUserName.setIsInvalid();
-                    } else if (edtUserName.isValidText()) {
-                        edtUserName.setIsValid();
+                    if (edtUserName.getText().toString().isEmpty() || !ValidateForm.isValidEmailAddress(edtUserName.getText().toString())) {
+                        text_email.setBackgroundResource(R.drawable.inputtext_error);
+                    } else if (ValidateForm.isValidEmailAddress(edtUserName.getText().toString())) {
+                        text_email.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 }
-            }
-        });
-
-        edtUserName.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                edtUserName.imageViewIsGone(true);
             }
         });
 
@@ -260,22 +266,26 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    edtUserPass.imageViewIsGone(true);
+                    text_password.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
-                    if (edtUserPass.getText().isEmpty() || !edtUserPass.isValidText()) {
-                        edtUserPass.setIsInvalid();
-                    } else if (edtUserPass.isValidText()) {
-                        edtUserPass.setIsValid();
+                    if (edtUserPass.toString().isEmpty()) {
+                        text_password.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        text_password.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 }
             }
         });
 
-        edtUserPass.addCustomTextWatcher(new AbstractTextWatcher() {
+        edtUserPass.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(String s) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                    if (s.toString().length() == 6) {
+                    if (charSequence.toString().length() == 6) {
                         UI.hideKeyBoard(getActivity());
                         if (!UtilsNet.isOnline(getActivity())) {
                             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
@@ -286,12 +296,16 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                         }
                     }
                 }
-                edtUserPass.imageViewIsGone(true);
+                text_password.setBackgroundResource(R.drawable.inputtext_active);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
 
         // Asignamos el OnEditorActionListener a este CustomEditext para el efecto de consumir el servicio
-        edtUserPass.addCustomEditorActionListener(new DoneOnEditorActionListener());
+        edtUserPass.setOnEditorActionListener(new DoneOnEditorActionListener());
     }
 
     @Override
@@ -307,13 +321,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         if (username.isEmpty()) {
             errorMsg = getString(R.string.datos_usuario_correo);
-            edtUserName.setIsInvalid();
+            text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
-        if (!edtUserName.getText().isEmpty() && !edtUserName.isValidText()) {
+        if (!edtUserName.getText().toString().isEmpty() && !ValidateForm.isValidEmailAddress(edtUserName.getText().toString())) {
             errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.datos_usuario_correo) : errorMsg;
-            edtUserName.setIsInvalid();
+            text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
@@ -321,20 +335,20 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
                 if (password.isEmpty() || password.length() < 6) {
                     errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
-                    edtUserPass.setIsInvalid();
+                    text_password.setBackgroundResource(R.drawable.inputtext_error);
                     isValid = false;
                 }
             } else {
                 if (password.isEmpty()) {
                     errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
-                    edtUserPass.setIsInvalid();
+                    text_password.setBackgroundResource(R.drawable.inputtext_error);
                     isValid = false;
                 }
             }
         } else {
             if (password.isEmpty()) {
                 errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
-                edtUserPass.setIsInvalid();
+                text_password.setBackgroundResource(R.drawable.inputtext_error);
                 isValid = false;
             }
         }
@@ -366,8 +380,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void getDataForm() {
-        username = edtUserName.getText().trim();
-        password = edtUserPass.getText().trim();
+        username = edtUserName.getText().toString().trim();
+        password = edtUserPass.getText().toString().trim();
     }
 
     @Override
