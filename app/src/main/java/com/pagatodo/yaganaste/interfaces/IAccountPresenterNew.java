@@ -1,10 +1,16 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
+
 /**
  * Created by flima on 22/03/2017.
  */
 
 public interface IAccountPresenterNew {
+
+    void Photo(int i, CameraManager cameraManager);
+
+    void picture(int i, CameraManager cameraManager);
 
     void validateEmail(String usuario);
 

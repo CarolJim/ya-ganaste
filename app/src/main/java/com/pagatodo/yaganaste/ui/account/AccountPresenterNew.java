@@ -52,6 +52,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private ChangeNipPresenterImp changeNipPresenterImp;
     private ResetPinPresenter resetPinPresenter;
 
+
     public void setIView(View accountView) {
         super.setIView(accountView);
 
@@ -124,6 +126,31 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         this.context = context;
         accountIteractor = new AccountInteractorNew(this);
         this.resetPinPresenter = new ResetPinPresenterImp(false);
+    }
+
+
+    @Override
+    public void Photo(int i, CameraManager cameraManager) {
+
+        try {
+            cameraManager.Photo(i);
+        } catch (Exception e) {
+            //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+           // iListaOpcionesView.showExceptionToView(e.toString());
+        }
+
+    }
+
+    @Override
+    public void picture(int i, CameraManager cameraManager) {
+        try {
+            cameraManager.Picture(i);
+        } catch (Exception e) {
+            //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+           // iListaOpcionesView.showExceptionToView(e.toString());
+        }
+
+
     }
 
     @Override

@@ -260,7 +260,7 @@ if (f!=null){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    keyboardView.showCustomKeyboard(v);
+                   // keyboardView.showCustomKeyboard(v);
                 } else {
                     keyboardView.hideCustomKeyboard();
                 }
@@ -297,7 +297,7 @@ if (f!=null){
         int inType = edittext.getInputType();       // Backup the input type
         edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
         edittext.onTouchEvent(event);               // Call native handler
-        keyboardView.showCustomKeyboard(v);
+      //  keyboardView.showCustomKeyboard(v);
         edittext.setInputType(inType);// Restore input type
     }
 
@@ -329,7 +329,7 @@ if (f!=null){
                 break;
             case R.id.radioBtnNo:
                 txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
-                txtMessageCard.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
                 generateCardNumberRamdon();
                 keyboardView.hideCustomKeyboard();
                 btnNextTienesTarjeta.setVisibility(View.VISIBLE);

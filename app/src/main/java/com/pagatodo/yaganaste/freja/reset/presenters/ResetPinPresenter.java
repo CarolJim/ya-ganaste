@@ -10,6 +10,6 @@ import com.pagatodo.yaganaste.interfaces.View;
 public interface ResetPinPresenter {
     void doReseting(String newNip);
 
-    public void setResetNIPView(IResetNIPView resetNIPView);
+    void setResetNIPView(IResetNIPView resetNIPView);
 
 }

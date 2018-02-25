@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -67,6 +68,7 @@ import static android.view.View.VISIBLE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRESS_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SELFIE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
@@ -91,6 +93,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
     CustomValidationEditText editNamesold;
     @BindView(R.id.edit_nombre)
     EditText editNames;
+
+    @BindView(R.id.subfechanacimiento)
+    StyleTextView subfechanacimiento;
+
 
 
     @BindView(R.id.editFirstLastName)
@@ -269,6 +275,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
 
+        spinnerBirthPlace.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                subfechanacimiento.setVisibility(VISIBLE);
+                return false;
+            }
+        });
+
         spinnergenero.setAdapter(adaptergenero);
         spinnergenero.setOnItemSelectedListener(this);
 
@@ -326,6 +340,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editCountry:
                 onCountryClick();
+
                 break;
             case R.id.imageViewValidation:
                 onCountryClick();
@@ -631,7 +646,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void onValidationSuccess() {
-        nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de registro.
+        nextScreen(EVENT_SELFIE, null);//Mostramos siguiente pantalla de registro.
     }
 
     @Override
@@ -646,6 +661,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
         */
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
+
+            subfechanacimiento.setVisibility(View.VISIBLE);
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
             idEstadoNacimiento = Integer.toString(((IEnumSpinner) spinnerBirthPlace.getSelectedItem()).getId());

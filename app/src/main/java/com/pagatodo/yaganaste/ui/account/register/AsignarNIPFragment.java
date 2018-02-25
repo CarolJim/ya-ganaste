@@ -85,7 +85,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
+       // rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
@@ -96,20 +96,8 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void initViews() {
-        ButterKnife.bind(this, rootview);
-        btnNextAsignarPin.setVisibility(View.GONE);
-
-        //Si ocamos el area especial del Layout abrimos el Keyboard
-        layout_control.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtPin.requestFocus();
-               // keyboardView.showCustomKeyboard(v);
-            }
-        });
-
-
-
+      //  ButterKnife.bind(this, rootview);
+        //btnNextAsignarPin.setVisibility(View.GONE);
 
 
     }

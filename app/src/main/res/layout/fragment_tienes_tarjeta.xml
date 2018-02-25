@@ -50,61 +50,71 @@
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/size_text_style_2_value" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:orientation="horizontal"
+    android:layout_marginBottom="19.5dp"
+    android:layout_gravity="center_vertical"
+    >
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="match_parent"
+        android:layout_weight=".5"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:gravity="center_horizontal"
+        android:text="¿Tienes una tarjeta Ya Ganaste?"
+        android:textColor="@color/colorAccent"
+        android:textSize="11sp"
+
+        />
+
                     <RadioGroup
                         android:id="@+id/radioHasCard"
-                        style="@style/FragmentElementTop"
+                        android:layout_width="match_parent"
+                        android:layout_weight=".5"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        android:visibility="visible">
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                            android:id="@+id/radioBtnNo"
+                            style="@style/RadioButtonMenu"
+                            android:layout_width="45dp"
+                            android:layout_height="25dp"
+
+                            android:text="No"/>
+
+
+
+
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                            android:id="@+id/radioBtnYes"
+                            style="@style/RadioButtonMenu"
+                            android:layout_width="45dp"
+                            android:layout_height="25dp"
+                            android:checked="false"
+                            android:text="Si"/>
+                    </RadioGroup>
+</LinearLayout>
+
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtMessageCard"
+                        style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        >
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:button="@null"
-                            android:id="@+id/radioBtnNo"
-                            style="@style/RadioButtonTheme"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/no"
-                            android:layout_weight="1"
-                            android:background="@drawable/rbtn_selector"
-                            android:checked="true"
-                            android:textColor="@drawable/rbtn_textcolor_selector"
-
-                            />
-
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="si"
-                            android:layout_weight="1"
-                            android:background="@drawable/rbtn_selector"
-                            android:button="@null"
-                            android:textColor="@drawable/rbtn_textcolor_selector"
-
-                            />
-                    </RadioGroup>
-
-
-
-
-
+                        android:textAlignment="center"
+                        android:textColor="@color/adadad"
+                        android:textSize="11sp"
+                        app:tipo="Text" />
 
 
                     <include
@@ -115,14 +125,7 @@
                         android:layout_marginLeft="@dimen/margin_medium"
                         android:layout_marginRight="@dimen/margin_medium"
                         android:layout_marginTop="@dimen/margin_medium"/>
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtMessageCard"
-                        style="@style/generic_text_style_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_small"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:gravity="center" />
+
 
                 </LinearLayout>
 

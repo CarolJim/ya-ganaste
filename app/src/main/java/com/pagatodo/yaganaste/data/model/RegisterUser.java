@@ -35,8 +35,18 @@ public class RegisterUser {
     private boolean aceptaTerminos;
     private Countries paisNacimiento;
 
+    private String urifotoperfil;
+
     private RegisterUser() {
 
+    }
+
+    public String getUrifotoperfil() {
+        return urifotoperfil;
+    }
+
+    public void setUrifotoperfil(String urifotoperfil) {
+        this.urifotoperfil = urifotoperfil;
     }
 
     public Countries getPaisNacimiento() {

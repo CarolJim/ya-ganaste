@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.crashlytics.android.answers.Answers;
@@ -61,14 +62,35 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick {
 
     public static int MIN_LENGHT_VALIDATION_CP = 4;
+    @BindView(R.id.editStreetold)
+    CustomValidationEditText editStreetold;
     @BindView(R.id.editStreet)
-    CustomValidationEditText editStreet;
+    EditText editStreet;
+
+
+
+    @BindView(R.id.editExtNumberold)
+    CustomValidationEditText editExtNumberold;
     @BindView(R.id.editExtNumber)
-    CustomValidationEditText editExtNumber;
+    EditText editExtNumber;
+
+
+
+
+    @BindView(R.id.editIntNumberold)
+    CustomValidationEditText editIntNumberold;
     @BindView(R.id.editIntNumber)
-    CustomValidationEditText editIntNumber;
+    EditText editIntNumber;
+
+
+
+    @BindView(R.id.editZipCodeold)
+    CustomValidationEditText editZipCodeold;
     @BindView(R.id.editZipCode)
-    CustomValidationEditText editZipCode;
+    EditText editZipCode;
+
+
+
     @BindView(R.id.editState)
     CustomValidationEditText editState;
     @BindView(R.id.spColonia)
@@ -223,33 +245,37 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     /*Implementación ValidateForm*/
     @Override
     public void setValidationRules() {
-        editZipCode.addCustomTextWatcher(textWatcherZipCode);
+      //  editZipCode.addCustomTextWatcher(textWatcherZipCode);
 
         editStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editStreet.getId());
-                    editStreet.imageViewIsGone(true);
+                   // editStreet.imageViewIsGone(true);
                 } else {
-                    if (editStreet.getText().isEmpty()) {
+                    if (editStreet.getText().toString().isEmpty()) {
                         showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
-                        editStreet.setIsInvalid();
+                     //   editStreet.setIsInvalid();
                     } else {
                         hideValidationError(editStreet.getId());
-                        editStreet.setIsValid();
+                       // editStreet.setIsValid();
                     }
                 }
             }
         });
 
+        /*
+
         editStreet.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
                 hideValidationError(editStreet.getId());
-                editStreet.imageViewIsGone(true);
+                //       editStreet.imageViewIsGone(true);
             }
         });
+
+        */
 
 
         editExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -257,19 +283,20 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editExtNumber.getId());
-                    editExtNumber.imageViewIsGone(true);
+                  //  editExtNumber.imageViewIsGone(true);
                 } else {
-                    if (editExtNumber.getText().isEmpty()) {
+                    if (editExtNumber.getText().toString().isEmpty()) {
                         showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
-                        editExtNumber.setIsInvalid();
+                    //    editExtNumber.setIsInvalid();
                     } else {
                         hideValidationError(editExtNumber.getId());
-                        editExtNumber.setIsValid();
+                      //  editExtNumber.setIsValid();
                     }
                 }
             }
         });
 
+        /*
         editExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
@@ -277,22 +304,24 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 editExtNumber.imageViewIsGone(true);
             }
         });
+        */
 
         editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    editIntNumber.imageViewIsGone(true);
+                //    editIntNumber.imageViewIsGone(true);
                 } else {
-                    if (editIntNumber.getText().isEmpty()) {
-                        editIntNumber.imageViewIsGone(true);
+                    if (editIntNumber.getText().toString().isEmpty()) {
+                  //      editIntNumber.imageViewIsGone(true);
                     } else {
-                        editIntNumber.setIsValid();
+                    //    editIntNumber.setIsValid();
                     }
                 }
             }
         });
 
+        /*
         editIntNumber.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
@@ -300,19 +329,21 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         });
 
+        */
+
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editZipCode.getId());
-                    editZipCode.imageViewIsGone(true);
+          //          editZipCode.imageViewIsGone(true);
                 } else {
-                    if (editZipCode.getText().isEmpty()) {
+                    if (editZipCode.getText().toString().isEmpty()) {
                         showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
-                        editZipCode.setIsInvalid();
+                     //   editZipCode.setIsInvalid();
                     } else {
                         hideValidationError(editZipCode.getId());
-                        editZipCode.imageViewIsGone(true);
+                       // editZipCode.imageViewIsGone(true);
                     }
                 }
             }
@@ -324,13 +355,16 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editZipCode.getId());
-                    editZipCode.imageViewIsGone(true);
+                   // editZipCode.imageViewIsGone(true);
                 } else {
-                    if (editZipCode.getText().isEmpty()) {
-                        editZipCode.setIsInvalid();
+                    if (editZipCode.getText().toString().isEmpty()) {
+                        //editZipCode.setIsInvalid();
                         showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
-                    } else if (!editZipCode.isValidText()) {
-                        editZipCode.setIsInvalid();
+                    }
+
+                    /*
+                    else if (!editZipCode.isValidText()) {
+                        //editZipCode.setIsInvalid();
                         showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
 
                         if (listaColonias != null) {
@@ -338,9 +372,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                             estadoDomicilio = "";
                             fillAdapter();
                         }
-                    } else if (editZipCode.isValidText() && editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
+                    }
+                    */
+                    else if (editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
                         hideValidationError(editZipCode.getId());
-                        editZipCode.setIsValid();
+                       // editZipCode.setIsValid();
                         showLoader(getString(R.string.search_zipcode));
                         accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
                     }
@@ -348,7 +384,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         });
 
-
+        /*
         editZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
@@ -357,12 +393,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         });
 
-        /*radioBtnTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                hideValidationError(radioBtnTerms.getId());
-            }
-        });*/
+        */
+
     }
 
     private void fillAdapter() {
@@ -405,23 +437,24 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
         if (calle.isEmpty()) {
             showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
-            editStreet.setIsInvalid();
+           // editStreet.setIsInvalid();
             isValid = false;
         }
         if (numExt.isEmpty()) {
             showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
-            editExtNumber.setIsInvalid();
+           // editExtNumber.setIsInvalid();
             isValid = false;
         }
-        if (!editZipCode.isValidText()) {
+       /* if (!editZipCode.isValidText()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
-            editZipCode.setIsInvalid();
+            //editZipCode.setIsInvalid();
             isValid = false;
         }
+        */
 
         if (codigoPostal.isEmpty()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
-            editZipCode.setIsInvalid();
+//            editZipCode.setIsInvalid();
             isValid = false;
         }
 
@@ -633,7 +666,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void zipCodeInvalid(String message) {
         showValidationError(editZipCode.getId(), message);
-        editZipCode.setIsInvalid();
+  //      editZipCode.setIsInvalid();
 
     }
 

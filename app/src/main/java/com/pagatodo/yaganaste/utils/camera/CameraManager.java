@@ -144,6 +144,15 @@ public class CameraManager {
         selectImageSource(intIntent);
     }
 
+    public void Photo(final int intIntent) {
+
+        takeDocumentPicture(intIntent);
+    }
+    public void Picture(final int intIntent) {
+
+        takeGallery(intIntent);
+    }
+
 
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
@@ -187,6 +196,8 @@ public class CameraManager {
 //        alertDialog.setCancelable(false);
 //        alertDialog.show();
     }
+
+
 
     private void takeGallery(int document) {
         documentProcessed = document;

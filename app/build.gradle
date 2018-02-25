@@ -23,7 +23,6 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
@@ -33,7 +32,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-
         ndk {
             abiFilters "armeabi", "armeabi-v7a"
         }
