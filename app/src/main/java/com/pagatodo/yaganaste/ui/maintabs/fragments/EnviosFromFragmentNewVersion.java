@@ -159,7 +159,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     private String nombreDestinatario, referenciaNumber, referenceFavorite, myReferencia, errorText,
             referencia, formatoComercio, concepto;
     private boolean isCuentaValida = true, isUp, isFavEdit = false, bancoselected = false, solicitabanco = true,
-            isfavo = false, isValid = false;
+            isfavo = false, isValid = true;
     List<DataFavoritos> backUpResponseFavoritos;
     DataFavoritos favoriteItem;
     ComercioResponse comercioItem;
@@ -508,7 +508,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 UI.showErrorSnackBar(getActivity(), text, Snackbar.LENGTH_SHORT);
             }
         }
-
     }
 
     @Override
@@ -538,8 +537,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         receiverName.setText("");
     }
 
-    protected void continuePayment() {
-
+    private void continuePayment() {
         referencia = cardNumber.getText().toString().trim();
         referencia = referencia.replaceAll(" ", "");
 
