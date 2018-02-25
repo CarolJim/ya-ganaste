@@ -12,6 +12,7 @@
         android:id="@+id/itemGallery"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:background="@drawable/ic_circle_border_shadow"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -46,10 +47,11 @@
 
     <TextView
         android:id="@+id/txtNameFav"
-        android:layout_width="47dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
+        android:textColor="@color/gray_text_wallet"
         android:textSize="11sp"
-        tools:text="Nombre Contacto largo"></TextView>
+        tools:text="Nombre"></TextView>
 </LinearLayout>

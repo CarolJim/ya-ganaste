@@ -437,7 +437,7 @@
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Wallet</string>
     <string name="main_tab_pagos">Pagar</string>
-    <string name="main_tab_depositos">Envíos</string>
+    <string name="main_tab_depositos">Enviar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Movimientos</string>

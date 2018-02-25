@@ -3,39 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:src="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        style="@style/H1Azul"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            style="@style/generic_text_style_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/monto_a_enviar" />
-
-        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
-            android:id="@+id/montotosend"
-            style="@style/textTitleDetailTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$11,350"
-            android:textSize="@dimen/size_text_style_5_value"
-            app:dotBottom="false"
-            app:symbolSmaller="true" />
-
-
-    </LinearLayout>
+        android:layout_marginTop="16dp"
+        android:text="Envía dinero"
+        android:textAlignment="center" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:fillViewport="true">
 
@@ -44,30 +26,53 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_background_image_docs"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingTop="5dp">
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/whiteColor">
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtFavoritos"
-                    style="@style/textTitleDetailTransaction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Favoritos"
-                    android:textSize="12sp" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:scrollbars="none" />
-            </LinearLayout>
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtFavoritos"
+                            style="@style/H3Azul"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="Favoritos" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtEditarFavoritor"
+                            style="@style/H4Gris"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10.5dp"
+                            android:text="Editar" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:scrollbars="none" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:id="@+id/containerEnviosForm"
@@ -76,27 +81,27 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-
                 <Spinner
                     android:id="@+id/tipoEnvio"
                     style="@style/CustomSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_elements"
-                    android:layout_marginRight="@dimen/margin_elements"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:background="@null"
                     android:backgroundTint="@color/transparent" />
 
                 <LinearLayout
                     android:id="@+id/layout_cardNumber"
-                    style="@style/FragmentElementForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:background="@drawable/rounded_border_edittext"
                     android:orientation="horizontal"
-                    android:visibility="visible">transfer_phone_cellphone
+                    android:visibility="visible">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                         android:id="@+id/cardNumber"
@@ -156,14 +161,15 @@
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
                             android:layout_margin="5dp"
-                            android:src="@drawable/icono_camara_servicios"/>
+                            android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/FragmentElementForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:orientation="horizontal">
 
@@ -182,9 +188,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    style="@style/FragmentElementForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
                     android:background="@drawable/rounded_border_edittext"
                     android:orientation="horizontal">
@@ -210,9 +217,10 @@
 
                     <LinearLayout
                         android:id="@+id/envio_from_slide_view_l1"
-                        style="@style/FragmentElementForm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
                         android:layout_marginTop="@dimen/space_between_elements"
                         android:background="@drawable/rounded_border_edittext"
                         android:orientation="horizontal">
@@ -231,9 +239,10 @@
 
                     <LinearLayout
                         android:id="@+id/fragment_envios_referencia_layout"
-                        style="@style/FragmentElementForm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
                         android:layout_marginTop="@dimen/space_between_elements"
                         android:background="@drawable/rounded_border_edittext"
                         android:orientation="horizontal">
@@ -287,35 +296,13 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/containerSlideButon"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/btn_navigation_bottom"
-                android:layout_marginLeft="@dimen/seekbar_margin"
-                android:layout_marginRight="@dimen/seekbar_margin">
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomSeekBarEnviar
-                    android:id="@+id/myseek"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/seek_background"
-                    android:clickable="false"
-                    android:max="100"
-                    android:progressDrawable="@android:color/transparent"
-                    android:thumb="@drawable/thumb_size"
-                    android:thumbOffset="15dp"
-                    android:visibility="gone"
-                    app:text="@string/btn_send" />
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btnenviar"
         style="@style/buttonSquareRoundedBlue"
-        android:layout_marginBottom="25dp"
-        android:text="Enviar"
+        android:layout_marginBottom="32dp"
+        android:text="Continuar"
         android:visibility="visible" />
 </LinearLayout>

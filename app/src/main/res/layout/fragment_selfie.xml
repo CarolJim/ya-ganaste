@@ -10,40 +10,48 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/tituloselfie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/size_text_style_2_value"
-        android:textColor="@color/whiteColor"
         android:layout_marginTop="27dp"
-        android:id="@+id/tituloselfie"
-        android:text="@string/tituloselfie"/>
+        android:gravity="center_horizontal"
+        android:text="@string/tituloselfie"
+        android:textColor="@color/whiteColor"
+        android:textSize="@dimen/size_text_style_2_value" />
 
-
-    <ScrollView
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anim_selfie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:lottie_imageAssetsFolder="images/selfie"
+        app:lottie_loop="false" />
+
+    <ScrollView
+        android:id="@+id/scv_img_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
 
         <LinearLayout
+            android:id="@+id/imgusuario"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
             android:gravity="center"
-            android:id="@+id/imgusuario"
             android:orientation="vertical"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <RelativeLayout
                 android:id="@+id/layoutImg"
                 android:layout_width="150dp"
                 android:layout_height="150dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/frag_lista_opciones_photo_item"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
@@ -61,9 +69,9 @@
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
         <LinearLayout
@@ -91,6 +99,7 @@
                 android:gravity="center"
                 android:text="@string/tomar_foto" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layoutBtnsselect"
             android:layout_width="match_parent"
@@ -120,21 +129,13 @@
     </LinearLayout>
 
 
-
-
-
-
-
-
-
-
     <LinearLayout
         android:id="@+id/layoutBottomconfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -162,6 +163,7 @@
                 android:gravity="center"
                 android:text="@string/confirm" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layoutBtnreinentar"
             android:layout_width="match_parent"
@@ -189,13 +191,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
-
-
-
-
 
 
 </LinearLayout>

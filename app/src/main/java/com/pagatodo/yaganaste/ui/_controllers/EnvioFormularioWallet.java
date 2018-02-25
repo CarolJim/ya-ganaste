@@ -8,10 +8,12 @@ import android.view.Window;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 
 import io.card.payment.CardIOActivity;
@@ -26,14 +28,14 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     final public static String EVENT_GO_ENVIOS = "EVENT_GO_ENVIOS";
 
     private Preferencias pref;
-    private Double monto;
+    private Payments payment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
-        monto = (double) getIntent().getExtras().get(MONTO);
+        payment = (Payments) getIntent().getExtras().get("pagoItem");
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_ENVIOS, null);
     }
@@ -48,19 +50,9 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_ENVIOS:
-                loadFragment(EnviosFromFragmentNewVersion.newInstance(monto), Direction.FORDWARD, false);
+                loadFragment(SendWalletFragment.newInstance(payment), Direction.FORDWARD, false);
                 // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
                 break;
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE
-                || requestCode == CREDITCARD_READER_REQUEST_CODE) {
-            getCurrentFragment().onActivityResult(requestCode, resultCode, data);
-        }
-
     }
 }

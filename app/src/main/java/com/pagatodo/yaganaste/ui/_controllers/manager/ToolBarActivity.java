@@ -36,6 +36,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     //ImageView imageView;
     //static CircleImageView imageViewdes;
     //static ImageView imageViewdes;
+    private View toolbarShadow;
     private AppCompatImageView btnBack;
 
     @Override
@@ -51,6 +52,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
         imgNotif = (ImageView) findViewById(R.id.imgNotifications);
         imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
+        toolbarShadow = (View) findViewById(R.id.toolbar_shadow);
         //if (imageView != null) {
         //     imageView.setOnClickListener(this);
         // }
@@ -69,12 +71,12 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         }
     }
 
+    public void showToolbarShadow(boolean mBoolean) {
+        toolbarShadow.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
+    }
+
     public void showImageToolbar(boolean mBoolean) {
-        if (mBoolean) {
-            imgToolbar.setVisibility(View.VISIBLE);
-        } else {
-            imgToolbar.setVisibility(View.GONE);
-        }
+        imgToolbar.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
 
     public void showBack(boolean isBackShowing) {
@@ -102,19 +104,11 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
      * @param mBoolean
      */
     public void setVisibilityNotif(boolean mBoolean) {
-        if (mBoolean) {
-            imgNotif.setVisibility(View.VISIBLE);
-        } else {
-            imgNotif.setVisibility(View.GONE);
-        }
+        imgNotif.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
 
     public void setVisibilityBack(boolean mBoolean) {
-        if (mBoolean) {
-            btnBack.setVisibility(View.VISIBLE);
-        } else {
-            btnBack.setVisibility(View.GONE);
-        }
+        btnBack.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
 
 

@@ -44,14 +44,19 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
 
         if (item.getIdComercio() == 0) {
             holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
-            GradientDrawable gd = createCircleDrawable(App.getContext().getResources().getColor(R.color.color_background_image_docs), android.graphics.Color.GRAY);
-            holder.crlImageFavorite.setBackground(gd);
+            /*GradientDrawable gd = createCircleDrawable(App.getContext().getResources().getColor(R.color.color_background_image_docs), android.graphics.Color.GRAY);
+            holder.crlImageFavorite.setBackground(gd);*/
             holder.imgAddFavorite.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_add));
             holder.txtNameFav.setText("Agregar");
             holder.txtInicialesFav.setVisibility(View.GONE);
         } else {
             holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
-            holder.txtNameFav.setText(item.getNombre());
+            if (item.getNombre().contains(" ")) {
+                String[] names = item.getNombre().split(" ");
+                holder.txtNameFav.setText(names[0]);
+            } else {
+                holder.txtNameFav.setText(item.getNombre());
+            }
             if (item.getImagenURL().equals("")) {
                 GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(item.getColorMarca()),
                         android.graphics.Color.parseColor(item.getColorMarca()));

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -55,12 +56,13 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     MontoTextView saldoDisponible;
 
     private float MIN_AMOUNT = 1.0f, current_mount;
-
     Double monto;
+    Payments payments;
 
-    public static SendWalletFragment newInstance() {
+    public static SendWalletFragment newInstance(Payments payments) {
         SendWalletFragment fragment = new SendWalletFragment();
         Bundle args = new Bundle();
+        args.putSerializable("payments", payments);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +70,7 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        payments = (Payments) getArguments().getSerializable("payments");
     }
 
     @Override
@@ -77,14 +79,12 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         View view = inflater.inflate(R.layout.fragment_send_wallet, container, false);
         ButterKnife.bind(this, view);
         initViews();
-
         return view;
 
     }
 
     @Override
     public void initViews() {
-
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         SingletonUser dataUser = SingletonUser.getInstance();
@@ -141,8 +141,8 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
                         Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                         intent.putExtra(MONTO, monto);
                         startActivity(intent);
-                        current_mount=0;
-                        monto=00.00;
+                        current_mount = 0;
+                        monto = 00.00;
                     }
                 }
                 break;
@@ -168,9 +168,9 @@ public class SendWalletFragment extends GenericFragment implements ElementsWalle
         et_amount.requestFocus();
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
-       tvMontoEntero.setText("00");
-       tvMontoDecimal.setText("00");
-       et_amount.setText("$00.00");
+        tvMontoEntero.setText("00");
+        tvMontoDecimal.setText("00");
+        et_amount.setText("$00.00");
 
     }
 

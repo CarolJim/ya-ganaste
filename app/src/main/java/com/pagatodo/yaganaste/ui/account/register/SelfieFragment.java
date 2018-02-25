@@ -12,7 +12,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.Manifest;
@@ -35,6 +37,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
+import butterknife.BindBitmap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -51,16 +54,18 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 public class SelfieFragment extends GenericFragment implements  View.OnClickListener,ICropper, CropIwaResultReceiver.Listener,IListaOpcionesView,INavigationView {
 
+    private View rootview;
     CameraManager cameraManager;
     private CropIwaResultReceiver cropResultReceiver;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
     private AccountPresenterNew accountPresenter;
-
     private String  mUserImage;
     @BindView(R.id.btntomarfoto)
     StyleButton btntomarfoto;
+
     @BindView(R.id.btnseleccionarfoto)
     StyleButton btnSeleccionarfoto;
 
@@ -69,12 +74,6 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
 
     @BindView(R.id.btnconfirmar)
     StyleButton btnconfirmar;
-
-
-
-
-
-    private View rootview;
     @BindView(R.id.frag_lista_opciones_photo_item)
     CircleImageView iv_photo_item;
 
@@ -86,20 +85,17 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     @BindView(R.id.imgusuario)
     LinearLayout imgusuario;
 
-
+    @BindView(R.id.scv_img_usuario)
+    ScrollView scvImgUsuario;
 
     @BindView(R.id.tituloselfie)
     StyleTextView tituloselfie;
 
-
-
-
-
-
+    @BindView(R.id.anim_selfie)
+    LottieAnimationView animSelfie;
 
     boolean foto=false;
     boolean img=false;
-
 
     public static SelfieFragment newInstance() {
         SelfieFragment fragmentRegister = new SelfieFragment();
@@ -145,10 +141,11 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
         RegisterUser registerUser = RegisterUser.getInstance();
 
         if (registerUser.getGenero().equals("H")) {
-
+            animSelfie.setAnimation(R.raw.selfie_male);
         } else if (registerUser.getGenero().equals("M")) {
-
+            animSelfie.setAnimation(R.raw.selfie_female);
         }
+        animSelfie.playAnimation();
 
     }
 
@@ -170,6 +167,9 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
                 layoutBottomconfirm.setVisibility(View.GONE);
                 tituloselfie.setText(getString(R.string.tituloselfie));
                 imgusuario.setVisibility(View.GONE);
+                scvImgUsuario.setVisibility(View.GONE);
+                animSelfie.setVisibility(View.VISIBLE);
+                animSelfie.playAnimation();
                 break;
             case R.id.btnconfirmar:
                 RegisterUser registerUser = RegisterUser.getInstance();
@@ -269,6 +269,9 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
         layoutBottomconfirm.setVisibility(View.VISIBLE);
         tituloselfie.setText(getString(R.string.tituloselfietegusta));
         imgusuario.setVisibility(View.VISIBLE);
+        scvImgUsuario.setVisibility(View.VISIBLE);
+        animSelfie.setVisibility(View.GONE);
+        animSelfie.pauseAnimation();
         hideLoader();
 
 
