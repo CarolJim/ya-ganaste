@@ -137,8 +137,8 @@ public class PaymentAdapterGV extends BaseAdapter {
                     imageCircleCenter.setVisibility(View.GONE);
 
                     imageLogos.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_search));
-                    imageLogos.getLayoutParams().height = 70;
-                    imageLogos.getLayoutParams().width = 70;
+                    imageLogos.getLayoutParams().height =  ViewGroup.LayoutParams.WRAP_CONTENT;
+                    imageLogos.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
                     imageLogos.requestLayout();
 
                 } else {
@@ -187,8 +187,8 @@ public class PaymentAdapterGV extends BaseAdapter {
                     imageCircleCenter.setBackground(gd);
 
                     imageView.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_search));
-                    imageView.getLayoutParams().height = 35;
-                    imageView.getLayoutParams().width = 35;
+                    imageView.getLayoutParams().height =  ViewGroup.LayoutParams.WRAP_CONTENT;
+                    imageView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
                     imageView.requestLayout();
 
                     //imageViewBorder.setBorderColor(Color.WHITE);

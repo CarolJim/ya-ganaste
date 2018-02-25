@@ -41,7 +41,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_marginTop="20dp"
                 app:cardBackgroundColor="@color/whiteColor"
@@ -49,6 +49,8 @@
                 app:cardElevation="3dp">
 
                 <LinearLayout
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="21dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -101,7 +103,6 @@
                             android:id="@+id/layout_monto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
                             android:orientation="vertical"
                             android:visibility="visible">
 
@@ -279,6 +280,52 @@
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtCompania"
+                                    style="@style/generic_text_style_2.1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ellipsize="marquee"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
+                                    android:gravity="end"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:paddingLeft="10dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textColor="@color/colorTituloDialog"
+                                    android:textSize="14sp"
+                                    tools:text="$300.00" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="0.5px"
+                                android:background="@color/margin_lines" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_concepto"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/detail_movements_row_height"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_2.1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/hint_concepto" />
+
+                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    android:id="@+id/txtConcepto"
                                     style="@style/generic_text_style_2.1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -603,7 +650,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal|bottom"
-                    android:onClick="openAddFavoritos"
                     android:padding="4dp"
                     android:visibility="visible"
                     app:srcCompat="@drawable/ic_nofav"
@@ -675,17 +721,12 @@
             android:gravity="center_horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                style="@style/buttonDirecctionNext"
-                android:visibility="gone"
-                android:gravity="center"
-                android:text="@string/continuar" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btn_continueEnvio2"
+                android:id="@+id/btn_addFavorite"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="@dimen/width_btns_big"
                 android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
+                android:onClick="openAddFavoritos"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_rounded_blue"
                 android:textAllCaps="false"

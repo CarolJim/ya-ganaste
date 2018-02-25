@@ -1299,6 +1299,9 @@
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
 
+    <string name="favorte_name">Nombre de favorito</string>
+    <string name="service_txt">Servicio</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

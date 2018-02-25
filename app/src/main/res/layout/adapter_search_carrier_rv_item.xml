@@ -15,14 +15,25 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/itemGallery"
             android:layout_width="70dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="16dp"
             android:layout_height="70dp"
             android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/radio_image_pago_payment_tab"
+                android:layout_height="@dimen/radio_image_pago_payment_tab"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_circle_border_shadow"
+                app:civ_border_width="@dimen/border_width" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/adapter_search_carrier_imgItemGalleryMark"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
+                android:layout_centerHorizontal="true" android:visibility="gone"
                 android:layout_centerVertical="true"
                 app:civ_border_color="#FF09CC20" />
 

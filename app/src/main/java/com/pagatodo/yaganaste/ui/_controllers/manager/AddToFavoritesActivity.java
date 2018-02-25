@@ -362,12 +362,13 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             }
 
         } else if (favoriteProcess == 2) {
+            // Proceso para alta de favorito en recargas
+            // Nuevo Favorito desde Cero mostramos los campos poco a poco
+
             // Agregamos Flecha de Shebrom y habilitamos el evento OnClick
             editListServ.setEnabled(false);
             editListServ.setFullOnClickListener(this);
             editListServ.setDrawableImage(R.drawable.menu_canvas);
-
-            // Nuevo Favorito desde Cero mostramos los campos poco a poco
 
             // Localizamos el tipo de Tab con el que traajamos
             switch (current_tab) {
@@ -386,7 +387,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             if (current_tab == 1) {
                 editListServ.setHintText(getString(R.string.details_compania));
             } else if (current_tab == 2) {
-                editListServ.setHintText(getString(R.string.details_compania));
+                editListServ.setHintText(getString(R.string.service_txt));
             } else if (current_tab == 3) {
                 editListServ.setHintText(getString(R.string.details_bank));
             }

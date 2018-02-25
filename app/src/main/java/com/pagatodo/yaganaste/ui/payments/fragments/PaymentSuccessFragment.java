@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -91,12 +92,16 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     CustomValidationEditText editMail;
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
+    @BindView(R.id.btn_addFavorite)
+    StyleButton btnAddFavoriite;
     @BindView(R.id.layoutFavoritos)
     LinearLayout layoutFavoritos;
     @BindView(R.id.txtCompania)
     TextView txtCompania;
     @BindView(R.id.nombreEnvio)
     TextView nombreEnvio;
+    @BindView(R.id.txtConcepto)
+    TextView txtConcepto;
     @BindView(R.id.imgAddFavorite)
     ImageView imgAddFavorite;
     @BindView(R.id.txtHintFavorite)
@@ -116,12 +121,15 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @BindView(R.id.layout_clave_rastreo)
     LinearLayout layoutClaveRastreo;
 
+    @BindView(R.id.layout_concepto)
+    LinearLayout layoutConcepto;
+
     @BindView(R.id.view_clave_rastreo)
     View viewClaveRastreo;
 
     @BindView(R.id.imgShare)
     LinearLayout imageshae;
-    boolean enviotrue=false;
+    boolean enviotrue = false;
     Payments pago;
     EjecutarTransaccionResponse result;
     /****/
@@ -220,10 +228,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
                 title.setText(R.string.title_envio_success);
-                enviotrue=true;
+                enviotrue = true;
             } else {
                 title.setText(R.string.title_envio_in_proccess);
-                enviotrue=true;
+                enviotrue = true;
             }
             nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
             layoutFavoritos.setVisibility(View.GONE);
@@ -261,6 +269,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             }
         } else if (pago instanceof Servicios) {
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+
+            // Mostramos el concepto por ser servicio
+            layoutConcepto.setVisibility(View.VISIBLE);
+            txtConcepto.setText(pago.getConcepto());
         } else if (pago instanceof Envios) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
                 formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
@@ -377,7 +389,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     public void finalizePayment() {
         getActivity().finish();
 
-        if (enviotrue){
+        if (enviotrue) {
             getActivity().finish();
         }
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -426,9 +438,9 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     public void hideAddFavorites() {
         if (!pago.isFavorite()) {
-            imgAddFavorite.setImageResource(R.drawable.ic_fav);
-            imgAddFavorite.setEnabled(false);
+            btnAddFavoriite.setEnabled(false);
             txtHintFavorite.setText(getString(R.string.is_favorite));
+            UI.showErrorSnackBar(getActivity(), getString(R.string.is_favorite), Snackbar.LENGTH_SHORT);
         }
     }
 

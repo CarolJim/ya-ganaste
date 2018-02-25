@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -62,7 +63,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
  * Created by Jordan on 25/04/2017.
  */
 
-public class PaymentsProcessingActivity extends ToolBarPositionActivity implements PaymentsProcessingManager, ISessionExpired {
+public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
 
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final String NOMBRE_COMERCIO = "nombreComercio";
@@ -122,6 +123,19 @@ public class PaymentsProcessingActivity extends ToolBarPositionActivity implemen
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentAuthorizeFragment.newInstance((Payments) pago), FORDWARD, true);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_wallet, menu);
+
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
@@ -242,15 +256,6 @@ public class PaymentsProcessingActivity extends ToolBarPositionActivity implemen
         finish();
        // showDialogMesage(message);
 
-    }
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_wallet, menu);
-
-        return false;
     }
 
     /**

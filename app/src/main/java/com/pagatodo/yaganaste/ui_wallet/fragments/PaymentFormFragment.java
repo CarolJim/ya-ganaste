@@ -480,7 +480,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
 
         if (mType == 2) {
-            String mPhoto = comercioResponse.getLogoURL();
+            String mPhoto = comercioResponse.getLogoURLColor();
             if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
@@ -509,7 +509,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
                 } else {
                     referencia = edtReferenceNumber.getText().toString().replaceAll(" ", "");
-                    concepto = txtComisionServicio.getText().toString().trim();
+                    //concepto = txtComisionServicio.getText().toString().trim();
+                    concepto = edtServiceConcept.getText().toString().trim();
                     iPresenterPayment.validateFieldsCarrier(referencia, edtServiceImport.getText().toString().trim(),
                             concepto, comercioResponse.getLongitudReferencia());
                 }

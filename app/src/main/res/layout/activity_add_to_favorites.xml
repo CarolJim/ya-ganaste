@@ -67,6 +67,7 @@
                     android:textSize="9sp"
                     android:visibility="visible" />
 
+                <!-- Edittext que guarda la referencia de la fotto, no se muestra en pantalla, solo es valdar -->
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_foto_et"
                     style="@style/FragmentElementWithValidation"
@@ -88,6 +89,7 @@
                     android:textAlignment="center"
                     android:visibility="visible" />
 
+                <!-- Estilo base para nuevos campos, de momento no hace nada -->
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_email"
                     android:layout_width="match_parent"
@@ -125,7 +127,7 @@
                     android:layout_marginTop="@dimen/margin_xsmall"
                     android:imeOptions="actionDone"
                     app:formato="text"
-                    app:hintText="@string/addFavoritesAlias"
+                    app:hintText="@string/favorte_name"
                     app:imageIsGone="true"
                     app:isSingleLine="true"
                     app:maxLength="30" />
@@ -134,7 +136,7 @@
                     android:id="@+id/add_favorites_alias_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <!-- Elemento de Sppiner para escoger servicio del favorito -->
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -143,10 +145,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:focusableInTouchMode="false"
+                    android:layout_marginTop="8dp"
                     android:visibility="visible"
                     android:windowSoftInputMode="stateHidden"
                     app:formato="text"
-                    app:hintText="Servicio"
+                    app:hintText="@string/service_txt"
                     app:imageIsGone="false"
                     app:isTextEnabled="false" />
 
@@ -155,8 +158,9 @@
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
+                <!-- Elemento de tipio de servicio ???? Creo que es para algo de envios -->
                 <LinearLayout
                     android:id="@+id/add_favorites_linear_tipo"
                     android:layout_width="wrap_content"
@@ -180,6 +184,7 @@
                         android:visibility="invisible" />
                 </LinearLayout>
 
+                <!-- Elemento para llenar referencia en caso de PDS  -->
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_referencia"
                     style="@style/FragmentElementWithValidation"
@@ -193,6 +198,7 @@
 
                 <!-- Area de referencias especiales -->
 
+                <!-- Numero telefonico. Para PDS y Envios??  -->
                 <LinearLayout
                     android:id="@+id/add_favorites_tae_ll"
                     style="@style/generic_text_style_2"
