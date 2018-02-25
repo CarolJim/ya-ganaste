@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
@@ -18,10 +21,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -94,8 +99,32 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.edit_nombre)
     EditText editNames;
 
-    @BindView(R.id.subfechanacimiento)
-    StyleTextView subfechanacimiento;
+    @BindView(R.id.text_nombre)
+    TextInputLayout text_nombre;
+    @BindView(R.id.text_apater)
+    TextInputLayout text_apater;
+    @BindView(R.id.generTitle)
+    LinearLayout generTitle;
+    @BindView(R.id.txtfecha)
+    LinearLayout txtfecha;
+
+    @BindView(R.id.txtlugarnacimiento)
+    LinearLayout txtlugarnacimiento;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -149,8 +178,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.seleccionaGenero)
     StyleTextView seleccionaGenero;
 
-
-
+    @BindView(R.id.fechaacimiento)
+    StyleTextView fechaacimiento;
 
 
     StatesSpinnerAdapter adapterBirthPlace;
@@ -181,6 +210,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             day = 0;
 
             if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
+                fechaacimiento.setVisibility(VISIBLE);
                 year = newDate.get(Calendar.YEAR);
                 month = newDate.get(Calendar.MONTH);
                 day = newDate.get(Calendar.DAY_OF_MONTH);
@@ -195,9 +225,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
+                    fechaacimiento.setVisibility(VISIBLE);
                     // editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
                     editBirthDay.setText(DateUtil.getBirthDateSpecialCustom(year, month, date));
-                    editBirthDay.setIsValid();
+                   // editBirthDay.setIsValid();
+                    txtfecha.setBackgroundResource(R.drawable.inputtext_normal);
+
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 
                     Calendar mCalendar = Calendar.getInstance();
@@ -205,13 +238,23 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
                     if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
                         showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
-                        editBirthDay.setIsInvalid();
+                       // editBirthDay.setIsInvalid();
+
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
+                        txtfecha.setBackgroundResource(R.drawable.inputtext_error);
                         return;
                     }
 
                     if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
                         showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
-                        editBirthDay.setIsInvalid();
+                      //  editBirthDay.setIsInvalid();
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
+                        txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+
                         return;
                     }
                 }
@@ -275,14 +318,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
 
-        spinnerBirthPlace.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                subfechanacimiento.setVisibility(VISIBLE);
-                return false;
-            }
-        });
-
         spinnergenero.setAdapter(adaptergenero);
         spinnergenero.setOnItemSelectedListener(this);
 
@@ -317,11 +352,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
             radioBtnMale.setBackgroundResource(R.drawable.ico_maleb);
             radioBtnFemale.setBackgroundResource(R.drawable.ico_female);
             seleccionaGenero.setTextColor((int) R.color.colorAccent);
+            generTitle.setBackgroundResource(R.drawable.inputtext_normal);
         }else {
             if (radioBtnFemale.isChecked()){
                 radioBtnMale.setBackgroundResource(R.drawable.ico_male);
                 radioBtnFemale.setBackgroundResource(R.drawable.ico_femaleb);
                 seleccionaGenero.setTextColor((int) R.color.colorAccent);
+                generTitle.setBackgroundResource(R.drawable.inputtext_normal);
             }
         }
 
@@ -406,12 +443,18 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 if (hasFocus) {
                     hideValidationError(editNames.getId());
                   //  editNames.imageViewIsGone(true);
+                    text_nombre.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editNames.getText().toString().isEmpty()) {
-                        showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+                     //   showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
+                        text_nombre.setBackgroundResource(R.drawable.inputtext_error);
                     //    editNames.setIsInvalid();
                     } else {
-                        hideValidationError(editNames.getId());
+                      //  hideValidationError(editNames.getId());
+                        text_nombre.setBackgroundResource(R.drawable.inputtext_normal);
                         //editNames.setIsValid();
                     }
                 }
@@ -432,15 +475,21 @@ public class DatosPersonalesFragment extends GenericFragment implements
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideValidationError(editFirstLastName.getId());
+                  //  hideValidationError(editFirstLastName.getId());
+                    text_apater.setBackgroundResource(R.drawable.inputtext_active);
                //     editFirstLastName.imageViewIsGone(true);
                 } else {
                     if (editFirstLastName.getText().toString().isEmpty()) {
-                        showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
+                        text_apater.setBackgroundResource(R.drawable.inputtext_error);
+                       // showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
                  //       editFirstLastName.setIsInvalid();
                     } else {
-                        hideValidationError(editFirstLastName.getId());
-                   //     editFirstLastName.setIsValid();
+                        //hideValidationError(editFirstLastName.getId());
+                        text_apater.setBackgroundResource(R.drawable.inputtext_normal);
+                        // editFirstLastName.setIsValid();
                     }
                 }
             }
@@ -465,24 +514,40 @@ public class DatosPersonalesFragment extends GenericFragment implements
         boolean isValid = true;
 
         if (genero == null || genero.equals("")) {
-            showValidationError(spinnergenero.getId(), getString(R.string.datos_personal_genero));
+           // showValidationError(spinnergenero.getId(), getString(R.string.datos_personal_genero));
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_genero), Snackbar.LENGTH_SHORT);
+            generTitle.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
         if (nombre.isEmpty()) {
-            showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+            //showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
           //  editNames.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
+            text_nombre.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
         if (apPaterno.isEmpty()) {
-            showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
+          //  showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
           //  editFirstLastName.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
+            text_apater.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
         if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
-            showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
-            editBirthDay.setIsInvalid();
+            //showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
+            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            //editBirthDay.setIsInvalid();
             isValid = false;
         }
 
@@ -492,26 +557,48 @@ public class DatosPersonalesFragment extends GenericFragment implements
             mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
 
             if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
+                txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                //
                 showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
-                editBirthDay.setIsInvalid();
+               // editBirthDay.setIsInvalid();
                 isValid = false;
             }
         }
 
         if (fechaNacimiento.isEmpty()) {
-            showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
-            editBirthDay.setIsInvalid();
+         //   showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+           // editBirthDay.setIsInvalid();
+            //showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
+            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
         if (lugarNacimiento.isEmpty()) {
-            showValidationError(spinnerBirthPlace.getId(), getString(R.string.datos_personal_estado));
+          //  showValidationError(spinnerBirthPlace.getId(), getString(R.string.datos_personal_estado));
+
+            //showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
+            txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+
             isValid = false;
         }
 
         if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals(States.S33.getName())) {
             if (country == null) {
-                showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                UI.showErrorSnackBar(getActivity(),getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
+                txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+               // showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
                 isValid = false;
             }
         }
@@ -538,7 +625,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editBirthDay:
                 errorBirthDayMessage.setMessageText(error.toString());
-                editBirthDay.setIsInvalid();
+              //  editBirthDay.setIsInvalid();
                 break;
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setMessageText(error.toString());
@@ -568,7 +655,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editBirthDay:
                 errorBirthDayMessage.setVisibilityImageError(false);
-                editBirthDay.setIsValid();
+                //editBirthDay.setIsValid();
+                txtfecha.setBackgroundResource(R.drawable.inputtext_normal);
                 break;
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setVisibilityImageError(false);
@@ -661,8 +749,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
         */
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
-
-            subfechanacimiento.setVisibility(View.VISIBLE);
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
             idEstadoNacimiento = Integer.toString(((IEnumSpinner) spinnerBirthPlace.getSelectedItem()).getId());

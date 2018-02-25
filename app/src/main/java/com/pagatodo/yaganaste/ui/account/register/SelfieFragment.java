@@ -94,6 +94,9 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     @BindView(R.id.anim_selfie)
     LottieAnimationView animSelfie;
 
+
+    StyleTextView omitir;
+
     boolean foto=false;
     boolean img=false;
 
@@ -112,7 +115,10 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
         rootview = inflater.inflate(R.layout.fragment_selfie, container, false);
         cameraManager = new CameraManager(this);
         cameraManager.initCamera(getActivity(), iv_photo_item, this);
+        omitir= (StyleTextView) getActivity().findViewById(R.id.omitir);
 
+        omitir.setVisibility(View.VISIBLE);
+        omitir.setOnClickListener(this);
         cropResultReceiver = new CropIwaResultReceiver();
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(getContext());
@@ -150,6 +156,13 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        cropResultReceiver.setListener(this);
+        cropResultReceiver.register(getContext());
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btntomarfoto:
@@ -175,6 +188,11 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
                 RegisterUser registerUser = RegisterUser.getInstance();
                 registerUser.setUrifotoperfil(mUserImage);
                 nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de registro.
+                omitir.setVisibility(View.GONE);
+                break;
+            case R.id.omitir:
+                nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de regis
+                mUserImage="";
                 break;
             default:
                 break;
@@ -343,6 +361,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
 
     @Override
     public void backScreen(String event, Object data) {
-
+        omitir.setVisibility(View.GONE);
+        mUserImage="";
     }
 }

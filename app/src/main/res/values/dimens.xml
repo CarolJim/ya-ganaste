@@ -70,7 +70,7 @@
     <dimen name="height_edittext">40dp</dimen>
 
     <dimen name="dialog_text_size">11sp</dimen>
-    <dimen name="edittext_text_size">15sp</dimen>
+    <dimen name="edittext_text_size">14sp</dimen>
 
     <dimen name="seekbar_radius">24dp</dimen>
     <dimen name="radio_btn_radius">22dp</dimen>
