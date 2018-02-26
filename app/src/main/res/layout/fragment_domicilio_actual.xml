@@ -176,6 +176,7 @@
                     android:layout_height="40dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textColor="@color/texthint" />
 
