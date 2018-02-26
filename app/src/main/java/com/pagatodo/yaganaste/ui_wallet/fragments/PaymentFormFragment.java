@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -127,15 +129,18 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.containerServiciosForm)
     LinearLayout lytContainerServicios;
     @BindView(R.id.referenceNumber)
-    StyleEdittext edtReferenceNumber;
+    EditText edtReferenceNumber;
     @BindView(R.id.imgMakePaymentRef)
     ImageView imgReferencePayment;
     @BindView(R.id.serviceImport)
-    StyleEdittext edtServiceImport;
+    EditText edtServiceImport;
     @BindView(R.id.serviceConcept)
-    StyleEdittext edtServiceConcept;
+    EditText edtServiceConcept;
     @BindView(R.id.comisionTextServicio)
     StyleTextView txtComisionServicio;
+
+    @BindView(R.id.til_num_telefono)
+    TextInputLayout til_num_telefono;
 
     boolean isRecarga = false;
     boolean isIAVE;
@@ -621,7 +626,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
             } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
-
+                //UI.showErrorSnackBar(getActivity(),getString(R.string.favor_selecciona_importe), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
@@ -629,8 +634,12 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             } else if (errorText.equals(App.getContext().getString(R.string.numero_telefono_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.phone_invalid);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_phone_error);
+
+              //  til_num_telefono.setBackgroundResource(R.drawable.inputtext_error);
+              //  UI.showErrorSnackBar(getActivity(),getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
             }
-            UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+          //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.showErrorSnackBar(getActivity(), errorText, Snackbar.LENGTH_SHORT);
         }
     }
 
