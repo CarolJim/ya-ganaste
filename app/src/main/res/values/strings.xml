@@ -678,27 +678,27 @@
     <string name="txt_referencia_error">Error al Introducir el Campo Referencia</string>
     <string name="txt_referencia_errornuevo">Verifica Que el Número de Referencia Que Ingresaste Sea Correcto</string>
     <string name="txt_referencia_empty">El Campo Referencia Está Vacío</string>
-    <string name="txt_importe_empty">El Campo Importe Está Vacío</string>
+    <string name="txt_importe_empty">El campo importe está vacío</string>
     <string name="txt_importe_error">El Importe es Incorrecto</string>
-    <string name="txt_concept_empty">El Campo Concepto Está Vacío</string>
+    <string name="txt_concept_empty">El campo concepto está vacío</string>
 
     <string name="txt_tipo_envio_error">Por favor selecciona un tipo de envío</string>
-    <string name="txt_name_empty">El Campo Nombre Está Vacío</string>
-    <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario</string>
-    <string name="txt_concept_error">Error al Introducir el Campo Concepto</string>
-    <string name="txt_referencia_number_invalid">El Campo Referencia Numérica es Inválido</string>
+    <string name="txt_name_empty">El campo  nombre está vacío</string>
+    <string name="txt_name_error">Error al introducir el nombre del destinatario</string>
+    <string name="txt_concept_error">Error al introducir el campo concepto</string>
+    <string name="txt_referencia_number_invalid">El campo referencia numérica es inválido</string>
 
-    <string name="txt_referencia_envio_empty">Por Favor Ingrese un Número de Teléfono/Cuenta/CLABE</string>
-    <string name="txt_referencia_envio_empty_telefono">Por Favor Ingrese un Número de Celular</string>
-    <string name="txt_referencia_envio_empty_creditc">Por Favor Ingrese un Número de Tarjeta de Débito</string>
-    <string name="txt_referencia_envio_empty_clabe">Por Favor Ingrese un Número de CLABE</string>
-    <string name="txt_referencia_envio_error">Error al Introducir el Número de Teléfono/Cuenta/CLABE</string>
+    <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CLABE</string>
+    <string name="txt_referencia_envio_empty_telefono">Por favor ingrese un número de celular</string>
+    <string name="txt_referencia_envio_empty_creditc">Por favor ingrese un número de tarjeta de débito</string>
+    <string name="txt_referencia_envio_empty_clabe">Por favor ingrese un número de CLABE</string>
+    <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CLABE</string>
     <string name="txt_referencia_envio_error_telefono">Número de Celular Incorrecto</string>
     <string name="txt_referencia_envio_error_creditc">Número de Tarjeta de Débito Incorrecta</string>
     <string name="txt_referencia_envio_error_clabe">Número de CLABE Incorrecta</string>
-    <string name="txt_referencia_number_error">Error al Introducir el Campo Referencia Numérica</string>
-    <string name="txt_referencia_number_empty">El Campo Referencia Numérica Está Vacío</string>
-    <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 1 a 6 Dígitos</string>
+    <string name="txt_referencia_number_error">Error al introducir el campo referencia numérica</string>
+    <string name="txt_referencia_number_empty">El campo referencia numérica está vacío</string>
+    <string name="txt_referencia_number_short">El campo referencia numérica debe ser de 1 a 6 dígitos</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
     <string name="change_avatar_success">Tu Imagen ha Sido Actualizada</string>
@@ -1072,30 +1072,30 @@
     <string name="new_body_serv_concepto_error_empty">Por Favor Ingresa un Concepto</string>
 
     <!-- Nuevos Errores Envios -->
-    <string name="new_tittle_envios_cellphone_error">Número de Celular Inválido</string>
-    <string name="new_body_envios_cellphone_error">Verifica Que el Número de Celular Que Ingresaste Sea Válido</string>
-    <string name="new_tittle_envios_tdc_error">Número de Tarjeta Inválido</string>
-    <string name="new_body_envios_tdc_error">Verifica Que el Número de Tarjeta Que Ingresaste Sea Válido</string>
-    <string name="new_tittle_envios_clabe_error">Cuenta CLABE Inválida</string>
-    <string name="new_body_envios_clabe_error">Verifica Que la Cuenta CLABE Que Ingresaste Sea Válida</string>
+    <string name="new_tittle_envios_cellphone_error">Número de celular inválido</string>
+    <string name="new_body_envios_cellphone_error">Verifica que el número de celular que ingresaste sea válido</string>
+    <string name="new_tittle_envios_tdc_error">Número de tarjeta inválido</string>
+    <string name="new_body_envios_tdc_error">Verifica que el número de tarjeta que ingresaste sea válido</string>
+    <string name="new_tittle_envios_clabe_error">Cuenta CLABE inválida</string>
+    <string name="new_body_envios_clabe_error">Verifica que la cuenta CLABE que ingresaste sea válida</string>
     <string name="new_body_envios_importe_error">Verifica Que el Importe Sea Mayor o Igual a $1°°</string>
     <string name="phone_invalid">Teléfono Inválido</string>
     <string name="type_send_invalid">Tipo de envío inválido</string>
-    <string name="destiny_invalid"> Nombre Del Destinatario Inválido</string>
-    <string name="new_body_envios_destiny_error">Por Favor Ingresa el Nombre Del Destinatario</string>
+    <string name="destiny_invalid"> Nombre del destinatario inválido</string>
+    <string name="new_body_envios_destiny_error">Por favor ingresa el nombre del destinatario</string>
     <string name="new_body_recargas_phone_error">Por Favor Ingresa un Número de Teléfono Válido</string>
-    <string name="new_tittle_envios_cell_empty_error">Número de Celular Inválido</string>
-    <string name="new_body_envios_cell_empty_error">Por Favor Ingresa un Número de Celular Válido</string>
-    <string name="new_tittle_envios_tdc_empty_error">Número de Tarjeta Inválido</string>
-    <string name="new_body_envios_tdc_empty_error">Por Favor Ingresa un Número de Tarjeta Válido</string>
-    <string name="new_tittle_envios_clabe_empty_error">Cuenta CLABE Inválida</string>
-    <string name="new_body_envios_clabe_empty_error">Por Favor Ingresa un Número de CLABE Válido</string>
-    <string name="new_tittle_envios_importe_empty_error">Importe Inválido</string>
-    <string name="new_body_envios_importe_empty_error">Por Favor Ingresa un Importe</string>
-    <string name="new_tittle_envios_concepto_error">Concepto Inválido</string>
-    <string name="new_body_envios_concepto_error">Por Favor Ingresa el Concepto</string>
-    <string name="new_tittle_envios_refer_error">Referencia Numérica Inválida</string>
-    <string name="new_body_envios_refer_error">Por Favor Ingresa el Número de Referencia</string>
+    <string name="new_tittle_envios_cell_empty_error">Número de celular inválido</string>
+    <string name="new_body_envios_cell_empty_error">Por favor ingresa un número de celular válido</string>
+    <string name="new_tittle_envios_tdc_empty_error">Número de tarjeta inválido</string>
+    <string name="new_body_envios_tdc_empty_error">Por favor ingresa un número de tarjeta válido</string>
+    <string name="new_tittle_envios_clabe_empty_error">Cuenta CLABE inválida</string>
+    <string name="new_body_envios_clabe_empty_error">Por favor ingresa un número de CLABE válido</string>
+    <string name="new_tittle_envios_importe_empty_error">Importe inválido</string>
+    <string name="new_body_envios_importe_empty_error">Por favor ingresa un importe</string>
+    <string name="new_tittle_envios_concepto_error">Concepto inválido</string>
+    <string name="new_body_envios_concepto_error">Por favor ingresa el concepto</string>
+    <string name="new_tittle_envios_refer_error">Referencia numérica inválida</string>
+    <string name="new_body_envios_refer_error">Por favor ingresa el número de referencia</string>
     <string name="new_tittle_error_interno">Error Interno</string>
 
     <string name="text_error_cobros_mensual">Cobro Requerido, Verifique su Información</string>
@@ -1152,7 +1152,7 @@
     <string name="description_bugdroid_icon">Android bugdroid image</string>
     <string name="description_fingerprint_icon">Fingerprint icon</string>
     <string name="download_file">Descargando Archivo</string>
-    <string name="trans_yg_envio_txt">Traspaso Mismo Banco</string>
+    <string name="trans_yg_envio_txt">Traspaso mismo banco</string>
 
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
@@ -1275,10 +1275,10 @@
     <string name="operation_registrar">Registrar</string>
 
     <!-- Hint's -->
-    <string name="hint_referencia_numerica">Referencia Numérica (6 Dígitos)</string>
+    <string name="hint_referencia_numerica">Referencia numérica (6 dígitos)</string>
     <string name="hint_importe">Importe</string>
     <string name="hint_importe_envio">Importe a Enviar</string>
-    <string name="hint_name_destinatario">Nombre del Destinatario</string>
+    <string name="hint_name_destinatario">Nombre del destinatario</string>
     <string name="hint_concepto">Concepto</string>
     <string name="hint_phone_number">Teléfono (10 Dígitos)</string>
     <string name="hint_card_number">Número de Tarjeta (16 Dígitos)</string>

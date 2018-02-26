@@ -323,11 +323,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnenviar:
@@ -516,7 +511,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void showError(String text) {
         if (!TextUtils.isEmpty(text)) {
-            if (!text.equals("Por Favor Verifica Que la Longitud de la Referencia Sea Correcta")) {
+            if (!text.equals("Por favor verifica que la longitud de la referencia sea correcta")) {
                 UI.showErrorSnackBar(getActivity(), text, Snackbar.LENGTH_SHORT);
             }
         }
@@ -666,7 +661,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
 
     }
-
 
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
@@ -1213,4 +1207,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
+    private void refreshData(){
+
+    }
 }

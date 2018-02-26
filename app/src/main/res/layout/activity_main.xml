@@ -13,15 +13,18 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/anim_onboarding"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
             app:lottie_imageAssetsFolder="images/onboarding"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/onboarding" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_onboarding"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
