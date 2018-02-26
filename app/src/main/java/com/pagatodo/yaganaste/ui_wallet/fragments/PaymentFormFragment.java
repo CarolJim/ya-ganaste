@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -111,7 +112,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.containerRecargaForm)
     LinearLayout lytContainerRecargas;
     @BindView(R.id.recargaNumber)
-    StyleEdittext edtPhoneNumber;
+    EditText edtPhoneNumber;
     @BindView(R.id.imgMakePaymentContact)
     ImageView imgContacts;
     @BindView(R.id.sp_montoRecarga)
@@ -278,11 +279,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 if (isIAVE) {
                     edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
-                    edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
+                    //edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
                     layoutImageContact.setVisibility(View.GONE);
                 } else {
                     edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
-                    edtPhoneNumber.setHint(getString(R.string.numero_telefono));
+                   // edtPhoneNumber.setHint(getString(R.string.numero_telefono));
 
                     layoutImageContact.setOnClickListener(this);
                 }
