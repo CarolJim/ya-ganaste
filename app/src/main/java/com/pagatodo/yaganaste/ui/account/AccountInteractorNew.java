@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
@@ -34,6 +35,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsigna
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -80,6 +82,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
@@ -149,6 +152,16 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } catch (OfflineException e) {
             //   e.printStackTrace();
             accountManager.onError(VALIDAR_ESTATUS_USUARIO, App.getContext().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest,WebService webService) {
+        try {
+            ApiAdtvo.actualizarAvatar(avatarRequest, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            accountManager.onError(ACTUALIZAR_AVATAR, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -452,6 +465,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
+
+
+            case ACTUALIZAR_AVATAR:
+                cargarfotousuario(dataSourceResult);
+                break;
             case CHANGE_PASS_6:
                 processchangepass6(dataSourceResult);
                 break;
@@ -560,6 +578,18 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             default:
                 break;
         }
+    }
+
+    private void cargarfotousuario(DataSourceResult dataSourceResult) {
+        ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
+            accountManager.onSucces(ACTUALIZAR_AVATAR,dataSourceResult);
+        } else {
+            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
+            accountManager.onError(ACTUALIZAR_AVATAR, response.getMensaje());
+        }
+
     }
 
     private void processchangepass6(DataSourceResult dataSourceResult) {
@@ -929,6 +959,21 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
+    }
+
+
+    /**
+     * Método para procesar la respuesta una vez que se asigno el NIP a la tarjeta.
+     *
+     * @param response {@link DataSourceResult} respuesta del servicio
+     */
+    private void fotoperfil(DataSourceResult response) {
+        AsignarNIPResponse data = (AsignarNIPResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(response.getWebService(), data.getMensaje());
+        } else {
+            accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
 

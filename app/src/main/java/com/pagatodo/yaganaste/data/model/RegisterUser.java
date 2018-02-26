@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model;
 
+import android.net.Uri;
+
 import com.pagatodo.yaganaste.data.model.db.Countries;
 
 /**
@@ -36,6 +38,15 @@ public class RegisterUser {
     private Countries paisNacimiento;
 
     private String urifotoperfil;
+    private Uri perfirlfoto;
+
+    public Uri getPerfirlfoto() {
+        return perfirlfoto;
+    }
+
+    public void setPerfirlfoto(Uri perfirlfoto) {
+        this.perfirlfoto = perfirlfoto;
+    }
 
     private RegisterUser() {
 

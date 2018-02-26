@@ -130,6 +130,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     @Override
     public void onSuccesChangePass6(DataSourceResult dataSourceResult) {
 
+
     }
 
 

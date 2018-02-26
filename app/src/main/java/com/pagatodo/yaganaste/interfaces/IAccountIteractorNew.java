@@ -4,6 +4,7 @@ import android.app.Fragment;
 
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
@@ -21,6 +22,8 @@ import java.util.List;
 
 public interface IAccountIteractorNew<T> {
     void validateUserStatus(String user);
+
+    void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest,WebService asignarNip);
 
     void login(IniciarSesionRequest request);
 

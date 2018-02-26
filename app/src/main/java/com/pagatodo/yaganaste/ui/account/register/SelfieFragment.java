@@ -93,8 +93,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
 
     @BindView(R.id.anim_selfie)
     LottieAnimationView animSelfie;
-
-
+    Uri fotoperfil;
     StyleTextView omitir;
 
     boolean foto=false;
@@ -187,6 +186,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
             case R.id.btnconfirmar:
                 RegisterUser registerUser = RegisterUser.getInstance();
                 registerUser.setUrifotoperfil(mUserImage);
+                registerUser.setPerfirlfoto(fotoperfil);
                 nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de registro.
                 omitir.setVisibility(View.GONE);
                 break;
@@ -282,6 +282,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     public void onCropSuccess(Uri croppedUri) {
 
         mUserImage =  croppedUri.toString();
+        fotoperfil= croppedUri;
         updatePhoto();
         layoutBottom.setVisibility(View.GONE);
         layoutBottomconfirm.setVisibility(View.VISIBLE);
