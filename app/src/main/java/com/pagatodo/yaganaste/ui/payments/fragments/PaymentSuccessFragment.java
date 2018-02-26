@@ -114,7 +114,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @BindView(R.id.layout_compania)
     LinearLayout layoutCompania;
 
-
     @BindView(R.id.layout_addfavorites)
     LinearLayout addFavorites;
 

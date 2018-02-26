@@ -21,12 +21,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="61.5dp"
+                android:layout_height="61.5dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_check_success" />
+                app:lottie_autoPlay="true"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/check" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_paymentTitle"
@@ -49,10 +51,10 @@
                 app:cardElevation="3dp">
 
                 <LinearLayout
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="21dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
                     <!-- Seccion de area de importe -->
@@ -717,8 +719,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom" android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_addFavorite"
@@ -726,12 +729,12 @@
                 android:layout_width="@dimen/width_btns_big"
                 android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
-                android:onClick="openAddFavoritos"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_rounded_blue"
+                android:onClick="openAddFavoritos"
+                android:text="Agregar a favoritos"
                 android:textAllCaps="false"
                 android:textColor="#000"
-                android:text="Agregar a favoritos"
                 android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
@@ -744,8 +747,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_rounded_blue"
-                android:textAllCaps="false"
                 android:text="@string/continuar"
+                android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"

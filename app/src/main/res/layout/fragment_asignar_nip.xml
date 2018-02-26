@@ -116,7 +116,22 @@ tools:context=".ui._controllers.AccountActivity">
 
                 </android.support.design.widget.TextInputLayout>
 
+                <RelativeLayout
+                    android:id="@+id/layoutImg"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp">
 
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/frag_lista_opciones_photo_item"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:src="@drawable/icon_preferuser"
+                        app:civ_border_color="@color/colorAccent"
+                        app:civ_border_width="2dp" />
+                </RelativeLayout>
 
             </LinearLayout>
 

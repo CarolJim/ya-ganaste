@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
@@ -7,6 +8,8 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
  */
 
 public interface IAccountPresenterNew {
+
+    void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
     void Photo(int i, CameraManager cameraManager);
 
