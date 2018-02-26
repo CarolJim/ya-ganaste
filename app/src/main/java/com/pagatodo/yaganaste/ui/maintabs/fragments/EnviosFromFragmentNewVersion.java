@@ -316,6 +316,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnenviar:

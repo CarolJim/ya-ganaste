@@ -925,7 +925,7 @@
 
     <string name="security_code">Código de Seguridad</string>
     <string name="verificando_sms_espera">Obteniendo número de celular</string>
-    <string name="verificando_sms_esperanuevo">Estamos vinculando tu celular \n a tu cuenta</string>
+    <string name="verificando_sms_esperanuevo">Estamos vinculando tu celular a tu cuenta</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="use_fingerprint">Uso de Huella Digital</string>
