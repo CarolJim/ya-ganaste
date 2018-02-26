@@ -28,15 +28,21 @@
                 android:padding="31dp"
                 app:srcCompat="@drawable/ic_logo_header" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgLoginExistProfile"
+            <LinearLayout
                 android:layout_width="61dp"
                 android:layout_height="61dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:src="@mipmap/icon_user" />
+                android:background="@drawable/ic_circle_border_shadow">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgLoginExistProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/icon_user" />
+            </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/textNameUser"

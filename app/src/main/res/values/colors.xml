@@ -115,4 +115,5 @@
     <color name="white_text_wallet">#ffffff</color>
     <color name="gray_text_wallet">#adadad</color>
     <color name="gray_text_wallet_2">#888888</color>
+    <color name="gray_text_wallet_3">#7a7c7d</color>
 </resources>

@@ -299,9 +299,7 @@
         <item name="android:textColor">@drawable/text_radiobutton</item>
     </style>
 
-
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
-
         <item name="android:padding">0dp</item>
     </style>
 

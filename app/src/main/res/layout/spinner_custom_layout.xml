@@ -16,6 +16,8 @@
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:textColor="@color/gray_text_wallet_3"
+        android:textColorHint="@color/gray_text_wallet"
         android:longClickable="false"
         android:maxLines="1"
         android:textSize="@dimen/size_text_style_3_value" />

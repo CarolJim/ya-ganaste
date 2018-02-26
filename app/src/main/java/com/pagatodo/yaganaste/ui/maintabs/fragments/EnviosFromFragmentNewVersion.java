@@ -117,12 +117,12 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         EnviosManager, TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener {
 
     private View rootview;
-    @BindView(R.id.tipoEnvio)
+    @BindView(R.id.spnTypeSend)
     Spinner tipoEnvio;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.cardNumber)
-    StyleEdittext cardNumber;
+    EditText cardNumber;
     @BindView(R.id.layout_cardNumber)
     LinearLayout layout_cardNumber;
     @BindView(R.id.btnenviar)
@@ -226,7 +226,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         cardNumber.setSingleLine();
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
             //cardNumber.setOnFocusChangeListener(this);
@@ -916,7 +915,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
         cardNumber.setText("");
-        cardNumber.removeTextChangedListener();
         if (!isfavo) {
             editListServ.setText("");
             editListServ.setHintText("Banco");
@@ -933,7 +931,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             editListServ.cleanImage();
             bancoselected = false;
             maxLength = 19;
-            cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
+            //cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (idComercio == IDCOMERCIO_YA_GANASTE) {
 
@@ -972,7 +970,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             cardNumber.setText("");
             bancoselected = true;
             maxLength = 12;
-            cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
+            //cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
             layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
             layoutScanQr.setVisibility(View.GONE);
@@ -1002,7 +1000,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             editListServ.cleanImage();
             bancoselected = false;
             cardNumber.setText("");
-            cardNumber.setHint(getString(R.string.transfer_cable));
+            //cardNumber.setHint(getString(R.string.transfer_cable));
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
             cardNumber.addTextChangedListener(textWatcher);
             textchangeclabe();
@@ -1044,7 +1042,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             layoutScanQr.setOnClickListener(this);
             layoutScanCard.setVisibility(View.GONE);
             layoutScanCard.setOnClickListener(null);
-            cardNumber.setHint(getString(R.string.transfer_qr));
+            //cardNumber.setHint(getString(R.string.transfer_qr));
             cardNumber.setEnabled(false);
             editListServ.setText(getString(R.string.app_name));
             editListServ.setEnabled(false);
