@@ -682,7 +682,7 @@
     <string name="txt_importe_error">El Importe es Incorrecto</string>
     <string name="txt_concept_empty">El Campo Concepto Está Vacío</string>
 
-    <string name="txt_tipo_envio_error">Por Favor Selecciona un Tipo de Envío</string>
+    <string name="txt_tipo_envio_error">Por favor selecciona un tipo de envío</string>
     <string name="txt_name_empty">El Campo Nombre Está Vacío</string>
     <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario</string>
     <string name="txt_concept_error">Error al Introducir el Campo Concepto</string>
@@ -1007,7 +1007,7 @@
     <string name="addFavoritesErrorAlias">Ingresa un Nombre</string>
     <string name="addFavoritesErrorServ">Elige una Compañía</string>
     <string name="addFavoritesErrorBank">Elige un Banco</string>
-    <string name="addFavoritesErrorEnvio">Es Necesario un Tipo de Envio</string>
+    <string name="addFavoritesErrorEnvio">Es necesario un tipo de envio</string>
     <string name="addFavoritesErrorFoto">Asigna Una Imagen a tu Favorito</string>
     <string name="addFavoritesErrorRefer">Es Necesario Una Referencia Para Proceder</string>
     <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
@@ -1080,7 +1080,7 @@
     <string name="new_body_envios_clabe_error">Verifica Que la Cuenta CLABE Que Ingresaste Sea Válida</string>
     <string name="new_body_envios_importe_error">Verifica Que el Importe Sea Mayor o Igual a $1°°</string>
     <string name="phone_invalid">Teléfono Inválido</string>
-    <string name="type_send_invalid">Tipo de Envío Inválido</string>
+    <string name="type_send_invalid">Tipo de envío inválido</string>
     <string name="destiny_invalid"> Nombre Del Destinatario Inválido</string>
     <string name="new_body_envios_destiny_error">Por Favor Ingresa el Nombre Del Destinatario</string>
     <string name="new_body_recargas_phone_error">Por Favor Ingresa un Número de Teléfono Válido</string>
@@ -1287,6 +1287,7 @@
     <string name="hint_monto_mensual_estimado">Monto Mensual Estimado</string>
     <string name="hint_origen_recursos">Origen de los Recursos</string>
     <string name="hint_destino_recursos">Destino de los Recursos</string>
+    <string name="hint_reference">Referencia</string>
 
     <!-- Registro Emisor  -->
     <string name="correo_electronico">Correo electrónico</string>

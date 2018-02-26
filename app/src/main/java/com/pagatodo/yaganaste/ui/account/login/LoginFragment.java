@@ -168,7 +168,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
-            edtUserPass.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            edtUserPass.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             textNameUser.setOnClickListener(this);
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);

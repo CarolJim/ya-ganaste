@@ -249,16 +249,14 @@
     </style>
 
     <style name="StyleEditText">
-        <item name="android:layout_marginLeft">@dimen/edittext_margin_left</item>
-        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">
-            @dimen/edittext_margin_left
-        </item>
+        <item name="android:layout_marginLeft">6dp</item>
+
         <item name="android:textColorHint">@color/inputTextColorHint</item>
         <item name="android:textColor">@color/inputTextColorHint</item>
         <item name="android:background">@null</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/transparent</item>
-        <item name="android:paddingTop">@dimen/edittext_padding</item>
-        <item name="android:paddingBottom">@dimen/edittext_padding</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">6dp</item>
         <item name="android:cursorVisible">true</item>
         <item name="android:textSize">@dimen/edittext_text_size</item>
     </style>
@@ -301,9 +299,7 @@
         <item name="android:textColor">@drawable/text_radiobutton</item>
     </style>
 
-
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
-
         <item name="android:padding">0dp</item>
     </style>
 
@@ -337,7 +333,7 @@
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
         <item name="android:textColorHint">@color/whiteColor</item>
         <item name="android:textColor">@color/textColorAlternative</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
 
 
         <item name="tipo">Descripcion</item>
@@ -354,6 +350,10 @@
 
     </style>
 
+    <style name="FragmentElementWithValidationdos" parent="FragmentElement">
+        <item name="android:layout_marginTop">0dp</item>
+
+    </style>
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
 
@@ -565,6 +565,11 @@
     <style name="generic_text_style_4">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_4_value</item>
+        <item name="tipo">Text</item>
+    </style>
+    <style name="generic_text_style_4.1.1">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">14sp</item>
         <item name="tipo">Text</item>
     </style>
 

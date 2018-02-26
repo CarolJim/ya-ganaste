@@ -294,7 +294,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
 
     private void setValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setImageResource(R.drawable.done_campo_canvas);
+     //   imageView.setImageResource(R.drawable.done_campo_canvas);
         isValid = true;
     }
 
