@@ -164,7 +164,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     int idTipoComercio, idComercio, longitudRefer, keyIdComercio, maxLength;
     private String nombreDestinatario, referenciaNumber, referenceFavorite, myReferencia, errorText,
             referencia, formatoComercio, concepto;
-    private boolean isCuentaValida = true, isUp, isFavEdit = false, bancoselected = false, solicitabanco = true,
+    private boolean isCuentaValida = true, isUp, bancoselected = false, solicitabanco = true,
             isfavo = false, isValid = true;
     List<DataFavoritos> backUpResponseFavoritos;
     DataFavoritos favoriteItem;
@@ -316,10 +316,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        if (isFavEdit) {
-            isFavEdit = false;
             paymentsCarouselPresenter.getFavoriteCarouselItems();
-        }
     }
 
     @Override
@@ -574,6 +571,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
                 startActivity(intent);
+                tipoEnvio.setSelection(0);
             }
         }
     }
@@ -684,12 +682,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             @Override
             public void onClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                    isFavEdit = true;
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
                     startActivity(intentAddFavorite);
-
                 } else {
                     // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
@@ -753,7 +749,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             @Override
             public void onLongClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
-                    isFavEdit = true;
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
                     vibrator.vibrate(100);
@@ -1205,9 +1200,5 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         } catch (Exception e) {
             receiverName.setText(nameDisplay);
         }
-    }
-
-    private void refreshData(){
-
     }
 }
