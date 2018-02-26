@@ -362,8 +362,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             }
 
         } else if (favoriteProcess == 2) {
-            // Proceso para alta de favorito en recargas
-            // Nuevo Favorito desde Cero mostramos los campos poco a poco
+            // Proceso para alta de favorito desde Cero mostramos los campos poco a poco
 
             // Agregamos Flecha de Shebrom y habilitamos el evento OnClick
             editListServ.setEnabled(false);
@@ -380,7 +379,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                     break;
             }
 
-            // Funcionalidad para agregar el Spinner
+            // Funcionalidad para agregar el Spinner y el titulo hint del spinner
             editListServ.imageViewIsGone(false);
             editListServ.setEnabled(false);
             editListServ.setFullOnClickListener(this);

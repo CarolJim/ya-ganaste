@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="@color/fbfbfb"
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity">
 
@@ -87,7 +88,7 @@
                     android:layout_marginLeft="3dp"
                     android:gravity="center"
                     android:textAlignment="center"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <!-- Estilo base para nuevos campos, de momento no hace nada -->
                 <android.support.design.widget.TextInputLayout
@@ -124,7 +125,7 @@
                     style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="@dimen/margin_xsmall"
+                    android:layout_marginTop="22dp"
                     android:imeOptions="actionDone"
                     app:formato="text"
                     app:hintText="@string/favorte_name"
@@ -383,10 +384,25 @@
                 android:layout_height="match_parent" />
 
 
+
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnSendAddFavoritos"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/width_btns_big"
+                android:layout_height="@dimen/height_btns"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_rounded_blue"
+                android:textAllCaps="false"
+                android:text="@string/btn_req_payment_2_txt"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/size_text_style_2_value"
+                app:cornerRadius="@dimen/btn_corner_radius"
+                app:intercepterOnclick="true" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 style="@style/buttonDirecctionNext"
-                android:gravity="center"
+                android:gravity="center" android:visibility="gone"
                 android:text="@string/title_guardar" />
 
         </LinearLayout>
