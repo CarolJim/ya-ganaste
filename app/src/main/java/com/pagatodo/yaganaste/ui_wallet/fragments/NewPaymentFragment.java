@@ -713,7 +713,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         // Vibrate for 500 milliseconds
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaRecar.get(typePosition).get(position));
-                        intentEditFav.putExtra(CURRENT_TAB_ID, mType);
+                        intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_RECARGA);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
@@ -730,7 +730,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         // Vibrate for 500 milliseconds
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaServ.get(typePosition).get(position));
-                        intentEditFav.putExtra(CURRENT_TAB_ID, mType);
+                        intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_PAGOS);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
