@@ -26,7 +26,6 @@ import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
-import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -37,8 +36,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.pagatodo.yaganaste.R2.color.colorLoaderAlpha;
 
 
 /**
