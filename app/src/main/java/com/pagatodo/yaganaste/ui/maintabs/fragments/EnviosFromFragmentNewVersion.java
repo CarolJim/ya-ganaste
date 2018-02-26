@@ -81,6 +81,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -931,7 +932,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             editListServ.cleanImage();
             bancoselected = false;
             maxLength = 19;
-            //cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
+            //cardNumber.setHint(getString(R.string.card0_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (idComercio == IDCOMERCIO_YA_GANASTE) {
 
@@ -1029,7 +1030,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 isfavo = false;
             }
         } else if (position == QR_CODE.getId()) {
-
             referenceFavorite = null;
             cardNumber.setText("");
             maxLength = 22;

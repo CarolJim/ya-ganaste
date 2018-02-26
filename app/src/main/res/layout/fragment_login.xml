@@ -91,7 +91,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
-                    android:textColor="@color/texthint" />
+                    android:textColorHint="@color/texthint"
+                    android:textColor="@color/gray_text_wallet_3" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -123,7 +124,8 @@
                     android:inputType="textPassword"
                     android:password="true"
                     android:singleLine="true"
-                    android:textColor="@color/texthint" />
+                    android:textColorHint="@color/texthint"
+                    android:textColor="@color/gray_text_wallet_3" />
 
             </android.support.design.widget.TextInputLayout>
 
