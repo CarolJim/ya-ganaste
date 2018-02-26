@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -111,6 +112,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.txtlugarnacimiento)
     LinearLayout txtlugarnacimiento;
 
+    @BindView(R.id.lugarnacimientomens)
+    StyleTextView lugarnacimientomens;
+
+
+
 
 
 
@@ -180,6 +186,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @BindView(R.id.fechaacimiento)
     StyleTextView fechaacimiento;
+
+    AppCompatImageView imageViewCustomSpinner;
+
 
 
     StatesSpinnerAdapter adapterBirthPlace;
@@ -281,6 +290,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
@@ -291,6 +302,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         rootview = inflater.inflate(R.layout.fragment_datos_personales, container, false);
         actualDate = Calendar.getInstance(new Locale("es"));
         initViews();
+        //imageViewCustomSpinner= getActivity().findViewById(R.id.imageViewCustomSpinner);
+        //imageViewCustomSpinner.setImageResource(R.drawable.bitmap);
         return rootview;
     }
 
@@ -655,7 +668,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editBirthDay:
                 errorBirthDayMessage.setVisibilityImageError(false);
-                //editBirthDay.setIsValid();
+             //   editBirthDay.setIsValid();
                 txtfecha.setBackgroundResource(R.drawable.inputtext_normal);
                 break;
             case R.id.spinnerBirthPlace:
@@ -674,6 +687,16 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         IEnumSpinner itemSelected = adapterBirthPlace.getItem(position);
+
+        txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_normal);
+
+        if (itemSelected==States.S0){
+
+        }else {
+            lugarnacimientomens.setVisibility(VISIBLE);
+        }
+
+
         if (itemSelected == States.S33) {
             if (country != null) {
                 editCountry.setVisibility(VISIBLE);

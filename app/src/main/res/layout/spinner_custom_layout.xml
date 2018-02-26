@@ -31,6 +31,6 @@
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/bitmap" />
+            app:srcCompat="@drawable/ico_select" />
     </RelativeLayout>
 </LinearLayout>
