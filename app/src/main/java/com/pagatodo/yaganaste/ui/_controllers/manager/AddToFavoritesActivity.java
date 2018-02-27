@@ -168,6 +168,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     RelativeLayout layoutImageReference;
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
+    @BindView(R.id.tipoEnvio_layout)
+    LinearLayout tipoEnvio_layout;
     @BindView(R.id.cardNumber)
     EditText cardNumber;
     @BindView(R.id.layout_cardNumber)
@@ -180,6 +182,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     CustomValidationEditText editFoto;
     @BindView(R.id.add_favorites_foto_error)
     ErrorMessage editFotoError;
+    @BindView(R.id.til_num_telefono)
+    TextInputLayout til_num_telefono;
 
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
@@ -865,9 +869,11 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             }
         } else if (current_tab == 3) {
             //Validate format Spinner
-            if (!editSpinner.isValidText()) {
-                showValidationError(editSpinner.getId(), getString(R.string.addFavoritesErrorEnvio));
-                editSpinner.setIsInvalid();
+            if (editSpinner.isValidText()) {
+               // showValidationError(editSpinner.getId(), getString(R.string.addFavoritesErrorEnvio));
+               // editSpinner.setIsInvalid();
+
+                UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorEnvio), Snackbar.LENGTH_SHORT);
                 isValid = false;
                 //return;
             }
@@ -1184,6 +1190,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
      * Procedimientos especificos para la referencia por via Envios
      */
     private void initEnviosPrefer() {
+        tipoEnvio_layout.setVisibility(View.VISIBLE);
         tipoEnvio.setVisibility(View.VISIBLE);
         keyIdComercio = idComercio;
 
@@ -1222,7 +1229,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
         cardNumber.setText("");
-        //cardNumber.removeTextChangedListener();
 
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {
@@ -1256,6 +1262,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
             selectedType = NUMERO_TARJETA;
+            til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
             cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
@@ -1267,6 +1274,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             }
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
+            til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
         } else if (position == CLABE.getId()) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
@@ -1274,6 +1282,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
             selectedType = CLABE;
+            til_num_telefono.setHint(CLABE.getName(this));
         } else {
             maxLength = 2;
             cardNumber.setHint("");
