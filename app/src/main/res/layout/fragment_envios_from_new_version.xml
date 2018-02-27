@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -57,9 +58,9 @@
                             style="@style/H4Gris"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_gravity="center"
                             android:layout_marginRight="10.5dp"
                             android:text="Editar" />
                     </RelativeLayout>
@@ -82,131 +83,167 @@
                 android:orientation="vertical">
 
                 <Spinner
-                    android:id="@+id/tipoEnvio"
-                    style="@style/CustomSpinner"
+                    android:id="@+id/spnTypeSend"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
-                    android:background="@null"
+                    android:background="@drawable/inputtext_normal"
                     android:backgroundTint="@color/transparent" />
 
                 <LinearLayout
                     android:id="@+id/layout_cardNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
-                    android:background="@drawable/rounded_border_edittext"
+                    android:background="@drawable/inputtext_normal"
+                    android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                        android:id="@+id/cardNumber"
-                        style="@style/GenericStyleEditText"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/txt_lyt_cardnumber"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20"
-                        android:hint="@string/hint_card_number"
-                        android:inputType="number"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_reference"
                         android:longClickable="false"
-                        android:maxLength="19" />
+                        android:maxLines="1"
+                        android:paddingLeft="6dp"
+                        android:textColorHint="@color/texthint"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/cardNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="19"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint" />
+
+                    </android.support.design.widget.TextInputLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutImageContact"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="80"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_centerInParent="true"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutScanQr"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="80"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentRef"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:layout_centerInParent="true"
-                            android:layout_margin="5dp"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/layoutScanCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="80"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:visibility="gone">
 
                         <ImageView
                             android:id="@+id/imgScanCard"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:layout_centerInParent="true"
-                            android:layout_margin="5dp"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/txt_lyt_list_serv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
-                    android:orientation="horizontal">
+                    android:background="@drawable/inputtext_normal"
+                    android:gravity="center_vertical"
+                    android:hint="@string/details_bank"
+                    android:longClickable="false"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:textColorHint="@color/texthint"
+                    android:theme="@style/TextLabel"
+                    app:passwordToggleTint="@color/hint_color"
+                    tools:ignore="UnusedAttribute">
 
-                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    <EditText
                         android:id="@+id/add_favorites_list_serv"
-                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
                         android:focusableInTouchMode="false"
-                        android:visibility="visible"
-                        android:windowSoftInputMode="stateHidden"
-                        app:formato="text"
-                        app:hintText="Servicio"
-                        app:imageIsGone="false"
-                        app:isTextEnabled="false" />
-                </LinearLayout>
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:textColor="@color/texthint"
+                        android:windowSoftInputMode="stateHidden" />
 
-                <LinearLayout
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/txt_lyt_receiver_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
-                    android:background="@drawable/rounded_border_edittext"
-                    android:orientation="horizontal">
+                    android:background="@drawable/inputtext_normal"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_name_destinatario"
+                    android:longClickable="false"
+                    android:maxLines="1"
+                    android:paddingLeft="6dp"
+                    android:textColorHint="@color/texthint"
+                    android:theme="@style/TextLabel"
+                    app:passwordToggleTint="@color/hint_color"
+                    tools:ignore="UnusedAttribute">
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                    <EditText
                         android:id="@+id/receiverName"
-                        style="@style/GenericStyleEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
                         android:digits="@string/input_letters"
-                        android:hint="@string/hint_name_destinatario"
+                        android:imeOptions="actionNext"
                         android:inputType="textCapWords|textNoSuggestions"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/texthint" />
 
-                </LinearLayout>
+                </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
                     android:id="@+id/envio_from_slide_view_ll"
@@ -215,63 +252,89 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <LinearLayout
+                    <android.support.design.widget.TextInputLayout
                         android:id="@+id/envio_from_slide_view_l1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginLeft="11dp"
                         android:layout_marginRight="11dp"
                         android:layout_marginTop="@dimen/space_between_elements"
-                        android:background="@drawable/rounded_border_edittext"
-                        android:orientation="horizontal">
+                        android:background="@drawable/inputtext_normal"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_concepto"
+                        android:longClickable="false"
+                        android:maxLines="1"
+                        android:paddingLeft="6dp"
+                        android:textColorHint="@color/texthint"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                        <EditText
                             android:id="@+id/concept"
-                            style="@style/GenericStyleEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="@string/input_letters_concepto"
-                            android:hint="@string/hint_concepto"
-                            android:inputType="textCapWords|textNoSuggestions"
-                            android:maxLength="40" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/fragment_envios_referencia_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="11dp"
-                        android:layout_marginRight="11dp"
-                        android:layout_marginTop="@dimen/space_between_elements"
-                        android:background="@drawable/rounded_border_edittext"
-                        android:orientation="horizontal">
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                            android:id="@+id/numberReference"
-                            style="@style/GenericStyleEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/hint_referencia_numerica"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_letters_concepto"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords|textNoSuggestions"
+                            android:maxLines="1"
+                            android:maxLength="40"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/fragment_envios_referencia_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:background="@drawable/inputtext_normal"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_referencia_numerica"
+                        android:longClickable="false"
+                        android:maxLines="1"
+                        android:paddingLeft="6dp"
+                        android:textColorHint="@color/texthint"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/numberReference"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_letters_concepto"
+                            android:imeOptions="actionNext"
+                            android:maxLength="6"
+                            android:maxLines="1"
                             android:inputType="number"
-                            android:maxLength="6" />
-                    </LinearLayout>
+                            android:singleLine="true"
+                            android:textColor="@color/texthint" />
+
+                    </android.support.design.widget.TextInputLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/envio_from_slide_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginLeft="22dp"
                         android:layout_marginRight="22dp"
-                        android:layout_marginTop="10dp"
                         android:background="@color/whiteColor" />
 
                     <LinearLayout
@@ -284,7 +347,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Agregar Referencias (Opcional)"
+                            android:text="Agregar referencias (opcional)"
                             android:textColor="@color/grayColor" />
 
                         <ImageView
@@ -302,7 +365,8 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btnenviar"
         style="@style/buttonSquareRoundedBlue"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
         android:text="Continuar"
         android:visibility="visible" />
 </LinearLayout>

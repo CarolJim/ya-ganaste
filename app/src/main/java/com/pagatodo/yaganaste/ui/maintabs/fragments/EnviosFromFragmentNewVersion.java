@@ -16,6 +16,7 @@ import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -81,6 +82,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -117,12 +119,14 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         EnviosManager, TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener {
 
     private View rootview;
-    @BindView(R.id.tipoEnvio)
+    @BindView(R.id.spnTypeSend)
     Spinner tipoEnvio;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.txt_lyt_cardnumber)
+    TextInputLayout txtLytCardNumber;
     @BindView(R.id.cardNumber)
-    StyleEdittext cardNumber;
+    EditText cardNumber;
     @BindView(R.id.layout_cardNumber)
     LinearLayout layout_cardNumber;
     @BindView(R.id.btnenviar)
@@ -143,8 +147,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     RelativeLayout layoutScanCard;
     @BindView(R.id.imgMakePaymentContact)
     ImageView imgMakePaymentContact;
+    @BindView(R.id.txt_lyt_list_serv)
+    TextInputLayout txtLytListServ;
     @BindView(R.id.add_favorites_list_serv)
-    CustomValidationEditText editListServ;
+    EditText editListServ;
     @BindView(R.id.envio_from_slide_view)
     LinearLayout slideView;
     @BindView(R.id.envio_from_slide_view_ll)
@@ -158,7 +164,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     int idTipoComercio, idComercio, longitudRefer, keyIdComercio, maxLength;
     private String nombreDestinatario, referenciaNumber, referenceFavorite, myReferencia, errorText,
             referencia, formatoComercio, concepto;
-    private boolean isCuentaValida = true, isUp, isFavEdit = false, bancoselected = false, solicitabanco = true,
+    private boolean isCuentaValida = true, isUp, bancoselected = false, solicitabanco = true,
             isfavo = false, isValid = true;
     List<DataFavoritos> backUpResponseFavoritos;
     DataFavoritos favoriteItem;
@@ -168,6 +174,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     IEnviosPresenter enviosPresenter;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     Payments payment;
+    TextWatcher txtWatcherSetted;
 
     public static EnviosFromFragmentNewVersion newInstance() {
         EnviosFromFragmentNewVersion fragment = new EnviosFromFragmentNewVersion();
@@ -211,10 +218,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         btnenviar.setOnClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        editListServ.imageViewIsGone(false);
-        editListServ.setEnabled(false);
-        editListServ.setFullOnClickListener(this);
-        editListServ.setHintText(getString(R.string.details_bank));
+        editListServ.setEnabled(true);
+        editListServ.setFocusable(false);
+        editListServ.setFocusableInTouchMode(false);
+        editListServ.setOnClickListener(this);
+        txtLytListServ.setHint(getString(R.string.details_bank));
 
         tipoPago.add(0, "");
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
@@ -226,7 +234,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         cardNumber.setSingleLine();
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
             //cardNumber.setOnFocusChangeListener(this);
@@ -309,15 +316,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        if (isFavEdit) {
-            isFavEdit = false;
             paymentsCarouselPresenter.getFavoriteCarouselItems();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override
@@ -509,7 +508,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void showError(String text) {
         if (!TextUtils.isEmpty(text)) {
-            if (!text.equals("Por Favor Verifica Que la Longitud de la Referencia Sea Correcta")) {
+            if (!text.equals("Por favor verifica que la longitud de la referencia sea correcta")) {
                 UI.showErrorSnackBar(getActivity(), text, Snackbar.LENGTH_SHORT);
             }
         }
@@ -572,6 +571,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
                 startActivity(intent);
+                tipoEnvio.setSelection(0);
             }
         }
     }
@@ -625,7 +625,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void errorgetdatabank() {
         hideLoader();
-        editListServ.setDrawableImage(R.drawable.menu_canvas);
         bancoselected = true;
 
         if (!solicitabanco) {
@@ -635,8 +634,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         public void actionConfirm(Object... params) {
                             solicitabanco = true;
                             editListServ.setText("");
-                            editListServ.setDrawableImage(R.drawable.menu_canvas);
-                            editListServ.setHintText("Banco");
+                            txtLytListServ.setHint(getString(R.string.details_bank));
                             comercioItem = null;
                         }
 
@@ -662,7 +660,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
 
     }
 
-
     @Override
     public void setCarouselDataFavoritos(ArrayList<CarouselItem> response) {
         setBackUpResponseFav(response);
@@ -685,12 +682,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             @Override
             public void onClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                    isFavEdit = true;
                     Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                     intentAddFavorite.putExtra(FAV_PROCESS, 2);
                     intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
                     startActivity(intentAddFavorite);
-
                 } else {
                     // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
@@ -711,7 +706,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                             receiverName.setText(myName);
                             cardNumber.setText("");
                             cardNumber.setText(myReferencia);
-
                             break;
                         case 16:
                             myReferencia = backUpResponseFavoritos.get(position).getReferencia();
@@ -755,7 +749,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             @Override
             public void onLongClick(View v, int position) {
                 if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
-                    isFavEdit = true;
                     Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                     // Vibrate for 500 milliseconds
                     vibrator.vibrate(100);
@@ -836,7 +829,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void showErrorService() {
         hideLoader();
-        editListServ.setDrawableImage(R.drawable.menu_canvas);
         bancoselected = true;
         if (!solicitabanco) {
             UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
@@ -845,8 +837,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         public void actionConfirm(Object... params) {
                             solicitabanco = true;
                             editListServ.setText("");
-                            editListServ.setDrawableImage(R.drawable.menu_canvas);
-                            editListServ.setHintText("Banco");
+                            txtLytListServ.setHint(getString(R.string.details_bank));
                             comercioItem = null;
                         }
 
@@ -876,8 +867,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
          * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
          * Esto se controlar con la posicion del Tab que seleccionamos
          */
-        LinearLayout taeLL = (LinearLayout) getActivity().findViewById(R.id.add_favorites_list_serv);
-        taeLL.setVisibility(View.VISIBLE);
         if (idComercio == IDCOMERCIO_YA_GANASTE) {
             referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
@@ -915,11 +904,13 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
+        if (txtWatcherSetted != null) cardNumber.removeTextChangedListener(txtWatcherSetted);
         cardNumber.setText("");
-        cardNumber.removeTextChangedListener();
+        cardNumber.setHint("");
+        cardNumber.clearFocus();
         if (!isfavo) {
             editListServ.setText("");
-            editListServ.setHintText("Banco");
+            txtLytListServ.setHint(getString(R.string.details_bank));
             receiverName.setText("");
             idComercio = 0;
         }
@@ -930,10 +921,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             cardNumber.setText("");
-            editListServ.cleanImage();
             bancoselected = false;
             maxLength = 19;
-            cardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
+            txtLytCardNumber.setHint(getString(R.string.card_number, String.valueOf(16)));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (idComercio == IDCOMERCIO_YA_GANASTE) {
 
@@ -950,6 +940,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 concept.setImeOptions(IME_ACTION_NEXT);
                 concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
             }
+            txtWatcherSetted = numberCardTextWatcher;
             cardNumber.addTextChangedListener(numberCardTextWatcher);
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
@@ -968,11 +959,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
-            editListServ.setDrawableImage(R.drawable.menu_canvas);
             cardNumber.setText("");
             bancoselected = true;
             maxLength = 12;
-            cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
+            txtLytCardNumber.setHint(getString(R.string.transfer_phone_cellphone));
             layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
             layoutScanQr.setVisibility(View.GONE);
@@ -988,6 +978,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 concept.setImeOptions(IME_ACTION_NEXT);
                 concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
             }
+            txtWatcherSetted = phoneTextWatcher;
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
             if (isfavo == true && !myReferencia.isEmpty()) {
@@ -999,11 +990,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             maxLength = 22;
-            editListServ.cleanImage();
             bancoselected = false;
             cardNumber.setText("");
-            cardNumber.setHint(getString(R.string.transfer_cable));
+            txtLytCardNumber.setHint(getString(R.string.transfer_cable));
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+            txtWatcherSetted = textWatcher;
             cardNumber.addTextChangedListener(textWatcher);
             textchangeclabe();
             layoutImageContact.setVisibility(View.GONE);
@@ -1031,11 +1022,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 isfavo = false;
             }
         } else if (position == QR_CODE.getId()) {
-
             referenceFavorite = null;
             cardNumber.setText("");
             maxLength = 22;
             NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+            txtWatcherSetted = textWatcher;
             cardNumber.addTextChangedListener(textWatcher);
             textchangeclabe();
             layoutImageContact.setVisibility(View.GONE);
@@ -1044,7 +1035,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             layoutScanQr.setOnClickListener(this);
             layoutScanCard.setVisibility(View.GONE);
             layoutScanCard.setOnClickListener(null);
-            cardNumber.setHint(getString(R.string.transfer_qr));
+            txtLytCardNumber.setHint(getString(R.string.transfer_qr));
             cardNumber.setEnabled(false);
             editListServ.setText(getString(R.string.app_name));
             editListServ.setEnabled(false);
@@ -1063,7 +1054,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
             maxLength = 2;
-            //  cardNumber.setHint("");
+            txtLytCardNumber.setHint(getString(R.string.hint_reference));
             layout_cardNumber.setVisibility(GONE);
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
@@ -1210,5 +1201,4 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             receiverName.setText(nameDisplay);
         }
     }
-
 }

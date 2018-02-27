@@ -309,6 +309,25 @@ public class CameraManager {
 
     }
 
+    public void setCropImageselfie(Uri uriimage) {
+        this.uriImage = uriimage;
+        bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
+            @Override
+            public void onBegin() {
+                mView.showProgress(getContext().getString(R.string.load_set_image));
+            }
+
+            @Override
+            public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
+                saveBmpImgUserdos(bitmap, imgbase64);
+            }
+        });
+        bitmapLoader.execute();
+
+    }
+
+
+
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
         Boolean validateDuplicado;
         contador.add(imgBase64);
@@ -339,6 +358,23 @@ public class CameraManager {
 
             bitmap = null;
         }
+    }
+
+
+
+    private void saveBmpImgUserdos(Bitmap bitmap, String imgBase64) {
+        contador.add(imgBase64);
+        DataDocuments dataDoc = new DataDocuments();
+                    dataDoc.setTipoDocumento(DOC_ID_FRONT);
+                    dataDoc.setImagenBase64(imgBase64);
+                    dataDoc.setExtension("jpg");
+
+                    //mView.showProgress(getContext().getString(R.string.load_set_image));
+                    mView.setPhotoToService(bitmap);
+            dataDocumnets.add(dataDoc);
+            if (bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
     }
 
     /**

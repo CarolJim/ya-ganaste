@@ -318,8 +318,7 @@ public class UI {
         Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, length);
         View view = snack.getView();
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
-        params.gravity = Gravity.TOP;
-        params.topMargin=100;
+        params.gravity = Gravity.BOTTOM;
         view.setLayoutParams(params);
         view.setBackgroundColor(App.getContext().getResources().getColor(R.color.redColorTransparent));
         snack.show();

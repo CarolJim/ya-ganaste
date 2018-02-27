@@ -71,6 +71,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.img_header_yg_login)
     ImageView imgHeaderLogin;
 
+    @BindView(R.id.lyt_img_user)
+    LinearLayout lyImgUser;
+
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
 
@@ -168,10 +171,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
-            edtUserPass.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            edtUserPass.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             textNameUser.setOnClickListener(this);
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);
+            lyImgUser.setVisibility(GONE);
             imgLoginExistProfile.setVisibility(GONE);
             txtSetCredentials.setVisibility(GONE);
             textNameUser.setText(getString(R.string.set_credentials_login));

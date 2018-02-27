@@ -4,27 +4,23 @@
     android:id="@+id/laySpinnerCustom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="3dp"
-    android:layout_marginLeft="53dp"
-    android:layout_marginRight="53dp"
-    android:elevation="3dp"
     android:background="@drawable/rounded_border_edittext"
     android:orientation="horizontal">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/editTextCustomSpinner"
         style="@style/StyleEditText"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_weight="2"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:textColor="@color/gray_text_wallet_3"
+        android:textColorHint="@color/gray_text_wallet"
         android:longClickable="false"
         android:maxLines="1"
-        android:textSize="@dimen/size_text_style_2_value" />
+        android:textSize="@dimen/size_text_style_3_value" />
 
     <RelativeLayout
         android:layout_width="@dimen/custom_validation_edittext_imagelay_width"
@@ -37,6 +33,6 @@
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/bitmap" />
+            app:srcCompat="@drawable/ico_select" />
     </RelativeLayout>
 </LinearLayout>

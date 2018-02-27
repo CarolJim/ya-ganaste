@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,19 +19,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +56,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
  * A simple {@link GenericFragment} subclass.
  */
 public class ConfirmarNIPFragment extends GenericFragment implements View.OnClickListener,
-        ValidationForms, IAccountCardNIPView {
+        ValidationForms, IAccountCardNIPView,IListaOpcionesView, ICropper {
 
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
@@ -58,10 +68,15 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     EditText edtPinconfirm;
 
 
-
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
 
+    @BindView(R.id.btnNextPersonalInfo)
+    Button btnNextPersonalInfo;
+    @BindView(R.id.frag_lista_opciones_photo_item)
+    CircleImageView iv_photo_item;
+
+    CameraManager cameraManager;
 
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
@@ -95,6 +110,11 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         accountPresenter.setIView(this);
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
+
+        cameraManager = new CameraManager(this);
+        cameraManager.initCamera(getActivity(), iv_photo_item, this);
+
+
     }
 
     @Override
@@ -115,6 +135,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setOnClickListener(this);
+        btnNextPersonalInfo.setOnClickListener(this);
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
         tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
@@ -128,7 +149,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnNextAsignarPin:
+            case R.id.btnNextPersonalInfo:
                 validateForm();
                 break;
             default:
@@ -189,7 +210,14 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onValidationSuccess() {
-        accountPresenter.assignNIP(nip);
+        RegisterUser registerUser = RegisterUser.getInstance();
+
+        if (!registerUser.getPerfirlfoto().toString().isEmpty()){
+            cameraManager.setCropImageselfie(registerUser.getPerfirlfoto());
+        }else {
+            accountPresenter.assignNIP(nip);
+        }
+
     }
 
     @Override
@@ -250,6 +278,71 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     @Override
     public void onPause() {
         super.onPause();
+
+    }
+
+    @Override
+    public void setPhotoToService(Bitmap bitmap) {
+        cameraManager.setBitmap(bitmap);
+
+        // Procesamos el Bitmap a Base64
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        // Creamos el objeto ActualizarAvatarRequest
+        ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
+
+
+        onEventListener.onEvent("DISABLE_BACK", true);
+
+        // Enviamos al presenter
+        accountPresenter.sendPresenterActualizarAvatar(avatarRequest);
+
+    }
+
+    @Override
+    public void showProgress(String mMensaje) {
+        showLoader("");
+
+    }
+
+    @Override
+    public void showExceptionToView(String mMesage) {
+
+    }
+
+    @Override
+    public void sendSuccessAvatarToView(String mensaje) {
+        hideLoader();
+        accountPresenter.assignNIP(nip);
+
+    }
+
+    @Override
+    public void sendErrorAvatarToView(String mensaje) {
+        hideLoader();
+        accountPresenter.assignNIP(nip);
+    }
+
+    @Override
+    public void setLogOutSession() {
+
+    }
+
+    @Override
+    public void onCropper(Uri uri) {
+
+    }
+
+    @Override
+    public void onHideProgress() {
+
+    }
+
+    @Override
+    public void failLoadJpg() {
 
     }
 }

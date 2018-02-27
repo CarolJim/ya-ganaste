@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -49,6 +50,7 @@ import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -58,6 +60,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP;
@@ -127,6 +130,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountIteractor = new AccountInteractorNew(this);
         this.resetPinPresenter = new ResetPinPresenterImp(false);
     }
+
+
 
 
     @Override
@@ -259,15 +264,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
         accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
     }
-
-    public void assignNIP(String nip, String nipNewConfirm) {
-        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
-        AsignarNIPRequest request = new AsignarNIPRequest(
-                Utils.cipherRSA(nip),
-                Utils.cipherRSA(nipNewConfirm)
-        );
-        accountIteractor.assignmentNIP(request, ASIGNAR_NEW_NIP);
+    @Override
+    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
+        accountIteractor.sendIteractorActualizarAvatar(avatarRequest,ACTUALIZAR_AVATAR);
     }
+
 
     @Override
     public void gerNumberToSMS() {
@@ -324,7 +325,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == ASIGNAR_NIP) {
                 accountView.showError(error.toString());
             }
-        } else if (accountView instanceof IChangeNIPView) {
+        }else if (accountView instanceof IListaOpcionesView) {
+            if (ws == ACTUALIZAR_AVATAR) {
+                ((IListaOpcionesView) accountView).sendErrorAvatarToView("imagen no cargada");
+            }
+        }  else if (accountView instanceof IChangeNIPView) {
             if (ws == ASIGNAR_NEW_NIP) {
                 accountView.showError(error.toString());
             }
@@ -475,9 +480,28 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == ASIGNAR_NIP) {
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }
+            if (ws == ACTUALIZAR_AVATAR) {
+                ((IListaOpcionesView) accountView).sendSuccessAvatarToView("Imagen cargada Correctamente");
+                //accountView.showErrorTitular(data.toString());
+                // mensajesucces.showErrorTitular(data.toString());
+
+            }
         } else if (accountView instanceof IChangeNIPView) {
             if (ws == ASIGNAR_NEW_NIP) {
                 ((IChangeNIPView) accountView).setSuccessChangeNip(data);
+                //accountView.showErrorTitular(data.toString());
+                // mensajesucces.showErrorTitular(data.toString());
+
+            }
+            if (ws == ACTUALIZAR_AVATAR) {
+                ((IListaOpcionesView) accountView).sendSuccessAvatarToView("Imagen cargada Correctamente");
+                //accountView.showErrorTitular(data.toString());
+                // mensajesucces.showErrorTitular(data.toString());
+
+            }
+        }else if (accountView instanceof IListaOpcionesView) {
+            if (ws == ACTUALIZAR_AVATAR) {
+                ((IListaOpcionesView) accountView).sendSuccessAvatarToView("Imagen cargada Correctamente");
                 //accountView.showErrorTitular(data.toString());
                 // mensajesucces.showErrorTitular(data.toString());
 

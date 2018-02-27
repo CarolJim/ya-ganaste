@@ -74,13 +74,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         ButterKnife.bind(this, rootview);
         btnMainCreateAccount.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-        animOnboarding.setSpeed(2f);
         pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                setAnimationProgress(position, positionOffset);
+                //setAnimationProgress(position, positionOffset);
             }
 
             @Override

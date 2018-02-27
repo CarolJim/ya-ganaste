@@ -106,6 +106,18 @@
             android:layout_marginRight="15dp"
             android:visibility="gone"
             app:srcCompat="@drawable/share_canvas_blue" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/omitir"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="7dp"
+            android:paddingTop="5dp"
+            android:layout_marginRight="15dp"
+            android:text="Omitir"
+            android:textColor="@color/whiteColor"
+            android:visibility="gone"
+            />
 
         <ImageView
             android:id="@+id/delete_fav"

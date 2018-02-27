@@ -428,7 +428,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 || requestCode == Constants.NEW_FAVORITE
                 || requestCode == Constants.EDIT_FAVORITE
                 || requestCode == CREDITCARD_READER_REQUEST_CODE) {
-            Fragment childFragment = getFragment(0);
+            Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);
             } else if (childFragment != null) {
@@ -517,13 +517,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         }
         return null;
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //No call for super(). Bug on API Level > 11.
-        //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
-        //super.onSaveInstanceState(outState);
     }
 
     protected Fragment getFragment(int fragmentType) {

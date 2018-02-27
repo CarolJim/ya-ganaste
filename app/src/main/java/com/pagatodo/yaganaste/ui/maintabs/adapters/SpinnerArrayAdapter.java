@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SpinnerArrayAdapter extends ArrayAdapter {
     private static String CANTIDAD_HINT = App.getContext().getResources().getString(R.string.details_monto);
-    private static String TIPO_ENVIO_HINT = "Tipo de Envío";
+    private static String TIPO_ENVIO_HINT = "Tipo de envío";
     Context mContext;
     List<?> mItems;
     int paymentType;
