@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -97,38 +98,32 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     IPaymentAuthorizePresenter paymentAuthorizePresenter;
 
-    @BindView(R.id.txt_importe)
-    MontoTextView importe;
+    @BindView(R.id.txt_import)
+    StyleTextView importe;
+
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
-    @BindView(R.id.nombreEnvio)
-    StyleTextView nombreEnvio;
-    @BindView(R.id.titleReferencia)
-    StyleTextView titleReferencia;
-    @BindView(R.id.txtBanco)
-    StyleTextView txtBanco;
+
     @BindView(R.id.txt_data)
     StyleTextView txt_data;
+
     @BindView(R.id.txt_username_payment)
     StyleTextView txt_username_payment;
 
     @BindView(R.id.txt_monto)
-    MontoTextView txt_monto;
-    @BindView(R.id.txt_saldo)
-    MontoTextView txtSaldo;
+    StyleTextView txt_monto;
+
     @BindView(R.id.txtIniciales)
     TextView txtIniciales;
 
-    @BindView(R.id.txtReferencia)
-    StyleTextView txtReferencia;
+    @BindView(R.id.imgPagosUserProfile)
+    CircleImageView imgPagosUserProfile;
+
     @BindView(R.id.imgCircleToSendReceiver)
     CircleImageView imgCircleToSendReceiver;
 
     @BindView(R.id.editPassword)
-    CustomValidationEditText editPassword;
-    @BindView(R.id.errorPasswordMessage)
-    ErrorMessage errorPasswordMessage;
-
+    EditText editPassword;
 
     String password;
     private Envios envio;
@@ -147,31 +142,11 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private SharedPreferences mSharedPreferences;
     static PaymentAuthorizeFragment fragmentCode;
 
-    ///////////////////////
-    @BindView(R.id.customkeyboard)
-    LinearLayout customkeyboard;
-
-    @BindView(R.id.keyboard_view)
-    CustomKeyboardView keyboardView;
-
-    @BindView(R.id.layoutScrollCard)
-    LinearLayout linerar_principal;
-
-    LinearLayout layout_control;
-    TextView tv1Num;
-    TextView tv2Num;
-    TextView tv3Num;
-    TextView tv4Num;
-    TextView tv5Num;
-    TextView tv6Num;
     private String nip = "";
     private Keyboard keyboard;
     ImageView asignar_iv1;
     private static int PIN_LENGHT = 6;
-    @BindView(R.id.asignar_edittext)
-    CustomValidationEditText edtPin;
     private Preferencias prefs = App.getInstance().getPrefs();
-    ///////////////
 
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
         fragmentCode = new PaymentAuthorizeFragment();
@@ -211,111 +186,37 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         ButterKnife.bind(this, rootview);
         SingletonUser dataUser = SingletonUser.getInstance();
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
+        importe.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         txt_username_payment.setText(usuario.getNombre());
-        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+        editPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-
-            linerar_principal.setOnClickListener(this);
-            editPassword.setVisibility(View.GONE);
-            btnContinueEnvio.setVisibility(View.GONE);
-            layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
-            customkeyboard.setVisibility(VISIBLE);
-            customkeyboard.setOnClickListener(this);
-            keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-            keyboardView.setPreviewEnabled(false);
-            keyboardView.showCustomKeyboard(rootview);
-            tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
-            tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
-            tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
-            tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-            tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
-            tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
-            // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
-            // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-            edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
-            edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
-            edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
-            edtPin.addCustomTextWatcher(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() == 6) {
+                    UI.hideKeyBoard(getActivity());
+                    //  Servicio para consumir usuario y contraseña
+                    validateForm();
                 }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (s.toString().length() == 6) {
-                        keyboardView.hideCustomKeyboard();
-                        //  Servicio para consumir usuario y contraseña
-                        validateForm();
-                    }
-                }
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-
-            edtPin.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    EditText edittext = (EditText) v;
-                    int inType = edittext.getInputType();       // Backup the input type
-                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                    edittext.onTouchEvent(event);               // Call native handler
-                    keyboardView.showCustomKeyboard(v);
-                    edittext.setInputType(inType);              // Restore input type
-                    return true; // Consume touch event
-                }
-            });
-            //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
-            setValidationRules();
-            keyboardView.showCustomKeyboard(rootview);
-            edtPin.requestEditFocus();
-
-
-        } else {
-
-            editPassword.setVisibility(View.VISIBLE);
-        }
-
-
-        keyboardView.hideCustomKeyboard();
-
-
-        nombreEnvio.setVisibility(VISIBLE);
-        nombreEnvio.setText(envio.getNombreDestinatario());
+            }
+        });
         txt_data.setText(envio.getNombreDestinatario());
         txt_monto.setText(StringUtils.getCurrencyValue(envio.getMonto()));
-
-        importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
-        titleReferencia.setText(envio.getTipoEnvio().getShortName());
-        txtBanco.setText(envio.getComercio().getNombreComercio());
-        String ref = envio.getReferencia();
         imgCircleToSendReceiver.setBorderColor(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
         GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()),
                 android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
         imgCircleToSendReceiver.setBackground(gd);
         String sIniciales = getIniciales(envio.getNombreDestinatario());
         txtIniciales.setText(sIniciales);
-
-        switch (envio.getTipoEnvio()) {
-            case CLABE:
-                txtReferencia.setText(StringUtils.format(ref, SPACE, 3, 3, 4, 4, 4));
-                break;
-            case NUMERO_TARJETA:
-                txtReferencia.setText(StringUtils.maskReference(StringUtils.format(ref, SPACE, 4, 4, 4, 4), '*', ref.length() - 12));
-                break;
-            case NUMERO_TELEFONO:
-                txtReferencia.setText(StringUtils.format(ref, SPACE, 2, 4, 4));
-                break;
-            default:
-                break;
-        }
-        setValidationRules();
         btnContinueEnvio.setOnClickListener(this);
-
+        setValidationRules();
         //Huella
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
@@ -405,7 +306,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void onResume() {
         super.onResume();
-        edtPin.requestEditFocus();
     }
 
     /**
@@ -470,26 +370,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (v.getId() == R.id.btn_continueEnvio) {
             validateForm();
         }
-
-        if (v.getId() == R.id.layoutScrollCard) {
-            keyboardView.hideCustomKeyboard();
-        }
-
-        if (v.getId() == R.id.customkeyboard) {
-            keyboardView.showCustomKeyboard(rootview);
-
-            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
-            scrollView.post(new Runnable() {
-                @Override
-                public void run() {
-                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                    edtPin.requestEditFocus();
-                }
-            });
-
-        }
-
-
     }
 
     @Override
@@ -497,19 +377,18 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
-                    hideValidationError(editPassword.getId());
-                    editPassword.imageViewIsGone(true);
+                    /*hideValidationError(editPassword.getId());
+                    editPassword.imageViewIsGone(true);*/
                 }
             }
         });
 
-        editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
+        editPassword.addTextChangedListener(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideValidationError(editPassword.getId());
-                editPassword.imageViewIsGone(true);
+               /* hideValidationError(editPassword.getId());
+                editPassword.imageViewIsGone(true);*/
             }
         });
     }
@@ -517,8 +396,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void validateForm() {
         getDataForm();
-
-
         if (TextUtils.isEmpty(password)) {
             showValidationError(0, getString(R.string.datos_usuario_pass));
         } else {
@@ -535,7 +412,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void hideValidationError(int id) {
-        errorPasswordMessage.setVisibilityImageError(false);
+        //errorPasswordMessage.setVisibilityImageError(false);
     }
 
     @Override
@@ -546,10 +423,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void getDataForm() {
-
-
-        password = edtPin.getText().toString().trim();
-
+        password = editPassword.getText().toString().trim();
     }
 
     @Override
@@ -564,18 +438,18 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         String errorTittle = "";
         String errorBody = "";
         errorTittle = "Contraseña Inválida";
-        errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
+        errorBody = "La contraseña ingresada no es válida, verifícala";
 
         if (error.toString().equals(getString(R.string.error_codigo_de_seguridad))) {
             errorTittle = "Contraseña Inválida";
-            errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
+            errorBody = "La contraseña ingresada no es válida, verifícala";
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         } else if (error.toString().equals(getString(R.string.no_internet_access))) {
             errorTittle = "Ya Ganaste";
             errorBody = getString(R.string.no_internet_access);
-            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.showErrorSnackBar(getActivity(), errorBody, Snackbar.LENGTH_SHORT);
         } else if (!TextUtils.isEmpty(error.toString())) {
-            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.showErrorSnackBar(getActivity(), errorBody, Snackbar.LENGTH_SHORT);
         }
     }
 

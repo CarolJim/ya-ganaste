@@ -278,14 +278,14 @@
     <string name="ob_get_started">Comenzar</string>
 
     <!-- Lectura Dongle -->
-    <string name="device_no_response">Lector no Responde, Por Favor Vuelva a Conectarlo</string>
-    <string name="device_busy">Lector Ocupado, Por Favor Espere</string>
-    <string name="input_invalid">Lectura Incorrecta, Intente de Nuevo</string>
-    <string name="comm_error">No Fue Posible Comunicarse Con el Lector, Revise su Entrada de Audio</string>
-    <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
-    <string name="registro_small">Inserta el Lector Para Registrarlo</string>
-    <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo</string>
-    <string name="error_codigo_de_seguridad">El Código de Seguridad es Inválido</string>
+    <string name="device_no_response">Lector no responde, por favor vuelva a conectarlo</string>
+    <string name="device_busy">Lector ocupado, por favor espere</string>
+    <string name="input_invalid">Lectura incorrecta, intente de nuevo</string>
+    <string name="comm_error">No fue posible comunicarse con el lector, revise su entrada de audio</string>
+    <string name="registro_automatico">Inserta el lector para registrarlo a su cuenta</string>
+    <string name="registro_small">Inserta el lector para registrarlo</string>
+    <string name="error_de_lectura">No fue posible completar la operación, intenta de nuevo</string>
+    <string name="error_codigo_de_seguridad">El código de seguridad es inválido</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
@@ -478,14 +478,14 @@
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
-    <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
-    <string name="comision_service_payment_without_iva">La Comisión es de:   </string>
-    <string name="title_recarga_success">¡Recarga Exitosa!</string>
-    <string name="title_servicio_success">¡Pago Exitoso!</string>
-    <string name="title_envio_in_proccess">¡Envío en Proceso!</string>
-    <string name="title_envio_success">¡Envío Exitoso!</string>
-    <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
-    <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
+    <string name="comision_service_payment">La comisión es de: %1$s (IVA Incluido)</string>
+    <string name="comision_service_payment_without_iva">La comisión es de:   </string>
+    <string name="title_recarga_success">¡Recarga exitosa!</string>
+    <string name="title_servicio_success">¡Pago exitoso!</string>
+    <string name="title_envio_in_proccess">¡Envío en proceso!</string>
+    <string name="title_envio_success">¡Envío exitoso!</string>
+    <string name="synch_favoritessynch_favorites">Obteniendo favoritos</string>
+    <string name="empty_list_favorites">Aún no cuentas con ningún favorito</string>
 
     <string name="transfer_phone">Número de teléfono</string>
     <string name="transfer_phone_cellphone">Número de celular</string>
@@ -723,7 +723,7 @@
     <string name="procesando_envios_loader">Realizando envío</string>
     <string name="procesando_envios_inter_loader">Realizando envío</string>
     <string name="procesando_enviando_email_loader">Enviando correo electrónico</string>
-    <string name="envio_interbancario">%1$s Interbancario</string>
+    <string name="envio_interbancario">%1$s</string>
 
 
     <string name="favor_selecciona_importe">Por favor selecciona un importe</string>
@@ -1113,19 +1113,19 @@
     <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>
 
     <!-- FingerPrint -->
-    <string name="fingerprint_no_supported">Su Dispositivo no es Compatible Con la Autenticación de Huellas Dactilares</string>
-    <string name="fingerprint_permission">Por Favor Active el Permiso de Huella Digital</string>
-    <string name="fingerprint_no_found">No Existe Una Huella Digital Configurada. Registre al Menos Una Huella Digital en la Configuración de su Dispositivo</string>
-    <string name="fingerprint_go_to_settings">Ir a la Configuración</string>
-    <string name="fingerprint_use_password">Usar Contraseña</string>
-    <string name="fingerprint_eneable_security">Habilite la Seguridad de LockScreen en la Configuración de su Dispositivo</string>
-    <string name="fingerprint_verification">Coloque su Huella Digital Para Verificar su Identidad</string>
-    <string name="fingerprint_failed">Demasiados Intentos Fallidos \nPor Favor, \nIngresa la Contraseña</string>
-    <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
-    <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
-    <string name="fingerprint_failed_authentification">Error de Autenticación</string>
+    <string name="fingerprint_no_supported">Su dispositivo no es compatible con la autenticación de huellas dactilares</string>
+    <string name="fingerprint_permission">Por favor active el permiso de huella digital</string>
+    <string name="fingerprint_no_found">No existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo</string>
+    <string name="fingerprint_go_to_settings">Ir a la configuración</string>
+    <string name="fingerprint_use_password">Usar contraseña</string>
+    <string name="fingerprint_eneable_security">Habilite la seguridad de LockScreen en la configuración de su dispositivo</string>
+    <string name="fingerprint_verification">Coloque su huella digital para verificar su identidad</string>
+    <string name="fingerprint_failed">Demasiados intentos fallidos \nPor favor, \nIngresa la contraseña</string>
+    <string name="fingerprint_try_later">Error de autenticación, demaciados intentos fallidos  Intentalo más tarde</string>
+    <string name="fingerprint_unrecognized">Huella no reconocida\nIntentalo otra vez</string>
+    <string name="fingerprint_failed_authentification">Error de autenticación</string>
     <string name="trans_spei_envio_txt">Transferencia SPEI</string>
-    <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
+    <string name="generar_codigo_seguridad">Generar código de seguridad</string>
 
 
     <!-- Finger print nativo -->
