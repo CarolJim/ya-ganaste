@@ -1,43 +1,46 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.Payments;
+import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
-import com.pagatodo.yaganaste.utils.Constants;
-
-import io.card.payment.CardIOActivity;
-import io.card.payment.CreditCard;
-
-import static com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment.MONTO;
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
-import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
 
     final public static String EVENT_GO_ENVIOS = "EVENT_GO_ENVIOS";
 
     private Preferencias pref;
-    private Payments payment;
+    private Envios payment;
+    private DataFavoritos dataFavoritos;
+    ImageView imgOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
-        payment = (Payments) getIntent().getExtras().get("pagoItem");
+        payment = (Envios) getIntent().getExtras().get("pagoItem");
+        dataFavoritos = (DataFavoritos) getIntent().getExtras().get("favoritoItem");
+        showToolbarOk(true);
+        imgOk = (ImageView) findViewById(R.id.btn_ok);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_ENVIOS, null);
+        imgOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((SendWalletFragment) getCurrentFragment()).continueSendPayment();
+            }
+        });
     }
 
     @Override
@@ -50,7 +53,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_ENVIOS:
-                loadFragment(SendWalletFragment.newInstance(payment), Direction.FORDWARD, false);
+                loadFragment(SendWalletFragment.newInstance(payment, dataFavoritos), Direction.FORDWARD, false);
                 // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
                 break;
         }

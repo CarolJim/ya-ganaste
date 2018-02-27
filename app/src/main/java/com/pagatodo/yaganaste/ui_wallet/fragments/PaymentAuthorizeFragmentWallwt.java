@@ -13,18 +13,13 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -42,14 +37,10 @@ import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
-import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
-import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -72,13 +63,11 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Armando Sandoval on 10/01/2018.
@@ -98,27 +87,14 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     MontoTextView importe;
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
-   // @BindView(R.id.nombreEnvio)
-   // StyleTextView nombreEnvio;
-   // @BindView(R.id.titleReferencia)
-   // StyleTextView titleReferencia;
-   // @BindView(R.id.txtBanco)
-   // StyleTextView txtBanco;
 
     @BindView(R.id.txtReferencia)
     StyleTextView txtReferencia;
 
     @BindView(R.id.txt_data)
     StyleTextView txtnombredestinatario;
-
-
-
-
-    @BindView(R.id.editPassword)
-    CustomValidationEditText editPassword;
-    @BindView(R.id.errorPasswordMessage)
-    ErrorMessage errorPasswordMessage;
-
+    @BindView(R.id.editUserPassword)
+    EditText editPassword;
 
     String password;
     private Envios envio;
@@ -137,42 +113,11 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     private SharedPreferences mSharedPreferences;
     static PaymentAuthorizeFragment fragmentCode;
 
-
-
-
-
-
-    ///////////////////////
-    @BindView(R.id.customkeyboard)
-    LinearLayout customkeyboard;
-
-    @BindView(R.id.keyboard_view)
-    CustomKeyboardView keyboardView;
-
-    @BindView(R.id.layoutScrollCard)
-    LinearLayout linerar_principal;
-
-    LinearLayout layout_control;
-    TextView tv1Num;
-    TextView tv2Num;
-    TextView tv3Num;
-    TextView tv4Num;
-    TextView tv5Num;
-    TextView tv6Num;
     private String nip = "";
     private Keyboard keyboard;
     ImageView asignar_iv1;
     private static int PIN_LENGHT = 6;
-    @BindView(R.id.asignar_edittext)
-    CustomValidationEditText edtPin;
     private Preferencias prefs = App.getInstance().getPrefs();
-    ///////////////
-
-
-
-
-
-
 
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
         fragmentCode = new PaymentAuthorizeFragment();
@@ -211,30 +156,10 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        if ( prefs.loadDataBoolean(PASSWORD_CHANGE,false)) {
-
-
-            linerar_principal.setOnClickListener(this);
+        if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
             editPassword.setVisibility(View.GONE);
             btnContinueEnvio.setVisibility(View.GONE);
-            layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout_login);
-            customkeyboard.setVisibility(VISIBLE);
-            customkeyboard.setOnClickListener(this);
-            keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-            keyboardView.setPreviewEnabled(false);
-            keyboardView.showCustomKeyboard(rootview);
-            tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
-            tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
-            tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
-            tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-            tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
-            tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
-            // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
-            // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-            edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
-            edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
-            edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
-            edtPin.addCustomTextWatcher(new TextWatcher() {
+            editPassword.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
@@ -242,7 +167,7 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.toString().length() == 6) {
-                        keyboardView.hideCustomKeyboard();
+                        UI.hideKeyBoard(getActivity());
                         //  Servicio para consumir usuario y contraseña
                         validateForm();
                     }
@@ -253,61 +178,17 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
 
                 }
             });
-
-
-
-
-            edtPin.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    EditText edittext = (EditText) v;
-                    int inType = edittext.getInputType();       // Backup the input type
-                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                    edittext.onTouchEvent(event);               // Call native handler
-                    keyboardView.showCustomKeyboard(v);
-                    edittext.setInputType(inType);              // Restore input type
-                    return true; // Consume touch event
-                }
-            });
-            //     btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {validateForm()}});
             setValidationRules();
-            keyboardView.showCustomKeyboard(rootview);
-            edtPin.requestEditFocus();
-
-
-        }else {
-
+            editPassword.requestFocus();
+        } else {
             editPassword.setVisibility(View.VISIBLE);
         }
-
-
-        keyboardView.hideCustomKeyboard();
 
         txtnombredestinatario.setText(envio.getNombreDestinatario());
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
 
 
         String ref = envio.getReferencia();
-
-        /*
-        nombreEnvio.setVisibility(VISIBLE);
-        nombreEnvio.setText(envio.getNombreDestinatario());
-        titleReferencia.setText(envio.getTipoEnvio().getShortName());
-        txtBanco.setText(envio.getComercio().getNombreComercio());
-        switch (envio.getTipoEnvio()) {
-            case CLABE:
-                txtReferencia.setText(StringUtils.format(ref, SPACE, 3, 3, 4, 4, 4));
-                break;
-            case NUMERO_TARJETA:
-                txtReferencia.setText(StringUtils.maskReference(StringUtils.format(ref, SPACE, 4, 4, 4, 4), '*', ref.length() - 12));
-                break;
-            case NUMERO_TELEFONO:
-                txtReferencia.setText(StringUtils.format(ref, SPACE, 2, 4, 4));
-                break;
-            default:
-                break;
-        }
-        */
         setValidationRules();
         btnContinueEnvio.setOnClickListener(this);
 
@@ -400,7 +281,6 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     @Override
     public void onResume() {
         super.onResume();
-        edtPin.requestEditFocus();
     }
 
     /**
@@ -465,26 +345,6 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
         if (v.getId() == R.id.btn_continueEnvio) {
             validateForm();
         }
-
-        if (v.getId() ==  R.id.layoutScrollCard){
-            keyboardView.hideCustomKeyboard();
-        }
-
-        if (v.getId() ==   R.id.customkeyboard) {
-            keyboardView.showCustomKeyboard(rootview);
-
-            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
-            scrollView.post(new Runnable() {
-                @Override
-                public void run() {
-                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                    edtPin.requestEditFocus();
-                }
-            });
-
-        }
-
-
     }
 
     @Override
@@ -492,19 +352,9 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
         editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
                     hideValidationError(editPassword.getId());
-                    editPassword.imageViewIsGone(true);
                 }
-            }
-        });
-
-        editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editPassword.getId());
-                editPassword.imageViewIsGone(true);
             }
         });
     }
@@ -512,8 +362,6 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
     @Override
     public void validateForm() {
         getDataForm();
-
-
         if (TextUtils.isEmpty(password)) {
             showValidationError(0, getString(R.string.datos_usuario_pass));
         } else {
@@ -530,7 +378,6 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
 
     @Override
     public void hideValidationError(int id) {
-        errorPasswordMessage.setVisibilityImageError(false);
     }
 
     @Override
@@ -540,10 +387,7 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
 
     @Override
     public void getDataForm() {
-
-
-        password = edtPin.getText().toString().trim();
-
+        password = editPassword.getText().toString().trim();
     }
 
     @Override

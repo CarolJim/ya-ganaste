@@ -1,13 +1,19 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
@@ -27,6 +33,7 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinne
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
@@ -55,14 +62,47 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         DialogDoubleActions, IOnSpinnerClick {
 
     private static final String GIROS = "1";
-    @BindView(R.id.editBussinesName)
-    CustomValidationEditText editBussinesName;
+
+
+    @BindView(R.id.editBussinesNameold)
+    CustomValidationEditText editBussinesNameold;
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
     @BindView(R.id.spinnerSubBussineLine)
     Spinner spinnerSubBussineLine;
+    @BindView(R.id.editBussinesPhoneold)
+    CustomValidationEditText editBussinesPhoneold;
+
+    @BindView(R.id.editBussinesName)
+    EditText editBussinesName;
+
     @BindView(R.id.editBussinesPhone)
-    CustomValidationEditText editBussinesPhone;
+    EditText editBussinesPhone;
+
+
+    @BindView(R.id.text_nombrenegoci)
+    TextInputLayout text_nombrenegoci;
+
+
+    @BindView(R.id.text_telefono)
+    TextInputLayout text_telefono;
+
+    @BindView(R.id.txtgiro)
+    LinearLayout txtgiro;
+
+    @BindView(R.id.txtsubgiro)
+    LinearLayout txtsubgiro;
+
+
+
+
+
+
+
+
+
+
+
     /*@BindView(R.id.btnBackBussinesInfo)
     Button btnBackBussinesInfo;*/
     @BindView(R.id.btnNextBussinesInfo)
@@ -223,19 +263,28 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editBussinesName.getId());
-                    editBussinesName.imageViewIsGone(true);
+                    //editBussinesName.imageViewIsGone(true);
+                    text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_active);
+
                 } else {
-                    if (editBussinesName.getText().isEmpty()) {
-                        showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
-                        editBussinesName.setIsInvalid();
+                    if (editBussinesName.getText().toString().isEmpty()) {
+                       // showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
+                      //  editBussinesName.setIsInvalid();
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
+                        text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
                     } else {
-                        hideValidationError(editBussinesName.getId());
-                        editBussinesName.setIsValid();
+                        //hideValidationError(editBussinesName.getId());
+                        text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_normal);
+                      //  editBussinesName.setIsValid();
                     }
                 }
             }
         });
 
+        /*
         editBussinesName.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
@@ -244,27 +293,41 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             }
         });
 
+
+        */
+
         editBussinesPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideValidationError(editBussinesPhone.getId());
-                    editBussinesPhone.imageViewIsGone(true);
+                 //   hideValidationError(editBussinesPhone.getId());
+              //      editBussinesPhone.imageViewIsGone(true);
+                    text_telefono.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
-                    if (editBussinesPhone.getText().isEmpty()) {
-                        showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
-                        editBussinesPhone.setIsInvalid();
-                    } else if (!editBussinesPhone.isValidText()) {
-                        showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
-                        editBussinesPhone.setIsInvalid();
-                    } else if (editBussinesPhone.isValidText()) {
+                    if (editBussinesPhone.getText().toString().isEmpty()) {
+                      //  showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
+                //        editBussinesPhone.setIsInvalid();
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
+                    } else if (! ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
+                        //showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
+                       // editBussinesPhone.setIsInvalid();
+                    } else if ( ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
                         hideValidationError(editBussinesPhone.getId());
-                        editBussinesPhone.setIsValid();
+                        text_telefono.setBackgroundResource(R.drawable.inputtext_normal);
+                      //  editBussinesPhone.setIsValid();
                     }
                 }
             }
         });
 
+        /*
         editBussinesPhone.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
@@ -272,6 +335,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 editBussinesPhone.imageViewIsGone(true);
             }
         });
+
+        */
     }
 
     @Override
@@ -282,30 +347,46 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         boolean isValid = true;
 
         if (nombre.isEmpty()) {
-            showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
-            editBussinesName.setIsInvalid();
+         //   showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
+           // editBussinesName.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
+            text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
+
             isValid = false;
         }
 
         if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
-            showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
+            //showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
+            txtgiro.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
         if (subgiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
-            showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
+            //showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
+            txtsubgiro.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
-        if (!isPhone(editBussinesPhone.getText()) || editBussinesPhone.getText().equalsIgnoreCase("0000000000")) {
-            showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
-            editBussinesPhone.setIsInvalid();
+        if (!isPhone(editBussinesPhone.getText().toString()) || editBussinesPhone.getText().toString().equalsIgnoreCase("0000000000")) {
+           // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
+        //    editBussinesPhone.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
         if (telefono.isEmpty()) {
-            showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
-            editBussinesPhone.setIsInvalid();
+           // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
+          //  editBussinesPhone.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            text_telefono.setBackgroundResource(R.drawable.inputtext_error);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
@@ -376,8 +457,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void getDataForm() {
-        nombre = editBussinesName.getText();
-        telefono = editBussinesPhone.getText();
+        nombre = editBussinesName.getText().toString();
+        telefono = editBussinesPhone.getText().toString();
     }
 
     private void setCurrentData() {
@@ -440,6 +521,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
         spinnerBussineLine.requestFocus();
+        txtgiro.setBackgroundResource(R.drawable.inputtext_normal);
     }
 
     @Override
@@ -453,6 +535,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onSubSpinnerClick() {
+
+        txtsubgiro.setBackgroundResource(R.drawable.inputtext_normal);
         hideValidationError(spinnerSubBussineLine.getId());
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();

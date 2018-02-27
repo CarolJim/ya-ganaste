@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -128,7 +129,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_wallet, menu);
-
         return false;
     }
 
@@ -144,7 +144,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         switch (event) {
             case EVENT_SEND_PAYMENT:
                 try {
-
                     if (data instanceof Envios) {
                         // if (!nombreComercio.equals(YA_GANASTE)) {
                         int idComercio = ((Envios) data).getComercio().getIdComercio();
@@ -199,7 +198,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
     @Override
     public void onBackPressed() {
-        if (isAvailableToBack && !isLoaderShow) {
+        if (!isLoaderShow) {
             Intent intent = new Intent();
             if (getCurrentFragment() instanceof PaymentAuthorizeFragment) {
                 setResult(RESULT_CODE_BACK_PRESS, intent);
@@ -225,8 +224,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
             setResult(RESULT_CODE_OK_CLOSE, intent);
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
-
             saveDataResponse();
+            UI.showSuccessSnackBar(this, response.getMensaje(), Snackbar.LENGTH_SHORT);
         } else {
             onFailPaimentResponse(result);
         }
@@ -253,8 +252,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(RESULT, Constants.RESULT_ERROR);
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(RESULT_CODE_FAIL, intent);
-        finish();
-       // showDialogMesage(message);
+        UI.showErrorSnackBar(this, message != null ? message : getString(R.string.error_respuesta), Snackbar.LENGTH_SHORT);
+        // showDialogMesage(message);
 
     }
 

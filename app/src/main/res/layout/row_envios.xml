@@ -10,15 +10,15 @@
 
     <RelativeLayout
         android:id="@+id/itemGallery"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:background="@drawable/ic_circle_border_shadow"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/crlImageFavorite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:civ_border_color="#FF09CC20" />

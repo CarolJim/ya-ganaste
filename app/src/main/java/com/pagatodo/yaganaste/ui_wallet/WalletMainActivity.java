@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
@@ -163,6 +164,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 startActivity(BussinesActivity.createIntent(this));
                 finish();
                 break;
+            case 12:
+                loadFragment(DocumentosFragment.newInstance(), R.id.fragment_container);
+
+                break;
+
+
             default:
                 Toast.makeText(this, "Proximamente", Toast.LENGTH_SHORT).show();
                 finish();

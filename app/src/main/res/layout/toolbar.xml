@@ -106,6 +106,16 @@
             android:layout_marginRight="15dp"
             android:visibility="gone"
             app:srcCompat="@drawable/share_canvas_blue" />
+
+        <ImageView
+            android:id="@+id/btn_ok"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_action_done" />
+
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/omitir"
             android:layout_width="wrap_content"

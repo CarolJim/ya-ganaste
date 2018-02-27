@@ -78,6 +78,7 @@ import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -110,6 +111,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
 
 /**
  * Created by Armando Sandoval on 03/01/2018.
@@ -316,13 +318,14 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-            paymentsCarouselPresenter.getFavoriteCarouselItems();
+        paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnenviar:
+                validateForms();
                 continuePayment();
                 break;
             case R.id.add_favorites_list_serv:
@@ -570,8 +573,17 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         favoriteItem != null);
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
+                intent.putExtra("favoritoItem", favoriteItem);
                 startActivity(intent);
+                comercioItem = null;
+                favoriteItem = null;
                 tipoEnvio.setSelection(0);
+                editListServ.setText("");
+                editListServ.clearFocus();
+                receiverName.setText("");
+                receiverName.clearFocus();
+                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                numberReference.setText("123456");
             }
         }
     }
@@ -693,6 +705,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     idComercio = 0;
                     isfavo = true;
                     bancoselected = true;
+                    favoriteItem = backUpResponseFavoritos.get(position);
                     long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
                     String myName = backUpResponseFavoritos.get(position).getNombre();
 
@@ -1199,6 +1212,68 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             receiverName.setText("");
         } catch (Exception e) {
             receiverName.setText(nameDisplay);
+        }
+    }
+
+    private void validateForms(){
+        isValid = true;
+        switch (tipoEnvio.getSelectedItemPosition()){
+            case 0:
+                isValid = false;
+                errorText = App.getContext().getString(R.string.txt_tipo_envio_error);
+                break;
+            case 1:
+                if (cardNumber.getText().toString().isEmpty()) {
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_telefono);
+                } else if(!ValidateForm.isValidCellPhone(cardNumber.getText().toString())){
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.new_body_envios_cellphone_error);
+                }
+                break;
+            case 2:
+                if (cardNumber.getText().toString().isEmpty()){
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_creditc);
+                } else if(cardNumber.getText().toString().length()<16){
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.new_body_envios_tdc_error);
+                }
+                break;
+            case 3:
+                if (cardNumber.getText().toString().isEmpty()){
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_clabe);
+                } else if(ValidateForm.isValidCABLE(cardNumber.getText().toString())){
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.new_body_envios_clabe_error);
+                }
+                break;
+            case 4:
+                if (cardNumber.getText().toString().isEmpty()){
+                    isValid = false;
+                    errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_qr);
+                }
+                break;
+        }
+        if(receiverName.getText().toString().isEmpty()){
+            isValid = false;
+            errorText = App.getContext().getString(R.string.txt_name_empty);
+            return;
+        }
+        if (numberReference.getText().toString().isEmpty()){
+            isValid = false;
+            errorText = App.getContext().getString(R.string.txt_referencia_number_empty);
+            return;
+        } else if (numberReference.getText().toString().length()<6){
+            isValid = false;
+            errorText = App.getContext().getString(R.string.txt_referencia_number_short);
+            return;
+        }
+        if (concept.getText().toString().isEmpty()){
+            isValid = false;
+            errorText = App.getContext().getString(R.string.txt_concept_empty);
+            return;
         }
     }
 }

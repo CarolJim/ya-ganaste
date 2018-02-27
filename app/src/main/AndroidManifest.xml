@@ -181,8 +181,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui._controllers.EnvioFormularioWallet"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui_wallet.PaymentActivity"
             android:screenOrientation="portrait"

@@ -9,6 +9,7 @@
     <string name="activateMobileServiceUrl">/ActivacionServicioMovil</string>
     <string name="updateAvatarUrl">/ActualizarAvatar</string>
     <string name="updateDocumentosUrl">/ActualizarDocumentos</string>
+    <string name="Documentos">Documentos</string>
     <string name="updateSessionUrl">/ActualizarInformacionSesion</string>
     <string name="assignPaswordUrl">/AsignarContrasena</string>
     <string name="assignAccountAvailableUrl">/AsignarCuentaDisponible</string>
@@ -141,8 +142,8 @@
     <string name="txt_cancel_lowcase">Cancelar</string>
     <string name="txt_reintent_lowcase">Reintentar</string>
     <string name="ingress_your_data_card">Ingresa los Datos de tu Tarjeta</string>
-    <string name="card_number">Número de Tarjeta (%1$s Dígitos)</string>
-    <string name="debit_card_number">Tarjeta de Débito</string>
+    <string name="card_number">Número de tarjeta (%1$s dígitos)</string>
+    <string name="debit_card_number">Tarjeta de débito</string>
     <string name="not_have_card">NO TENGO TARJETA</string>
     <string name="example_mail">algun@mail.com</string>
     <string name="write_your_name">Escribe tu Nombre</string>
@@ -224,7 +225,7 @@
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
     <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono</string>
-    <string name="txt_home_phone">Teléfono Fijo</string>
+    <string name="txt_home_phone">Teléfono</string>
 
 
     <string name="txt_referencia_envio">Referencia de Envío</string>
@@ -277,14 +278,14 @@
     <string name="ob_get_started">Comenzar</string>
 
     <!-- Lectura Dongle -->
-    <string name="device_no_response">Lector no Responde, Por Favor Vuelva a Conectarlo</string>
-    <string name="device_busy">Lector Ocupado, Por Favor Espere</string>
-    <string name="input_invalid">Lectura Incorrecta, Intente de Nuevo</string>
-    <string name="comm_error">No Fue Posible Comunicarse Con el Lector, Revise su Entrada de Audio</string>
-    <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
-    <string name="registro_small">Inserta el Lector Para Registrarlo</string>
-    <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo</string>
-    <string name="error_codigo_de_seguridad">El Código de Seguridad es Inválido</string>
+    <string name="device_no_response">Lector no responde, por favor vuelva a conectarlo</string>
+    <string name="device_busy">Lector ocupado, por favor espere</string>
+    <string name="input_invalid">Lectura incorrecta, intente de nuevo</string>
+    <string name="comm_error">No fue posible comunicarse con el lector, revise su entrada de audio</string>
+    <string name="registro_automatico">Inserta el lector para registrarlo a su cuenta</string>
+    <string name="registro_small">Inserta el lector para registrarlo</string>
+    <string name="error_de_lectura">No fue posible completar la operación, intenta de nuevo</string>
+    <string name="error_codigo_de_seguridad">El código de seguridad es inválido</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
@@ -304,7 +305,7 @@
     <string name="cobros_con_tarjeta">Cobros con tarjeta</string>
     <string name="saldo_comercial">SALDO COMERCIAL</string>
 
-    <string name="authorize_payment_title">Autoriza el Envío</string>
+    <string name="authorize_payment_title">Autoriza el envío</string>
     <string name="titulo_dialogo_huella_generacion_codigo">Generar Código de Seguridad</string>
     <string name="authorize_generacion_codigo_huella_digital">Coloque su Huella Digital Para Verificar su Identidad</string>
     <string name="action_picture">Seleccionar Fotografía</string>
@@ -409,7 +410,7 @@
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
     <string name="bussinesName">Nombre Del Negocio</string>
-    <string name="publicServantQuestion">¿Tú o Algún Familiar Han Desempeñado Cargos Públicos?</string>
+    <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
 
     <!--Informacion Adicional-->
     <string name="title_informacion_adicional">Información Adicional</string>
@@ -477,27 +478,27 @@
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
-    <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
-    <string name="comision_service_payment_without_iva">La Comisión es de:   </string>
-    <string name="title_recarga_success">¡Recarga Exitosa!</string>
-    <string name="title_servicio_success">¡Pago Exitoso!</string>
-    <string name="title_envio_in_proccess">¡Envío en Proceso!</string>
-    <string name="title_envio_success">¡Envío Exitoso!</string>
-    <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
-    <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
+    <string name="comision_service_payment">La comisión es de: %1$s (IVA Incluido)</string>
+    <string name="comision_service_payment_without_iva">La comisión es de:   </string>
+    <string name="title_recarga_success">¡Recarga exitosa!</string>
+    <string name="title_servicio_success">¡Pago exitoso!</string>
+    <string name="title_envio_in_proccess">¡Envío en proceso!</string>
+    <string name="title_envio_success">¡Envío exitoso!</string>
+    <string name="synch_favoritessynch_favorites">Obteniendo favoritos</string>
+    <string name="empty_list_favorites">Aún no cuentas con ningún favorito</string>
 
-    <string name="transfer_phone">Número de Teléfono</string>
-    <string name="transfer_phone_cellphone">Número de Celular</string>
+    <string name="transfer_phone">Número de teléfono</string>
+    <string name="transfer_phone_cellphone">Número de celular</string>
     <string name="transfer_cable">Cuenta CLABE</string>
     <string name="transfer_qr">Código QR</string>
-    <string name="transfer_qr_scann">Escanear Código QR</string>
-    <string name="transfer_qr_invalid">Código QR Inválido</string>
-    <string name="transfer_card_unavailable">No Disponible</string>
-    <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
-    <string name="saldo_reembolso">Saldo a Reembolsar</string>
-    <string name="saldo_disponible">Saldo Disponible</string>
-    <string name="saldo_en_cuenta">Saldo en Cuenta</string>
-    <string name="saldo_personal">Saldo Personal:</string>
+    <string name="transfer_qr_scann">Escanear código QR</string>
+    <string name="transfer_qr_invalid">Código QR inválido</string>
+    <string name="transfer_card_unavailable">No disponible</string>
+    <string name="saldo_pendiente">Saldo por\nreembolsar</string>
+    <string name="saldo_reembolso">Saldo a reembolsar</string>
+    <string name="saldo_disponible">Saldo disponible</string>
+    <string name="saldo_en_cuenta">Saldo en cuenta</string>
+    <string name="saldo_personal">Saldo personal:</string>
     <string name="mejor_precio">¡Al mejor precio!</string>
     <string name="cobro_tarjeta">Cobra con tarjeta</string>
 
@@ -599,7 +600,7 @@
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">CFE, Teléfono, Agua (No Mayor a 3 Meses)</string>
+    <string name="documents_comprobantes">A continuación, un comprobante de domicilio comenrcial no\nmayor a 3 meses, puede ser CFE, Teléfono o Agua</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
 
@@ -694,6 +695,7 @@
     <string name="txt_referencia_envio_empty_telefono">Por favor ingrese un número de celular</string>
     <string name="txt_referencia_envio_empty_creditc">Por favor ingrese un número de tarjeta de débito</string>
     <string name="txt_referencia_envio_empty_clabe">Por favor ingrese un número de CLABE</string>
+    <string name="txt_referencia_envio_empty_qr">Por favor capture un código QR</string>
     <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CLABE</string>
     <string name="txt_referencia_envio_error_telefono">Número de Celular Incorrecto</string>
     <string name="txt_referencia_envio_error_creditc">Número de Tarjeta de Débito Incorrecta</string>
@@ -716,16 +718,16 @@
     <string name="listaopciones_load_image_wait">Cargando Imagen</string>
 
     <!-- Mensajes de Loader en el comneoto de hacer recargas, envios y depositos -->
-    <string name="procesando_recarga_loader">Realizando Recarga</string>
-    <string name="procesando_servicios_loader">Realizando Pago</string>
-    <string name="procesando_envios_loader">Realizando Envío</string>
-    <string name="procesando_envios_inter_loader">Realizando Envío</string>
-    <string name="procesando_enviando_email_loader">Enviando Correo Electrónico</string>
-    <string name="envio_interbancario">%1$s Interbancario</string>
+    <string name="procesando_recarga_loader">Realizando recarga</string>
+    <string name="procesando_servicios_loader">Realizando pago</string>
+    <string name="procesando_envios_loader">Realizando envío</string>
+    <string name="procesando_envios_inter_loader">Realizando envío</string>
+    <string name="procesando_enviando_email_loader">Enviando correo electrónico</string>
+    <string name="envio_interbancario">%1$s</string>
 
 
-    <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
-    <string name="numero_iave_vacio">Número de IAVE Vacío</string>
+    <string name="favor_selecciona_importe">Por favor selecciona un importe</string>
+    <string name="numero_iave_vacio">Número de IAVE vacío</string>
     <string name="numero_telefono_paises">0180050010000</string>
     <string name="numero_telefono_contactanos">018005001000</string>
 
@@ -803,8 +805,8 @@
     <string name="cancelation_success">Cancelación Exitosa</string>
     <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente</string>
     <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
-    <string name="mount_valid">Ingresa un Monto Válido</string>
-    <string name="enter_mount">Por Favor Ingrese un Monto</string>
+    <string name="mount_valid">Ingresa un monto válido</string>
+    <string name="enter_mount">Por favor ingrese un monto</string>
     <string name="mount_cero">$00.00</string>
     <string name="send_to_txt">Para:</string>
     <string name="from_txt">De:</string>
@@ -1080,7 +1082,7 @@
     <string name="new_body_envios_tdc_error">Verifica que el número de tarjeta que ingresaste sea válido</string>
     <string name="new_tittle_envios_clabe_error">Cuenta CLABE inválida</string>
     <string name="new_body_envios_clabe_error">Verifica que la cuenta CLABE que ingresaste sea válida</string>
-    <string name="new_body_envios_importe_error">Verifica Que el Importe Sea Mayor o Igual a $1°°</string>
+    <string name="new_body_envios_importe_error">Verifica que el importe sea mayor o igual a $1°°</string>
     <string name="phone_invalid">Teléfono Inválido</string>
     <string name="type_send_invalid">Tipo de envío inválido</string>
     <string name="destiny_invalid"> Nombre del destinatario inválido</string>
@@ -1111,19 +1113,19 @@
     <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>
 
     <!-- FingerPrint -->
-    <string name="fingerprint_no_supported">Su Dispositivo no es Compatible Con la Autenticación de Huellas Dactilares</string>
-    <string name="fingerprint_permission">Por Favor Active el Permiso de Huella Digital</string>
-    <string name="fingerprint_no_found">No Existe Una Huella Digital Configurada. Registre al Menos Una Huella Digital en la Configuración de su Dispositivo</string>
-    <string name="fingerprint_go_to_settings">Ir a la Configuración</string>
-    <string name="fingerprint_use_password">Usar Contraseña</string>
-    <string name="fingerprint_eneable_security">Habilite la Seguridad de LockScreen en la Configuración de su Dispositivo</string>
-    <string name="fingerprint_verification">Coloque su Huella Digital Para Verificar su Identidad</string>
-    <string name="fingerprint_failed">Demasiados Intentos Fallidos \nPor Favor, \nIngresa la Contraseña</string>
-    <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
-    <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
-    <string name="fingerprint_failed_authentification">Error de Autenticación</string>
+    <string name="fingerprint_no_supported">Su dispositivo no es compatible con la autenticación de huellas dactilares</string>
+    <string name="fingerprint_permission">Por favor active el permiso de huella digital</string>
+    <string name="fingerprint_no_found">No existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo</string>
+    <string name="fingerprint_go_to_settings">Ir a la configuración</string>
+    <string name="fingerprint_use_password">Usar contraseña</string>
+    <string name="fingerprint_eneable_security">Habilite la seguridad de LockScreen en la configuración de su dispositivo</string>
+    <string name="fingerprint_verification">Coloque su huella digital para verificar su identidad</string>
+    <string name="fingerprint_failed">Demasiados intentos fallidos \nPor favor, \nIngresa la contraseña</string>
+    <string name="fingerprint_try_later">Error de autenticación, demaciados intentos fallidos  Intentalo más tarde</string>
+    <string name="fingerprint_unrecognized">Huella no reconocida\nIntentalo otra vez</string>
+    <string name="fingerprint_failed_authentification">Error de autenticación</string>
     <string name="trans_spei_envio_txt">Transferencia SPEI</string>
-    <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
+    <string name="generar_codigo_seguridad">Generar código de seguridad</string>
 
 
     <!-- Finger print nativo -->
@@ -1158,10 +1160,10 @@
 
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
-    <string name="saldo_disponible_enviar">Saldo Disponible: </string>
+    <string name="saldo_disponible_enviar">Saldo disponible: </string>
     <string name="monto_a_enviar">Monto a Enviar: </string>
     <string name="solicitar_pago_text">Solicitar Pago Por: </string>
-    <string name="ingresa_monto">Ingresa el Monto</string>
+    <string name="ingresa_monto">Ingresa el monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
@@ -1193,7 +1195,7 @@
     <string name="numero"><u>01800-500-1000</u></string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="mas_info"><u>Más información</u></string>
-    
+
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1233,7 +1235,7 @@
     <string name="error_add_numero">El Destinatario ya se Encuentra Agregado</string>
     <string name="security_huella_option_subtitle">Usa tu huella para autorizar operaciones</string>
     <string name="legales">Legales</string>
-
+    <string name="autorizar">Autorizar</string>
 
     <!-- Procesos de PaymentActivity-->
     <string name="txt_recargas">Recargas</string>
@@ -1294,14 +1296,15 @@
     <string name="hint_destino_recursos">Destino de los Recursos</string>
     <string name="hint_reference">Referencia</string>
 
-    Registro Emisor
+    <!-- Registro Emisor  -->
     <string name="correo_electronico">Correo electrónico</string>
     <string name="correo_electronico_confirm">Confirma correo</string>
     <string name="contrasena">Contraseña</string>
     <string name="contrasena_confirma">Confirma contraseña</string>
 
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
+    <string name="sub_titulo_datos_personales">Casi estamos listos, necesitamos hacer algunas\npreguntas más para completar tu resgistro</string>
+
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
 
@@ -1321,7 +1324,6 @@
 
     <string name="sub_titulo_domicilio_personal">¿Donde vives? es muy importante tener tus datos\ncompletos para continuar con tu registro</string>
 
-
     <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
     <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
     <string name="nip">NIP (4dígitos)</string>
@@ -1338,4 +1340,8 @@
     <string name="tuvimos_problema">Tuvimos un problema con tus documentos, es necesario que los vuelvas a enviar</string>
     <string name="tu_solicitud_no">Tu solicitud no pudo ser completada</string>
     <string name="tuvimos_problema_solicitud">Tuvimos un problema con tu solicitud, comunícate con nosotros para conocer más detalles</string>
+
+    <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
+    <string name="sub_titulo_ine">Primero una identificación oficial vigente, puedeser tu\ncredencial de elector(INE) o tu pasaporte</string>
+
 </resources>

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -94,6 +95,31 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     Button btnBack;
     @BindView(R.id.btnNext)
     Button btnNext;
+
+    @BindView(R.id.txtcobromensual)
+    LinearLayout txtcobromensual;
+    @BindView(R.id.txtmontomensual)
+    LinearLayout txtmontomensual;
+    @BindView(R.id.txtorigen)
+    LinearLayout txtorigen;
+    @BindView(R.id.txtdestino)
+    LinearLayout txtdestino;
+
+    @BindView(R.id.cobromensual)
+    StyleTextView cobromensual;
+    @BindView(R.id.montomensual)
+    StyleTextView montomensual;
+    @BindView(R.id.origen)
+    StyleTextView origen;
+    @BindView(R.id.destino)
+    StyleTextView destino;
+
+
+
+
+
+
+
 
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
@@ -177,6 +203,12 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         spnMontoMensual.requestFocus();
         spnOrigenRecursos.requestFocus();
         spnDestinoRecursos.requestFocus();
+        cobromensual.setVisibility(View.VISIBLE);
+        montomensual.setVisibility(View.VISIBLE);
+        origen.setVisibility(View.VISIBLE);
+        destino.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
@@ -185,6 +217,13 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         hideValidationError(spnMontoMensual.getId());
         hideValidationError(spnOrigenRecursos.getId());
         hideValidationError(spnDestinoRecursos.getId());
+
+
+
+        cobromensual.setVisibility(View.VISIBLE);
+        montomensual.setVisibility(View.VISIBLE);
+        origen.setVisibility(View.VISIBLE);
+        destino.setVisibility(View.VISIBLE);
 
         spnCobrosMensuales.requestFocus();
         spnMontoMensual.requestFocus();
@@ -241,22 +280,27 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         boolean isValid = true;
 
         if (spnCobrosMensuales.getSelectedItemPosition() == 0) {
-            showValidationError(errorCobrosMensuales.getId(), getString(R.string.text_error_cobros_mensual));
+            //showValidationError(errorCobrosMensuales.getId(), getString(R.string.text_error_cobros_mensual));
+            txtcobromensual.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
         if (spnMontoMensual.getSelectedItemPosition() == 0) {
-            showValidationError(errorMontoMensual.getId(), getString(R.string.text_error_monto_mensual));
+           // showValidationError(errorMontoMensual.getId(), getString(R.string.text_error_monto_mensual));
+            txtmontomensual.setBackgroundResource(R.drawable.inputtext_error);
+
             isValid = false;
         }
 
         if (spnOrigenRecursos.getSelectedItemPosition() == 0) {
             showValidationError(errorOrigenRecursos.getId(), getString(R.string.text_error_origen_recursos));
+            txtorigen.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
         if (spnDestinoRecursos.getSelectedItemPosition() == 0) {
             showValidationError(errorDestinoRecursos.getId(), getString(R.string.text_error_destino_mensual));
+            txtdestino.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
@@ -288,15 +332,19 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         switch (id) {
             case R.id.spnCobrosMensuales:
                 errorCobrosMensuales.setVisibilityImageError(false);
+                txtcobromensual.setBackgroundResource(R.drawable.inputtext_normal);
                 break;
             case R.id.spnMontoMensual:
                 errorMontoMensual.setVisibilityImageError(false);
+                txtmontomensual.setBackgroundResource(R.drawable.inputtext_normal);
                 break;
             case R.id.spnOrigenRecursos:
                 errorOrigenRecursos.setVisibilityImageError(false);
+                txtorigen.setBackgroundResource(R.drawable.inputtext_normal);
                 break;
             case R.id.spnDestinoRecursos:
                 errorDestinoRecursos.setVisibilityImageError(false);
+                txtdestino.setBackgroundResource(R.drawable.inputtext_normal);
                 break;
         }
     }

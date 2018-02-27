@@ -63,8 +63,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
  *
  */
 public class WalletTabFragment extends SupportFragment implements WalletView,
-        OnItemClickListener, IMyCardViewHome,
-        ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
+        OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
 
     public static final String ID_OPERATION = "ID_OPERATION";
     @BindView(R.id.progressGIF)
@@ -79,8 +78,8 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     LinearLayout pager_indicator;
     @BindView(R.id.tipo_saldo)
     StyleTextView tipoSaldo;
-    @BindView(R.id.swipe_container)
-    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.img_reload)
+    ImageView imgReload;
 
     private WalletPresenter walletPresenter;
     private TarjetaUserPresenter mPreferPresenter;
@@ -128,13 +127,18 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void initViews() {
-        swipeRefreshLayout.setOnRefreshListener(this);
         llm = new GridLayoutManager(getContext(), 3);
         linearLayoutManager = new LinearLayoutManager(getContext());
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
+        imgReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkDataCard();
+            }
+        });
     }
 
     @Override
@@ -154,7 +158,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void completed(boolean error) {
-        swipeRefreshLayout.setRefreshing(false);
         progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = new CardWalletAdpater();
 
@@ -208,7 +211,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         if (position == 0) {
             llm.setSpanCount(3);
             rcvOpciones.setLayoutManager(llm);
-            elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(),0);
+            elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(), 0);
         }
         if (position == 1) {
             /*if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
@@ -225,29 +228,29 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
             if (SingletonUser.getInstance().getDataUser().isEsAgente()
                     && Idestatus == IdEstatus.I7.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(),2);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
 
-            }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+            } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
                     && Idestatus == IdEstatus.I8.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(),2);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I9.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoError(),2);
-            }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoError(), 2);
+            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I10.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(),2);
-            }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);
+            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I11.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoAprobado(),2);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoAprobado(), 2);
 
-            }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I13.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(),2);
-            }else if  (!App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(),0);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);
+            } else if (!App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
             } else {
 
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorEmi(),1);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorEmi(), 1);
 
 
             }
@@ -351,11 +354,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        checkDataCard();
     }
 }
 
