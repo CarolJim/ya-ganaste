@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -25,6 +26,7 @@ public class UploadDocumentView extends RelativeLayout {
 
     private CircleImageView circleImageView;
     private CircleImageView circleImageStatus;
+    private RelativeLayout layoutImg;
     private ImageView imgCamera;
     private int isStatus;
 
@@ -60,6 +62,8 @@ public class UploadDocumentView extends RelativeLayout {
             li.inflate(R.layout.item_file_4_4, this, true);
         }
 
+
+        layoutImg= ButterKnife.findById(this, R.id.layoutImg); // Icono total
         circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark); // Icono total
         circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus); // Icono Status
         imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay); // Icono central
@@ -85,7 +89,10 @@ public class UploadDocumentView extends RelativeLayout {
 
     public void setImageBitmap(Bitmap bitmap) {
         imgCamera.setVisibility(GONE);
-        circleImageView.setImageBitmap(bitmap);
+       // circleImageView.setImageBitmap(bitmap);
+       // circleImageView.setImageBitmap(bitmap);
+        BitmapDrawable ob = new BitmapDrawable(getResources(), bitmap);
+        layoutImg.setBackground(ob);
       //  circleImageView.setImageBitmap(bitmap);
         circleImageView.invalidate();
     }
