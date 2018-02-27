@@ -11,12 +11,14 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -74,9 +76,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     ///////////////7
     AccessCodeGenerateFragment accessCodeGenerateFragment;
     @BindView(R.id.editPassword)
-    CustomValidationEditText editPassword;
-    @BindView(R.id.errorPasswordMessage)
-    ErrorMessage errorPasswordMessage;
+    EditText editPassword;
     @BindView(R.id.btnGenerateCode)
     StyleButton btnGenerateCode;
     FingerprintAuthenticationDialogFragment fragment;
@@ -158,8 +158,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         ButterKnife.bind(this, rootView);
         btnGenerateCode.setOnClickListener(this);
         // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-        editPassword.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
-        editPassword.addCustomTextWatcher(new TextWatcher() {
+        editPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -353,29 +352,17 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
         ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
         prefs.saveDataBool(HUELLA_FAIL, false);
-
     }
 
     private void loadOtp() {
-        if (editPassword.isValidText()) {
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-            ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
-            prefs.saveDataBool(HUELLA_FAIL, false);
-
-        } else if (editPassword.getText().isEmpty()) {
-            editPassword.setIsInvalid();
-            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
+        if(editPassword.getText().toString().isEmpty()) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
+        } else if(editPassword.getText().toString().length()<6){
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass_formato), Snackbar.LENGTH_SHORT);
         } else {
-            editPassword.setIsInvalid();
-            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
-        }
-    }
-
-    private class MTextWatcher extends AbstractTextWatcher {
-        @Override
-        public void afterTextChanged(String s) {
-            editPassword.imageViewIsGone(true);
-            errorPasswordMessage.setMessageText(null);
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+            ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText().toString()));
+            prefs.saveDataBool(HUELLA_FAIL, false);
         }
     }
 

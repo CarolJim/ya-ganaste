@@ -128,7 +128,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_wallet, menu);
-
         return false;
     }
 
@@ -144,7 +143,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         switch (event) {
             case EVENT_SEND_PAYMENT:
                 try {
-
                     if (data instanceof Envios) {
                         // if (!nombreComercio.equals(YA_GANASTE)) {
                         int idComercio = ((Envios) data).getComercio().getIdComercio();

@@ -391,22 +391,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-
                 android:orientation="horizontal">
-                android:gravity="center_horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
-                    android:id="@+id/keyboard_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_above="@+id/relativeAd"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@android:color/transparent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:keyBackground="@drawable/material_key_drawable"
-                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btn_continueEnvio"

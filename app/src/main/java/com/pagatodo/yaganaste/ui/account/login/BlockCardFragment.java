@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -96,7 +98,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @BindView(R.id.txtMessageCard)
     StyleTextView txtMessageCard;
     @BindView(R.id.edt_block_password)
-    CustomValidationEditText edtPin;
+    EditText edtPin;
     @BindView(R.id.btn_block_card)
     StyleButton btnBlockCard;
     private String password;
@@ -179,7 +181,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     public void initViews() {
         ButterKnife.bind(this, rootview);
         setValidationRules();
-        edtPin.requestEditFocus();
 
         if (cardStatusId.equals("1")) {
             // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
@@ -379,8 +380,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     @Override
     public void setValidationRules() {
-        edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
-        edtPin.addCustomTextWatcher(new TextWatcher() {
+        edtPin.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -398,19 +398,19 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
             @Override
             public void afterTextChanged(Editable s) {
-                edtPin.imageViewIsGone(true);
+
             }
         });
         edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    edtPin.imageViewIsGone(true);
+                    //edtPin.imageViewIsGone(true);
                 } else {
-                    if (edtPin.getText().isEmpty() || !edtPin.isValidText()) {
-                        edtPin.setIsInvalid();
-                    } else if (edtPin.isValidText()) {
-                        edtPin.setIsValid();
+                    if (edtPin.getText().toString().isEmpty()) {
+
+                    } else {
+
                     }
                 }
             }
@@ -425,12 +425,12 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
         if (password.isEmpty()) {
             errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
-            edtPin.setIsInvalid();
+            //edtPin.setIsInvalid();
             isValid = false;
         }
         if (password.length() < 6) {
             errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required_seis) : errorMsg;
-            edtPin.setIsInvalid();
+            //edtPin.setIsInvalid();
             isValid = false;
         }
         if (isValid) {
@@ -464,7 +464,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     @Override
     public void getDataForm() {
-        password = edtPin.getText().trim();
+        password = edtPin.getText().toString().trim();
     }
 
     @Override
@@ -585,7 +585,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     }
 
     private void showDialogMesage(final String mensaje, final int backAction) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+        /*UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -600,6 +600,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
                     }
                 },
-                true, false);
+                true, false);*/
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 }
