@@ -307,7 +307,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             }
 
             // Set NOMBRE COMERCION
-            //  editListServ.setText(nombreComercio);
+            editListServ.setText(nombreComercio);
             String formatoPago = mReferencia;
             if (current_tab == 1) {
                 if (idComercio != 7) {
@@ -318,9 +318,16 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 }
                 txtLytListServ.setHint(getString(R.string.details_compania));
                 // editListServ.setHintText(getString(R.string.details_compania));
+                recargaNumber.setText(mReferencia);
+                LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_tae_ll);
+                taeLL.setVisibility(View.VISIBLE);
             } else if (current_tab == 2) {
                 formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
                 txtLytListServ.setHint(getString(R.string.details_compania));
+                referenceNumber.setText(mReferencia);
+
+                LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_serv_ll);
+                taeLL.setVisibility(View.VISIBLE);
                 // editListServ.setHintText(getString(R.string.details_compania));
             } else if (current_tab == 3) {
                 if (formatoPago.length() == 16 || formatoPago.length() == 15) {
@@ -328,22 +335,22 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 } else {
                     formatoPago = StringUtils.formatoPagoMedios(formatoPago);
                 }
+                cardNumber.setText(mReferencia);
                 txtLytListServ.setHint(getString(R.string.details_bank));
                 // editListServ.setHintText(getString(R.string.details_bank));
             }
-            //SET de la referencia, dependiendo del tipo de pestaña ponemos el formato
-            editRefer.setText(formatoPago);
-            editRefer.setVisibility(View.VISIBLE);
 
             // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
-            editListServ.setEnabled(true);
+            editListServ.setEnabled(false);
             editListServ.setFocusable(false);
             editListServ.setFocusableInTouchMode(false);
             editListServ.setOnClickListener(this);
             // txtLytListServ.setHint(getString(R.string.details_bank));
 
+            //SET de la referencia, dependiendo del tipo de pestaña ponemos el formato
+            editRefer.setText(formatoPago);
+            editRefer.setVisibility(View.GONE);
             editRefer.setEnabled(false);
-
 
             // Localizamos el tipo de Tab con el que traajamos
             switch (current_tab) {
