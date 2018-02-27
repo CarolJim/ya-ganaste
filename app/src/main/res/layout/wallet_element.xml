@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/imageview_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="201dp"
+            android:layout_height="126.1dp"
             android:contentDescription="@string/app_name"
             android:visibility="visible"/>
     </LinearLayout>

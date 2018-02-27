@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <ImageView
+        android:id="@+id/icon_view"
+        android:layout_width="60dp"
+        android:layout_height="63dp"
+        android:src="@drawable/ico_revision"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/txt_uno"
+        style="@style/generic_text_style_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_tipo_uno"
+        android:layout_below="@id/icon_view"
+        android:layout_marginTop="13dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/txt_desc"
+        style="@style/generic_text_style_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/texthint"
+        android:text="@string/title_tipo_desc"
+        android:layout_below="@id/txt_uno"
+        android:layout_marginTop="13dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/numero_tel"
+        style="@style/generic_text_style_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/numero"
+        android:layout_below="@id/txt_desc"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/numero_contacto"
+        style="@style/generic_text_style_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/contacto"
+        android:layout_below="@id/numero_tel"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_action"
+        style="@style/buttonSquareRoundedBlue"
+        android:layout_marginBottom="@dimen/margin_error"
+        android:background="@drawable/button_rounded_blue"
+        android:text="@string/btn_reenviar"
+        android:layout_below="@id/txt_desc"
+        android:visibility="gone"/>
+
+</RelativeLayout>

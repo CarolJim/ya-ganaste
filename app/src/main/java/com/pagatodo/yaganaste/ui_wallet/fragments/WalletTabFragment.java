@@ -8,12 +8,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -29,6 +31,7 @@ import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
@@ -49,7 +52,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
  *
  */
 public class WalletTabFragment extends SupportFragment implements WalletView,
-        ElementsWalletAdapter.OnItemClickListener, IMyCardViewHome,
+        OnItemClickListener, IMyCardViewHome,
         ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ID_OPERATION = "ID_OPERATION";
@@ -79,6 +82,8 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     private int previous_pos = 0;
     private int pageCurrent;
     private String mTDC;
+    private GridLayoutManager llm;
+    private LinearLayoutManager linearLayoutManager;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -113,7 +118,8 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     @Override
     public void initViews() {
         swipeRefreshLayout.setOnRefreshListener(this);
-        GridLayoutManager llm = new GridLayoutManager(getContext(), 3);
+        llm = new GridLayoutManager(getContext(), 3);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
@@ -186,22 +192,29 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
-    private void updateOperations(int psition) {
-        pageCurrent = psition;
-        if (psition == 0) {
-            elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListEmisor());
+    private void updateOperations(int position) {
+        pageCurrent = position;
+        if (position == 0) {
+            llm.setSpanCount(3);
+            rcvOpciones.setLayoutManager(llm);
+            elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListEmisor(),0);
         }
-        if (psition == 1) {
+        if (position == 1) {
             if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorAdq());
+                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorAdq(),0);
             } else {
-                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorEmi());
+                llm.setSpanCount(1);
+                rcvOpciones.setLayoutManager(llm);
+                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorEmi(),1);
             }
+
         }
+
+
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
-        txtSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getSaldo());
-        tipoSaldo.setText(cardWalletAdpater.getElemenWallet(psition).getTipoSaldo());
+        txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+        tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
     }
 
     @Override

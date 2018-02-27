@@ -121,7 +121,7 @@
     <string name="ce_cobro_cancelado">CANCELADO</string>
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
-    <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
+    <string name="desvincula_dispositivo_texto">Al desvincular tu dispositivo, ya no estará ligado\na tu cuenta Ya Ganaste y se cerrará tu sesión\n\nPuedes iniciar sesión en cualquier dispositivo\npara volver a vincular tu cuenta</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desvincular el Dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
@@ -498,6 +498,8 @@
     <string name="saldo_disponible">Saldo Disponible</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
     <string name="saldo_personal">Saldo Personal:</string>
+    <string name="mejor_precio">¡Al mejor precio!</string>
+    <string name="cobro_tarjeta">Cobra con tarjeta</string>
 
     <string name="linea_credito">Línea de Crédito*</string>
     <string name="linea_credito_cupo">Línea de Crédito:</string>
@@ -1189,6 +1191,9 @@
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nLlámanos, podemos ayudarte</string>
     <string name="numero"><u>01800-500-1000</u></string>
+    <string name="comenzar_registro">Comenzar registro</string>
+    <string name="mas_info"><u>Más información</u></string>
+    
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
@@ -1288,7 +1293,7 @@
     <string name="hint_origen_recursos">Origen de los Recursos</string>
     <string name="hint_destino_recursos">Destino de los Recursos</string>
 
-    <!-- Registro Emisor  -->
+    Registro Emisor
     <string name="correo_electronico">Correo electrónico</string>
     <string name="correo_electronico_confirm">Confirma correo</string>
     <string name="contrasena">Contraseña</string>
@@ -1321,4 +1326,9 @@
     <string name="nip">NIP (4dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP</string>
 
+    <!-- Registro Adquiriente Adapters -->
+    <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
+    <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas\n\n¿Tienes dudas? Contáctanos</string>
+    <string name="contacto">contacto@yaganaste.com</string>
+    <string name="btn_reenviar">Reenviar</string>
 </resources>

@@ -73,7 +73,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
     }
 
     private void bind(ElementWallet item, View view) {
-        ImageView imageViewCard = (ImageView) view.findViewById(R.id.imageview_card);
+        ImageView imageViewCard = view.findViewById(R.id.imageview_card);
         imageViewCard.setImageResource(item.getResourceCard());
 
     }
