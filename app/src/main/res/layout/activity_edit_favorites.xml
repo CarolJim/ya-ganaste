@@ -259,45 +259,62 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/add_favorites_tae_ll234"
-                    style="@style/generic_text_style_2"
+                    android:id="@+id/add_favorites_serv_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_border_edittext"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                        android:id="@+id/recargaNumber2348"
-                        style="@style/GenericStyleEditText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20"
-                        android:digits="@string/input_alphanumeric_reference"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:longClickable="false"
-                        android:maxLength="12"
-                        android:maxLines="1" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:hint="@string/txt_referencia_servicio"
+                        android:maxLines="1"
+                        android:paddingLeft="6dp"
+                        android:textColor="@color/blue_text_wallet"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/referenceNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_alphanumeric_reference"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:longClickable="false"
+                            android:maxLength="12"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint_edittext"
+                            android:textSize="14sp" />
+                    </android.support.design.widget.TextInputLayout>
 
                     <RelativeLayout
-                        android:id="@+id/layoutImageContact123"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3">
+                        android:id="@+id/layoutImageReference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp">
 
                         <ImageView
-                            android:id="@+id/imgMakePaymentContact234"
+                            android:id="@+id/imgMakePaymentRef"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_centerInParent="true"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
-
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/add_favorites_serv_ll"
+                    android:id="@+id/add_favorites_serv_ll123"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -306,7 +323,7 @@
                     android:visibility="gone">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                        android:id="@+id/referenceNumber"
+                        android:id="@+id/referenceNumber123"
                         style="@style/GenericStyleEditText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -317,13 +334,13 @@
                         android:maxLength="12" />
 
                     <RelativeLayout
-                        android:id="@+id/layoutImageReference"
+                        android:id="@+id/layoutImageReference123"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3">
 
                         <ImageView
-                            android:id="@+id/imgMakePaymentRef"
+                            android:id="@+id/imgMakePaymentRef123"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
