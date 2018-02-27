@@ -9,7 +9,15 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
-
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/size_text_style_2_value"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="27dp"
+        android:text="@string/title_informacion_adicional"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,6 +27,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/titulo_datos_usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/sub_titulo_datos_personales"
+                android:textAlignment="center"
+                android:textColor="@color/adadad"
+                android:textSize="14sp"
+                app:tipo="Text" />
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
@@ -117,6 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/hint_color"
                 android:text="@string/terms_and_conditions_aditional_info"
                 android:textSize="@dimen/text_screen_size_normal"
                 app:tipo="Descripcion" />
@@ -146,7 +167,8 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNext"
-                style="@style/buttonDirecctionNext"
+                style="@style/buttonSquareRoundedBlue"
+                android:background="@drawable/button_rounded_blue"
                 android:text="@string/nextButton"
                 android:textAllCaps="false"
                 android:textSize="@dimen/generic_button_normal_text_size" />

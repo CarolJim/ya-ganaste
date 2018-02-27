@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.adquirente.fragments;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.Space;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -81,8 +83,11 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     RadioButton radioBtnEresMexaYes;
     @BindView(R.id.layoutPais)
     LinearLayout layoutPais;
+    @BindView(R.id.editCountryold)
+    CustomValidationEditText editCountryold;
+
     @BindView(R.id.editCountry)
-    CustomValidationEditText editCountry;
+    EditText editCountry;
     @BindView(R.id.errorCountryMessage)
     ErrorMessage errorCountryMessage;
     @BindView(R.id.errorRadioPublicServantMessage)
@@ -101,8 +106,10 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     Spinner spParentesco;
     @BindView(R.id.errorParentescoMessage)
     ErrorMessage errorParentescoMessage;
+    @BindView(R.id.editCargoold)
+    CustomValidationEditText editCargoold;
     @BindView(R.id.editCargo)
-    CustomValidationEditText editCargo;
+    EditText editCargo;
     @BindView(R.id.errorCargoMessage)
     ErrorMessage errorCargoMessage;
     @BindView(R.id.txtLegales)
@@ -111,6 +118,23 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     Button btnBack;
     @BindView(R.id.btnNext)
     Button btnNext;
+
+    @BindView(R.id.txtparentesco)
+    LinearLayout txtparentesco;
+
+    @BindView(R.id.text_cargo)
+    TextInputLayout text_cargo;
+
+    @BindView(R.id.txtmexica)
+    TextInputLayout txtmexica;
+
+
+
+
+
+
+
+
 
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
@@ -165,8 +189,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         radioEresMexa.setOnCheckedChangeListener(this);
         radioPublicServant.setOnCheckedChangeListener(this);
 
-        editCargo.getEditText().setImeOptions(EditorInfo.IME_ACTION_DONE);
-        editCargo.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        editCargo.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        editCargo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -224,19 +248,20 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(R.id.editCargo);
-                    editCargo.imageViewIsGone(true);
+                 //   editCargo.imageViewIsGone(true);
                 } else {
                     if (TextUtils.isEmpty(editCargo.getText())) {
                         showValidationError(R.id.editCargo, getString(R.string.error_cargo));
-                        editCargo.setIsInvalid();
+                   //     editCargo.setIsInvalid();
                     } else {
                         hideValidationError(R.id.editCargo);
-                        editCargo.setIsValid();
+                     //   editCargo.setIsValid();
                     }
                 }
             }
         });
 
+        /*
         editCargo.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
@@ -244,6 +269,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
                 editCargo.imageViewIsGone(true);
             }
         });
+
+        */
     }
 
     @Override
@@ -281,13 +308,16 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void showValidationError(int id, Object o) {
         switch (id) {
             case R.id.editCountry:
+                txtmexica.setBackgroundResource(R.drawable.inputtext_error);
                 errorCountryMessage.setMessageText(o.toString());
                 break;
             case R.id.spParentesco:
                 errorParentescoMessage.setMessageText(o.toString());
+                txtparentesco.setBackgroundResource(R.drawable.inputtext_error);
                 break;
             case R.id.editCargo:
                 errorCargoMessage.setMessageText(o.toString());
+                text_cargo.setBackgroundResource(R.drawable.inputtext_error);
                 break;
         }
         UI.hideKeyBoard(getActivity());
@@ -348,7 +378,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         hasFamiliaCargoPublico = radioBtnPublicServantYes.isChecked();
 
         if (hasFamiliaCargoPublico) {
-            cargo = editCargo.getText();
+            cargo = editCargo.getText().toString();
         }
     }
 
@@ -375,8 +405,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void onIsMexaYesCheck() {
         layoutPais.setVisibility(View.GONE);
         editCountry.setText("");
-        editCountry.imageViewIsGone(false);
-        editCountry.setDrawableImage(R.drawable.menu_canvas);
+     //   editCountry.imageViewIsGone(false);
+      //  editCountry.setDrawableImage(R.drawable.menu_canvas);
         paisNacimiento = null;
 
     }
@@ -385,8 +415,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void onIsMexaNoCheck() {
         layoutPais.setVisibility(View.VISIBLE);
         editCountry.setText("");
-        editCountry.imageViewIsGone(false);
-        editCountry.setDrawableImage(R.drawable.menu_canvas);
+        //editCountry.imageViewIsGone(false);
+       // editCountry.setDrawableImage(R.drawable.menu_canvas);
         infoAdicionalPresenter.getPaisesList();
     }
 
@@ -404,7 +434,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
         cargo = "";
         editCargo.setText("");
-        editCargo.imageViewIsGone(true);
+       // editCargo.imageViewIsGone(true);
     }
 
     @Override
@@ -413,7 +443,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
         cargo = "";
         editCargo.setText("");
-        editCargo.imageViewIsGone(true);
+       // editCargo.imageViewIsGone(true);
         editCargo.clearFocus();
 
         if (spinnerParentescoAdapter != null) {
@@ -439,7 +469,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void onCountrySelectedListener(Countries item) {
         paisNacimiento = item;
         editCountry.setText(item.getPais());
-        editCountry.setIsValid();
+        txtmexica.setBackgroundResource(R.drawable.inputtext_normal);
     }
 
     @Override
@@ -491,7 +521,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void onSucessContryList(ArrayList<Countries> paises) {
         this.paises = paises;
-        editCountry.setFullOnClickListener(this);
+        //editCountry.setFullOnClickListener(this);
         editCountry.setOnClickListener(this);
 
     }

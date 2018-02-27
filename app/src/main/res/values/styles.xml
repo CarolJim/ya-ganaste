@@ -155,7 +155,15 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
-
+    <style name="buttonSquareRoundedBluedd" parent="AppButton">
+        <item name="android:layout_width">167dp</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
     <style name="buttonSquareRoundedBlueNewWallet" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
@@ -382,7 +390,7 @@
     <style name="BorderTitleStyle">
         <item name="android:layout_marginLeft">@dimen/margin_smalledittext</item>
         <item name="android:layout_marginRight">@dimen/margin_smalledittext</item>
-        <item name="android:layout_marginTop">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Text</item>

@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -695,10 +696,10 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
             if (idStatus == STATUS_DOCTO_RECHAZADO) {
                 documentPendientes++;
-                idDrawableStatus = R.drawable.ic_alerta2;
+                idDrawableStatus = R.drawable.documentoerror;
             } else if (idStatus == STATUS_DOCTO_APROBADO) {
                 documentApproved++;
-                idDrawableStatus = R.drawable.ic_document_done2;
+                idDrawableStatus = R.drawable.documentarpo;
             } else if (idStatus == STATUS_DOCTO_PENDIENTE) {
                 idDrawableStatus = R.drawable.ic_wait2;
             } else {
@@ -804,6 +805,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private void sendDocumentsPending() {
         updateListFromMapHash();
         if (dataDocumnets.size() < documentPendientes) {
+            /*
             UI.createSimpleCustomDialog("", getString(R.string.txt_dialogo_subir_documentos_marcados), getActivity().getSupportFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
@@ -817,6 +819,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                         }
                     }, true, false);
             return;
+            */
+            UI.showErrorSnackBar(getActivity(),getString(R.string.txt_dialogo_subir_documentos_marcados), Snackbar.LENGTH_SHORT);
         }
         adqPresenter.sendDocumentosPendientes(dataDocumnetsServer);
     }

@@ -63,8 +63,13 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
     // Campos de Vista
     @BindView(R.id.btnNextBussinesAddress)
     Button btnNextBussinesAddress;
-    @BindView(R.id.btnBackBussinesAddress)
-    Button btnBackBussinesAddress;
+
+    @BindView(R.id.btnNextBussineslimpiar)
+    Button btnNextBussineslimpiar;
+
+
+
+
     @BindView(R.id.textIsBussinesAddress)
     StyleTextView textIsBussinesAddress;
 
@@ -172,7 +177,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spBussinesColonia.setAdapter(adapterColonia);
         btnNextBussinesAddress.setOnClickListener(this);
-        btnBackBussinesAddress.setOnClickListener(this);
+
         textIsBussinesAddress.setText(getResources().getString(R.string.cupo_domicilio));
         radioIsBussinesAddress.setOnCheckedChangeListener(this);
         radioBtnIsBussinesAddressYes.setChecked(true);
@@ -187,18 +192,12 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
                 validateForm();
                 break;
-            case R.id.btnBackBussinesAddress:
-                RegisterCupo registerCupo = RegisterCupo.getInstance();
-                registerCupo.setCalle("");
-                registerCupo.setNumExterior("");
-                registerCupo.setNumInterior("");
-                registerCupo.setCodigoPostal("");
-                registerCupo.setEstadoDomicilio("");
-                registerCupo.setColonia("");
-                registerCupo.setIdColonia("");
-
-                cupoActivityManager.onBtnBackPress();
+            case R.id.btnNextBussineslimpiar:
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+                cleanFields();
                 break;
+
+
         }
     }
 

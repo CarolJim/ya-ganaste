@@ -86,6 +86,7 @@ public class UploadDocumentView extends RelativeLayout {
     public void setImageBitmap(Bitmap bitmap) {
         imgCamera.setVisibility(GONE);
         circleImageView.setImageBitmap(bitmap);
+      //  circleImageView.setImageBitmap(bitmap);
         circleImageView.invalidate();
     }
 

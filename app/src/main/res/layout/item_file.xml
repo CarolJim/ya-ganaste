@@ -7,16 +7,17 @@
 
     <RelativeLayout
         android:id="@+id/layoutImg"
-        android:layout_width="85dp"
-        android:layout_height="86dp">
+        android:layout_width="155dp"
+        android:layout_height="96dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgItemGalleryMark"
             android:layout_width="match_parent"
-            android:background="@drawable/ic_camera_border_gray"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/uploadcam"
             app:civ_border_color="@color/colorAccent"
             app:civ_border_width="2dp" />
 

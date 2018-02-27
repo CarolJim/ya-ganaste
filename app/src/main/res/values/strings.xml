@@ -9,6 +9,7 @@
     <string name="activateMobileServiceUrl">/ActivacionServicioMovil</string>
     <string name="updateAvatarUrl">/ActualizarAvatar</string>
     <string name="updateDocumentosUrl">/ActualizarDocumentos</string>
+    <string name="Documentos">Documentos</string>
     <string name="updateSessionUrl">/ActualizarInformacionSesion</string>
     <string name="assignPaswordUrl">/AsignarContrasena</string>
     <string name="assignAccountAvailableUrl">/AsignarCuentaDisponible</string>
@@ -224,7 +225,7 @@
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
     <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono</string>
-    <string name="txt_home_phone">Teléfono Fijo</string>
+    <string name="txt_home_phone">Teléfono</string>
 
 
     <string name="txt_referencia_envio">Referencia de Envío</string>
@@ -409,7 +410,7 @@
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
     <string name="bussinesName">Nombre Del Negocio</string>
-    <string name="publicServantQuestion">¿Tú o Algún Familiar Han Desempeñado Cargos Públicos?</string>
+    <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
 
     <!--Informacion Adicional-->
     <string name="title_informacion_adicional">Información Adicional</string>
@@ -597,7 +598,7 @@
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">CFE, Teléfono, Agua (No Mayor a 3 Meses)</string>
+    <string name="documents_comprobantes">A continuación, un comprobante de domicilio comenrcial no\nmayor a 3 meses, puede ser CFE, Teléfono o Agua</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
 
@@ -1296,7 +1297,8 @@
     <string name="contrasena_confirma">Confirma contraseña</string>
 
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
+    <string name="sub_titulo_datos_personales">Casi estamos listos, necesitamos hacer algunas\npreguntas más para completar tu resgistro</string>
+
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
 
@@ -1321,5 +1323,9 @@
     <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
     <string name="nip">NIP (4dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP</string>
+
+
+    <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
+    <string name="sub_titulo_ine">Primero una identificación oficial vigente, puedeser tu\ncredencial de elector(INE) o tu pasaporte</string>
 
 </resources>

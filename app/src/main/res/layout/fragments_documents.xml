@@ -17,10 +17,13 @@
 
         android:layout_weight="1">
 
+
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,6 +33,42 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="16dp">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:textSize="@dimen/size_text_style_2_value"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="17dp"
+                    android:text="@string/Documentos"/>
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/titulo_datos_usuario"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="0dp"
+                    android:text="@string/sub_titulo_documentos"
+                    android:textAlignment="center"
+                    android:textColor="@color/adadad"
+                    android:textSize="14sp"
+                    app:tipo="Text" />
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/titulo_ine"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="7dp"
+                    android:text="@string/sub_titulo_ine"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="11sp"
+                    app:tipo="Text" />
+
 
                 <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                     android:id="@+id/first_cube"
@@ -41,9 +80,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/activity_vertical_margin"
+
                         android:orientation="vertical"
-                        android:paddingTop="@dimen/activity_horizontal_margin">
+                       >
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             style="@style/generic_text_style_3"
@@ -51,6 +90,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
+                            android:visibility="gone"
                             android:text="@string/documents_vigentes" />
 
                         <LinearLayout
@@ -63,23 +103,20 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:orientation="vertical">
-
-                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
-                                    android:id="@+id/itemWeNeedSmFilesIFEfront"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
-
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/space_between_forms"
-                                    android:gravity="center"
+                                    android:gravity="start"
                                     android:text="Frente" />
-
+                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
+                                    android:id="@+id/itemWeNeedSmFilesIFEfront"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
 
                             </LinearLayout>
 
@@ -89,21 +126,21 @@
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/lyWeNeedSmFilesIFEfront"
                                 android:layout_weight="2"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:orientation="vertical">
-
-                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
-                                    android:id="@+id/itemWeNeedSmFilesIFEBack"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+
                                     android:layout_margin="@dimen/space_between_forms"
                                     android:gravity="center"
                                     android:text="Reverso" />
+                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
+                                    android:id="@+id/itemWeNeedSmFilesIFEBack"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -118,16 +155,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
                     app:title="Comprobante de Domicilio Comercial">
 
 
                     <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/activity_vertical_margin"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="16dp"
                         android:orientation="vertical"
-                        android:paddingTop="@dimen/activity_horizontal_margin">
+                        android:paddingTop="0dp">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             style="@style/generic_text_style_3"
@@ -135,11 +175,25 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
-                            android:text="@string/documents_comprobantes" />
+                            android:text="@string/documents_comprobantes"
+                            android:visibility="gone" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="7dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/documents_comprobantes"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="11sp"
+                            app:tipo="Text" />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -147,13 +201,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:orientation="vertical">
-
-                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
-                                    android:id="@+id/itemWeNeedSmFilesAddressFront"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     style="@style/generic_text_style_3"
@@ -163,6 +212,13 @@
                                     android:gravity="center"
                                     android:text="Frente" />
 
+                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
+                                    android:id="@+id/itemWeNeedSmFilesAddressFront"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_gravity="center" />
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -170,14 +226,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:orientation="vertical"
                                 android:visibility="visible">
-
-                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
-                                    android:id="@+id/itemWeNeedSmFilesAddressBack"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     style="@style/generic_text_style_3"
@@ -187,10 +238,26 @@
                                     android:gravity="center"
                                     android:text="Reverso" />
 
+                                <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
+                                    android:id="@+id/itemWeNeedSmFilesAddressBack"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_gravity="center" />
                             </LinearLayout>
 
                         </LinearLayout>
                     </LinearLayout>
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                        android:id="@+id/btnWeNeedSmFilesNext"
+                        style="@style/buttonSquareRoundedBlue"
+                        android:layout_alignTop="@+id/linearLayout"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="177dp"
+                        android:background="@drawable/button_rounded_blue"
+                        android:gravity="center"
+                        android:text="@string/nextButton" />
 
                 </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
@@ -226,6 +293,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin_medium"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <LinearLayout
@@ -234,23 +302,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center_horizontal"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnRegresar"
                 style="@style/buttonDirecctionBackSmall"
-                android:visibility="gone"
-                android:text="@string/backButton" />
+                android:text="@string/backButton"
+                android:visibility="gone" />
 
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="match_parent" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnWeNeedSmFilesNext"
-                style="@style/buttonDirecctionNext"
-                android:gravity="center"
-                android:text="@string/nextButton" />
 
         </LinearLayout>
     </LinearLayout>
