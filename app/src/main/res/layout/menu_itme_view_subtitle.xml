@@ -53,25 +53,26 @@
         android:orientation="horizontal"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="8.5dp"
         android:gravity="center"
         android:visibility="visible"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8.5dp">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
             android:id="@+id/radiobutton_no"
             style="@style/RadioButtonMenu"
             android:layout_width="40dp"
             android:layout_height="20dp"
-            android:checked="true"
+            android:checked="false"
             android:text="No"/>
-
 
         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
             android:id="@+id/radiobutton_si"
             style="@style/RadioButtonMenu"
             android:layout_width="40dp"
             android:layout_height="20dp"
-            android:checked="false"
+            android:checked="true"
             android:text="Si"/>
     </RadioGroup>
 

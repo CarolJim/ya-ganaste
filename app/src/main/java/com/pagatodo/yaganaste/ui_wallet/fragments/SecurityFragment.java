@@ -2,21 +2,29 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.content.Context;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomRadioButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
@@ -24,12 +32,16 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.FINGERPRINT_SERVICE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_NOTIFICACIONES;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_NOTIFICACIONES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
+import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +65,9 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
     StyleTextView titleMenu;
     @BindView(R.id.notific_discreption)
     StyleTextView notificDiscreption;
+    private boolean useFingerprint = true;
+    public CustomRadioButton radioButtonNo;
+    public CustomRadioButton radioButtonSi;
 
     protected OnEventListener onEventListener;
 
@@ -94,7 +109,7 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
 
         switch (TYPE_MENU) {
             case 1:
-                ContainerBuilder.SECURITY_MENU(getContext(),mLinearLayout,this);
+                initComponents(1);
                 break;
             case 2:
                 //listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
@@ -122,18 +137,53 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
             case ID_DESVINCULAR:
                 onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
                 break;
-            case -1:
-                break;
             default:
-
                 break;
         }
     }
 
-    /*
-    @Override
-    public void onItemClick(OptionMenuItem optionMenuItem) {
-
+    private void initComponents(int type){
+        switch (type) {
+            case 1:
+                useFingerprint = App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
+                    Container s = new Container(getContext(),this);
+                    s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
+                    if (fingerprintManager.isHardwareDetected()) {
+                        s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
+                        OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
+                        radioButtonNo = view.radioButtonNo;
+                        radioButtonSi = view.radioButtonSi;
+                        setStates();
+                        radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                if (b){
+                                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
+                                    //UI.showSuccessSnackBar(getActivity(),"", Snackbar.LENGTH_SHORT);
+                                }
+                            }
+                        });
+                        radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                if (b){
+                                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
+                                }
+                            }
+                        });
+                    }
+                }
+                break;
+        }
     }
-    */
+
+    private void setStates(){
+        if (useFingerprint){
+            radioButtonSi.setChecked(true);
+        } else {
+            radioButtonNo.setChecked(false);
+        }
+    }
 }

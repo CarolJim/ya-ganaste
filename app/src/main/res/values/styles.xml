@@ -11,6 +11,15 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="PopupTheme" parent="ThemeOverlay.AppCompat.Light">
@@ -581,6 +590,7 @@
         <item name="tipo">Text</item>
     </style>
 
+
     <style name="generic_text_style_5">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_5_value</item>
@@ -591,6 +601,12 @@
         <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_4_value</item>
         <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_text_style_9">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/size_text_style_9_value</item>
+        <item name="tipo">Text</item>
     </style>
 
     <style name="generic_calculator_sign_style">

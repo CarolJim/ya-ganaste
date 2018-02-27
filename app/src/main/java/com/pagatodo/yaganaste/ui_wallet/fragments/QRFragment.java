@@ -52,6 +52,7 @@ public class QRFragment extends SupportFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_qr, container, false);
         ButterKnife.bind(this, rootView);
+        initViews();
         return rootView;
     }
 
@@ -104,7 +105,7 @@ public class QRFragment extends SupportFragment {
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
         Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
-        QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), 286);
+        QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), smallerDimension);
         try {
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
             imgYaGanasteQR.setImageBitmap(bitmap);

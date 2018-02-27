@@ -91,6 +91,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
         if (getArguments() != null){
             currentPage = getArguments().getInt("CURRENT_PAGE",0);

@@ -23,6 +23,12 @@ public class ElementView implements Serializable {
     private int idOperacion;
     private int resource;
     private int title;
+    private int description;
+    private boolean status;
+    private boolean color;
+    private int textbutton;
+
+
 
     public ElementView() {
     }
@@ -31,6 +37,48 @@ public class ElementView implements Serializable {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
+    }
+
+    public ElementView(int idOperacion, int resource, int title, int description, boolean status, boolean color, int textbutton) {
+        this.idOperacion = idOperacion;
+        this.resource = resource;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.color = color;
+        this.textbutton = textbutton;
+    }
+
+    public boolean isColor() {
+        return color;
+    }
+
+    public void setColor(boolean color) {
+        this.color = color;
+    }
+
+    public int getTextbutton() {
+        return textbutton;
+    }
+
+    public void setTextbutton(int textbutton) {
+        this.textbutton = textbutton;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getDescription() {
+        return description;
+    }
+
+    public void setDescription(int description) {
+        this.description = description;
     }
 
     public int getIdOperacion() {
@@ -77,6 +125,33 @@ public class ElementView implements Serializable {
     public static ArrayList<ElementView> getListLectorEmi() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(7, R.mipmap.icon_tab_dongle_white, R.string.operation_registrar));
+        return elementViews;
+    }
+
+    //Proceso Revisando
+    public static ArrayList<ElementView> getListEstadoRevisando() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false,false,R.string.next));
+        return elementViews;
+    }
+
+    //Proceso Aprobado
+    public static ArrayList<ElementView> getListEstadoAprobado() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true,false,R.string.next));
+        return elementViews;
+    }
+
+    //Proceso Aprobado
+    public static ArrayList<ElementView> getListEstadoError() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true,R.string.btn_reenviar));
+        return elementViews;
+    }
+    //Proceso Rechazado
+    public static ArrayList<ElementView> getListEstadoRechazado() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true,R.string.btn_reenviar));
         return elementViews;
     }
 

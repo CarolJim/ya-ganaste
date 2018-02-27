@@ -107,14 +107,16 @@ public class ElementWallet {
                 //Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
                 Utils.getCurrencyValue("0.00"),
                 new ElementView().getListLectorAdq(),
-                context.getResources().getString(R.string.saldo_reembolso));
+                context.getResources().getString(R.string.saldo_reembolso)
+                );
     }
 
     public ElementWallet getCardLectorEmi(Context context) {
         return new ElementWallet(R.mipmap.lector_front,
-                Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
+                //Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
+                context.getResources().getString(R.string.cobro_tarjeta),
                 new ElementView().getListLectorEmi(),
-                context.getResources().getString(R.string.saldo_reembolso));
+                context.getResources().getString(R.string.mejor_precio));
     }
 
     public ElementWallet getCardBalanceEmi(Context context) {

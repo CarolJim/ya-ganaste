@@ -64,7 +64,7 @@ public class Container {
         return this.arrayListInput;
     }
     ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> getArrayListOptionMenu(){ return this.arrayListOptionMenu;}
-    ArrayList<OptionMenuItem.ViewHolderMenuSegurity> getArrayListOptionMenuSegurity(){ return this.arrayListOptionMenuSegurity;}
+    public ArrayList<OptionMenuItem.ViewHolderMenuSegurity> getArrayListOptionMenuSegurity(){ return this.arrayListOptionMenuSegurity;}
 
     public ArrayList<InputText> getInputTextList() {
         return this.inputTextList;

@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.Log;
@@ -80,7 +81,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
-
         setHasOptionsMenu(true);
     }
 
@@ -93,13 +93,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             case R.id.action_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                //String shareBodyText = "Check it out. Your message goes here";
-                /*String shareBodyText = getContext().getString(R.string.string_share_deposits) + "\n" +
-                        "Titular: " + dataDeposit.getTitular() + "\n" +
-                        "Teléfono: " + dataDeposit.getTelefono() + "\n" +
-                        "CLABE: " + dataDeposit.getClabe() + "\n" +
-                        "TARJETA: " + dataDeposit.getTarjeta();
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");*/
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, mensaje);
                 startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
                 return true;
@@ -113,7 +106,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
         return inflater.inflate(R.layout.fragment_deposito_datos, container, false);
     }
@@ -287,7 +280,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 },
                 true, false);
     }*/
-
+/*
     private void printCard(String cardNumber) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
         android.graphics.Bitmap.Config bitmapConfig =
@@ -316,7 +309,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
         imgYaGanasteQR.setImageBitmap(bitmap);
     }
-
+*/
 
 
 }
