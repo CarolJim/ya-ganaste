@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.BalanceWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsBalanceAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
@@ -66,7 +67,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
  */
 
 public class BalanceWalletFragment extends GenericFragment implements View.OnClickListener,
-        ViewPager.OnPageChangeListener, IBalanceView, ElementsBalanceAdapter.OnItemClickListener,
+        ViewPager.OnPageChangeListener, IBalanceView, OnItemClickListener,
         ICardBalance {
 
     private View rootView;

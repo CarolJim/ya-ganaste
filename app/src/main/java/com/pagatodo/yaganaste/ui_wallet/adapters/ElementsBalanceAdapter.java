@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_DESBLOQUEADA;
  * Created by ozuniga on 14/02/2017.
  */
 
-public class ElementsBalanceAdapter extends RecyclerView.Adapter<ButtonsViewHolder> {
+public class ElementsBalanceAdapter extends RecyclerView.Adapter<OptionsViewHolder> {
 
     private List<ElementView> elementViews;
     private Context context;
@@ -32,13 +34,13 @@ public class ElementsBalanceAdapter extends RecyclerView.Adapter<ButtonsViewHold
     }
 
     @Override
-    public ButtonsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+    public OptionsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return new ButtonsViewHolder(this.context,inflater.inflate(R.layout.balance_element, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ButtonsViewHolder holder, final int position) {
+    public void onBindViewHolder(final OptionsViewHolder holder, final int position) {
         holder.bind(elementViews.get(position), listener);
     }
 
@@ -53,7 +55,4 @@ public class ElementsBalanceAdapter extends RecyclerView.Adapter<ButtonsViewHold
         return this.elementViews.size();
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(ElementView elementView);
-    }
 }

@@ -333,4 +333,19 @@ public class UI {
         view.setBackgroundColor(App.getContext().getResources().getColor(R.color.redGreenTransparent));
         snack.show();
     }
+
+    public static void showAlertDialog(Context context, String message, DialogInterface.OnClickListener positive){
+        AlertDialog builder = new AlertDialog.Builder(context)
+                .setTitle(R.string.app_name)
+                .setMessage(message)
+                .setPositiveButton(R.string.title_aceptar,positive)
+                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        builder.show();
+    }
 }

@@ -2,8 +2,10 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,8 +114,15 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
 
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
-                    doubleActions, true, true);
+          /*  UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
+                    doubleActions, true, true);*/
+           UI.showAlertDialog(getContext(), getResources().getString(R.string.deseaDesasociarDispositivo), new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialogInterface, int i) {
+                   onEventListener.onEvent("DISABLE_BACK", true);
+                   mPreferPresenter.DesasociarToPresenter();
+               }
+           });
         } else {
             // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
             showDialogCustom(getResources().getString(R.string.no_internet_access));

@@ -184,7 +184,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         //mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
 
         ViewGroup mLinearLayout = findViewById(R.id.content_linearlayout);
-        ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> list = ContainerBuilder.MAINMENU(this, mLinearLayout, this);
+        ContainerBuilder.MAINMENU(this, mLinearLayout, this);
         StyleTextView textViewversion = findViewById(R.id.txtVersionApp);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         showBack(false);
@@ -644,31 +644,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
-    /*@Override
-        public void onItemClick(OptionMenuItem optionMenuItem) {
-            switch (optionMenuItem.getIdItem()) {
-                case ID_SEGURIDAD:
-                    actionMenu(MENU_SEGURIDAD);
-                    break;
-                case ID_AJUSTES:
-                    actionMenu(MENU_AJUSTES);
-                    break;
-                case ID_ACERCA_DE:
-                    actionMenu(MENU_TERMINOS);
-                    break;
-                case ID_LOGOUT:
-                    logOut();
-                    break;
-                case ID_CODE:
-                    actionMenu(MENU_CODE);
-                    break;
-                default:
-                    Toast.makeText(this, "PROXIMAMENTE", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-
-        }
-        */
     public void actionMenu(int opcionMenu) {
         Intent intent = new Intent(this, PreferUserActivity.class);
         intent.putExtra(MENU, opcionMenu);

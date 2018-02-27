@@ -116,9 +116,9 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             } else {
                 viewForeground.setBackgroundResource(R.color.whiteColor);
             }
-            if (((MovimientosResponse)itemMovements.getMovement()) != null){
+            /*if (((MovimientosResponse)itemMovements.getMovement()) != null){
 
-            }
+            }*/
             txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
             txtSubTituloDetalle.setText(itemMovements.getSubtituloDetalle());
 

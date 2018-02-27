@@ -113,6 +113,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        setHasOptionsMenu(true);
         imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageViewback = (ImageView) getActivity().findViewById(R.id.btn_back);
         imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);

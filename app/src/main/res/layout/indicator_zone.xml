@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/letrero_imageview"
+        android:layout_width="294dp"
+        android:layout_height="140.5dp"
+        android:src="@drawable/portada_adq"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_begin_register"
+        style="@style/buttonSquareRoundedBlue"
+        android:layout_marginTop="18dp"
+        android:layout_below="@id/letrero_imageview"
+        android:background="@drawable/button_rounded_blue"
+        android:text="@string/comenzar_registro" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/mas_info"
+        style="@style/generic_text_style_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/btn_begin_register"
+        android:text="@string/mas_info"/>
+
+</RelativeLayout>
