@@ -210,6 +210,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     private int favoriteProcess;
     private String nombreComercio;
     private String nombreDest;
+    private NumberCardTextWatcher numberCardTextWatcher;
+    private PhoneTextWatcher phoneTextWatcher;
+    private NumberClabeTextWatcher numberClabeTextWatcher;
 
     @Override
     protected void onDestroy() {
@@ -869,7 +872,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             }
         } else if (current_tab == 3) {
             //Validate format Spinner
-            if (editSpinner.isValidText()) {
+            if (editSpinner.getText().toString().isEmpty()) {
                // showValidationError(editSpinner.getId(), getString(R.string.addFavoritesErrorEnvio));
                // editSpinner.setIsInvalid();
 
@@ -1254,7 +1257,19 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                     idComercio == 814 ? 15 : 16
             )));
-            NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+           // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+
+            // CReamos el te numberCardTextWatcher si no existe
+            if(numberCardTextWatcher == null){
+                numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+            }
+
+            // Borramos el contenido de TextWatcher del elemento
+            cardNumber.removeTextChangedListener(numberCardTextWatcher);
+            cardNumber.removeTextChangedListener(phoneTextWatcher);
+            cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+
             if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
                 numberCardTextWatcher.setOnITextChangeListener(this);
             }
@@ -1268,7 +1283,18 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
             layoutImageContact2.setVisibility(View.VISIBLE);
             layoutImageContact2.setOnClickListener(this);
-            PhoneTextWatcher phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+
+            // CReamos el te phoneTextWatcher si no existe
+            if(phoneTextWatcher == null){
+                phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+            }
+
+            // Borramos el contenido de TextWatcher del elemento
+            cardNumber.removeTextChangedListener(numberCardTextWatcher);
+            cardNumber.removeTextChangedListener(phoneTextWatcher);
+            cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+
             if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
                 phoneTextWatcher.setOnITextChangeListener(this);
             }
@@ -1278,7 +1304,18 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         } else if (position == CLABE.getId()) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
-            cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber, maxLength));
+
+            // CReamos el te numberCardTextWatcher si no existe
+            if(numberClabeTextWatcher == null){
+                numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+            }
+
+            // Borramos el contenido de TextWatcher del elemento
+            cardNumber.removeTextChangedListener(numberCardTextWatcher);
+            cardNumber.removeTextChangedListener(phoneTextWatcher);
+            cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+            cardNumber.addTextChangedListener(numberClabeTextWatcher);
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
             selectedType = CLABE;
