@@ -626,7 +626,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
             } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
-                //UI.showErrorSnackBar(getActivity(),getString(R.string.favor_selecciona_importe), Snackbar.LENGTH_SHORT);
+                UI.showErrorSnackBar(getActivity(),getString(R.string.favor_selecciona_importe), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
@@ -636,10 +636,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_phone_error);
 
               //  til_num_telefono.setBackgroundResource(R.drawable.inputtext_error);
-              //  UI.showErrorSnackBar(getActivity(),getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
+                UI.showErrorSnackBar(getActivity(),getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
             }
           //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
-            UI.showErrorSnackBar(getActivity(), errorText, Snackbar.LENGTH_SHORT);
         }
     }
 

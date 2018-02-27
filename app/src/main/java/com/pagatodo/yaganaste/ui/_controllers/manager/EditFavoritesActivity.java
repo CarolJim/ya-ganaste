@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
@@ -123,11 +124,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
     @BindView(R.id.add_favorites_alias)
-    CustomValidationEditText editAlias;
+    EditText editAlias;
     @BindView(R.id.add_favorites_alias_error)
     ErrorMessage editAliasError;
     @BindView(R.id.add_favorites_list_serv)
-    CustomValidationEditText editListServ;
+    EditText editListServ;
     @BindView(R.id.add_favorites_list_serv_error)
     ErrorMessage editListServError;
     @BindView(R.id.add_favorites_linear_tipo)
@@ -323,11 +324,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             cardNumber.setText(formatoPago);
         }
 
-
-        // Funcionalidad para agregar el Spinner
-        editListServ.imageViewIsGone(false);
-        editListServ.setEnabled(false);
-        editListServ.setFullOnClickListener(this);
        /*
         REVISAR funcionalidad on servicios
        if(current_tab2.getId()==1){
@@ -362,9 +358,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         // editRefer.setText("5534812287");
 
         // Agregamos Flecha de Shebrom
-        editListServ.setEnabled(false);
-        editListServ.setFullOnClickListener(this);
-        editListServ.setDrawableImage(R.drawable.menu_canvas);
+        editListServ.setEnabled(true);
+        editListServ.setFocusable(false);
+        editListServ.setFocusableInTouchMode(false);
+        editListServ.setOnClickListener(this);
+        // txtLytListServ.setHint(getString(R.string.details_bank));
 
     /*    Glide.with(this)
                 .load(dataFavoritos.getImagenURL())
@@ -406,14 +404,16 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editAlias.getId());
-                    editAlias.imageViewIsGone(true);
+                    //   editAlias.imageViewIsGone(true);
                 } else {
-                    if (editAlias.getText().isEmpty()) {
-                        showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
-                        editAlias.setIsInvalid();
+                    if (editAlias.getText().toString().isEmpty()) {
+                        //showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
+                        //editAlias.setIsInvalid();
+
+                        UI.showErrorSnackBar(EditFavoritesActivity.this, getString(R.string.addFavoritesErrorAlias), Snackbar.LENGTH_SHORT);
                     } else {
                         hideValidationError(editAlias.getId());
-                        editAlias.setIsValid();
+                        // editAlias.setIsValid();
                     }
                 }
             }
@@ -433,7 +433,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
-                            showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                           // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -453,7 +453,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
-                            showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                          //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -473,7 +473,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
-                            showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                          //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -791,17 +791,21 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         boolean isValid = true;
 
         //Validate format Email
-        if (!editAlias.isValidText()) {
-            showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
-            editAlias.setIsInvalid();
+        if (editAlias.getText().toString().isEmpty()) {
+            // editAlias.setIsInvalid();
+            //showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
+
+            UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorAlias), Snackbar.LENGTH_SHORT);
             isValid = false;
             //return;
         }
 
         //Validate format Servicios
-        if (!editListServ.isValidText()) {
-            showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorServ));
-            editListServ.setIsInvalid();
+        if (editListServ.getText().toString().isEmpty()) {
+            // showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorServ));
+            // editListServ.setIsInvalid();
+
+            UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorServ), Snackbar.LENGTH_SHORT);
             isValid = false;
             //return;
         }
@@ -820,8 +824,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             editRefer.setText(recargaNumber.getText().toString());
             //Validate format Referencia
             if (!editRefer.isValidText()) {
-                showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                editRefer.setIsInvalid();
+                //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                //  editRefer.setIsInvalid();
+
+                UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorRefer), Snackbar.LENGTH_SHORT);
                 isValid = false;
                 //return;
             }
@@ -829,8 +835,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             editRefer.setText(referenceNumber.getText().toString());
             //Validate format Referencia
             if (!editRefer.isValidText()) {
-                showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                editRefer.setIsInvalid();
+                //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                //  editRefer.setIsInvalid();
+
+                UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorRefer), Snackbar.LENGTH_SHORT);
                 isValid = false;
                 //return;
             }
@@ -845,9 +853,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
             editRefer.setText(cardNumber.getText().toString());
             //Validate format Referencia
-            if (!editRefer.isValidText()) {
-                showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                editRefer.setIsInvalid();
+            if (editRefer.getText().toString().isEmpty()) {
+               // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                //  editRefer.setIsInvalid();
+
+                UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorRefer), Snackbar.LENGTH_SHORT);
                 isValid = false;
                 //return;
             }
@@ -1071,11 +1081,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
         if (isIAVE) {
             currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
-            recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
+           // recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);
-            recargaNumber.setHint(getString(R.string.hint_phone_number));
+            //  recargaNumber.setHint(getString(R.string.hint_phone_number));
 
             layoutImageContact.setOnClickListener(this);
         }
@@ -1345,8 +1355,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
         for (CarouselItem carouselItem : mResponse) {
-           backUpResponse.add(carouselItem);
-            }
+            backUpResponse.add(carouselItem);
+        }
     }
 
     @Override
