@@ -1332,4 +1332,10 @@
     <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas\n\n¿Tienes dudas? Contáctanos</string>
     <string name="contacto">contacto@yaganaste.com</string>
     <string name="btn_reenviar">Reenviar</string>
+    <string name="felicidades">¡Felicidades!</string>
+    <string name="ya_se_puede">Ya puedes comenzar a recibir pagos con\ntarjeta ¡al mejor precio!</string>
+    <string name="ocurrio_error_doc">Ocurrió un error con tu documentación</string>
+    <string name="tuvimos_problema">Tuvimos un problema con tus documentos, es necesario que los vuelvas a enviar</string>
+    <string name="tu_solicitud_no">Tu solicitud no pudo ser completada</string>
+    <string name="tuvimos_problema_solicitud">Tuvimos un problema con tu solicitud, comunícate con nosotros para conocer más detalles</string>
 </resources>

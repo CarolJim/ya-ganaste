@@ -95,7 +95,7 @@ public class SendWalletFragment extends GenericFragment implements OnItemClickLi
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         //rcvOpciones.setAdapter(new ElementsWalletAdapter(getContext(), new ElementView().getListEnviar(getContext()), this));
-        ElementsWalletAdapter elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListEnviar(getContext()),0);
+        ElementsWalletAdapter elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEnviar(getContext()),0);
         rcvOpciones.setAdapter(elementsWalletAdapter);
         //elementsWalletAdapter.setList(ElementView.getListEnviar(getContext()));
         elementsWalletAdapter.notifyDataSetChanged();

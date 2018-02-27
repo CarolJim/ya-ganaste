@@ -1,8 +1,11 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -25,7 +28,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuent
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
@@ -40,12 +48,15 @@ import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 
 /**
@@ -197,19 +208,51 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
         if (position == 0) {
             llm.setSpanCount(3);
             rcvOpciones.setLayoutManager(llm);
-            elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListEmisor(),0);
+            elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(),0);
         }
         if (position == 1) {
-            if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+            /*if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
                 elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorAdq(),0);
             } else {
                 llm.setSpanCount(1);
                 rcvOpciones.setLayoutManager(llm);
+
                 elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorEmi(),1);
+            }*/
+            int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+            llm.setSpanCount(1);
+            rcvOpciones.setLayoutManager(llm);
+
+            if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                    && Idestatus == IdEstatus.I7.getId()) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(),2);
+
+            }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                    && Idestatus == IdEstatus.I8.getId()) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(),2);
+            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                    Idestatus == IdEstatus.I9.getId()) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoError(),2);
+            }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                    Idestatus == IdEstatus.I10.getId()) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(),2);
+            }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                    Idestatus == IdEstatus.I11.getId()) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoAprobado(),2);
+
+            }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                    Idestatus == IdEstatus.I13.getId()) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(),2);
+            }else if  (!App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(),0);
+            } else {
+
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorEmi(),1);
+
+
             }
 
         }
-
 
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();

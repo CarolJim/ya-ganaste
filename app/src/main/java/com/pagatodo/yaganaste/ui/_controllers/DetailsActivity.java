@@ -139,6 +139,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         //imageView = (ImageView) findViewById(R.id.imgNotifications);
         //imageView.setVisibility(View.GONE);
         //imageshare = (ImageView) findViewById(R.id.deposito_Share);
