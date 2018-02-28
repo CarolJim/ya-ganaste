@@ -15,25 +15,23 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -45,15 +43,10 @@ import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthorizePresenter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
-import com.pagatodo.yaganaste.utils.AsignarContraseñaTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
-import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -76,13 +69,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Jordan on 02/05/2017.
@@ -127,6 +118,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     String password;
     private Envios envio;
+    private DataFavoritos favoritos;
     private View rootview;
 
     private CustomErrorDialog customErrorDialog;
@@ -148,11 +140,12 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private static int PIN_LENGHT = 6;
     private Preferencias prefs = App.getInstance().getPrefs();
 
-    public static PaymentAuthorizeFragment newInstance(Payments envio) {
+    public static PaymentAuthorizeFragment newInstance(Payments envio, DataFavoritos dataFavoritos) {
         fragmentCode = new PaymentAuthorizeFragment();
         //PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
         Bundle args = new Bundle();
         args.putSerializable("envios", envio);
+        args.putSerializable("favorito", dataFavoritos);
         fragmentCode.setArguments(args);
         return fragmentCode;
     }
@@ -162,6 +155,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         envio = (Envios) getArguments().getSerializable("envios");
+        favoritos = (DataFavoritos) getArguments().getSerializable("favorito");
         paymentAuthorizePresenter = new PaymentAuthorizePresenter(this);
     }
 
@@ -209,12 +203,24 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         });
         txt_data.setText(envio.getNombreDestinatario());
         txt_monto.setText(StringUtils.getCurrencyValue(envio.getMonto()));
-        imgCircleToSendReceiver.setBorderColor(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
-        GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()),
-                android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
-        imgCircleToSendReceiver.setBackground(gd);
-        String sIniciales = getIniciales(envio.getNombreDestinatario());
-        txtIniciales.setText(sIniciales);
+        Glide.with(App.getContext())
+                .load(App.getInstance().getPrefs().loadData(URL_PHOTO_USER))
+                .placeholder(R.mipmap.icon_user)
+                .into(imgPagosUserProfile);
+        if (favoritos != null && !favoritos.getImagenURL().equals("")) {
+            txtIniciales.setVisibility(View.GONE);
+            Glide.with(App.getContext())
+                    .load(favoritos.getImagenURL())
+                    .placeholder(R.mipmap.icon_user)
+                    .into(imgCircleToSendReceiver);
+        } else {
+            imgCircleToSendReceiver.setBorderColor(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
+            GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(envio.getComercio().getColorMarca()),
+                    android.graphics.Color.parseColor(envio.getComercio().getColorMarca()));
+            imgCircleToSendReceiver.setBackground(gd);
+            String sIniciales = getIniciales(envio.getNombreDestinatario());
+            txtIniciales.setText(sIniciales);
+        }
         btnContinueEnvio.setOnClickListener(this);
         setValidationRules();
         //Huella
@@ -282,7 +288,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                         fragment.setFragmentInstance(fragmentCode);
                         fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                     }
-
                 }
             }
         }

@@ -306,7 +306,7 @@
     <string name="saldo_comercial">SALDO COMERCIAL</string>
 
     <string name="authorize_payment_title">Autoriza el envío</string>
-    <string name="titulo_dialogo_huella_generacion_codigo">Generar Código de Seguridad</string>
+    <string name="titulo_dialogo_huella_generacion_codigo">Generar código de seguridad</string>
     <string name="authorize_generacion_codigo_huella_digital">Coloque su Huella Digital Para Verificar su Identidad</string>
     <string name="action_picture">Seleccionar Fotografía</string>
     <string name="action_take_picture">Abrir Cámara</string>
@@ -593,8 +593,8 @@
     <string name="title_llamar">Llamar</string>
     <string name="title_error">Ocurrió un error</string>
     <string name="title_update">Actualización</string>
-    <string name="text_update_forced">Para Poder Continuar es Necesario Actualizar tu App</string>
-    <string name="text_update_warn">Hay Una Nueva Versión de Ya Ganaste, ¿Deseas Descargarla Ahora?</string>
+    <string name="text_update_forced">Para poder continuar es necesario actualizar tu app</string>
+    <string name="text_update_warn">Hay una nueva versión de Ya Ganaste, ¿Deseas descargarla ahora?</string>
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>

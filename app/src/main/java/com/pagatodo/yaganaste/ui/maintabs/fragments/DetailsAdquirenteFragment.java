@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +25,12 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.view.View.GONE;
-import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_GO_LOAD_SHARE_EMAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
@@ -134,7 +129,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         /*if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
         } else {*/
-            imageView.setVisibility(View.GONE);
+        imageView.setVisibility(View.GONE);
         //}
     }
 
@@ -213,13 +208,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
          * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
          * Glide permite falla y cargar un PlaceHolder
          */
-        if(url != null && !url.isEmpty()) {
-            Picasso.with(getContext())
-                    .load(url)
-                    .placeholder(R.mipmap.logo_yaganaste_hw)
-                    .error(R.mipmap.logo_yaganaste_hw)
-                    .into(imageDetail);
-        }else{
+        if (url != null && !url.isEmpty()) {
             Glide.with(getContext())
                     .load(url)
                     .placeholder(R.mipmap.logo_ya_ganaste)

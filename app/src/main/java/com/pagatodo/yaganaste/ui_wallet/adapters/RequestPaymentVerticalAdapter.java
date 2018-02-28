@@ -10,12 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -127,10 +127,10 @@ public class RequestPaymentVerticalAdapter extends RecyclerView.Adapter<RequestP
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Picasso.with(App.getContext())
+        Glide.with(App.getContext())
                 .load(urlLogo)
+                .asBitmap()
                 .placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.icon_user)
                 .into(imageView);
     }
 

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,25 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.pagatodo.yaganaste.App;
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
-import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.net.UtilsNet;
-import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.RequestPaymentActivity;
-import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
@@ -40,15 +30,10 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.ID_ENVIAR;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.ID_SOLICITAR;
-import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 
 public class SendWalletFragment extends GenericFragment implements EditTextImeBackListener {
 
@@ -111,8 +96,10 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         if (dataFavoritos != null) {
             txtInicialesFav.setVisibility(View.GONE);
             if (!dataFavoritos.getImagenURL().equals("")) {
-                Picasso.with(App.getContext()).load(dataFavoritos.getImagenURL()).placeholder(R.mipmap.icon_user)
-                        .error(R.mipmap.icon_user).into(crlImageFavorite);
+                Glide.with(getContext())
+                        .load(dataFavoritos.getImagenURL())
+                        .placeholder(R.mipmap.icon_user)
+                        .into(crlImageFavorite);
             } else {
                 txtInicialesFav.setVisibility(View.VISIBLE);
                 GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(payments.getComercio().getColorMarca()),
@@ -165,6 +152,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 payments.setMonto(monto);
                 Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
                 intent.putExtra("pagoItem", payments);
+                intent.putExtra("favoriteItem" ,dataFavoritos);
                 intent.putExtra("TAB", Constants.PAYMENT_ENVIOS);
                 SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
                 getActivity().startActivity(intent);

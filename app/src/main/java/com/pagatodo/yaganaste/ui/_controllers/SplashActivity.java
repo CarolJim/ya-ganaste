@@ -191,8 +191,8 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
          * descargar y abrir por el hilo de notificacion
          */
         if (!downloadFile) {
-            startActivityForResult(intent, SPLASH_ACTIVITY_RESULT, options.toBundle());
-            //SplashActivity.this.finish();
+            startActivity(intent/*, SPLASH_ACTIVITY_RESULT, options.toBundle()*/);
+            SplashActivity.this.finish();
         }
 
     }
