@@ -29,7 +29,6 @@ public class ElementView implements Serializable {
     private int textbutton;
 
 
-
     public ElementView() {
     }
 
@@ -131,27 +130,28 @@ public class ElementView implements Serializable {
     //Proceso Revisando
     public static ArrayList<ElementView> getListEstadoRevisando() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false,false,R.string.next));
+        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false, false, R.string.next));
         return elementViews;
     }
 
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoAprobado() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true,false,R.string.next));
+        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next));
         return elementViews;
     }
 
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoError() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true,R.string.btn_reenviar));
+        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true, R.string.btn_reenviar));
         return elementViews;
     }
+
     //Proceso Rechazado
     public static ArrayList<ElementView> getListEstadoRechazado() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true,R.string.btn_reenviar));
+        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar));
         return elementViews;
     }
 
@@ -164,7 +164,7 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListEmisorBalance(Context context) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        if (App.getInstance().getStatusId() == ESTATUS_CUENTA_DESBLOQUEADA) {
+        if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
             elementViews.add(new ElementView(1, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
         } else {
             elementViews.add(new ElementView(1, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));

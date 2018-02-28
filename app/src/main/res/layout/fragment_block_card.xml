@@ -74,15 +74,14 @@
             android:id="@+id/text_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center_vertical"
             android:hint="@string/hint_password"
             android:maxLines="1"
-            android:paddingLeft="6dp"
             android:textColorHint="@color/texthint"
             android:theme="@style/TextLabel"
             app:passwordToggleEnabled="true"
@@ -97,9 +96,10 @@
                 android:background="@android:color/transparent"
                 android:imeOptions="actionDone"
                 android:inputType="numberPassword"
+                android:maxLength="6"
+                android:paddingLeft="15dp"
                 android:password="true"
                 android:singleLine="true"
-                android:maxLength="6"
                 android:textColor="@color/texthint" />
 
         </android.support.design.widget.TextInputLayout>
@@ -113,8 +113,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom"
-        android:gravity="center"
         android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:text="@string/txt_iniciar_sesion" />
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
