@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -44,6 +45,7 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.AUDIO_SERVICE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -83,8 +85,14 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     protected boolean isReaderConected = false;
     /*@BindView(R.id.imgInsertDongle)
     ImageView imgInsertDongle;*/
+   /* @BindView(R.id.imgInsertCard)
+    GifImageView imgInsertCard;*/
+
+    @BindView(R.id.imgInsertDongle)
+    LottieAnimationView imgInsertDongle;
     @BindView(R.id.imgInsertCard)
-    GifImageView imgInsertCard;
+    LottieAnimationView imgInsertCard;
+
    /* @BindView(R.id.insertDongleAnimation)
     LottieAnimationView insertDongle;*/
     @BindView(R.id.tv_txt_lector)
@@ -453,33 +461,42 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertDongle() {
         //insertDongle.setVisibility(VISIBLE);
-        imgInsertCard.setVisibility(View.INVISIBLE);
+        imgInsertCard.setVisibility(INVISIBLE);
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
+        imgInsertDongle.playAnimation();
+
     }
 
     @Override
     public void showInsertCard() {
        /* insertDongle.setVisibility(View.GONE);
         insertDongle.pauseAnimation();*/
+
+        imgInsertCard.setVisibility(VISIBLE);
+        imgInsertDongle.setVisibility(INVISIBLE);
         String message;
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
-                imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
+               // imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
+                imgInsertCard.playAnimation();
             } else {
                 // showError("Mensaje de prueba dongle_swipe_card");
                 message = getString(R.string.text_slide_cancelation);
-                imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+                //imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+                imgInsertCard.playAnimation();
             }
         } else {
             // message = getString(R.string.text_slide_or_insert);
             message = getString(R.string.text_insert_or_slide);
+            imgInsertCard.playAnimation();
         }
-        imgInsertCard.setVisibility(VISIBLE);
+
+
 
         try {
-            ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
+          //  ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

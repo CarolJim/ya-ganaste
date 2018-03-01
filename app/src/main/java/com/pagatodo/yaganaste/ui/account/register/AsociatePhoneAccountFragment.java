@@ -44,6 +44,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
@@ -195,7 +196,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
-            nextScreen(EVENT_GO_MAINTAB, null);
+            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
         } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
@@ -209,12 +210,12 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
     @Override
     public void finishReseting() {
-        nextScreen(EVENT_GO_MAINTAB, null);
+        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
     @Override
     public void onResetingFailed() {
-        nextScreen(EVENT_GO_MAINTAB, null);
+        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
 

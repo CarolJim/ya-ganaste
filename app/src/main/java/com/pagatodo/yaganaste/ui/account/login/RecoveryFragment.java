@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
@@ -23,6 +25,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -45,14 +48,14 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     ImageView imgHeaderRecover;
     @BindView(R.id.img_recover_pass_blue)
     ImageView imgRecoverBlue;
+    @BindView(R.id.text_email)
+    TextInputLayout lytTxtEmail;
     @BindView(R.id.edtCorreoRegistrado)
-    CustomValidationEditText edtCorreoRegistrado;
+    EditText edtCorreoRegistrado;
     @BindView(R.id.btnNextRecuperar)
     StyleButton btnRecuperarContrasenia;
     @BindView(R.id.btnBackRecuperar)
     StyleButton btnBack;
-    @BindView(R.id.errorMessage)
-    ErrorMessage errorMessageView;
     @BindView(R.id.tvCorreoRegistrado)
     StyleTextView tvCorreoRegistrado;
     @BindView(R.id.txtHeaderRecovery)
@@ -123,7 +126,6 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     public void initViews() {
         ButterKnife.bind(this, rootview);
         ((AccountActivity) getActivity()).changeToolbarVisibility(true);
-        errorMessageView.setVisibilityImageError(false);
         btnBack.setOnClickListener(this);
         btnRecuperarContrasenia.setOnClickListener(this);
         setValidationRules();
@@ -137,6 +139,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             imgHeaderRecover.setVisibility(View.GONE);
             edtCorreoRegistrado.setVisibility(View.GONE);
+            lytTxtEmail.setVisibility(View.GONE);
 
             // Asignamos el texto de enlace de correo
             String mTextEnlace = getContext().getResources()
@@ -197,23 +200,22 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showError(Object error) {
-        errorMessageView.setMessageText(error.toString());
         UI.hideKeyBoard(getActivity());
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void hideValidationError(int id) {
-        errorMessageView.setVisibilityImageError(false);
     }
 
     /*Implementación de ValidationForm*/
     @Override
     public void setValidationRules() {
 
-        edtCorreoRegistrado.addCustomTextWatcher(new TextWatcher() {
+        edtCorreoRegistrado.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!edtCorreoRegistrado.isValidText()) {
+                if (!ValidateForm.isValidEmailAddress(edtCorreoRegistrado.getText().toString())) {
                     hideValidationError(0);
                 }
             }
@@ -243,10 +245,8 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         } else {
             if (correoRegistrado.isEmpty()) {
                 showValidationError(edtCorreoRegistrado.getId(), getString(R.string.ingresa_correo_registrado_requerido));
-                edtCorreoRegistrado.setIsInvalid();
-            } else if (!edtCorreoRegistrado.isValidText()) {
+            } else if (!ValidateForm.isValidEmailAddress(edtCorreoRegistrado.getText().toString())) {
                 showValidationError(edtCorreoRegistrado.getId(), getString(R.string.datos_usuario_correo_formato));
-                edtCorreoRegistrado.setIsInvalid();
             } else {
                 onValidationSuccess();
             }
@@ -255,7 +255,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showValidationError(int id, Object error) {
-        errorMessageView.setMessageText(error.toString());
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_LONG);
         UI.hideKeyBoard(getActivity());
         setEnableViews(true);
     }
@@ -276,10 +276,9 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             correoRegistrado = userEmail;
         } else {
-            correoRegistrado = edtCorreoRegistrado.getText().trim();
+            correoRegistrado = edtCorreoRegistrado.getText().toString().trim();
         }
     }
-
 
     @Override
     public void recoveryPasswordSuccess(String message) {

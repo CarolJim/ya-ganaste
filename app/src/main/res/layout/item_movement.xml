@@ -9,11 +9,12 @@
 
 
     <RelativeLayout
-        android:id="@+id/view_background"
+        android:id="@+id/view_background_left"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="83dp"
@@ -42,12 +43,48 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/view_background_right"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorAccent"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="83dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/ico_share"
+                android:layout_width="18dp"
+                android:layout_height="17dp"
+                android:src="@drawable/start_switch"
+                android:layout_centerInParent="true"/>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_4"
+                android:textColor="@color/whiteColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_favorite_txt"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/ico_share"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/view_foreground"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:background="@color/whiteColor">
+        android:background="@color/whiteColor"
+        android:visibility="visible">
 
         <View
             android:id="@+id/layout_movement_type_color"

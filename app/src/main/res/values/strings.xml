@@ -157,7 +157,7 @@
     <string name="add_your_address">Agrega tu Dirección</string>
     <string name="street">Calle, Avenida o Vía</string>
     <string name="colonia">Colonia</string>
-    <string name="terms_and_conditions">Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones</string>
+    <string name="terms_and_conditions">Al continuar reconozco ser mayor de edad, así como\nhaber leído y aceptado los Términos y Condiciones y\nel Aviso de Privacidad</string>
     <string name="postal_code">C.P.</string>
     <string name="intern_number">Número Interior</string>
     <string name="outside_number">Número Exterior</string>
@@ -212,13 +212,13 @@
     <string name="lorem_ipsum_extended">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.\" Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, \"consecteur\", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de \"de Finnibus Bonorum et Malorum\" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", viene de una linea en la sección 1.10.32  El trozo de texto estándar de Lorem Ipsum usado desde el año 1500 es reproducido debajo para aquellos interesados. Las secciones 1.10.32 y 1.10.33 de \"de Finibus Bonorum et Malorum\" por Cicero son también reproducidas en su forma original exacta, acompañadas por versiones en Inglés de la traducción realizada en 1914 por H. Rackham</string>
     <string name="txt_felicidades">¡Felicidades!</string>
     <string name="txt_leyenda_felicidades">Tu Aplicación Ya Ganaste Está Preparada Para Que Comiences Una Nueva Experiencia y Disfrutes de Todos Los Beneficios</string>
-    <string name="txt_comenzar">COMENZAR</string>
+    <string name="txt_comenzar">¡Comenzar!</string>
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
     <string name="txt_escribe_tu_pass">Contraseña</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
-    <string name="recover_pass">¿Olvidaste tu Contraseña?\n<u>Aquí Podemos Ayudarte</u></string>
+    <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo electrónico</string>
     <string name="send">ENVIAR</string>
@@ -325,7 +325,7 @@
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
     <string name="datos_usuario_correo">El correo no es correcto, revísalo y vuelve a intentar.</string>
-    <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
+    <string name="datos_usuario_correo_formato">El correo no es válido</string>
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide</string>
     <string name="datos_usuario_pass">Introduce la Contraseña</string>
@@ -380,10 +380,10 @@
     <string name="msg_renapo">Validando Información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu\ncuenta Ya Ganaste</string>
-    <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
+    <string name="activacion_sms_mes_1">Para vincular tu cuenta a este\ndispositivo, debemos enviar un SMS</string>
+    <string name="activacion_sms_mes_2">Pulsa el siguiente botón para realizar\neste proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
-    <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
+    <string name="activacion_sms_verificando">Verificando activación de dispositivo</string>
     <!--tienes_tarjeta-->
     <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta</string>
     <string name="tienes_tarjeta_asignando">Asignando Tarjeta</string>
@@ -582,8 +582,8 @@
     <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara</string>
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
-    <string name="no_tiene_tarjeta">No te Preocupes, te Asignaremos Una Tarjeta\nDigital y Podrás Solicitar Una Física en el Futuro</string>
-    <string name="si_tiene_tarjeta">Ingresa tu los últimos 8 dígitos que se encuentran\nen la parte frontal de tu Tarjeta</string>
+    <string name="no_tiene_tarjeta">No te preocupes, te asignaremos una tarjeta\ndigital y podrás solicitar una física en el futuro</string>
+    <string name="si_tiene_tarjeta">Ingresa tu los últimos 8 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="tarjeta_cancelada">Tu Tarjeta Esta Cancelada</string>
     <string name="title_aceptar">Aceptar</string>
@@ -619,7 +619,7 @@
     <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
     <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes generar una\nnueva, te enviaremos las instrucciones.\n\nSe enviará un correo a:</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico con el que te\nregistraste para enviarte las instrucciones</string>
-    <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
+    <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
     <string name="carrouse_title_1">Cobra Con Tarjeta\nal Mejor Precio</string>
     <string name="carrouse_title_2">Recibe Pagos\nCon Tarjeta</string>
@@ -1167,10 +1167,10 @@
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
-    <string name="bloquear_tarjeta">Bloquear tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloquear\nTarjeta</string>
-    <string name="generar_codigo">Generar\ncódigo</string>
-    <string name="realizar_cobro">Realizar\ncobro</string>
+    <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
+    <string name="generar_codigo">Generar código\nde seguridad</string>
+    <string name="realizar_cobro">Realizar un\ncobro rápido</string>
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
@@ -1303,7 +1303,7 @@
     <string name="contrasena_confirma">Confirma contraseña</string>
 
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">Casi estamos listos, necesitamos hacer algunas\npreguntas más para completar tu resgistro</string>
+    <string name="sub_titulo_datos_personales">¿Dónde vives? es muy importante tener tus datos\ncompletos para continuar con tu registro</string>
 
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
@@ -1326,8 +1326,8 @@
 
     <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
     <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
-    <string name="nip">NIP (4dígitos)</string>
-    <string name="nipconfirma">Confirma tu NIP</string>
+    <string name="nip">NIP (4 dígitos)</string>
+    <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
 
     <!-- Registro Adquiriente Adapters -->
     <string name="title_tipo_uno">Estamos revisando tu solicitud</string>

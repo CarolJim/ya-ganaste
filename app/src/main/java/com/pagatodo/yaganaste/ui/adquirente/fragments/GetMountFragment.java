@@ -69,7 +69,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
-public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse> {
+public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse> ,View.OnClickListener{
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 900;
 
@@ -82,6 +82,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     CustomKeyboardView keyboardView;
     @BindView(R.id.img_arrow_previous)
     ImageView imgArrowPrev;
+    @BindView(R.id.btncobrar)
+    LinearLayout btncobrar;
 
     LinearLayout layout_amount;
     private float MIN_AMOUNT = 1.0f;
@@ -135,6 +137,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+        btncobrar.setOnClickListener(this);
 
 /*      Se comenta este codigo para quitar el Shebron y la funcionalidad, se deja por si se retoma el disenio
         if (getActivity() instanceof AccountActivity) {
@@ -276,6 +279,63 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     }
 
+    private void actionChargecobro() {
+        //String valueAmount = et_amount.getText().toString().trim();
+
+        App.getInstance().setCurrentMount(et_amount.getText().toString().trim());
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);
+        int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionLocation = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.RECORD_AUDIO},
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+
+        }else{
+            isValid = true;
+            setLocationSetting();
+        }
+
+
+        String valueAmount = App.getInstance().getCurrentMount();
+
+        if (valueAmount.length() > 0 && !valueAmount.equals(getString(R.string.mount_cero))) {
+            try {
+
+                StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
+
+                // Limpiamos del caracter $ en caso de tenerlo
+                int positionMoney = valueAmount.indexOf("$");
+                if (positionMoney == 0) {
+                    valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
+                }
+
+                float current_mount = Float.parseFloat(valueAmount);
+                String current_concept = edtConcept.getText().toString().trim();//Se agrega Concepto opcional
+                if (current_mount >= MIN_AMOUNT) {
+                    TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
+                    TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
+                    //setData("", "");
+                    /*NumberCalcTextWatcher.cleanData();
+                    et_amount.setText("0");
+                    edtConcept.setText(null);
+                    mySeekBar.setProgress(0);
+                    NumberCalcTextWatcher.cleanData();*/
+
+                    //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
+
+                    Intent intent = new Intent(getActivity(), AdqActivity.class);
+                    getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
+                } else showValidationError(getString(R.string.mount_be_higer));
+            } catch (NumberFormatException e) {
+                showValidationError(getString(R.string.mount_valid));
+            }
+        } else showValidationError(getString(R.string.enter_mount));
+
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -404,5 +464,13 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 true, false);
     }
 
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId()==R.id.btncobrar){
+            actionChargecobro();
+        }
+
+    }
 }
 

@@ -34,6 +34,10 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     private CatalogsDbApi api;
     int idFavorito;
 
+    public FavoritesPresenter(){
+        this.favoritesIteractor = new FavoritesIteractor(this);
+        this.api = new CatalogsDbApi(App.getContext());
+    }
     public FavoritesPresenter(IAddFavoritesActivity mView) {
         this.mView = mView;
         favoritesIteractor = new FavoritesIteractor(this);

@@ -14,18 +14,19 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
+
+
+        <!-- Agregamos el layout que contiene el EditText de Calculadora -->
+        <include layout="@layout/calculator_layout" />
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/titleAmount"
             style="@style/generic_text_style_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="1dp"
             android:text="@string/monto_cobrar"
-            android:textColor="@color/whiteColor" />
-
-        <!-- Agregamos el layout que contiene el EditText de Calculadora -->
-        <include layout="@layout/calculator_layout" />
+            android:textColor="@color/cobrotexto" />
 
         <LinearLayout
             android:id="@+id/conceptLayout"
@@ -48,11 +49,38 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:hint="Concepto (Opcional)"
+                android:hint=""
                 android:inputType="text|textNoSuggestions|textCapSentences"
                 android:padding="8dp"
-                android:textColor="@color/whiteColor"
+                android:textColor="@color/cobrotexto"
                 android:textStyle="normal" />
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/titleConcepto"
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="37dp"
+                android:text="Concepto (Opcional)"
+                android:textColor="@color/cobrotexto" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53.5dp"
+            android:id="@+id/btncobrar"
+            android:background="@color/colorAccent"
+            >
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Cobrar"
+                android:textSize="19sp"
+                android:textAlignment="center"
+                />
+
         </LinearLayout>
 
         <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
@@ -61,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/seekbar_margin"
             android:layout_marginRight="@dimen/seekbar_margin"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/margin_doble"
             android:background="@drawable/seek_background"
             android:clickable="false"
@@ -78,11 +107,17 @@
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"
+        android:keyTextColor="#bcbcbc"
+        android:background="@android:color/darker_gray"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/material_key_drawable"
-        android:visibility="gone" />
+        android:visibility="gone"
+
+
+
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,7 +131,7 @@
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img_arrow_previous"
             android:layout_width="@dimen/activity_horizontal_double_margin"
-            android:layout_height="@dimen/activity_horizontal_double_margin"
+            android:layout_height="32dp"
             android:foreground="?attr/selectableItemBackground"
             android:rotationY="180"
             android:visibility="invisible"

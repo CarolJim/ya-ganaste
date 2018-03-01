@@ -72,8 +72,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.edit_passwordconfirm)
     EditText editPasswordConfirm;
 
-
-
     @BindView(R.id.text_email)
     TextInputLayout text_email;
 
@@ -85,15 +83,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @BindView(R.id.text_passwordconfirm)
     TextInputLayout text_passwordconfirm;
-
-
-
-
-
-
-
-
-
 
     @BindView(R.id.btnNextDatosUsuario)
     StyleButton btnNextDatosUsuario;
@@ -123,8 +112,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private AppCompatImageView btnBack;
     private boolean errorIsShowed = false;
     private Preferencias preferencias;
-
-
 
     public DatosUsuarioFragment() {
     }
@@ -171,12 +158,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         editPassword.setOnFocusChangeListener(this);
         editPasswordConfirm.setOnFocusChangeListener(this);
 
-
-
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
-
-
     }
 
     @Override
@@ -198,7 +181,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void setValidationRules() {
-
         editMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

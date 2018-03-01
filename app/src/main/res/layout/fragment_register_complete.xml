@@ -5,6 +5,7 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
@@ -26,7 +27,19 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
             android:layout_marginTop="15dp"
+            android:visibility="gone"
             app:srcCompat="@drawable/ic_done" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/check" />
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -37,6 +50,7 @@
         android:layout_below="@+id/layoutImagenLogin"
         android:gravity="center"
         android:text="@string/txt_felicidades"
+        android:visibility="gone"
         app:tipo="Titulo" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -46,7 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitle"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="Tu cuenta Ya Ganaste esta lista"
+        android:textColor="@color/white_text_wallet"
+        android:textSize="16sp" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtMessage"
@@ -56,21 +73,26 @@
         android:layout_above="@+id/lnr_buttons"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:gravity="center"
-        android:text="@string/congratulation_text2" />
+        android:text="@string/congratulation_text2"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/lnr_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextComplete"
-            style="@style/buttonDirecctionNext"
-            android:text="@string/next" />
+            android:layout_width="214dp"
+            android:layout_height="45dp"
+            android:background="@drawable/white_round_button"
+            android:text="@string/txt_comenzar"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
     </LinearLayout>
 </RelativeLayout>

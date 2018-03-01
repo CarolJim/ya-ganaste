@@ -61,9 +61,6 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 
-/**
- * Created by Jordan on 25/04/2017.
- */
 
 public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
 

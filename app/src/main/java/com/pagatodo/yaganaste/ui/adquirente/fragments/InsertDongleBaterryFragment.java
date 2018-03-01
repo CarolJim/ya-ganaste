@@ -82,10 +82,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
     private static String DATA_MOVEMENTS = "data_movimiento_adq";
     public Preferencias prefs;
     protected boolean isReaderConected = false;
-    @BindView(R.id.imgInsertDongle)
-    ImageView imgInsertDongle;
-    @BindView(R.id.imgInsertCard)
-    GifImageView imgInsertCard;
+
+
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
     DataMovimientoAdq dataMovimientoAdq;
@@ -444,15 +442,15 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
 
     @Override
     public void showInsertDongle() {
-        imgInsertDongle.setVisibility(VISIBLE);
-        imgInsertCard.setVisibility(View.INVISIBLE);
+      //  imgInsertDongle.setVisibility(VISIBLE);
+    //    imgInsertCard.setVisibility(View.INVISIBLE);
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
     }
 
     @Override
     public void showInsertCard() {
-        imgInsertDongle.setVisibility(View.INVISIBLE);
+     //   imgInsertDongle.setVisibility(View.INVISIBLE);
         String message;
 
         if (isCancelation) {
@@ -460,15 +458,15 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 message = getString(R.string.text_insert_cancelation);
             } else {
                 message = getString(R.string.text_slide_cancelation);
-                imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+       //         imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
             }
         } else {
             message = getString(R.string.text_slide_or_insert);
         }
-        imgInsertCard.setVisibility(VISIBLE);
+       // imgInsertCard.setVisibility(VISIBLE);
 
         try {
-            ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
+         //   ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

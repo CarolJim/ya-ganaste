@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="."
-                android:textColor="@color/whiteColor"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView

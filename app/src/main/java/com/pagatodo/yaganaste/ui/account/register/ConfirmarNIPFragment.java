@@ -212,8 +212,12 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void onValidationSuccess() {
         RegisterUser registerUser = RegisterUser.getInstance();
 
-        if (!registerUser.getPerfirlfoto().toString().isEmpty()){
-            cameraManager.setCropImageselfie(registerUser.getPerfirlfoto());
+        if (registerUser.getPerfirlfoto()!=null){
+            if ( !registerUser.getPerfirlfoto().toString().isEmpty()) {
+                cameraManager.setCropImageselfie(registerUser.getPerfirlfoto());
+            }else {
+                accountPresenter.assignNIP(nip);
+            }
         }else {
             accountPresenter.assignNIP(nip);
         }

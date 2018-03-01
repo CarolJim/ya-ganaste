@@ -24,7 +24,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -37,7 +36,6 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -60,7 +58,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
@@ -295,7 +292,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             accountPresenter.login(RequestHeaders.getUsername(), pass[0]);
             onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
         } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+            UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         }
 
     }
@@ -438,10 +435,10 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             if (isOnline) {
                 onValidationSuccess();
             } else {
-                showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+                UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
             }
         } else {
-            showDialogMesage(errorMsg, 0);
+            UI.showErrorSnackBar(getActivity(), errorMsg, Snackbar.LENGTH_SHORT);
         }
     }
 
@@ -510,10 +507,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         }
 
         // Armamos
-        showDialogMesage(messageStatus +
-                "\n" +
+        UI.showSuccessSnackBar(getActivity(), messageStatus + "\n" +
                 getResources().getString(R.string.card_num_autorization) + " "
-                + response.getData().getNumeroAutorizacion(), 1);
+                + response.getData().getNumeroAutorizacion(), Snackbar.LENGTH_LONG);
         try {
             ApiAdtvo.cerrarSesion();
             // Toast.makeText(App.getContext(), "Close Session " + response.getData().getNumeroAutorizacion(), Toast.LENGTH_SHORT).show();
@@ -549,7 +545,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     public void sendErrorBloquearCuentaToView(String mensaje) {
         // Toast.makeText(App.getContext(), "Error Vloquear", Toast.LENGTH_SHORT).show();
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        showDialogMesage(mensaje, 0);
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
         try {
             ApiAdtvo.cerrarSesion();
             //Toast.makeText(App.getContext(), "Close Session ", Toast.LENGTH_SHORT).show();
@@ -561,7 +557,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void showError(Object error) {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        showDialogMesage(error.toString(), 0);
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -582,25 +578,5 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void warningUpdate() {
 
-    }
-
-    private void showDialogMesage(final String mensaje, final int backAction) {
-        /*UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        if (backAction == 1) {
-                            // Accion de Out
-                            onEventListener.onEvent(EVENT_BLOCK_CARD_BACK, "");
-                        }
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);*/
-        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 }

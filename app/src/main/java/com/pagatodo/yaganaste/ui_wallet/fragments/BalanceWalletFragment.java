@@ -319,7 +319,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
         balanceWalletAdpater = new BalanceWalletAdpater(this);
-        if (Status.equalsIgnoreCase(ESTATUS_CUENTA_BLOQUEADA)) {
+        if (Status.equals(ESTATUS_CUENTA_BLOQUEADA)) {
             balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda(getContext()));
         } else {
             balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi(getContext()));
