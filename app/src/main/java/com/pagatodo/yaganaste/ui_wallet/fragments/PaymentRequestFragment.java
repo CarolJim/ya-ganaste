@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.pagatodo.yaganaste.App;
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
@@ -37,7 +37,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +48,6 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 
@@ -145,7 +143,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         txtBalance.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
-            Picasso.with(App.getContext())
+            Glide.with(getContext())
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user)
                     .into(imgUser);

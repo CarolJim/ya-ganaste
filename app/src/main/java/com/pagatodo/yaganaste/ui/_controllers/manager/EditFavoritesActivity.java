@@ -82,7 +82,6 @@ import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
-import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -376,13 +375,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          */
         String url = dataFavoritos.getImagenURL();
         if (url != null && !url.isEmpty()) {
-            Picasso.with(this)
-                    .load(dataFavoritos.getImagenURL())
-                    .error(R.drawable.ic_usuario_azul)
-                    //.placeholder(R.drawable.user_placeholder)
-                    //.error(R.drawable.user_placeholder_error)
-                    .into(imageViewCamera.getCircleImageView());
-        } else {
             Glide.with(this)
                     .load(dataFavoritos.getImagenURL())
                     .asBitmap()
@@ -762,8 +754,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-            Picasso.with(this)
+            Glide.with(this)
                     .load(cameraManager.getUriImage())
+                    .asBitmap()
                     .into(imageViewCamera.getCircleImageView());
 
             Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());

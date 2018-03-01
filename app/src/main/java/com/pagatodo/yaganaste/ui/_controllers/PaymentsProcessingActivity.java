@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -82,7 +83,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private View llMain;
 
     IPaymentsProcessingPresenter presenter;
-    Object pago;
+    Object pago, dataFavoritos;
     private boolean isAvailableToBack = false;
     //private MovementsTab tab;
     private String mensajeLoader = "";
@@ -106,6 +107,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
         presenter = new PaymentsProcessingPresenter(this);
         pago = getIntent().getExtras().get("pagoItem");
+        dataFavoritos = getIntent().getExtras().get("favoriteItem");
         typeOperation = (int) getIntent().getExtras().get("TAB");
         llMain = findViewById(R.id.ll_main);
 
@@ -119,7 +121,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             hideLoader();
             isAvailableToBack = true;
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-            loadFragment(PaymentAuthorizeFragment.newInstance((Payments) pago), FORDWARD, true);
+            loadFragment(PaymentAuthorizeFragment.newInstance((Payments) pago, (DataFavoritos) dataFavoritos), FORDWARD, true);
         }
     }
 

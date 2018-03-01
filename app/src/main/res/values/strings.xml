@@ -218,7 +218,7 @@
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
-    <string name="recover_pass">¿Olvidaste tu Contraseña?\n<u>Aquí Podemos Ayudarte</u></string>
+    <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo electrónico</string>
     <string name="send">ENVIAR</string>
@@ -306,7 +306,7 @@
     <string name="saldo_comercial">SALDO COMERCIAL</string>
 
     <string name="authorize_payment_title">Autoriza el envío</string>
-    <string name="titulo_dialogo_huella_generacion_codigo">Generar Código de Seguridad</string>
+    <string name="titulo_dialogo_huella_generacion_codigo">Generar código de seguridad</string>
     <string name="authorize_generacion_codigo_huella_digital">Coloque su Huella Digital Para Verificar su Identidad</string>
     <string name="action_picture">Seleccionar Fotografía</string>
     <string name="action_take_picture">Abrir Cámara</string>
@@ -325,7 +325,7 @@
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
     <string name="datos_usuario_correo">El correo no es correcto, revísalo y vuelve a intentar.</string>
-    <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
+    <string name="datos_usuario_correo_formato">El correo no es válido</string>
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide</string>
     <string name="datos_usuario_pass">Introduce la Contraseña</string>
@@ -380,10 +380,10 @@
     <string name="msg_renapo">Validando Información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu\ncuenta Ya Ganaste</string>
-    <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
+    <string name="activacion_sms_mes_1">Para vincular tu cuenta a este\ndispositivo, debemos enviar un SMS</string>
+    <string name="activacion_sms_mes_2">Pulsa el siguiente botón para realizar\neste proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
-    <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
+    <string name="activacion_sms_verificando">Verificando activación de dispositivo</string>
     <!--tienes_tarjeta-->
     <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta</string>
     <string name="tienes_tarjeta_asignando">Asignando Tarjeta</string>
@@ -593,8 +593,8 @@
     <string name="title_llamar">Llamar</string>
     <string name="title_error">Ocurrió un error</string>
     <string name="title_update">Actualización</string>
-    <string name="text_update_forced">Para Poder Continuar es Necesario Actualizar tu App</string>
-    <string name="text_update_warn">Hay Una Nueva Versión de Ya Ganaste, ¿Deseas Descargarla Ahora?</string>
+    <string name="text_update_forced">Para poder continuar es necesario actualizar tu app</string>
+    <string name="text_update_warn">Hay una nueva versión de Ya Ganaste, ¿Deseas descargarla ahora?</string>
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>
@@ -619,7 +619,7 @@
     <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
     <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes generar una\nnueva, te enviaremos las instrucciones.\n\nSe enviará un correo a:</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico con el que te\nregistraste para enviarte las instrucciones</string>
-    <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
+    <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
     <string name="carrouse_title_1">Cobra Con Tarjeta\nal Mejor Precio</string>
     <string name="carrouse_title_2">Recibe Pagos\nCon Tarjeta</string>
@@ -1167,10 +1167,10 @@
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
-    <string name="bloquear_tarjeta">Bloquear tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloquear\nTarjeta</string>
-    <string name="generar_codigo">Generar\ncódigo</string>
-    <string name="realizar_cobro">Realizar\ncobro</string>
+    <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
+    <string name="generar_codigo">Generar código\nde seguridad</string>
+    <string name="realizar_cobro">Realizar un\ncobro rápido</string>
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>

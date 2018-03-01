@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,9 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -223,14 +220,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
          */
         String url = movimientosResponse.getURLImagen();
         if (url != null && !url.isEmpty()) {
-            Picasso.with(getContext())
-                    .load(getString(R.string.url_images_logos) + url)
-                    .placeholder(R.mipmap.logo_ya_ganaste)
-                    .error(R.mipmap.logo_ya_ganaste)
-                    .into(imageDetail);
-        } else {
             Glide.with(getContext())
-                    .load(url)
+                    .load(getString(R.string.url_images_logos) + url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);
         }

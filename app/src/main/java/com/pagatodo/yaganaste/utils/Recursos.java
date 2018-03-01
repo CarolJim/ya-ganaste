@@ -66,6 +66,7 @@ public class Recursos {
                 URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
                 URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
                 //URL_SERVER_ADQ = "https://agentemovil.pagatodo.com:19443/Middleware.svc";
+                URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
 
                 PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
 
@@ -74,8 +75,6 @@ public class Recursos {
 
                 PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
                 //PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
-
-                URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
             }
         }
     }

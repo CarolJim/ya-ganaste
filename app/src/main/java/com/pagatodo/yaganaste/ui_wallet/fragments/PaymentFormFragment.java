@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -28,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -58,9 +58,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -73,9 +71,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
-import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT_ERROR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -456,7 +452,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
-            Picasso.with(App.getContext())
+            Glide.with(App.getContext())
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user)
                     .into(imgUserPhoto);
@@ -477,7 +473,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (mType == 1) {
             String mPhoto = dataFavoritos.getImagenURL();
             if (!mPhoto.equals("")) {
-                Picasso.with(App.getContext())
+                Glide.with(App.getContext())
                         .load(mPhoto)
                         .placeholder(R.mipmap.icon_user)
                         .into(circuleDataPhoto);
@@ -488,8 +484,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (mType == 2) {
             String mPhoto = comercioResponse.getLogoURLColor();
             if (!mPhoto.equals("")) {
-                Picasso.with(App.getContext())
+                Glide.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
+                        .placeholder(R.mipmap.icon_user)
                         .into(imageDataPhoto);
             }
             //  circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));

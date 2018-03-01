@@ -84,7 +84,7 @@ public class MainActivity extends ToolBarActivity {
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_OK);
+        //setResult(RESULT_OK);
         finish();
     }
 

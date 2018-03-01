@@ -45,9 +45,7 @@
                     android:layout_height="@dimen/radio_image_pago_payment_tab"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:src="@mipmap/icon_user"
-                    app:civ_border_color="@color/colorAccent"
-                    app:civ_border_width="@dimen/border_width" />
+                    android:src="@mipmap/icon_user" />
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -72,9 +70,7 @@
                         android:layout_height="@dimen/radio_image_pago_payment_tab"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/blacksquare"
-                        app:civ_border_color="@color/black"
-                        app:civ_border_width="@dimen/border_width" />
+                        android:src="@color/colorAccent" />
 
                     <TextView
                         android:id="@+id/txtIniciales"

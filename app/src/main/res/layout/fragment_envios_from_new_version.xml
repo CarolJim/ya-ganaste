@@ -82,15 +82,21 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/spnTypeSend"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginTop="@dimen/space_between_elements"
-                    android:background="@drawable/inputtext_normal"
-                    android:backgroundTint="@color/transparent" />
+                    android:background="@drawable/inputtext_normal">
+
+                    <Spinner
+                        android:id="@+id/spnTypeSend"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:backgroundTint="@color/transparent" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_cardNumber"
@@ -279,8 +285,8 @@
                             android:digits="@string/input_letters_concepto"
                             android:imeOptions="actionNext"
                             android:inputType="textCapWords|textNoSuggestions"
-                            android:maxLines="1"
                             android:maxLength="40"
+                            android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="@color/texthint" />
 
@@ -312,9 +318,9 @@
                             android:background="@android:color/transparent"
                             android:digits="@string/input_letters_concepto"
                             android:imeOptions="actionNext"
+                            android:inputType="number"
                             android:maxLength="6"
                             android:maxLines="1"
-                            android:inputType="number"
                             android:singleLine="true"
                             android:textColor="@color/texthint" />
 

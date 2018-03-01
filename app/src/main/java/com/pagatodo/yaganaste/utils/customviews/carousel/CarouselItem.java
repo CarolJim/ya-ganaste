@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 
@@ -105,7 +103,7 @@ public class CarouselItem extends FrameLayout
         this.comercio = comercio;
         inflateLayout();
         // Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
-        Picasso.with(getContext())
+        Glide.with(getContext())
                 .load(App.getContext().getString(R.string.url_images_logos)+imageUrl)
                 .into(mImage);
     }
@@ -118,10 +116,9 @@ public class CarouselItem extends FrameLayout
         this.favoritos = favoritos;
         inflateLayout();
         //  Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
-        Picasso.with(getContext())
+        Glide.with(getContext())
                 .load(imageUrl)
                 .into(mImage);
-
     }
 
     //
@@ -172,10 +169,9 @@ public class CarouselItem extends FrameLayout
         this.color = color;
         inflateLayout(color);
         //Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
-        Picasso.with(getContext())
+        Glide.with(getContext())
                 .load(App.getContext().getString(R.string.url_images_logos)+imageUrl)
                 .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.logo_ya_ganaste)
                 .into(mImage);
 
     }
@@ -189,14 +185,9 @@ public class CarouselItem extends FrameLayout
         this.favoritos = favoritos;
         this.color = color;
         inflateLayout(color);
-       /* Glide.with(getContext()).load(imageUrl).placeholder(R.mipmap.icon_user)
+        Glide.with(getContext()).load(imageUrl).placeholder(R.mipmap.icon_user)
                 .error(R.mipmap.icon_user)
-                .dontAnimate().into(mImageCiruclar);*/
-        Picasso.with(getContext())
-                .load(imageUrl)
-                .placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.icon_user)
-                .into(mImageCiruclar);
+                .dontAnimate().into(mImageCiruclar);
     }
 
 

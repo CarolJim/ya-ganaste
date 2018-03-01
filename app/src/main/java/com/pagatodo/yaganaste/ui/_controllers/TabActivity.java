@@ -205,10 +205,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         String tokenFB = pref.loadData(TOKEN_FIREBASE);
         //Log.d(TAG2, "tokenFB " + tokenFB);
         //Log.d(TAG2, "tokenFBExist " + tokenFBExist);
-        if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
+       /* if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
             //  Log.d(TAG2, "FBPresenter " + tokenFB);
             fbmPresenter.registerFirebaseToken(tokenFB);
-        }
+        }*/
     }
 
     public void setAvatar() {

@@ -47,7 +47,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
     private CatalogsDbApi api;
     private Preferencias preferencias;
     private static final String TAG = "SplashActivity";
-    public static final int SPLASH_ACTIVITY_RESULT = 0;
     boolean downloadFile = false;
     ImageView imgLogo;
 
@@ -191,8 +190,8 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
          * descargar y abrir por el hilo de notificacion
          */
         if (!downloadFile) {
-            startActivityForResult(intent, SPLASH_ACTIVITY_RESULT, options.toBundle());
-            //SplashActivity.this.finish();
+            startActivity(intent/*, SPLASH_ACTIVITY_RESULT, options.toBundle()*/);
+            SplashActivity.this.finish();
         }
 
     }
@@ -229,13 +228,5 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         startActivity(intent);
         hideLoader();
         this.finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SPLASH_ACTIVITY_RESULT && resultCode == RESULT_OK) {
-            this.finish();
-        }
     }
 }
