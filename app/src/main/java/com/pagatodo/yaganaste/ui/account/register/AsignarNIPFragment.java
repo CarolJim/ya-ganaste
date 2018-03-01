@@ -71,7 +71,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     private AccountPresenterNew accountPresenter;
 
 
-
     public AsignarNIPFragment() {
     }
 
@@ -85,10 +84,10 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       // rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
+        //rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
-        imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
+        imageView = (ImageView) getActivity().findViewById(R.id.btn_back);
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
@@ -96,7 +95,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void initViews() {
-      //  ButterKnife.bind(this, rootview);
+        //  ButterKnife.bind(this, rootview);
         //btnNextAsignarPin.setVisibility(View.GONE);
 
 
@@ -113,10 +112,10 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public void validateForm() {
         getDataForm();
 
-        if (nip.length() < PIN_LENGHT || conf_nip.length() < PIN_LENGHT)  {
+        if (nip.length() < PIN_LENGHT || conf_nip.length() < PIN_LENGHT) {
             showValidationError(getString(R.string.asignar_pin));
             return;
-        }else if (!nip.equals(conf_nip)){
+        } else if (!nip.equals(conf_nip)) {
             showValidationError(getString(R.string.confirmar_pin));
             return;
         }

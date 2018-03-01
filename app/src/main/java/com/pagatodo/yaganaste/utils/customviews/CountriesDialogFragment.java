@@ -8,6 +8,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -71,6 +72,7 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         rootView = inflater.inflate(R.layout.dialog_fragment_countries_list, null);
         initViews();
         return rootView;

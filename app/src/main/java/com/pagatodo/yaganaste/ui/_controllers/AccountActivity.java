@@ -246,7 +246,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(SelfieFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_ADDRESS_DATA:
-               ///Ahora cargamos la selfie
+                ///Ahora cargamos la selfie
                 loadFragment(DomicilioActualFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
@@ -389,7 +389,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 showDialogOut();
             } else if (currentFragment instanceof DatosPersonalesFragment) {
                 onEvent(EVENT_DATA_USER_BACK, null);
-            }else if (currentFragment instanceof SelfieFragment) {
+            } else if (currentFragment instanceof SelfieFragment) {
                 onEvent(EVENT_SELFIE_BACK, null);
             } else if (currentFragment instanceof DomicilioActualFragment) {
                 onEvent(EVENT_PERSONAL_DATA_BACK, null);
@@ -410,11 +410,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     showDialogOut();
                 }
 
-            }else if (currentFragment instanceof ConfirmarNIPFragment) {
-                    resetRegisterData();// Eliminamos la información de registro almacenada.
-                    showDialogOut();
+            } else if (currentFragment instanceof ConfirmarNIPFragment) {
+                resetRegisterData();// Eliminamos la información de registro almacenada.
+                showDialogOut();
 
-            }  else if (currentFragment instanceof NewPasswordLoginChange) {
+            } else if (currentFragment instanceof NewPasswordLoginChange) {
                 if (((NewPasswordLoginChange) currentFragment).isCustomKeyboardVisible()) {
                     //((AsignarNIPFragment) currentFragment).hideKeyboard();
                 } else {
@@ -478,13 +478,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             loginContainerFragment.onActivityResult(requestCode, resultCode, data);
-        }else {
+        } else {
             try {
                 SelfieFragment mFragment = (SelfieFragment) getSupportFragmentManager().findFragmentById(R.id.container);
                 CameraManager cameraManager = mFragment.getCameraManager();
                 // Enviamos datos recibidos al CameraManager
                 cameraManager.setOnActivityResult(requestCode, resultCode, data);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }

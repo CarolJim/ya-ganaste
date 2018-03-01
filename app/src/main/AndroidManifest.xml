@@ -42,8 +42,8 @@
 
     <application
         android:name=".App"
-        android:hardwareAccelerated="true"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -77,7 +77,7 @@
         <activity
             android:name=".ui._controllers.AccountActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".ui._controllers.BussinesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

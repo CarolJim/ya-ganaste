@@ -19,11 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/size_text_style_2_value"
-        android:textColor="@color/colorAccent"
         android:layout_marginTop="27dp"
-        android:text="@string/currentAddressTitle"/>
+        android:gravity="center_horizontal"
+        android:text="@string/currentAddressTitle"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_style_2_value" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -39,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="0dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/sub_titulo_datos_personales"
                 android:textAlignment="center"
                 android:textColor="@color/adadad"
@@ -50,16 +51,15 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_calle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/edit_nombre"
-                android:background="@drawable/inputtext_normal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="32dp"
+                android:background="@drawable/inputtext_normal"
                 android:gravity="center_vertical"
                 android:hint="@string/streetHint"
                 android:maxLines="1"
-                android:paddingLeft="6dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
                 android:textColorHint="@color/texthint"
                 android:theme="@style/TextLabel"
                 app:passwordToggleTint="@color/hint_color"
@@ -68,9 +68,11 @@
                 <EditText
                     android:id="@+id/editStreet"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
+                    android:paddingLeft="15dp"
                     android:singleLine="true"
                     android:textColor="@color/texthint" />
 
@@ -80,27 +82,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
 
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                >
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_num_exterior"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight=".5"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/edit_nombre"
-                    android:background="@drawable/inputtext_normal"
                     android:layout_marginTop="0dp"
+                    android:layout_weight=".5"
+                    android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/outside_number"
                     android:maxLines="1"
-
-                    android:paddingLeft="6dp"
                     android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
@@ -109,9 +108,11 @@
                     <EditText
                         android:id="@+id/editExtNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
+                        android:paddingLeft="15dp"
                         android:singleLine="true"
                         android:textColor="@color/texthint" />
 
@@ -120,16 +121,15 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_num_interior"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
+                    android:layout_height="50dp"
                     android:layout_below="@+id/edit_nombre"
-                    android:background="@drawable/inputtext_normal"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
+                    android:layout_weight=".5"
+                    android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/intern_number"
                     android:maxLines="1"
-                    android:layout_marginLeft="5dp"
-                    android:paddingLeft="6dp"
                     android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
@@ -138,15 +138,15 @@
                     <EditText
                         android:id="@+id/editIntNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
+                        android:paddingLeft="15dp"
                         android:singleLine="true"
                         android:textColor="@color/texthint" />
 
                 </android.support.design.widget.TextInputLayout>
-
-
 
 
             </LinearLayout>
@@ -155,16 +155,15 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_cp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/edit_nombre"
-                android:background="@drawable/inputtext_normal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/inputtext_normal"
                 android:gravity="center_vertical"
                 android:hint="@string/zipCodeHint"
                 android:maxLines="1"
-                android:paddingLeft="6dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
                 android:textColorHint="@color/texthint"
                 android:theme="@style/TextLabel"
                 app:passwordToggleTint="@color/hint_color"
@@ -173,73 +172,73 @@
                 <EditText
                     android:id="@+id/editZipCode"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="5"
+                    android:paddingLeft="15dp"
                     android:singleLine="true"
                     android:textColor="@color/texthint" />
 
             </android.support.design.widget.TextInputLayout>
 
 
-
-
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                 style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="wrap_content" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:id="@+id/txtcoloria"
-            android:background="@drawable/inputtext_normal"
-            >
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_4"
-                android:id="@+id/spcolonia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginLeft="6dp"
-                android:text="Colonia"
-                android:visibility="gone"
-                android:textColor="@color/hint_color" />
-            <Spinner
-                android:id="@+id/spColonia"
-                style="@style/SpinnerNoArrow"
+            <LinearLayout
+                android:id="@+id/txtcoloria"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_margin="@dimen/margin_xsmall"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:backgroundTint="@color/transparent" />
-        </LinearLayout>
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/inputtext_normal"
+                android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/spcolonia"
+                    style="@style/generic_text_style_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="15dp"
+                    android:text="Colonia"
+                    android:textColor="@color/hint_color"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spColonia"
+                    style="@style/SpinnerNoArrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:backgroundTint="@color/transparent" />
+            </LinearLayout>
 
 
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                 android:id="@+id/errorColoniaMessage"
                 style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <LinearLayout
+                android:id="@+id/txtestado"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
-                android:id="@+id/txtestado"
                 android:background="@drawable/inputtext_normal"
-                >
+                android:orientation="vertical">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/estadotext"
@@ -247,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="15dp"
                     android:text="Estado"
                     android:textColor="@color/hint_color"
                     android:visibility="gone" />
@@ -257,6 +256,8 @@
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     app:hintText="@string/stateHint" />
             </LinearLayout>
 
@@ -272,9 +273,9 @@
                 <LinearLayout
                     style="@style/BorderLayoutContent"
                     android:layout_width="match_parent"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editStreetold"
@@ -282,26 +283,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nextFocusForward="@+id/editExtNumber"
+                        android:visibility="gone"
                         app:formato="text"
                         app:hintText="@string/streetHint"
-                        android:visibility="gone"
                         app:isSingleLine="true"
                         app:maxLength="30" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorStreetMessage"
                         style="@style/generic_text_style_2"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/layNumbers"
                         style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editExtNumberold"
@@ -353,7 +354,6 @@
                         style="@style/generic_text_style_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
 
                 </LinearLayout>
 
@@ -423,12 +423,12 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtLegales"
-                        android:textColor="@color/texthint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/terms_and_conditions"
-                        android:textSize="@dimen/text_screen_size_normal"
+                        android:textColor="@color/texthint"
+                        android:textSize="@dimen/wallet_text_size_2"
                         app:tipo="Descripcion" />
 
                 </LinearLayout>
@@ -447,9 +447,9 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackDomicilioActual"
-                android:visibility="gone"
                 style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton" />
+                android:text="@string/backButton"
+                android:visibility="gone" />
 
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"

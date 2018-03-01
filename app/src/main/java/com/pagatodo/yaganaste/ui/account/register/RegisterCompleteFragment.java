@@ -143,11 +143,11 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         }
 
         /*Seteamos la información.*/
-        imgCompleted.setImageResource(iIdIcon);
+        /*imgCompleted.setImageResource(iIdIcon);
         txtTitle.setText(title);
         txtSubtitle.setText(subTitle);
         txtMessage.setText(message);
-        btnNextComplete.setText(btnName);
+        btnNextComplete.setText(btnName);*/
     }
 
     public enum COMPLETE_MESSAGES {
