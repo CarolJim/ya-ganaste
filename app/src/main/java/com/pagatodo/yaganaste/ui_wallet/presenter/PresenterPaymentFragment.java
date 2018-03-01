@@ -18,6 +18,11 @@ public class PresenterPaymentFragment implements IPresenterPaymentFragment, ISer
     IServiciosInteractor serviciosInteractor;
 
     private CatalogsDbApi catalogsDbApi;
+
+    public PresenterPaymentFragment(){
+        catalogsDbApi = new CatalogsDbApi(App.getContext());
+    }
+
     public PresenterPaymentFragment(IPaymentFromFragment iView) {
         this.iView = iView;
         catalogsDbApi = new CatalogsDbApi(App.getContext());

@@ -158,6 +158,19 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         }
     }
 
+
+   /* @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+
+    }*/
+
+
     protected void loadFragment(TYPES type, Serializable data) {
         if (type != null) {
             if (type.equals(TYPES.EMISOR)) {
@@ -244,7 +257,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (types != null) {
+        /*if (types != null) {
             if (types.equals(TYPES.EMISOR)) {
                 //Menu Emisor
                 getMenuInflater().inflate(R.menu.menu_emisor, menu);
@@ -259,12 +272,17 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         } else {
             //throw new NullObjectExcepcion("Type is not recognized");
             return false;
-        }
-
+        }*/
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return false;
+        }
         return super.onOptionsItemSelected(item);
     }
 

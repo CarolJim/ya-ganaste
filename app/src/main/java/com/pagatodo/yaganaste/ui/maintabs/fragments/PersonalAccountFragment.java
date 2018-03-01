@@ -1,12 +1,15 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -15,19 +18,37 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
+import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
+import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
+import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.views.SwipeToFav;
+import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
+
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 
 /**
  * @author Juan Guerra on 27/11/2016.
  */
 
-public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
+public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>>{
 
     RecyclerView.Adapter currentAdapter;
 
@@ -42,6 +63,8 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.movementsPresenter = new AccountMovementsPresenter(this);
+        favoritesPresenter = new FavoritesPresenter();
+        paymentPresenter = new PresenterPaymentFragment();
     }
 
     @Override
@@ -115,8 +138,179 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             this.movementsList.set(tabPosition, movementsList);
             currentAdapter = createAdapter(this.movementsList.get(tabPosition));
             updateRecyclerData(currentAdapter, movementsList);
+            /*SwipeToFav swipeHandler = new SwipeToFav(getContext()) {
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                    int position = viewHolder.getAdapterPosition();
+                    RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter)currentAdapter;
+                    MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
+                    String referService = StringUtils.formatCardToService(movResponse.getReferencia());
+                    int idComercio = movResponse.getIdComercio();
+
+                    adapter.updateChange();
+                    //UI.showToastShort(comercioResponse.getNombreComercio() + "",getContext());
+                    int tipoEnvio = 0;
+                    int tab = 0;
+                    boolean isValidMov = true;
+                    switch (movResponse.getIdTipoTransaccion()){
+                        case 1:
+                            tab = 1;
+                            break;
+                        case 2:
+                            tab = 2;
+                            break;
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            tab = 3;
+                            switch (referService.length()){
+                                case 10:
+                                    tipoEnvio = 1;
+                                    break;
+                                case 16:
+                                    tipoEnvio = 2;
+                                    break;
+                                case 18:
+                                    tipoEnvio = 3;
+                                    break;
+                                    default:
+                                        tipoEnvio = 0;
+                                        break;
+                            }
+
+                            break;
+
+                        default:
+                            isValidMov = false;
+                            break;
+
+                    }
+                    if (isValidMov && idComercio != 0) {
+                        ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
+                        if (favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+
+                                            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
+                            intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
+                            intent.putExtra(ID_COMERCIO, idComercio);
+                            intent.putExtra(ID_TIPO_COMERCIO,  comercioResponse.getIdTipoComercio());
+                            intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
+                            intent.putExtra(REFERENCIA, referService);
+                            intent.putExtra(CURRENT_TAB_ID, tab);
+                            intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
+                            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+                        } else {
+                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                        }
+                    } else {
+                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                    }
+                }
+            };
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeHandler);
+
+            itemTouchHelper.attachToRecyclerView(recyclerMovements);*/
+
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int positions) {
+                    int position = viewHolder.getAdapterPosition();
+                    RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter)currentAdapter;
+                    MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
+                    String referService = StringUtils.formatCardToService(movResponse.getReferencia());
+                    int idComercio = movResponse.getIdComercio();
+
+                    adapter.updateChange();
+                    //UI.showToastShort(comercioResponse.getNombreComercio() + "",getContext());
+                    int tipoEnvio = 0;
+                    int tab = 0;
+                    boolean isValidMov = true;
+                    switch (movResponse.getIdTipoTransaccion()){
+                        case 1:
+                            tab = 1;
+                            break;
+                        case 2:
+                            tab = 2;
+                            break;
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            tab = 3;
+                            switch (referService.length()){
+                                case 10:
+                                    tipoEnvio = 1;
+                                    break;
+                                case 16:
+                                    tipoEnvio = 2;
+                                    break;
+                                case 18:
+                                    tipoEnvio = 3;
+                                    break;
+                                default:
+                                    tipoEnvio = 0;
+                                    break;
+                            }
+
+                            break;
+
+                        default:
+                            isValidMov = false;
+                            break;
+
+                    }
+                    if (isValidMov && idComercio != 0) {
+                        ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
+                        if (favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+
+                            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
+                            intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
+                            intent.putExtra(ID_COMERCIO, idComercio);
+                            intent.putExtra(ID_TIPO_COMERCIO,  comercioResponse.getIdTipoComercio());
+                            intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
+                            intent.putExtra(REFERENCIA, referService);
+                            intent.putExtra(CURRENT_TAB_ID, tab);
+                            intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
+                            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+                        } else {
+                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                        }
+                    } else {
+                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                    }
+
+                }
+            });
+
+            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerMovements);
+
         }
     }
+
 
     @Override
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemMovements<MovimientosResponse>> movements) {
@@ -136,7 +330,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_image_transform));
             setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
         }*/
-/*
+        /*
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
         intent.putExtra(DetailsActivity.ID, Contact.CONTACTS[position].getId());
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -157,35 +351,4 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         */
     }
 
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
-            Toast.makeText(getContext(),"" + position,Toast.LENGTH_SHORT).show();
-            // get the removed item name to display it in snack bar
-            //String name = cartList.get(viewHolder.getAdapterPosition()).getName();
-
-            // backup of removed item for undo purpose
-            //final ClipData.Item deletedItem = cartList.get(viewHolder.getAdapterPosition());
-            //final int deletedIndex = viewHolder.getAdapterPosition();
-
-            // remove the item from recycler view
-            //mAdapter.removeItem(viewHolder.getAdapterPosition());
-
-            // showing snack bar with Undo option
-            /*Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // undo is selected, restore the deleted item
-                    //mAdapter.restoreItem(deletedItem, deletedIndex);
-                }
-            });
-            snackbar.setActionTextColor(Color.YELLOW);
-            snackbar.show();*/
-        } else {
-            Toast.makeText(getContext(),"" + position,Toast.LENGTH_SHORT).show();
-        }
-    }
 }

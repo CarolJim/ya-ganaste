@@ -100,7 +100,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             txtSubTituloDetalle = (TextView) itemView.findViewById(R.id.txtSubTituloDetalle);
             txtMonto = (MontoTextView) itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
-            viewBackground = itemView.findViewById(R.id.view_background);
+            viewBackground = itemView.findViewById(R.id.view_background_left);
             viewForeground = itemView.findViewById(R.id.view_foreground);
             updown = itemView.findViewById(R.id.up_down);
         }
@@ -134,5 +134,25 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             itemView.setOnClickListener(clickListener);
             itemView.setTag(position);
         }
+    }
+
+    public void removeAt(int position) {
+        this.itemMovementses.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public ItemMovements getMovItem(int position){
+        return this.itemMovementses.get(position);
+    }
+    public T getItem(int position){
+        return this.itemMovementses.get(position).getMovement();
+    }
+
+    public void updateChange(){
+        notifyDataSetChanged();
+    }
+
+    public void setVisibilityAddFav(int position){
+
     }
 }

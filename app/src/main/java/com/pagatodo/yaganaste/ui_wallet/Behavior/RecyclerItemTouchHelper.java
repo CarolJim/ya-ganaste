@@ -28,7 +28,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback  {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
             final View foregroundView = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewForeground;
-
+            final View bacgraund = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewBackground;
+            bacgraund.setVisibility(View.GONE);
             getDefaultUIUtil().onSelected(foregroundView);
         }
     }

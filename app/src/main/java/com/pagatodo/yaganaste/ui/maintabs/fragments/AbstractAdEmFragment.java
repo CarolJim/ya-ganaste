@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -22,10 +21,14 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
+import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
-import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
+import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.views.SwipeToFav;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -39,13 +42,12 @@ import butterknife.ButterKnife;
 
 
 /**
- * @author Juan Guerra on 27/11/2016.
- * @author Jordan on 08/08/2017
+ * Android TEAM 28/02/2018
  */
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener{
 
     public SwipyRefreshLayoutDirection direction;
     public static final int MOVEMENTS = 1;
@@ -69,6 +71,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     SwipyRefreshLayout swipeContainer;
     @BindView(R.id.progress_emisor)
     ProgressLayout progress_emisor;
+
+    protected IFavoritesPresenter favoritesPresenter;
+    protected PresenterPaymentFragment paymentPresenter;
 
 
     public static AbstractAdEmFragment newInstance(int type) {
@@ -98,6 +103,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             type = args.getInt(TYPE);
         }
         doubleSwipePosition = new HashMap<>();
+
     }
 
     @Override
@@ -185,39 +191,16 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         movementsPresenter.getRemoteMovementsData(dataToRequest);
     }
 
-    public void updateRecyclerData(RecyclerView.Adapter adapter) {
+    public void updateRecyclerData(final RecyclerView.Adapter adapter) {
         /*if (adapter.getItemCount() < 1) {
             //txtInfoMovements.setVisibility(View.VISIBLE);
         } else {
             //txtInfoMovements.setVisibility(View.GONE);
         }*/
         recyclerMovements.setAdapter(adapter);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerMovements);
-
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback1 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                // Row is swiped from recycler view
-                // remove it from adapter
-            }
-
-            @Override
-            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
-        };
-
-        // attaching the touch helper to recycler view
-        new ItemTouchHelper(itemTouchHelperCallback1).attachToRecyclerView(recyclerMovements);
-
-
         recyclerMovements.setVisibility(View.VISIBLE);
+
+
 
     }
 

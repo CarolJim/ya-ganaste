@@ -214,14 +214,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(), 0);
         }
         if (position == 1) {
-            /*if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorAdq(),0);
-            } else {
-                llm.setSpanCount(1);
-                rcvOpciones.setLayoutManager(llm);
 
-                elementsWalletAdapter = new ElementsWalletAdapter(getContext(), this, ElementView.getListLectorEmi(),1);
-            }*/
             int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
             llm.setSpanCount(1);
             rcvOpciones.setLayoutManager(llm);
@@ -246,15 +239,13 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I13.getId()) {
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);
-            } else if (!App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
+            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+                llm.setSpanCount(3);
+                rcvOpciones.setLayoutManager(llm);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(),0);
             } else {
-
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorEmi(), 1);
-
-
             }
-
         }
 
         rcvOpciones.setAdapter(elementsWalletAdapter);
