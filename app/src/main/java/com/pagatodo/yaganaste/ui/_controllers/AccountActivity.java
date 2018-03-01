@@ -479,10 +479,14 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             loginContainerFragment.onActivityResult(requestCode, resultCode, data);
         }else {
-            SelfieFragment mFragment = (SelfieFragment) getSupportFragmentManager().findFragmentById(R.id.container);
-            CameraManager cameraManager = mFragment.getCameraManager();
-            // Enviamos datos recibidos al CameraManager
-            cameraManager.setOnActivityResult(requestCode, resultCode, data);
+            try {
+                SelfieFragment mFragment = (SelfieFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+                CameraManager cameraManager = mFragment.getCameraManager();
+                // Enviamos datos recibidos al CameraManager
+                cameraManager.setOnActivityResult(requestCode, resultCode, data);
+            }catch (Exception e){
+
+            }
         }
     }
 

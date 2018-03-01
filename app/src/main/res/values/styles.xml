@@ -610,19 +610,19 @@
     </style>
 
     <style name="generic_calculator_sign_style">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">24sp</item>
         <item name="tipo">Descripcion</item>
     </style>
 
     <style name="generic_calculator_integer_style">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">55sp</item>
         <item name="tipo">Descripcion</item>
     </style>
 
     <style name="generic_calculator_decimal_style">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">18sp</item>
         <item name="tipo">Descripcion</item>
     </style>

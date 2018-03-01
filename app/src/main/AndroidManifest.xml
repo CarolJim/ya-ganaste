@@ -77,7 +77,7 @@
         <activity
             android:name=".ui._controllers.AccountActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui._controllers.BussinesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
