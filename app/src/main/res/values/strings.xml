@@ -1332,6 +1332,7 @@
     <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
+    <string name="introduce_nip_valido">Introduce NIP</string>
 
     <!-- Registro Adquiriente Adapters -->
     <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
@@ -1348,4 +1349,8 @@
     <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
     <string name="sub_titulo_ine">Primero una identificación oficial vigente, puedeser tu\ncredencial de elector(INE) o tu pasaporte</string>
 
+    <!-- Cambio de nip-->
+    <string name="nip_actual">NIP actual</string>
+    <string name="nip_nuevo">Nuevo NIP</string>
+    <string name="nip_confima">Confirma nuevo NIP</string>
 </resources>

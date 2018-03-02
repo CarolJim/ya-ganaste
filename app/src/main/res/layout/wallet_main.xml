@@ -47,17 +47,16 @@
         </RelativeLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23.9dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_height="71.5dp"
+            android:layout_marginTop="23.9dp">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/titles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_centerInParent="true">
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_monto"
@@ -68,18 +67,32 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="17sp"
                     app:dotBottom="false"
-                    app:symbolSmaller="true" />
+                    app:symbolSmaller="true"
+                    android:visibility="visible"
+                    android:layout_centerInParent="true"/>
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/tipo_saldo"
-                    style="@style/generic_text_style_9"
+                    android:id="@+id/txt_anuncio"
+                    style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/saldo_disponible"
-                    android:textColor="@color/text_item_color" />
-            </LinearLayout>
+                    android:text="!Cobra con tarjeta!"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+
+            </RelativeLayout>
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/tipo_saldo"
+                style="@style/generic_text_style_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="@string/saldo_disponible"
+                android:textColor="@color/text_item_color"
+                android:layout_below="@id/titles"
+                android:layout_centerInParent="true"/>
 
             <ImageView
                 android:id="@+id/img_reload"
@@ -87,8 +100,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_reload" />
-        </LinearLayout>
+                android:src="@drawable/ic_reload"
+                android:visibility="visible"
+                android:layout_toRightOf="@id/titles"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/titles" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/viewPagerCountDots"
@@ -106,7 +124,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/margin_wallet"
             android:layout_marginRight="@dimen/margin_wallet"
-            android:layout_marginTop="27.5dp"
+            android:layout_marginTop="8dp"
             android:layoutAnimation="@anim/layout_anim_up"
             android:visibility="visible" />
 

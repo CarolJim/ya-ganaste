@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomRadioButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -51,6 +52,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 public class SecurityFragment extends SupportFragment implements OptionMenuItem.OnMenuItemClickListener {
 
     public static String MENU = "MENU";
+    public static String MENSAJE = "MENSAJE";
     public static int MENU_SEGURIDAD = 1;
     public static int MENU_AJUSTES = 2;
     public static int MENU_TERMINOS = 3;
@@ -68,13 +70,15 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
     private boolean useFingerprint = true;
     public CustomRadioButton radioButtonNo;
     public CustomRadioButton radioButtonSi;
+    public String msj;
 
     protected OnEventListener onEventListener;
 
-    public static SecurityFragment newInstance(int menu) {
+    public static SecurityFragment newInstance(int menu, String msj) {
         SecurityFragment securityFragment = new SecurityFragment();
         Bundle args = new Bundle();
         args.putInt(MENU, menu);
+        args.putString(MENSAJE,msj);
         securityFragment.setArguments(args);
         return securityFragment;
     }
@@ -105,6 +109,10 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
     public void initViews() {
         if (getArguments() != null) {
             TYPE_MENU = getArguments().getInt(MENU);
+            if (!getArguments().getString(MENSAJE).isEmpty()){
+                msj = getArguments().getString(MENSAJE);
+                UI.showSuccessSnackBar(getActivity(),msj,Snackbar.LENGTH_SHORT);
+            }
         }
 
         switch (TYPE_MENU) {
@@ -161,7 +169,6 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
                             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                                 if (b){
                                     App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
-                                    //UI.showSuccessSnackBar(getActivity(),"", Snackbar.LENGTH_SHORT);
                                 }
                             }
                         });
@@ -183,7 +190,7 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
         if (useFingerprint){
             radioButtonSi.setChecked(true);
         } else {
-            radioButtonNo.setChecked(false);
+            radioButtonNo.setChecked(true);
         }
     }
 }

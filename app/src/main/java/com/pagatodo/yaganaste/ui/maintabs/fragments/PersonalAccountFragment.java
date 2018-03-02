@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
@@ -29,6 +30,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
 import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.SwipeToFav;
+import com.pagatodo.yaganaste.utils.IB;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -112,8 +114,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
         List<ItemMovements<MovimientosResponse>> actualList = null;
         int tabPosition = tabMonths.getSelectedTabPosition();
-
-
         try {
             actualList = this.movementsList.get(tabPosition);
         } catch (Exception ex) {
@@ -138,174 +138,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             this.movementsList.set(tabPosition, movementsList);
             currentAdapter = createAdapter(this.movementsList.get(tabPosition));
             updateRecyclerData(currentAdapter, movementsList);
-            /*SwipeToFav swipeHandler = new SwipeToFav(getContext()) {
-
-                @Override
-                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                    int position = viewHolder.getAdapterPosition();
-                    RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter)currentAdapter;
-                    MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
-                    String referService = StringUtils.formatCardToService(movResponse.getReferencia());
-                    int idComercio = movResponse.getIdComercio();
-
-                    adapter.updateChange();
-                    //UI.showToastShort(comercioResponse.getNombreComercio() + "",getContext());
-                    int tipoEnvio = 0;
-                    int tab = 0;
-                    boolean isValidMov = true;
-                    switch (movResponse.getIdTipoTransaccion()){
-                        case 1:
-                            tab = 1;
-                            break;
-                        case 2:
-                            tab = 2;
-                            break;
-                        case 3:
-                        case 4:
-                        case 5:
-                        case 6:
-                            tab = 3;
-                            switch (referService.length()){
-                                case 10:
-                                    tipoEnvio = 1;
-                                    break;
-                                case 16:
-                                    tipoEnvio = 2;
-                                    break;
-                                case 18:
-                                    tipoEnvio = 3;
-                                    break;
-                                    default:
-                                        tipoEnvio = 0;
-                                        break;
-                            }
-
-                            break;
-
-                        default:
-                            isValidMov = false;
-                            break;
-
-                    }
-                    if (isValidMov && idComercio != 0) {
-                        ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
-                        if (favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
-
-                                            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
-                            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
-                            intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
-                            intent.putExtra(ID_COMERCIO, idComercio);
-                            intent.putExtra(ID_TIPO_COMERCIO,  comercioResponse.getIdTipoComercio());
-                            intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
-                            intent.putExtra(REFERENCIA, referService);
-                            intent.putExtra(CURRENT_TAB_ID, tab);
-                            intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
-                            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
-                        } else {
-                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            });
-                        }
-                    } else {
-                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                    }
-                }
-            };
-
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeHandler);
-
-            itemTouchHelper.attachToRecyclerView(recyclerMovements);*/
-
-            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
-                @Override
-                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int positions) {
-                    int position = viewHolder.getAdapterPosition();
-                    RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter)currentAdapter;
-                    MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
-                    String referService = StringUtils.formatCardToService(movResponse.getReferencia());
-                    int idComercio = movResponse.getIdComercio();
-
-                    adapter.updateChange();
-                    //UI.showToastShort(comercioResponse.getNombreComercio() + "",getContext());
-                    int tipoEnvio = 0;
-                    int tab = 0;
-                    boolean isValidMov = true;
-                    switch (movResponse.getIdTipoTransaccion()){
-                        case 1:
-                            tab = 1;
-                            break;
-                        case 2:
-                            tab = 2;
-                            break;
-                        case 3:
-                        case 4:
-                        case 5:
-                        case 6:
-                            tab = 3;
-                            switch (referService.length()){
-                                case 10:
-                                    tipoEnvio = 1;
-                                    break;
-                                case 16:
-                                    tipoEnvio = 2;
-                                    break;
-                                case 18:
-                                    tipoEnvio = 3;
-                                    break;
-                                default:
-                                    tipoEnvio = 0;
-                                    break;
-                            }
-
-                            break;
-
-                        default:
-                            isValidMov = false;
-                            break;
-
-                    }
-                    if (isValidMov && idComercio != 0) {
-                        ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
-                        if (favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
-
-                            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
-                            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
-                            intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
-                            intent.putExtra(ID_COMERCIO, idComercio);
-                            intent.putExtra(ID_TIPO_COMERCIO,  comercioResponse.getIdTipoComercio());
-                            intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
-                            intent.putExtra(REFERENCIA, referService);
-                            intent.putExtra(CURRENT_TAB_ID, tab);
-                            intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
-                            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
-                        } else {
-                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            });
-                        }
-                    } else {
-                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                    }
-
-                }
-            });
-
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT, getListenerItemTouchLeft());
             new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerMovements);
 
         }
@@ -349,6 +182,101 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         );
         ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
         */
+    }
+
+    private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getListenerItemTouchLeft(){
+        return new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int index) {
+                int position = viewHolder.getAdapterPosition();
+                RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
+                MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
+                if (direction == ItemTouchHelper.LEFT) {
+
+                    String referService = StringUtils.formatCardToService(movResponse.getReferencia());
+                    int idComercio = movResponse.getIdComercio();
+
+                    adapter.updateChange();
+
+                    int tipoEnvio = 0;
+                    int tab = 0;
+                    boolean isValidMov = true;
+                    switch (movResponse.getIdTipoTransaccion()) {
+                        case 1:
+                            tab = 1;
+                            break;
+                        case 2:
+                            tab = 2;
+                            break;
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            tab = 3;
+                            switch (referService.length()) {
+                                case 10:
+                                    tipoEnvio = 1;
+                                    break;
+                                case 16:
+                                    tipoEnvio = 2;
+                                    break;
+                                case 18:
+                                    tipoEnvio = 3;
+                                    break;
+                                default:
+                                    tipoEnvio = 0;
+                                    break;
+                            }
+
+                            break;
+
+                        default:
+                            isValidMov = false;
+                            break;
+
+                    }
+                    if (isValidMov && idComercio != 0) {
+                        ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
+                        if (favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+
+                            Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
+                            intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
+                            intent.putExtra(ID_COMERCIO, idComercio);
+                            intent.putExtra(ID_TIPO_COMERCIO, comercioResponse.getIdTipoComercio());
+                            intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
+                            intent.putExtra(REFERENCIA, referService);
+                            intent.putExtra(CURRENT_TAB_ID, tab);
+                            intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
+                            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+                        } else {
+                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                        }
+                    } else {
+                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                    }
+                }
+                if(direction == ItemTouchHelper.RIGHT){
+                    //share
+                    ItemMovements item = adapter.getMovItem(position);
+                    String message = StringUtils.getCurrencyValue(item.getMonto())+ "\n"
+                            + item.getDate() + " " + item.getMonth() + "\n"
+                            + item.getTituloDescripcion() + "\n"
+                            + item.getSubtituloDetalle() + "\n";
+                    IB.IntentShare(getContext(),message);
+                }
+            }
+        };
     }
 
 }

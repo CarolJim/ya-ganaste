@@ -17,7 +17,8 @@
         android:theme="@style/TextLabel"
         android:paddingLeft="17dp"
         android:background="@drawable/inputtext_normal"
-        tools:ignore="UnusedAttribute">
+        android:paddingStart="17dp"
+        tools:ignore="RtlSymmetry">
 
         <EditText
             android:id="@+id/editTextpass"

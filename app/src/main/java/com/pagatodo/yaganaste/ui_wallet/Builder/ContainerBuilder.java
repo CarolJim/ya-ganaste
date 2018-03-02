@@ -31,9 +31,9 @@ public class ContainerBuilder {
 
     public static ArrayList<InputText.ViewHolderInputText> NIP(Context context, ViewGroup parent){
         Container s = new Container(context);
-        s.addLayout(parent, new InputText("Nip Actual","PAS"));
-        s.addLayout(parent, new InputText("Nuevo Nip","PAS"));
-        s.addLayout(parent, new InputText("Confirma Nuevo Nip","PAS"));
+        s.addLayout(parent, new InputText(R.string.nip_actual));
+        s.addLayout(parent, new InputText(R.string.nip_nuevo));
+        s.addLayout(parent, new InputText(R.string.nip_confima));
         return s.getArrayListInput();
     }
 
@@ -95,11 +95,12 @@ public class ContainerBuilder {
 
     public static InputTexAdapter NIP(Context context){
         Container s = new Container();
-        s.addInputText(new InputText("Nip Actual","PAS"));
-        s.addInputText(new InputText("Nuevo Nip","PAS"));
-        s.addInputText(new InputText("Confirma Nuevo Nip","PAS"));
+        s.addInputText(new InputText(R.string.nip_actual));
+        s.addInputText(new InputText(R.string.nip_nuevo));
+        s.addInputText(new InputText(R.string.nip_confima));
         return new InputTexAdapter(context,s.getInputTextList());
     }
+    /*
     public static InputTexAdapter DatosUsuario(Context context, InputTexAdapter.ChangeEditListener listener){
         Container s = new Container();
         s.addInputText(new InputText("Correo electrónico","EMA"));
@@ -107,7 +108,7 @@ public class ContainerBuilder {
         s.addInputText(new InputText("Contraseña","PAS"));
         s.addInputText(new InputText("Confirma Contraseña","PAS"));
         return new InputTexAdapter(context,s.getInputTextList(),listener);
-    }
+    }*/
 
 
 }

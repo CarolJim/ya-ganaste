@@ -88,7 +88,8 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         TextView txtTituloDescripcion;
         TextView txtSubTituloDetalle;
         MontoTextView txtMonto;
-        public RelativeLayout viewBackground;
+        public RelativeLayout viewBackgroundLeft;
+        public RelativeLayout viewBackgroundRight;
         public LinearLayout viewForeground;
 
         private RecyclerViewHolderMovements(View itemView) {
@@ -98,9 +99,10 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             txtItemMovMonth = (TextView) itemView.findViewById(R.id.txt_item_mov_month);
             txtTituloDescripcion = (TextView) itemView.findViewById(R.id.txtTituloDescripcion);
             txtSubTituloDetalle = (TextView) itemView.findViewById(R.id.txtSubTituloDetalle);
-            txtMonto = (MontoTextView) itemView.findViewById(R.id.txt_monto);
+            txtMonto = itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
-            viewBackground = itemView.findViewById(R.id.view_background_left);
+            viewBackgroundLeft = itemView.findViewById(R.id.view_background_left);
+            viewBackgroundRight = itemView.findViewById(R.id.view_background_right);
             viewForeground = itemView.findViewById(R.id.view_foreground);
             updown = itemView.findViewById(R.id.up_down);
         }

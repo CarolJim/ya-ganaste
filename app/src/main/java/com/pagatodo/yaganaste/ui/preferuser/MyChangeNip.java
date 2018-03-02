@@ -2,10 +2,12 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,6 +37,7 @@ import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
+import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -53,6 +57,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.MY_PERMISSIONS_REQUEST_PHONE;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
@@ -61,64 +67,30 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
  * create an instance of this fragment.
  */
 public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener,
-        IChangeNIPView {
+        IChangeNIPView{
 
     private static int PIN_LENGHT = 4;
 
-    @BindView(R.id.asignar_edittext)
-    CustomValidationEditText edtPin;
-    @BindView(R.id.asignar_edittext2)
-    CustomValidationEditText edtPin2;
-    @BindView(R.id.asignar_edittext3)
-    CustomValidationEditText edtPin3;
-    @BindView(R.id.asignar_nip1_change_tv1)
-    StyleTextView textCustomTv1;
-    @BindView(R.id.asignar_nip2_change_tv1)
-    StyleTextView textCustomTv2;
-    @BindView(R.id.asignar_nip3_change_tv1)
-    StyleTextView textCustomTv3;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
     @BindView(R.id.fragment_myemail_btn)
     StyleButton finishBtn;
-    @BindView(R.id.errorOldNipMessage)
-    ErrorMessage errorOldNip;
-    @BindView(R.id.errorNewNipMessage)
-    ErrorMessage errorNewNip;
-    @BindView(R.id.errorNewNipConfirmMessage)
-    ErrorMessage errorNewNipConfirm;
-
     @BindView(R.id.call_phone)
     TextView call_phone;
+    private InputText.ViewHolderInputText nipActual;
+    private InputText.ViewHolderInputText nipNueva;
+    private InputText.ViewHolderInputText nipConfir;
 
 
-    TextView tv1Num;
-    TextView tv2Num;
-    TextView tv3Num;
-    TextView tv4Num;
-    TextView tv5Num;
-    TextView tv6Num;
-    TextView tv7Num;
-    TextView tv8Num;
-    TextView tv9Num;
-    TextView tv10Num;
-    TextView tv11Num;
-    TextView tv12Num;
     private View rootview;
-    LinearLayout layout_control;
-    LinearLayout layout_control2;
-    LinearLayout layout_control3;
+
     private String nip = "";
     private String nipNew = "";
     private String nipNewConfirm = "";
-    Drawable backgroundGrey;
-    Drawable backgroundRed;
-    AsignarNipCustomWatcher asinarNipWatcher1;
-    AsignarNipCustomWatcher asinarNipWatcher2;
-    AsignarNipCustomWatcher asinarNipWatcher3;
+
     private AccountPresenterNew accountPresenter;
     boolean isValid;
     public final static String EVENT_GO_CHANGE_NIP_SUCCESS = "EVENT_GO_CHANGE_NIP_SUCCESS";
-
-    private ViewGroup mLinearLayout;
 
     public MyChangeNip() {
     }
@@ -135,9 +107,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
         if (getArguments() != null) {
         }
-        //accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
-        //accountPresenter.setIView(this);
-
+        accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
+        accountPresenter.setIView(this);
     }
 
 
@@ -155,30 +126,20 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
-        mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
-
-
-        ArrayList<InputText.ViewHolderInputText> list = ContainerBuilder.NIP(getContext(),mLinearLayout);
-        InputText.ViewHolderInputText viewNip = list.get(0);
-        InputText.ViewHolderInputText viewNuevoNip = list.get(1);
-        InputText.ViewHolderInputText viewConfirmarNuevoNip = list.get(2);
 
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
     }
 
-    /*private void addLayout() {
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.adapter_input_text, mLinearLayout, false);
-
-        TextInputLayout inputLayout = layout.findViewById(R.id.passwordnew);
-
-        mLinearLayout.addView(layout);
-    }*/
-
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        finishBtn.setOnClickListener(this);
+        Container s = new Container(getContext());
+        nipActual = s.addLayoutPass(mLinearLayout, new InputText(R.string.asignar_nueva_contraseña));
+        nipNueva = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contrasena));
+        nipConfir = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contraseña));
 
         call_phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,187 +147,50 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 createCallIntent();
             }
         });
-        finishBtn.setOnClickListener(this);
 
-        backgroundGrey = getContext().getResources()
-                .getDrawable(R.drawable.rounded_border_edittext);
-
-        backgroundRed = getContext().getResources()
-                .getDrawable(R.drawable.rounded_border_red_edittext);
-
-        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_nip1_contol);
-        layout_control2 = (LinearLayout) rootview.findViewById(R.id.asignar_nip2_contol);
-        layout_control3 = (LinearLayout) rootview.findViewById(R.id.asignar_nip3_contol);
-
-        tv1Num = (TextView) rootview.findViewById(R.id.asignar_nip1_tv1);
-        tv2Num = (TextView) rootview.findViewById(R.id.asignar_nip1_tv2);
-        tv3Num = (TextView) rootview.findViewById(R.id.asignar_nip1_tv3);
-        tv4Num = (TextView) rootview.findViewById(R.id.asignar_nip1_tv4);
-
-        tv5Num = (TextView) rootview.findViewById(R.id.asignar_nip2_tv1);
-        tv6Num = (TextView) rootview.findViewById(R.id.asignar_nip2_tv2);
-        tv7Num = (TextView) rootview.findViewById(R.id.asignar_nip2_tv3);
-        tv8Num = (TextView) rootview.findViewById(R.id.asignar_nip2_tv4);
-
-        tv9Num = (TextView) rootview.findViewById(R.id.asignar_nip3_tv1);
-        tv10Num = (TextView) rootview.findViewById(R.id.asignar_nip3_tv2);
-        tv11Num = (TextView) rootview.findViewById(R.id.asignar_nip3_tv3);
-        tv12Num = (TextView) rootview.findViewById(R.id.asignar_nip3_tv4);
-
-        // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
-        // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
-        edtPin2 = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext2);
-        edtPin3 = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext3);
-
-        asinarNipWatcher1 = new AsignarNipCustomWatcher(edtPin, tv1Num, tv2Num, tv3Num,
-                tv4Num, textCustomTv1);
-        asinarNipWatcher2 = new AsignarNipCustomWatcher(edtPin2, tv5Num, tv6Num, tv7Num,
-                tv8Num, textCustomTv2);
-        asinarNipWatcher3 = new AsignarNipCustomWatcher(edtPin3, tv9Num, tv10Num, tv11Num,
-                tv12Num, textCustomTv3);
-
-        edtPin.addCustomTextWatcher(asinarNipWatcher1);
-        edtPin2.addCustomTextWatcher(asinarNipWatcher2);
-        edtPin3.addCustomTextWatcher(asinarNipWatcher3);
-
-        edtPin.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 4) {
-                    //validateForm();
-                    layout_control.setBackground(backgroundGrey);
-                    finishBtn.setVisibility(View.VISIBLE);
-                    validateEt1();
-                } else if (s.toString().length() == 0) {
-                    errorOldNip.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        edtPin2.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 4) {
-                    //validateForm();
-                    layout_control2.setBackground(backgroundGrey);
-
-                    finishBtn.setVisibility(View.VISIBLE);
-                    //validateEt2();
-                    validateEt1_Et2();
-                } else if (s.toString().length() == 0) {
-                    errorNewNip.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        edtPin3.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 4) {
-                    //validateForm();
-                    layout_control3.setBackground(backgroundGrey);
-
-                    finishBtn.setVisibility(View.VISIBLE);
-                    validateEt2_Et3();
-                } else if (s.toString().length() == 0) {
-                    errorNewNipConfirm.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        //Si ocamos el area especial del Layout abrimos el Keyboard
-        layout_control.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtPin.requestFocus();
-                layout_control.setBackground(backgroundRed);
-                layout_control2.setBackground(backgroundGrey);
-                layout_control3.setBackground(backgroundGrey);
-
-                finishBtn.setVisibility(View.GONE);
-            }
-        });
-
-        layout_control2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtPin2.requestFocus();
-                layout_control.setBackground(backgroundGrey);
-                layout_control2.setBackground(backgroundRed);
-                layout_control3.setBackground(backgroundGrey);
-
-                finishBtn.setVisibility(View.GONE);
-            }
-        });
-
-        layout_control3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtPin3.requestFocus();
-                layout_control.setBackground(backgroundGrey);
-                layout_control2.setBackground(backgroundGrey);
-                layout_control3.setBackground(backgroundRed);
-                finishBtn.setVisibility(View.GONE);
-            }
-        });
-
-        // Aplicamos FocusChangeListener a los 3 EditText ocultos para poder vidar el nip
-        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        nipActual.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    validateEt1();
+                   //validateEt1();
+                    if (nipActual.editText.getText().toString().isEmpty()) {
+                        showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                    }
                 }
             }
         });
 
-        edtPin2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        nipNueva.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    validateEt2();
-                    validateEt1_Et2();
+                    if (nipNueva.editText.getText().toString().isEmpty()) {
+                        showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                    }
                 }
             }
         });
 
-        edtPin3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        nipConfir.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    //   validateEt3();
-                    validateEt2_Et3();
+                    if (nipConfir.editText.getText().toString().isEmpty()) {
+                        showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                    }
                 }
             }
         });
+    }
+
+    private void hideKeyBoard(){
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+    }
+
+    private void showSnakBar(String mensje){
+        hideKeyBoard();
+        UI.showErrorSnackBar(getActivity(), mensje, Snackbar.LENGTH_LONG);
     }
 
     @Override
@@ -390,18 +214,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         return true;
     }
 
-    public void hideKeyboard() {
-
-        finishBtn.setVisibility(View.VISIBLE);
-        layout_control.setBackground(backgroundGrey);
-        layout_control2.setBackground(backgroundGrey);
-        layout_control3.setBackground(backgroundGrey);
-
-        validateEt1();
-        validateEt2();
-        validateEt1_Et2();
-        validateEt2_Et3();
-    }
 
     private void showValidationError(Object err) {
         showValidationError(0, err);
@@ -420,19 +232,14 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onValidationSuccess() {
         showLoader(getContext().getResources().getString(R.string.msg_renapo));
-        //accountPresenter.assignNIP(nip, nipNewConfirm);
+        accountPresenter.assignNIP(nipNewConfirm);
     }
 
     @Override
     public void getDataForm() {
-        /*nip = edtPin.getText().toString().trim();
-        nipNew = edtPin2.getText().toString().trim();
-        nipNewConfirm = edtPin3.getText().toString().trim();*/
-
-
-        /*nip = adapter.getInpuText(0);
-        nipNew = adapter.getInpuText(1);
-        nipNewConfirm = adapter.getInpuText(2);*/
+        nip = nipActual.editText.getText().toString().trim();
+        nipNew = nipNueva.editText.getText().toString().trim();
+        nipNewConfirm = nipConfir.editText.getText().toString().trim();
     }
 
     @Override
@@ -448,86 +255,13 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         if (!nipNewConfirm.equalsIgnoreCase(nipNew)){
             isValid = false;
         }
-        //validateEt1();
-        //validateEt2();
-        //  validateEt3();
 
-        //validateEt1_Et2();
-        //validateEt2_Et3();
-        Toast.makeText(getContext(), "" + isValid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "" + isValid, Toast.LENGTH_SHORT).show();
         if (isValid) {
-            // Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
-            //onValidationSuccess();
+            onValidationSuccess();
         }
     }
 
-    private void validateEt2_Et3() {
-        // Ambos campos tienen datos
-        if (asinarNipWatcher2.isValid() && asinarNipWatcher3.isValid()) {
-            getDataForm();
-            if (nipNew.equals(nipNewConfirm)) {
-                errorNewNipConfirm.setVisibility(View.INVISIBLE);
-            } else {
-                errorNewNipConfirm.setMessageText(getContext().getResources().getString(R.string.confirmar_pin));
-                errorNewNipConfirm.setVisibility(View.VISIBLE);
-                isValid = false;
-            }
-        }
-
-        // asinarNipWatcher2 tiene datos asinarNipWatcher3 no tiene datos
-        if (asinarNipWatcher2.isValid() && !asinarNipWatcher3.isValid()) {
-            if (nipNew.equals(nipNewConfirm)) {
-                errorNewNipConfirm.setVisibility(View.INVISIBLE);
-            } else {
-                errorNewNipConfirm.setMessageText(getContext().getResources().getString(R.string.confirmar_pin));
-                errorNewNipConfirm.setVisibility(View.VISIBLE);
-                isValid = false;
-            }
-        }
-    }
-
-    private void validateEt1_Et2() {
-        if (asinarNipWatcher1.isValid() && asinarNipWatcher2.isValid()) {
-            getDataForm();
-            if (nip.equals(nipNew)) {
-                errorNewNip.setMessageText(getContext().getResources().getString(R.string.new_nip_diferent));
-                errorNewNip.setVisibility(View.VISIBLE);
-                isValid = false;
-            } else {
-                errorNewNip.setVisibility(View.INVISIBLE);
-            }
-        }
-    }
-
-    private void validateEt3() {
-        if (!asinarNipWatcher3.isValid()) {
-            errorNewNipConfirm.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
-            errorNewNipConfirm.setVisibility(View.VISIBLE);
-            isValid = false;
-        } else {
-            errorNewNipConfirm.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void validateEt2() {
-        if (!asinarNipWatcher2.isValid()) {
-            errorNewNip.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
-            errorNewNip.setVisibility(View.VISIBLE);
-            isValid = false;
-        } else {
-            errorNewNip.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void validateEt1() {
-        if (!asinarNipWatcher1.isValid()) {
-            errorOldNip.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
-            errorOldNip.setVisibility(View.VISIBLE);
-            isValid = false;
-        } else {
-            errorOldNip.setVisibility(View.INVISIBLE);
-        }    // code to execute when EditText loses focus
-    }
 
     @Override
     public void nextScreen(String event, Object data) {
@@ -553,7 +287,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void showError(final Object error) {
         if (!error.toString().isEmpty()) {
-            //UI.showToastShort(error.toString(), getActivity()); error
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override

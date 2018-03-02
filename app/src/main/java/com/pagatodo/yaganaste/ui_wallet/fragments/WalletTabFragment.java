@@ -80,6 +80,9 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     StyleTextView tipoSaldo;
     @BindView(R.id.img_reload)
     ImageView imgReload;
+    @BindView(R.id.txt_anuncio)
+    StyleTextView anuncio;
+
 
     private WalletPresenter walletPresenter;
     private TarjetaUserPresenter mPreferPresenter;
@@ -208,17 +211,23 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     private void updateOperations(int position) {
         pageCurrent = position;
+        String setMont = "";
         if (position == 0) {
             llm.setSpanCount(3);
             rcvOpciones.setLayoutManager(llm);
             elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(), 0);
+            txtSaldo.setVisibility(View.VISIBLE);
+            txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+            anuncio.setVisibility(View.GONE);
         }
         if (position == 1) {
 
             int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
             llm.setSpanCount(1);
             rcvOpciones.setLayoutManager(llm);
-
+            txtSaldo.setVisibility(View.GONE);
+            anuncio.setVisibility(View.VISIBLE);
+            anuncio.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
             if (SingletonUser.getInstance().getDataUser().isEsAgente()
                     && Idestatus == IdEstatus.I7.getId()) {
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
@@ -243,6 +252,9 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
                 llm.setSpanCount(3);
                 rcvOpciones.setLayoutManager(llm);
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(),0);
+                txtSaldo.setVisibility(View.VISIBLE);
+                txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+                anuncio.setVisibility(View.GONE);
             } else {
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorEmi(), 1);
             }
@@ -250,7 +262,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
-        txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
     }
 

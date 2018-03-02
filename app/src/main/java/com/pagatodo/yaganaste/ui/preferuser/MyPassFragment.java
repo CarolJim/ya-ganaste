@@ -1,11 +1,16 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -25,6 +30,8 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -46,28 +53,23 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 /**
  * Encargada de gestionar el cambio de contraseña, los elementos graficos de la vista y enviar al MVP
  */
-public class MyPassFragment extends GenericFragment implements View.OnFocusChangeListener, View.OnClickListener,
+public class MyPassFragment extends GenericFragment implements View.OnClickListener,
         ValidationForms, IMyPassValidation, IMyPassView, IChangeNipView, IResetNIPView {
     //  ValidationForms, IUserDataRegisterView,
 
     public static final String TAG = MyPassFragment.class.getSimpleName();
     private Preferencias prefs = App.getInstance().getPrefs();
-    @BindView(R.id.fragment_myemail_btn)
-    StyleButton sendButton;
-    @BindView(R.id.editOldPassword)
-    CustomValidationEditText editOldPassword;
-    @BindView(R.id.editPassword)
-    CustomValidationEditText editPassword;
-    @BindView(R.id.editPasswordConfirmation)
-    CustomValidationEditText editPasswordConfirm;
-    @BindView(R.id.errorOldPasswordMessage)
-    ErrorMessage errorOldPasswordMessage;
-    @BindView(R.id.errorPasswordMessage)
-    ErrorMessage errorPasswordMessage;
-    @BindView(R.id.errorConfirmPasswordMessage)
-    ErrorMessage errorConfirmPasswordMessage;
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
+    @BindView(R.id.btn_confirmation)
+    StyleButton btnConfirmation;
+    private InputText.ViewHolderInputText editActual;
+    private InputText.ViewHolderInputText editNueva;
+    private InputText.ViewHolderInputText editConfir;
+
     AccountPresenterNew accountPresenter;
     PreferUserPresenter mPreferPresenter;
+
     View rootview;
     private String password;
     private String passwordOld;
@@ -114,168 +116,68 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
-        errorConfirmPasswordMessage.setVisibilityImageError(false);
-        errorPasswordMessage.setVisibilityImageError(false);
-
-        sendButton.setOnClickListener(this);
-        editOldPassword.setOnFocusChangeListener(this);
-        editPassword.setOnFocusChangeListener(this);
-        editPasswordConfirm.setOnFocusChangeListener(this);
-
+        btnConfirmation.setOnClickListener(this);
+        Container s = new Container(getContext());
+        editActual = s.addLayoutPass(mLinearLayout, new InputText(R.string.asignar_nueva_contraseña));
+        editNueva = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contrasena));
+        editConfir = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contraseña));
         setValidationRules();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_myemail_btn:
+            case R.id.btn_confirmation:
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
                     validateForm();
                 } else {
-                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                    showSnakBar(getResources().getString(R.string.no_internet_access));
                 }
                 break;
         }
     }
+    private void hideKeyBoard(){
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+    }
 
+    private void showSnakBar(String mensje){
+        hideKeyBoard();
+        UI.showErrorSnackBar(getActivity(), mensje, Snackbar.LENGTH_LONG);
+    }
     @Override
     public void setValidationRules() {
-        editOldPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editActual.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+               if (!hasFocus) {
+                   if (editActual.editText.getText().toString().isEmpty()) {
+                       showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
+                   }
+               }
+            }
+        });
+
+        editNueva.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if (hasFocus) {
-                    if (editOldPassword.getText().isEmpty()) {
-                        editOldPassword.setIsInvalid();
-                        showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
-                    }
-                } else {
-                    if (editOldPassword.isValidText() && !isValidPassword) {
-                    } else if (editOldPassword.getText().isEmpty()) {
-                        editOldPassword.setIsInvalid();
-                        showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
-                    } else if (editOldPassword.isValidText() && isValidPassword) {
-                        hideValidationError(editOldPassword.getId());
-                        editOldPassword.setIsValid();
+                if (!hasFocus) {
+                    if (editNueva.editText.getText().toString().isEmpty()) {
+                        showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
                     }
                 }
             }
         });
 
-        editOldPassword.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void onTextChanged(String s, int start, int before, int count) {
-                isValidPassword = false;
-                if (editOldPassword.getText().isEmpty()) {
-                    showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
-                    editOldPassword.setIsInvalid();
-                } else if (!editOldPassword.isValidText()) {
-                    showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-                    editOldPassword.setIsInvalid();
-                } else if (editOldPassword.isValidText()) {
-                    hideValidationError(editOldPassword.getId());
-                    editOldPassword.setIsValid();
-                }
-            }
-        });
-
-        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editConfir.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
-                if (hasFocus) {
-                    if (editPassword.getText().isEmpty()) {
-                        editPassword.setIsInvalid();
-                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
+                if (!hasFocus) {
+                    if (editConfir.editText.getText().toString().isEmpty()) {
+                        showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
                     }
-                } else {
-                    if (editPassword.isValidText() && !isValidPassword) {
-                        accountPresenter.validatePasswordFormat(
-                                editPassword.getText().trim());
-                    } else if (editPassword.getText().isEmpty()) {
-                        editPassword.setIsInvalid();
-                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
-                    } else if (editPassword.isValidText() && isValidPassword) {
-                        hideValidationError(editPassword.getId());
-                        editPassword.setIsValid();
-                    }
-                }
-            }
-        });
-
-
-        editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void onTextChanged(String s, int start, int before, int count) {
-                isValidPassword = false;
-                if (editPassword.getText().isEmpty()) {
-                    showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
-                    editPassword.setIsInvalid();
-                } else if (!editPassword.isValidText()) {
-                    showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-                    editPassword.setIsInvalid();
-                } else if (editPassword.isValidText()) {
-                    hideValidationError(editPassword.getId());
-                    editPassword.setIsValid();
-                }
-
-                if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
-                    showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                    editPasswordConfirm.setIsInvalid();
-                } else if (editPasswordConfirm.getText().isEmpty()) {
-                    hideValidationError(editPasswordConfirm.getId());
-                    editPasswordConfirm.imageViewIsGone(true);
-                } else if (!editPasswordConfirm.getText().isEmpty() && editPasswordConfirm.getText().equals(editPassword.getText())) {
-                    hideValidationError(editPasswordConfirm.getId());
-                    editPasswordConfirm.setIsValid();
-                }
-            }
-        });
-
-        editPasswordConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (editPasswordConfirm.getText().isEmpty()) {
-                        hideValidationError(editPasswordConfirm.getId());
-                        editPasswordConfirm.imageViewIsGone(true);
-                    } else if (!editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                        editPasswordConfirm.setIsInvalid();
-                    } else if (editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        hideValidationError(editPasswordConfirm.getId());
-                        editPasswordConfirm.setIsValid();
-                    }
-                } else {
-                    if (editPasswordConfirm.getText().isEmpty()) {
-                        hideValidationError(editPasswordConfirm.getId());
-                        editPasswordConfirm.imageViewIsGone(true);
-                    } else if (!editPasswordConfirm.getText().isEmpty() && editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        hideValidationError(editPasswordConfirm.getId());
-                        editPasswordConfirm.setIsValid();
-                    } else if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                        editPasswordConfirm.setIsInvalid();
-                    }
-                }
-            }
-        });
-
-        editPasswordConfirm.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-
-                if (editPasswordConfirm.getText().isEmpty()) {
-                    hideValidationError(editPasswordConfirm.getId());
-                    editPasswordConfirm.imageViewIsGone(true);
-                } else if (!editPasswordConfirm.getText().equals(editPassword.getText())) {
-                    showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                    editPasswordConfirm.setIsInvalid();
-                } else {
-                    hideValidationError(editPasswordConfirm.getId());
-                    editPasswordConfirm.setIsValid();
                 }
             }
         });
@@ -287,59 +189,46 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         getDataForm();
         boolean isValid = true;
 
-        //Validate If Is a Valid Password and check if exist a Error message from the server
-        if (!isValidPassword && passErrorMessage != null && !passErrorMessage.equals("")) {
-            showValidationError(editPassword.getId(), passErrorMessage);
-            editPassword.setIsInvalid();
-            isValid = false;
-        }
-
-        //Validate is Valid Password Format
-        if (!editPassword.isValidText()) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-            editPassword.setIsInvalid();
-            isValid = false;
-        }
-
-        //Validate is valid Password Format from Web Service
-        if (!isValidPassword) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-            isValid = false;
-        }
-
         //Validate if Password is empty
+        if (passwordOld.isEmpty()) {
+            showSnakBar(getString(R.string.cambiar_pass_actual));
+            isValid = false;
+        }
+
         if (password.isEmpty()) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
-            editPassword.setIsInvalid();
+            showSnakBar(getString(R.string.datos_usuario_pass_new));
+            isValid = false;
+        }
+
+        if (passwordConfirmation.isEmpty()) {
+            showSnakBar(getString(R.string.datos_usuario_pass_confirm));
+            isValid = false;
+        }
+
+        //Validacion de tamaño
+        if (passwordOld.trim().length() < 6) {
+            showSnakBar(getString(R.string.datos_usuario_pass_formato));
+            isValid = false;
+        }
+        if (password.trim().length() < 6) {
+            showSnakBar(getString(R.string.datos_usuario_pass_formato));
+            isValid = false;
+        }
+        if (passwordConfirmation.trim().length() < 6) {
+            showSnakBar(getString(R.string.datos_usuario_pass_formato));
             isValid = false;
         }
 
         //Validate Password Confirmation equals to Password
         if (!passwordConfirmation.equals(password)) {
-            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-            editPasswordConfirm.setIsInvalid();
+            showSnakBar(getString(R.string.datos_usuario_pass_no_coinciden));
             isValid = false;
         }
 
         //Validate new and old password not the same
         if (password.equals(passwordOld)) {
-            showDialogMesage(getString(R.string.datos_usuario_pass_equal_new));
-            editPassword.setIsInvalid();
-            editPasswordConfirm.setIsInvalid();
-            isValid = false;
-        }
+            showSnakBar(getString(R.string.datos_usuario_pass_equal_new));
 
-        //Validate if Password Confirmation is Empty
-        if (passwordConfirmation.isEmpty()) {
-            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
-            editPasswordConfirm.setIsInvalid();
-            isValid = false;
-        }
-
-        //Validate if OldPassword Confirmation is Empty
-        if (passwordOld.isEmpty()) {
-            showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
-            editOldPassword.setIsInvalid();
             isValid = false;
         }
 
@@ -351,15 +240,16 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
     public void showValidationError(int id, Object error) {
         switch (id) {
-            case R.id.editPassword:
-                errorPasswordMessage.setMessageText(error.toString());
+            /*case R.id.editPassword:
+                //errorPasswordMessage.setMessageText(error.toString());
                 break;
             case R.id.editPasswordConfirmation:
-                errorConfirmPasswordMessage.setMessageText(error.toString());
+                //errorConfirmPasswordMessage.setMessageText(error.toString());
                 break;
             case R.id.editOldPassword:
-                errorOldPasswordMessage.setMessageText(error.toString());
+                //errorOldPasswordMessage.setMessageText(error.toString());
                 break;
+                */
         }
 
         //errorMessageView.setMessageText(error.toString());
@@ -368,17 +258,17 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
 
     @Override
     public void hideValidationError(int id) {
-        switch (id) {
+        /*switch (id) {
             case R.id.editPassword:
-                errorPasswordMessage.setVisibilityImageError(false);
+                //errorPasswordMessage.setVisibilityImageError(false);
                 break;
             case R.id.editPasswordConfirmation:
-                errorConfirmPasswordMessage.setVisibilityImageError(false);
+                //errorConfirmPasswordMessage.setVisibilityImageError(false);
                 break;
             case R.id.editOldPassword:
-                errorOldPasswordMessage.setVisibilityImageError(false);
+                //errorOldPasswordMessage.setVisibilityImageError(false);
                 break;
-        }
+        }*/
         //errorMessageView.setVisibilityImageError(false);
         errorIsShowed = false;
     }
@@ -389,16 +279,16 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         onEventListener.onEvent("DISABLE_BACK", true);
 
         mPreferPresenter.changePassToPresenter(
-                Utils.cipherRSA(editOldPassword.getText().trim()),
-                Utils.cipherRSA(editPassword.getText().trim())
+                Utils.cipherRSA(editActual.editText.getText().toString().trim()),
+                Utils.cipherRSA(editNueva.editText.getText().toString().trim())
         );
     }
 
     @Override
     public void getDataForm() {
-        passwordOld = editOldPassword.getText().trim();
-        password = editPassword.getText().trim();
-        passwordConfirmation = editPasswordConfirm.getText().trim();
+        passwordOld = editActual.editText.getText().toString().trim();
+        password = editNueva.editText.getText().toString().trim();
+        passwordConfirmation = editConfir.editText.getText().toString().trim();
     }
 
     @Override
@@ -420,30 +310,20 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
      */
     @Override
     public void sendSuccessPassToView(String mensaje) {
-        App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256(editPassword.getText()));
+        App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256(editNueva.editText.getText().toString()));
         if (SingletonUser.getInstance().needsReset()) {
-            resetPinPresenter.doReseting(Utils.getSHA256(editPassword.getText()));
+            resetPinPresenter.doReseting(Utils.getSHA256(editNueva.editText.getText().toString()));
         } else {
-            changeNipPresenterImp.doChangeNip(Utils.getSHA256(editOldPassword.getText()),
-                    Utils.getSHA256(editPassword.getText()));
+            changeNipPresenterImp.doChangeNip(Utils.getSHA256(editActual.editText.getText().toString()),
+                    Utils.getSHA256(editNueva.editText.getText().toString()));
         }
 
     }
 
     public void cleanViewSucess(){
-        // Reiniciamos los campos y ocultamos los mensajes de error
-        editOldPassword.setText("");
-        editPassword.setText("");
-        editPasswordConfirm.setText("");
-
-        hideValidationError(editOldPassword.getId());
-        editOldPassword.imageViewIsGone(true);
-
-        hideValidationError(editPassword.getId());
-        editPassword.imageViewIsGone(true);
-
-        hideValidationError(editPasswordConfirm.getId());
-        editPasswordConfirm.imageViewIsGone(true);
+        editActual.editText.setText("");
+        editNueva.editText.setText("");
+        editConfir.editText.setText("");
     }
     /**
      * Exito en la peticion de servidor y Fail en el cambio de Pass.
@@ -455,9 +335,9 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
     public void sendErrorPassToView(String mensaje) {
         if (mensaje.contains("Contraseña")) {
-            showDialogMesage(getString(R.string.error_service_verify_pass));
+            showSnakBar(getString(R.string.error_service_verify_pass));
         } else {
-            showDialogMesage(mensaje);
+            showSnakBar(mensaje);
         }
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
@@ -466,9 +346,9 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     /**
      * Mostramos un mensaje simple con el String que necesitemos, sin acciones, solo aceptar
      *
-     * @param mensaje
+     * @param
      */
-    private void showDialogMesage(final String mensaje) {
+    /*private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -487,15 +367,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                     }
                 },
                 true, false);
-    }
-
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-        }
-        //hideValidationError();
-    }
+    }*/
 
     @Override
     public void nextScreen(String event, Object data) {
@@ -516,16 +388,15 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     public void validationPasswordFailed(String mMesage) {
         isValidPassword = false;
         passErrorMessage = mMesage;
-        showValidationError(editPassword.getId(), mMesage);
-        editPassword.setIsInvalid();
+        showSnakBar(mMesage);
+        //editPassword.setIsInvalid();
     }
 
     @Override
     public void validationPasswordSucces() {
         isValidPassword = true;
-        editPassword.setIsValid();
         passErrorMessage = "";
-        hideValidationError(editPassword.getId());
+        //hideValidationError(editPassword.getId());
     }
 
     @Override
@@ -553,7 +424,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
     public void onFrejaNipFailed() {
         SingletonUser.getInstance().setNeedsReset(true);
-        resetPinPresenter.doReseting(Utils.getSHA256(editPassword.getText()));
+        resetPinPresenter.doReseting(Utils.getSHA256(editNueva.editText.getText().toString()));
     }
 
     @Override
@@ -563,12 +434,12 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     }
 
     private void endAndBack() {
-        editOldPassword.setText("");
-        editPassword.setText("");
-        editPasswordConfirm.setText("");
-        showDialogMesage(Recursos.MESSAGE_CHANGE_PASS);
+        editActual.editText.setText("");
+        editNueva.editText.setText("");
+        editConfir.editText.setText("");
+        //showSnakBar(Recursos.MESSAGE_CHANGE_PASS);
         hideLoader();
-        onEventListener.onEvent("DISABLE_BACK", false);
+        onEventListener.onEvent("PREFER_SECURITY_SUCCESS_PASS", false);
     }
 
 }
