@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui_wallet.NotificationActivity;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -33,6 +34,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     private View toolbarLayout;
     public String mUserImage;
     private ImageView imgNotif, imgToolbar, imgOk;
+    private StyleTextView omitir;
     //CircleImageView imageView;
     //ImageView imageView;
     //static CircleImageView imageViewdes;
@@ -53,6 +55,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
         imgNotif = (ImageView) findViewById(R.id.imgNotifications);
         imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
+        omitir = (StyleTextView) findViewById(R.id.omitir);
         imgOk = (ImageView) findViewById(R.id.btn_ok);
         toolbarShadow = (View) findViewById(R.id.toolbar_shadow);
         //if (imageView != null) {
@@ -89,6 +92,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         this.btnBack.setVisibility(isBackShowing ? View.VISIBLE : View.GONE);
     }
 
+    public void showOmitir(boolean mBoolean) {
+        this.omitir.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
+    }
+
     /**
      * Metodo que heredamos, controla el que se muestre el icono con la foto como visible o no, en
      * todos sus descendientes
@@ -116,7 +123,6 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public void setVisibilityBack(boolean mBoolean) {
         btnBack.setVisibility(mBoolean ? View.VISIBLE : View.GONE);
     }
-
 
     public static void setVisibleshare() {
         //imageViewdes.setVisibility(View.GONE);

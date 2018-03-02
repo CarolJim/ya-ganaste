@@ -280,7 +280,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
 
     @Override
     public void onResetingFailed() {
-
+        endAndBack();
     }
 
     @Override
@@ -292,7 +292,6 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     public void onFrejaNipFailed() {
         SingletonUser.getInstance().setNeedsReset(true);
         resetPinPresenter.doReseting(Utils.getSHA256(nip));
-
     }
 
     @Override

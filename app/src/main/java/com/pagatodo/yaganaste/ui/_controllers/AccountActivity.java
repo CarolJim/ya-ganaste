@@ -161,7 +161,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
             case GO_TO_REGISTER:
                 App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
-                loadFragment(ConfirmarNIPFragment.newInstance(""));
+                loadFragment(DatosUsuarioFragment.newInstance());
 
                 // TODO: 28/04/2017
                 resetRegisterData();
@@ -239,6 +239,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 registerUser.setColonia("");
                 registerUser.setIdColonia("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
+                showOmitir(false);
                 break;
 
             case EVENT_PERSONAL_DATA_BACK:
@@ -285,6 +286,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
                 break;
             case EVENT_GO_ASSIGN_PIN:
+                changeToolbarVisibility(true);
                 loadFragment(ConfirmarNIPFragment.newInstance("nada"), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIRM_PIN:

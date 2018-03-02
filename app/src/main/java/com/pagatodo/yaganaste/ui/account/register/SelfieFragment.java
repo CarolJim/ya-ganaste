@@ -52,7 +52,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
  * Created by Armando Sandoval on 22/02/2018.
  */
 
-public class SelfieFragment extends GenericFragment implements  View.OnClickListener,ICropper, CropIwaResultReceiver.Listener,IListaOpcionesView,INavigationView {
+public class SelfieFragment extends GenericFragment implements View.OnClickListener, ICropper, CropIwaResultReceiver.Listener, IListaOpcionesView, INavigationView {
 
     private View rootview;
     CameraManager cameraManager;
@@ -62,7 +62,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
     private AccountPresenterNew accountPresenter;
-    private String  mUserImage;
+    private String mUserImage;
     @BindView(R.id.btntomarfoto)
     StyleButton btntomarfoto;
 
@@ -96,8 +96,8 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     Uri fotoperfil;
     StyleTextView omitir;
 
-    boolean foto=false;
-    boolean img=false;
+    boolean foto = false;
+    boolean img = false;
 
     public static SelfieFragment newInstance() {
         SelfieFragment fragmentRegister = new SelfieFragment();
@@ -114,7 +114,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
         rootview = inflater.inflate(R.layout.fragment_selfie, container, false);
         cameraManager = new CameraManager(this);
         cameraManager.initCamera(getActivity(), iv_photo_item, this);
-        omitir= (StyleTextView) getActivity().findViewById(R.id.omitir);
+        omitir = (StyleTextView) getActivity().findViewById(R.id.omitir);
 
         omitir.setVisibility(View.VISIBLE);
         omitir.setOnClickListener(this);
@@ -127,7 +127,6 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
     }
-
 
 
     @Override
@@ -165,12 +164,12 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btntomarfoto:
-                foto=true;
+                foto = true;
                 solicitarpermisos();
                 break;
             case R.id.btnseleccionarfoto:
 
-                img=true;
+                img = true;
                 solicitarpermisos();
                 break;
 
@@ -192,7 +191,8 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
                 break;
             case R.id.omitir:
                 nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de regis
-                mUserImage="";
+                omitir.setVisibility(View.GONE);
+                mUserImage = "";
                 break;
             default:
                 break;
@@ -222,7 +222,7 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
             int permissionCamera = ContextCompat.checkSelfPermission(App.getContext(),
                     android.Manifest.permission.CAMERA);
             int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
-                   android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE);
 
             // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
             if (permissionCamera == -1) {
@@ -240,22 +240,22 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
                 isValid = false;
             }
 
-            if(isValid){
-              //  mPreferPresenter.openMenuPhoto(1, cameraManager);
+            if (isValid) {
+                //  mPreferPresenter.openMenuPhoto(1, cameraManager);
 
-                if (foto){
-                    accountPresenter.Photo(1,cameraManager);
-                }else {
-                    accountPresenter.picture(1,cameraManager);
+                if (foto) {
+                    accountPresenter.Photo(1, cameraManager);
+                } else {
+                    accountPresenter.picture(1, cameraManager);
 
                 }
-                foto=false;
-                img=false;
+                foto = false;
+                img = false;
 
             }
 
         } else {
-          //  showDialogMesage(getResources().getString(R.string.no_internet_access));
+            //  showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
     }
 
@@ -271,18 +271,17 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     }
 
 
-
     @Override
     public void failLoadJpg() {
-       // showDialogMesage(getString(R.string.msg_format_image_warning));
+        // showDialogMesage(getString(R.string.msg_format_image_warning));
 
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
 
-        mUserImage =  croppedUri.toString();
-        fotoperfil= croppedUri;
+        mUserImage = croppedUri.toString();
+        fotoperfil = croppedUri;
         updatePhoto();
         layoutBottom.setVisibility(View.GONE);
         layoutBottomconfirm.setVisibility(View.VISIBLE);
@@ -294,9 +293,10 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
         hideLoader();
 
 
-       // cameraManager.setCropImage(croppedUri);
+        // cameraManager.setCropImage(croppedUri);
 
     }
+
     public CameraManager getCameraManager() {
         return cameraManager;
     }
@@ -325,12 +325,11 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     public void setPhotoToService(Bitmap bitmap) {
 
 
-
     }
 
     @Override
     public void showProgress(String mMensaje) {
-                onEventListener.onEvent(EVENT_SHOW_LOADER,
+        onEventListener.onEvent(EVENT_SHOW_LOADER,
                 getString(R.string.listaopciones_load_image_wait));
 
     }
@@ -363,6 +362,6 @@ public class SelfieFragment extends GenericFragment implements  View.OnClickList
     @Override
     public void backScreen(String event, Object data) {
         omitir.setVisibility(View.GONE);
-        mUserImage="";
+        mUserImage = "";
     }
 }

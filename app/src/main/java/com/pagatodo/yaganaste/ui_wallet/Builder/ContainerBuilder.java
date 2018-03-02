@@ -85,7 +85,7 @@ public class ContainerBuilder {
         Container s = new Container(context,listener);
         s.addOptionMenuSegurity(parent,new OptionMenuItem(1, R.string.my_card_change_nip,0, RAW));
         s.addOptionMenuSegurity(parent,new OptionMenuItem(2, R.string.my_card_report,0, RAW));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(3, R.string.bloquear_tarjeta,R.string.subtitle_bloquear_tarjeta, RADIOBUTTON));
+        s.addOptionMenuSegurity(parent,new OptionMenuItem(3, R.string.bloquear_tarjeta_admin,R.string.subtitle_bloquear_tarjeta, RADIOBUTTON));
         return s.getArrayListOptionMenuSegurity();
     }
 
