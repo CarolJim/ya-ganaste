@@ -161,7 +161,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
             case GO_TO_REGISTER:
                 App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
-                loadFragment(DatosUsuarioFragment.newInstance());
+                loadFragment(ConfirmarNIPFragment.newInstance(""));
 
                 // TODO: 28/04/2017
                 resetRegisterData();
@@ -273,15 +273,15 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
                 break;
             case EVENT_GO_ASSIGN_NEW_CONTRASE:
-                back = false;
+                /*back = false;
                 setVisibilityBack(back);
                 loadFragment(NewPasswordLoginChange.newInstance(), Direction.FORDWARD, true);
 
-                break;
+                break;*/
             case EVENT_GO_CONFIRM_NEW_CONTRASE:
                 back = false;
                 setVisibilityBack(back);
-                loadFragment(NewConfirmPasswordLogin.newInstance(o.toString()), Direction.FORDWARD, true);
+                loadFragment(NewConfirmPasswordLogin.newInstance(), Direction.FORDWARD, true);
 
                 break;
             case EVENT_GO_ASSIGN_PIN:
@@ -426,13 +426,15 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
                     ((ConfirmarNIPFragment) currentFragment).hideKeyboard();
                 } else {
-                    onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
+                    //onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
+                    showDialogOut();
                 }
             } else if (currentFragment instanceof NewConfirmPasswordLogin) {
                 if (((NewConfirmPasswordLogin) currentFragment).isCustomKeyboardVisible()) {
-                    ((NewConfirmPasswordLogin) currentFragment).hideKeyboard();
+                    UI.hideKeyBoard(this);
                 } else {
-                    onEvent(EVENT_GO_CONFIRM_CONTRA_BACK, null);
+                    //onEvent(EVENT_GO_CONFIRM_CONTRA_BACK, null);
+                    showDialogOut();
                 }
             } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
                 resetRegisterData();// Eliminamos la información de registro almacenada.

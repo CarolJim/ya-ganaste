@@ -1199,13 +1199,14 @@
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
-    <string name="confirma_nueva_contrasena">Confirma tu Contraseña</string>
-    <string name="confirma_nueva_contraseña">Confirmar Nueva Contraseña</string>
-    <string name="confirmar_contrase">La Contraseña no Coincide</string>
-    <string name="sub_titulo_cambio_contraseña">Cambiamos el Formato Para Que Accedas Más Rápido\n\nIngresa Una Contraseña de 6 Dígitos</string>
+    <string name="confirma_nueva_contrasena">Confirma tu contraseña</string>
+    <string name="confirma_nueva_contraseña">Confirmar nueva contraseña</string>
+    <string name="confirmar_contrase">La contraseña no coincide</string>
+    <string name="sub_titulo_cambio_contraseña">Cambiamos el formato para que\naccedas más rápido</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Dígitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
-    <string name="formato_password">Tu Nueva Contraseña Debe\nTener 6 Dígitos</string>
-    <string name="formato_password_change">Tu Contraseña Debe\nTener 6 Dígitos</string>
+    <string name="formato_password">Tu nueva contraseña debe\ntener 6 dígitos</string>
+    <string name="formato_password_change">Tu contraseña debe\ntener 6 dígitos</string>
+    <string name="error_1_new_password">Verifica tu nueva contraseña</string>
 
     <!-- Transitions -->
     <string name="transition_name_mov">transition:MO|VE</string>
@@ -1290,6 +1291,7 @@
     <string name="hint_phone_number">Teléfono (10 Dígitos)</string>
     <string name="hint_card_number">Número de Tarjeta (16 Dígitos)</string>
     <string name="hint_password">Contraseña (6 dígitos)</string>
+    <string name="hint_password_confirm">Confirma tu contraseña (6 dígitos)</string>
     <string name="hint_cobros_mensual">Cobros Mensuales</string>
     <string name="hint_monto_mensual_estimado">Monto Mensual Estimado</string>
     <string name="hint_origen_recursos">Origen de los Recursos</string>
