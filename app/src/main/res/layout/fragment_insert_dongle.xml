@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_loop="true"
-            app:lottie_imageAssetsFolder="images/insert_dongle"
+            app:lottie_autoPlay="true"
+            app:lottie_imageAssetsFolder="images/insert_dongle/"
             app:lottie_rawRes="@raw/insert_dongle" />
 
 
@@ -37,7 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_loop="true"
-            app:lottie_imageAssetsFolder="images/insert_card"
+            app:lottie_autoPlay="true"
+            android:visibility="invisible"
+            app:lottie_imageAssetsFolder="images/insert_card/"
             app:lottie_rawRes="@raw/insert_slide_card" />
 <!--
         <pl.droidsonroids.gif.GifImageView

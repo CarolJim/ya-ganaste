@@ -472,8 +472,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void showInsertCard() {
        /* insertDongle.setVisibility(View.GONE);
         insertDongle.pauseAnimation();*/
-
+        imgInsertDongle.pauseAnimation();
         imgInsertCard.setVisibility(VISIBLE);
+        imgInsertCard.playAnimation();
+
         imgInsertDongle.setVisibility(INVISIBLE);
         String message;
         if (isCancelation) {
@@ -490,10 +492,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         } else {
             // message = getString(R.string.text_slide_or_insert);
             message = getString(R.string.text_insert_or_slide);
-            imgInsertCard.playAnimation();
+
         }
 
-
+        imgInsertCard.playAnimation();
 
         try {
           //  ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
