@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
@@ -29,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -75,7 +73,6 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
-import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
@@ -147,9 +144,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @BindView(R.id.layoutImg)
     RelativeLayout relativefav;
     @BindView(R.id.add_favorites_tipo)
-    CustomValidationEditText textViewTipo;
+    EditText textViewTipo;
     @BindView(R.id.add_favorites_linear_tipo)
-    LinearLayout linearTipo;
+    TextInputLayout helpLinearTipoServ;
 
     @BindView(R.id.imgItemGalleryMark)
     CircleImageView circuloimage;
@@ -342,6 +339,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 } else {
                     formatoPago = StringUtils.formatoPagoMedios(formatoPago);
                 }
+               // layout_cardNumber.setVisibility(View.VISIBLE);
                 cardNumber.setText(mReferencia);
                 txtLytListServ.setHint(getString(R.string.details_bank));
                 // editListServ.setHintText(getString(R.string.details_bank));
@@ -359,14 +357,20 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             editRefer.setVisibility(View.GONE);
             editRefer.setEnabled(false);
 
-            // Localizamos el tipo de Tab con el que traajamos
+            /**
+             * Linear que usamos como auxiliar para mostrar el tipo de servicio que usaremos en envio
+             * Puede ser Telefono, Debito o Clabe. Mostramos el Linear y el Edittext, este no se puede
+             * editar, solo se muestra en Add Favorito desde una transaccion y envios
+             * helpLinearTipoServ Es el Layout contenedor, aqui hacemos Set del Titulo
+             * textViewTipo Es el EditTExt, aqui hacemos Set del contendido del campo
+              */
             switch (current_tab) {
                 case 1:
                     break;
                 case 2:
                     break;
                 case 3:
-                    linearTipo.setVisibility(View.VISIBLE);
+                    helpLinearTipoServ.setVisibility(View.VISIBLE);
                     textViewTipo.setVisibility(View.VISIBLE);
                     switch (idTipoEnvio) {
                         case 1:
@@ -380,15 +384,134 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                             break;
                     }
 
-                    // Agregamos el tipo de envio al campo auxiliar de Spinner editSpinner
+                    /**
+                     Agregamos el tipo de envio al campo auxiliar de Spinner editSpinner, nos funciona para
+                     validar el tipo de idTipoEnvio, se usa textViewTipo para mostrar en pantalla y editSpinner
+                     para validaciones
+                     */
+
                     editSpinner.setText("" + idTipoEnvio);
+
+
+                    int position = idTipoEnvio;
+                    layout_cardNumber.setVisibility(View.VISIBLE);
+                    cardNumber.setText("");
+
+                    // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
+                    if (position == 0) {
+                        editSpinner.setText("");
+                        editReferError.setVisibility(View.INVISIBLE);
+                    } else {
+                        editSpinner.setText("" + position);
+
+                        // Ocultamos el mensaje de error si ya escogimos un vaor de Envio
+                        editSpinnerError.setVisibilityImageError(false);
+
+                        // Mostramos el error de referencia para notificarle al usuario
+                        editReferError.setVisibility(View.VISIBLE);
+
+                        // Hacemos Set en el tipo de Envio
+                       // idTipoEnvio = position;
+                    }
+
+                    InputFilter[] fArray = new InputFilter[1];
+
+                    if (position == NUMERO_TARJETA.getId()) {
+                        maxLength = idComercio == 814 ? 18 : 19;
+                        cardNumber.setHint(getString(R.string.card_number, String.valueOf(
+                                idComercio == 814 ? 15 : 16
+                        )));
+                        // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+
+                        // CReamos el te numberCardTextWatcher si no existe
+                        if(numberCardTextWatcher == null){
+                            numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+                        }
+
+                        // Borramos el contenido de TextWatcher del elemento
+                        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+                        cardNumber.removeTextChangedListener(phoneTextWatcher);
+                        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+
+                        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                            numberCardTextWatcher.setOnITextChangeListener(this);
+                        }
+                        cardNumber.addTextChangedListener(numberCardTextWatcher);
+                        layoutImageContact2.setVisibility(View.GONE);
+                        layoutImageContact2.setOnClickListener(null);
+                        selectedType = NUMERO_TARJETA;
+                        til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
+
+                    } else if (position == NUMERO_TELEFONO.getId()) {
+                        maxLength = 12;
+                        cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
+                        layoutImageContact2.setVisibility(View.VISIBLE);
+                        layoutImageContact2.setOnClickListener(this);
+
+                        // CReamos el te phoneTextWatcher si no existe
+                        if(phoneTextWatcher == null){
+                            phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+                        }
+
+                        // Borramos el contenido de TextWatcher del elemento
+                        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+                        cardNumber.removeTextChangedListener(phoneTextWatcher);
+                        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+
+                        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                            phoneTextWatcher.setOnITextChangeListener(this);
+                        }
+                        cardNumber.addTextChangedListener(phoneTextWatcher);
+                        selectedType = NUMERO_TELEFONO;
+                        til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
+                    } else if (position == CLABE.getId()) {
+                        maxLength = 22;
+                        cardNumber.setHint(getString(R.string.transfer_cable));
+
+                        // CReamos el te numberCardTextWatcher si no existe
+                        if(numberClabeTextWatcher == null){
+                            numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+                        }
+
+                        // Borramos el contenido de TextWatcher del elemento
+                        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+                        cardNumber.removeTextChangedListener(phoneTextWatcher);
+                        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+                        cardNumber.addTextChangedListener(numberClabeTextWatcher);
+                        layoutImageContact2.setVisibility(View.GONE);
+                        layoutImageContact2.setOnClickListener(null);
+                        selectedType = CLABE;
+                        til_num_telefono.setHint(CLABE.getName(this));
+                    } else {
+                        maxLength = 2;
+                        cardNumber.setHint("");
+                        layout_cardNumber.setVisibility(GONE);
+                        layoutImageContact2.setVisibility(View.GONE);
+                        layoutImageContact2.setOnClickListener(null);
+                        selectedType = null;
+                    }
+
+                    fArray[0] = new InputFilter.LengthFilter(maxLength);
+                    cardNumber.setFilters(fArray);
+
+                    cardNumber.setText(mReferencia);
+                    editRefer.setText(mReferencia);
+
+                    // Hacemos Set de Reglas de validacion
+                    setValidationRules();
                     break;
             }
 
         } else if (favoriteProcess == 2) {
-            // Proceso para alta de favorito desde Cero mostramos los campos poco a poco
+            /**
+             * Proceso para alta de favorito desde Cero mostramos los campos poco a poco
+             * TAE, PDS o Envio
+              */
 
-
+            // HAcemos Set del hint en el layout de tipo de servicio del favorito que vamos a guardar
             if (current_tab == 1) {
                 txtLytListServ.setHint(getString(R.string.details_compania));
                 //    editListServ.setHintText(getString(R.string.details_compania));
@@ -407,6 +530,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             editListServ.setFocusable(false);
             editListServ.setFocusableInTouchMode(false);
             editListServ.setOnClickListener(this);
+
+            if (current_tab == 1) {
+
+            } else if (current_tab == 2) {
+            } else if (current_tab == 3) {
+            }
         }
     }
 
@@ -505,7 +634,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public boolean requiresTimer() {
-        return true;
+        return false;
     }
 
 

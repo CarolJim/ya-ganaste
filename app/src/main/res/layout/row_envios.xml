@@ -23,6 +23,16 @@
             android:layout_centerVertical="true"
             app:civ_border_color="#FF09CC20" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgItemGalleryStatus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignRight="@+id/layoutImg"
+            android:src="@color/bgColor"
+            android:visibility="visible"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="2dp" />
+
         <ImageView
             android:id="@+id/imgAddFavorite"
             android:layout_width="20dp"

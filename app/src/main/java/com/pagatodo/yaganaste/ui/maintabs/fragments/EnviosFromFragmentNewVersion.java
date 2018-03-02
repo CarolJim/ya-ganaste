@@ -161,6 +161,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     LinearLayout slideViewL1;
     @BindView(R.id.iv_triangule_blue)
     ImageView triBlue;
+    @BindView(R.id.txtEditarFavoritos)
+    StyleTextView editarFavoritos;
     TransferType selectedType;
     List<String> tipoPago = new ArrayList<>();
     int idTipoComercio, idComercio, longitudRefer, keyIdComercio, maxLength;
@@ -177,6 +179,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     Payments payment;
     TextWatcher txtWatcherSetted;
+    private boolean isEditable = false;
 
     public static EnviosFromFragmentNewVersion newInstance() {
         EnviosFromFragmentNewVersion fragment = new EnviosFromFragmentNewVersion();
@@ -313,6 +316,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
          */
         isUp = false;
         slideView.setOnClickListener(this);
+
+        // Agregamos  Listener al campo de Editfavorites
+        editarFavoritos.setOnClickListener(this);
     }
 
     @Override
@@ -374,6 +380,19 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 break;
             case R.id.envio_from_slide_view:
                 onSlideViewButtonClick(slideViewLl);
+                break;
+            case R.id.txtEditarFavoritos:
+                // Hacemos update del Adapter de Envio de favoritos
+                if (isEditable) {
+                    editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
+                    isEditable = false;
+                   // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
+                } else {
+                    editarFavoritos.setTextColor(getResources().getColor(R.color.colorTituloDialog));
+                    isEditable = true;
+                   // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
+                }
+
                 break;
             default:
                 break;
