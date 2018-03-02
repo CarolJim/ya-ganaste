@@ -701,9 +701,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 documentApproved++;
                 idDrawableStatus = R.drawable.documentarpo;
             } else if (idStatus == STATUS_DOCTO_PENDIENTE) {
-                idDrawableStatus = R.drawable.ic_wait2;
+                idDrawableStatus = R.drawable.documentarpo;
             } else {
-                idDrawableStatus = R.drawable.ic_wait2;
+                idDrawableStatus = R.drawable.documentarpo;
             }
 
             switch (tipoDoc) {
