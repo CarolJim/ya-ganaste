@@ -9,26 +9,22 @@ import android.widget.EditText;
 
 public class InputText {
 
-    private String hintText;
+    private int hintTextResources;
     private String contentText;
     private String tipo;
 
 
-    public InputText(String hintText) {
+    public InputText(int hintText) {
 
-        this.hintText = hintText;
+        this.hintTextResources = hintText;
         this.contentText = "";
     }
 
-    public InputText(String hintText, String isPassqord) {
-        this.hintText = hintText;
+    public InputText(int hintText, String isPassqord) {
+        this.hintTextResources = hintText;
         this.contentText = "";
-        this.tipo=isPassqord;
+        this.tipo = isPassqord;
     }
-/*Saber si el textlayout necesita se tipopassword
-*
- *
-  * */
 
     public String getTipo() {
         return tipo;
@@ -46,12 +42,12 @@ public class InputText {
         this.contentText = contentText;
     }
 
-    public String getHintText() {
-        return hintText;
+    public int getHintText() {
+        return hintTextResources;
     }
 
-    public void setHintText(String hintText) {
-        this.hintText = hintText;
+    public void setHintText(int hintText) {
+        this.hintTextResources = hintText;
     }
 
     public static class ViewHolderInputText {

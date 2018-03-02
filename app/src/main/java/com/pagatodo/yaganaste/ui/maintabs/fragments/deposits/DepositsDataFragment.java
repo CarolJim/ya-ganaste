@@ -44,6 +44,7 @@ import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.IB;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -91,10 +92,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 onBackPressed();
                 return true;*/
             case R.id.action_share:
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, mensaje);
-                startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
+                IB.IntentShare(getContext(),mensaje);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

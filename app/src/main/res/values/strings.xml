@@ -1168,6 +1168,7 @@
     <string name="solicitar_pago">Solicitar Pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
     <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
+    <string name="bloquear_tarjeta_s">Bloquear tarjeta</string>
     <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
     <string name="realizar_cobro">Realizar un\ncobro rápido</string>
@@ -1328,6 +1329,7 @@
     <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
+    <string name="introduce_nip_valido">Intrcue NIP</string>
 
     <!-- Registro Adquiriente Adapters -->
     <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
@@ -1343,5 +1345,9 @@
 
     <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
     <string name="sub_titulo_ine">Primero una identificación oficial vigente, puedeser tu\ncredencial de elector(INE) o tu pasaporte</string>
-
+    
+    <!-- Cambio de nip-->
+    <string name="nip_actual">NIP actual</string>
+    <string name="nip_nuevo">Nuevo NIP</string>
+    <string name="nip_confima">Confirma nuevo NIP</string>
 </resources>

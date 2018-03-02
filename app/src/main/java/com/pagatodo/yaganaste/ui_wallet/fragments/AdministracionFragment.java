@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -23,12 +24,16 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_REPORT;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +44,8 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
 
     @BindView(R.id.content_linearlayout)
     LinearLayout mLinearLayout;
+    @BindView(R.id.imgYaGanasteCard)
+    YaGanasteCard card;
 
     private View rootView;
     private MenuAdapter menuAdapter;
@@ -69,9 +76,12 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
     @Override
     public void initViews() {
         ButterKnife.bind(this, this.rootView);
-        //menuAdapter = ContainerBuilder.ADMINISTRACION(getContext(),this);
-        ContainerBuilder.ADMINISTRACION(getContext(),mLinearLayout,this);
-        //listView.setAdapter(menuAdapter);
+
+        ContainerBuilder.ADMINISTRACION(getContext(), mLinearLayout, this);
+        card.setCardNumber(App.getInstance().getPrefs().loadData(CARD_NUMBER));
+        card.setCardName(App.getInstance().getPrefs().loadData(FULL_NAME_USER));
+
+
     }
 
     @Override

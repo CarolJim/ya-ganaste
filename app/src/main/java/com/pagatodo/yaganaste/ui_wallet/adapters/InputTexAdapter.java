@@ -75,7 +75,7 @@ public class InputTexAdapter extends ArrayAdapter<String> {
         assert convertView != null;
         viewHolder.editText = convertView.findViewById(R.id.editTextpass);
         viewHolder.inputLayout = convertView.findViewById(R.id.passwordnew);
-        viewHolder.inputLayout.setHint(listItems.get(position).getHintText());
+        viewHolder.inputLayout.setHint(getContext().getResources().getString(listItems.get(position).getHintText()));
 
       if (listItems.get(position).getTipo().equals("PAS")) {
             viewHolder.inputLayout.setPasswordVisibilityToggleEnabled(true);

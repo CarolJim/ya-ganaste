@@ -63,7 +63,7 @@
                 android:id="@+id/ico_share"
                 android:layout_width="18dp"
                 android:layout_height="17dp"
-                android:src="@drawable/start_switch"
+                android:src="@drawable/share_arrow"
                 android:layout_centerInParent="true"/>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView

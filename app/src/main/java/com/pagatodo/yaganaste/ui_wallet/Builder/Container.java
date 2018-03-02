@@ -76,11 +76,25 @@ public class Container {
         InputText.ViewHolderInputText viewHolderInputText = new InputText.ViewHolderInputText();
         viewHolderInputText.inputLayout = layout.findViewById(R.id.passwordnew);
         viewHolderInputText.editText = layout.findViewById(R.id.editTextpass);
-        viewHolderInputText.inputLayout.setHint(inputText.getHintText());
+        viewHolderInputText.inputLayout.setHint(context.getResources().getString(inputText.getHintText()));
         //viewHolderInputText.inputLayout.setPasswordVisibilityToggleEnabled(true);
         //viewHolderInputText.editText.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         parent.addView(layout);
         this.arrayListInput.add(viewHolderInputText);
+    }
+    public InputText.ViewHolderInputText addLayoutPass(ViewGroup parent, InputText inputText) {
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.adapter_input_text, parent, false);
+        InputText.ViewHolderInputText viewHolderInputText = new InputText.ViewHolderInputText();
+        viewHolderInputText.inputLayout = layout.findViewById(R.id.passwordnew);
+        viewHolderInputText.editText = layout.findViewById(R.id.editTextpass);
+        viewHolderInputText.inputLayout.setHint(context.getResources().getString(inputText.getHintText()));
+        //viewHolderInputText.inputLayout.setPasswordVisibilityToggleEnabled(true);
+        //viewHolderInputText.editText.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+
+        parent.addView(layout);
+        this.arrayListInput.add(viewHolderInputText);
+        return viewHolderInputText;
     }
 
     public void addOptionMenu(ViewGroup parent, final OptionMenuItem optionMenuItem) {
@@ -119,7 +133,7 @@ public class Container {
             viewHolder.raw = layout.findViewById(R.id.raw_item);
             viewHolder.relativeLayout = layout.findViewById(R.id.item_menu);
             viewHolder.title.setText(optionMenuItem.getResourceTitle());
-            viewHolder.raw.setOnClickListener(new View.OnClickListener() {
+            viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.OnMenuItem(optionMenuItem);
@@ -146,5 +160,4 @@ public class Container {
 
         this.arrayListOptionMenuSegurity.add(viewHolder);
     }
-
 }

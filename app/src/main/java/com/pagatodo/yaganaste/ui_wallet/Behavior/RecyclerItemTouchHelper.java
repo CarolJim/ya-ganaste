@@ -12,11 +12,23 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
  */
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback  {
+    private static int LEFT = 1;
+    private static int RIGHT = 2;
+
     private RecyclerItemTouchHelperListener listener;
+    private int direction;
 
     public RecyclerItemTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener listener) {
         super(dragDirs, swipeDirs);
+        direction = 0;
+        if (swipeDirs == ItemTouchHelper.RIGHT){
+            this.direction = RIGHT;
+        }
+        if (swipeDirs == ItemTouchHelper.LEFT){
+            this.direction = LEFT;
+        }
         this.listener = listener;
+
     }
 
     @Override
@@ -28,8 +40,17 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback  {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
             final View foregroundView = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewForeground;
-            final View bacgraund = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewBackground;
-            bacgraund.setVisibility(View.GONE);
+            final View leftView = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewBackgroundLeft;
+            final View rightView = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewBackgroundRight;
+            if (direction == LEFT){
+                leftView.setVisibility(View.VISIBLE);
+                rightView.setVisibility(View.GONE);
+            }
+            if (direction == RIGHT){
+                rightView.setVisibility(View.VISIBLE);
+                leftView.setVisibility(View.GONE);
+
+            }
             getDefaultUIUtil().onSelected(foregroundView);
         }
     }
