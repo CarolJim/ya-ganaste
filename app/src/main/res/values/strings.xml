@@ -1241,7 +1241,7 @@
     <string name="autorizar">Autorizar</string>
 
     <!-- Procesos de PaymentActivity-->
-    <string name="txt_recargas">Recargas</string>
+    <string name="txt_recargas">Recarga</string>
     <string name="txt_servicios">Servicios</string>
     <string name="txt_pago_servicios">Pago de Servicio</string>
 

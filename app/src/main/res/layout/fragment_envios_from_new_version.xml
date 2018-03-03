@@ -55,31 +55,32 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtEditarFavoritos"
+                            style="@style/H4Gris"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/H4Gris"
-                            android:layout_marginTop="13.5dp"
-                            android:layout_marginRight="8.5dp"
-                            android:paddingRight="10dp"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:gravity="left"
                             android:layout_alignParentRight="true"
-                            android:textSize="9sp"
+                            android:layout_marginRight="8.5dp"
+                            android:layout_marginTop="13.5dp"
+                            android:gravity="left"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
                             android:text="Editar"
-                            android:textColor="@color/texthint" />
+                            android:textColor="@color/texthint"
+                            android:textSize="9sp" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtEditarFavoritor123"
                             style="@style/H4Gris"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true" android:visibility="gone"
+                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_marginRight="10.5dp"
-                            android:text="Editar" />
+                            android:text="Editar"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                     <android.support.v7.widget.RecyclerView
@@ -111,6 +112,7 @@
                         android:id="@+id/spnTypeSend"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginLeft="15dp"
                         android:backgroundTint="@color/transparent" />
 
                 </LinearLayout>
@@ -136,7 +138,6 @@
                         android:hint="@string/hint_reference"
                         android:longClickable="false"
                         android:maxLines="1"
-                        android:paddingLeft="6dp"
                         android:textColorHint="@color/texthint"
                         android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
@@ -147,6 +148,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
+                            android:layout_marginLeft="15dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionNext"
                             android:inputType="number"
@@ -214,7 +216,6 @@
                     android:hint="@string/details_bank"
                     android:longClickable="false"
                     android:maxLines="1"
-                    android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
@@ -230,6 +231,7 @@
                         android:focusableInTouchMode="false"
                         android:imeOptions="actionNext"
                         android:inputType="text"
+                        android:paddingLeft="15dp"
                         android:textColor="@color/texthint"
                         android:windowSoftInputMode="stateHidden" />
 
@@ -247,7 +249,6 @@
                     android:hint="@string/hint_name_destinatario"
                     android:longClickable="false"
                     android:maxLines="1"
-                    android:paddingLeft="6dp"
                     android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
@@ -260,9 +261,10 @@
                         android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:digits="@string/input_letters"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:inputType="textCapWords|textNoSuggestions"
                         android:maxLines="1"
+                        android:paddingLeft="15dp"
                         android:singleLine="true"
                         android:textColor="@color/texthint" />
 
@@ -287,7 +289,6 @@
                         android:hint="@string/hint_concepto"
                         android:longClickable="false"
                         android:maxLines="1"
-                        android:paddingLeft="6dp"
                         android:textColorHint="@color/texthint"
                         android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
@@ -298,6 +299,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
+                            android:layout_marginLeft="15dp"
                             android:background="@android:color/transparent"
                             android:digits="@string/input_letters_concepto"
                             android:imeOptions="actionNext"
@@ -321,7 +323,6 @@
                         android:hint="@string/hint_referencia_numerica"
                         android:longClickable="false"
                         android:maxLines="1"
-                        android:paddingLeft="6dp"
                         android:textColorHint="@color/texthint"
                         android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
@@ -338,6 +339,7 @@
                             android:inputType="number"
                             android:maxLength="6"
                             android:maxLines="1"
+                            android:paddingLeft="15dp"
                             android:singleLine="true"
                             android:textColor="@color/texthint" />
 
