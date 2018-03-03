@@ -13,11 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ISearchCarrier;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -101,10 +101,10 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
     }
 
     private void setImagePicasso(ImageView imageViewBorder, String urlLogo) {
-        Glide.with(App.getContext()).load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
+        Picasso.with(App.getContext()).load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .error(R.mipmap.icon_user)
-                .dontAnimate().into(imageViewBorder);
+                .into(imageViewBorder);
     }
 
     @Override

@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.Manifest;
 import com.pagatodo.yaganaste.R;
@@ -35,6 +34,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import butterknife.BindBitmap;
@@ -205,10 +205,10 @@ public class SelfieFragment extends GenericFragment implements View.OnClickListe
 
         // Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            Glide.with(getContext())
+            Picasso.with(getContext())
                     .load(mUserImage)
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                    .dontAnimate().into(iv_photo_item);
+                    .into(iv_photo_item);
 
         }
 

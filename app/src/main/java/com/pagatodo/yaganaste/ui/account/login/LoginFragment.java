@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -45,6 +44,7 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -463,9 +463,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
      */
     private void updatePhoto() {
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
-        Glide.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+        Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .dontAnimate().into(imgLoginExistProfile);
+                .into(imgLoginExistProfile);
     }
 
     /**

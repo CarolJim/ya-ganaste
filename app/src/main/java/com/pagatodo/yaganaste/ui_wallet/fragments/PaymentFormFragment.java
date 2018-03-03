@@ -27,7 +27,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -59,6 +58,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -284,7 +284,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     layoutImageContact.setVisibility(View.GONE);
                 } else {
                     edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
-                   // edtPhoneNumber.setHint(getString(R.string.numero_telefono));
+                    // edtPhoneNumber.setHint(getString(R.string.numero_telefono));
 
                     layoutImageContact.setOnClickListener(this);
                 }
@@ -452,7 +452,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
-            Glide.with(App.getContext())
+            Picasso.with(App.getContext())
                     .load(imagenavatar)
                     .placeholder(R.mipmap.icon_user)
                     .into(imgUserPhoto);
@@ -473,7 +473,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (mType == 1) {
             String mPhoto = dataFavoritos.getImagenURL();
             if (!mPhoto.equals("")) {
-                Glide.with(App.getContext())
+                Picasso.with(App.getContext())
                         .load(mPhoto)
                         .placeholder(R.mipmap.icon_user)
                         .into(circuleDataPhoto);
@@ -484,7 +484,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (mType == 2) {
             String mPhoto = comercioResponse.getLogoURLColor();
             if (!mPhoto.equals("")) {
-                Glide.with(App.getContext())
+                Picasso.with(App.getContext())
                         .load(App.getContext().getString(R.string.url_images_logos) + mPhoto)
                         .placeholder(R.mipmap.icon_user)
                         .into(imageDataPhoto);
@@ -623,7 +623,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
             } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
-                UI.showErrorSnackBar(getActivity(),getString(R.string.favor_selecciona_importe), Snackbar.LENGTH_SHORT);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.favor_selecciona_importe), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
@@ -632,10 +632,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 errorTittle = App.getContext().getResources().getString(R.string.phone_invalid);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_phone_error);
 
-              //  til_num_telefono.setBackgroundResource(R.drawable.inputtext_error);
-                UI.showErrorSnackBar(getActivity(),getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
+                //  til_num_telefono.setBackgroundResource(R.drawable.inputtext_error);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
             }
-          //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 

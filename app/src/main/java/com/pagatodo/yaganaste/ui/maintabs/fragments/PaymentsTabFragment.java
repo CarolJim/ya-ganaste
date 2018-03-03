@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
@@ -38,6 +37,7 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -125,7 +125,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        Glide.with(getContext()).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL()).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user).dontAnimate().into(imgPagosUserProfile);
+        Picasso.with(getContext()).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL()).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user).into(imgPagosUserProfile);
     }
 
     public PaymentsTabPresenter getPresenter() {
@@ -348,10 +348,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         if (item.getFavoritos() == null) {
             imgPagosServiceToPay.setVisibility(View.VISIBLE);
             imgPagosServiceToPayRound.setImageResource(R.mipmap.blacksquare);
-            Glide.with(getContext()).load(getString(R.string.url_images_logos) + item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
+            Picasso.with(getContext()).load(getString(R.string.url_images_logos) + item.getImageUrl()).into(imgPagosServiceToPay);
         } else {
             imgPagosServiceToPay.setVisibility(View.INVISIBLE);
-            Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPayRound);
+            Picasso.with(getContext()).load(item.getImageUrl()).into(imgPagosServiceToPayRound);
         }
 
         //imgPagosServiceToPay.setVisibility(View.INVISIBLE);

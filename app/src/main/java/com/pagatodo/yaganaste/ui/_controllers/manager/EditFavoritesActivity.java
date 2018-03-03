@@ -33,7 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -82,6 +81,7 @@ import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -375,9 +375,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          */
         String url = dataFavoritos.getImagenURL();
         if (url != null && !url.isEmpty()) {
-            Glide.with(this)
+            Picasso.with(this)
                     .load(dataFavoritos.getImagenURL())
-                    .asBitmap()
                     .into(imageViewCamera.getCircleImageView());
         }
 
@@ -754,9 +753,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-            Glide.with(this)
+            Picasso.with(this)
                     .load(cameraManager.getUriImage())
-                    .asBitmap()
                     .into(imageViewCamera.getCircleImageView());
 
             Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());

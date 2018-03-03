@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -25,6 +24,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
@@ -209,7 +209,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
          * Glide permite falla y cargar un PlaceHolder
          */
         if (url != null && !url.isEmpty()) {
-            Glide.with(getContext())
+            Picasso.with(getContext())
                     .load(url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);

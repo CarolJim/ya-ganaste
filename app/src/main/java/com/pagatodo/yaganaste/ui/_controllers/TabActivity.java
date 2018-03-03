@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -74,6 +73,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -615,9 +615,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
      */
     private void updatePhoto() {
         String mUserImage = pref.loadData(URL_PHOTO_USER);
-        Glide.with(this).load(StringUtils.procesarURLString(mUserImage))
+        Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .dontAnimate().into(imgLoginExistProfile);
+                .into(imgLoginExistProfile);
     }
 
     @Override

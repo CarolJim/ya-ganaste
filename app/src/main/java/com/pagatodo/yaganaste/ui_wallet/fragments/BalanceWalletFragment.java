@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -41,6 +40,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -373,9 +373,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     private void updatePhoto() {
         String mUserImage = prefs.loadData(URL_PHOTO_USER);
-        Glide.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+        Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .dontAnimate().into(crlProfileBalance);
+                .into(crlProfileBalance);
     }
 
     private void setVisibilityFrontItems(int visibility) {

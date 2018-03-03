@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
@@ -30,6 +29,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,7 +96,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         if (dataFavoritos != null) {
             txtInicialesFav.setVisibility(View.GONE);
             if (!dataFavoritos.getImagenURL().equals("")) {
-                Glide.with(getContext())
+                Picasso.with(getContext())
                         .load(dataFavoritos.getImagenURL())
                         .placeholder(R.mipmap.icon_user)
                         .into(crlImageFavorite);
@@ -152,7 +152,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 payments.setMonto(monto);
                 Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
                 intent.putExtra("pagoItem", payments);
-                intent.putExtra("favoriteItem" ,dataFavoritos);
+                intent.putExtra("favoriteItem", dataFavoritos);
                 intent.putExtra("TAB", Constants.PAYMENT_ENVIOS);
                 SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
                 getActivity().startActivity(intent);

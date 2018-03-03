@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -49,6 +48,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -203,13 +203,13 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         });
         txt_data.setText(envio.getNombreDestinatario());
         txt_monto.setText(StringUtils.getCurrencyValue(envio.getMonto()));
-        Glide.with(App.getContext())
+        Picasso.with(App.getContext())
                 .load(App.getInstance().getPrefs().loadData(URL_PHOTO_USER))
                 .placeholder(R.mipmap.icon_user)
                 .into(imgPagosUserProfile);
         if (favoritos != null && !favoritos.getImagenURL().equals("")) {
             txtIniciales.setVisibility(View.GONE);
-            Glide.with(App.getContext())
+            Picasso.with(App.getContext())
                     .load(favoritos.getImagenURL())
                     .placeholder(R.mipmap.icon_user)
                     .into(imgCircleToSendReceiver);

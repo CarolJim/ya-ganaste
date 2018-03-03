@@ -11,12 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -307,14 +307,14 @@ public class PaymentAdapterGV extends BaseAdapter {
     }
 
     private void setImagePicaso(ImageView imageView, String urlLogo) {
-        Glide.with(App.getContext()).load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
-                .dontAnimate().into(imageView);
+        Picasso.with(App.getContext()).load(App.getContext().getString(R.string.url_images_logos) + urlLogo)
+                .into(imageView);
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Glide.with(App.getContext()).load(urlLogo)
+        Picasso.with(App.getContext()).load(urlLogo)
                 .placeholder(R.mipmap.icon_user)
                 .error(R.mipmap.icon_user)
-                .dontAnimate().into(imageView);
+                .into(imageView);
     }
 }

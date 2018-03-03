@@ -772,7 +772,7 @@
     <string name="password_required_seis">La contraseña no es correcta, revísala y vuelve a intentar.</string>
 
     <!-- Depositos -->
-    <string name="datos_deposito">Tus Datos Para Depósitos</string>
+    <string name="datos_deposito">Tus datos de depósito</string>
     <string name="datos_depsito_numero_celular">Teléfono</string>
     <string name="datos_deposito_titular">Titular</string>
     <string name="datos_deposito_num_card">Tarjeta</string>

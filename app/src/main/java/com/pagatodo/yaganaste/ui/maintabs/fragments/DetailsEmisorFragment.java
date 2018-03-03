@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
@@ -23,6 +22,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -220,7 +220,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
          */
         String url = movimientosResponse.getURLImagen();
         if (url != null && !url.isEmpty()) {
-            Glide.with(getContext())
+            Picasso.with(getContext())
                     .load(getString(R.string.url_images_logos) + url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);

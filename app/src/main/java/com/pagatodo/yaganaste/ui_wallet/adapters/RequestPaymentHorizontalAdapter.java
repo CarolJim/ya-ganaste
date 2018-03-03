@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoRequestPayment;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -98,9 +98,9 @@ public class RequestPaymentHorizontalAdapter extends RecyclerView.Adapter<Reques
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
-        Glide.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
+        Picasso.with(App.getContext()).load(urlLogo).placeholder(R.mipmap.icon_user)
                 .error(R.mipmap.icon_user)
-                .dontAnimate().into(imageView);
+                .into(imageView);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

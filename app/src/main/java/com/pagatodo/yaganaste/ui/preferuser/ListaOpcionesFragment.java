@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -37,6 +36,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
+import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -60,8 +60,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
  * A simple {@link Fragment} subclass.
  */
 public class ListaOpcionesFragment extends SupportFragment implements View.OnClickListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener
-        {
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener {
 
     private static final String TAG = DocumentosFragment.class.getSimpleName();
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
@@ -217,10 +216,10 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         // Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            Glide.with(getContext())
+            Picasso.with(getContext())
                     .load(mUserImage)
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                    .dontAnimate().into(iv_photo_item);
+                    .into(iv_photo_item);
         }
 
     }
@@ -316,7 +315,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                         isValid = false;
                     }
 
-                    if(isValid){
+                    if (isValid) {
                         mPreferPresenter.openMenuPhoto(1, cameraManager);
                     }
 
@@ -422,10 +421,10 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         updatePhoto();
     }
 
-            @Override
-            public void setLogOutSession() {
+    @Override
+    public void setLogOutSession() {
 
-            }
+    }
 
-        }
+}
 

@@ -29,7 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -75,6 +74,7 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -339,7 +339,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 } else {
                     formatoPago = StringUtils.formatoPagoMedios(formatoPago);
                 }
-               // layout_cardNumber.setVisibility(View.VISIBLE);
+                // layout_cardNumber.setVisibility(View.VISIBLE);
                 cardNumber.setText(mReferencia);
                 txtLytListServ.setHint(getString(R.string.details_bank));
                 // editListServ.setHintText(getString(R.string.details_bank));
@@ -363,7 +363,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
              * editar, solo se muestra en Add Favorito desde una transaccion y envios
              * helpLinearTipoServ Es el Layout contenedor, aqui hacemos Set del Titulo
              * textViewTipo Es el EditTExt, aqui hacemos Set del contendido del campo
-              */
+             */
             switch (current_tab) {
                 case 1:
                     break;
@@ -411,7 +411,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                         editReferError.setVisibility(View.VISIBLE);
 
                         // Hacemos Set en el tipo de Envio
-                       // idTipoEnvio = position;
+                        // idTipoEnvio = position;
                     }
 
                     InputFilter[] fArray = new InputFilter[1];
@@ -424,7 +424,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                         // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
 
                         // CReamos el te numberCardTextWatcher si no existe
-                        if(numberCardTextWatcher == null){
+                        if (numberCardTextWatcher == null) {
                             numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
                         }
 
@@ -450,7 +450,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                         layoutImageContact2.setOnClickListener(this);
 
                         // CReamos el te phoneTextWatcher si no existe
-                        if(phoneTextWatcher == null){
+                        if (phoneTextWatcher == null) {
                             phoneTextWatcher = new PhoneTextWatcher(cardNumber);
                         }
 
@@ -471,7 +471,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                         cardNumber.setHint(getString(R.string.transfer_cable));
 
                         // CReamos el te numberCardTextWatcher si no existe
-                        if(numberClabeTextWatcher == null){
+                        if (numberClabeTextWatcher == null) {
                             numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
                         }
 
@@ -509,7 +509,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             /**
              * Proceso para alta de favorito desde Cero mostramos los campos poco a poco
              * TAE, PDS o Envio
-              */
+             */
 
             // HAcemos Set del hint en el layout de tipo de servicio del favorito que vamos a guardar
             if (current_tab == 1) {
@@ -905,9 +905,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         // Log.d("TAG", "setPhotoToService ");
         try {
             //imageViewCamera.setImageBitmap(bitmap);
-            Glide.with(this)
+            Picasso.with(this)
                     .load(cameraManager.getUriImage())
-                    .asBitmap()
                     .into(imageViewCamera.getCircleImageView());
             Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
             //cameraManager.setBitmap(bitmapAux);
@@ -1002,8 +1001,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         } else if (current_tab == 3) {
             //Validate format Spinner
             if (editSpinner.getText().toString().isEmpty()) {
-               // showValidationError(editSpinner.getId(), getString(R.string.addFavoritesErrorEnvio));
-               // editSpinner.setIsInvalid();
+                // showValidationError(editSpinner.getId(), getString(R.string.addFavoritesErrorEnvio));
+                // editSpinner.setIsInvalid();
 
                 UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorEnvio), Snackbar.LENGTH_SHORT);
                 isValid = false;
@@ -1386,10 +1385,10 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                     idComercio == 814 ? 15 : 16
             )));
-           // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+            // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
 
             // CReamos el te numberCardTextWatcher si no existe
-            if(numberCardTextWatcher == null){
+            if (numberCardTextWatcher == null) {
                 numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             }
 
@@ -1414,7 +1413,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             layoutImageContact2.setOnClickListener(this);
 
             // CReamos el te phoneTextWatcher si no existe
-            if(phoneTextWatcher == null){
+            if (phoneTextWatcher == null) {
                 phoneTextWatcher = new PhoneTextWatcher(cardNumber);
             }
 
@@ -1435,7 +1434,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             cardNumber.setHint(getString(R.string.transfer_cable));
 
             // CReamos el te numberCardTextWatcher si no existe
-            if(numberClabeTextWatcher == null){
+            if (numberClabeTextWatcher == null) {
                 numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
             }
 
