@@ -87,11 +87,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     @BindView(R.id.txtcoloria)
     LinearLayout txtcoloria;
 
-
-
-
-
-
     @BindView(R.id.editBussinesIntNumberold)
     CustomValidationEditText editBussinesIntNumberold;
     @BindView(R.id.editBussinesIntNumber)

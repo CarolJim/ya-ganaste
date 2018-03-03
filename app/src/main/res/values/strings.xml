@@ -419,7 +419,7 @@
     <string name="error_parentesco">Parentesco Requerido, Verifique su Información</string>
     <string name="error_cargo">Cargo Requerido, Verifique su Información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
-    <string name="terms_and_conditions_aditional_info">Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones</string>
+    <string name="terms_and_conditions_aditional_info">Al continuar reconozco haber leído y aceptado los\nTéminos y Condiciones</string>
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
@@ -600,7 +600,7 @@
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">A continuación, un comprobante de domicilio comenrcial no\nmayor a 3 meses, puede ser CFE, Teléfono o Agua</string>
+    <string name="documents_comprobantes">A continuación, un comprobante de domicilio comercial no\nmayor a 3 meses, puede ser CFE, Teléfono o Agua</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
 
@@ -1307,7 +1307,9 @@
     <string name="contrasena_confirma">Confirma contraseña</string>
 
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">¿Dónde vives? es muy importante tener tus datos\ncompletos para continuar con tu registro</string>
+    <string name="sub_titulo_datos_personales">¡Hola %s! Comencemos con el registro de tu\nnegocio, cuéntanos un poco de él</string>
+    <string name="sub_titulo_domicilio">¿Cuál es la dirección de tu negocio?\nPor defecto, asignamos tu dirección personal</string>
+    <string name="sub_titulo_info_adic">Casi estamos listos, necesitamos hacerte algunas\npreguntas más para completar tu registro</string>
 
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
@@ -1347,7 +1349,7 @@
     <string name="tuvimos_problema_solicitud">Tuvimos un problema con tu solicitud, comunícate con nosotros para conocer más detalles</string>
 
     <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
-    <string name="sub_titulo_ine">Primero una identificación oficial vigente, puedeser tu\ncredencial de elector(INE) o tu pasaporte</string>
+    <string name="sub_titulo_ine">Primero una identificación oficial vigente, puede ser tu\ncredencial de elector (INE) o tu pasaporte</string>
 
     <!-- Cambio de nip-->
     <string name="nip_actual">NIP actual</string>

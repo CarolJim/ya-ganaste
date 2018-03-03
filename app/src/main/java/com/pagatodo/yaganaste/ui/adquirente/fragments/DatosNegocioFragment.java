@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
@@ -30,12 +31,11 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,8 +50,9 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment.USER_NAME;
+import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 
 
 /**
@@ -62,7 +63,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         DialogDoubleActions, IOnSpinnerClick {
 
     private static final String GIROS = "1";
-
 
     @BindView(R.id.editBussinesNameold)
     CustomValidationEditText editBussinesNameold;
@@ -79,10 +79,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.editBussinesPhone)
     EditText editBussinesPhone;
 
-
     @BindView(R.id.text_nombrenegoci)
     TextInputLayout text_nombrenegoci;
-
 
     @BindView(R.id.text_telefono)
     TextInputLayout text_telefono;
@@ -93,15 +91,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.txtsubgiro)
     LinearLayout txtsubgiro;
 
-
-
-
-
-
-
-
-
-
+    @BindView(R.id.titulo_datos_usuario)
+    StyleTextView titulo_datos_usuario;
 
     /*@BindView(R.id.btnBackBussinesInfo)
     Button btnBackBussinesInfo;*/
@@ -150,7 +141,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootview = inflater.inflate(R.layout.fragment_datos_negocio, container, false);
         initViews();
         initValues();
@@ -160,7 +150,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
+        titulo_datos_usuario.setText(String.format(getString(R.string.sub_titulo_datos_personales), App.getInstance().getPrefs().loadData(NAME_USER)));
         if (girosComercio == null) {
             girosComercio = new ArrayList<>();
             Giros giroHint = new Giros();
@@ -268,17 +258,17 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
                 } else {
                     if (editBussinesName.getText().toString().isEmpty()) {
-                       // showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
-                      //  editBussinesName.setIsInvalid();
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        // showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
+                        //  editBussinesName.setIsInvalid();
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
                         text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
                     } else {
                         //hideValidationError(editBussinesName.getId());
                         text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_normal);
-                      //  editBussinesName.setIsValid();
+                        //  editBussinesName.setIsValid();
                     }
                 }
             }
@@ -300,28 +290,28 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                 //   hideValidationError(editBussinesPhone.getId());
-              //      editBussinesPhone.imageViewIsGone(true);
+                    //   hideValidationError(editBussinesPhone.getId());
+                    //      editBussinesPhone.imageViewIsGone(true);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editBussinesPhone.getText().toString().isEmpty()) {
-                      //  showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
-                //        editBussinesPhone.setIsInvalid();
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        //  showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
+                        //        editBussinesPhone.setIsInvalid();
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_telefono.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
-                    } else if (! ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
+                    } else if (!ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_telefono.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
                         //showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
-                       // editBussinesPhone.setIsInvalid();
-                    } else if ( ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
+                        // editBussinesPhone.setIsInvalid();
+                    } else if (ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
                         hideValidationError(editBussinesPhone.getId());
                         text_telefono.setBackgroundResource(R.drawable.inputtext_normal);
-                      //  editBussinesPhone.setIsValid();
+                        //  editBussinesPhone.setIsValid();
                     }
                 }
             }
@@ -347,13 +337,13 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         boolean isValid = true;
 
         if (nombre.isEmpty()) {
-         //   showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
-           // editBussinesName.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            //   showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
+            // editBussinesName.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
             text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
 
             isValid = false;
         }
@@ -371,22 +361,22 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         }
 
         if (!isPhone(editBussinesPhone.getText().toString()) || editBussinesPhone.getText().toString().equalsIgnoreCase("0000000000")) {
-           // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
-        //    editBussinesPhone.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
+            //    editBussinesPhone.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             text_telefono.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
         if (telefono.isEmpty()) {
-           // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
-          //  editBussinesPhone.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
+            //  editBussinesPhone.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             text_telefono.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 

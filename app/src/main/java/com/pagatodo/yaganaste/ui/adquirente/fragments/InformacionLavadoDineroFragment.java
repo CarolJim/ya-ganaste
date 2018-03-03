@@ -115,12 +115,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     StyleTextView destino;
 
 
-
-
-
-
-
-
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
     //private List<String> cobrosMensual;
@@ -219,7 +213,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         hideValidationError(spnDestinoRecursos.getId());
 
 
-
         cobromensual.setVisibility(View.VISIBLE);
         montomensual.setVisibility(View.VISIBLE);
         origen.setVisibility(View.VISIBLE);
@@ -286,7 +279,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         }
 
         if (spnMontoMensual.getSelectedItemPosition() == 0) {
-           // showValidationError(errorMontoMensual.getId(), getString(R.string.text_error_monto_mensual));
+            // showValidationError(errorMontoMensual.getId(), getString(R.string.text_error_monto_mensual));
             txtmontomensual.setBackgroundResource(R.drawable.inputtext_error);
 
             isValid = false;
@@ -411,9 +404,8 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
             }
         };
-        int startIndex = ss.toString().indexOf(getString(R.string.terminos_condiciones));
-        ss.setSpan(span1, startIndex, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), startIndex, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(span1, 50, 71, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 50, 71, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         txtLegales.setText(ss);
         txtLegales.setMovementMethod(LinkMovementMethod.getInstance());
