@@ -8,11 +8,11 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/textView2"
         style="@style/title_fragment"
-        android:textColor="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/title_fragment_nip" />
+        android:text="@string/title_fragment_nip"
+        android:textColor="@color/colorAccent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +23,10 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-
-
         <View
             android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="30dp" />
-
-        <include layout="@layout/asignar_nip1_change" />
+            android:layout_height="2dp"
+            android:layout_marginTop="30dp" />
 
         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
             android:id="@+id/errorOldNipMessage"
@@ -84,7 +80,7 @@
                 android:layout_width="1px"
                 android:layout_height="1px"
                 android:layout_marginTop="20dp"
-                android:ems="10"
+                android:ems="4"
                 android:inputType="numberPassword"
                 android:maxLength="4" />
 
@@ -93,7 +89,7 @@
                 android:layout_width="1px"
                 android:layout_height="1px"
                 android:layout_marginTop="20dp"
-                android:ems="10"
+                android:ems="4"
                 android:inputType="numberPassword"
                 android:maxLength="4" />
 
@@ -105,8 +101,8 @@
         android:id="@+id/content_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/textView2"
+        android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -114,24 +110,24 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/olvidaste_nip"
+        style="@style/generic_text_style_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/generic_text_style_5"
-        android:textColor="@color/texthint"
-        android:text="@string/olvidaste_nip"
         android:layout_below="@id/content_linearlayout"
-        android:layout_marginTop="32dp"/>
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/olvidaste_nip"
+        android:textColor="@color/texthint" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/call_phone"
+        style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/generic_text_style_2"
-        android:text="@string/numero"
+        android:layout_below="@id/olvidaste_nip"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/olvidaste_nip"/>
+        android:gravity="center"
+        android:text="@string/numero" />
 
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton

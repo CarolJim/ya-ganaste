@@ -132,8 +132,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
 
-
-
     @Override
     public void Photo(int i, CameraManager cameraManager) {
 
@@ -141,7 +139,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             cameraManager.Photo(i);
         } catch (Exception e) {
             //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
-           // iListaOpcionesView.showExceptionToView(e.toString());
+            // iListaOpcionesView.showExceptionToView(e.toString());
         }
 
     }
@@ -152,7 +150,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             cameraManager.Picture(i);
         } catch (Exception e) {
             //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
-           // iListaOpcionesView.showExceptionToView(e.toString());
+            // iListaOpcionesView.showExceptionToView(e.toString());
         }
 
 
@@ -264,11 +262,20 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
         accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
     }
-    @Override
-    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
-        accountIteractor.sendIteractorActualizarAvatar(avatarRequest,ACTUALIZAR_AVATAR);
+
+    public void changeNIP(String nip, String nipNewConfirm) {
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
+        AsignarNIPRequest request = new AsignarNIPRequest(
+                Utils.cipherRSA(nip),
+                Utils.cipherRSA(nipNewConfirm)
+        );
+        accountIteractor.assignmentNIP(request, ASIGNAR_NEW_NIP);
     }
 
+    @Override
+    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
+        accountIteractor.sendIteractorActualizarAvatar(avatarRequest, ACTUALIZAR_AVATAR);
+    }
 
     @Override
     public void gerNumberToSMS() {
@@ -325,11 +332,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == ASIGNAR_NIP) {
                 accountView.showError(error.toString());
             }
-        }else if (accountView instanceof IListaOpcionesView) {
+        } else if (accountView instanceof IListaOpcionesView) {
             if (ws == ACTUALIZAR_AVATAR) {
                 ((IListaOpcionesView) accountView).sendErrorAvatarToView("imagen no cargada");
             }
-        }  else if (accountView instanceof IChangeNIPView) {
+        } else if (accountView instanceof IChangeNIPView) {
             if (ws == ASIGNAR_NEW_NIP) {
                 accountView.showError(error.toString());
             }
@@ -499,7 +506,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 // mensajesucces.showErrorTitular(data.toString());
 
             }
-        }else if (accountView instanceof IListaOpcionesView) {
+        } else if (accountView instanceof IListaOpcionesView) {
             if (ws == ACTUALIZAR_AVATAR) {
                 ((IListaOpcionesView) accountView).sendSuccessAvatarToView("Imagen cargada Correctamente");
                 //accountView.showErrorTitular(data.toString());

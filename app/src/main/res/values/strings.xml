@@ -392,19 +392,19 @@
     <string name="tienes_tarjeta_validando_tarjeta_2">Estamos Asignando tu Tarjeta</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
     <string name="tienes_tarjeta_asignando_nip">Asignando NIP</string>
-    <string name="tienes_tarjeta_asignando_nipnuevo">Estamos Registrando el NIP de tu Tarjeta</string>
+    <string name="tienes_tarjeta_asignando_nipnuevo">Estamos registrando el NIP de tu tarjeta</string>
     <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
     <string name="doYouHaveCardTitle">Activa tu tarjeta Ya Ganaste</string>
-    <string name="permission_request">Solicitud de Permisos</string>
-    <string name="permission_request_desc">Debes Aceptar Todos Los Permisos Para el Correcto Funcionamiento de Ya Ganaste</string>
-    <string name="change_nip_block_card">Para Cambiar tu Nip, Por Favor Desbloquea tu Tarjeta</string>
+    <string name="permission_request">Solicitud de permisos</string>
+    <string name="permission_request_desc">Debes aceptar todos los permisos para el correcto funcionamiento de Ya Ganaste</string>
+    <string name="change_nip_block_card">Para cambiar tu Nip, por favor desbloquea tu tarjeta</string>
     <string name="asignar_pin">Verifica tu NIP</string>
     <string name="confirma_pin">Confirma tu NIP</string>
-    <string name="confirmar_pin">El NIP no Coincide</string>
-    <string name="longitud_nip">NIP de 4 Dígitos</string>
-    <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
-    <string name="new_nip_four_digits">Son Necesarios 4 Números</string>
+    <string name="confirmar_pin">El NIP no coincide</string>
+    <string name="longitud_nip">NIP de 4 dígitos</string>
+    <string name="new_nip_diferent">El nuevo NIP debe ser diferente del anterior</string>
+    <string name="new_nip_four_digits">Son necesarios 4 números</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -553,7 +553,7 @@
     <string name="revisa_el_resumen">Revisa el Resumen del\nMovimiento en el Sitio Web Ya Ganaste</string>
     <string name="terminar">Terminar</string>
 
-    <string name="nip_empty">Debes Introducir tu NIP para Poder Aprobar Esta Transacción</string>
+    <string name="nip_empty">Debes introducir tu NIP para poder aprobar esta transacción</string>
 
     <string name="tx_expired">La Transacción ha Expirado</string>
 
