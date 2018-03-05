@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
@@ -172,6 +173,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     CircleImageView circuloimageupload;
     @BindView(R.id.layoutImg)
     RelativeLayout relativefav;
+    @BindView(R.id.til_num_telefono2)
+    TextInputLayout til_name_favorite;
+    @BindView(R.id.txt_lyt_list_serv)
+    TextInputLayout til_name_service;
     AppCompatImageView btn_back;
     IFavoritesPresenter favoritesPresenter;
     DataFavoritos dataFavoritos;
@@ -233,8 +238,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         deleteFav.setOnClickListener(this);
 
         imageViewCamera.setVisibilityStatus(true);
-        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+       // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        imageViewCamera.setImageDrawable(App.getContext().getDrawable(R.drawable.ic_camera_border_gray));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(distancia, 30, 0, 0);
         paramsc.width = paramentroimgc;
@@ -248,6 +254,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         /**
          * Iniciamos los cambos de EditTExt Sencillos
          */
+        til_name_favorite.setHint("Nombre");
         editAlias.setText(nombreDest);
         editListServ.setText(nombreComercio);
 
@@ -269,17 +276,17 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             if (idComercio == 7) {
                 formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
             }
-            // textViewServ.setHintText(getString(R.string.details_compania));
+            til_name_service.setHint(getString(R.string.details_compania));
         } else if (current_tab == 2) {
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
-            //  textViewServ.setHintText(getString(R.string.details_compania));
+            til_name_service.setHint(getString(R.string.details_compania));
         } else if (current_tab == 3) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
                 formatoPago = getCreditCardFormat(formatoPago);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
-            // textViewServ.setHintText(getString(R.string.details_bank));
+            til_name_service.setHint(getString(R.string.details_bank));
         }
 
         /**
@@ -424,7 +431,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
-                           // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -444,7 +451,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
-                          //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -464,7 +471,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
-                          //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
@@ -478,7 +485,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public boolean requiresTimer() {
-        return true;
+        return false;
     }
 
 
@@ -845,7 +852,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             editRefer.setText(cardNumber.getText().toString());
             //Validate format Referencia
             if (editRefer.getText().toString().isEmpty()) {
-               // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
                 //  editRefer.setIsInvalid();
 
                 UI.showErrorSnackBar(this, getString(R.string.addFavoritesErrorRefer), Snackbar.LENGTH_SHORT);
@@ -1072,7 +1079,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
         if (isIAVE) {
             currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
-           // recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
+            // recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);

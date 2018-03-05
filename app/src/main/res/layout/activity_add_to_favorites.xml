@@ -97,7 +97,7 @@
                     android:hint="@string/favorte_name"
                     android:maxLines="1"
                     android:paddingLeft="6dp"
-                    android:textColor="@color/blue_text_wallet"
+                    android:textColorHint="@color/texthint"
                     android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
