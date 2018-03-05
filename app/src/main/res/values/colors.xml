@@ -43,6 +43,7 @@
 
     <!-- Color alternativo para textos-->
     <color name="textColorAlternative">#adadad</color>
+    <color name="textColorsignatureframentname">#888888</color>
 
     <!-- Colores oficiales 12-07-17 -->
     <color name="colorAccent">#00A1E1</color>

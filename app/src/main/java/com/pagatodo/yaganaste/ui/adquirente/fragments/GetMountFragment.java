@@ -362,7 +362,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
         try {
             LocationSettingsResponse response = task.getResult(ApiException.class);
-            actionCharge();
+          //  actionCharge();
         } catch (final ApiException exception) {
             switch (exception.getStatusCode()) {
                 case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
@@ -384,7 +384,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 switch (resultCode) {
                     case Activity.RESULT_OK:
 
-                        actionCharge();
+                      //  actionCharge();
                         break;
                     case Activity.RESULT_CANCELED:
                         //et_amount.setText(App.getInstance().getCurrentMount());

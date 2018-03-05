@@ -1355,4 +1355,6 @@
     <string name="nip_actual">NIP actual</string>
     <string name="nip_nuevo">Nuevo NIP</string>
     <string name="nip_confima">Confirma nuevo NIP</string>
+
+    <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
 </resources>

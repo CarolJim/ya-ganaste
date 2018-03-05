@@ -148,10 +148,10 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnClear"
-                        style="@style/AppButton"
-                        android:background="@drawable/button_rounded_transparent"
+                        style="@style/buttonSquareRoundedBluedd"
+                        android:background="@drawable/btnbluewhite"
                         android:text="Limpiar"
-                        android:textColor="@color/whiteColor" />
+                        android:textColor="@color/colorAccent" />
 
                     <View
                         android:layout_width="25dp"
@@ -161,8 +161,8 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnSendSignature"
-                        style="@style/AppButton"
-                        android:background="@drawable/button_rounded_transparent"
+                        style="@style/buttonSquareRoundedBluedd"
+                        android:background="@drawable/button_rounded_blue"
                         android:text="Continuar"
                         android:textColor="@color/whiteColor" />
                 </LinearLayout>
