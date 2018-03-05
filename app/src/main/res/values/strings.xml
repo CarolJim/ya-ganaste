@@ -737,15 +737,15 @@
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
     <string name="numero_telefono_incorrecto">Número de Teléfono Inválido</string>
 
-    <string name="detalle_movimiento">Detalle de Movimiento</string>
+    <string name="detalle_movimiento">Detalle de movimiento</string>
     <string name="cobraste">Cobraste</string>
-    <string name="con_la_tarjeta">Con la Tarjeta:</string>
-    <string name="cancel_cobro_confirmation">¿Estás Seguro Que Quieres\n Cancelar Este Cobro?</string>
-    <string name="procesando_cobro">Estamos Procesando \nel Cobro</string>
-    <string name="procesando_cancelacion">Realizando Cancelación</string>
+    <string name="con_la_tarjeta">Con la tarjeta:</string>
+    <string name="cancel_cobro_confirmation">¿Estás seguro que quieres\ncancelar este cobro?</string>
+    <string name="procesando_cobro">Estamos procesando el cobro</string>
+    <string name="procesando_cancelacion">Realizando cancelación</string>
     <string name="validando_lector"></string>
     <string name="enviando_firma"></string>
-    <string name="enviando_ticket">Enviando Recibo</string>
+    <string name="enviando_ticket">Enviando recibo</string>
 
     <string name="fecha_nacimiento_erronea">Fecha de Nacimiento Errónea, Verifique su Información</string>
     <string name="feha_nacimiento_menor_edad">Para Poder Continuar, Debes Ser Mayor de Edad</string>
@@ -1355,4 +1355,6 @@
     <string name="nip_actual">NIP actual</string>
     <string name="nip_nuevo">Nuevo NIP</string>
     <string name="nip_confima">Confirma nuevo NIP</string>
+
+    <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
 </resources>

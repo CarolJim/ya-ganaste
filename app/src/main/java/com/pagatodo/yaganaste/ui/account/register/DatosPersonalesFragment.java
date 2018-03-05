@@ -192,7 +192,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 day = newCalendar.get(Calendar.DAY_OF_MONTH);
             }
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_DARK, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));

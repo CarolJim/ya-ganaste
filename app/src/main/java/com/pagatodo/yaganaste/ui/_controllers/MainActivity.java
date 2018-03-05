@@ -59,7 +59,7 @@ public class MainActivity extends ToolBarActivity {
                     UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
                             this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
                 }
-                if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                /*if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         getIntent().hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&
                         getIntent().hasExtra(EXTRA_CIRCULAR_REVEAL_Y)) {
                     ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
@@ -72,7 +72,7 @@ public class MainActivity extends ToolBarActivity {
                             }
                         });
                     }
-                }
+                }*/
             }
         }
     }

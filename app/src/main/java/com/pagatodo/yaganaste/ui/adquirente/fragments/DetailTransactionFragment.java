@@ -7,9 +7,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,8 +32,10 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.File;
@@ -67,10 +72,29 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @BindView(R.id.imgTypeCard)
     ImageView imgTypeCard;
     @BindView(R.id.edtEmailSendticket)
-    CustomValidationEditText edtEmailSendticket;
+    EditText edtEmailSendticket;
+
+    @BindView(R.id.et_amount)
+    EditText et_amount;
+
+    @BindView(R.id.text_email)
+    TextInputLayout text_email;
+
+
+
+    @BindView(R.id.edtEmailSendticketold)
+    CustomValidationEditText edtEmailSendticketold;
     @BindView(R.id.layout_enviado)
     LinearLayout lyt_concept;
     ImageView imageshae;
+
+
+
+    @BindView(R.id.btnNextEnviarticket)
+    StyleButton btnNextEnviarticket;
+
+
+
 
     private TransaccionEMVDepositResponse emvDepositResponse;
     private String emailToSend = "";
@@ -139,7 +163,8 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
         /*imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageshae.setVisibility(View.VISIBLE);
         imageshae.setOnClickListener(this);*/
-
+        et_amount.setText(StringUtils.getCurrencyValue(TransactionAdqData.getCurrentTransaction().getAmount()));
+        btnNextEnviarticket.setOnClickListener(this);
         // Automatic Ticket Send to User
         adqPresenter.sendTicket(RequestHeaders.getUsername(), true);
     }
@@ -155,10 +180,13 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
             TransactionAdqData.resetCurrentTransaction();
             onEventListener.onEvent(AdqActivity.EVENT_GO_LOGIN_FRAGMENT, null);
             return;
-        } else if (!emailToSend.isEmpty() && !edtEmailSendticket.isValidText()) {
-            showValidationError(getString(R.string.check_your_mail));
+        } else if (!emailToSend.isEmpty() && !ValidateForm.isValidEmailAddress(edtEmailSendticket.getText().toString())) {
+            //showValidationError(getString(R.string.check_your_mail));
+            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
             return;
         }
+        text_email.setBackgroundResource(R.drawable.inputtext_normal);
         onValidationSuccess();
     }
 
@@ -185,7 +213,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
     @Override
     public void getDataForm() {
-        emailToSend = edtEmailSendticket.getText().trim();
+        emailToSend = edtEmailSendticket.getText().toString();
     }
 
     @Override
@@ -238,6 +266,13 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
             takeScreenshot();
             //shareContent();
         }
+        if (v.getId() == R.id.btnNextEnviarticket){
+
+            adqPresenter.sendTicket(emailToSend, false);
+        }
+
+
+
     }
 
     private void takeScreenshot() {

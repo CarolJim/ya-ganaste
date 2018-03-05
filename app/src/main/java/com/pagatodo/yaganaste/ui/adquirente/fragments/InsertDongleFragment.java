@@ -89,9 +89,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     GifImageView imgInsertCard;*/
 
     @BindView(R.id.imgInsertDongle)
-    LottieAnimationView imgInsertDongle;
+    GifImageView imgInsertDongle;
     @BindView(R.id.imgInsertCard)
-    LottieAnimationView imgInsertCard;
+    GifImageView imgInsertCard;
 
    /* @BindView(R.id.insertDongleAnimation)
     LottieAnimationView insertDongle;*/
@@ -460,45 +460,38 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertDongle() {
-        //insertDongle.setVisibility(VISIBLE);
-        imgInsertCard.setVisibility(INVISIBLE);
+        imgInsertDongle.setVisibility(VISIBLE);
+        imgInsertCard.setVisibility(View.INVISIBLE);
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
-        imgInsertDongle.playAnimation();
+
 
     }
 
     @Override
     public void showInsertCard() {
-       /* insertDongle.setVisibility(View.GONE);
-        insertDongle.pauseAnimation();*/
-        imgInsertDongle.pauseAnimation();
-        imgInsertCard.setVisibility(VISIBLE);
-        imgInsertCard.playAnimation();
-
-        imgInsertDongle.setVisibility(INVISIBLE);
+        imgInsertDongle.setVisibility(View.INVISIBLE);
         String message;
+
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
-               // imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
-                imgInsertCard.playAnimation();
+                imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
             } else {
                 // showError("Mensaje de prueba dongle_swipe_card");
                 message = getString(R.string.text_slide_cancelation);
-                //imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
-                imgInsertCard.playAnimation();
+                imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+
             }
         } else {
             // message = getString(R.string.text_slide_or_insert);
             message = getString(R.string.text_insert_or_slide);
 
         }
-
-        imgInsertCard.playAnimation();
+        imgInsertCard.setVisibility(VISIBLE);
 
         try {
-          //  ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
+            ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
