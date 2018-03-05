@@ -145,13 +145,13 @@ public class PaymentAdapterGV extends BaseAdapter {
                     setImagePicaso(imageLogos, myDataset.get(position).getUrlLogo());
                 }
 
-                imageLogos.setOnClickListener(new View.OnClickListener() {
+                imageBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mContext.sendData(position, mTypeItem, recyclerPosition);
                     }
                 });
-                imageCircleCenter.setOnClickListener(new View.OnClickListener() {
+                imageBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mContext.sendData(position, mTypeItem, recyclerPosition);
@@ -199,6 +199,9 @@ public class PaymentAdapterGV extends BaseAdapter {
                     imageCircleCenter.setBackground(gd);
 
                     imageView.setBackground(App.getContext().getResources().getDrawable(R.drawable.ic_add_new_favorite));
+                    imageView.getLayoutParams().height =  ViewGroup.LayoutParams.WRAP_CONTENT;
+                    imageView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    imageView.requestLayout();
                     //  imageViewBorder.setBorderColor(Color.GRAY);
                 } else {
                     if (urlImage.equals("")) {
@@ -235,7 +238,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                  *
                  * De esta forma no necesitamos codigo adicional en ningun proceso fuera de aqui
                  */
-                imageView.setOnClickListener(new View.OnClickListener() {
+                imageBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOperationFav == 2 && position != 0) {
@@ -245,7 +248,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                         }
                     }
                 });
-                imageCircleCenter.setOnClickListener(new View.OnClickListener() {
+                imageBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOperationFav == 2 && position != 0) {

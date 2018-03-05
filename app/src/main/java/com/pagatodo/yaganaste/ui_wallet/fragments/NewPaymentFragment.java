@@ -532,7 +532,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
             DataFavoritos itemAdd = new DataFavoritos(-2);
             itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
-            itemAdd.setNombre("Nuevo");
+            itemAdd.setNombre(App.getContext().getResources().getString(R.string.btn_req_payment_2_txt));
             finalList.add(itemAdd);
 
             // Agregamos nuestros elementos que van en la lista, estos tienen item valido
@@ -544,7 +544,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         if (lenghtArray > 8 && lenghtArray != 0) {
             DataFavoritos itemAdd = new DataFavoritos(-2);
             itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
-            itemAdd.setNombre("Nuevo");
+            itemAdd.setNombre(App.getContext().getResources().getString(R.string.btn_req_payment_2_txt));
             finalList.add(itemAdd);
 
             // Agregamos los elementos de Favortios en las posiciones 1-6. 0 = Lupa 7=Agregar
@@ -608,7 +608,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();
-                    } else if (mFullListaRecar.get(typePosition).get(position).getNombre().equals("Nuevo")) {
+                    } else if (mFullListaRecar.get(typePosition).get(position).getNombre().equals(
+                            App.getContext().getResources().getString(R.string.btn_req_payment_2_txt)
+                    )) {
                         // Iniciamos la actividad de Favoritos para recargas
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);

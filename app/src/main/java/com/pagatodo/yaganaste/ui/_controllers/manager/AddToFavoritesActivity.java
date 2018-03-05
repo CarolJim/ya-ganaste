@@ -253,7 +253,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         int distancia = paramentroT - paramentroimgc;
         imageViewCamera.setVisibilityStatus(false);
         //imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
-        imageViewCamera.setImageDrawable(App.getContext().getDrawable(R.drawable.ic_camera_border_gray));
+        imageViewCamera.setImageDrawable(App.getContext().getResources().getDrawable(R.drawable.ic_camera_border_gray));
         //  circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(distancia, 30, 0, 0);
@@ -1314,7 +1314,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         if (formatoComercio.equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber, maxLength));
+        referenceNumber.addTextChangedListener(new NumberCardTextWatcher(referenceNumber, maxLength));
     }
 
     /**
