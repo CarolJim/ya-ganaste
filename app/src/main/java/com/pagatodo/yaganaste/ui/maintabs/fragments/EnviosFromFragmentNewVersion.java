@@ -396,7 +396,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 }
 
                 // Borramos el adaptar antterior, y volvemos a crearlo para mostrar las imagernes de editar
-                if (adapterMaterialPalet != null){
+                if (adapterMaterialPalet != null) {
                     adapterMaterialPalet = null;
                     adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
                     recyclerView.setAdapter(adapterMaterialPalet);
@@ -720,7 +720,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
 
         // Verificamos que el adapter exista si no, lo creamos
-        if (adapterMaterialPalet == null){
+        if (adapterMaterialPalet == null) {
             adapterMaterialListener = new RecyclerViewOnItemClickListener() {
                 @Override
                 public void onClick(View v, int position) {
@@ -729,7 +729,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                      * Si es editable mandamos a Edittar, si no a proceso normal
                      */
 
-                    if(isEditable){
+                    if (isEditable) {
                         if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
                             Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                             // Vibrate for 500 milliseconds
@@ -743,7 +743,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                                 startActivity(intentEditFav);
                             }
                         }
-                    }else{
+                    } else {
                         if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
                             Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                             intentAddFavorite.putExtra(FAV_PROCESS, 2);
@@ -752,14 +752,13 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         } else {
                             // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
-                            // TODO Armando Estos son los datos que son necesario, solo queda hacer el Set en los campos
                             idComercio = 0;
                             isfavo = true;
+                            bancoselected = true;
                             bancoselected = true;
                             favoriteItem = backUpResponseFavoritos.get(position);
                             long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
                             String myName = backUpResponseFavoritos.get(position).getNombre();
-
 
                             myReferencia = backUpResponseFavoritos.get(position).getReferencia();
 

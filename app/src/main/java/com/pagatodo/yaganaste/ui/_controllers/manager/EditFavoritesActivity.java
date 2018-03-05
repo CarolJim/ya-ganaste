@@ -79,7 +79,6 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
-import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
@@ -153,10 +152,12 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     EditText referenceNumber;
     @BindView(R.id.layoutImageReference)
     RelativeLayout layoutImageReference;
+    @BindView(R.id.tipoEnvio_layout)
+    LinearLayout tipoEnvio_layout;
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
     @BindView(R.id.cardNumber)
-    StyleEdittext cardNumber;
+    EditText cardNumber;
     @BindView(R.id.layout_cardNumber)
     LinearLayout layout_cardNumber;
     @BindView(R.id.add_favorites_spinner_et)
@@ -192,6 +193,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     private TextWatcher currentTextWatcher, currentTextWatcherPDS;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private FavoritoPresenterAutoriza favoritoPresenterAutoriza;
+    private NumberCardTextWatcher numberCardTextWatcher;
+    private PhoneTextWatcher phoneTextWatcher;
+    private NumberClabeTextWatcher numberClabeTextWatcher;
+    TextWatcher txtWatcherSetted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,7 +243,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         deleteFav.setOnClickListener(this);
 
         imageViewCamera.setVisibilityStatus(true);
-       // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         imageViewCamera.setImageDrawable(App.getContext().getDrawable(R.drawable.ic_camera_border_gray));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -1179,6 +1184,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      * Procedimientos especificos para la referencia por via Envios
      */
     private void initEnviosPrefer() {
+        tipoEnvio_layout.setVisibility(View.VISIBLE);
         tipoEnvio.setVisibility(View.VISIBLE);
         keyIdComercio = idComercio;
 
@@ -1216,7 +1222,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
-        cardNumber.removeTextChangedListener();
+        //cardNumber.removeTextChangedListener();
 
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {
@@ -1247,12 +1253,17 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
         InputFilter[] fArray = new InputFilter[1];
 
+        // Eliminamos todos los text Watchar previos
+        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+        cardNumber.removeTextChangedListener(phoneTextWatcher);
+        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
         if (position == NUMERO_TARJETA.getId()) {
             maxLength = idComercio == 814 ? 18 : 19;
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                     idComercio == 814 ? 15 : 16
             )));
-            NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+
+            numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
                 numberCardTextWatcher.setOnITextChangeListener(this);
             }
@@ -1265,16 +1276,19 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
             layoutImageContact2.setVisibility(View.VISIBLE);
             layoutImageContact2.setOnClickListener(this);
-            PhoneTextWatcher phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+            phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+
             if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
                 phoneTextWatcher.setOnITextChangeListener(this);
             }
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
         } else if (position == CLABE.getId()) {
+
             maxLength = 22;
+            numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
             cardNumber.setHint(getString(R.string.transfer_cable));
-            cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber, maxLength));
+            cardNumber.addTextChangedListener(numberClabeTextWatcher);
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
             selectedType = CLABE;
