@@ -629,6 +629,11 @@
         <item name="android:textSize">55sp</item>
         <item name="tipo">Descripcion</item>
     </style>
+    <style name="generic_calculator_integer_style_cobro">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">70sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
 
     <style name="generic_calculator_decimal_style">
         <item name="android:textColor">@color/colorAccent</item>
