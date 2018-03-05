@@ -89,9 +89,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     GifImageView imgInsertCard;*/
 
     @BindView(R.id.imgInsertDongle)
-    GifImageView imgInsertDongle;
+    LottieAnimationView imgInsertDongle;
     @BindView(R.id.imgInsertCard)
-    GifImageView imgInsertCard;
+    LottieAnimationView imgInsertCard;
 
    /* @BindView(R.id.insertDongleAnimation)
     LottieAnimationView insertDongle;*/
@@ -461,7 +461,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertDongle() {
         imgInsertDongle.setVisibility(VISIBLE);
+        imgInsertDongle.playAnimation();
         imgInsertCard.setVisibility(View.INVISIBLE);
+        imgInsertCard.pauseAnimation();
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
 
@@ -471,16 +473,17 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertCard() {
         imgInsertDongle.setVisibility(View.INVISIBLE);
+        imgInsertDongle.pauseAnimation();
         String message;
 
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
-                imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
+                //imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
             } else {
                 // showError("Mensaje de prueba dongle_swipe_card");
                 message = getString(R.string.text_slide_cancelation);
-                imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+                //imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
 
             }
         } else {
@@ -489,6 +492,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
         }
         imgInsertCard.setVisibility(VISIBLE);
+        imgInsertCard.playAnimation();
 
         try {
             ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
