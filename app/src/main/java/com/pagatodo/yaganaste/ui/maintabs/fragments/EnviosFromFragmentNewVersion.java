@@ -180,6 +180,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     Payments payment;
     TextWatcher txtWatcherSetted;
     private boolean isEditable = false;
+    private MaterialPaletteAdapter adapterMaterialPalet;
+    private RecyclerViewOnItemClickListener adapterMaterialListener;
 
     public static EnviosFromFragmentNewVersion newInstance() {
         EnviosFromFragmentNewVersion fragment = new EnviosFromFragmentNewVersion();
@@ -386,11 +388,18 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 if (isEditable) {
                     editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
                     isEditable = false;
-                   // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
+                    // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
                 } else {
                     editarFavoritos.setTextColor(getResources().getColor(R.color.colorTituloDialog));
                     isEditable = true;
-                   // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
+                    // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
+                }
+
+                // Borramos el adaptar antterior, y volvemos a crearlo para mostrar las imagernes de editar
+                if (adapterMaterialPalet != null){
+                    adapterMaterialPalet = null;
+                    adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
+                    recyclerView.setAdapter(adapterMaterialPalet);
                 }
 
                 break;
@@ -709,92 +718,108 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
 
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-        recyclerView.setAdapter(new MaterialPaletteAdapter(backUpResponseFavoritos, new RecyclerViewOnItemClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-                if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                    Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
-                    intentAddFavorite.putExtra(FAV_PROCESS, 2);
-                    intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                    startActivity(intentAddFavorite);
-                } else {
-                    // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
-                    // TODO Armando Estos son los datos que son necesario, solo queda hacer el Set en los campos
-                    idComercio = 0;
-                    isfavo = true;
-                    bancoselected = true;
-                    favoriteItem = backUpResponseFavoritos.get(position);
-                    long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
-                    String myName = backUpResponseFavoritos.get(position).getNombre();
+        // Verificamos que el adapter exista si no, lo creamos
+        if (adapterMaterialPalet == null){
+            adapterMaterialListener = new RecyclerViewOnItemClickListener() {
+                @Override
+                public void onClick(View v, int position) {
+
+                    /**
+                     * Si es editable mandamos a Edittar, si no a proceso normal
+                     */
+
+                    if(isEditable){
+                        if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
+                            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                            // Vibrate for 500 milliseconds
+                            vibrator.vibrate(100);
+                            Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+                            intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
+                            intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                            } else {
+                                startActivity(intentEditFav);
+                            }
+                        }
+                    }else{
+                        if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
+                            Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                            intentAddFavorite.putExtra(FAV_PROCESS, 2);
+                            intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                            startActivity(intentAddFavorite);
+                        } else {
+                            // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+
+                            // TODO Armando Estos son los datos que son necesario, solo queda hacer el Set en los campos
+                            idComercio = 0;
+                            isfavo = true;
+                            bancoselected = true;
+                            favoriteItem = backUpResponseFavoritos.get(position);
+                            long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
+                            String myName = backUpResponseFavoritos.get(position).getNombre();
 
 
-                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-
-                    switch (backUpResponseFavoritos.get(position).getReferencia().length()) {
-                        case 10:
                             myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                            tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
-                            receiverName.setText(myName);
-                            cardNumber.setText("");
-                            cardNumber.setText(myReferencia);
-                            break;
-                        case 16:
-                            myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                            tipoEnvio.setSelection(NUMERO_TARJETA.getId());
-                            receiverName.setText(myName);
-                            cardNumber.setText("");
-                            cardNumber.setText(myReferencia);
-                            break;
-                        case 18:
-                            myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                            tipoEnvio.setSelection(CLABE.getId());
-                            receiverName.setText(myName);
-                            cardNumber.setText("");
-                            cardNumber.setText(myReferencia);
-                            break;
-                    }
 
-                    //backUpResponseFavoritos
+                            switch (backUpResponseFavoritos.get(position).getReferencia().length()) {
+                                case 10:
+                                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                                    tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
+                                    receiverName.setText(myName);
+                                    cardNumber.setText("");
+                                    cardNumber.setText(myReferencia);
+                                    break;
+                                case 16:
+                                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                                    tipoEnvio.setSelection(NUMERO_TARJETA.getId());
+                                    receiverName.setText(myName);
+                                    cardNumber.setText("");
+                                    cardNumber.setText(myReferencia);
+                                    break;
+                                case 18:
+                                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                                    tipoEnvio.setSelection(CLABE.getId());
+                                    receiverName.setText(myName);
+                                    cardNumber.setText("");
+                                    cardNumber.setText(myReferencia);
+                                    break;
+                            }
+
+                            //backUpResponseFavoritos
                     /*1 - Con ese id myIdComercio buscamos en backUpResponseFavoritos. Por ejemplo la posicion5
                             2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
                             3 - IguLAS comercioItem CON CarouselItem2*/
 
-                    for (int x = 0; x < finalList.size(); x++) {
-                        if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
-                            comercioItem = finalList.get(x).getComercio();
-                            editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
-                            idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
-                            idComercio = finalList.get(x).getComercio().getIdComercio();
-                            if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                                referenciaLayout.setVisibility(GONE);
-                                concept.setImeOptions(IME_ACTION_DONE);
-                                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                            } else {
-                                referenciaLayout.setVisibility(View.VISIBLE);
+                            for (int x = 0; x < finalList.size(); x++) {
+                                if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                                    comercioItem = finalList.get(x).getComercio();
+                                    editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                                    idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                                    idComercio = finalList.get(x).getComercio().getIdComercio();
+                                    if (idComercio == IDCOMERCIO_YA_GANASTE) {
+                                        referenciaLayout.setVisibility(GONE);
+                                        concept.setImeOptions(IME_ACTION_DONE);
+                                        concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                                    } else {
+                                        referenciaLayout.setVisibility(View.VISIBLE);
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            @Override
-            public void onLongClick(View v, int position) {
-                if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
-                    Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                    // Vibrate for 500 milliseconds
-                    vibrator.vibrate(100);
-                    Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
-                    intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
-                    intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                    } else {
-                        startActivity(intentEditFav);
-                    }
+                @Override
+                public void onLongClick(View v, int position) {
+
                 }
-            }
-        }));
+            };
+
+            adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
+        }
+        recyclerView.setAdapter(adapterMaterialPalet);
     }
 
     private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
@@ -1234,9 +1259,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
-    private void validateForms(){
+    private void validateForms() {
         isValid = true;
-        switch (tipoEnvio.getSelectedItemPosition()){
+        switch (tipoEnvio.getSelectedItemPosition()) {
             case 0:
                 isValid = false;
                 errorText = App.getContext().getString(R.string.txt_tipo_envio_error);
@@ -1245,51 +1270,51 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 if (cardNumber.getText().toString().isEmpty()) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_telefono);
-                } else if(!ValidateForm.isValidCellPhone(cardNumber.getText().toString())){
+                } else if (!ValidateForm.isValidCellPhone(cardNumber.getText().toString())) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.new_body_envios_cellphone_error);
                 }
                 break;
             case 2:
-                if (cardNumber.getText().toString().isEmpty()){
+                if (cardNumber.getText().toString().isEmpty()) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_creditc);
-                } else if(cardNumber.getText().toString().length()<16){
+                } else if (cardNumber.getText().toString().length() < 16) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.new_body_envios_tdc_error);
                 }
                 break;
             case 3:
-                if (cardNumber.getText().toString().isEmpty()){
+                if (cardNumber.getText().toString().isEmpty()) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_clabe);
-                } else if(ValidateForm.isValidCABLE(cardNumber.getText().toString())){
+                } else if (ValidateForm.isValidCABLE(cardNumber.getText().toString())) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.new_body_envios_clabe_error);
                 }
                 break;
             case 4:
-                if (cardNumber.getText().toString().isEmpty()){
+                if (cardNumber.getText().toString().isEmpty()) {
                     isValid = false;
                     errorText = App.getContext().getString(R.string.txt_referencia_envio_empty_qr);
                 }
                 break;
         }
-        if(receiverName.getText().toString().isEmpty()){
+        if (receiverName.getText().toString().isEmpty()) {
             isValid = false;
             errorText = App.getContext().getString(R.string.txt_name_empty);
             return;
         }
-        if (numberReference.getText().toString().isEmpty()){
+        if (numberReference.getText().toString().isEmpty()) {
             isValid = false;
             errorText = App.getContext().getString(R.string.txt_referencia_number_empty);
             return;
-        } else if (numberReference.getText().toString().length()<6){
+        } else if (numberReference.getText().toString().length() < 6) {
             isValid = false;
             errorText = App.getContext().getString(R.string.txt_referencia_number_short);
             return;
         }
-        if (concept.getText().toString().isEmpty()){
+        if (concept.getText().toString().isEmpty()) {
             isValid = false;
             errorText = App.getContext().getString(R.string.txt_concept_empty);
             return;

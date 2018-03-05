@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +26,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPaletteAdapter.PaletteViewHolder> {
     private List<DataFavoritos> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
+    private boolean isEditable;
 
-    public MaterialPaletteAdapter(List<DataFavoritos> data, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+    public MaterialPaletteAdapter(List<DataFavoritos> data, boolean isEditable, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
+        this.isEditable = isEditable;
 
     }
 
@@ -40,6 +43,14 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
 
     @Override
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
+        /**
+         * Mostramoss lass imagenes de Status editar o no
+         */
+        if(position != 0 && isEditable == true){
+            holder.crlImageStatus.setImageDrawable(ContextCompat.getDrawable(App.getContext(), R.drawable.edit_icon));
+            holder.crlImageStatus.setVisibility(View.VISIBLE);
+        }
+
         DataFavoritos item = data.get(position);
 
         if (item.getIdComercio() == 0) {
@@ -118,6 +129,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     class PaletteViewHolder extends RecyclerView.ViewHolder implements View
             .OnClickListener, View.OnLongClickListener {
         CircleImageView crlImageFavorite;
+        CircleImageView crlImageStatus;
         ImageView imgAddFavorite;
         TextView txtInicialesFav, txtNameFav;
 
@@ -125,6 +137,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         public PaletteViewHolder(View itemView) {
             super(itemView);
             crlImageFavorite = (CircleImageView) itemView.findViewById(R.id.crlImageFavorite);
+            crlImageStatus = (CircleImageView) itemView.findViewById(R.id.imgItemGalleryStatus);
             imgAddFavorite = (ImageView) itemView.findViewById(R.id.imgAddFavorite);
             txtInicialesFav = (TextView) itemView.findViewById(R.id.txtInicialesFav);
             txtNameFav = (TextView) itemView.findViewById(R.id.txtNameFav);

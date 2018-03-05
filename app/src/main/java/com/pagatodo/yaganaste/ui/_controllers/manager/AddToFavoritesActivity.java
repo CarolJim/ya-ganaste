@@ -634,7 +634,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public boolean requiresTimer() {
-        return false;
+        return true;
     }
 
 
