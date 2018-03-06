@@ -169,6 +169,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             imgAddFavorite.setImageResource(R.drawable.ic_fav);
             //txtHintFavorite.setText(getString(R.string.is_favorite));
             txtHintFavorite.setVisibility(View.INVISIBLE);
+            btnAddFavoriite.setVisibility(View.INVISIBLE);
         }
 
         if (pago instanceof Recarga) {
@@ -437,6 +438,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     public void hideAddFavorites() {
         if (!pago.isFavorite()) {
+            btnAddFavoriite.setVisibility(View.INVISIBLE);
             btnAddFavoriite.setEnabled(false);
             txtHintFavorite.setText(getString(R.string.is_favorite));
             UI.showErrorSnackBar(getActivity(), getString(R.string.is_favorite), Snackbar.LENGTH_SHORT);
