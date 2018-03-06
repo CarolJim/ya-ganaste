@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:orientation="vertical"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <include
-        layout="@layout/toolbar_wallet" />
+        layout="@layout/toolbar" />
 
     <FrameLayout
         android:id="@+id/container"
