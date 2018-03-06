@@ -130,6 +130,17 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
 
 
+    @BindView(R.id.textoprentesco)
+    StyleTextView textoprentesco;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -475,6 +486,9 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parentesco = spinnerParentescoAdapter.getItem(position);
+        if (position!=0) {
+            textoprentesco.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

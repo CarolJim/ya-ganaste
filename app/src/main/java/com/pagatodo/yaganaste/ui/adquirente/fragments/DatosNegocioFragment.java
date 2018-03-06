@@ -201,6 +201,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     spinnerSubBussineLine.setSelection(1);
                 }
                 onSpinnerClick();
+                if (position!=0) {
+                    textgiro.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -215,6 +218,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 onSubSpinnerClick();
+                if (position!=0){
+                    textsubgiro.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -533,8 +539,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onSpinnerClick() {
-
-        txtgiro.setVisibility(View.VISIBLE);
         hideValidationError(spinnerBussineLine.getId());
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
@@ -553,7 +557,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onSubSpinnerClick() {
-        textsubgiro.setVisibility(View.VISIBLE);
         txtsubgiro.setBackgroundResource(R.drawable.inputtext_normal);
         hideValidationError(spinnerSubBussineLine.getId());
         editBussinesName.clearFocus();
