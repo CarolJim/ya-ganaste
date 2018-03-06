@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
@@ -126,6 +127,15 @@ public class CameraManager {
 
 
     public void initCameraUploadDocument(Activity mContext, UploadDocumentView imageViewCamera,
+                                         IListaOpcionesView mView) {
+        this.mContext = mContext;
+        contador = new ArrayList<>();
+        dataDocumnets = new ArrayList<>();
+        this.iv_photo_item = imageViewCamera.getCircleImageView();
+        this.mView = mView;
+    }
+
+    public void initCameraUploadDocument(Activity mContext, UploadCircleDocumentView imageViewCamera,
                                          IListaOpcionesView mView) {
         this.mContext = mContext;
         contador = new ArrayList<>();

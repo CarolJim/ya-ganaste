@@ -73,6 +73,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
@@ -139,7 +140,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @BindView(R.id.add_favorites_referencia_error)
     ErrorMessage editReferError;
     @BindView(R.id.add_favorites_camera)
-    UploadDocumentView imageViewCamera;
+    UploadCircleDocumentView imageViewCamera;
     @BindView(R.id.recargaNumber)
     EditText recargaNumber;
     @BindView(R.id.layoutImg)

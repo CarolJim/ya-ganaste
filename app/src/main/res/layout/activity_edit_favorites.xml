@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
-                    <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
+                    <com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView
                         android:id="@+id/add_favorites_camera"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

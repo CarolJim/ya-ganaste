@@ -80,6 +80,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
@@ -142,7 +143,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @BindView(R.id.add_favorites_referencia_error)
     ErrorMessage editReferError;
     @BindView(R.id.add_favorites_camera)
-    UploadDocumentView imageViewCamera;
+    UploadCircleDocumentView imageViewCamera;
     @BindView(R.id.recargaNumber)
     EditText recargaNumber;
     @BindView(R.id.layoutImageContact)
@@ -246,10 +247,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         deleteFav.setVisibility(View.VISIBLE);
         deleteFav.setOnClickListener(this);
 
-        imageViewCamera.setVisibilityStatus(true);
+        imageViewCamera.setVisibilityStatus(false);
         // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
-        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
-        imageViewCamera.setImageDrawable(App.getContext().getDrawable(R.drawable.ic_camera_border_gray));
+        //circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        imageViewCamera.setImageDrawable(App.getContext().getResources().getDrawable(R.drawable.ic_camera_border_gray));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(distancia, 30, 0, 0);
         paramsc.width = paramentroimgc;
@@ -258,7 +259,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.width = paramentroT;
         params.height = paramentroT;
-        relativefav.setLayoutParams(params);
+        //relativefav.setLayoutParams(params);
 
         /**
          * Iniciamos los cambos de EditTExt Sencillos
