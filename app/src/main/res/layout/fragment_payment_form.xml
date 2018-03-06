@@ -22,447 +22,459 @@
         android:text="Recarga"
         android:textColor="@color/colorAccent" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/whiteColor"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgPagosUserProfile"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/radio_image_pago_payment_tab"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:src="@mipmap/icon_user"
-                app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="@dimen/border_width" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/send_animation" />
-
-            <RelativeLayout
-                android:id="@+id/rlimgPagosServiceToPay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:visibility="visible">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/radio_image_pago_payment_tab"
-                    android:layout_height="@dimen/radio_image_pago_payment_tab"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/ic_circle_border_shadow"
-                    app:civ_border_width="@dimen/border_width" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgPagosServiceToPayRound"
-                    android:layout_width="73dp"
-                    android:layout_height="73dp"
-                    android:layout_centerInParent="true"
-                    app:civ_border_width="@dimen/border_width" />
-
-                <ImageView
-                    android:id="@+id/imgItemGalleryPay"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_centerInParent="true"
-                    android:adjustViewBounds="true"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter" />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txt_username_payment"
-                style="@style/generic_text_style_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="Amaury"
-                android:textColor="@color/colorAccent" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txt_data"
-                style="@style/generic_text_style_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="Telcel"
-                android:textColor="@color/colorAccent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txt_saldo"
-                style="@style/generic_text_style_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="$11,350.00"
-                android:textColor="#888888" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txt_monto"
-                style="@style/generic_text_style_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="$100.00"
-                android:textColor="#888888" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/containerRecargaForm"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="@dimen/space_between_elements"
-            android:background="@drawable/inputtext_normal">
-
-            <Spinner
-                android:id="@+id/sp_montoRecarga"
-                style="@style/CustomSpinner"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:visibility="visible" />
-        </LinearLayout>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/whiteColor"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/inputtext_normal"
-            android:orientation="horizontal">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_num_telefono"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:hint="@string/numero_telefono"
-                android:maxLines="1"
-                android:textColor="@color/blue_text_wallet"
-                android:theme="@style/TextLabel"
-                app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute">
-
-                <EditText
-                    android:id="@+id/recargaNumber"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="9dp"
-                    android:background="@android:color/transparent"
-                    android:digits="@string/input_alphanumeric_reference"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberSigned"
-                    android:longClickable="false"
-                    android:maxLength="12"
-                    android:maxLines="1"
-                    android:paddingLeft="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/texthint_edittext"
-                    android:textSize="14sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-            </android.support.design.widget.TextInputLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgPagosUserProfile"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_image_pago_payment_tab"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:src="@mipmap/icon_user"
+                        app:civ_border_color="@color/colorAccent"
+                        app:civ_border_width="@dimen/border_width" />
 
-            <RelativeLayout
-                android:id="@+id/layoutImageContact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp">
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/send_animation" />
 
-                <ImageView
-                    android:id="@+id/imgMakePaymentContact"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/icono_agenda" />
-            </RelativeLayout>
-        </LinearLayout>
+                    <RelativeLayout
+                        android:id="@+id/rlimgPagosServiceToPay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:visibility="visible">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/comisionTextRecarga"
-            style="@style/generic_text_style_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_doble"
-            android:gravity="center|bottom"
-            app:tipo="Descripcion" />
-    </LinearLayout>
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="@dimen/radio_image_pago_payment_tab"
+                            android:layout_height="@dimen/radio_image_pago_payment_tab"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/ic_circle_border_shadow"
+                            app:civ_border_width="@dimen/border_width" />
 
-    <LinearLayout
-        android:id="@+id/containerServiciosForm"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:visibility="gone">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgPagosServiceToPayRound"
+                            android:layout_width="73dp"
+                            android:layout_height="73dp"
+                            android:layout_centerInParent="true"
+                            app:civ_border_width="@dimen/border_width" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/inputtext_normal"
-            android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/imgItemGalleryPay"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:padding="10dp"
+                            android:scaleType="fitCenter" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_num_telefono2"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:hint="@string/details_monto"
-                android:maxLines="1"
-                android:textColor="@color/blue_text_wallet"
-                android:theme="@style/TextLabel"
-                app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute">
+                    </RelativeLayout>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/serviceImport"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="9dp"
-                    android:background="@android:color/transparent"
-                    android:digits="@string/input_alphanumeric_reference"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:longClickable="false"
-                    android:maxLength="10"
-                    android:paddingLeft="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/texthint_edittext"
-                    android:textSize="14sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
 
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_username_payment"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Amaury"
+                        android:textColor="@color/colorAccent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/inputtext_normal"
-            android:orientation="horizontal">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_num_telefono3"
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_data"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="Telcel"
+                        android:textColor="@color/colorAccent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_saldo"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="$11,350.00"
+                        android:textColor="#888888" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_monto"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="$100.00"
+                        android:textColor="#888888" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerRecargaForm"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="0dp"
                 android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:hint="@string/txt_numero_referencia"
-                android:maxLines="1"
-                android:textColor="@color/blue_text_wallet"
-                android:theme="@style/TextLabel"
-                app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute">
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/referenceNumber"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="9dp"
-                    android:background="@android:color/transparent"
-                    android:digits="@string/input_alphanumeric_reference"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:longClickable="false"
-                    android:maxLength="12"
-                    android:maxLines="1"
-                    android:paddingLeft="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/texthint_edittext"
-                    android:textSize="14sp" />
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/layoutImageReference"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp">
-
-                <ImageView
-                    android:id="@+id/imgMakePaymentRef"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/icono_camara_servicios" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/inputtext_normal"
-            android:orientation="horizontal">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_num_telefono9"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:hint="@string/hint_concepto"
-                android:maxLines="1"
-                android:textColor="@color/blue_text_wallet"
-                android:theme="@style/TextLabel"
-                app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute">
-
-                <EditText
-                    android:id="@+id/serviceConcept"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="9dp"
-                    android:background="@android:color/transparent"
-                    android:digits="@string/input_alphanumeric_space_reference"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapSentences"
-                    android:longClickable="false"
-                    android:maxLength="40"
-                    android:paddingLeft="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/texthint_edittext"
-                    android:textSize="14sp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="@dimen/space_between_elements"
+                    android:background="@drawable/inputtext_normal">
 
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+                    <Spinner
+                        android:id="@+id/sp_montoRecarga"
+                        style="@style/CustomSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:visibility="visible" />
+                </LinearLayout>
 
-        <LinearLayout
-            style="@style/FragmentElementForm"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_border_edittext"
-            android:orientation="horizontal"
-            android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                android:id="@+id/serviceConcept123"
-                style="@style/GenericStyleEditText"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_num_telefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:hint="@string/numero_telefono"
+                        android:maxLines="1"
+                        android:textColor="@color/blue_text_wallet"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/recargaNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_alphanumeric_reference"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberSigned"
+                            android:longClickable="false"
+                            android:maxLength="12"
+                            android:maxLines="1"
+                            android:paddingLeft="15dp"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint_edittext"
+                            android:textSize="14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layoutImageContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp">
+
+                        <ImageView
+                            android:id="@+id/imgMakePaymentContact"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/icono_agenda" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/comisionTextRecarga"
+                    style="@style/generic_text_style_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_doble"
+                    android:gravity="center|bottom"
+                    app:tipo="Descripcion" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerServiciosForm"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:digits="@string/input_alphanumeric_space_reference"
-                android:hint="@string/hint_concepto"
-                android:inputType="textCapSentences"
-                android:longClickable="false"
-                android:maxLength="40"
-                android:layout_marginLeft="15dp"
-                android:textSize="14sp" />
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:visibility="gone">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_num_telefono2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/details_monto"
+                        android:maxLines="1"
+                        android:textColor="@color/blue_text_wallet"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/serviceImport"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_alphanumeric_reference"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:longClickable="false"
+                            android:maxLength="10"
+                            android:paddingLeft="15dp"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint_edittext"
+                            android:textSize="14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_num_telefono3"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:hint="@string/txt_numero_referencia"
+                        android:maxLines="1"
+                        android:textColor="@color/blue_text_wallet"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/referenceNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_alphanumeric_reference"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:longClickable="false"
+                            android:maxLength="12"
+                            android:maxLines="1"
+                            android:paddingLeft="15dp"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint_edittext"
+                            android:textSize="14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/layoutImageReference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp">
+
+                        <ImageView
+                            android:id="@+id/imgMakePaymentRef"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/icono_camara_servicios" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_num_telefono9"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_concepto"
+                        android:maxLines="1"
+                        android:textColor="@color/blue_text_wallet"
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/serviceConcept"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="@string/input_alphanumeric_space_reference"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapSentences"
+                            android:longClickable="false"
+                            android:maxLength="40"
+                            android:paddingLeft="15dp"
+                            android:singleLine="true"
+                            android:textColor="@color/texthint_edittext"
+                            android:textSize="14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/FragmentElementForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                        android:id="@+id/serviceConcept123"
+                        style="@style/GenericStyleEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:digits="@string/input_alphanumeric_space_reference"
+                        android:hint="@string/hint_concepto"
+                        android:inputType="textCapSentences"
+                        android:longClickable="false"
+                        android:maxLength="40"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/comision_service_payment_without_iva"
+                        android:textColor="@color/adadad"
+                        app:tipo="Descripcion" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="3dp"
+                        android:layout_height="3dp" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/comisionTextServicio"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10.00"
+                        android:textColor="@color/colorAccent"
+                        app:tipo="Descripcion" />
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/comision_service_payment_without_iva"
-                android:textColor="@color/adadad"
-                app:tipo="Descripcion" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="3dp"
-                android:layout_height="3dp" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/comisionTextServicio"
-                style="@style/generic_text_style_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10.00"
-                android:textColor="@color/colorAccent"
-                app:tipo="Descripcion" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_continue_payment"
