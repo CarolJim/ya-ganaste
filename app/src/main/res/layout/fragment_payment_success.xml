@@ -49,10 +49,10 @@
                 app:cardElevation="3dp">
 
                 <LinearLayout
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="21dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="21dp"
+                    android:layout_marginTop="16dp"
                     android:orientation="vertical">
 
                     <!-- Seccion de area de importe -->
@@ -117,6 +117,7 @@
                                     style="@style/generic_text_style_2.1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:gravity="start"
                                     android:text="@string/details_monto" />
 
@@ -182,6 +183,7 @@
                                     style="@style/generic_text_style_2.1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:gravity="start"
                                     android:text="@string/details_enviado_a" />
 
@@ -230,6 +232,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/details_ferencia" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -276,6 +279,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/details_compania" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -322,6 +326,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/hint_concepto" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -368,6 +373,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/details_fecha" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -408,6 +414,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/details_hora" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -448,6 +455,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/details_autorizacion" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -490,6 +498,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
+                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:text="@string/details_clave_de_rastreo" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -717,8 +726,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom" android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_addFavorite"
@@ -726,11 +736,13 @@
                 android:layout_width="@dimen/width_btns_big"
                 android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
-                android:onClick="openAddFavoritos"
                 android:layout_margin="10dp"
-                android:background="@drawable/button_rounded_blue"
-                android:textAllCaps="false"
+                android:background="@drawable/blue_rounded_white_button"
+                android:gravity="center"
+                android:onClick="openAddFavoritos"
                 android:text="Agregar a favoritos"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
@@ -743,8 +755,9 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_rounded_blue"
-                android:textAllCaps="false"
+                android:gravity="center"
                 android:text="@string/continuar"
+                android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"

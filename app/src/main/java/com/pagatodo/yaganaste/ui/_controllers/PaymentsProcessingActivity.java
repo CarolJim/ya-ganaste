@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -41,6 +42,7 @@ import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -64,7 +66,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 
 public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
 
-    public static final int IDCOMERCIO_YA_GANASTE = 8609;
+    public static final int IDCOMERCIO_YA_GANASTE = 8609, ACTION_SHARE = 1, MY_PERMISSIONS_REQUEST_STORAGE = 101;
     public static final String NOMBRE_COMERCIO = "nombreComercio";
     public static final String ID_COMERCIO = "idComercio";
     public static final String ID_TIPO_COMERCIO = "idTipoComercio";
@@ -77,10 +79,11 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
     @BindView(R.id.container)
     FrameLayout container;
-    @BindView(R.id.toolbar_wallet)
+    @BindView(R.id.toolbarTest)
     Toolbar toolbar;
 
     private View llMain;
+    private Menu menu;
 
     IPaymentsProcessingPresenter presenter;
     Object pago, dataFavoritos;
@@ -113,6 +116,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
         initViews();
         setSupportActionBar(toolbar);
+        showBack(false);
 
         if (typeOperation != PAYMENT_ENVIOS) {
             changeToolbarVisibility(false);
@@ -127,14 +131,30 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_wallet, menu);
-        return false;
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.payment_processing_activity_menu, menu);
+        menu.getItem(ACTION_SHARE).setVisible(false);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_add_to_favorite:
+                break;
+            case R.id.action_share:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == -1) {
+                    ValidatePermissions.checkPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_STORAGE);
+                } else {
+                    ((PaymentSuccessFragment) getCurrentFragment()).takeScreenshot();
+                }
+                break;
+            case R.id.action_delete:
+                break;
+        }
         return super.onOptionsItemSelected(item);
-
     }
 
     @Override
@@ -223,6 +243,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
             setResult(RESULT_CODE_OK_CLOSE, intent);
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
+            menu.getItem(ACTION_SHARE).setVisible(true);
             saveDataResponse();
             UI.showSuccessSnackBar(this, response.getMensaje(), Snackbar.LENGTH_SHORT);
         } else {
@@ -237,11 +258,9 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
             if (response.getMensaje() != null)
                 errorTxt = response.getMensaje();
-
         } catch (ClassCastException ex) {
             ex.printStackTrace();
         }
-
         onError(errorTxt);
     }
 

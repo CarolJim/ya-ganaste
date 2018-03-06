@@ -1361,4 +1361,13 @@
     <string name="nip_confima">Confirma nuevo NIP</string>
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
+
+    <!-- Action Menu -->
+    <string name="action_share">Compartir</string>
+    <string name="action_add_favorite">Añadir a favoritos</string>
+    <string name="action_delete">Eliminar favorito</string>
+    <string name="action_send_ticket">Reenviar ticket</string>
+    <string name="action_repayment">Reembolsar cobro</string>
+    <string name="action_cancel_repayment">Cancelar cobro</string>
+
 </resources>

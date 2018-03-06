@@ -51,6 +51,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
@@ -67,7 +68,6 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class PaymentSuccessFragment extends SupportFragment implements PaymentSuccessManager,
         View.OnClickListener {
 
-    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
@@ -443,7 +443,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         }
     }
 
-    private void takeScreenshot() {
+    public void takeScreenshot() {
         try {
             View v1 = getActivity().getWindow().getDecorView().getRootView();
             v1.setDrawingCacheEnabled(true);
