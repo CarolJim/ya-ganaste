@@ -36,6 +36,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/recharge_success_title"
+                android:textColor="@color/colorAccent"
                 android:textSize="17sp" />
 
 

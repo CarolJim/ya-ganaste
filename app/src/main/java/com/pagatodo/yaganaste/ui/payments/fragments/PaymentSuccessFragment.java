@@ -107,7 +107,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @BindView(R.id.txtHintFavorite)
     StyleTextView txtHintFavorite;
 
-
     @BindView(R.id.layout_enviado)
     LinearLayout layoutEnviado;
 
@@ -441,7 +440,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             btnAddFavoriite.setVisibility(View.INVISIBLE);
             btnAddFavoriite.setEnabled(false);
             txtHintFavorite.setText(getString(R.string.is_favorite));
-            UI.showErrorSnackBar(getActivity(), getString(R.string.is_favorite), Snackbar.LENGTH_SHORT);
+            UI.showSuccessSnackBar(getActivity(), getString(R.string.is_favorite), Snackbar.LENGTH_SHORT);
         }
     }
 

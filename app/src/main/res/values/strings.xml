@@ -659,15 +659,15 @@
     <string name="tab_envios">Envíos</string>
     <string name="your_balance">Saldo: </string>
     <string name="btn_send">Enviar</string>
-    <string name="no_services_msg">Cargando Servicios...(*)</string>
+    <string name="no_services_msg">Cargando servicios...(*)</string>
     <string name="recharge_success_title">¡Recarga Exitosa!</string>
     <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
-    <string name="is_favorite">¡Encuentra Ésta Operación en Tus Favoritos!</string>
-    <string name="load_photo_favorite">Asignando Imagen de Favorito</string>
-    <string name="email_send_ticket">Envíar Comprobante (Opcional):</string>
-    <string name="envia_comprobante_a">Envía Este Comprobante a </string>
+    <string name="is_favorite">¡Encuentra ésta operación en tus favoritos!</string>
+    <string name="load_photo_favorite">Asignando imagen de favorito</string>
+    <string name="email_send_ticket">Envíar comprobante (Opcional):</string>
+    <string name="envia_comprobante_a">Envía este comprobante a </string>
     <string name="envia_comprobante_opcional"> (Opcional)</string>
     <string name="envia_email">Enviando Email</string>
     <string name="btn_recharge_txt">Recargar</string>
@@ -678,9 +678,9 @@
     <string name="btn_req_payment_2_txt">Agregar</string>
     <string name="txt_exito">Éxito</string>
     <string name="txt_cancelar">Cancelar</string>
-    <string name="error_enviando_ticket">Error Enviando Ticket</string>
+    <string name="error_enviando_ticket">Error enviando ticket</string>
 
-    <string name="txt_referencia_error">Error al Introducir el Campo Referencia</string>
+    <string name="txt_referencia_error">Error al introducir el campo referencia</string>
     <string name="txt_referencia_errornuevo">Verifica Que el Número de Referencia Que Ingresaste Sea Correcto</string>
     <string name="txt_referencia_empty">El Campo Referencia Está Vacío</string>
     <string name="txt_importe_empty">El campo importe está vacío</string>
@@ -1178,7 +1178,7 @@
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
     <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
-    <string name="send_sms">Envia SMS</string>
+    <string name="send_sms">Enviar SMS</string>
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">¡Bloquea tu tarjeta!</string>
     <string name="block_your_card_subtitle">Si tienes algún problema con tu tarjeta bloquéala\ntemporalmente ingresando tu contraseña</string>
@@ -1232,7 +1232,8 @@
     <string name="notific_pagos_option">Pagos con Tarjeta</string>
     <string name="notific_retiros_option">Retiros de Efectivo</string>
     <string name="notific_depositos_option">Depósitos</string>
-    <string name="Agregar_Referencia">Agregar Referencias (Opcional) </string>
+    <string name="Agregar_Referencia">Agregar referencias (Opcional) </string>
+    <string name="Ocultar_Referencia">Ocultar referencias</string>
     <string name="synch_favorites">Obteniendo Favoritos</string>
     <string name="synch_carrier">Obteniendo Carriers</string>
     <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>

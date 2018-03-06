@@ -163,6 +163,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     ImageView triBlue;
     @BindView(R.id.txtEditarFavoritos)
     StyleTextView editarFavoritos;
+    @BindView(R.id.txt_show_references)
+    TextView txtShowReferences;
+
     TransferType selectedType;
     List<String> tipoPago = new ArrayList<>();
     int idTipoComercio, idComercio, longitudRefer, keyIdComercio, maxLength;
@@ -224,6 +227,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         ButterKnife.bind(this, rootview);
         btnenviar.setOnClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setHasFixedSize(true);
 
         editListServ.setEnabled(true);
         editListServ.setFocusable(false);
@@ -316,7 +320,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
          * isUp = true; indica que la vista esta "Down"
          * false = es "Up"
          */
-        isUp = false;
+        isUp = true;
         slideView.setOnClickListener(this);
 
         // Agregamos  Listener al campo de Editfavorites
@@ -410,6 +414,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
 
     public void onSlideViewButtonClick(View view) {
         if (isUp) {
+            txtShowReferences.setText(getString(R.string.Ocultar_Referencia));
             final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
             scrollView.post(new Runnable() {
                 @Override
@@ -427,6 +432,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             imgRotate.setImageBitmap(rotatedBitmap);
             view.setVisibility(View.VISIBLE);
         } else {
+            txtShowReferences.setText(getString(R.string.Agregar_Referencia));
             Matrix matrix = new Matrix();
             matrix.postRotate(360.0f);
             Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.triangule_blue_down);

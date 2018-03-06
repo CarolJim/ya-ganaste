@@ -61,50 +61,51 @@
                     android:id="@+id/txt_monto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center_horizontal"
                     android:text="00"
                     android:textColor="@color/colorAccent"
                     android:textSize="17sp"
-                    app:dotBottom="false"
-                    app:symbolSmaller="true"
                     android:visibility="visible"
-                    android:layout_centerInParent="true"/>
+                    app:dotBottom="false"
+                    app:symbolSmaller="true" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_anuncio"
                     style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="!Cobra con tarjeta!"
                     android:layout_centerInParent="true"
-                    android:visibility="gone"/>
+                    android:text="!Cobra con tarjeta!"
+                    android:visibility="gone" />
 
 
             </RelativeLayout>
+
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/tipo_saldo"
                 style="@style/generic_text_style_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/titles"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
                 android:text="@string/saldo_disponible"
-                android:textColor="@color/text_item_color"
-                android:layout_below="@id/titles"
-                android:layout_centerInParent="true"/>
+                android:textColor="@color/text_item_color" />
 
             <ImageView
                 android:id="@+id/img_reload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_reload"
-                android:visibility="visible"
-                android:layout_toRightOf="@id/titles"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/titles" />
+                android:layout_toEndOf="@id/titles"
+                android:layout_toRightOf="@id/titles"
+                android:src="@drawable/ic_reload"
+                android:visibility="visible" />
         </RelativeLayout>
 
         <LinearLayout
@@ -124,7 +125,7 @@
             android:layout_marginLeft="@dimen/margin_wallet"
             android:layout_marginRight="@dimen/margin_wallet"
             android:layout_marginTop="8dp"
-            android:layoutAnimation="@anim/layout_anim_up"
+            android:layoutAnimation="@anim/layout_animation"
             android:visibility="visible" />
 
 

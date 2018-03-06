@@ -116,7 +116,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
         initViews();
         setSupportActionBar(toolbar);
-        showBack(false);
 
         if (typeOperation != PAYMENT_ENVIOS) {
             changeToolbarVisibility(false);
@@ -239,10 +238,11 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             changeToolbarVisibility(true);
             setVisibilityPrefer(false);
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-            Intent intent = new Intent();
-            intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
-            setResult(RESULT_CODE_OK_CLOSE, intent);
+            /*Intent intent = new Intent();
+            intent.putExtra(RESULT, Constants.RESULT_SUCCESS);*/
+            setResult(RESULT_CODE_OK_CLOSE/*, intent*/);
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
+            showBack(false);
             menu.getItem(ACTION_SHARE).setVisible(true);
             saveDataResponse();
             UI.showSuccessSnackBar(this, response.getMensaje(), Snackbar.LENGTH_SHORT);

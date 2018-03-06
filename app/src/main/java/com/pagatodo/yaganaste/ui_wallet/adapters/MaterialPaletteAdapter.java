@@ -32,7 +32,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
         this.isEditable = isEditable;
-
+        setHasStableIds(true);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         /**
          * Mostramoss lass imagenes de Status editar o no
          */
-        if(position != 0 && isEditable == true){
+        if (position != 0 && isEditable == true) {
             holder.crlImageStatus.setImageDrawable(ContextCompat.getDrawable(App.getContext(), R.drawable.edit_icon));
             holder.crlImageStatus.setVisibility(View.VISIBLE);
         }
@@ -86,6 +86,11 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return data.get(position).getIdFavorito();
     }
 
     // Se encarga de crear el circulo Drawable que usaremos para mostrar las imagenes o los textos

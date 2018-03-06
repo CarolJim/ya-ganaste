@@ -155,9 +155,9 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 intent.putExtra("favoriteItem", dataFavoritos);
                 intent.putExtra("TAB", Constants.PAYMENT_ENVIOS);
                 SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                getActivity().finish();
+                getActivity().startActivityForResult(intent, 999);
+                //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                //getActivity().finish();
             }
         }
     }
@@ -167,11 +167,11 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         super.onResume();
         NumberCalcTextWatcher.cleanData();
         et_amount.requestFocus();
-        SingletonUser dataUser = SingletonUser.getInstance();
+        /*SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         tvMontoEntero.setText("00");
         tvMontoDecimal.setText("00");
-        et_amount.setText("$00.00");
+        et_amount.setText("$00.00");*/
 
     }
 

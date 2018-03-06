@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +15,8 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
+
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
 
@@ -56,6 +59,14 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
                 loadFragment(SendWalletFragment.newInstance(payment, dataFavoritos), Direction.FORDWARD, false);
                 // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CODE_OK_CLOSE) {
+            finish();
         }
     }
 }
