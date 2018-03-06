@@ -38,7 +38,8 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
     @Override
     public PaletteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_envios, parent, false);
-        return new PaletteViewHolder(row);
+        PaletteViewHolder vh = new PaletteViewHolder(row);
+        return vh;
     }
 
     @Override
