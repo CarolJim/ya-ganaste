@@ -17,19 +17,37 @@
         android:layout_height="wrap_content"
         android:text="@string/administracion"/>
 
-    <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
-        android:id="@+id/imgYaGanasteCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/card_zone"
+        android:layout_width="201dp"
+        android:layout_height="126dp"
         android:layout_below="@id/title_fragment"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true">
+
+        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
+            android:id="@+id/imgYaGanasteCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"/>
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/ico_bloqueado"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:src="@drawable/ico_bloqued"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
 
     <View
         android:id="@+id/dividerList"
         android:background="@color/decoration_item_color"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@id/imgYaGanasteCard"
+        android:layout_below="@id/card_zone"
         android:layout_marginTop="32dp"/>
 
     <LinearLayout

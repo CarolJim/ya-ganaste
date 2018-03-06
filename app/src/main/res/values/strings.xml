@@ -292,8 +292,8 @@
     <string name="startpayment">Realizando Pago</string>
     <string name="validatelectorOk">Lector Validado</string>
     <string name="initlector">Configurando el Lector</string>
-    <string name="readcard">Estamos Procesando \nel Cobro</string>
-    <string name="readcard_cancelation">Estamos Procesando \nla Cancelación</string>
+    <string name="readcard">Procesando el pago</string>
+    <string name="readcard_cancelation">Procesando la cancelación</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
     <string name="rfc">rfc</string>
@@ -342,6 +342,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
+    <string name="exito_nip">"Tu NIP ha Sido Cambiada Correctamente"</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -507,6 +508,7 @@
     <string name="monto_depositar">Monto a Depositar:</string>
     <string name="total_reembolsar">Total a Reembolsar:</string>
     <string name="total_depositar">Total a Depositar:</string>
+    <string name="total_pagado">Total pagado</string>
     <string name="cobros_tarjeta">Cobros Con\nTarjeta</string>
     <string name="mas_tarde">Más Tarde</string>
 
@@ -741,8 +743,8 @@
     <string name="cobraste">Cobraste</string>
     <string name="con_la_tarjeta">Con la tarjeta:</string>
     <string name="cancel_cobro_confirmation">¿Estás seguro que quieres\ncancelar este cobro?</string>
-    <string name="procesando_cobro">Estamos procesando el cobro</string>
     <string name="procesando_cancelacion">Realizando cancelación</string>
+    <string name="procesando_cobro">Procesando el pago</string>
     <string name="validando_lector"></string>
     <string name="enviando_firma"></string>
     <string name="enviando_ticket">Enviando recibo</string>
@@ -801,6 +803,7 @@
     <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nQue Cancelaste</string>
 
     <string name="aprobada">Aprobado</string>
+    <string name="aprobada_cobro">El cobro fue realizado con éxito\nYa puedes retirar la tarjeta del lector</string>
     <string name="pago_success">El Pago Fue Completado\nCorrectamente</string>
     <string name="cancelation_success">Cancelación Exitosa</string>
     <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente</string>
@@ -1135,16 +1138,14 @@
     <string name="use_password">Usar Contraseña</string>
     <string name="sign_in">Sign in</string>
 
-    <string name="fingerprint_description">Usa Tu Huella Digital Para Autorizar Esta Transacción </string>
-    <string name="fingerprint_hint">Toca el Sensor </string>
+    <string name="fingerprint_description">Usa tu huella digital para autorizar esta transacción</string>
+    <string name="fingerprint_hint">Toca el sensor</string>
     <string name="password_description">Enter your store passwFord to continue</string>
     <string name="purchase">Purchase</string>
     <string name="purchase_not_invalidated">Purchase not invalidated</string>
-    <string name="purchase_button_not_invalidated_description">
-        You can proceed to purchase with this button \n even if a new fingerprint is enrolled
-    </string>
-    <string name="fingerprint_not_recognized">Huella Digital No Reconocida. Intenta Otra Vez </string>
-    <string name="fingerprint_success">Huella Digital Reconocida </string>
+    <string name="purchase_button_not_invalidated_description">You can proceed to purchase with this button \n even if a new fingerprint is enrolled</string>
+    <string name="fingerprint_not_recognized">Huella digital no reconocida. Intenta otra vez </string>
+    <string name="fingerprint_success">Huella digital reconocida</string>
     <string name="item_title">White Mesh Pluto Backpack</string>
     <string name="item_price">$62.68</string>
     <string name="item_description">Mesh backpack in white. Black textile trim throughout.</string>
@@ -1338,7 +1339,8 @@
 
     <!-- Registro Adquiriente Adapters -->
     <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
-    <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas\n\n¿Tienes dudas? Contáctanos</string>
+    <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas</string>
+    <string name="title_tipo_desc_dos">¿Tienes dudas? Contáctanos</string>
     <string name="contacto">contacto@yaganaste.com</string>
     <string name="btn_reenviar">Reenviar</string>
     <string name="felicidades">¡Felicidades!</string>
@@ -1357,4 +1359,13 @@
     <string name="nip_confima">Confirma nuevo NIP</string>
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
+
+    <!-- Action Menu -->
+    <string name="action_share">Compartir</string>
+    <string name="action_add_favorite">Añadir a favoritos</string>
+    <string name="action_delete">Eliminar favorito</string>
+    <string name="action_send_ticket">Reenviar ticket</string>
+    <string name="action_repayment">Reembolsar cobro</string>
+    <string name="action_cancel_repayment">Cancelar cobro</string>
+
 </resources>

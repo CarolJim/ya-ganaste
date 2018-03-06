@@ -5,31 +5,29 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment">
 
-
-    <LinearLayout
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/textView2"
+        style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:text="@string/termin_condiciones"
+        android:layout_marginTop="28.5dp"
+        android:layout_marginBottom="32dp"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/textView2"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/termin_condiciones" />
+    <View
+        android:id="@+id/dividerList"
+        android:background="@color/decoration_item_color"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/textView2"/>
 
-        <LinearLayout
-            android:id="@+id/content_linearlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:orientation="vertical"
-            android:layout_below="@id/textView2">
-
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/content_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/dividerList">
     </LinearLayout>
 
 </RelativeLayout>

@@ -45,6 +45,8 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.LEFT;
+import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.RIGHT;
 
 /**
  * @author Juan Guerra on 27/11/2016.
@@ -72,7 +74,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     @Override
     public void initViews() {
         super.initViews();
-        tabMonths.setEnabled(false);
+        //tabMonths.setEnabled(false);
     }
 
     @Override
@@ -138,8 +140,11 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             this.movementsList.set(tabPosition, movementsList);
             currentAdapter = createAdapter(this.movementsList.get(tabPosition));
             updateRecyclerData(currentAdapter, movementsList);
-            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, getListenerItemTouchLeft());
-            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerMovements);
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(),LEFT);
+            new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
+
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackR = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, getListenerItemTouchLeft(),RIGHT);
+            new ItemTouchHelper(itemTouchHelperCallbackR).attachToRecyclerView(recyclerMovements);
         }
     }
 
@@ -237,7 +242,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                         }
                         if (isValidMov && idComercio != 0) {
                             ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
-                            if (favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+                            if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
 
                                 Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                                 intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
@@ -248,7 +253,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                                 intent.putExtra(REFERENCIA, referService);
                                 intent.putExtra(CURRENT_TAB_ID, tab);
                                 intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
-                                startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+                                getActivity().startActivityForResult(intent, REQUEST_CODE_FAVORITES);
                             } else {
                                 UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
                                     @Override
@@ -268,6 +273,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                     }
                     if (direction == ItemTouchHelper.RIGHT) {
                         //share
+                        adapter.updateChange();
                         ItemMovements item = adapter.getMovItem(position);
                         String message = StringUtils.getCurrencyValue(item.getMonto()) + "\n"
                                 + item.getDate() + " " + item.getMonth() + "\n"

@@ -68,7 +68,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
             addTab(newTab().setText(value.getName(getContext())), false);
         }
         setCustomSelectedView(R.layout.tab_ad_emisor_selected);
-        getTabAt(0).select();
+        //getTabAt(0).select();
     }
 
     public void setCustomSelectedView(@LayoutRes int layout) {
@@ -145,7 +145,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         tab.setCustomView(customParen);
 
         tabView.put(tab, new TabHolder(tab.getCustomView()));
-        tabView.get(tab).mText.setTextColor(getTabTextColors());
+        //tabView.get(tab).mText.setTextColor(getTabTextColors());
 
     }
 
@@ -158,7 +158,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         tab.setCustomView(customParen);
 
         tabView.put(tab, new TabHolder(tab.getCustomView()));
-        tabView.get(tab).mText.setTextColor(getTabTextColors());
+        //tabView.get(tab).mText.setTextColor(getTabTextColors());
 
     }
 
@@ -173,7 +173,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
         private TabHolder(View view) {
             this.mText = view.findViewById(android.R.id.text1);
-            this.mImage = (ImageView) view.findViewById(android.R.id.icon);
+            this.mImage = view.findViewById(android.R.id.icon);
         }
     }
 }

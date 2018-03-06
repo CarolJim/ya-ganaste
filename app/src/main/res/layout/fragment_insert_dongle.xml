@@ -18,6 +18,29 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarLy">
 
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imgInsertDongle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_imageAssetsFolder="images/insert_dongle/"
+            app:lottie_rawRes="@raw/insert_dongle" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/imgInsertCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:visibility="invisible"
+            app:lottie_imageAssetsFolder="images/insert_card/"
+            app:lottie_rawRes="@raw/insert_slide_card" />
+
+        <!--
          <pl.droidsonroids.gif.GifImageView
              android:id="@+id/imgInsertDongle"
              android:layout_width="match_parent"
@@ -34,13 +57,7 @@
              android:src="@mipmap/dongle_insert_card"
              android:visibility="invisible"
              tools:ignore="ContentDescription" />
-
-        <!--<VideoView
-            android:id="@+id/videoDongle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            tools:ignore="ContentDescription" />-->
+        -->
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/tv_txt_lector"

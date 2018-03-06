@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +27,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
@@ -74,8 +77,11 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @BindView(R.id.edtEmailSendticket)
     EditText edtEmailSendticket;
 
-    @BindView(R.id.et_amount)
-    EditText et_amount;
+    @BindView(R.id.tv_monto_entero)
+    StyleTextView tvMontoEntero;
+    @BindView(R.id.tv_monto_decimal)
+    StyleTextView tvMontoDecimal;
+
 
     @BindView(R.id.text_email)
     TextInputLayout text_email;
@@ -163,10 +169,35 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
         /*imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageshae.setVisibility(View.VISIBLE);
         imageshae.setOnClickListener(this);*/
-        et_amount.setText(StringUtils.getCurrencyValue(TransactionAdqData.getCurrentTransaction().getAmount()));
+        String monto = StringUtils.getCurrencyValue(TransactionAdqData.getCurrentTransaction().getAmount());
+        StringBuilder cashAmountBuilder = new StringBuilder(monto);
+        // Limpiamos del caracter $ en caso de tenerlo
+        int positionMoney = monto.indexOf("$");
+        if (positionMoney == 0) {
+            monto = cashAmountBuilder.deleteCharAt(0).toString();
+        }
+
+        String[] valueAmountArray = monto.split("\\.");
+        tvMontoEntero.setText(valueAmountArray[0]);
+        tvMontoDecimal.setText(valueAmountArray[1]);
+
+
         btnNextEnviarticket.setOnClickListener(this);
         // Automatic Ticket Send to User
         adqPresenter.sendTicket(RequestHeaders.getUsername(), true);
+
+        edtEmailSendticket.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    text_email.setBackgroundResource(R.drawable.inputtext_active);
+
+                }
+
+            }
+        });
+
+
     }
 
     @Override
@@ -267,8 +298,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
             //shareContent();
         }
         if (v.getId() == R.id.btnNextEnviarticket){
-
-            adqPresenter.sendTicket(emailToSend, false);
+            validateForm();
         }
 
 

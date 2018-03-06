@@ -71,7 +71,7 @@
                 android:textColor="@color/whiteColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_favorite_txt"
+                android:text="@string/share_text"
                 android:layout_centerInParent="true"
                 android:layout_below="@id/ico_share"/>
         </RelativeLayout>
@@ -175,11 +175,13 @@
                     android:textColor="@color/texthint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="200.00"
+                    android:text="200"
+                    android:textSize="12sp"
                     app:decimalLenght="2"
                     app:dotBottom="true"
                     app:symbolSmaller="false"
-                    app:tipo="Text" />
+                    app:tipo="Text"
+                    android:layout_gravity="center_vertical"/>
 
                 <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_monto"
@@ -204,9 +206,8 @@
 
             <ImageView
                 android:id="@+id/up_down"
-                android:layout_width="6dp"
-                android:layout_height="9dp"
-                android:src="@drawable/up"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginRight="12dp"
                 android:contentDescription="@string/app_name"
                 android:layout_marginEnd="12dp" />

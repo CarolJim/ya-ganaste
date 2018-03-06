@@ -124,6 +124,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.imageDetail)
     ImageView imageDetail;
 
+    @BindView(R.id.up_down)
+    ImageView upDown;
+
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_volver)
@@ -169,11 +172,14 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         ButterKnife.bind(this, rootView);
         initFieldsViews();
         //layoutRecibo.setVisibility(View.GONE);
+
+
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
 
         //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
         TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
         ItemMovements item;
+
 
         if (tipoTransaccion != REEMBOLSO_ADQUIRIENTE) {
             item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
@@ -192,6 +198,23 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         if (item.getColor() == android.R.color.transparent) {
             //txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         }
+
+        if (item.getColor() == R.color.redColorNegativeMovements){
+            upDown.setBackgroundResource(R.drawable.down_red);
+        }
+
+        if (item.getColor() == R.color.greenColorPositiveMovements){
+            upDown.setBackgroundResource(R.drawable.up);
+        }
+
+        if (item.getColor() == R.color.colorAccent){
+            upDown.setBackgroundResource(R.drawable.ico_idle);
+        }
+
+        if (item.getColor() == R.color.redColorNegativeMovements){
+            upDown.setBackgroundResource(R.drawable.down);
+        }
+
 
 
         //layoutMovementTypeColor.setBackgroundColor(item.getColor());

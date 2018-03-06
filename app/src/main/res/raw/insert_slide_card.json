@@ -13,14 +13,14 @@
       "w": 281,
       "h": 240,
       "u": "images/insert_card/",
-      "p": "img_0.png"
+      "p": "img_1.png"
     },
     {
       "id": "image_1",
       "w": 750,
       "h": 954,
       "u": "images/insert_card/",
-      "p": "img_1.png"
+      "p": "img_3.png"
     },
     {
       "id": "image_2",
@@ -34,7 +34,7 @@
       "w": 338,
       "h": 674,
       "u": "images/insert_card/",
-      "p": "img_3.png"
+      "p": "img_0.png"
     }
   ],
   "layers": [

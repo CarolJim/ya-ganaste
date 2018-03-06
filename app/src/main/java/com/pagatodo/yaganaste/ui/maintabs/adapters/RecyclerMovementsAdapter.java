@@ -82,7 +82,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
     public class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
 
         View layoutMovementTypeColor;
-        ImageView updown;
+        ImageView upDown;
         TextView txtItemMovDate;
         TextView txtItemMovMonth;
         TextView txtTituloDescripcion;
@@ -104,11 +104,28 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             viewBackgroundLeft = itemView.findViewById(R.id.view_background_left);
             viewBackgroundRight = itemView.findViewById(R.id.view_background_right);
             viewForeground = itemView.findViewById(R.id.view_foreground);
-            updown = itemView.findViewById(R.id.up_down);
+            upDown = itemView.findViewById(R.id.up_down);
         }
 
         void bindData(ItemMovements itemMovements, int position, View.OnClickListener clickListener) {
             //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
+
+            if (itemMovements.getColor() == R.color.redColorNegativeMovements){
+                upDown.setBackgroundResource(R.drawable.down_red);
+            }
+
+            if (itemMovements.getColor() == R.color.greenColorPositiveMovements){
+                upDown.setBackgroundResource(R.drawable.up);
+            }
+
+            if (itemMovements.getColor() == R.color.colorAccent){
+                upDown.setBackgroundResource(R.drawable.ico_idle);
+            }
+
+            if (itemMovements.getColor() == R.color.redColorNegativeMovements){
+                upDown.setBackgroundResource(R.drawable.down);
+            }
+
             layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
             //txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
             //updown.se

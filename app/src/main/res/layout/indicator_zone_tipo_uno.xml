@@ -34,13 +34,25 @@
         android:layout_centerHorizontal="true"/>
 
     <TextView
+        android:id="@+id/txt_desc_dos"
+        style="@style/generic_text_style_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/texthint"
+        android:text="@string/title_tipo_desc_dos"
+        android:layout_below="@id/txt_desc"
+        android:layout_marginTop="6dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
         android:id="@+id/numero_tel"
         style="@style/generic_text_style_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/numero"
-        android:layout_below="@id/txt_desc"
+        android:layout_below="@id/txt_desc_dos"
         android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"/>
 
