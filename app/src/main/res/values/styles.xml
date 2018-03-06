@@ -514,7 +514,7 @@
 
     <!-- Estilos revisados 10-07-17 -->
     <style name="generic_text_style_1">
-        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_1_value</item>
         <item name="tipo">Subtitulo</item>
     </style>
@@ -526,7 +526,7 @@
     </style>
 
     <style name="generic_text_style_2">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="android:button">@color/transparent</item>
         <item name="tipo">Text</item>

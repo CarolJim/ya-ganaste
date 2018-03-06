@@ -38,6 +38,7 @@
         android:layout_below="@+id/layoutImageResult"
         android:layout_marginTop="@dimen/margin_medium"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/txt_felicidades"
         app:tipo="Titulo" />
 
@@ -50,6 +51,7 @@
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:layout_marginTop="@dimen/margin_small"
         android:gravity="center"
+
         app:tipo="Text" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
