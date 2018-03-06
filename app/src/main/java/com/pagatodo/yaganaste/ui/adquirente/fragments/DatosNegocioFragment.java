@@ -97,6 +97,17 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.titulo_datos_usuario)
     StyleTextView titulo_datos_usuario;
 
+    @BindView(R.id.textgiro)
+    StyleTextView textgiro;
+
+    @BindView(R.id.textsubgiro)
+    StyleTextView textsubgiro;
+
+
+
+
+
+
     /*@BindView(R.id.btnBackBussinesInfo)
     Button btnBackBussinesInfo;*/
     @BindView(R.id.btnNextBussinesInfo)
@@ -522,6 +533,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onSpinnerClick() {
+
+        txtgiro.setVisibility(View.VISIBLE);
         hideValidationError(spinnerBussineLine.getId());
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
@@ -540,7 +553,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onSubSpinnerClick() {
-
+        textsubgiro.setVisibility(View.VISIBLE);
         txtsubgiro.setBackgroundResource(R.drawable.inputtext_normal);
         hideValidationError(spinnerSubBussineLine.getId());
         editBussinesName.clearFocus();

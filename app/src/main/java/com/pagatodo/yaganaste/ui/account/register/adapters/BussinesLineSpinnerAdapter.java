@@ -116,7 +116,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
             holder.editText.setTypeface(typeface);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
-
+            holder.downArrow.setVisibility(View.VISIBLE);
             row.setTag(holder);
         } else {
             holder = (BussinesLineSpinnerAdapter.ViewHolder) row.getTag();

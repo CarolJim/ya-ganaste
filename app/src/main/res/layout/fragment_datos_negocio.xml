@@ -120,7 +120,7 @@
                         android:layout_marginLeft="15dp"
                         android:text="Giro comercial"
                         android:textColor="@color/hint_color"
-                        android:visibility="visible" />
+                        android:visibility="invisible" />
 
                     <Spinner
                         android:id="@+id/spinnerBussineLine"
@@ -161,7 +161,7 @@
                         android:layout_marginLeft="15dp"
                         android:text="Subgiro comercial"
                         android:textColor="@color/hint_color"
-                        android:visibility="visible" />
+                        android:visibility="invisible" />
 
                     <Spinner
                         android:id="@+id/spinnerSubBussineLine"

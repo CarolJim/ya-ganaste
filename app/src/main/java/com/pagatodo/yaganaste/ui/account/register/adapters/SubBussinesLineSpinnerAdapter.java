@@ -113,6 +113,7 @@ public class SubBussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
 
             holder.editText.setTypeface(typeface);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
+            holder.downArrow.setVisibility(View.VISIBLE);
             row.setTag(holder);
         } else {
             holder = (SubBussinesLineSpinnerAdapter.ViewHolder) row.getTag();
