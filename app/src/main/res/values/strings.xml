@@ -1138,16 +1138,14 @@
     <string name="use_password">Usar Contraseña</string>
     <string name="sign_in">Sign in</string>
 
-    <string name="fingerprint_description">Usa Tu Huella Digital Para Autorizar Esta Transacción </string>
-    <string name="fingerprint_hint">Toca el Sensor </string>
+    <string name="fingerprint_description">Usa tu huella digital para autorizar esta transacción</string>
+    <string name="fingerprint_hint">Toca el sensor</string>
     <string name="password_description">Enter your store passwFord to continue</string>
     <string name="purchase">Purchase</string>
     <string name="purchase_not_invalidated">Purchase not invalidated</string>
-    <string name="purchase_button_not_invalidated_description">
-        You can proceed to purchase with this button \n even if a new fingerprint is enrolled
-    </string>
-    <string name="fingerprint_not_recognized">Huella Digital No Reconocida. Intenta Otra Vez </string>
-    <string name="fingerprint_success">Huella Digital Reconocida </string>
+    <string name="purchase_button_not_invalidated_description">You can proceed to purchase with this button \n even if a new fingerprint is enrolled</string>
+    <string name="fingerprint_not_recognized">Huella digital no reconocida. Intenta otra vez </string>
+    <string name="fingerprint_success">Huella digital reconocida</string>
     <string name="item_title">White Mesh Pluto Backpack</string>
     <string name="item_price">$62.68</string>
     <string name="item_description">Mesh backpack in white. Black textile trim throughout.</string>
