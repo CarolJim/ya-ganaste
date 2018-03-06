@@ -56,13 +56,15 @@
                         app:civ_border_color="@color/colorAccent"
                         app:civ_border_width="@dimen/border_width" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/anim_onboarding"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:src="@drawable/send_animation" />
+                        android:layout_height="wrap_content"
+                        app:lottie_autoPlay="true"
+                        android:layout_gravity="center"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/transaccion_payment" />
 
                     <RelativeLayout
                         android:id="@+id/rlimgPagosServiceToPay"
