@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgraund_wallet">
@@ -9,10 +8,11 @@
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="28.5dp"
         android:gravity="center"
         android:text="@string/navigation_drawer_menu_seguridad"
-        android:layout_marginTop="28.5dp"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/colorAccent" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/subtitle_menu"
@@ -21,9 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:textColor="@color/colorAccent"
         android:text="@string/ajustes_notificar_suboption"
-        android:visibility="gone"/>
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/notific_discreption"
@@ -38,17 +38,17 @@
 
     <View
         android:id="@+id/dividerList"
-        android:background="@color/decoration_item_color"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@id/title_menu"/>
+        android:layout_below="@id/title_menu"
+        android:background="@color/decoration_item_color" />
 
     <LinearLayout
         android:id="@+id/content_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/dividerList">
+        android:layout_below="@id/dividerList"
+        android:orientation="vertical">
 
     </LinearLayout>
 

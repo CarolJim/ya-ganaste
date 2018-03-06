@@ -66,7 +66,6 @@ import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragmen
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
-import static com.pagatodo.yaganaste.utils.Recursos.FIREBASE_KEY;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.COMPANY_NAME;
@@ -155,12 +154,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         }
         switch (action) {
             case GO_TO_LOGIN:
-                App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
+                //App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
                 loadFragment(loginContainerFragment);
                 break;
 
             case GO_TO_REGISTER:
-                App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
+                //App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
                 loadFragment(DatosUsuarioFragment.newInstance());
 
                 // TODO: 28/04/2017

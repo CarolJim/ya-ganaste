@@ -283,7 +283,7 @@
                                 android:layout_marginLeft="15dp"
                                 android:text="Parentesco"
                                 android:textColor="@color/hint_color"
-                                android:visibility="visible" />
+                                android:visibility="invisible" />
 
                             <Spinner
                                 android:id="@+id/spParentesco"

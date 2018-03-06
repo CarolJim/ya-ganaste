@@ -147,7 +147,6 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 if (response.getData().size() > 0) {
                     api.insertFavorites(response.getData());
                 }
-
                 paymentsTabIteractor.getFavoritesFromDB(current_tab);
             } catch (Exception e) {
                 e.printStackTrace();

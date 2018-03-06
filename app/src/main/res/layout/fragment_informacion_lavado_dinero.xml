@@ -76,7 +76,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="Cobros mensuales"
                             android:textColor="@color/hint_color"
-                            android:visibility="gone" />
+                            android:visibility="invisible" />
 
                         <Spinner
                             android:id="@+id/spnCobrosMensuales"
@@ -115,7 +115,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="Monto mensual estimado"
                             android:textColor="@color/hint_color"
-                            android:visibility="gone" />
+                            android:visibility="invisible" />
 
                         <Spinner
                             android:id="@+id/spnMontoMensual"
@@ -154,7 +154,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="Origen de los recursos"
                             android:textColor="@color/hint_color"
-                            android:visibility="gone" />
+                            android:visibility="invisible" />
 
                         <Spinner
                             android:id="@+id/spnOrigenRecursos"
@@ -194,7 +194,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="Destino de los recursos"
                             android:textColor="@color/hint_color"
-                            android:visibility="gone" />
+                            android:visibility="invisible" />
 
                         <Spinner
                             android:id="@+id/spnDestinoRecursos"

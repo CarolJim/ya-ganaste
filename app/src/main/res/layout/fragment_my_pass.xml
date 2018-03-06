@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,21 +9,22 @@
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="27dp"
         android:gravity="center"
         android:text="@string/change_your_pass"
-        android:layout_marginTop="27dp"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/colorAccent" />
 
     <LinearLayout
         android:id="@+id/content_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp"
         android:layout_below="@id/title_menu"
-        android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
 
     </LinearLayout>
 
@@ -38,7 +38,6 @@
         android:layout_marginTop="@dimen/margin_medium"
         android:gravity="center"
         android:text="@string/confrimacion" />
-
 
 
 </RelativeLayout>

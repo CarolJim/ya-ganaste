@@ -424,6 +424,7 @@
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
+
     <string name="congratulation_text2">A Continuación, te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información</string>
