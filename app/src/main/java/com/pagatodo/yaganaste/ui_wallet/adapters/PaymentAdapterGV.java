@@ -316,8 +316,8 @@ public class PaymentAdapterGV extends BaseAdapter {
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {
         Picasso.with(App.getContext()).load(urlLogo)
-                .placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.icon_user)
+                .placeholder(R.drawable.ic_avatar_holder)
+                .error(R.drawable.ic_avatar_holder)
                 .into(imageView);
     }
 }

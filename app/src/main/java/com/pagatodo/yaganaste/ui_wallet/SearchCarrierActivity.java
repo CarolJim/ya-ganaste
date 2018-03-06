@@ -71,8 +71,6 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
         recyclerGenericBase = new RecyclerGenericBase(recyclerView, VERTICAL_ORIENTATION);
         recyclerGenericBase.createRecyclerList(this, comercioResponse, searchEditText);
 
-
-       // searchEditText.addTextChangedListener(filterTextWatcher);
     }
 
     @Override

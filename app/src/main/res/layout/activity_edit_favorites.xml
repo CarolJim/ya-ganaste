@@ -72,6 +72,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/add_favorites_foto_title"
                     android:layout_marginTop="15dp"
                     android:gravity="center_horizontal"
                     android:text="@string/addFoto"
@@ -216,7 +217,7 @@
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:inputType="text"
                             android:longClickable="false"
                             android:maxLength="12"
@@ -235,8 +236,8 @@
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -272,7 +273,7 @@
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:inputType="number"
                             android:longClickable="false"
                             android:maxLength="12"
@@ -291,46 +292,10 @@
 
                         <ImageView
                             android:id="@+id/imgMakePaymentRef"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/add_favorites_serv_ll123"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_border_edittext"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                        android:id="@+id/referenceNumber123"
-                        style="@style/GenericStyleEditText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20"
-                        android:hint="@string/txt_referencia_servicio"
-                        android:inputType="number"
-                        android:longClickable="false"
-                        android:maxLength="12" />
-
-                    <RelativeLayout
-                        android:id="@+id/layoutImageReference123"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3">
-
-                        <ImageView
-                            android:id="@+id/imgMakePaymentRef123"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/icono_camara_servicios" />
-                    </RelativeLayout>
-
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -351,7 +316,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/inputtext_normal"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <Spinner
                         android:id="@+id/tipoEnvio"
@@ -430,7 +395,7 @@
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:inputType="number"
                             android:longClickable="false"
                             android:maxLength="50"
@@ -449,8 +414,8 @@
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact2"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
                 </LinearLayout>

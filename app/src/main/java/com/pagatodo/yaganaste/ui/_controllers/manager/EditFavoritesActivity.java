@@ -79,6 +79,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
@@ -178,6 +179,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     TextInputLayout til_name_favorite;
     @BindView(R.id.txt_lyt_list_serv)
     TextInputLayout til_name_service;
+    @BindView(R.id.add_favorites_foto_title)
+    StyleTextView fotoTittle;
+
     AppCompatImageView btn_back;
     IFavoritesPresenter favoritesPresenter;
     DataFavoritos dataFavoritos;
@@ -779,6 +783,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
             // Ocultamos el mensaje de error de foto
             editFotoError.setVisibilityImageError(false);
+            fotoTittle.setText("Cambiar foto");
         } catch (IOException e) {
             e.printStackTrace();
         }

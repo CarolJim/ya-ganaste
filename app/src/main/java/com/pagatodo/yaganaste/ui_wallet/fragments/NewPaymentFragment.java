@@ -627,36 +627,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                     }
                 }
                 break;
-                /* // TODO eliminar despues de pruebas de estabilidad
-                 if (mDataRecargarFav != null) {
-                    if (mDataRecargarFav.get(position).getNombre().equals("Buscar")) {
-                        NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataRecargarFav,
-                                newPaymentPresenter, mType);
-                        dialog.show();
-                    } else if (mDataRecargarFav.get(position).getNombre().equals("Nuevo")) {
-                        // Iniciamos la actividad de Favoritos para recargas
-                        Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
-                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
-                        intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                        } else {
-                            getActivity().startActivityForResult(intent, NEW_FAVORITE);
-                        }
-                    } else {
-                        intentPayment.putExtra(PAYMENT_DATA, mDataRecargarFav.get(position));
-                        intentPayment.putExtra(PAYMENT_IS_FAV, true);
-                        startActivity(intentPayment);
-                    }
-                }
-                break;*/
+
             case ITEM_FAVORITO_PAGOS:
                 if (mFullListaServ != null) {
                     if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Buscar")) {
                         NewListFavoriteDialog dialog = new NewListFavoriteDialog(getContext(), mDataPagarFav,
                                 newPaymentPresenter, mType);
                         dialog.show();
-                    } else if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Nuevo")) {
+                    } else if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Agregar")) {
                         // Iniciamos la actividad de Favoritos
                         Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
