@@ -443,7 +443,7 @@
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Movimientos</string>
-    <string name="no_movimientos">No Hay Movimientos Registrados</string>
+    <string name="no_movimientos">Sin movimientos</string>
     <string name="error_respuesta">Ocurrió un Error de Conexión</string>
 
     <!-- Strings Adq-->
@@ -767,7 +767,7 @@
     <string name="actualizando_saldo"> </string>
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su Contraseña es Incorrecta</string>
-    <string name="desea_cerrar_sesion">¿Desea Realmente Cerrar Sesión?</string>
+    <string name="desea_cerrar_sesion">¿Estás seguro que deseas cerrar sesión?</string>
     <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">La contraseña no es correcta, revísala y vuelve a intentar.</string>
@@ -933,7 +933,7 @@
     <string name="security_code">Código de Seguridad</string>
     <string name="verificando_sms_espera">Obteniendo número de celular</string>
     <string name="verificando_sms_esperanuevo">Estamos vinculando tu celular a tu cuenta</string>
-    <string name="change_your_pass">Cambia tu Contraseña</string>
+    <string name="change_your_pass">Cambia tu contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="use_fingerprint">Uso de Huella Digital</string>
     <string name="without_items">Sin Resultados</string>
@@ -1221,7 +1221,7 @@
     <string name="navigation_drawer_menu_seguridad">Seguridad</string>
     <string name="navigation_drawer_menu_chat">Chat</string>
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
-    <string name="navigation_drawer_menu_acerca">Acerca De</string>
+    <string name="navigation_drawer_menu_acerca">Acerca de</string>
     <string name="navigation_drawer_logout">Cerrar Sesión</string>
 
     <string name="security_huella_option">Huella Digital</string>
@@ -1360,6 +1360,11 @@
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
 
+
+    <!-- Movimientos Reembolso-->
+    <string name="title_dailog_reem">¿Estás seguro que deseas reembolsar el cobro?</string>
+    <string name="message_dialog_reem">Este movimiento generará una comisión de 3.99% más IVA sobre el monto cobrado.</string>
+
     <!-- Action Menu -->
     <string name="action_share">Compartir</string>
     <string name="action_add_favorite">Añadir a favoritos</string>
@@ -1367,5 +1372,6 @@
     <string name="action_send_ticket">Reenviar ticket</string>
     <string name="action_repayment">Reembolsar cobro</string>
     <string name="action_cancel_repayment">Cancelar cobro</string>
+
 
 </resources>

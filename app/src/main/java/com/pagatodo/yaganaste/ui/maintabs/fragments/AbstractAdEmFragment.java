@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.ui_wallet.views.SwipeToFav;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +72,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     SwipyRefreshLayout swipeContainer;
     @BindView(R.id.progress_emisor)
     ProgressLayout progress_emisor;
+    @BindView(R.id.title)
+    StyleTextView title;
 
     protected IFavoritesPresenter favoritesPresenter;
     protected PresenterPaymentFragment paymentPresenter;

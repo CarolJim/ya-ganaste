@@ -90,6 +90,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         MontoTextView txtMonto;
         public RelativeLayout viewBackgroundLeft;
         public RelativeLayout viewBackgroundRight;
+        public RelativeLayout viewBackgroundLeftAd;
         public LinearLayout viewForeground;
 
         private RecyclerViewHolderMovements(View itemView) {
@@ -98,11 +99,12 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             txtItemMovDate = (TextView) itemView.findViewById(R.id.txt_item_mov_date);
             txtItemMovMonth = (TextView) itemView.findViewById(R.id.txt_item_mov_month);
             txtTituloDescripcion = (TextView) itemView.findViewById(R.id.txtTituloDescripcion);
-            txtSubTituloDetalle = (TextView) itemView.findViewById(R.id.txtSubTituloDetalle);
+            txtSubTituloDetalle = itemView.findViewById(R.id.txtSubTituloDetalle);
             txtMonto = itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
             viewBackgroundLeft = itemView.findViewById(R.id.view_background_left);
             viewBackgroundRight = itemView.findViewById(R.id.view_background_right);
+            viewBackgroundLeftAd = itemView.findViewById(R.id.view_background_left_adq);
             viewForeground = itemView.findViewById(R.id.view_foreground);
             upDown = itemView.findViewById(R.id.up_down);
         }
@@ -122,7 +124,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
                 upDown.setBackgroundResource(R.drawable.ico_idle);
             }
 
-            if (itemMovements.getColor() == R.color.redColorNegativeMovements){
+            if (itemMovements.getColor() == R.color.redColorNegativeMovementsCancel){
                 upDown.setBackgroundResource(R.drawable.down);
             }
 

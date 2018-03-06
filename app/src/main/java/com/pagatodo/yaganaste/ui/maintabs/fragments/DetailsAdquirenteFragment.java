@@ -90,11 +90,14 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     Button btnCancel;
     @BindView(R.id.btn_volver)
     Button btnVolver;
+
+    @BindView(R.id.up_down)
+    ImageView upDown;
     private View rootView;
     private DataMovimientoAdq dataMovimientoAdq;
-    ImageView imageView;
-    ImageView imageViewshare;
-    ImageView imageViewback;
+    //ImageView imageView;
+    //ImageView imageViewshare;
+    //ImageView imageViewback;
 
     public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
         DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
@@ -109,9 +112,9 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         setHasOptionsMenu(true);
-        imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageViewback = (ImageView) getActivity().findViewById(R.id.btn_back);
-        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
+        //imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        //imageViewback = (ImageView) getActivity().findViewById(R.id.btn_back);
+        //imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {
@@ -129,7 +132,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         /*if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
         } else {*/
-        imageView.setVisibility(View.GONE);
+        //imageView.setVisibility(View.GONE);
         //}
     }
 
@@ -144,7 +147,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         super.onResume();
         setVisibilityPrefer(false);
         setVisibilityPrefershare(true);
-        imageViewback.setVisibility(View.VISIBLE);
+        //imageViewback.setVisibility(View.VISIBLE);
     }
 
     public void setVisibilityPrefershare(Boolean mBoolean) {
@@ -154,12 +157,12 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
              * compartir
              */
             if (dataMovimientoAdq.getEstatus().equals(TRANS_STATUS_RED)) {
-                imageViewshare.setVisibility(View.GONE);
+                //imageViewshare.setVisibility(View.GONE);
             } else {
-                imageViewshare.setVisibility(View.VISIBLE);
+                //imageViewshare.setVisibility(View.VISIBLE);
             }
         } else {
-            imageViewshare.setVisibility(View.GONE);
+            //imageViewshare.setVisibility(View.GONE);
         }
     }
 
@@ -225,6 +228,22 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             case ESTATUS_REMBOLSADO:
                 txtEstatusDescripcion.setText(getString(R.string.status_rembolsado));
                 break;
+        }
+
+        if (color == R.color.redColorNegativeMovements){
+            upDown.setBackgroundResource(R.drawable.down_red);
+        }
+
+        if (color == R.color.greenColorPositiveMovements){
+            upDown.setBackgroundResource(R.drawable.up);
+        }
+
+        if (color == R.color.colorAccent){
+            upDown.setBackgroundResource(R.drawable.ico_idle);
+        }
+
+        if (color == R.color.redColorNegativeMovements){
+            upDown.setBackgroundResource(R.drawable.down);
         }
 
     }

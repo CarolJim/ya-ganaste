@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -651,7 +654,30 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     public void logOut() {
-        UI.createSimpleCustomDialog("",
+        AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
+                .setTitle(R.string.navigation_drawer_logout)
+                .setMessage(App.getContext().getResources().getString(R.string.desea_cerrar_sesion))
+                .setPositiveButton(R.string.title_aceptar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(TabActivity.this, MainActivity.class);
+                        intent.putExtra(SELECTION, MAIN_SCREEN);
+                        startActivity(intent);
+                        mPreferPresenter.logOutSession();
+                        finish();
+                    }
+                }).setCancelable(false)
+                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create();
+        builder.show();
+
+
+
+        /*UI.createSimpleCustomDialog("",
                 App.getContext().getResources().getString(R.string.desea_cerrar_sesion),
                 getSupportFragmentManager(),
                 new DialogDoubleActions() {
@@ -669,6 +695,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
                     }
                 }, true, true);
+                */
     }
 
     //Avatar

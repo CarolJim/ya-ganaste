@@ -349,4 +349,10 @@ public class UI {
                 .create();
         builder.show();
     }
+
+    public static AlertDialog showAlertDialog(Context context, int title, String message){
+        return new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
+                .setTitle(title)
+                .setMessage(message).create();
+    }
 }

@@ -71,10 +71,10 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements Option
     public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()){
             case 1:
-                onEventListener.onEvent(PREFER_USER_PRIVACIDAD, 1);
+                onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
                 break;
             case 2:
-                onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
+                onEventListener.onEvent(PREFER_USER_PRIVACIDAD, 1);
                 break;
         }
     }
