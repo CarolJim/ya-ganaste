@@ -14,8 +14,8 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public static int LEFT = 1;
     public static int RIGHT = 2;
-    public static int LEFT_AD = 1;
-    public static int RIGHT_AD = 2;
+    public static int LEFT_AD = 3;
+    public static int RIGHT_AD = 4;
 
     private RecyclerItemTouchHelperListener listener;
     private int direction;

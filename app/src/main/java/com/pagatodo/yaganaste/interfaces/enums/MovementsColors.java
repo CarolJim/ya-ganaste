@@ -11,7 +11,7 @@ public enum MovementsColors {
     CARGO(1, R.color.redColorNegativeMovements),
     APROBADO(2, R.color.greenColorPositiveMovements), //No debe ser cargo, pero estará aprobado
     PENDIENTE(4, R.color.colorAccent),
-    CANCELADO(3, R.color.redColorNegativeMovements);
+    CANCELADO(3, R.color.redColorNegativeMovementsCancel);
 
     private int color;
     private int type;

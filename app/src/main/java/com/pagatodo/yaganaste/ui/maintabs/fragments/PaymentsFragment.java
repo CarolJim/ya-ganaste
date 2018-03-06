@@ -84,11 +84,10 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
         updateRecyclerData(createAdapter(movements), movements);
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(),LEFT_AD);
-        new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
+        /*ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(),LEFT_AD);
+        new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);*/
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackR = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, getListenerItemTouchLeft(),RIGHT_AD);
-        new ItemTouchHelper(itemTouchHelperCallbackR).attachToRecyclerView(recyclerMovements);
+
     }
 
     @Override
@@ -99,8 +98,8 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked) {
         this.itemClicked = itemClicked;
-        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
-        //getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
+        //startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
+        getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
     }
 
     @Override
@@ -141,7 +140,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
                 if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
                     int position = viewHolder.getAdapterPosition();
                     RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
-                    DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
+                    //DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
                     if (direction == ItemTouchHelper.LEFT) {
                         AlertDialog dialog = UI.showAlertDialog(getContext(),R.string.title_dailog_reem,getResources().getString(R.string.message_dialog_reem));
                     }

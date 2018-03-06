@@ -443,7 +443,7 @@
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Movimientos</string>
-    <string name="no_movimientos">No Hay Movimientos Registrados</string>
+    <string name="no_movimientos">Sin movimientos</string>
     <string name="error_respuesta">Ocurrió un Error de Conexión</string>
 
     <!-- Strings Adq-->
@@ -767,7 +767,7 @@
     <string name="actualizando_saldo"> </string>
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su Contraseña es Incorrecta</string>
-    <string name="desea_cerrar_sesion">¿Desea Realmente Cerrar Sesión?</string>
+    <string name="desea_cerrar_sesion">¿Estás seguro que deseas cerrar sesión?</string>
     <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">La contraseña no es correcta, revísala y vuelve a intentar.</string>

@@ -99,7 +99,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             txtItemMovDate = (TextView) itemView.findViewById(R.id.txt_item_mov_date);
             txtItemMovMonth = (TextView) itemView.findViewById(R.id.txt_item_mov_month);
             txtTituloDescripcion = (TextView) itemView.findViewById(R.id.txtTituloDescripcion);
-            txtSubTituloDetalle = (TextView) itemView.findViewById(R.id.txtSubTituloDetalle);
+            txtSubTituloDetalle = itemView.findViewById(R.id.txtSubTituloDetalle);
             txtMonto = itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
             viewBackgroundLeft = itemView.findViewById(R.id.view_background_left);
@@ -124,7 +124,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
                 upDown.setBackgroundResource(R.drawable.ico_idle);
             }
 
-            if (itemMovements.getColor() == R.color.redColorNegativeMovements){
+            if (itemMovements.getColor() == R.color.redColorNegativeMovementsCancel){
                 upDown.setBackgroundResource(R.drawable.down);
             }
 

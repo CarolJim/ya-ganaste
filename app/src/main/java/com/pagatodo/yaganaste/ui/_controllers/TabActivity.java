@@ -655,12 +655,22 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     public void logOut() {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
-                .setTitle(R.string.app_name)
+                .setTitle(R.string.navigation_drawer_logout)
                 .setMessage(App.getContext().getResources().getString(R.string.desea_cerrar_sesion))
                 .setPositiveButton(R.string.title_aceptar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Intent intent = new Intent(TabActivity.this, MainActivity.class);
+                        intent.putExtra(SELECTION, MAIN_SCREEN);
+                        startActivity(intent);
+                        mPreferPresenter.logOutSession();
+                        finish();
+                    }
+                }).setCancelable(false)
+                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 }).create();
         builder.show();
