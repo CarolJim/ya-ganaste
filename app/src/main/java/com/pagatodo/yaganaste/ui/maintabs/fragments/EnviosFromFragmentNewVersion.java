@@ -726,104 +726,102 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
 
         // Verificamos que el adapter exista si no, lo creamos
-        if (adapterMaterialPalet == null) {
-            adapterMaterialListener = new RecyclerViewOnItemClickListener() {
-                @Override
-                public void onClick(View v, int position) {
+        adapterMaterialListener = new RecyclerViewOnItemClickListener() {
+            @Override
+            public void onClick(View v, int position) {
 
-                    /**
-                     * Si es editable mandamos a Edittar, si no a proceso normal
-                     */
+                /**
+                 * Si es editable mandamos a Edittar, si no a proceso normal
+                 */
 
-                    if (isEditable) {
-                        if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
-                            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            // Vibrate for 500 milliseconds
-                            vibrator.vibrate(100);
-                            Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
-                            intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
-                            intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                            } else {
-                                startActivity(intentEditFav);
-                            }
-                        }
-                    } else {
-                        if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                            Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
-                            intentAddFavorite.putExtra(FAV_PROCESS, 2);
-                            intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                            startActivity(intentAddFavorite);
+                if (isEditable) {
+                    if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
+                        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        // Vibrate for 500 milliseconds
+                        vibrator.vibrate(100);
+                        Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
+                        intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
-                            // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+                            startActivity(intentEditFav);
+                        }
+                    }
+                } else {
+                    if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
+                        Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                        intentAddFavorite.putExtra(FAV_PROCESS, 2);
+                        intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                        startActivity(intentAddFavorite);
+                    } else {
+                        // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
-                            idComercio = 0;
-                            isfavo = true;
-                            bancoselected = true;
-                            bancoselected = true;
-                            favoriteItem = backUpResponseFavoritos.get(position);
-                            long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
-                            String myName = backUpResponseFavoritos.get(position).getNombre();
+                        idComercio = 0;
+                        isfavo = true;
+                        bancoselected = true;
+                        bancoselected = true;
+                        favoriteItem = backUpResponseFavoritos.get(position);
+                        long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
+                        String myName = backUpResponseFavoritos.get(position).getNombre();
 
-                            myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                        myReferencia = backUpResponseFavoritos.get(position).getReferencia();
 
-                            switch (backUpResponseFavoritos.get(position).getReferencia().length()) {
-                                case 10:
-                                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                                    tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
-                                    receiverName.setText(myName);
-                                    cardNumber.setText("");
-                                    cardNumber.setText(myReferencia);
-                                    break;
-                                case 16:
-                                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                                    tipoEnvio.setSelection(NUMERO_TARJETA.getId());
-                                    receiverName.setText(myName);
-                                    cardNumber.setText("");
-                                    cardNumber.setText(myReferencia);
-                                    break;
-                                case 18:
-                                    myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                                    tipoEnvio.setSelection(CLABE.getId());
-                                    receiverName.setText(myName);
-                                    cardNumber.setText("");
-                                    cardNumber.setText(myReferencia);
-                                    break;
-                            }
+                        switch (backUpResponseFavoritos.get(position).getReferencia().length()) {
+                            case 10:
+                                myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                                tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
+                                receiverName.setText(myName);
+                                cardNumber.setText("");
+                                cardNumber.setText(myReferencia);
+                                break;
+                            case 16:
+                                myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                                tipoEnvio.setSelection(NUMERO_TARJETA.getId());
+                                receiverName.setText(myName);
+                                cardNumber.setText("");
+                                cardNumber.setText(myReferencia);
+                                break;
+                            case 18:
+                                myReferencia = backUpResponseFavoritos.get(position).getReferencia();
+                                tipoEnvio.setSelection(CLABE.getId());
+                                receiverName.setText(myName);
+                                cardNumber.setText("");
+                                cardNumber.setText(myReferencia);
+                                break;
+                        }
 
-                            //backUpResponseFavoritos
+                        //backUpResponseFavoritos
                     /*1 - Con ese id myIdComercio buscamos en backUpResponseFavoritos. Por ejemplo la posicion5
                             2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
                             3 - IguLAS comercioItem CON CarouselItem2*/
 
-                            for (int x = 0; x < finalList.size(); x++) {
-                                if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
-                                    comercioItem = finalList.get(x).getComercio();
-                                    editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
-                                    idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
-                                    idComercio = finalList.get(x).getComercio().getIdComercio();
-                                    if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                                        referenciaLayout.setVisibility(GONE);
-                                        concept.setImeOptions(IME_ACTION_DONE);
-                                        concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                                    } else {
-                                        referenciaLayout.setVisibility(View.VISIBLE);
-                                    }
+                        for (int x = 0; x < finalList.size(); x++) {
+                            if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                                comercioItem = finalList.get(x).getComercio();
+                                editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                                idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                                idComercio = finalList.get(x).getComercio().getIdComercio();
+                                if (idComercio == IDCOMERCIO_YA_GANASTE) {
+                                    referenciaLayout.setVisibility(GONE);
+                                    concept.setImeOptions(IME_ACTION_DONE);
+                                    concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                                } else {
+                                    referenciaLayout.setVisibility(View.VISIBLE);
                                 }
                             }
                         }
                     }
                 }
+            }
 
-                @Override
-                public void onLongClick(View v, int position) {
+            @Override
+            public void onLongClick(View v, int position) {
 
-                }
-            };
+            }
+        };
 
-            adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
-        }
+        adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
         recyclerView.setAdapter(adapterMaterialPalet);
     }
 
