@@ -55,6 +55,9 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     IMyPassView iMyPassView;
     IMyCardView iMyCardView;
 
+    public PreferUserPresenter(){
+        iPreferUserIteractor = new PreferUserIteractor(this);
+    }
     public PreferUserPresenter(PreferUserActivity mView) {
         // super(mView); Esta linea hace funcionar el PResenterGeneric
         this.mView = mView;

@@ -120,7 +120,6 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
                 initComponents(1);
                 break;
             case 2:
-                //listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
                 ContainerBuilder.SETTINGS_MENU(getContext(),mLinearLayout,this);
                 break;
@@ -154,10 +153,10 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
         switch (type) {
             case 1:
                 useFingerprint = App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true);
+                Container s = new Container(getContext(),this);
+                s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
-                    Container s = new Container(getContext(),this);
-                    s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
                     if (fingerprintManager.isHardwareDetected()) {
                         s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
                         OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);

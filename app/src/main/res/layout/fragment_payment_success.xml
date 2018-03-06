@@ -730,7 +730,6 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/button_rounded_blue"
                 android:textAllCaps="false"
-                android:textColor="#000"
                 android:text="Agregar a favoritos"
                 android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"

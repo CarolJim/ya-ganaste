@@ -69,7 +69,8 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked) {
         this.itemClicked = itemClicked;
-        getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
+        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
+        //getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
     }
 
     @Override

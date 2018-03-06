@@ -42,6 +42,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SI
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
@@ -182,6 +183,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REGISTER_ADQUIRENTE_CODE) {
             showMainTab();
+        } if (requestCode == REQUEST_CODE_FAVORITES) {
+            loadFragment(HomeTabFragment.newInstance(currentPage), R.id.fragment_container);
         } else {
             if (data != null) {
                 getCurrentFragment().onActivityResult(requestCode, resultCode, data);

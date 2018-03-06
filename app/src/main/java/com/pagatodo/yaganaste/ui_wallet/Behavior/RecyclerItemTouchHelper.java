@@ -12,21 +12,15 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
  */
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
-    private static int LEFT = 1;
-    private static int RIGHT = 2;
+    public static int LEFT = 1;
+    public static int RIGHT = 2;
 
     private RecyclerItemTouchHelperListener listener;
     private int direction;
 
-    public RecyclerItemTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener listener) {
+    public RecyclerItemTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener listener, int direction) {
         super(dragDirs, swipeDirs);
-        direction = 0;
-        if (swipeDirs == ItemTouchHelper.RIGHT) {
-            this.direction = RIGHT;
-        }
-        if (swipeDirs == ItemTouchHelper.LEFT) {
-            this.direction = LEFT;
-        }
+        this.direction = direction;
         this.listener = listener;
 
     }
@@ -46,10 +40,10 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                 leftView.setVisibility(View.VISIBLE);
                 rightView.setVisibility(View.GONE);
             }
+
             if (direction == RIGHT) {
                 rightView.setVisibility(View.VISIBLE);
                 leftView.setVisibility(View.GONE);
-
             }
             getDefaultUIUtil().onSelected(foregroundView);
         }

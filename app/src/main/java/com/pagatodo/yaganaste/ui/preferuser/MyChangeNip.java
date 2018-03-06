@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -62,9 +63,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.R
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyChangeNip#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by Team Android on 22/03/2017.
  */
 public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener,
         IChangeNIPView{
@@ -106,8 +105,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         setHasOptionsMenu(true);
 
         if (getArguments() != null) {
+
         }
-        accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
+        accountPresenter = new AccountPresenterNew(getContext());
         accountPresenter.setIView(this);
     }
 
@@ -266,6 +266,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void nextScreen(String event, Object data) {
 
+
     }
 
     @Override
@@ -287,7 +288,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void showError(final Object error) {
         if (!error.toString().isEmpty()) {
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+            /*UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {
@@ -302,26 +303,16 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                         }
                     },
                     true, false);
+            */
+            UI.showErrorSnackBar(getActivity(),error.toString(),Snackbar.LENGTH_SHORT);
         }
     }
 
     @Override
     public void setSuccessChangeNip(Object data) {
-        if (!data.toString().isEmpty())
-            //  UI.showToastShort(error.toString(), getActivity());
-            UI.createSimpleCustomDialog("", data.toString(), getFragmentManager(),
-                    new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-                            getActivity().onBackPressed();
-                        }
 
-                        @Override
-                        public void actionCancel(Object... params) {
+            UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.exito_nip),Snackbar.LENGTH_SHORT);
 
-                        }
-                    },
-                    true, false);
     }
 
     private void showDialogCallIntent() {
@@ -355,6 +346,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         }
     };
 
+    @SuppressLint("MissingPermission")
     private void createCallIntent() {
         String number = getString(R.string.numero_telefono_contactanos);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -368,4 +360,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             getActivity().startActivity(callIntent);
         }
     }
+
+
 }

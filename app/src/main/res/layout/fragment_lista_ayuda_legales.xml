@@ -5,30 +5,29 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment">
 
-    <LinearLayout
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/textView2"
+        style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:text="@string/navigation_drawer_menu_acerca"
+        android:layout_marginTop="28.5dp"
+        android:layout_marginBottom="32dp"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/textView2"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/navigation_drawer_menu_acerca" />
+    <View
+        android:id="@+id/dividerList"
+        android:background="@color/decoration_item_color"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/textView2"/>
 
-        <LinearLayout
-            android:id="@+id/content_linearlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:orientation="vertical"
-            android:layout_below="@id/textView2">
-        </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/content_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/dividerList">
     </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -41,189 +40,5 @@
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
-<!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp">
 
-
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/borderLayoutColor"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:id="@+id/fragment_lista_ayuda_tutoriales"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:visibility="gone">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="2"
-                android:text="@string/Tutoriales" />
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="17dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                app:srcCompat="@drawable/arrow_canvas_blue" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/borderLayoutColor"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:id="@+id/fragment_lista_ayuda_contactanos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:visibility="gone">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="2"
-                android:text="@string/contactanos" />
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="17dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                app:srcCompat="@drawable/arrow_canvas_blue" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/borderLayoutColor"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:id="@+id/fragment_lista_ayuda_acerca_app"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:visibility="gone">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/generic_text_style_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="2"
-                android:text="@string/acerca_de_app" />
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="17dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                app:srcCompat="@drawable/arrow_canvas_blue" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/borderLayoutColor"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/borderLayoutColor" />
-
-            <LinearLayout
-                android:id="@+id/fragment_lista_legales_aviso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="2"
-                    android:text="@string/legales" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/borderLayoutColor" />
-
-            <LinearLayout
-                android:id="@+id/fragment_lista_legales_terminos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="2"
-                    android:text="@string/aviso_privacidad" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/borderLayoutColor" />
-
-
-
-        </LinearLayout>
-
-    </LinearLayout>
--->
 

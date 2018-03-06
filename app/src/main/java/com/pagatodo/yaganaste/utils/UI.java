@@ -335,7 +335,7 @@ public class UI {
     }
 
     public static void showAlertDialog(Context context, String message, DialogInterface.OnClickListener positive){
-        AlertDialog builder = new AlertDialog.Builder(context)
+        AlertDialog builder = new AlertDialog.Builder(context, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
                 .setTitle(R.string.app_name)
                 .setMessage(message)
                 .setPositiveButton(R.string.title_aceptar,positive)

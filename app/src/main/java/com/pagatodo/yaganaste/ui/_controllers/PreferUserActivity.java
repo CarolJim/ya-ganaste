@@ -353,6 +353,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                     LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
                     legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
+                    //loadFragment(LegalsDialog.newInstance(PRIVACIDAD));
                 } else {
                     // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
@@ -363,6 +364,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 if (isOnline2) {
                     LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOS);
                     legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
+                    //loadFragment(LegalsDialog.newInstance(TERMINOS));
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                     //Toast.makeText(this, "Is OffLine Terminos", Toast.LENGTH_SHORT).show();

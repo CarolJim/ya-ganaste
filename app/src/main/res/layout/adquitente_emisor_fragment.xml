@@ -12,7 +12,8 @@
         android:layout_height="58dp"
         app:tabTextColor="@color/texthint"
         app:tabIndicatorColor="@color/whiteColor"
-        app:tabGravity="center" />
+        app:tabGravity="center"
+        app:tabMode="fixed"/>
 
     <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_info_movements"

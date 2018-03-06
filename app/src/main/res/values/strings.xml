@@ -342,6 +342,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
+    <string name="exito_nip">"Tu NIP ha Sido Cambiada Correctamente"</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -1338,7 +1339,8 @@
 
     <!-- Registro Adquiriente Adapters -->
     <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
-    <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas\n\n¿Tienes dudas? Contáctanos</string>
+    <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas</string>
+    <string name="title_tipo_desc_dos">¿Tienes dudas? Contáctanos</string>
     <string name="contacto">contacto@yaganaste.com</string>
     <string name="btn_reenviar">Reenviar</string>
     <string name="felicidades">¡Felicidades!</string>
