@@ -187,6 +187,7 @@
                                 android:background="@android:color/transparent"
                                 android:imeOptions="actionNext"
                                 android:paddingLeft="15dp"
+                                android:digits="1,2,3,4,5,6,7,8,9,0"
                                 android:singleLine="true"
                                 android:textColor="@color/texthint" />
 
@@ -217,6 +218,7 @@
                                 android:background="@android:color/transparent"
                                 android:imeOptions="actionNext"
                                 android:paddingLeft="15dp"
+                                android:digits="1,2,3,4,5,6,7,8,9,0"
                                 android:singleLine="true"
                                 android:textColor="@color/texthint" />
 
@@ -252,7 +254,9 @@
                             android:imeOptions="actionNext"
                             android:inputType="number"
                             android:paddingLeft="15dp"
+                            android:digits="1,2,3,4,5,6,7,8,9,0"
                             android:singleLine="true"
+                            android:maxLength="5"
                             android:textColor="@color/texthint" />
 
                     </android.support.design.widget.TextInputLayout>
