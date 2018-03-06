@@ -473,7 +473,7 @@
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
     <string name="adq_msg_accept">A Continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
     <string name="adq_aproved">Aprobada</string>
-    <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta</string>
+    <string name="adq_succes_aproved">El pago fué completado\ncorrectamente\n\nya puedes\nretirar la tarjeta</string>
     <string name="adq_error_signature">No se ha Capturado Una Firma</string>
     <string name="usuario_no_existe">Este correo no se encuentra registrado</string>
 
@@ -1310,7 +1310,7 @@
     <string name="contrasena_confirma">Confirma contraseña</string>
 
     <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">¡Hola %s! Comencemos con el registro de tu\nnegocio, cuéntanos un poco de él</string>
+    <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
     <string name="sub_titulo_domicilio">¿Cuál es la dirección de tu negocio?\nPor defecto, asignamos tu dirección personal</string>
     <string name="sub_titulo_info_adic">Casi estamos listos, necesitamos hacerte algunas\npreguntas más para completar tu registro</string>
 

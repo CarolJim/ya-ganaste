@@ -187,7 +187,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
         switch (types) {
             case BTN_DIRECTION_NEXT:
-                ContextThemeWrapper themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonDirecctionNext);
+                ContextThemeWrapper themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBluewallet);
                 button = new StyleButton(themeContext);
                 break;
             case BTN_DIRECTION_BACK:

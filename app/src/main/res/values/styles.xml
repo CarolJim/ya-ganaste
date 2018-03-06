@@ -172,6 +172,18 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
+    <style name="buttonSquareRoundedBluewallet" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns_big</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/white_round_button</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+
+
     <style name="buttonSquareRoundedBluedd" parent="AppButton">
         <item name="android:layout_width">167dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
