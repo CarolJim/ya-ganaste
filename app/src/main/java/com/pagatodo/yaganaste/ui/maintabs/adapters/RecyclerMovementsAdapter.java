@@ -90,6 +90,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         MontoTextView txtMonto;
         public RelativeLayout viewBackgroundLeft;
         public RelativeLayout viewBackgroundRight;
+        public RelativeLayout viewBackgroundLeftAd;
         public LinearLayout viewForeground;
 
         private RecyclerViewHolderMovements(View itemView) {
@@ -103,6 +104,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
             viewBackgroundLeft = itemView.findViewById(R.id.view_background_left);
             viewBackgroundRight = itemView.findViewById(R.id.view_background_right);
+            viewBackgroundLeftAd = itemView.findViewById(R.id.view_background_left_adq);
             viewForeground = itemView.findViewById(R.id.view_foreground);
             upDown = itemView.findViewById(R.id.up_down);
         }
