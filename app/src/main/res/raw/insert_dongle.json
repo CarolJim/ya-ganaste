@@ -13,14 +13,14 @@
       "w": 338,
       "h": 674,
       "u": "images/insert_dongle/",
-      "p": "Android_Outline_AnimacionAdquiriente_Tarjeta.png"
+      "p": "telefono.png"
     },
     {
       "id": "image_1",
       "w": 281,
       "h": 283,
       "u": "images/insert_dongle/",
-      "p": "Dongle_Jack_AnimacionAdquiriente_Tarjeta.png"
+      "p": "jack.png"
     }
   ],
   "layers": [

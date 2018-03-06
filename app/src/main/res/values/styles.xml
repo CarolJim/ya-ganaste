@@ -114,7 +114,7 @@
 
     <style name="textDescInputs2">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textColor">@color/whiteColor_disable</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Text</item>
     </style>
@@ -514,8 +514,14 @@
 
     <!-- Estilos revisados 10-07-17 -->
     <style name="generic_text_style_1">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_1_value</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="generic_text_style_1_cobro">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">17sp</item>
         <item name="tipo">Subtitulo</item>
     </style>
 
