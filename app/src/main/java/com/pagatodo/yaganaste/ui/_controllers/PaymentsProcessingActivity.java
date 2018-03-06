@@ -221,7 +221,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             if (getCurrentFragment() instanceof PaymentAuthorizeFragment) {
                 setResult(RESULT_CODE_BACK_PRESS, intent);
             } else {
-                setResult(RESULT_CODE_FAIL, intent);
+                setResult(RESULT_CODE_OK_CLOSE, intent);
             }
             finish();
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -253,14 +253,14 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
     @Override
     public void onFailPaimentResponse(DataSourceResult error) {
-        String errorTxt = null;
-        try {
+        String errorTxt = error.toString();
+        /*try {
             EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
             if (response.getMensaje() != null)
                 errorTxt = response.getMensaje();
         } catch (ClassCastException ex) {
             ex.printStackTrace();
-        }
+        }*/
         onError(errorTxt);
     }
 

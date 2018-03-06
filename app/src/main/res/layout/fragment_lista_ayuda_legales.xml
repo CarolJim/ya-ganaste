@@ -10,34 +10,34 @@
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="28.5dp"
         android:gravity="center"
         android:text="@string/navigation_drawer_menu_acerca"
-        android:layout_marginTop="28.5dp"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/colorAccent" />
 
     <View
         android:id="@+id/dividerList"
-        android:background="@color/decoration_item_color"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@id/textView2"/>
+        android:layout_below="@id/textView2"
+        android:background="@color/decoration_item_color" />
 
     <LinearLayout
         android:id="@+id/content_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/dividerList">
-    </LinearLayout>
+        android:layout_below="@id/dividerList"
+        android:orientation="vertical"></LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtVersionApp"
+        style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/generic_text_style_3"
-        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
 

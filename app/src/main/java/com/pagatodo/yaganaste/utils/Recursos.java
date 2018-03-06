@@ -113,7 +113,7 @@ public class Recursos {
     public static String HUELLA_FAIL = "HUELLA_FAIL";
     public static String PASSWORD_CHANGE = "PASSWORD_CHANGE";
     public static String VERSION_APP = "VERSION_APP";
-    public static String FIREBASE_KEY = "FIREBASE_KEY";
+    //public static String FIREBASE_KEY = "FIREBASE_KEY";
     public static String NOTIF_COUNT = "NOTIF_COUNT";
 
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
