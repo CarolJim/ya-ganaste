@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -334,11 +335,11 @@ public class UI {
         snack.show();
     }
 
-    public static void showAlertDialog(Context context, String message, DialogInterface.OnClickListener positive){
-        AlertDialog builder = new AlertDialog.Builder(context, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+    public static void showAlertDialog(Context context, String message, DialogInterface.OnClickListener positive) {
+        AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(R.string.app_name)
                 .setMessage(message)
-                .setPositiveButton(R.string.title_aceptar,positive)
+                .setPositiveButton(R.string.title_aceptar, positive)
                 .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

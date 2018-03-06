@@ -344,53 +344,63 @@
                     app:isSingleLine="true"
                     app:maxLength="16" />
 
-                <Spinner
-                    android:id="@+id/tipoEnvio"
-                    style="@style/CustomSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:backgroundTint="@color/transparent" />
-
+                <!-- Spinner que contiene las elecciones de Telefono, debito o clabe -->
                 <LinearLayout
-                    android:id="@+id/layout_cardNumber"
-                    style="@style/generic_text_style_2"
+                    android:id="@+id/tipoEnvio_layout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/inputtext_normal"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                        android:id="@+id/cardNumber"
-                        style="@style/GenericStyleEditText"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="20"
-                        android:hint="@string/hint_card_number"
-                        android:inputType="number"
-                        android:longClickable="false"
-                        android:maxLength="50" />
-
-
-                    <RelativeLayout
-                        android:id="@+id/layoutImageContact2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3">
-
-                        <ImageView
-                            android:id="@+id/imgMakePaymentContact2"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_centerInParent="true"
-                            android:foregroundGravity="right"
-                            android:src="@drawable/icono_agenda" />
-                    </RelativeLayout>
+                    <Spinner
+                        android:id="@+id/tipoEnvio"
+                        style="@style/CustomSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@null"
+                        android:backgroundTint="@color/transparent" />
                 </LinearLayout>
+
+                <!--  <LinearLayout
+                      android:id="@+id/layout_cardNumber123"
+                      style="@style/generic_text_style_2"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                      android:background="@drawable/inputtext_normal"
+                      android:orientation="horizontal"
+                      android:visibility="visible">
+
+                      <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                          android:id="@+id/cardNumber1234"
+                          style="@style/GenericStyleEditText"
+                          android:layout_gravity="center_vertical"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="20"
+                          android:hint="@string/hint_card_number"
+                          android:inputType="number"
+                          android:longClickable="false"
+                          android:maxLength="50" />
+
+
+                      <RelativeLayout
+                          android:id="@+id/layoutImageContact2"
+                          android:layout_width="0dp"
+                          android:layout_height="match_parent"
+                          android:layout_weight="3">
+
+                          <ImageView
+                              android:id="@+id/imgMakePaymentContact2"
+                              android:layout_width="25dp"
+                              android:layout_height="25dp"
+                              android:layout_centerInParent="true"
+                              android:foregroundGravity="right"
+                              android:src="@drawable/icono_agenda" />
+                      </RelativeLayout>
+                  </LinearLayout>-->
                 <!-- Base para el nuevo estillo de editar envios-->
-                <!--<LinearLayout
+                <LinearLayout
                     android:id="@+id/layout_cardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -412,6 +422,7 @@
                         android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
+
                         <EditText
                             android:id="@+id/cardNumber"
                             android:layout_width="match_parent"
@@ -430,19 +441,19 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <RelativeLayout
-                        android:id="@+id/layoutImageReference1234"
+                        android:id="@+id/layoutImageContact2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp">
 
                         <ImageView
-                            android:id="@+id/imgMakePaymentRef1234"
+                            android:id="@+id/imgMakePaymentContact2"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
-                </LinearLayout>-->
+                </LinearLayout>
 
             </LinearLayout>
 

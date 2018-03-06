@@ -111,6 +111,7 @@ public class UploadDocumentView extends RelativeLayout {
     public void setStatusImage(Drawable bitmap) {
 
         circleImageStatus.setImageDrawable(bitmap);
+
     }
 
     public void setVisibilityStatus(boolean visibilityStatus) {

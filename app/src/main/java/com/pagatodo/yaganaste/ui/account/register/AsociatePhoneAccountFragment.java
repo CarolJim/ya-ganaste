@@ -83,7 +83,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             switch (getResultCode()) {
                 case Activity.RESULT_OK:
                     UI.showSuccessSnackBar(getActivity(), "Mensaje Enviado", Snackbar.LENGTH_SHORT);
-
+                    animSendSms.pauseAnimation();
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             accountPresenter.doPullActivationSMS(getString(R.string.verificando_sms_esperanuevo));

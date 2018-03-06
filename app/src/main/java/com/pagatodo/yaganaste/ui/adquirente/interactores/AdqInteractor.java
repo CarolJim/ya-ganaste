@@ -363,7 +363,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
                 result.setResponseCode(0);
                 result.setTransaccionResponse(data);
-                PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.aprobada),
+                PageResult pageResult = new PageResult(R.drawable.ic_check_success, context.getString(R.string.aprobada_cobro),
                         context.getString(R.string.pago_success), false);
 
                 pageResult.setNamerBtnPrimary(context.getString(R.string.continuar));

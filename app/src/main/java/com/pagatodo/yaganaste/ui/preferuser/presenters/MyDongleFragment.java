@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -72,7 +73,6 @@ public class MyDongleFragment extends GenericFragment implements
     ImageView iconBattery;
     @BindView(R.id.lyt_config_repayment)
     LinearLayout lytConfigRepayment;
-
     private AudioManager audioManager;
     public Preferencias prefs;
 
@@ -283,6 +283,9 @@ public class MyDongleFragment extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        txtCompanyName.setText( prefs.loadData(StringConstants.COMPANY_NAME));
+
         lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

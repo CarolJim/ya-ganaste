@@ -131,8 +131,8 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         signingView.buildDrawingCache();
         btnClear.setOnClickListener(this);
         btnSendSignature.setOnClickListener(this);
-        btnClear.setBackgroundResource(R.drawable.button_rounded_transparent);
-        btnSendSignature.setBackgroundResource(R.drawable.button_rounded_transparent);
+
+
 
 
         /*Seteamos los datos de la transacción*/
@@ -199,7 +199,6 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
             case R.id.btnClear:
                 signingView.clear();
                 signingView.setHasSignature(false);
-                btnSendSignature.setBackgroundResource(R.drawable.button_rounded_transparent);
                 break;
 
             case R.id.btnSendSignature:

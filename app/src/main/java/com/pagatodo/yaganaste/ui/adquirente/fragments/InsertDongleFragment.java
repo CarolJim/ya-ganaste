@@ -460,45 +460,42 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertDongle() {
-        //insertDongle.setVisibility(VISIBLE);
-        imgInsertCard.setVisibility(INVISIBLE);
+        imgInsertDongle.setVisibility(VISIBLE);
+        imgInsertDongle.playAnimation();
+        imgInsertCard.setVisibility(View.INVISIBLE);
+        imgInsertCard.pauseAnimation();
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
-        imgInsertDongle.playAnimation();
+
 
     }
 
     @Override
     public void showInsertCard() {
-       /* insertDongle.setVisibility(View.GONE);
-        insertDongle.pauseAnimation();*/
+        imgInsertDongle.setVisibility(View.INVISIBLE);
         imgInsertDongle.pauseAnimation();
-        imgInsertCard.setVisibility(VISIBLE);
-        imgInsertCard.playAnimation();
-
-        imgInsertDongle.setVisibility(INVISIBLE);
         String message;
+
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
-               // imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
-                imgInsertCard.playAnimation();
+                //imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
             } else {
                 // showError("Mensaje de prueba dongle_swipe_card");
                 message = getString(R.string.text_slide_cancelation);
                 //imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
-                imgInsertCard.playAnimation();
+
             }
         } else {
             // message = getString(R.string.text_slide_or_insert);
             message = getString(R.string.text_insert_or_slide);
 
         }
-
+        imgInsertCard.setVisibility(VISIBLE);
         imgInsertCard.playAnimation();
 
         try {
-          //  ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
+            ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
