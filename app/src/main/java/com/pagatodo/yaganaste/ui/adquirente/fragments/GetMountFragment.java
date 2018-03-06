@@ -313,6 +313,14 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
                 }
 
+                // Limpiamos del "," que tenemos del EditText auxiliar
+                int positionQuote = valueAmount.indexOf(",");
+                if (positionQuote > 0) {
+                    String[] valueAmountArray = valueAmount.split(",");
+                    valueAmount = valueAmountArray[0] + valueAmountArray[1];
+                }
+
+
                 float current_mount = Float.parseFloat(valueAmount);
                 String current_concept = edtConcept.getText().toString().trim();//Se agrega Concepto opcional
                 if (current_mount >= MIN_AMOUNT) {

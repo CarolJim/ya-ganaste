@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
+import com.pagatodo.yaganaste.utils.NumberTagPase;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -208,6 +211,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 onSubSpinnerClick();
             }
         });
+        editBussinesPhone.addTextChangedListener(new PhoneTextWatcher(editBussinesPhone));
+
         setValidationRules();
     }
 
@@ -294,6 +299,12 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     //      editBussinesPhone.imageViewIsGone(true);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
+
+                    telefono = editBussinesPhone.getText().toString();
+                    telefono = telefono.replaceAll(" ", "");
+
+
+
                     if (editBussinesPhone.getText().toString().isEmpty()) {
                         //  showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
                         //        editBussinesPhone.setIsInvalid();
@@ -301,14 +312,14 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_telefono.setBackgroundResource(R.drawable.inputtext_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
-                    } else if (!ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
+                    } else if (!isPhone(telefono)) {
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_telefono.setBackgroundResource(R.drawable.inputtext_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
                         //showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
                         // editBussinesPhone.setIsInvalid();
-                    } else if (ValidateForm.isValidPhone(editBussinesPhone.getText().toString())) {
+                    } else if (isPhone(telefono)) {
                         hideValidationError(editBussinesPhone.getId());
                         text_telefono.setBackgroundResource(R.drawable.inputtext_normal);
                         //  editBussinesPhone.setIsValid();
@@ -360,7 +371,10 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             isValid = false;
         }
 
-        if (!isPhone(editBussinesPhone.getText().toString()) || editBussinesPhone.getText().toString().equalsIgnoreCase("0000000000")) {
+        telefono = editBussinesPhone.getText().toString();
+        telefono = telefono.replaceAll(" ", "");
+
+        if (!isPhone(telefono) || editBussinesPhone.getText().toString().equalsIgnoreCase("0000000000")) {
             // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
             //    editBussinesPhone.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -449,6 +463,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     public void getDataForm() {
         nombre = editBussinesName.getText().toString();
         telefono = editBussinesPhone.getText().toString();
+        telefono = telefono.replaceAll(" ", "");
     }
 
     private void setCurrentData() {

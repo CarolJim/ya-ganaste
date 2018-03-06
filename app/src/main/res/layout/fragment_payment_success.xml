@@ -117,9 +117,9 @@
                                     style="@style/generic_text_style_2.1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:gravity="start"
-                                    android:text="@string/details_monto" />
+                                    android:text="@string/details_monto"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                                     style="@style/generic_text_style_2.1"
@@ -183,9 +183,9 @@
                                     style="@style/generic_text_style_2.1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="@dimen/wallet_text_size_3"
                                     android:gravity="start"
-                                    android:text="@string/details_enviado_a" />
+                                    android:text="@string/details_enviado_a"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/nombreEnvio"
@@ -232,8 +232,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/details_ferencia" />
+                                    android:text="@string/details_ferencia"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtReferencia"
@@ -279,8 +279,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/details_compania" />
+                                    android:text="@string/details_compania"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtCompania"
@@ -326,8 +326,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/hint_concepto" />
+                                    android:text="@string/hint_concepto"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtConcepto"
@@ -373,8 +373,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/details_fecha" />
+                                    android:text="@string/details_fecha"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtFecha"
@@ -414,8 +414,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/details_hora" />
+                                    android:text="@string/details_hora"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtHora"
@@ -455,8 +455,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/details_autorizacion" />
+                                    android:text="@string/details_autorizacion"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtAutorizacion"
@@ -498,8 +498,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:textSize="@dimen/wallet_text_size_3"
-                                    android:text="@string/details_clave_de_rastreo" />
+                                    android:text="@string/details_clave_de_rastreo"
+                                    android:textSize="@dimen/wallet_text_size_3" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtClaveRastreo"
@@ -514,7 +514,9 @@
                                     android:marqueeRepeatLimit="marquee_forever"
                                     android:paddingLeft="10dp"
                                     android:scrollHorizontally="true"
-                                    android:singleLine="true" />
+                                    android:singleLine="true"
+                                    android:textColor="@color/colorAccent"
+                                    android:textSize="@dimen/wallet_text_size_3" />
                             </LinearLayout>
 
                             <View

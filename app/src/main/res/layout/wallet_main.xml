@@ -46,11 +46,10 @@
                 android:paddingStart="@dimen/card_padding" />
         </RelativeLayout>
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="71.5dp"
-            android:layout_marginTop="23.9dp">
+            android:layout_marginTop="17.5dp">
 
             <RelativeLayout
                 android:id="@+id/titles"
