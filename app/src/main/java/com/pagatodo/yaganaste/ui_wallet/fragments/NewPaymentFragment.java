@@ -50,6 +50,7 @@ import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
 import static com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity.SEARCH_DATA;
@@ -309,8 +310,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     private void updateFavorites() {
-        //  onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-        // onEventListener.onEvent("DISABLE_BACK", true);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        onEventListener.onEvent("DISABLE_BACK", true);
         mRecargarGrid.clear();
         mPagarGrid.clear();
         mDataRecargarFav.clear();
@@ -329,8 +330,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
-        //  onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        ////  onEventListener.onEvent("DISABLE_BACK", false);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -415,8 +416,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         mRVPagos.setVisibility(View.VISIBLE);
 
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
-        //onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        //onEventListener.onEvent("DISABLE_BACK", false);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        onEventListener.onEvent("DISABLE_BACK", false);
 
         /**
          * Guardamos siempre la lista de comercios en su Array especifico. Estos array contiene
@@ -455,7 +456,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
          * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
          */
         if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
-            // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
             newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
             typeView = TYPE_FAVORITE;
         }
