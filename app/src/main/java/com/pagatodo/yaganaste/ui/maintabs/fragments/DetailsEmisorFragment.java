@@ -211,7 +211,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             upDown.setBackgroundResource(R.drawable.ico_idle);
         }
 
-        if (item.getColor() == R.color.redColorNegativeMovements){
+        if (item.getColor() == R.color.redColorNegativeMovementsCancel){
             upDown.setBackgroundResource(R.drawable.down);
         }
 

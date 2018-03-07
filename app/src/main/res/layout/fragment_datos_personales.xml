@@ -456,6 +456,32 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
+
+            <LinearLayout
+                android:id="@+id/layoutBtns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    android:id="@+id/btnBackPersonalInfo"
+                    style="@style/buttonDirecctionBackSmall"
+                    android:text="@string/backButton"
+                    android:visibility="gone" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="@dimen/btns_separation"
+                    android:layout_height="match_parent" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    android:id="@+id/btnNextPersonalInfo"
+                    style="@style/buttonSquareRoundedBlue"
+                    android:background="@drawable/button_rounded_blue"
+                    android:gravity="center"
+                    android:text="@string/nextButton" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -465,34 +491,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
-        <LinearLayout
-            android:id="@+id/layoutBtns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnBackPersonalInfo"
-                style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton"
-                android:visibility="gone" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="@dimen/btns_separation"
-                android:layout_height="match_parent" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextPersonalInfo"
-                style="@style/buttonSquareRoundedBlue"
-                android:background="@drawable/button_rounded_blue"
-                android:gravity="center"
-                android:text="@string/nextButton" />
-        </LinearLayout>
     </LinearLayout>
 
 
