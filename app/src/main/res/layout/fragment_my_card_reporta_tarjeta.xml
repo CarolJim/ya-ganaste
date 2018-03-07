@@ -43,6 +43,7 @@
         style="@style/generic_text_style_2"
         android:text="@string/numero"
         android:layout_marginTop="16dp"
+        android:textColor="@color/colorAccent"
         android:layout_below="@id/text_report"/>
 
 </RelativeLayout>

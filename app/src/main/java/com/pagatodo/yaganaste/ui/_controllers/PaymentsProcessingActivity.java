@@ -10,6 +10,7 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,6 +82,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     FrameLayout container;
     @BindView(R.id.toolbarTest)
     Toolbar toolbar;
+    AppCompatImageView btn_back;
 
     private View llMain;
     private Menu menu;
@@ -204,6 +206,13 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 mensajeLoader = getString(R.string.procesando_envios_loader);
                 break;
         }
+        btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public PaymentsProcessingManager getManager() {
@@ -221,10 +230,10 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             if (getCurrentFragment() instanceof PaymentAuthorizeFragment) {
                 setResult(RESULT_CODE_BACK_PRESS, intent);
             } else {
-                setResult(RESULT_CODE_OK_CLOSE, intent);
+                setResult(RESULT_CODE_FAIL, intent);
             }
             finish();
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 
@@ -253,14 +262,15 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
     @Override
     public void onFailPaimentResponse(DataSourceResult error) {
-        String errorTxt = error.toString();
-        /*try {
+        String errorTxt = "";
+        try {
             EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
             if (response.getMensaje() != null)
                 errorTxt = response.getMensaje();
-        } catch (ClassCastException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }*/
+            errorTxt = error.toString();
+        }
         onError(errorTxt);
     }
 
@@ -271,7 +281,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(RESULT_CODE_FAIL, intent);
         UI.showErrorSnackBar(this, message != null ? message : getString(R.string.error_respuesta), Snackbar.LENGTH_SHORT);
-        finish();
+        //finish();
         // showDialogMesage(message);
 
     }
@@ -421,4 +431,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             throw new RuntimeException(e);
         }
     }
+
+
 }

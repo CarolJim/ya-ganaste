@@ -69,7 +69,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
-public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse> ,View.OnClickListener{
+public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse>, View.OnClickListener {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 900;
 
@@ -88,7 +88,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     LinearLayout layout_amount;
     private float MIN_AMOUNT = 1.0f;
     boolean isValid;
-    private int[] perrmisionArray = {1,1};
+    private int[] perrmisionArray = {1, 1};
     private StyleTextView tvMontoEntero, tvMontoDecimal;
 
     public GetMountFragment() {
@@ -106,10 +106,12 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             this.onEventListener = (OnEventListener) context;
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isValid = true;
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -214,16 +216,17 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 Manifest.permission.ACCESS_COARSE_LOCATION);
         if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.RECORD_AUDIO},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
 
-        }else{
+        } else {
             isValid = true;
             setLocationSetting();
         }
 
     }
-    private void setLocationSetting(){
+
+    private void setLocationSetting() {
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -233,6 +236,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         result.addOnCompleteListener(this);
 
     }
+
     private void actionCharge() {
         //String valueAmount = et_amount.getText().toString().trim();
         String valueAmount = App.getInstance().getCurrentMount();
@@ -291,10 +295,10 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 Manifest.permission.ACCESS_COARSE_LOCATION);
         if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.RECORD_AUDIO},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
 
-        }else{
+        } else {
             isValid = true;
             setLocationSetting();
         }
@@ -344,6 +348,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         } else showValidationError(getString(R.string.enter_mount));
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -353,7 +358,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
                 isValid = grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (isValid){
+                if (isValid) {
                     setLocationSetting();
                 } else {
                     //et_amount.setText(App.getInstance().getCurrentMount());
@@ -365,16 +370,15 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     }
 
 
-
     @Override
     public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
         try {
             LocationSettingsResponse response = task.getResult(ApiException.class);
-          //  actionCharge();
+            //  actionCharge();
         } catch (final ApiException exception) {
             switch (exception.getStatusCode()) {
                 case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                    showDialogMesage(exception,getContext().getResources().getString(R.string.eneable_gps));
+                    showDialogMesage(exception, getContext().getResources().getString(R.string.eneable_gps));
                 case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                     // Location settings are not satisfied. However, we have no way to fix the
                     // settings so we won't show the dialog.
@@ -392,7 +396,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 switch (resultCode) {
                     case Activity.RESULT_OK:
 
-                      //  actionCharge();
+                        //  actionCharge();
                         break;
                     case Activity.RESULT_CANCELED:
                         //et_amount.setText(App.getInstance().getCurrentMount());
@@ -475,7 +479,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onClick(View view) {
 
-        if (view.getId()==R.id.btncobrar){
+        if (view.getId() == R.id.btncobrar) {
             actionChargecobro();
         }
 

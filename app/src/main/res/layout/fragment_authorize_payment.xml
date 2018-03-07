@@ -15,9 +15,9 @@
         style="@style/generic_text_style_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
         android:gravity="center"
-        android:text="@string/authorize_payment_title" />
+        android:text="@string/authorize_payment_title"
+        android:textColor="@color/colorAccent" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -177,7 +177,6 @@
         android:gravity="center_vertical"
         android:hint="@string/txt_escribe_tu_pass"
         android:maxLines="1"
-        android:paddingLeft="6dp"
         android:textColorHint="@color/texthint"
         android:theme="@style/TextLabel"
         app:passwordToggleEnabled="true"
@@ -192,6 +191,7 @@
             android:background="@android:color/transparent"
             android:imeOptions="actionDone"
             android:inputType="numberPassword"
+            android:paddingLeft="15dp"
             android:password="true"
             android:singleLine="true"
             android:textColor="@color/texthint" />

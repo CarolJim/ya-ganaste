@@ -266,7 +266,6 @@
     <string name="no_internet_access">Verifica que cuentes con conexión a internet</string>
     <string name="no_internet_accessnuevo">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salió Mal, Intenta de Nuevo</string>
-    <string name="tag_number">Número de TAG </string>
 
     <string name="msgJsonObj">Mensaje</string>
     <string name="actionJsonObj">CodigoRespuesta</string>
@@ -1302,6 +1301,7 @@
     <string name="hint_origen_recursos">Origen de los Recursos</string>
     <string name="hint_destino_recursos">Destino de los Recursos</string>
     <string name="hint_reference">Referencia</string>
+    <string name="hint_tag">Número de TAG</string>
 
     <!-- Registro Emisor  -->
     <string name="correo_electronico">Correo electrónico</string>

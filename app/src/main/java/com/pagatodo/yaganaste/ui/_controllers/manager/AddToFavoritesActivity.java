@@ -1278,8 +1278,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
         if (isIAVE) {
             currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
-            recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
-            helpLinearTaeRef.setHint(getString(R.string.tag_number));
+            recargaNumber.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);

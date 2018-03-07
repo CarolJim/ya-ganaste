@@ -73,7 +73,7 @@
         <activity
             android:name=".ui._controllers.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui._controllers.AccountActivity"
             android:screenOrientation="portrait"
@@ -170,11 +170,15 @@
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".ui._controllers.manager.EditFavoritesActivity" />
+        <activity
+            android:name=".ui._controllers.manager.EditFavoritesActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui._controllers.CropActivity" />
         <activity android:name=".ui._controllers.TarjetaActivity" />
         <activity android:name=".ui._controllers.manager.DongleBatteryHome" />
-        <activity android:name=".ui._controllers.manager.AddToFavoritesActivity" />
+        <activity
+            android:name=".ui._controllers.manager.AddToFavoritesActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui_wallet.WalletMainActivity"
             android:screenOrientation="portrait"
@@ -182,7 +186,7 @@
         <activity
             android:name=".ui._controllers.EnvioFormularioWallet"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui_wallet.PaymentActivity"
             android:screenOrientation="portrait"

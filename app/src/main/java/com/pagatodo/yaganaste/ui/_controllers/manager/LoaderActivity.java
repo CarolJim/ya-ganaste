@@ -75,6 +75,7 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
 
     @Override
     public void hideLoader() {
+        isLoaderShow = false;
         progressLayout.setVisibility(View.GONE);
     }
 
