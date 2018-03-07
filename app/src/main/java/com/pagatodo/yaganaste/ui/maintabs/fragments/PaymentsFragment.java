@@ -110,8 +110,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         itemClicked.setSubtituloDetalle(getString(R.string.cancelada));
         notifyDataSetChanged();
         onRefresh(null);
-
-
     }
 
     @Override

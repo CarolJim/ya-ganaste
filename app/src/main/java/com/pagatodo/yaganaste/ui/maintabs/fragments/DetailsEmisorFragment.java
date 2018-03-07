@@ -48,6 +48,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
     @BindView(R.id.layoutMontoCompra)
     LinearLayout layoutMontoCompra;
+
     @BindView(R.id.txtMontoCompra)
     MontoTextView txtMontoCompra;
 
@@ -121,8 +122,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
 
-    @BindView(R.id.imageDetail)
-    ImageView imageDetail;
+    //@BindView(R.id.imageDetail)
+    //ImageView imageDetail;
 
     @BindView(R.id.up_down)
     ImageView upDown;
@@ -171,16 +172,10 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void initViews() {
         ButterKnife.bind(this, rootView);
         initFieldsViews();
-        //layoutRecibo.setVisibility(View.GONE);
-
-
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
-
         //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
         TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
         ItemMovements item;
-
-
         if (tipoTransaccion != REEMBOLSO_ADQUIRIENTE) {
             item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                     movimientosResponse.getTotal(), date[0], date[1],
@@ -211,7 +206,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             upDown.setBackgroundResource(R.drawable.ico_idle);
         }
 
-        if (item.getColor() == R.color.redColorNegativeMovements){
+        if (item.getColor() == R.color.redColorNegativeMovementsCancel){
             upDown.setBackgroundResource(R.drawable.down);
         }
 
@@ -241,13 +236,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
          * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
          * Glide permite falla y cargar un PlaceHolder
          */
-        String url = movimientosResponse.getURLImagen();
+        /*String url = movimientosResponse.getURLImagen();
         if (url != null && !url.isEmpty()) {
             Picasso.with(getContext())
                     .load(getString(R.string.url_images_logos) + url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);
-        }
+        }*/
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?

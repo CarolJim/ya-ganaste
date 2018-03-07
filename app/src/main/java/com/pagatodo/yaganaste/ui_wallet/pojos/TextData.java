@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.pojos;
 
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
 /**
  * Created by icruz on 13/02/2018.
  */
@@ -28,5 +30,10 @@ public class TextData {
 
     public void setTitleRight(String titleRight) {
         this.titleRight = titleRight;
+    }
+
+    public static class ViewHolderTextData {
+        public StyleTextView leftText;
+        public StyleTextView rightText;
     }
 }

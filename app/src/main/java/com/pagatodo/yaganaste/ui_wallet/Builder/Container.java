@@ -25,8 +25,14 @@ public class Container {
 
     private Context context;
     private OptionMenuItem.OnMenuItemClickListener listener;
+    private ViewGroup parent;
+
     public Container(){
 
+    }
+
+    public Container(ViewGroup parent){
+        this.parent = parent;
     }
 
     public Container(Context context){
@@ -49,6 +55,12 @@ public class Container {
     }
 
     public void addTextData(TextData textData){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.item_detallet_mov, this.parent, false);
+        TextData.ViewHolderTextData viewHolder = new TextData.ViewHolderTextData();
+        viewHolder.leftText = layout.findViewById(R.id.txt_left);
+        viewHolder.rightText = layout.findViewById(R.id.txt_right);
+        this.parent.addView(layout);
         this.textDataList.add(textData);
     }
 
@@ -82,6 +94,7 @@ public class Container {
         parent.addView(layout);
         this.arrayListInput.add(viewHolderInputText);
     }
+
     public InputText.ViewHolderInputText addLayoutPass(ViewGroup parent, InputText inputText) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.adapter_input_text, parent, false);
@@ -160,4 +173,6 @@ public class Container {
 
         this.arrayListOptionMenuSegurity.add(viewHolder);
     }
+
+
 }

@@ -100,6 +100,8 @@ public class ContainerBuilder {
         s.addInputText(new InputText(R.string.nip_confima));
         return new InputTexAdapter(context,s.getInputTextList());
     }
+
+
     /*
     public static InputTexAdapter DatosUsuario(Context context, InputTexAdapter.ChangeEditListener listener){
         Container s = new Container();
