@@ -62,6 +62,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
+import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -1321,7 +1322,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         if (formatoComercio.equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        referenceNumber.addTextChangedListener(new NumberCardTextWatcher(referenceNumber, maxLength));
+       // referenceNumber.addTextChangedListener(new NumberCardTextWatcher(referenceNumber, maxLength));
+        referenceNumber.addTextChangedListener(new NumberReferenceTextWatcher(referenceNumber, maxLength));
     }
 
     /**

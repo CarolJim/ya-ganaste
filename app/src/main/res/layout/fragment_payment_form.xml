@@ -234,7 +234,7 @@
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionDone"
-                            android:inputType="numberSigned"
+                            android:inputType="text"
                             android:longClickable="false"
                             android:maxLength="12"
                             android:maxLines="1"

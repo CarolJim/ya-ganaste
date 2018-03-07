@@ -34,7 +34,7 @@ public class NumberTagPase implements TextWatcher {
 
         if (auxText.length() > 13) {
             editText.removeTextChangedListener(this);
-            String subString = String.valueOf(charSequence.subSequence(0, 13));
+            String subString = String.valueOf(charSequence.subSequence(0, 15));
             editText.setText(subString);
             editText.addTextChangedListener(this);
             finalText = subString;

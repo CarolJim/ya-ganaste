@@ -69,6 +69,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
+import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -1153,7 +1154,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          * Creamos el nuevo TextWatcher de currentTextWatcherPDS y lo agregamos
          * a referenceNumber
          */
-        currentTextWatcherPDS = new NumberTagPase(referenceNumber, maxLength);
+       // currentTextWatcherPDS = new NumberTagPase(referenceNumber, maxLength);
+        currentTextWatcherPDS = new NumberReferenceTextWatcher(referenceNumber, maxLength);
         referenceNumber.addTextChangedListener(currentTextWatcherPDS);
     }
 
