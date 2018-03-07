@@ -13,7 +13,7 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
-**_VERSION 1.7.3 - 5 de Enero al 23 de Enero del 2018 (ID:?)_**
+**_VERSION 4.0.0 - 5 de Enero al 06 de Marzo del 2018 (ID:4352)_**
 
 Descripción al desarrollador:
 
@@ -35,13 +35,16 @@ Descripción al desarrollador:
     * Se eliminaron los coachmarks de inicio de sesión (Emisor/Adquiriente).
     * Implementación búsqueda de Titular de Ya Ganaste vía CLABE.
     * Implementación lectura de número de tarjeta.
+    * Nueva pantalla de balance general.
+    * Rediseño registro Emisor y Adquiriente.
+    * Configuración del tipo de reembolso.
  
 Funcionalidad:
 
     * Nuevos diseños intuitivos de Wallet.
     * Notificaciones Push.
     * Agilizar llenado de formulario de Envíos.
-    * Solicitud de Pago vía SMS y Notificación Push
+    * Solicitud de Pago vía SMS y Notificación Push.
     
   
 **_VERSION 1.7.2 - 5 de Diciembre del 2017 al 4 de Enero del 2018 (ID:4052)_**

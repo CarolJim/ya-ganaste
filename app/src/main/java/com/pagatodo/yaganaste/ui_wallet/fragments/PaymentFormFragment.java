@@ -279,6 +279,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 }
 
                 if (isIAVE) {
+                    til_num_telefono.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
                     edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
                     //edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
                     layoutImageContact.setVisibility(View.GONE);

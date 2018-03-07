@@ -153,6 +153,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="2"
+                            android:textColor="@color/colorAccent"
                             android:text="Cambia tu NIP" />
 
                         <android.support.v7.widget.AppCompatImageView
@@ -229,6 +230,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
+                            android:textColor="@color/colorAccent"
                             android:layout_weight="2"
                             android:text="Reporta tu Tarjeta" />
 

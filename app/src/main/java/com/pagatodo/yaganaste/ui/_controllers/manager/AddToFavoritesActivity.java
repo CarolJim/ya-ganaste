@@ -149,14 +149,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     EditText textViewTipo;
     @BindView(R.id.add_favorites_linear_tipo)
     TextInputLayout helpLinearTipoServ;
-
+    @BindView(R.id.txt_til_tae)
+    TextInputLayout helpLinearTaeRef;
     @BindView(R.id.imgItemGalleryMark)
     CircleImageView circuloimage;
-
-
     @BindView(R.id.imgItemGalleryStatus)
     CircleImageView circuloimageupload;
-
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
     @BindView(R.id.layoutImageContact2)
@@ -1280,11 +1278,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
         if (isIAVE) {
             currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
-            recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
+            recargaNumber.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);
             recargaNumber.setHint(getString(R.string.hint_phone_number));
+            helpLinearTaeRef.setHint(getString(R.string.hint_phone_number));
             layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
         }

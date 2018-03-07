@@ -213,7 +213,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                                 Color.parseColor(myDataset.get(position).getmColor()));
                         imageCircleCenter.setBackground(gd);
 
-                        String sIniciales = getIniciales(myDataset.get(position).getName());
+                        String sIniciales = getIniciales(myDataset.get(position).getName().trim());
                         textIniciales.setText(sIniciales);
                     } else {
                         //imageViewBorder.setBorderColor(Color.GRAY);
