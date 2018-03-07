@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -262,6 +263,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_datos_personales, container, false);
         actualDate = Calendar.getInstance(new Locale("es"));
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         initViews();
         //imageViewCustomSpinner= getActivity().findViewById(R.id.imageViewCustomSpinner);
         //imageViewCustomSpinner.setImageResource(R.drawable.bitmap);

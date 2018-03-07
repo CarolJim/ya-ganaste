@@ -367,8 +367,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="25dp" />
-        </LinearLayout>
-    </ScrollView>
+
 
     <LinearLayout
         android:id="@+id/layoutBottom"
@@ -381,7 +380,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_elements"
+            android:layout_marginBottom="14dp"
             android:orientation="vertical">
 
 
@@ -468,6 +467,8 @@
         </LinearLayout>
 
     </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressLayout"
