@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -98,6 +99,11 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     EditText edtPin;
     @BindView(R.id.btn_block_card)
     StyleButton btnBlockCard;
+
+    @BindView(R.id.text_password)
+    TextInputLayout text_password;
+
+
     private String password;
     private View rootview;
     private AccountPresenterNew accountPresenter;
@@ -178,6 +184,18 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     public void initViews() {
         ButterKnife.bind(this, rootview);
         setValidationRules();
+
+
+        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    text_password.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    text_password.setBackgroundResource(R.drawable.inputtext_normal);
+                }
+            }
+        });
 
         if (cardStatusId.equals("1")) {
             // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul

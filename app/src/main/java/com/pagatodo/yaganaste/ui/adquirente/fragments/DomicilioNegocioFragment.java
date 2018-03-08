@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -100,6 +101,16 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     @BindView(R.id.editBussinesState)
     CustomValidationEditText editBussinesState;
+
+    @BindView(R.id.spcolonia)
+    StyleTextView spcolonia;
+
+    @BindView(R.id.estadotesto)
+    StyleTextView estadotesto;
+
+
+
+
 
 
 
@@ -223,6 +234,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
             case R.id.btnNextBussineslimpiar:
                 cleanFields();
+                spcolonia.setVisibility(View.GONE);
+                estadotesto.setVisibility(View.GONE);
                 break;
 
 
@@ -360,6 +373,12 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                         hideValidationError(editBussinesZipCode.getId());
                        // editBussinesZipCode.setIsValid();
                         showLoader(getString(R.string.search_zipcode));
+                        spcolonia.setVisibility(View.VISIBLE);
+                        spcolonia.setTextColor(getResources().getColor(R.color.colorAccent));
+                        estadotesto.setVisibility(View.VISIBLE);
+                        estadotesto.setTextColor(getResources().getColor(R.color.colorAccent));
+
+
                         text_cp.setBackgroundResource(R.drawable.inputtext_normal);
                         adqPresenter.getNeighborhoods(editBussinesZipCode.getText().toString().toString().trim());//Buscamos por CP
                     }
@@ -597,6 +616,10 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         editBussinesExtNumber.setText(domicilio.getNumeroExterior());
         editBussinesIntNumber.setText(domicilio.getNumeroInterior());
         colonyToLoad = domicilio.getIdColonia();
+        spcolonia.setVisibility(View.VISIBLE);
+        spcolonia.setTextColor(getResources().getColor(R.color.colorAccent));
+        estadotesto.setVisibility(View.VISIBLE);
+        estadotesto.setTextColor(getResources().getColor(R.color.colorAccent));
         textWatcherZipCode.setEnabled(true);
         if (domicilio.getColoniasDomicilio() == null) {
             textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());

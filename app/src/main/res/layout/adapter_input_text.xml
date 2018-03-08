@@ -24,7 +24,8 @@
             android:id="@+id/editTextpass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/texthint_edittext"
+            android:theme ="@style/NewEdittextwallet"
+            android:textColor="@color/grayColor"
             android:inputType="numberPassword"
             android:background="@android:color/transparent"/>
 

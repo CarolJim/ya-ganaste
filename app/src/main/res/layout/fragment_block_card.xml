@@ -83,7 +83,10 @@
             android:hint="@string/hint_password"
             android:maxLines="1"
             android:textColorHint="@color/texthint"
-            android:theme="@style/TextLabel"
+            app:counterEnabled="true"
+            app:counterMaxLength="1"
+            app:hintTextAppearance="@style/HintText"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/hint_color"
             tools:ignore="UnusedAttribute">
@@ -100,7 +103,8 @@
                 android:paddingLeft="15dp"
                 android:password="true"
                 android:singleLine="true"
-                android:textColor="@color/texthint" />
+                android:theme ="@style/NewEdittextwallet"
+                android:textColor="@color/grayColor" />
 
         </android.support.design.widget.TextInputLayout>
 

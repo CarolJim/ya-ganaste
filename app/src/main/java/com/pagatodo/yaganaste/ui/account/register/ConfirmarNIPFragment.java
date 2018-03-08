@@ -1,9 +1,12 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,6 +70,15 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     EditText edtPin;
     @BindView(R.id.confim_nip)
     EditText edtPinconfirm;
+
+    @BindView(R.id.txt_nip)
+    TextInputLayout txt_nip;
+
+    @BindView(R.id.txt_nip_confirm)
+    TextInputLayout txt_nip_confirm;
+
+
+
 
 
     @BindView(R.id.btnNextAsignarPin)
@@ -143,6 +156,44 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
         borderTitleLayout.setTitle(getString(R.string.confirma_pin));
         imageView.setVisibility(View.VISIBLE);
+
+
+
+
+        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+
+                    txt_nip.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+
+
+                    txt_nip.setBackgroundResource(R.drawable.inputtext_normal);
+
+                }
+            }
+        });
+
+
+        edtPinconfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+
+                    txt_nip_confirm.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+
+
+                    txt_nip_confirm.setBackgroundResource(R.drawable.inputtext_normal);
+
+                }
+            }
+        });
+
+
+
+
 
     }
 

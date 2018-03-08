@@ -160,6 +160,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             if (s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
                 showLoader(getString(R.string.search_zipcode));
                 accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
+
             } else {
                 if (listaColonias != null) {
                     listaColonias.clear();
@@ -413,6 +414,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         text_cp.setBackgroundResource(R.drawable.inputtext_normal);
                         showLoader(getString(R.string.search_zipcode));
                         accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
+                        spcolonia.setVisibility(View.VISIBLE);
+                        estadotext.setVisibility(View.VISIBLE);
+                        estadotext.setTextColor(getResources().getColor(R.color.colorAccent));
+                        spcolonia.setTextColor(getResources().getColor(R.color.colorAccent));
                     }
                 }
             }
@@ -634,6 +639,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         //editZipCode.setText(registerUser.getCodigoPostal());
         this.estadoDomicilio = registerUser.getEstadoDomicilio();
         editState.setText(this.estadoDomicilio);
+
         for (int position = 0; position < coloniasNombre.size(); position++) {
             if (coloniasNombre.get(position).equals(registerUser.getColonia())) {
                 spColonia.setSelection(position);
@@ -651,8 +657,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editIntNumber.setText(registerUser.getNumInterior());
 //        radioBtnTerms.setSelected(false);
 //        radioBtnTerms.setChecked(false);
-        if (!registerUser.getCodigoPostal().isEmpty())
+        if (!registerUser.getCodigoPostal().isEmpty()) {
             cpDefault = true;
+        }
 
         setValidationRules();
         editZipCode.setText(registerUser.getCodigoPostal());
@@ -774,8 +781,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void onSpinnerClick() {
         hideValidationError(spColonia.getId());
         txtcoloria.setBackgroundResource(R.drawable.inputtext_normal);
-        spcolonia.setVisibility(View.VISIBLE);
-        estadotext.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override

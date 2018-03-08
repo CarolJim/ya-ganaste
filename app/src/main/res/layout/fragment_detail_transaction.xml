@@ -123,7 +123,10 @@
                 android:maxLines="1"
                 android:layout_marginTop="40dp"
                 android:textColorHint="@color/texthint"
-                android:theme="@style/TextLabel"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:hintTextAppearance="@style/HintText"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
 
@@ -138,7 +141,8 @@
 
                     android:paddingLeft="15dp"
                     android:singleLine="true"
-                    android:textColor="@color/texthint" />
+                    android:theme ="@style/NewEdittextwallet"
+                    android:textColor="@color/grayColor"/>
 
             </android.support.design.widget.TextInputLayout>
 

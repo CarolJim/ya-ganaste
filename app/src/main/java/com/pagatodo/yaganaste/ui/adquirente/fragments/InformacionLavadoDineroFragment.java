@@ -197,11 +197,17 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         spnMontoMensual.requestFocus();
         spnOrigenRecursos.requestFocus();
         spnDestinoRecursos.requestFocus();
+
         cobromensual.setVisibility(View.VISIBLE);
         montomensual.setVisibility(View.VISIBLE);
         origen.setVisibility(View.VISIBLE);
         destino.setVisibility(View.VISIBLE);
 
+
+        cobromensual.setTextColor(getResources().getColor(R.color.colorAccent));
+        montomensual.setTextColor(getResources().getColor(R.color.colorAccent));
+        origen.setTextColor(getResources().getColor(R.color.colorAccent));
+        destino.setTextColor(getResources().getColor(R.color.colorAccent));
 
     }
 
