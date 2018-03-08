@@ -131,7 +131,10 @@
                             android:maxLines="1"
                             android:paddingTop="1dp"
                             android:textColorHint="@color/texthint"
-                            android:theme="@style/TextLabel"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="1"
+                            app:hintTextAppearance="@style/HintText"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
                             app:passwordToggleTint="@color/hint_color"
                             tools:ignore="UnusedAttribute">
 
@@ -144,7 +147,8 @@
                                 android:imeOptions="actionNext"
                                 android:paddingLeft="9.5dp"
                                 android:singleLine="true"
-                                android:textColor="@color/texthint" />
+                                android:theme ="@style/NewEdittextwallet"
+                                android:textColor="@color/grayColor" />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -189,7 +193,11 @@
                             android:hint="@string/datos_personal_paterno"
                             android:maxLines="1"
                             android:textColorHint="@color/texthint"
-                            android:theme="@style/TextLabel"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="1"
+                            app:hintTextAppearance="@style/HintText"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
                             app:passwordToggleTint="@color/hint_color"
                             tools:ignore="UnusedAttribute">
 
@@ -202,7 +210,8 @@
                                 android:imeOptions="actionNext"
                                 android:paddingLeft="12.5dp"
                                 android:singleLine="true"
-                                android:textColor="@color/texthint" />
+                                android:theme ="@style/NewEdittextwallet"
+                                android:textColor="@color/grayColor" />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -236,7 +245,11 @@
                             android:gravity="center_vertical"
                             android:hint="@string/datos_personal_materno"
                             android:textColorHint="@color/texthint"
-                            android:theme="@style/TextLabel"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="1"
+                            app:hintTextAppearance="@style/HintText"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
                             app:passwordToggleTint="@color/hint_color"
                             tools:ignore="UnusedAttribute">
 
@@ -250,8 +263,8 @@
                                 android:imeOptions="actionDone"
                                 android:paddingLeft="12.5dp"
                                 android:singleLine="true"
-                                android:textColor="@color/texthint"
-                                android:textSize="14sp" />
+                                android:theme ="@style/NewEdittextwallet"
+                                android:textColor="@color/grayColor"/>
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -306,7 +319,11 @@
                                 android:clickable="true"
                                 android:hint="@string/birthDay"
                                 android:textColorHint="@color/texthint"
-                                android:theme="@style/TextLabel"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="1"
+                                app:hintTextAppearance="@style/HintText"
+                                app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
                                 app:passwordToggleTint="@color/hint_color"
                                 tools:ignore="UnusedAttribute">
 
@@ -321,8 +338,8 @@
                                     android:focusable="false"
                                     android:paddingLeft="12.5dp"
                                     android:singleLine="true"
-                                    android:textColor="@color/texthint"
-                                    android:textSize="14sp" />
+                                    android:theme ="@style/NewEdittextwallet"
+                                    android:textColor="@color/grayColor" />
 
                             </android.support.design.widget.TextInputLayout>
 
@@ -400,7 +417,12 @@
                             android:clickable="true"
                             android:hint="@string/county"
                             android:textColorHint="@color/texthint"
-                            android:theme="@style/TextLabel"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="1"
+                            app:hintTextAppearance="@style/HintText"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
+
                             android:visibility="visible"
                             app:passwordToggleTint="@color/hint_color"
                             tools:ignore="UnusedAttribute">
@@ -416,8 +438,8 @@
                                 android:focusable="false"
                                 android:paddingLeft="12.5dp"
                                 android:singleLine="true"
-                                android:textColor="@color/texthint"
-                                android:textSize="14sp" />
+                                android:theme ="@style/NewEdittextwallet"
+                                android:textColor="@color/grayColor" />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -457,44 +479,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <LinearLayout
-                android:id="@+id/layoutBtns"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/btn_navigation_bottom"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnBackPersonalInfo"
-                    style="@style/buttonDirecctionBackSmall"
-                    android:text="@string/backButton"
-                    android:visibility="gone" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="@dimen/btns_separation"
-                    android:layout_height="match_parent" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnNextPersonalInfo"
-                    style="@style/buttonSquareRoundedBlue"
-                    android:background="@drawable/button_rounded_blue"
-                    android:gravity="center"
-                    android:text="@string/nextButton" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/layoutBottom"
+        android:id="@+id/layoutBtns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
+        <android.support.v4.widget.Space
+            android:layout_width="@dimen/btns_separation"
+            android:layout_height="match_parent" />
 
-
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnNextPersonalInfo"
+            style="@style/buttonSquareRoundedBlue"
+            android:background="@drawable/button_rounded_blue"
+            android:gravity="center"
+            android:text="@string/nextButton" />
     </LinearLayout>
 
 

@@ -60,11 +60,16 @@
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
-                    android:hint="@string/bussinesName"
                     android:maxLines="1"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    android:textColorHint="@color/hint_color"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute">
+                    tools:ignore="UnusedAttribute"
+                    android:hint="@string/bussinesName"
+                    >
 
                     <EditText
                         android:id="@+id/editBussinesName"
@@ -75,7 +80,8 @@
                         android:imeOptions="actionDone"
                         android:paddingLeft="15dp"
                         android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -98,18 +104,21 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
 
+            <LinearLayout
+                android:id="@+id/txtgiro"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/inputtext_normal"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:id="@+id/txtgiro"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@drawable/inputtext_normal"
-                    android:elevation="2dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                   >
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/textgiro"
@@ -120,20 +129,27 @@
                         android:layout_marginLeft="15dp"
                         android:text="Giro comercial"
                         android:textColor="@color/hint_color"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
 
-                    <Spinner
-                        android:id="@+id/spinnerBussineLine"
-                        style="@style/SpinnerNoArrow"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="15dp"
-                        android:background="@null"
-                        app:backgroundTint="@color/transparent" />
+                        <Spinner
+                            android:id="@+id/spinnerBussineLine"
+                            style="@style/SpinnerNoArrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginLeft="15dp"
+                            android:background="@null"
+                            app:backgroundTint="@color/transparent" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="11dp"
+                    android:src="@drawable/ico_select" />
+            </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorBussineLineMessage"
@@ -143,14 +159,21 @@
                     android:visibility="gone" />
 
 
+            <LinearLayout
+                android:id="@+id/txtsubgiro"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/inputtext_normal"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:id="@+id/txtsubgiro"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/inputtext_normal"
-                    android:elevation="2dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    >
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/textsubgiro"
@@ -161,7 +184,7 @@
                         android:layout_marginLeft="15dp"
                         android:text="Subgiro comercial"
                         android:textColor="@color/hint_color"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
 
                     <Spinner
                         android:id="@+id/spinnerSubBussineLine"
@@ -174,6 +197,14 @@
                         app:backgroundTint="@color/transparent" />
 
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="11dp"
+                    android:src="@drawable/ico_select" />
+            </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorSubBussineLineMessage"
@@ -191,7 +222,11 @@
                     android:gravity="center_vertical"
                     android:hint="@string/txt_home_phone"
                     android:maxLines="1"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    android:textColorHint="@color/hint_color"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -206,7 +241,8 @@
                         android:inputType="number"
                         android:paddingLeft="15dp"
                         android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor" />
 
                 </android.support.design.widget.TextInputLayout>
 

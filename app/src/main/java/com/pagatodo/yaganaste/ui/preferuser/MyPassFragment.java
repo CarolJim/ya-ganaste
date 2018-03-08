@@ -154,7 +154,10 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                if (!hasFocus) {
                    if (editActual.editText.getText().toString().isEmpty()) {
                        showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
+                       editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                    }
+               }else {
+                   editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                }
             }
         });
@@ -162,11 +165,13 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
         editNueva.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (!hasFocus) {
                     if (editNueva.editText.getText().toString().isEmpty()) {
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
+                        editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     }
+                }else {
+                    editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
         });
@@ -177,7 +182,10 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                 if (!hasFocus) {
                     if (editConfir.editText.getText().toString().isEmpty()) {
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
+                        editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     }
+                }else {
+                    editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -161,6 +162,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         return rootview;
     }
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
@@ -203,6 +205,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 onSpinnerClick();
                 if (position!=0) {
                     textgiro.setVisibility(View.VISIBLE);
+                    textgiro.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
             }
 
@@ -220,6 +223,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 onSubSpinnerClick();
                 if (position!=0){
                     textsubgiro.setVisibility(View.VISIBLE);
+                    textsubgiro.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
             }
 

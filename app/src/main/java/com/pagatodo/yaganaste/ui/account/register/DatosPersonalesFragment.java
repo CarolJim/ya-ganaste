@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -125,8 +126,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
     AppCompatSpinner spinnerBirthPlace;
     @BindView(R.id.spinnergenero)
     AppCompatSpinner spinnergenero;
-    @BindView(R.id.btnBackPersonalInfo)
-    Button btnBackDatosPersonales;
     @BindView(R.id.btnNextPersonalInfo)
     Button btnNextDatosPersonales;
     @BindView(R.id.errorNameMessage)
@@ -299,7 +298,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editCountry.setOnClickListener(this);
 
         btnNextDatosPersonales.setOnClickListener(this);
-        btnBackDatosPersonales.setOnClickListener(this);
+
 
         editSecoundLastName.setImeOptions(IME_ACTION_DONE);
         editSecoundLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -323,13 +322,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
             //radioBtnMale.setHighlightColor(getResources().getColor(R.color.colorAccent));
             radioBtnMale.setBackgroundResource(R.drawable.ico_maleb);
             radioBtnFemale.setBackgroundResource(R.drawable.ico_female);
-            seleccionaGenero.setTextColor((int) R.color.colorAccent);
+            seleccionaGenero.setTextColor(getResources().getColor(R.color.colorAccent));
             generTitle.setBackgroundResource(R.drawable.inputtext_normal);
         } else {
             if (radioBtnFemale.isChecked()) {
                 radioBtnMale.setBackgroundResource(R.drawable.ico_male);
                 radioBtnFemale.setBackgroundResource(R.drawable.ico_femaleb);
-                seleccionaGenero.setTextColor((int) R.color.colorAccent);
+                seleccionaGenero.setTextColor(getResources().getColor(R.color.colorAccent));
                 generTitle.setBackgroundResource(R.drawable.inputtext_normal);
             }
         }
@@ -652,6 +651,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
         } else {
             lugarnacimientomens.setVisibility(VISIBLE);
+            lugarnacimientomens.setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
 

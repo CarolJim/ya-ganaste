@@ -56,37 +56,57 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <!--NUevo-->
+
                     <LinearLayout
                         android:id="@+id/txtcobromensual"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_margin="2dp"
-                        android:layout_marginBottom="3dp"
                         android:layout_marginTop="3dp"
                         android:background="@drawable/inputtext_normal"
-                        android:elevation="2dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/cobromensual"
-                            style="@style/generic_text_style_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginLeft="15dp"
-                            android:text="Cobros mensuales"
-                            android:textColor="@color/hint_color"
-                            android:visibility="invisible" />
-
-                        <Spinner
-                            android:id="@+id/spnCobrosMensuales"
-                            style="@style/CustomSpinner"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="@null"
-                            android:backgroundTint="@color/transparent" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            >
+
+                            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                android:id="@+id/cobromensual"
+                                style="@style/generic_text_style_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginLeft="15dp"
+                                android:text="@string/hint_cobros_mensual"
+                                android:textColor="@color/hint_color"
+                                android:visibility="gone" />
+
+                            <Spinner
+                                android:id="@+id/spnCobrosMensuales"
+                                style="@style/SpinnerNoArrow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@null"
+                                app:backgroundTint="@color/transparent" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="11dp"
+                            android:src="@drawable/ico_select" />
                     </LinearLayout>
+
+
+                    <!---->
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorCobrosMensuales"
@@ -99,34 +119,48 @@
                         android:id="@+id/txtmontomensual"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_margin="2dp"
-                        android:layout_marginBottom="3dp"
                         android:layout_marginTop="3dp"
                         android:background="@drawable/inputtext_normal"
-                        android:elevation="2dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/montomensual"
-                            style="@style/generic_text_style_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginLeft="15dp"
-                            android:text="Monto mensual estimado"
-                            android:textColor="@color/hint_color"
-                            android:visibility="invisible" />
-
-                        <Spinner
-                            android:id="@+id/spnMontoMensual"
-                            style="@style/CustomSpinner"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="@null"
-                            android:backgroundTint="@color/transparent" />
-                    </LinearLayout>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            >
 
+                            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                android:id="@+id/montomensual"
+                                style="@style/generic_text_style_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginLeft="15dp"
+                                android:text="@string/hint_cobros_mensual"
+                                android:textColor="@color/hint_color"
+                                android:visibility="gone" />
+
+                            <Spinner
+                                android:id="@+id/spnMontoMensual"
+                                style="@style/SpinnerNoArrow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@null"
+                                app:backgroundTint="@color/transparent" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="11dp"
+                            android:src="@drawable/ico_select" />
+                    </LinearLayout>
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorMontoMensual"
                         style="@style/generic_text_style_2"
@@ -138,33 +172,47 @@
                         android:id="@+id/txtorigen"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_margin="2dp"
-                        android:layout_marginBottom="3dp"
                         android:layout_marginTop="3dp"
                         android:background="@drawable/inputtext_normal"
-                        android:elevation="2dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/origen"
-                            style="@style/generic_text_style_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginLeft="15dp"
-                            android:text="Origen de los recursos"
-                            android:textColor="@color/hint_color"
-                            android:visibility="invisible" />
-
-                        <Spinner
-                            android:id="@+id/spnOrigenRecursos"
-                            style="@style/CustomSpinner"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="@null"
-                            android:backgroundTint="@color/transparent" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            >
 
+                            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                android:id="@+id/origen"
+                                style="@style/generic_text_style_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginLeft="15dp"
+                                android:text="@string/hint_origen_recursos"
+                                android:textColor="@color/hint_color"
+                                android:visibility="gone" />
+
+                            <Spinner
+                                android:id="@+id/spnOrigenRecursos"
+                                style="@style/SpinnerNoArrow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@null"
+                                app:backgroundTint="@color/transparent" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="11dp"
+                            android:src="@drawable/ico_select" />
                     </LinearLayout>
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
@@ -178,33 +226,47 @@
                         android:id="@+id/txtdestino"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_margin="2dp"
-                        android:layout_marginBottom="3dp"
                         android:layout_marginTop="3dp"
                         android:background="@drawable/inputtext_normal"
-                        android:elevation="2dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/destino"
-                            style="@style/generic_text_style_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginLeft="15dp"
-                            android:text="Destino de los recursos"
-                            android:textColor="@color/hint_color"
-                            android:visibility="invisible" />
-
-                        <Spinner
-                            android:id="@+id/spnDestinoRecursos"
-                            style="@style/CustomSpinner"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:background="@null"
-                            android:backgroundTint="@color/transparent" />
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            >
 
+                            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                android:id="@+id/destino"
+                                style="@style/generic_text_style_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginLeft="15dp"
+                                android:text="@string/hint_destino_recursos"
+                                android:textColor="@color/hint_color"
+                                android:visibility="gone" />
+
+                            <Spinner
+                                android:id="@+id/spnDestinoRecursos"
+                                style="@style/SpinnerNoArrow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="0dp"
+                                android:background="@null"
+                                app:backgroundTint="@color/transparent" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="11dp"
+                            android:src="@drawable/ico_select" />
                     </LinearLayout>
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
