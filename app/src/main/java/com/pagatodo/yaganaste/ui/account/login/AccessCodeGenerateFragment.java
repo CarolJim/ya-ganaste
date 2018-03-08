@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,10 +28,12 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -79,6 +82,13 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     EditText editPassword;
     @BindView(R.id.btnGenerateCode)
     StyleButton btnGenerateCode;
+
+    @BindView(R.id.text_password)
+    TextInputLayout text_password;
+
+
+
+
     FingerprintAuthenticationDialogFragment fragment;
     View rootView;
     static AccessCodeGenerateFragment fragmentCode;
@@ -157,6 +167,21 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnGenerateCode.setOnClickListener(this);
+
+        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    text_password.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    text_password.setBackgroundResource(R.drawable.inputtext_normal);
+                }
+            }
+        });
+
+
+
+
         // Se le asigna un TextWatcher personalizado para realizar las oepraciones
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override

@@ -62,6 +62,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
+import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -1278,11 +1279,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
         if (isIAVE) {
             currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
-            recargaNumber.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
+           // recargaNumber.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
+            helpLinearTaeRef.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);
-            recargaNumber.setHint(getString(R.string.hint_phone_number));
+           // recargaNumber.setHint(getString(R.string.hint_phone_number));
             helpLinearTaeRef.setHint(getString(R.string.hint_phone_number));
             layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
@@ -1320,7 +1322,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         if (formatoComercio.equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        referenceNumber.addTextChangedListener(new NumberCardTextWatcher(referenceNumber, maxLength));
+       // referenceNumber.addTextChangedListener(new NumberCardTextWatcher(referenceNumber, maxLength));
+        referenceNumber.addTextChangedListener(new NumberReferenceTextWatcher(referenceNumber, maxLength));
     }
 
     /**

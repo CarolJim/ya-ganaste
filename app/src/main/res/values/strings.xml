@@ -586,7 +586,7 @@
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
     <string name="no_tiene_tarjeta">No te preocupes, te asignaremos una tarjeta\ndigital y podrás solicitar una física en el futuro</string>
-    <string name="si_tiene_tarjeta">Ingresa tu los últimos 8 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
+    <string name="si_tiene_tarjeta">Ingresa tu los últimos 10 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="tarjeta_cancelada">Tu Tarjeta Esta Cancelada</string>
     <string name="title_aceptar">Aceptar</string>
@@ -966,9 +966,11 @@
     <string name="card_num_autorization">Num. Autorización:</string>
 
     <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
-    <string name="input_alphanumeric_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
+    <string name="input_alphanumeric_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890\u0020</string>
     <string name="input_alphanumeric_space_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890\u0020</string>
     <string name="input_letters_concepto">ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz\u0020</string>
+    <string name="input_letters_conceptoenvios">1234567890\u0020</string>
+
 
     <string name="details_monto">Monto</string>
     <string name="details_comision">Comisión</string>
@@ -1106,10 +1108,10 @@
     <string name="new_body_envios_refer_error">Por favor ingresa el número de referencia</string>
     <string name="new_tittle_error_interno">Error Interno</string>
 
-    <string name="text_error_cobros_mensual">Cobro Requerido, Verifique su Información</string>
-    <string name="text_error_monto_mensual">Monto Requerido, Verifique su Información</string>
-    <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
-    <string name="text_error_destino_mensual">Destino Requerido, Verifique su Información</string>
+    <string name="text_error_cobros_mensual">Cobro requerido, verifique su información</string>
+    <string name="text_error_monto_mensual">Monto requerido, verifique su información</string>
+    <string name="text_error_origen_recursos">Origen requerido, verifique su información</string>
+    <string name="text_error_destino_mensual">Destino requerido, verifique su información</string>
     <string name="msg_format_image">Formato de Imagen</string>
     <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extensión JPG o JPEG</string>
 
@@ -1297,10 +1299,13 @@
     <string name="hint_card_number">Número de Tarjeta (16 Dígitos)</string>
     <string name="hint_password">Contraseña (6 dígitos)</string>
     <string name="hint_password_confirm">Confirma tu contraseña (6 dígitos)</string>
-    <string name="hint_cobros_mensual">Cobros Mensuales</string>
-    <string name="hint_monto_mensual_estimado">Monto Mensual Estimado</string>
+
+    <string name="hint_cobros_mensual">Cobros mensuales</string>
+    <string name="hint_monto_mensual_estimado">Monto mensual estimado</string>
     <string name="hint_origen_recursos">Origen de los Recursos</string>
     <string name="hint_destino_recursos">Destino de los Recursos</string>
+
+
     <string name="hint_reference">Referencia</string>
     <string name="hint_tag">Número de TAG</string>
 

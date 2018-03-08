@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;

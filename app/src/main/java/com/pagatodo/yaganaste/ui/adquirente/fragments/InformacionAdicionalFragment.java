@@ -1,8 +1,10 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.Space;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -187,6 +190,23 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+
+
+        editCargo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    text_cargo.setBackgroundResource(R.drawable.inputtext_active);
+
+                } else {
+
+                    text_cargo.setBackgroundResource(R.drawable.inputtext_normal);
+
+
+                }
+            }
+        });
+
 
         if (isExtranjero) {
             layoutEresMexa.setVisibility(View.VISIBLE);
@@ -488,6 +508,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         parentesco = spinnerParentescoAdapter.getItem(position);
         if (position!=0) {
             textoprentesco.setVisibility(View.VISIBLE);
+            textoprentesco.setTextColor(getResources().getColor(R.color.colorAccent));
         }
     }
 

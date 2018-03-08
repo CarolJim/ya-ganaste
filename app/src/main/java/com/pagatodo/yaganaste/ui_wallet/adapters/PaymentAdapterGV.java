@@ -161,14 +161,6 @@ public class PaymentAdapterGV extends BaseAdapter {
             } else {
                 // Procesos para favoritos
 
-                /**
-                 * Mostramos la imagen de editar, esta es solo la parte visual
-                 */
-                if (mOperationFav == 2 && position != 0) {
-                    imageCircleEdit.setImageDrawable(ContextCompat.getDrawable(App.getContext(), R.drawable.edit_icon));
-                    imageCircleEdit.setVisibility(View.VISIBLE);
-                }
-
                 // Localizamos el elementos de TextView para Iniciales
                 TextView textIniciales = (TextView) grid.findViewById(R.id.textIniciales);
 
@@ -177,9 +169,19 @@ public class PaymentAdapterGV extends BaseAdapter {
                 StyleTextView textView = grid.findViewById(R.id.grid_text);
                 textView.setText("" + myDataset.get(position).getName());
 
-                String urlImage = myDataset.get(position).getUrlLogo();
+                final String urlImage = myDataset.get(position).getUrlLogo();
                 // Cargamos la lupa en caso de existir
                 ImageView imageView = (ImageView) grid.findViewById(R.id.imgItemGalleryPay);
+
+                /**
+                 * Mostramos la imagen de editar, esta es solo la parte visual
+                 *
+                 */
+                if (mOperationFav == 2 && !urlImage.equals("R.mipmap.ic_add_new_favorite")) {
+                    imageCircleEdit.setImageDrawable(ContextCompat.getDrawable(App.getContext(), R.drawable.edit_icon));
+                    imageCircleEdit.setVisibility(View.VISIBLE);
+                }
+
                 if (urlImage.equals("R.mipmap.buscar_con_texto")) {
                     //  imageViewBorder.setBorderColor(Color.parseColor(myDataset.get(position).getmColor()));
 
@@ -241,7 +243,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                 imageBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mOperationFav == 2 && position != 0) {
+                        if (mOperationFav == 2 && !urlImage.equals("R.mipmap.ic_add_new_favorite")) {
                             mContext.editFavorite(position, mTypeItem, recyclerPosition);
                         } else {
                             mContext.sendData(position, mTypeItem, recyclerPosition);
@@ -251,7 +253,7 @@ public class PaymentAdapterGV extends BaseAdapter {
                 imageBorder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mOperationFav == 2 && position != 0) {
+                        if (mOperationFav == 2 && !urlImage.equals("R.mipmap.ic_add_new_favorite")) {
                             mContext.editFavorite(position, mTypeItem, recyclerPosition);
                         } else {
                             mContext.sendData(position, mTypeItem, recyclerPosition);

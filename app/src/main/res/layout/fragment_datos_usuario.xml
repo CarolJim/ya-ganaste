@@ -62,21 +62,26 @@
                     android:hint="@string/correo_electronico"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
+
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
                         android:id="@+id/edit_email"
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        android:paddingLeft="15dp"
                         android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                         />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -93,21 +98,25 @@
                     android:hint="@string/correo_electronico_confirm"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
+
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
                         android:id="@+id/edit_emailconfirm"
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
-                        android:paddingLeft="15dp"
-                        android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -125,13 +134,18 @@
                     android:hint="@string/contrasena"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
                         android:id="@+id/edit_password"
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="9dp"
@@ -144,7 +158,7 @@
                         android:paddingLeft="15dp"
                         android:password="true"
                         android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                        />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -162,7 +176,12 @@
                     android:hint="@string/contrasena_confirma"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
@@ -181,7 +200,8 @@
                         android:paddingLeft="15dp"
                         android:password="true"
                         android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor" />
 
                 </android.support.design.widget.TextInputLayout>
 
