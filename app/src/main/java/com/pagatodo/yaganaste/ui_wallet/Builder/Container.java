@@ -54,6 +54,9 @@ public class Container {
         this.options.add(options);
     }
 
+    public void addTextDataA(TextData textData){
+        this.textDataList.add(textData);
+    }
     public void addTextData(TextData textData){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.item_detallet_mov, this.parent, false);

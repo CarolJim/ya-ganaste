@@ -156,10 +156,10 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
         Container list = new Container();
-        list.addTextData(new TextData(R.string.datos_deposito_titular,name));
-        list.addTextData(new TextData(R.string.datos_depsito_numero_celular, celPhone));
-        list.addTextData(new TextData(R.string.datos_deposito_clabe, clabe));
-        list.addTextData(new TextData(R.string.datos_deposito_num_card, cardNumber));
+        list.addTextDataA(new TextData(R.string.datos_deposito_titular,name));
+        list.addTextDataA(new TextData(R.string.datos_depsito_numero_celular, celPhone));
+        list.addTextDataA(new TextData(R.string.datos_deposito_clabe, clabe));
+        list.addTextDataA(new TextData(R.string.datos_deposito_num_card, cardNumber));
         listView.setAdapter(ContainerBuilder.DEPOSITO(getContext(),list));
     }
 

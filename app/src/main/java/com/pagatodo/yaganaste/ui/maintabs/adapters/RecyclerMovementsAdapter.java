@@ -165,6 +165,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
     public ItemMovements getMovItem(int position){
         return this.itemMovementses.get(position);
     }
+
     public T getItem(int position){
         return this.itemMovementses.get(position).getMovement();
     }

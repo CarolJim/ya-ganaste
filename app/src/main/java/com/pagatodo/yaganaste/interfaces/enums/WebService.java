@@ -157,6 +157,8 @@ public enum WebService {
     /* Obtiene lista de tipos de reembolso */
     GET_TYPE_REPAYMENT,
     /* Actualiza el tipo de reembolso */
-    UPDATE_TYPE_REPAYMENT
+    UPDATE_TYPE_REPAYMENT,
+
+    SEND_REEMBOLSO
 }
 

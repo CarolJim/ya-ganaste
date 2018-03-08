@@ -8,7 +8,9 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
@@ -91,6 +93,11 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
     }
 
     @Override
+    public void sendReembolso(DataMovimientoAdq dataMovimientoAdq) {
+
+    }
+
+    @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
         if (response.getData() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
@@ -135,5 +142,8 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         movementsView.showError(error);
     }
 
+    @Override
+    public void onSuccesreembolso(ReembolsoResponse response) {
 
+    }
 }

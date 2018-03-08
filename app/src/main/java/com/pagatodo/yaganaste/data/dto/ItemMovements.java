@@ -2,9 +2,6 @@ package com.pagatodo.yaganaste.data.dto;
 
 import android.graphics.Color;
 
-/**
- * @author Juan Guerra on 28/03/17.
- */
 public class ItemMovements<T> {
 
     private String tituloDescripcion;

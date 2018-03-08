@@ -11,9 +11,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by Gorro on 28/07/16.
- */
 public class JsonManager {
 
     public static JSONObject madeJson(JSONObject json) {

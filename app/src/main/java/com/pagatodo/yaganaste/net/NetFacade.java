@@ -4,6 +4,7 @@ import com.android.volley.Request;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequestNoTag;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.HttpMethods;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -97,7 +98,9 @@ public class NetFacade {
             if (envolve) {
                 if (oRequest instanceof AdqRequest) {
                     return JsonManager.madeJsonAdquirente(tmp);
-                } else {
+                } if (oRequest instanceof AdqRequestNoTag) {
+                    return tmp;
+                }else{
                     return JsonManager.madeJson(tmp);
                 }
             } else {
@@ -106,6 +109,7 @@ public class NetFacade {
         }
         return null;
     }
+
 
     /**
      * Método para obtener el tipo de método para Volley

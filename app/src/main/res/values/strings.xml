@@ -94,6 +94,7 @@
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
     <string name="adqGetTypeRepayment">/agMov/ObtieneTipoReembolso</string>
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
+    <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
 
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
@@ -1366,6 +1367,9 @@
     <!-- Movimientos Reembolso-->
     <string name="title_dailog_reem">¿Estás seguro que deseas reembolsar el cobro?</string>
     <string name="message_dialog_reem">Este movimiento generará una comisión de 3.99% más IVA sobre el monto cobrado.</string>
+    <string name="positive_btn_reem">Reembolsar</string>
+    <string name="message_succes_reembolso">¡El cobro fue reembolsado exitosamente!</string>
+    <string name="message_deseable_reembolso">Este movimiento no puede ser reembolsado</string>
 
     <!-- Action Menu -->
     <string name="action_share">Compartir</string>

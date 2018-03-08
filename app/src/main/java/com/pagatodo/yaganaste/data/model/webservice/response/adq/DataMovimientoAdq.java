@@ -53,6 +53,13 @@ public class DataMovimientoAdq implements Serializable {
     private String concepto;
     @SerializedName("FechaOriginalTransaction")
     private String fechaOriginalTransaction;
+    @SerializedName("idTipoReembolso")
+    private String idTipoRembolso;
+    @SerializedName("isClosedLoop")
+    private boolean isClosedLoop;
+    @SerializedName("transactionIdentity")
+    private String transactionIdentity;
+
 
     public DataMovimientoAdq() {
     }
@@ -303,5 +310,29 @@ public class DataMovimientoAdq implements Serializable {
 
     public void setConcepto(String concepto) {
         this.concepto = concepto;
+    }
+
+    public String getIdTipoRembolso() {
+        return idTipoRembolso;
+    }
+
+    public void setIdTipoRembolso(String idTipoRembolso) {
+        this.idTipoRembolso = idTipoRembolso;
+    }
+
+    public boolean isClosedLoop() {
+        return isClosedLoop;
+    }
+
+    public void setClosedLoop(boolean closedLoop) {
+        isClosedLoop = closedLoop;
+    }
+
+    public String getTransactionIdentity() {
+        return transactionIdentity;
+    }
+
+    public void setTransactionIdentity(String transactionIdentity) {
+        this.transactionIdentity = transactionIdentity;
     }
 }

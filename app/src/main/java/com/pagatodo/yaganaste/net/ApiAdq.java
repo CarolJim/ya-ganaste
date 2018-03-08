@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.ConsultaSesionAg
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistraNipRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistraNotificacionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDeviceDataRequest;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherR
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneTiposReembolsoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistraNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistraNotificacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDeviceDataResponse;
@@ -51,6 +53,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NOTIFICACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DEVICE_DATA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.SEND_REEMBOLSO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_TYPE_REPAYMENT;
@@ -240,6 +243,22 @@ public class ApiAdq extends Api {
         NetFacade.consumeWS(CONSULTA_MOVIMIENTOS_MES_ADQ,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqResumeMonth) + request.getFecha(),
                 headers, null, ResumenMovimientosAdqResponse.class, result);
+    }
+    /**
+     * Resumen de movimientos por día.
+     *
+     * @param request {@link ReembolsoDataRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+
+    public static void sendReembolso(ReembolsoDataRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
+        NetFacade.consumeWS(SEND_REEMBOLSO,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqReembolso),
+                headers, request, ReembolsoResponse.class, result);
     }
 
     /**

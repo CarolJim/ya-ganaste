@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
@@ -265,12 +266,16 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                     }
                     if (direction == ItemTouchHelper.RIGHT) {
                         //share
+
                         adapter.updateChange();
-                        ItemMovements item = adapter.getMovItem(position);
-                        String message = StringUtils.getCurrencyValue(item.getMonto()) + "\n"
-                                + item.getDate() + " " + item.getMonth() + "\n"
-                                + item.getTituloDescripcion() + "\n"
-                                + item.getSubtituloDetalle() + "\n";
+                        //ItemMovements item = adapter.getMovItem(position);
+                        MovimientosResponse movlResponse = (MovimientosResponse) adapter.getItem(position);
+                        TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movlResponse.getIdTipoTransaccion());
+                        String message = "¡Hola!\n" + "Estos son los datos del movimiento de tu cuenta ya ganaste\n\n" +
+                                "Concepto: " + tipoTransaccion.getName() + "\n" +
+                                "Fecha: " + movlResponse.getFechaMovimiento() + "\n" +
+                                "Hora:" + movlResponse.getHoraMovimiento() + "\n" +
+                                "Autorización: " + movlResponse.getNumAutorizacion();
                         IB.IntentShare(getContext(), message);
                     }
                 }
@@ -278,4 +283,8 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         };
     }
 
+    @Override
+    public void loadReembolso() {
+
+    }
 }

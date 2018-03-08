@@ -8,9 +8,11 @@ import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.DatosCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
@@ -69,6 +71,16 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         }
     }
 
+    @Override
+    public void sendReembolso(DataMovimientoAdq dataMovimientoAdq) {
+        ReembolsoDataRequest request = new ReembolsoDataRequest(dataMovimientoAdq);
+        movementsIteractor.sendRemmbolso(request);
+    }
+
+    @Override
+    public void onSuccesreembolso(ReembolsoResponse response) {
+        movementsView.loadReembolso();
+    }
 
     @Override
     public void onSuccesResponse(ResumenMovimientosAdqResponse response) {

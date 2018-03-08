@@ -2,10 +2,6 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adq;
 
 import java.io.Serializable;
 
-/**
- * Created by flima on 21/03/2017.
- */
-
 public class DataResultAdq implements Serializable {
 
     private String id;

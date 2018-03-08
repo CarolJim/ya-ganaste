@@ -6,10 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * Created by Jordan on 23/08/2017.
- */
-
 public class DatosCupo implements Serializable {
 
 

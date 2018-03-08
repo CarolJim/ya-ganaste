@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
@@ -46,6 +47,11 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
 
     @Override
     public void getDatosCupo() {
+
+    }
+
+    @Override
+    public void sendRemmbolso(ReembolsoDataRequest request) {
 
     }
 

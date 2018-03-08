@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
@@ -40,6 +41,7 @@ import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.
 import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.LEFT_AD;
 import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.RIGHT;
 import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.RIGHT_AD;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 
 /**
  * @author Juan Guerra on 27/11/2016.
@@ -82,10 +84,11 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
-        updateRecyclerData(createAdapter(movements), movements);
+        this.currentAdapter = createAdapter(movements);
+        updateRecyclerData(this.currentAdapter, movements);
 
-        /*ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(),LEFT_AD);
-        new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);*/
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(),LEFT_AD);
+        new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
 
 
     }
@@ -98,8 +101,10 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked) {
         this.itemClicked = itemClicked;
-        //startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
-        getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
+        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
+        //getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
+        //UI.showToastShort(itemClicked.getMovement().getTransactionIdentity(),getContext());
+
     }
 
     @Override
@@ -138,23 +143,39 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
                 if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
                     int position = viewHolder.getAdapterPosition();
                     RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
-                    //DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
-                    if (direction == ItemTouchHelper.LEFT) {
-                        AlertDialog dialog = UI.showAlertDialog(getContext(),R.string.title_dailog_reem,getResources().getString(R.string.message_dialog_reem));
+                    DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
+                    if (!movResponse.isClosedLoop() && (Integer.parseInt(movResponse.getIdTipoRembolso()) == 3 || Integer.parseInt(movResponse.getIdTipoRembolso()) == 4)
+                            && movResponse.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)){
+                        if (direction == ItemTouchHelper.LEFT) {
+                            UI.showAlertDialog(getContext(),
+                                    getResources().getString(R.string.title_dailog_reem),
+                                    getResources().getString(R.string.message_dialog_reem),
+                                    R.string.positive_btn_reem,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            movementsPresenter.sendReembolso(itemClicked.getMovement());
+                                        }
+                                    });
+                        }
+                    } else {
+                        UI.showAlertDialog(getContext(), getResources().getString(R.string.message_deseable_reembolso), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
                     }
-                    if (direction == ItemTouchHelper.RIGHT) {
-                        //share
-                        adapter.updateChange();
-                        ItemMovements item = adapter.getMovItem(position);
-                        String message = StringUtils.getCurrencyValue(item.getMonto()) + "\n"
-                                + item.getDate() + " " + item.getMonth() + "\n"
-                                + item.getTituloDescripcion() + "\n"
-                                + item.getSubtituloDetalle() + "\n";
-                        IB.IntentShare(getContext(), message);
-                    }
+
+
+
                 }
             }
         };
     }
 
+    @Override
+    public void loadReembolso() {
+        UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.message_succes_reembolso), Snackbar.LENGTH_SHORT);
+    }
 }

@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.net.IRequestResult;
 
 /**
@@ -14,4 +16,6 @@ public interface MovementsIteractor<T> extends IRequestResult<DataSourceResult> 
     void getBalance();
 
     void getDatosCupo();
+
+    void sendRemmbolso(ReembolsoDataRequest request);
 }

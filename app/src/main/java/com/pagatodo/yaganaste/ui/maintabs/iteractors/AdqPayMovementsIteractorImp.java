@@ -3,10 +3,13 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdq;
@@ -31,6 +34,15 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
     public void getMovements(ResumenMovimientosMesRequest request) {
         try {
             ApiAdq.resumenMovimientosMes(request, this);
+        } catch (OfflineException e) {
+            movementsManager.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void sendRemmbolso(ReembolsoDataRequest request) {
+        try {
+            ApiAdq.sendReembolso(request, this);
         } catch (OfflineException e) {
             movementsManager.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
         }
@@ -70,6 +82,17 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
             case OBTIENE_DATOS_CUPO:
                 validateDataCupo((ObtieneDatosCupoResponse) dataSourceResult.getData());
                 break;
+            case SEND_REEMBOLSO:
+                validateReembolso((ReembolsoResponse) dataSourceResult.getData());
+                break;
+        }
+    }
+
+    private void validateReembolso(ReembolsoResponse response){
+        if (response.getResult().getId().equals(Recursos.CODE_ADQ_OK)) {
+            movementsManager.onSuccesreembolso(response);
+        } else {
+            movementsManager.onFailed(0, Recursos.NO_ACTION, response.getResult().getMessage());
         }
     }
 
