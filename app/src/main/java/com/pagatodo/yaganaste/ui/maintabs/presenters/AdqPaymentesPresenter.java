@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresent
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,12 +74,14 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void sendReembolso(DataMovimientoAdq dataMovimientoAdq) {
+        movementsView.showLoader("Reembolsando cobro");
         ReembolsoDataRequest request = new ReembolsoDataRequest(dataMovimientoAdq);
         movementsIteractor.sendRemmbolso(request);
     }
 
     @Override
     public void onSuccesreembolso(ReembolsoResponse response) {
+        movementsView.hideLoader();
         movementsView.loadReembolso();
     }
 

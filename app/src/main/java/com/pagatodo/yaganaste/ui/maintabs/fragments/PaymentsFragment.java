@@ -143,8 +143,9 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
                 if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
                     int position = viewHolder.getAdapterPosition();
                     RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
-                    DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
-                    if (!movResponse.isClosedLoop() && (Integer.parseInt(movResponse.getIdTipoRembolso()) == 3 || Integer.parseInt(movResponse.getIdTipoRembolso()) == 4)
+                    final DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
+
+                    if (!movResponse.isClosedLoop() && (Integer.parseInt(movResponse.getIdTipoRembolso()) == 5 || Integer.parseInt(movResponse.getIdTipoRembolso()) == 4)
                             && movResponse.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)){
                         if (direction == ItemTouchHelper.LEFT) {
                             UI.showAlertDialog(getContext(),
@@ -154,7 +155,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            movementsPresenter.sendReembolso(itemClicked.getMovement());
+                                            movementsPresenter.sendReembolso(movResponse);
                                         }
                                     });
                         }
@@ -177,5 +178,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     public void loadReembolso() {
         UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.message_succes_reembolso), Snackbar.LENGTH_SHORT);
+        getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
     }
 }

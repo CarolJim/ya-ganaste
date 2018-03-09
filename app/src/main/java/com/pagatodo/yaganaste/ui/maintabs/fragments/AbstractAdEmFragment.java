@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -228,8 +229,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void showError(String error) {
       // UI.showToastShort(error, getActivity());
-        showDialogMesage(error.toString());
+        //showDialogMesage(error.toString());
         hideLoader();
+        UI.showErrorSnackBar(getActivity(),error, Snackbar.LENGTH_SHORT);
     }
 
     @Override

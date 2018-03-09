@@ -7,13 +7,32 @@ import java.io.Serializable;
  */
 
 public class ReembolsoResponse implements Serializable {
-    private DataResultAdq result;
 
-    public DataResultAdq getResult() {
-        return result;
+    private String id;
+    private String message;
+    private String title;
+
+    public String getId() {
+        return id;
     }
 
-    public void setResult(DataResultAdq result) {
-        this.result = result;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

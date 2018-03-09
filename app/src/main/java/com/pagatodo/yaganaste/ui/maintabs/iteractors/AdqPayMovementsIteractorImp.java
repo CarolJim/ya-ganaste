@@ -89,10 +89,10 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
     }
 
     private void validateReembolso(ReembolsoResponse response){
-        if (response.getResult().getId().equals(Recursos.CODE_ADQ_OK)) {
+        if (response.getId().equals(Recursos.CODE_ADQ_OK)) {
             movementsManager.onSuccesreembolso(response);
         } else {
-            movementsManager.onFailed(0, Recursos.NO_ACTION, response.getResult().getMessage());
+            movementsManager.onFailed(0, Recursos.NO_ACTION, response.getMessage());
         }
     }
 
