@@ -805,7 +805,7 @@
 
     <string name="aprobada">Aprobado</string>
     <string name="aprobada_cobro">El cobro fue realizado con éxito\nYa puedes retirar la tarjeta del lector</string>
-    <string name="pago_success">El Pago Fue Completado\nCorrectamente</string>
+    <string name="pago_success">El pago fue completado\ncorrectamente</string>
     <string name="cancelation_success">Cancelación Exitosa</string>
     <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente</string>
     <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
@@ -818,14 +818,14 @@
     <string name="cuenta_beneficiario">Cuenta Beneficiario:</string>
     <string name="last_date_update">Actualizado el %s hrs</string>
 
-    <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
+    <string name="ask_permission_gps">Por favor activa tu GPS</string>
     <string name="adq_invt_me_interesa">¡Me Interesa!</string>
-    <string name="adq_invt_no_me_interesa"><u>En Otro Momento</u></string>
-    <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
+    <string name="adq_invt_no_me_interesa"><u>En otro momento</u></string>
+    <string name="adq_remove_tdc">Ya puedes\nretirar la tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
-    <string name="emisor_validate_card_fail"><u>Esta Tarjeta ya ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
-    <string name="emisor_validate_card_fail_2"><u>Número de Tarjeta Inválido_Número de Tarjeta Que Ingresaste no es Válido, Por Favor Intenta Nuevamente</u></string>
-    <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
+    <string name="emisor_validate_card_fail"><u>Esta tarjeta ya ha sido asignada, ingresa otra tarjeta o selecciona la opción NO</u></string>
+    <string name="emisor_validate_card_fail_2"><u>Número de tarjeta inválido_Número de tarjeta que ingresaste no es válido, por favor intenta nuevamente</u></string>
+    <string name="emisor_validate_postalcode"><u>Verifica tu código postal</u></string>
 
     <!--  Menu de ayuda-->
     <string name="contactanos">Contáctanos</string>

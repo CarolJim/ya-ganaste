@@ -170,7 +170,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
             if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
                 cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
-
             } else {
                 cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
             }

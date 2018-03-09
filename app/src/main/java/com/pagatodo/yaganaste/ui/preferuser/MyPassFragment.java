@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,9 +119,14 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
         ButterKnife.bind(this, rootview);
         btnConfirmation.setOnClickListener(this);
         Container s = new Container(getContext());
+        InputFilter[] fArray = new InputFilter[1];
+        fArray[0] = new InputFilter.LengthFilter(6);
         editActual = s.addLayoutPass(mLinearLayout, new InputText(R.string.asignar_nueva_contraseña));
+        editActual.editText.setFilters(fArray);
         editNueva = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contrasena));
+        editNueva.editText.setFilters(fArray);
         editConfir = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contraseña));
+        editConfir.editText.setFilters(fArray);
         setValidationRules();
     }
 
@@ -137,28 +143,30 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                 break;
         }
     }
-    private void hideKeyBoard(){
-        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+    private void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
-    private void showSnakBar(String mensje){
+    private void showSnakBar(String mensje) {
         hideKeyBoard();
         UI.showErrorSnackBar(getActivity(), mensje, Snackbar.LENGTH_LONG);
     }
+
     @Override
     public void setValidationRules() {
         editActual.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-               if (!hasFocus) {
-                   if (editActual.editText.getText().toString().isEmpty()) {
-                       showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
-                       editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-                   }
-               }else {
-                   editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-               }
+                if (!hasFocus) {
+                    if (editActual.editText.getText().toString().isEmpty()) {
+                        showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
+                        editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    }
+                } else {
+                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                }
             }
         });
 
@@ -170,7 +178,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
                         editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     }
-                }else {
+                } else {
                     editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
@@ -184,7 +192,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
                         editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     }
-                }else {
+                } else {
                     editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
@@ -328,11 +336,12 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
 
     }
 
-    public void cleanViewSucess(){
+    public void cleanViewSucess() {
         editActual.editText.setText("");
         editNueva.editText.setText("");
         editConfir.editText.setText("");
     }
+
     /**
      * Exito en la peticion de servidor y Fail en el cambio de Pass.
      * Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
@@ -376,7 +385,6 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                 },
                 true, false);
     }*/
-
     @Override
     public void nextScreen(String event, Object data) {
 

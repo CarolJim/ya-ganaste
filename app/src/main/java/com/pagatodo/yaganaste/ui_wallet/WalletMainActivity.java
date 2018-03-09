@@ -167,12 +167,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case 12:
                 loadFragment(DocumentosFragment.newInstance(), R.id.fragment_container);
-
                 break;
-
-
             default:
-                Toast.makeText(this, "Proximamente", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Proximamente", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

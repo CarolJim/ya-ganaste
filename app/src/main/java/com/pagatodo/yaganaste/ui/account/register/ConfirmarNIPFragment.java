@@ -77,15 +77,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.txt_nip_confirm)
     TextInputLayout txt_nip_confirm;
 
-
-
-
-
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
-
-    @BindView(R.id.btnNextPersonalInfo)
-    Button btnNextPersonalInfo;
     @BindView(R.id.frag_lista_opciones_photo_item)
     CircleImageView iv_photo_item;
 
@@ -148,7 +141,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setOnClickListener(this);
-        btnNextPersonalInfo.setOnClickListener(this);
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
         tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
@@ -191,16 +183,12 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
             }
         });
 
-
-
-
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnNextPersonalInfo:
+            case R.id.btnNextAsignarPin:
                 validateForm();
                 break;
             default:

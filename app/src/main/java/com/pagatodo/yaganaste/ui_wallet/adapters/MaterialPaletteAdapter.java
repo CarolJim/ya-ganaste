@@ -55,7 +55,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
         DataFavoritos item = data.get(position);
 
         if (item.getIdComercio() == 0) {
-            holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
+            holder.crlImageFavorite.setBorderColor(item.getColorMarca() != null ? android.graphics.Color.parseColor(item.getColorMarca()) : App.getContext().getResources().getColor(R.color.colorAccent));
             /*GradientDrawable gd = createCircleDrawable(App.getContext().getResources().getColor(R.color.color_background_image_docs), android.graphics.Color.GRAY);
             holder.crlImageFavorite.setBackground(gd);*/
             holder.imgAddFavorite.setBackground(App.getContext().getResources().getDrawable(R.drawable.new_fav_add));

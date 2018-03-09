@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_lets_start"
@@ -11,8 +11,10 @@
     tools:context=".ui._controllers.AccountActivity">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="27dp"
         android:gravity="center_horizontal"
@@ -20,180 +22,136 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/size_text_style_2_value" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/titulo_datos_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt1"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/sub_titulo_nip_personal"
+        android:textAlignment="center"
+        android:textColor="@color/adadad"
+        android:textSize="14sp"
+        app:tipo="Text" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/titulo_datos_usuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/sub_titulo_nip_personal"
-                android:textAlignment="center"
-                android:textColor="@color/adadad"
-                android:textSize="14sp"
-                app:tipo="Text" />
-
-            <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-                android:id="@+id/borderLayout"
-                style="@style/BorderTitleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:title="@string/personalInfoTitle">
-
-                <LinearLayout
-                    style="@style/BorderLayoutContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/txt_nip"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/edit_nombre"
-                        android:layout_marginTop="19dp"
-                        android:background="@drawable/inputtext_normal"
-                        android:gravity="center_vertical"
-                        android:hint="@string/nip"
-                        android:maxLines="1"
-                        android:textColorHint="@color/texthint"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
-                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute">
-
-                        <EditText
-                            android:id="@+id/nip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="9dp"
-                            android:background="@android:color/transparent"
-                            android:digits="@string/input_phone"
-                            android:imeOptions="actionNext"
-                            android:inputType="textPassword|number"
-                            android:maxLength="4"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:password="true"
-                            android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/txt_nip_confirm"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/edit_nombre"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/inputtext_normal"
-                        android:gravity="center_vertical"
-                        android:hint="@string/nipconfirma"
-                        android:maxLines="1"
-                        android:textColorHint="@color/texthint"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
-                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute">
-
-                        <EditText
-                            android:id="@+id/confim_nip"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="9dp"
-                            android:background="@android:color/transparent"
-                            android:digits="@string/input_phone"
-                            android:imeOptions="actionNext"
-                            android:inputType="textPassword|number"
-                            android:maxLength="4"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:password="true"
-                            android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/layoutImg"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp">
-
-                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/frag_lista_opciones_photo_item"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:src="@drawable/icon_preferuser"
-                            android:visibility="gone"
-                            app:civ_border_color="@color/colorAccent"
-                            app:civ_border_width="2dp" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/layoutBottom"
+    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+        android:id="@+id/borderLayout"
+        style="@style/BorderTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="vertical"
-        android:visibility="visible">
-
+        android:layout_below="@id/titulo_datos_usuario"
+        app:title="@string/personalInfoTitle">
 
         <LinearLayout
-            android:id="@+id/layoutBtns"
+            style="@style/BorderLayoutContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextAsignarPin"
-                style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton"
-                android:visibility="gone" />
 
-            <android.support.v4.widget.Space
-                android:layout_width="@dimen/btns_separation"
-                android:layout_height="match_parent" />
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txt_nip"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edit_nombre"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/inputtext_normal"
+                android:gravity="center_vertical"
+                android:hint="@string/nip"
+                android:maxLines="1"
+                android:textColorHint="@color/texthint"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/hint_color"
+                tools:ignore="UnusedAttribute">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextPersonalInfo"
-                style="@style/buttonSquareRoundedBlue"
-                android:background="@drawable/button_rounded_blue"
-                android:gravity="center"
-                android:text="@string/nextButton" />
+                <EditText
+                    android:id="@+id/nip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:background="@android:color/transparent"
+                    android:digits="@string/input_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword|number"
+                    android:maxLength="4"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:password="true"
+                    android:singleLine="true"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/txt_nip_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edit_nombre"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/inputtext_normal"
+                android:gravity="center_vertical"
+                android:hint="@string/nipconfirma"
+                android:maxLines="1"
+                android:textColorHint="@color/texthint"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/hint_color"
+                tools:ignore="UnusedAttribute">
+
+                <EditText
+                    android:id="@+id/confim_nip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:background="@android:color/transparent"
+                    android:digits="@string/input_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword|number"
+                    android:maxLength="4"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:password="true"
+                    android:singleLine="true"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutImg"
+                android:layout_width="150dp"
+                android:layout_height="150dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/frag_lista_opciones_photo_item"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:src="@drawable/icon_preferuser"
+                    android:visibility="gone"
+                    app:civ_border_color="@color/colorAccent"
+                    app:civ_border_width="2dp" />
+            </RelativeLayout>
+
         </LinearLayout>
-    </LinearLayout>
+
+    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnNextAsignarPin"
+        style="@style/buttonSquareRoundedBlue"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/button_rounded_blue"
+        android:gravity="center"
+        android:text="@string/nextButton" />
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressIndicator"
@@ -201,4 +159,4 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

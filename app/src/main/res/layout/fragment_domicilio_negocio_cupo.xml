@@ -135,10 +135,7 @@
                         android:hint="@string/streetHint"
                         android:maxLines="1"
                         android:textColorHint="@color/texthint"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="1"
                         app:hintTextAppearance="@style/HintText"
-                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -180,10 +177,7 @@
                             android:maxLines="1"
 
                             android:textColorHint="@color/texthint"
-                            app:counterEnabled="true"
-                            app:counterMaxLength="1"
                             app:hintTextAppearance="@style/HintText"
-                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
                             app:passwordToggleTint="@color/hint_color"
                             tools:ignore="UnusedAttribute">
 
@@ -216,10 +210,7 @@
                             android:hint="@string/intern_number"
                             android:maxLines="1"
                             android:textColorHint="@color/texthint"
-                            app:counterEnabled="true"
-                            app:counterMaxLength="1"
                             app:hintTextAppearance="@style/HintText"
-                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
                             app:passwordToggleTint="@color/hint_color"
                             tools:ignore="UnusedAttribute">
 
@@ -256,10 +247,7 @@
                         android:hint="@string/zipCodeHint"
                         android:maxLines="1"
                         android:textColorHint="@color/texthint"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="1"
                         app:hintTextAppearance="@style/HintText"
-                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 

@@ -13,9 +13,7 @@ public class InputText {
     private String contentText;
     private String tipo;
 
-
     public InputText(int hintText) {
-
         this.hintTextResources = hintText;
         this.contentText = "";
     }

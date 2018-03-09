@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,6 +163,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         adqPresenter = new AccountAdqPresenter(this);
         adqPresenter.setIView(this);
         dataStatusDocuments = new ArrayList<>();
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -317,9 +319,11 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            Log.e("Ya Ganaste", "@Entrada 1");
             showLoader("");
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
+            Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
                 Bitmap original = BitmapFactory.decodeFile(path);
                 Bitmap scaled;
@@ -390,6 +394,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
+        Log.e("Ya Ganaste", "@Entrada 2");
     }
 
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
@@ -820,7 +825,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     }, true, false);
             return;
             */
-            UI.showErrorSnackBar(getActivity(),getString(R.string.txt_dialogo_subir_documentos_marcados), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.txt_dialogo_subir_documentos_marcados), Snackbar.LENGTH_SHORT);
         }
         adqPresenter.sendDocumentosPendientes(dataDocumnetsServer);
     }

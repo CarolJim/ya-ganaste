@@ -127,7 +127,8 @@
         android:layout_below="@id/olvidaste_nip"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="@string/numero" />
+        android:text="@string/numero"
+        android:textColor="@color/colorAccent" />
 
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton

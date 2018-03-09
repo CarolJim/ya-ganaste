@@ -61,10 +61,7 @@
                 android:hint="@string/streetHint"
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
-                app:counterEnabled="true"
-                app:counterMaxLength="1"
                 app:hintTextAppearance="@style/HintText"
-                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
 
@@ -87,7 +84,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
@@ -104,12 +100,8 @@
                     android:gravity="center_vertical"
                     android:hint="@string/outside_number"
                     android:maxLines="1"
-
                     android:textColorHint="@color/texthint"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="1"
                     app:hintTextAppearance="@style/HintText"
-                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -141,10 +133,7 @@
                     android:hint="@string/intern_number"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="1"
                     app:hintTextAppearance="@style/HintText"
-                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -180,10 +169,7 @@
                 android:hint="@string/zipCodeHint"
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
-                app:counterEnabled="true"
-                app:counterMaxLength="1"
                 app:hintTextAppearance="@style/HintText"
-                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
 
@@ -401,99 +387,29 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="25dp" />
-        </LinearLayout>
-    </ScrollView>
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            android:orientation="vertical">
-
-
-            <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                android:id="@+id/errorCheckMessage"
-                style="@style/generic_text_style_2"
-                android:layout_width="match_parent"
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtLegales"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_between_elements"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:id="@+id/radioBtnTermsLayOut"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="15"
-                    android:gravity="center"
-                    android:visibility="gone">
-
-                    <CheckBox
-                        android:id="@+id/radioBtnTerms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/radio_btn"
-                        android:button="@null"
-                        android:checked="true" />
-
-                </RelativeLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="85"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtLegales"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/terms_and_conditions"
-                        android:textColor="@color/texthint"
-                        android:textSize="@dimen/wallet_text_size_2"
-                        app:tipo="Descripcion" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/layoutBtns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnBackDomicilioActual"
-                style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton"
-                android:visibility="gone" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="@dimen/btns_separation"
-                android:layout_height="match_parent" />
+                android:gravity="center"
+                android:layout_marginBottom="14dp"
+                android:layout_gravity="center"
+                android:text="@string/terms_and_conditions"
+                android:textColor="@color/texthint"
+                android:textSize="@dimen/wallet_text_size_2"
+                app:tipo="Descripcion" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextDomicilioActual"
                 style="@style/buttonSquareRoundedBlue"
                 android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
                 android:text="@string/nextButton" />
         </LinearLayout>
+    </ScrollView>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressLayout"

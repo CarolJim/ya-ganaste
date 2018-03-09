@@ -269,7 +269,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 errorTxt = response.getMensaje();
         } catch (Exception ex) {
             ex.printStackTrace();
-            errorTxt = error.toString();
+            errorTxt = error.getData().toString();
         }
         onError(errorTxt);
     }
@@ -280,8 +280,10 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(RESULT, Constants.RESULT_ERROR);
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(RESULT_CODE_FAIL, intent);
-        UI.showErrorSnackBar(this, message != null ? message : getString(R.string.error_respuesta), Snackbar.LENGTH_SHORT);
-        //finish();
+        UI.showErrorSnackBar(this, message != null ? message : getString(R.string.error_respuesta), Snackbar.LENGTH_LONG);
+        if (typeOperation != PAYMENT_ENVIOS) {
+            finish();
+        }
         // showDialogMesage(message);
 
     }

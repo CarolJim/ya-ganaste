@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
+            android:textColor="@color/colorAccent"
             android:gravity="center"
             android:visibility="visible"
             app:tipo="Titulo" />
@@ -42,7 +43,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:padding="5dp"
-            android:textColor="@color/whiteColor"
+            android:textColor="@color/hint_color"
             android:visibility="visible"
             app:tipo="Descripcion" />
 

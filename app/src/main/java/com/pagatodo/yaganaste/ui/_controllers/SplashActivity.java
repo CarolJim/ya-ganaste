@@ -105,7 +105,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             @Override
             public void run() {
                 try {
-                    /*
                     if (api.isPaisesTableEmpty()) {
                         String json = JsonManager.loadJSONFromAsset("files/paises.json");
                         Type token = new TypeToken<List<Countries>>() {
@@ -113,7 +112,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
                         List<Countries> countries = new Gson().fromJson(json, token);
                         api.insertPaises(countries);
                     }
-                    */
 
                     //if (api.isCatalogTableEmpty()) {
                     ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();

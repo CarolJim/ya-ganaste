@@ -5,14 +5,17 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -66,7 +69,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
  * Created by Team Android on 22/03/2017.
  */
 public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener,
-        IChangeNIPView{
+        IChangeNIPView {
 
     private static int PIN_LENGHT = 4;
 
@@ -112,7 +115,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -137,9 +139,14 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         ButterKnife.bind(this, rootview);
         finishBtn.setOnClickListener(this);
         Container s = new Container(getContext());
-        nipActual = s.addLayoutPass(mLinearLayout, new InputText(R.string.asignar_nueva_contraseña));
-        nipNueva = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contrasena));
-        nipConfir = s.addLayoutPass(mLinearLayout, new InputText(R.string.confirma_nueva_contraseña));
+        InputFilter[] fArray = new InputFilter[1];
+        fArray[0] = new InputFilter.LengthFilter(4);
+        nipActual = s.addLayoutPass(mLinearLayout, new InputText(R.string.nip_actual));
+        nipActual.editText.setFilters(fArray);
+        nipNueva = s.addLayoutPass(mLinearLayout, new InputText(R.string.nip_nuevo));
+        nipNueva.editText.setFilters(fArray);
+        nipConfir = s.addLayoutPass(mLinearLayout, new InputText(R.string.nip_confima));
+        nipConfir.editText.setFilters(fArray);
 
         call_phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,9 +159,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                   //validateEt1();
+                    //validateEt1();
                     if (nipActual.editText.getText().toString().isEmpty()) {
-                        showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                        //showSnakBar(getResources().getString(R.string.introduce_nip_valido));
                     }
                 }
             }
@@ -165,7 +172,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipNueva.editText.getText().toString().isEmpty()) {
-                        showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                        //showSnakBar(getResources().getString(R.string.introduce_nip_valido));
                     }
                 }
             }
@@ -176,19 +183,19 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipConfir.editText.getText().toString().isEmpty()) {
-                        showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                        //showSnakBar(getResources().getString(R.string.introduce_nip_valido));
                     }
                 }
             }
         });
     }
 
-    private void hideKeyBoard(){
-        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    private void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
-    private void showSnakBar(String mensje){
+    private void showSnakBar(String mensje) {
         hideKeyBoard();
         UI.showErrorSnackBar(getActivity(), mensje, Snackbar.LENGTH_LONG);
     }
@@ -252,7 +259,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             isValid = false;
         if (nipNewConfirm.isEmpty())
             isValid = false;
-        if (!nipNewConfirm.equalsIgnoreCase(nipNew)){
+        if (!nipNewConfirm.equalsIgnoreCase(nipNew)) {
             isValid = false;
         }
 
@@ -304,14 +311,14 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     },
                     true, false);
             */
-            UI.showErrorSnackBar(getActivity(),error.toString(),Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
         }
     }
 
     @Override
     public void setSuccessChangeNip(Object data) {
 
-            UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.exito_nip),Snackbar.LENGTH_SHORT);
+        UI.showSuccessSnackBar(getActivity(), getResources().getString(R.string.exito_nip), Snackbar.LENGTH_SHORT);
 
     }
 
@@ -329,11 +336,12 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             isValid = false;
         }
 
-        if(isValid){
+        if (isValid) {
             UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
                     doubleActions, true, true);
         }
     }
+
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
@@ -346,16 +354,15 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         }
     };
 
-    @SuppressLint("MissingPermission")
     private void createCallIntent() {
         String number = getString(R.string.numero_telefono_contactanos);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         callIntent.setData(Uri.parse("tel:" + number));
 
-        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
         } else {
             getActivity().startActivity(callIntent);
         }

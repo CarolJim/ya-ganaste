@@ -28,12 +28,14 @@
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_medium" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="42dp"
                 android:src="@drawable/ic_check_success" />
+
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtThanksBuy"
                 style="@style/generic_text_style_1"
@@ -41,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16.5dp"
                 android:gravity="center"
-                android:text="@string/gracias_por_compra" />
+                android:text="@string/gracias_por_compra"
+                android:textColor="@color/colorAccent" />
 
             <LinearLayout
                 android:id="@+id/linera_monto"
@@ -97,10 +100,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginRight="60dp"
                 android:layout_marginLeft="60dp"
-                android:background="@color/hint_color"
-                ></LinearLayout>
+                android:layout_marginRight="60dp"
+                android:background="@color/hint_color"></LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 style="@style/H4Gris"
@@ -118,15 +120,15 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/edit_nombre"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/inputtext_normal"
                 android:hint="@string/correo_electronico_tiket"
                 android:maxLines="1"
-                android:layout_marginTop="40dp"
                 android:textColorHint="@color/texthint"
                 app:counterEnabled="true"
                 app:counterMaxLength="1"
-                app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
 
@@ -136,16 +138,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
-
                     android:paddingLeft="15dp"
                     android:singleLine="true"
-                    android:theme ="@style/NewEdittextwallet"
-                    android:textColor="@color/grayColor"/>
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
 
             </android.support.design.widget.TextInputLayout>
-
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -208,9 +208,9 @@
                 android:layout_marginEnd="@dimen/margin_doble"
                 android:layout_marginLeft="@dimen/margin_doble"
                 android:layout_marginRight="@dimen/margin_doble"
-                android:visibility="gone"
                 android:layout_marginStart="@dimen/margin_doble"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
                 <LinearLayout
@@ -419,28 +419,17 @@
                     app:hintText="@string/txt_mail" />
 
 
-
-
-
-
-
-
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
-        >
+        android:gravity="center_horizontal">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextEnviarticket"
@@ -457,10 +446,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:visibility="gone"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="@dimen/seekbar_margin"
-        android:layout_marginRight="@dimen/seekbar_margin">
+        android:layout_marginRight="@dimen/seekbar_margin"
+        android:visibility="gone">
 
 
         <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
@@ -470,10 +459,10 @@
             android:background="@drawable/seek_background"
             android:clickable="false"
             android:max="100"
-            android:visibility="gone"
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"
+            android:visibility="gone"
             app:text="Enviar"
             app:textSize="@dimen/size_text_style_2_value" />
     </LinearLayout>

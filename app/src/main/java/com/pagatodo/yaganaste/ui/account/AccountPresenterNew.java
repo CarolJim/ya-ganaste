@@ -303,6 +303,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void onSuccessDataPerson() {
+        accountView.hideLoader();
         ((IRenapoView) accountView).onValidateUserDataSuccess();
     }
 

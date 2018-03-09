@@ -13,6 +13,18 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
+**_VERSION 4.0.1 - 6 al 9 de Marzo del 2018 (ID:4368)_**
+
+Descripción al desarrollador:
+
+    * Cambio en los estilos de la App.
+    * Cambio en textwatchers de envios y pagos.
+    * Corrección de flujos emisor para poder ejecutar el adjustPan.
+    
+Funcionalidad:
+    
+    * Reembolsos OnDemand.
+    
 **_VERSION 4.0.0 - 5 de Enero al 06 de Marzo del 2018 (ID:4352)_**
 
 Descripción al desarrollador:

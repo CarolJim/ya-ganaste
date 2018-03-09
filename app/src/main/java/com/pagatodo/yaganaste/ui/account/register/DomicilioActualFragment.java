@@ -116,8 +116,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     StyleTextView txtLegales;
     //@BindView(R.id.radioBtnTerms)
     //CheckBox radioBtnTerms;
-    @BindView(R.id.btnBackDomicilioActual)
-    StyleButton btnBackDomicilioActual;
+    /*@BindView(R.id.btnBackDomicilioActual)
+    StyleButton btnBackDomicilioActual;*/
     @BindView(R.id.btnNextDomicilioActual)
     StyleButton btnNextDomicilioActual;
     @BindView(R.id.progressLayout)
@@ -215,7 +215,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spColonia.setAdapter(adapterColonia);
         btnNextDomicilioActual.setOnClickListener(this);
-        btnBackDomicilioActual.setOnClickListener(this);
+        //btnBackDomicilioActual.setOnClickListener(this);
         //radioBtnTerms.setOnClickListener(this);
 
         spColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -243,10 +243,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             case R.id.btnNextDomicilioActual:
                 validateForm();
                 break;
-            case R.id.btnBackDomicilioActual:
+            /*case R.id.btnBackDomicilioActual:
                 backScreen(EVENT_PERSONAL_DATA_BACK, null);
                 break;
-           /* case R.id.radioBtnTermsLayOut:
+           case R.id.radioBtnTermsLayOut:
                 if (radioBtnTerms.isChecked()) {
                     radioBtnTerms.setChecked(false);
                     radioBtnTerms.setSelected(false);
@@ -349,9 +349,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                     text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editIntNumber.getText().toString().isEmpty()) {
-                        //      editIntNumber.imageViewIsGone(true);
+                        text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
-                        //    editIntNumber.setIsValid();
+                        text_num_interior.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 }
             }

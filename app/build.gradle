@@ -26,8 +26,8 @@ android {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 12
-        versionName "4.0.0"
+        versionCode 14
+        versionName "4.0.1"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -58,8 +58,8 @@ android {
 
     buildTypes {
         release {
-            shrinkResources true
-            minifyEnabled true
+            shrinkResources false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
         }

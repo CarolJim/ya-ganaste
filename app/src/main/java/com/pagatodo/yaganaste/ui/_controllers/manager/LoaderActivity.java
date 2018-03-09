@@ -68,7 +68,7 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
+        progressLayout.setTextMessage(message != null ? message : "");
         progressLayout.setVisibility(View.VISIBLE);
         progressLayout.bringToFront();
     }

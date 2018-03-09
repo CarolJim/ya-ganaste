@@ -92,6 +92,4 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         } catch (Exception e) {
         }
     }
-
-
 }

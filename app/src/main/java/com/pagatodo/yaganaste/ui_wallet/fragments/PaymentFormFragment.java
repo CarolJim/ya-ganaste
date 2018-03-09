@@ -134,6 +134,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     EditText edtServiceConcept;
     @BindView(R.id.comisionTextServicio)
     StyleTextView txtComisionServicio;
+    @BindView(R.id.txtComision)
+    StyleTextView txtComision;
 
     @BindView(R.id.til_num_telefono)
     TextInputLayout til_num_telefono;
@@ -373,6 +375,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 if (comercioResponse.getSobrecargo() > 0) {
                     txtComisionServicio.setText(StringUtils.getCurrencyValue(comercioResponse.getSobrecargo()));
                 } else {
+                    txtComision.setVisibility(View.INVISIBLE);
                     txtComisionServicio.setVisibility(View.INVISIBLE);
                 }
                 if (dataFavoritos != null) {
@@ -730,7 +733,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         }
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
-        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
 
