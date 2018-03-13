@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ShareActionProvider;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -43,7 +42,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragmentIWalletView.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
@@ -143,7 +142,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         switch (idoperation) {
             case 1:
                 loadFragment(HomeTabFragment.newInstance(currentPage), R.id.fragment_container);
-                //loadFragment(MovementsEmisorFragment.newInstance(), R.id.fragment_container);
+                //loadFragment(MovementsEmisorFragmentMovementsEmisorView.newInstance(), R.id.fragment_container);
                 break;
             case 2:
                 loadFragment(DepositsDataFragment.newInstance(), R.id.fragment_container);
@@ -223,7 +222,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 goHome();
             } else if (actualFragment instanceof HomeTabFragment) {
                 showDialogOut();
-            } else if (actualFragment instanceof WalletTabFragment) {
+            } else if (actualFragment instanceof WalletTabFragmentIWalletView) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
                 goHome();

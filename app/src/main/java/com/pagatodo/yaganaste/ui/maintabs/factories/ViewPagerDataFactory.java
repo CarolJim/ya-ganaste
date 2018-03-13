@@ -15,7 +15,6 @@ import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
-import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
@@ -23,11 +22,9 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragmentIWalletView;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -50,7 +47,6 @@ public class ViewPagerDataFactory {
         switch (type) {
             case MAIN_LOGIN:
                 fragmentList.add(LoginFragment.newInstance());
-                fragmentList.add(QuickBalanceFragment.newInstance());
                 return new ViewPagerData<>(fragmentList, VoidTab.values());
 
             case MAIN_TABS:
@@ -91,7 +87,6 @@ public class ViewPagerDataFactory {
     private static void addMainFragmentsselection(List<Fragment> fragmentList) {
         fragmentList.remove(StatusRegisterAdquirienteFragment.newInstance());
         fragmentList.add(HomeTabFragment.newInstance());
-        fragmentList.add(PaymentsTabFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
         fragmentList.add(DocumentsContainerFragment.newInstance());
 
@@ -100,7 +95,7 @@ public class ViewPagerDataFactory {
        int Idestatus;
         //fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
-        fragmentList.add(WalletTabFragment.newInstance());
+        fragmentList.add(WalletTabFragmentIWalletView.newInstance());
         fragmentList.add(NewPaymentFragment.newInstance());
 
 /*

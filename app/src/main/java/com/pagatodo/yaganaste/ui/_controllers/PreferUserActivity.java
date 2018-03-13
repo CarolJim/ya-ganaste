@@ -34,7 +34,6 @@ import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
 import com.pagatodo.yaganaste.ui.preferuser.MyNotifyConfigFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
-import com.pagatodo.yaganaste.ui.preferuser.MyTutorialFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
@@ -75,7 +74,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
     public static String PREFER_USER_DESASOCIAR_BACK = "PREFER_USER_DESASOCIAR_BACK";
     public static String PREFER_USER_MY_USER = "PREFER_USER_MY_USER";
-    public static String PREFER_USER_HELP_TUTORIALES = "PREFER_USER_HELP_TUTORIALES";
     public static String PREFER_USER_HELP_CONTACT = "PREFER_USER_HELP_CONTACT";
     public static String PREFER_USER_HELP_CONTACT_BACK = "PREFER_USER_HELP_CONTACT_BACK";
     public static String PREFER_USER_HELP_ABOUT = "PREFER_USER_HELP_ABOUT";
@@ -297,9 +295,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_DESASOCIAR":
                 loadFragment(DesasociarPhoneFragment.newInstance(), Direction.FORDWARD, false);
                 break;
-            case "PREFER_USER_HELP_TUTORIALES":
-                loadFragment(MyTutorialFragment.newInstance(), Direction.FORDWARD, false);
-                break;
             case "PREFER_USER_CUENTA_REEMBOLSO":
                 loadFragment(CuentaReembolsoFragment.newInstance(mName, mTDC, mClabe), Direction.FORDWARD, false);
                 break;
@@ -489,8 +484,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof ListaAyudaLegalesFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
-            } else if (currentFragment instanceof MyTutorialFragment) {
-                onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanos) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyCardReportaTarjetaFragment) {

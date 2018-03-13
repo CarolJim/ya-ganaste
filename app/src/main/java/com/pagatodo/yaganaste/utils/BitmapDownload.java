@@ -19,7 +19,7 @@ import java.net.HttpURLConnection;
 public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
 
     private static final String TAG = BitmapDownload.class.getSimpleName();
-    private BitmapBase64Listener listener;
+    private IBitmapBase64Listener listener;
     private Context context;
     private String imgBase64;
     private String filePath;
@@ -29,12 +29,12 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
     private IPreferUserIteractor mIteractor;
     private IPhotoUserWeb toolBarActivity;
 
-    public BitmapDownload(Bitmap bitmap, BitmapBase64Listener listener) {
+    public BitmapDownload(Bitmap bitmap, IBitmapBase64Listener listener) {
         this.listener = listener;
         this.bitmap = bitmap;
     }
 
-    public BitmapDownload(Context context, String filePath, BitmapBase64Listener listener) {
+    public BitmapDownload(Context context, String filePath, IBitmapBase64Listener listener) {
         this.context = context;
         this.filePath = filePath;
         this.listener = listener;

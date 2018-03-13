@@ -79,7 +79,7 @@ public class NotificationHistoryFragment extends GenericFragment implements INot
         myDataset = new ArrayList<>();
         myDataset.add(new GenericDummyData("¡Nueva promoción disponible!",
                 "El Tigre Toño te regala $20 por comprar productos Zucaritas, Valido al 31 de Diciembre de 2017",
-                R.drawable.carrousel1, "2018:02:12 14:00", 1));
+                R.mipmap.ic_launcher, "2018:02:12 14:00", 1));
         myDataset.add(new GenericDummyData("¡Santiago te envió $150", "Tu dinero ya se encuentra en tu cuenta Ya Ganaste",
                 R.drawable.cancel_canvas, "2018:02:10 15:00", 1));
         myDataset.add(new GenericDummyData("Paulina solicitó $300",

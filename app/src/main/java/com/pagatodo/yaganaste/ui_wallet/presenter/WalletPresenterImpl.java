@@ -11,8 +11,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
-import com.pagatodo.yaganaste.ui_wallet.views.MovementsEmisorView;
-import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IMovementsEmisorView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringConstants;
 
@@ -27,16 +27,16 @@ import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_A
 
 public class WalletPresenterImpl implements WalletPresenter, WalletNotification {
 
-    private WalletView walletView;
-    private MovementsEmisorView movementsEmisorView;
+    private IWalletView walletView;
+    private IMovementsEmisorView movementsEmisorView;
     private WalletInteractor walletInteractor;
 
-    public WalletPresenterImpl(WalletView walletView) {
+    public WalletPresenterImpl(IWalletView walletView) {
         this.walletView = walletView;
         this.walletInteractor = new WalletInteractorImpl(this);
     }
 
-    public WalletPresenterImpl(MovementsEmisorView movementsEmisorView) {
+    public WalletPresenterImpl(IMovementsEmisorView movementsEmisorView) {
         this.movementsEmisorView = movementsEmisorView;
         this.walletInteractor = new WalletInteractorImpl(this);
     }

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.net;
 
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 import org.json.JSONObject;

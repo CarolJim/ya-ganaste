@@ -13,17 +13,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.VolleySingleton;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
-import com.pagatodo.yaganaste.ui._controllers.LandingActivity;
-import com.pagatodo.yaganaste.ui._controllers.LandingApprovedActivity;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
-import com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity;
-import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
-import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import io.card.payment.CardIOActivity;

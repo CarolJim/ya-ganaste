@@ -16,7 +16,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 
 import java.util.ArrayList;
@@ -34,7 +33,6 @@ public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemC
     ArrayList<String> mList = new ArrayList<>();
     List<DataFavoritos> listCarousel;
     Context context;
-    PaymentsTabFragment parentFragment;
     INewPaymentPresenter presenter;
     int mType;
     private NewPaymentFragment fragment;
@@ -57,7 +55,7 @@ public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemC
     };
 
     public NewListFavoriteDialog(Context context, List<DataFavoritos> list, INewPaymentPresenter presenter,
-                               int mType) {
+                                 int mType) {
         super(context);
         this.context = context;
         this.presenter = presenter;
@@ -110,7 +108,7 @@ public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemC
         String value = adapter2.getItem(position);
         int pos = mList.indexOf(value);
 
-        presenter.sendChoiceFavorite(listCarousel.get(pos+1) , mType);
+        presenter.sendChoiceFavorite(listCarousel.get(pos + 1), mType);
         dismiss();
     }
 }

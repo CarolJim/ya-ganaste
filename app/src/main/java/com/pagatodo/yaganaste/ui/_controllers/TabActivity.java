@@ -52,15 +52,14 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragmentIWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
@@ -80,7 +79,6 @@ import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -100,7 +98,6 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
@@ -113,7 +110,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE;
 import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_STATUS;
-import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_SUCCESS;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOTO;
@@ -526,8 +522,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
-                if ((fragmentType == 0 && fragment instanceof PaymentsTabFragment)
-                        || (fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
+                if ((fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
                 }
@@ -540,14 +535,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void onBackPressed() {
         Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
         if (!disableBackButton) {
-            if (actualFragment instanceof PaymentsTabFragment) {
-                PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
-                if (paymentsTabFragment.isOnForm) {
-                    paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
-                } else {
-                    goHome();
-                }
-            } else if (actualFragment instanceof DepositsFragment) {
+            if (actualFragment instanceof DepositsFragment) {
                 imageNotification.setVisibility(View.GONE);
                 imageshare.setVisibility(View.VISIBLE);
                 ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
@@ -555,7 +543,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 goHome();
             } else if (actualFragment instanceof HomeTabFragment) {
                 showDialogOut();
-            } else if (actualFragment instanceof WalletTabFragment) {
+            } else if (actualFragment instanceof WalletTabFragmentIWalletView) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
                 goHome();

@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
-import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.EVENT_GO_CM_DOCUMENTOS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
@@ -50,14 +49,15 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     private String message = "";
     private String btnName = "";
     private String NEXT_SCREEN = "";
-    public static boolean isdocumentsrevision=false;
+    public static boolean isdocumentsrevision = false;
+
     public static RegisterCompleteFragment newInstance(COMPLETE_MESSAGES type) {
         RegisterCompleteFragment fragmentRegister = new RegisterCompleteFragment();
         Bundle args = new Bundle();
         args.putSerializable(TIPO_MENSAJE, type);
 
-        if (type==ADQ_REVISION){
-            isdocumentsrevision=true;
+        if (type == ADQ_REVISION) {
+            isdocumentsrevision = true;
         }
         fragmentRegister.setArguments(args);
         return fragmentRegister;
@@ -85,7 +85,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         ButterKnife.bind(this, rootview);
         setContent();
         btnNextComplete.setOnClickListener(this);
-        if(isdocumentsrevision){
+        if (isdocumentsrevision) {
             btnName = getString(R.string.nextButton);
             txtSubtitle.setText(getString(R.string.adq_subtitle_thanks));
         }
@@ -142,17 +142,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 btnName = getString(R.string.txt_felicidades);
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
-            case CUPO_REVISION:
-                Log.e(TAG, "- CUPO_REVISION");
-                iIdIcon = R.drawable.ic_done;
-                title = getString(R.string.cupo_title_thanks);
-                subTitle = getString(R.string.cupo_subtitle_thanks);
-                message = getString(R.string.cupo_title_thanks_msg);
-                btnName = getString(R.string.nextButton);
-                NEXT_SCREEN = EVENT_GO_CM_DOCUMENTOS;
-                Preferencias pref =  App.getInstance().getPrefs();
-                pref.saveDataBool(CUPO_COMPLETE, true);
-                break;
         }
 
         /*Seteamos la información.*/
@@ -167,8 +156,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         EMISOR,
         ADQ_REVISION,
         ADQ_ACEPTADOS,
-        SALDO,
-        CUPO_REVISION
+        SALDO
     }
 }
 

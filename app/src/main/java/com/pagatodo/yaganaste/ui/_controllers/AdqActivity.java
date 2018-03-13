@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.Window;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.PurchaseEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -22,9 +20,6 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
-
-import java.math.BigDecimal;
-import java.util.Currency;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
@@ -45,7 +40,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_fragment_conainer);
+        setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_INSERT_DONGLE, null);
         //App.getInstance().initEMVListener();

@@ -99,15 +99,10 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
         } else if (fragments != null && fragments.get(0) instanceof DepositsDataFragment) {
             ((TabActivity) getActivity()).goHome();
             onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
-        } else if (fragments != null && fragments.get(0) instanceof DepositSucursalDetail) {
-            removeLastFragment();
-            ((TabActivity) getActivity()).showProgressLayout(getString(R.string.cargando));
-            loadFragment(DepositsMapFragment.newInstance(), Direction.BACK, false);
         }
     }
 
     public void loadDescriptionFragment(DataLocalizaSucursal sucursal) {
         removeLastFragment();
-        loadFragment(DepositSucursalDetail.newInstance(sucursal), Direction.FORDWARD, false);
     }
 }

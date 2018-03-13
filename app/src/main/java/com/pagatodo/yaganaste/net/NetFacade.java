@@ -2,14 +2,13 @@ package com.pagatodo.yaganaste.net;
 
 import com.android.volley.Request;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequestNoTag;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.HttpMethods;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.utils.JsonManager;
-import com.pagatodo.yaganaste.utils.UI;
 
 import org.json.JSONObject;
 

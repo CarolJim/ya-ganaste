@@ -67,10 +67,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui._controllers.CupoStatusActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".ui._controllers.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -105,19 +101,11 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
 
-        <activity
-            android:name=".ui._controllers.LandingActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui._controllers.DetailsActivity" />
         <activity android:name=".ui._controllers.OnlineTxActivity" />
         <activity android:name=".ui.otp.activities.OtpCodeActivity" />
         <activity android:name=".ui._controllers.ScannVisionActivity" />
         <activity android:name=".ui._controllers.SessionActivity" />
-        <activity
-            android:name=".ui._controllers.RegistryCupoActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -163,10 +151,6 @@
             android:name="io.fabric.ApiKey"
             android:value="6586b24eda23982e86678c62a9df721f3aed82b0" />
 
-        <activity
-            android:name=".ui._controllers.LandingApprovedActivity"
-            android:label="@string/title_activity_landing_approved"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />

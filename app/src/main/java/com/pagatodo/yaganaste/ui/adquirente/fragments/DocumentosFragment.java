@@ -630,7 +630,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
         int idStatus;
         int tipoDoc;
-        int idDrawableStatus;
+        int idDrawableStatus=0;
         Bitmap bitmap;
 
         for (EstatusDocumentosResponse estatusDocs : data) {
@@ -643,9 +643,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 documentApproved++;
                 idDrawableStatus = R.drawable.ic_document_done2;
             } else if (idStatus == STATUS_DOCTO_PENDIENTE) {
-                idDrawableStatus = R.drawable.ic_wait;
+                //idDrawableStatus = R.drawable.ic_wait;
             } else {
-                idDrawableStatus = R.drawable.ic_wait;
+                //idDrawableStatus = R.drawable.ic_wait;
             }
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inScaled = false;

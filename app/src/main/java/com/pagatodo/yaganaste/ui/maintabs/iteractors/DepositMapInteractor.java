@@ -9,7 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaS
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IDepositMapInteractor;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IDepositMapPresenter;
 
