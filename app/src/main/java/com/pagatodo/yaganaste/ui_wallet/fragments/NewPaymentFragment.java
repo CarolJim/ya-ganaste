@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
@@ -613,9 +614,12 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                             App.getContext().getResources().getString(R.string.btn_req_payment_2_txt)
                     )) {
                         // Iniciamos la actividad de Favoritos para recargas
-                        Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                      //  Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                        Intent intent = new Intent(getContext(), FavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
-                        intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                        intent.putExtra(FavoritesActivity.FAV_PROCESS, 2);
+                        intent.putExtra(FavoritesActivity.TYPE_FAV,
+                                FavoritesActivity.TYPE_NEW_FAV);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
@@ -637,9 +641,12 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         dialog.show();
                     } else if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Agregar")) {
                         // Iniciamos la actividad de Favoritos
-                        Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                      //  Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                        Intent intent = new Intent(getContext(), FavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
                         intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                        intent.putExtra(FavoritesActivity.TYPE_FAV,
+                                FavoritesActivity.TYPE_NEW_FAV);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {

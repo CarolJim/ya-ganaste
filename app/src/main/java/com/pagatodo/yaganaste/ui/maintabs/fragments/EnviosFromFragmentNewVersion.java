@@ -58,6 +58,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
@@ -750,9 +751,12 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     }
                 } else {
                     if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                        Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                     //   Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                        Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
                         intentAddFavorite.putExtra(FAV_PROCESS, 2);
                         intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                        intentAddFavorite.putExtra(FavoritesActivity.TYPE_FAV,
+                                FavoritesActivity.TYPE_NEW_FAV);
                         startActivity(intentAddFavorite);
                     } else {
                         // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
