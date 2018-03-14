@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces;
 
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 /**
  * Created by Jordan on 20/04/2017.

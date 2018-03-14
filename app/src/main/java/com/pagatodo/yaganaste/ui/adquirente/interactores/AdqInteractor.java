@@ -29,7 +29,7 @@ import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.net.ApiAdq;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;

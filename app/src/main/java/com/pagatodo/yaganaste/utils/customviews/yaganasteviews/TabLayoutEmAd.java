@@ -55,7 +55,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     public TabLayoutEmAd(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.contextcard=context;
+        this.contextcard = context;
         setView();
         init();
     }
@@ -81,18 +81,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardAdq = new CardAdq(getContext());
         DataIniciarSesion dataUser = SingletonUser.getInstance().getDataUser();
-        if (dataUser.isEsAgente() && dataUser.getEstatusDocumentacion() == CRM_DOCTO_APROBADO) {
-            if (dataUser.getIdEstatus() == IdEstatus.CUPO.getId()) {
-                cardAdqSel = new CardCupoSelected(getContext());
-            } else {
-                cardAdqSel = new CardAdqSelected(getContext());
-            }
-            //cardAdqSel = new CardAdqSelected(getContext());
-            //cardAdqSel = new CardAdqCredSelected(getContext());
-
-        }
         updateData();
-
 
 
         cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
@@ -100,7 +89,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
             @Override
             public boolean onLongClick(View view) {
-                    onBlockCard.onLongClickBlockCard();
+                onBlockCard.onLongClickBlockCard();
                 return false;
             }
         });
@@ -152,7 +141,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        animateTabs(positionOffset, mViewPager.getCurrentItem());
     }
 
     @Override
@@ -165,95 +153,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         //No-op
     }
 
-    private void animateTabs(float offset, int position) {
-
-        if (offset <= 0.0) {
-            offset = position;
-        }
-
-        LinearLayout.LayoutParams llEmisorBorederContainerParams = (LinearLayout.LayoutParams) llEmisorBorderContainer.getLayoutParams();
-        llEmisorBorederContainerParams.weight = 2.5f - offset;
-        llEmisorBorederContainerParams.rightMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
-        llEmisorBorderContainer.setLayoutParams(llEmisorBorederContainerParams);
-
-        if (offset <= 0.0) {
-            viewEmisorBorder.setBackgroundResource(R.drawable.tab_selected_em_ad);
-            viewEmisorBorder.setRotationY(0);
-            llMaterialEmisorContainer.removeAllViews();
-            llMaterialEmisorContainer.addView(cardEmisorSelected,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        } else if (offset >= 1.0) {
-            viewEmisorBorder.setBackgroundResource(R.drawable.tab_unselected_em_ad);
-            viewEmisorBorder.setRotationY(180);
-            llMaterialEmisorContainer.removeAllViews();
-            llMaterialEmisorContainer.addView(cardEmisor,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        }
-
-        LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams) llAdquirenteBorderContainer.getLayoutParams();
-        llAdquirenteBorderContainerParams.weight = 1.5f + offset;
-        llAdquirenteBorderContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
-        llAdquirenteBorderContainer.setLayoutParams(llAdquirenteBorderContainerParams);
-
-        if (offset <= 0) {
-            viewAdquirenteBorder.setBackgroundResource(R.drawable.tab_unselected_em_ad);
-            viewAdquirenteBorder.setRotationY(0);
-            llMaterialAdquirenteContainer.removeAllViews();
-            llMaterialAdquirenteContainer.addView(cardAdq,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        } else if (offset >= 1) {
-            viewAdquirenteBorder.setBackgroundResource(R.drawable.tab_selected_em_ad);
-            viewAdquirenteBorder.setRotationY(180);
-            llMaterialAdquirenteContainer.removeAllViews();
-            llMaterialAdquirenteContainer.addView(cardAdqSel,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        }
-
-        LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams) llContentParentEmisor.getLayoutParams();
-        llContentParentEmisorParams.weight = 2.5f - offset;
-        llContentParentEmisorParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
-        llContentParentEmisor.setLayoutParams(llContentParentEmisorParams);
-
-        LinearLayout.LayoutParams llMaterialEmisorContainerParams = (LinearLayout.LayoutParams) llMaterialEmisorContainer.getLayoutParams();
-        llMaterialEmisorContainerParams.weight = 1.25f + 0.75f * (1 - offset);
-        llMaterialEmisorContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
-        llMaterialEmisorContainer.setLayoutParams(llMaterialEmisorContainerParams);
-
-        LinearLayout.LayoutParams llContentParentAdquirenteParams = (LinearLayout.LayoutParams) llContentParentAdquirente.getLayoutParams();
-        llContentParentAdquirenteParams.weight = 1.5f + offset;
-        llContentParentAdquirenteParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
-        llContentParentAdquirente.setLayoutParams(llContentParentAdquirenteParams);
-
-        LinearLayout.LayoutParams llMaterialAdquirenteContainerParams = (LinearLayout.LayoutParams) llMaterialAdquirenteContainer.getLayoutParams();
-        llMaterialAdquirenteContainerParams.weight = 1.25f + 0.75f * offset;
-        llMaterialAdquirenteContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
-        llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
-        ///checamos el id de usuario del singleton
-        int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-        if(idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
-            llMaterialAdquirenteContainer.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-
-                    // AQUI
-                    clickdongle.longclickdongle();
-                    //Toast.makeText(getContext(), "fewfwefwef", Toast.LENGTH_SHORT).show();
-
-                    return false;
-                }
-            });
-        }
-
-
-
-    }
 
     public void setInviteAdquirenteCallback(InviteAdquirenteCallback inviteAdquirenteCallback) {
         this.inviteAdquirenteCallback = inviteAdquirenteCallback;
     }
-
 
 
     /*Delegated Method*/
@@ -266,7 +169,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         }
     }
 
-    public void updatestatusCard(){
+    public void updatestatusCard() {
         cardEmisorSelected.updateData();
     }
 
@@ -274,15 +177,18 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         void onInviteAdquirente();
     }
 
-    /** Interfaz para bloquear abrir bloquear tarjeta desde el HomeTabFragment
-     * */
-    public  interface onBlockCard {
+    /**
+     * Interfaz para bloquear abrir bloquear tarjeta desde el HomeTabFragment
+     */
+    public interface onBlockCard {
         void onLongClickBlockCard();
     }
-    public  interface clikbloquear{
+
+    public interface clikbloquear {
         void longclick();
     }
-    public  interface clikdongle{
+
+    public interface clikdongle {
         void longclickdongle();
     }
 

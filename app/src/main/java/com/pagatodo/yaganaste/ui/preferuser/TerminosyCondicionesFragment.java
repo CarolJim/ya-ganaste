@@ -3,30 +3,20 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD_CUENTA_YA;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_CUENTA_YA;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_LINEA_CREDITO;
 
 /**
  * A simple {@link Fragment} subclass.

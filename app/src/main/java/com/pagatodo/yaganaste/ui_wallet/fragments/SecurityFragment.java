@@ -12,23 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui_wallet.Builder.Container;
-import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomRadioButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

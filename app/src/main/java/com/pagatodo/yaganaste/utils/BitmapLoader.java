@@ -15,18 +15,18 @@ import java.io.ByteArrayOutputStream;
 public class BitmapLoader extends AsyncTask {
 
     private static final String TAG = BitmapLoader.class.getSimpleName();
-    private BitmapBase64Listener listener;
+    private IBitmapBase64Listener listener;
     private Context context;
     private String imgBase64;
     private String filePath;
     private Bitmap bitmap;
 
-    public BitmapLoader(Bitmap bitmap, BitmapBase64Listener listener) {
+    public BitmapLoader(Bitmap bitmap, IBitmapBase64Listener listener) {
         this.listener = listener;
         this.bitmap = bitmap;
     }
 
-    public BitmapLoader(Context context, String filePath, BitmapBase64Listener listener) {
+    public BitmapLoader(Context context, String filePath, IBitmapBase64Listener listener) {
         this.context = context;
         this.filePath = filePath;
         this.listener = listener;

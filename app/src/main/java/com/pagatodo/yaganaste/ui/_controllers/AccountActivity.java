@@ -14,7 +14,6 @@ import android.widget.FrameLayout;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -45,7 +44,6 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -136,7 +134,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_fragment_conainer);
+        setContentView(R.layout.activity_fragment_container);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
         resetRegisterData();

@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ShareActionProvider;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -88,7 +87,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     public void showToolbarShadow() {
         ///android:background="@color/colorAccent"
-        toolbar.setBackgroundResource(R.drawable.bacgraund_tooblar);
+        toolbar.setBackgroundResource(R.drawable.background_toolbar);
 
     }
 
@@ -143,7 +142,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         switch (idoperation) {
             case 1:
                 loadFragment(HomeTabFragment.newInstance(currentPage), R.id.fragment_container);
-                //loadFragment(MovementsEmisorFragment.newInstance(), R.id.fragment_container);
+                //loadFragment(MovementsEmisorFragmentMovementsEmisorView.newInstance(), R.id.fragment_container);
                 break;
             case 2:
                 loadFragment(DepositsDataFragment.newInstance(), R.id.fragment_container);

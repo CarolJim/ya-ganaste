@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.interactors;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentIteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentPresenter;
 

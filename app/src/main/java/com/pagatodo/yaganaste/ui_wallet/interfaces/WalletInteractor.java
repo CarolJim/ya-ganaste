@@ -2,8 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
-import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 /**
  * Created by icruz on 12/12/2017.

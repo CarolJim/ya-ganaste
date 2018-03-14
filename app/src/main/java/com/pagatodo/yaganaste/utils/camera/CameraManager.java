@@ -28,7 +28,7 @@ import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
+import com.pagatodo.yaganaste.utils.IBitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
@@ -304,7 +304,7 @@ public class CameraManager {
 
     public void setCropImage(Uri uriimage) {
         this.uriImage = uriimage;
-        bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
+        bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new IBitmapBase64Listener() {
             @Override
             public void onBegin() {
                 mView.showProgress(getContext().getString(R.string.load_set_image));
@@ -321,7 +321,7 @@ public class CameraManager {
 
     public void setCropImageselfie(Uri uriimage) {
         this.uriImage = uriimage;
-        bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
+        bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new IBitmapBase64Listener() {
             @Override
             public void onBegin() {
                 mView.showProgress(getContext().getString(R.string.load_set_image));
@@ -408,7 +408,7 @@ public class CameraManager {
             mContext.sendBroadcast(mediaScanIntent);
 
             // String path = SingletonUser.getInstance().getPathPictureTemp();
-            bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
+            bitmapLoader = new BitmapLoader(mContext, path, new IBitmapBase64Listener() {
                 @Override
                 public void onBegin() {
                     mView.showProgress(getContext().getString(R.string.load_set_image));

@@ -84,6 +84,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 

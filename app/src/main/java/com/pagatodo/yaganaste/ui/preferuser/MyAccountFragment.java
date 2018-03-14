@@ -12,14 +12,12 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CUENTA_REEMBOLSO;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,11 +80,6 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.fragment_my_account_reembolso:
                 onEventListener.onEvent(PREFER_USER_CUENTA_REEMBOLSO, 1);
-                break;
-
-            case R.id.fragment_my_account_linea_credito:
-                Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
-                startActivity(intent);
                 break;
         }
     }

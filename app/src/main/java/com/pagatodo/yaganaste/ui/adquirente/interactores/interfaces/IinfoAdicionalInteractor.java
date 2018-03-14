@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.ui.adquirente.interactores.interfaces;
 
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 import java.util.ArrayList;
 

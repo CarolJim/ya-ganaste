@@ -1,15 +1,11 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -28,12 +23,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuent
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
@@ -44,25 +35,23 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
-import com.pagatodo.yaganaste.ui_wallet.views.WalletView;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  *
  */
-public class WalletTabFragment extends SupportFragment implements WalletView,
+public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
 
     public static final String ID_OPERATION = "ID_OPERATION";
@@ -82,7 +71,6 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
     ImageView imgReload;
     @BindView(R.id.txt_anuncio)
     StyleTextView anuncio;
-
 
     private WalletPresenter walletPresenter;
     private TarjetaUserPresenter mPreferPresenter;
@@ -256,7 +244,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
                 llm.setSpanCount(3);
                 rcvOpciones.setLayoutManager(llm);
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(),0);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
                 txtSaldo.setVisibility(View.VISIBLE);
                 txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
                 anuncio.setVisibility(View.GONE);
@@ -281,6 +269,7 @@ public class WalletTabFragment extends SupportFragment implements WalletView,
 
     @Override
     public void getSaldo() {
+        cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         //cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);

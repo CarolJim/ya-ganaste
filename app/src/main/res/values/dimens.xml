@@ -63,7 +63,7 @@
     <dimen name="width_btns_small">108dp</dimen>
     <dimen name="btns_separation">11dp</dimen>
 
-    <!-- Request Payment Container -->
+    <!-- Request PaymContainerViewsiner -->
     <dimen name="height_container">200dp</dimen>
 
     <!-- Edittexts -->

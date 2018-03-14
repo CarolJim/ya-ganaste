@@ -13,22 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
-import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -46,7 +40,6 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
-import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 /**
  * A simple {@link Fragment} subclass.

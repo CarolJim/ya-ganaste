@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.interfaces.IServiceConsumer;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 
 import org.json.JSONException;

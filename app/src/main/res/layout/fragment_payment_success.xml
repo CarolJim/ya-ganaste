@@ -552,7 +552,6 @@
                             android:layout_weight="30"
                             android:adjustViewBounds="true"
                             android:scaleType="fitCenter"
-                            android:src="@mipmap/circulo_favorito"
                             android:visibility="visible"
                             tools:ignore="ContentDescription" />
 

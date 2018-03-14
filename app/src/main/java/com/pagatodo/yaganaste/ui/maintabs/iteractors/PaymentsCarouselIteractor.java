@@ -10,14 +10,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.util.List;
-
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_BANCOSBIN;
 
 /**
  * Created by Jordan on 11/04/2017.

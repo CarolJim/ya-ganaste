@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleR
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 import java.util.Map;
 

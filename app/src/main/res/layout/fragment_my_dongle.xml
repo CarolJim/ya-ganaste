@@ -8,7 +8,7 @@
         android:id="@+id/toolbar_alternative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height_medium"
-        android:background="@drawable/bacgraund_tooblar" />
+        android:background="@drawable/background_toolbar" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/title_fragment"

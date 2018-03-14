@@ -64,7 +64,7 @@ public class BussinesActivity extends LoaderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_fragment_conainer);
+        setContentView(R.layout.activity_fragment_container);
         //presenterAccount = new AccountPresenterNew(this);
 
         setUpActionBar();

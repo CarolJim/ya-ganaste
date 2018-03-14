@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui_wallet.Builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MenuAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;

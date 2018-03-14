@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovi
 public interface WalletNotification {
     void onFailed(int errorCode, int action, String error);
     void onSuccess(boolean error);
+    void onSuccessEmisor(String responds);
     void onSuccessADQ(String responds);
     void onSuccesMovements(ConsultarMovimientosMesResponse response);
 }

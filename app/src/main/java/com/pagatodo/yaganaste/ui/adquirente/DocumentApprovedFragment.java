@@ -16,7 +16,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.UtilsNet;
-import com.pagatodo.yaganaste.ui._controllers.LandingApprovedActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
@@ -146,8 +146,8 @@ public class DocumentApprovedFragment extends GenericFragment implements
         // isAdquirente = "";
 
         if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
-            // getActivity().finish();
-            Intent intent = new Intent(getContext(), LandingApprovedActivity.class);
+            Intent intent = new Intent(getActivity(), TabActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

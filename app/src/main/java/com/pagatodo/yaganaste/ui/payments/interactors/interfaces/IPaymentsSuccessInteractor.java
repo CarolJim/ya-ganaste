@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui.payments.interactors.interfaces;
 
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 /**
  * Created by jmhernandez on 22/05/2017.

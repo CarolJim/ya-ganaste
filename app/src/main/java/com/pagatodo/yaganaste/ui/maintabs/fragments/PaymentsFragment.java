@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,33 +13,17 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
-import com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper;
-import com.pagatodo.yaganaste.utils.IB;
-import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
-import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.LEFT;
-import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.LEFT_AD;
-import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.RIGHT;
-import static com.pagatodo.yaganaste.ui_wallet.Behavior.RecyclerItemTouchHelper.RIGHT_AD;
+import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT_AD;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 
 /**

@@ -4,7 +4,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ListaNotificationRequest;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IUserNotificationInteractor;
 import com.pagatodo.yaganaste.ui_wallet.presenter.UserNotificationPresenter;
 

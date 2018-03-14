@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListen
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -63,11 +64,16 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
             holder.txtInicialesFav.setVisibility(View.GONE);
         } else {
             holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
-            if (item.getNombre().contains(" ")) {
-                String[] names = item.getNombre().split(" ");
-                holder.txtNameFav.setText(names[0]);
-            } else {
-                holder.txtNameFav.setText(item.getNombre());
+            try {
+                if (item.getNombre().contains(" ")) {
+                    String[] names = item.getNombre().split(" ");
+                    holder.txtNameFav.setText(names[0]);
+                } else {
+                    holder.txtNameFav.setText(item.getNombre());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                holder.txtInicialesFav.setText(item.getNombre());
             }
             if (item.getImagenURL().equals("")) {
                 GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(item.getColorMarca()),

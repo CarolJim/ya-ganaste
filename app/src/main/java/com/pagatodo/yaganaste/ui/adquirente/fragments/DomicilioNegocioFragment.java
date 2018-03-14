@@ -109,11 +109,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     StyleTextView estadotesto;
 
 
-
-
-
-
-
     @BindView(R.id.spBussinesColonia)
     Spinner spBussinesColonia;
     @BindView(R.id.radioIsBussinesAddress)
@@ -189,7 +184,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_domicilio_negocio_cupo, container, false);
+        rootview = inflater.inflate(R.layout.fragment_domicilio_negocio, container, false);
         initViews();
         return rootview;
     }
@@ -239,7 +234,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 break;
 
 
-
             default:
                 break;
         }
@@ -247,25 +241,25 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     @Override
     public void setValidationRules() {
-      //  editBussinesZipCode.addCustomTextWatcher(textWatcherZipCode);
+        //  editBussinesZipCode.addCustomTextWatcher(textWatcherZipCode);
 
         editBussinesStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     //hideValidationError(editBussinesStreet.getId());
-                   // editBussinesStreet.imageViewIsGone(true);
+                    // editBussinesStreet.imageViewIsGone(true);
                     text_calle.setBackgroundResource(R.drawable.inputtext_active);
 
                 } else {
                     if (editBussinesStreet.getText().toString().isEmpty()) {
-                     //   showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
-                     //   editBussinesStreet.setIsInvalid();
+                        //   showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
+                        //   editBussinesStreet.setIsInvalid();
 
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_calle.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
                     } else {
                         hideValidationError(editBussinesStreet.getId());
                         text_calle.setBackgroundResource(R.drawable.inputtext_normal);
@@ -290,16 +284,16 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     hideValidationError(editBussinesExtNumber.getId());
-                 //   editBussinesExtNumber.imageViewIsGone(true);
+                    //   editBussinesExtNumber.imageViewIsGone(true);
                     text_num_exterior.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editBussinesExtNumber.getText().toString().isEmpty()) {
-                       // showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
+                        // showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
                         //editBussinesExtNumber.setIsInvalid();
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
                     } else {
                         text_num_exterior.setBackgroundResource(R.drawable.inputtext_normal);
                         //hideValidationError(editBussinesExtNumber.getId());
@@ -323,20 +317,20 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                   // hideValidationError(editBussinesZipCode.getId());
-                   // editBussinesZipCode.imageViewIsGone(true);
+                    // hideValidationError(editBussinesZipCode.getId());
+                    // editBussinesZipCode.imageViewIsGone(true);
                     text_cp.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editBussinesZipCode.getText().toString().isEmpty()) {
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_cp.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
                         // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
-                     //   editBussinesZipCode.setIsInvalid();
+                        //   editBussinesZipCode.setIsInvalid();
                     } else {
                         //hideValidationError(editBussinesZipCode.getId());
-                       // editBussinesZipCode.imageViewIsGone(true);
+                        // editBussinesZipCode.imageViewIsGone(true);
                         text_cp.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 }
@@ -348,22 +342,22 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                   // hideValidationError(editBussinesZipCode.getId());
-                  //  editBussinesZipCode.imageViewIsGone(true);
+                    // hideValidationError(editBussinesZipCode.getId());
+                    //  editBussinesZipCode.imageViewIsGone(true);
                     text_cp.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editBussinesZipCode.getText().toString().isEmpty()) {
                         //editBussinesZipCode.setIsInvalid();
-                     //   showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+                        //   showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
 
 
                     } else if (!ValidateForm.isValidZipCode(editBussinesZipCode.getText().toString())) {
                         //editBussinesZipCode.setIsInvalid();
-                       // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_cp.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
                         if (listaColonias != null) {
                             listaColonias.clear();
                             estadoDomicilio = "";
@@ -371,7 +365,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                         }
                     } else if (ValidateForm.isValidZipCode(editBussinesZipCode.getText().toString()) && editBussinesZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
                         hideValidationError(editBussinesZipCode.getId());
-                       // editBussinesZipCode.setIsValid();
+                        // editBussinesZipCode.setIsValid();
                         showLoader(getString(R.string.search_zipcode));
                         spcolonia.setVisibility(View.VISIBLE);
                         spcolonia.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -404,22 +398,22 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         boolean isValid = true;
 
         if (calle.isEmpty()) {
-          //  showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
-         //   editBussinesStreet.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            //  showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
+            //   editBussinesStreet.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             text_calle.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
         if (numExt.isEmpty()) {
-          //  showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
-          //  editBussinesExtNumber.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            //  showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
+            //  editBussinesExtNumber.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
@@ -430,17 +424,17 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         }
 
         if (codigoPostal.isEmpty()) {
-           // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
-           // editBussinesZipCode.setIsInvalid();
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            // showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+            // editBussinesZipCode.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             text_cp.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
 
         if (spBussinesColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
-          //  showValidationError(spBussinesColonia.getId(), getString(R.string.datos_domicilio_colonia));
+            //  showValidationError(spBussinesColonia.getId(), getString(R.string.datos_domicilio_colonia));
             txtcoloria.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
@@ -547,7 +541,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         registerAgent.setIdEstado(idEstado);
         registerAgent.setColonia(colonia);
         registerAgent.setIdColonia(Idcolonia);
-      //  editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
+        //  editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
         respuestaDomicilio = radioIsBussinesAddress.getCheckedRadioButtonId() == R.id.radioBtnIsBussinesAddressYes;
 
         if (registerAgent.getCuestionario().size() > 0) {

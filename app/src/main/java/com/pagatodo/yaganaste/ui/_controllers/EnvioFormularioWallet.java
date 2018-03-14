@@ -31,7 +31,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_fragment_conainer);
+        setContentView(R.layout.activity_fragment_container);
         payment = (Envios) getIntent().getExtras().get("pagoItem");
         dataFavoritos = (DataFavoritos) getIntent().getExtras().get("favoritoItem");
         showToolbarOk(true);
