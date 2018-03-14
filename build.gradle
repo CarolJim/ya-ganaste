@@ -28,6 +28,32 @@ allprojects {
     }
 }
 
+ext {
+    supportLibVersion = "26.+"
+    espressoCoreVersion = "2.2.2"
+    multidexVersion = "1.0.3"
+    playServicesVersion = "11.0.4"
+    firebaseVersion = "11.8.0"
+    constraintLayoutVersion = "1.0.2"
+    onboardingVersion = "3.2.0"
+    swipyVersion = "1.2.3"
+    circleImageviewVerson = "2.1.0"
+    stethoVersion = "1.5.0"
+    cropImageVersion = "1.0.3"
+    picassoVersion = "2.5.2"
+    zxingVersion = "3.3.1"
+    cardIoVersion = "5.5.1"
+    flipViewVersion = "1.1.3"
+    lottieVersion = "2.5.0"
+    dotsLoaderVersion = "0.8"
+    gsonVersion = "2.8.0"
+    volleyVersion = "1.0.0"
+    pinningVersion = "1.0.0"
+    butterknifeVersion = "8.8.1"
+    archLifecycleVersion = "1.0.0"
+    archRoomVersion = "1.0.0"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
