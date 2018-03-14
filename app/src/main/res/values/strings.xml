@@ -342,7 +342,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
-    <string name="exito_nip">"Tu NIP ha Sido Cambiada Correctamente"</string>
+    <string name="exito_nip">"Tu NIP ha sido cambiada correctamente"</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -406,6 +406,10 @@
     <string name="longitud_nip">NIP de 4 dígitos</string>
     <string name="new_nip_diferent">El nuevo NIP debe ser diferente del anterior</string>
     <string name="new_nip_four_digits">Son necesarios 4 números</string>
+    <string name="cambiar_nip_actual">Introduce el NIP Actual</string>
+    <string name="cambiar_nip_nueva">Introduce el nuevo NIP</string>
+
+
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -1204,9 +1208,9 @@
 
 
     <!--Cambio de contraeña  -->
-    <string name="asignar_nueva_contraseña">Nueva Contraseña</string>
-    <string name="confirma_nueva_contrasena">Confirma tu contraseña</string>
-    <string name="confirma_nueva_contraseña">Confirmar nueva contraseña</string>
+    <string name="asignar_nueva_contraseña">Contraseña actual</string>
+    <string name="confirma_nueva_contrasena">Nueva contraseña</string>
+    <string name="confirma_nueva_contraseña">Confirma nueva contraseña</string>
     <string name="confirmar_contrase">La contraseña no coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el formato para que\naccedas más rápido</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Dígitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
@@ -1365,6 +1369,7 @@
     <string name="nip_actual">NIP actual</string>
     <string name="nip_nuevo">Nuevo NIP</string>
     <string name="nip_confima">Confirma nuevo NIP</string>
+    <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
 

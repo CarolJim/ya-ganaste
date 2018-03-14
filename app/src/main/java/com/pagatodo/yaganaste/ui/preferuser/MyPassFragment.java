@@ -163,9 +163,11 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                     if (editActual.editText.getText().toString().isEmpty()) {
                         showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
                         editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 } else {
-                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
         });
@@ -177,6 +179,8 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                     if (editNueva.editText.getText().toString().isEmpty()) {
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
                         editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                     }
                 } else {
                     editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
@@ -191,6 +195,12 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                     if (editConfir.editText.getText().toString().isEmpty()) {
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
                         editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        if(editConfir.editText.getText().toString().equalsIgnoreCase(editNueva.editText.getText().toString())) {
+                            editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
+                        } else {
+                            editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                        }
                     }
                 } else {
                     editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
@@ -352,6 +362,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
     @Override
     public void sendErrorPassToView(String mensaje) {
         if (mensaje.contains("Contraseña")) {
+            editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
             showSnakBar(getString(R.string.error_service_verify_pass));
         } else {
             showSnakBar(mensaje);
@@ -360,31 +371,6 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
         onEventListener.onEvent("DISABLE_BACK", false);
     }
 
-    /**
-     * Mostramos un mensaje simple con el String que necesitemos, sin acciones, solo aceptar
-     *
-     * @param
-     */
-    /*private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
-                            onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                        } else if (mensaje.equals(Recursos.MESSAGE_CHANGE_PASS)) {
-                            cleanViewSucess();
-                            onEventListener.onEvent(PREFER_USER_LISTA, 1);
-                        }
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
-    }*/
     @Override
     public void nextScreen(String event, Object data) {
 

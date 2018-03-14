@@ -144,7 +144,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
                     int position = viewHolder.getAdapterPosition();
                     RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
                     final DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
-
+                    adapter.updateChange();
                     if (!movResponse.isClosedLoop() && (Integer.parseInt(movResponse.getIdTipoRembolso()) == 5 || Integer.parseInt(movResponse.getIdTipoRembolso()) == 4)
                             && movResponse.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)){
                         if (direction == ItemTouchHelper.LEFT) {

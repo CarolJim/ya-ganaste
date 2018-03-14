@@ -43,8 +43,10 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
+import com.pagatodo.yaganaste.utils.IB;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -94,12 +96,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     boolean isValid;
     public final static String EVENT_GO_CHANGE_NIP_SUCCESS = "EVENT_GO_CHANGE_NIP_SUCCESS";
 
-    public MyChangeNip() {
-    }
-
     public static MyChangeNip newInstance() {
-        MyChangeNip fragment = new MyChangeNip();
-        return fragment;
+        return new MyChangeNip();
     }
 
     @Override
@@ -114,13 +112,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         accountPresenter.setIView(this);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -147,22 +140,35 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         nipNueva.editText.setFilters(fArray);
         nipConfir = s.addLayoutPass(mLinearLayout, new InputText(R.string.nip_confima));
         nipConfir.editText.setFilters(fArray);
+        call_phone.setOnClickListener(this);
+        setValidationRules();
 
-        call_phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createCallIntent();
-            }
-        });
+    }
 
+    private void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+    }
+
+    private void showSnakErrorBar(String mensje) {
+        hideKeyBoard();
+        UI.showErrorSnackBar(getActivity(), mensje, Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public void setValidationRules() {
         nipActual.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    //validateEt1();
                     if (nipActual.editText.getText().toString().isEmpty()) {
-                        //showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                        showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
+                        nipActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        nipActual.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                     }
+                } else {
+                    nipActual.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
         });
@@ -172,9 +178,15 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipNueva.editText.getText().toString().isEmpty()) {
-                        //showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                        showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
+                        nipNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        nipNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                     }
+                } else {
+                    nipNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
+
             }
         });
 
@@ -183,25 +195,20 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipConfir.editText.getText().toString().isEmpty()) {
-                        //showSnakBar(getResources().getString(R.string.introduce_nip_valido));
+                        showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
+                        nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        if(nipConfir.editText.getText().toString().equalsIgnoreCase(nipNueva.editText.getText().toString())) {
+                            nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
+                        } else {
+                            nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                        }
                     }
+                } else {
+                    nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
             }
         });
-    }
-
-    private void hideKeyBoard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-    }
-
-    private void showSnakBar(String mensje) {
-        hideKeyBoard();
-        UI.showErrorSnackBar(getActivity(), mensje, Snackbar.LENGTH_LONG);
-    }
-
-    @Override
-    public void setValidationRules() {
 
     }
 
@@ -209,12 +216,40 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     public void validateForm() {
         getDataForm();
 
-        if (nip.length() < PIN_LENGHT) {
-            showValidationError(getString(R.string.asignar_pin));
-            return;
+        isValid = true;
+        //Validacion de Vacios y minimo de caracteres
+        if (nip.isEmpty()) {
+            isValid = false;
+            showSnakErrorBar(getString(R.string.cambiar_nip_actual));
+        }
+        if (nip.length() < 4){
+            isValid = false;
+            showSnakErrorBar(getString(R.string.new_nip_four_digits));
+        }
+        if (nipNew.isEmpty()) {
+            isValid = false;
+            showSnakErrorBar(getString(R.string.cambiar_nip_nueva));
+        }
+        if (nipNew.length() < 4){
+            isValid = false;
+            showSnakErrorBar(getString(R.string.new_nip_four_digits));
+        }
+        if (nipNewConfirm.isEmpty()) {
+            isValid = false;
+            showSnakErrorBar(getString(R.string.cambiar_nip_nueva));
+        }
+        if (nipNewConfirm.length() < 4){
+            isValid = false;
+            showSnakErrorBar(getString(R.string.new_nip_four_digits));
+        }
+        if (!nipNewConfirm.equalsIgnoreCase(nipNew)) {
+            isValid = false;
+            showSnakErrorBar(getString(R.string.confirmar_pin));
         }
 
-        onValidationSuccess();
+        if (isValid) {
+            onValidationSuccess();
+        }
     }
 
     public boolean isCustomKeyboardVisible() {
@@ -239,7 +274,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onValidationSuccess() {
         showLoader(getContext().getResources().getString(R.string.msg_renapo));
-        accountPresenter.assignNIP(nipNewConfirm);
+        accountPresenter.changeNIP(nipNew,nipNewConfirm);
     }
 
     @Override
@@ -251,29 +286,28 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void onClick(View v) {
-        getDataForm();
-        isValid = true;
-        if (nip.isEmpty())
-            isValid = false;
-        if (nipNew.isEmpty())
-            isValid = false;
-        if (nipNewConfirm.isEmpty())
-            isValid = false;
-        if (!nipNewConfirm.equalsIgnoreCase(nipNew)) {
-            isValid = false;
+        switch (v.getId()){
+            case R.id.fragment_myemail_btn:
+                boolean isOnline = Utils.isDeviceOnline();
+                if (isOnline) {
+                    validateForm();
+                } else {
+                    showSnakErrorBar(getResources().getString(R.string.no_internet_access));
+                }
+
+                break;
+            case R.id.call_phone:
+                //IB.createCallIntent(getActivity());
+                showDialogCallIntent();
+                break;
         }
 
-        //Toast.makeText(getContext(), "" + isValid, Toast.LENGTH_SHORT).show();
-        if (isValid) {
-            onValidationSuccess();
-        }
     }
 
 
     @Override
     public void nextScreen(String event, Object data) {
-
-
+        //UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.success_nip),Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -345,7 +379,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
-            createCallIntent();
+            IB.createCallIntent(getActivity());
         }
 
         @Override
@@ -353,20 +387,5 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
         }
     };
-
-    private void createCallIntent() {
-        String number = getString(R.string.numero_telefono_contactanos);
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        callIntent.setData(Uri.parse("tel:" + number));
-
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
-        } else {
-            getActivity().startActivity(callIntent);
-        }
-    }
-
 
 }

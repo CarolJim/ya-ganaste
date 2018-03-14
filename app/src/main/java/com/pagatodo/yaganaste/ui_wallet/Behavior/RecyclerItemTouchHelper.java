@@ -41,12 +41,12 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
             final View leftViewAd = ((RecyclerMovementsAdapter.RecyclerViewHolderMovements) viewHolder).viewBackgroundLeftAd;
             if (direction == LEFT) {
                 leftView.setVisibility(View.VISIBLE);
-                //rightView.setVisibility(View.GONE);
+                rightView.setVisibility(View.GONE);
             }
 
             if (direction == RIGHT) {
                 rightView.setVisibility(View.VISIBLE);
-                //leftView.setVisibility(View.GONE);
+                leftView.setVisibility(View.GONE);
             }
 
             if (direction == LEFT_AD){
