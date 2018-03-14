@@ -94,6 +94,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
     @Override
+    public void onSuccessEmisor(String responds) {
+        SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(responds);
+        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, responds);
+        walletView.getSaldo();
+    }
+
+    @Override
     public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
         if (movementsEmisorView != null){
 

@@ -24,7 +24,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragmentIWalletView;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class ViewPagerDataFactory {
        int Idestatus;
         //fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
-        fragmentList.add(WalletTabFragmentIWalletView.newInstance());
+        fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(NewPaymentFragment.newInstance());
 
 /*

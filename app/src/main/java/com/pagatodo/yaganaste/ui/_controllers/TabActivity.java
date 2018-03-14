@@ -59,7 +59,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragmentIWalletView;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
@@ -543,7 +543,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 goHome();
             } else if (actualFragment instanceof HomeTabFragment) {
                 showDialogOut();
-            } else if (actualFragment instanceof WalletTabFragmentIWalletView) {
+            } else if (actualFragment instanceof WalletTabFragment) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
                 goHome();

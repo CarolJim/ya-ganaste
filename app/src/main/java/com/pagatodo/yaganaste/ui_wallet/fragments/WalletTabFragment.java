@@ -46,11 +46,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  *
  */
-public class WalletTabFragmentIWalletView extends SupportFragment implements IWalletView,
+public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
 
     public static final String ID_OPERATION = "ID_OPERATION";
@@ -71,7 +72,6 @@ public class WalletTabFragmentIWalletView extends SupportFragment implements IWa
     @BindView(R.id.txt_anuncio)
     StyleTextView anuncio;
 
-
     private WalletPresenter walletPresenter;
     private TarjetaUserPresenter mPreferPresenter;
     private CardWalletAdpater cardWalletAdpater;
@@ -86,8 +86,8 @@ public class WalletTabFragmentIWalletView extends SupportFragment implements IWa
     private GridLayoutManager llm;
     private LinearLayoutManager linearLayoutManager;
 
-    public static WalletTabFragmentIWalletView newInstance() {
-        return new WalletTabFragmentIWalletView();
+    public static WalletTabFragment newInstance() {
+        return new WalletTabFragment();
     }
 
     @Override
@@ -244,7 +244,7 @@ public class WalletTabFragmentIWalletView extends SupportFragment implements IWa
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
                 llm.setSpanCount(3);
                 rcvOpciones.setLayoutManager(llm);
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(),0);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
                 txtSaldo.setVisibility(View.VISIBLE);
                 txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
                 anuncio.setVisibility(View.GONE);
@@ -269,6 +269,7 @@ public class WalletTabFragmentIWalletView extends SupportFragment implements IWa
 
     @Override
     public void getSaldo() {
+        cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         //cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);

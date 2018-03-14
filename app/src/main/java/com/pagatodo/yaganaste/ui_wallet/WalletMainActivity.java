@@ -42,7 +42,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragmentIWalletView.ID_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
@@ -87,7 +87,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     public void showToolbarShadow() {
         ///android:background="@color/colorAccent"
-        toolbar.setBackgroundResource(R.drawable.bacgraund_tooblar);
+        toolbar.setBackgroundResource(R.drawable.background_toolbar);
 
     }
 
@@ -222,7 +222,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 goHome();
             } else if (actualFragment instanceof HomeTabFragment) {
                 showDialogOut();
-            } else if (actualFragment instanceof WalletTabFragmentIWalletView) {
+            } else if (actualFragment instanceof WalletTabFragment) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
                 goHome();
