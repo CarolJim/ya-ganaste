@@ -29,10 +29,10 @@ public class TabFragment extends GenericFragment implements TabsView {
     private HomeFragmentPresenter homeFragmentPresenter;
 
     public static TabFragment newInstance() {
-        TabFragment homeTabFragment = new TabFragment();
+        TabFragment tabFragment = new TabFragment();
         Bundle args = new Bundle();
-        homeTabFragment.setArguments(args);
-        return homeTabFragment;
+        tabFragment.setArguments(args);
+        return tabFragment;
     }
 
     @Override

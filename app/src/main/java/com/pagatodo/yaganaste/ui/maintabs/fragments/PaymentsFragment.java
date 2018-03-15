@@ -41,10 +41,10 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
 
     public static PaymentsFragment newInstance() {
-        PaymentsFragment homeTabFragment = new PaymentsFragment();
+        PaymentsFragment paymentsFragment = new PaymentsFragment();
         Bundle args = new Bundle();
-        homeTabFragment.setArguments(args);
-        return homeTabFragment;
+        paymentsFragment.setArguments(args);
+        return paymentsFragment;
     }
 
     @Override

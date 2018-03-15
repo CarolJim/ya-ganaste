@@ -36,10 +36,10 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
 
 
     public static OtpGeneratorFragment newInstance() {
-        OtpGeneratorFragment homeTabFragment = new OtpGeneratorFragment();
+        OtpGeneratorFragment otpGeneratorFragment = new OtpGeneratorFragment();
         Bundle args = new Bundle();
-        homeTabFragment.setArguments(args);
-        return homeTabFragment;
+        otpGeneratorFragment.setArguments(args);
+        return otpGeneratorFragment;
     }
 
     @Override

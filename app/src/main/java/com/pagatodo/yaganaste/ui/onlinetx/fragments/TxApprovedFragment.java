@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.onlinetx.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.view.ContextThemeWrapper;
@@ -42,12 +43,12 @@ public class TxApprovedFragment extends GenericFragment implements View.OnClickL
 
 
     public static TxApprovedFragment newInstance(boolean isApproved, String message) {
-        TxApprovedFragment homeTabFragment = new TxApprovedFragment();
+        TxApprovedFragment txApprovedFragment = new TxApprovedFragment();
         Bundle args = new Bundle();
         args.putBoolean(IS_APPROVED, isApproved);
         args.putString(PARAM_MESSAGE, message);
-        homeTabFragment.setArguments(args);
-        return homeTabFragment;
+        txApprovedFragment.setArguments(args);
+        return txApprovedFragment;
     }
 
     @Override
@@ -93,6 +94,7 @@ public class TxApprovedFragment extends GenericFragment implements View.OnClickL
     }
 
 
+    @SuppressLint("RestrictedApi")
     private Button createButton(boolean isApproved) {
         StyleButton button;
         ContextThemeWrapper themeContext;
