@@ -1,20 +1,16 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.Space;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +25,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
@@ -43,7 +39,6 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.adquirente.managers.InformationAdicionalManager;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.InfoAdicionalPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
-import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -56,8 +51,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_COBROS;
-import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_PAISES;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_MONEY_LAUNDERING;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
@@ -156,10 +149,10 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     private boolean isMexaNaturalizado;
     private boolean hasFamiliaCargoPublico;
     private String cargo;
-    private Countries paisNacimiento;
+    private Paises paisNacimiento;
     private StatesSpinnerAdapter spinnerParentescoAdapter;
     private IEnumSpinner parentesco;
-    private ArrayList<Countries> paises;
+    private ArrayList<Paises> paises;
 
     public static InformacionAdicionalFragment newInstance() {
         InformacionAdicionalFragment fragment = new InformacionAdicionalFragment();
@@ -497,7 +490,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     }
 
     @Override
-    public void onCountrySelectedListener(Countries item) {
+    public void onCountrySelectedListener(Paises item) {
         paisNacimiento = item;
         editCountry.setText(item.getPais());
         txtmexica.setBackgroundResource(R.drawable.inputtext_normal);
@@ -554,7 +547,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     }
 
     @Override
-    public void onSucessContryList(ArrayList<Countries> paises) {
+    public void onSucessContryList(ArrayList<Paises> paises) {
         this.paises = paises;
         //editCountry.setFullOnClickListener(this);
         editCountry.setOnClickListener(this);

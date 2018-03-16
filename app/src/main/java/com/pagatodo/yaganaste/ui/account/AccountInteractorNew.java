@@ -8,14 +8,14 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -79,6 +79,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
@@ -135,13 +136,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private Request requestAccountOperation;
     private boolean logOutBefore;
     private Preferencias prefs = App.getInstance().getPrefs();
-    private CatalogsDbApi api;
     private String pass;
 
     public AccountInteractorNew(IAccountManager accountManager) {
         this.accountManager = accountManager;
         prefs = App.getInstance().getPrefs();
-        this.api = new CatalogsDbApi(App.getContext());
     }
 
     @Override
@@ -156,7 +155,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest,WebService webService) {
+    public void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest, WebService webService) {
         try {
             ApiAdtvo.actualizarAvatar(avatarRequest, this);
         } catch (OfflineException e) {
@@ -168,7 +167,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void login(IniciarSesionRequest request) {
         try {
-            api.deleteFavorites();
+            new DatabaseManager().deleteFavorites();
             ApiAdtvo.iniciarSesionSimple(request, this);
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
@@ -456,9 +455,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public ArrayList<Countries> getPaisesList() {
-        CatalogsDbApi api = new CatalogsDbApi(App.getContext());
-        return api.getPaisesList();
+    public List<Paises> getPaisesList() {
+        try {
+            return new DatabaseManager().getPaisesList();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -584,7 +589,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
-            accountManager.onSucces(ACTUALIZAR_AVATAR,dataSourceResult);
+            accountManager.onSucces(ACTUALIZAR_AVATAR, dataSourceResult);
         } else {
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
             accountManager.onError(ACTUALIZAR_AVATAR, response.getMensaje());

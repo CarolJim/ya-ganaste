@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +12,17 @@ import java.util.List;
 
 public class ConsultarFavoritosResponse extends GenericResponse {
 
-    private List<DataFavoritos> Data;
+    private List<Favoritos> Data;
 
     private ConsultarFavoritosResponse() {
-        Data = new ArrayList<DataFavoritos>();
+        Data = new ArrayList<Favoritos>();
     }
 
-    public List<DataFavoritos> getData() {
+    public List<Favoritos> getData() {
         return Data;
     }
 
-    public void setData(List<DataFavoritos> data) {
+    public void setData(List<Favoritos> data) {
         Data = data;
     }
 }

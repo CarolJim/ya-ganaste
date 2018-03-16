@@ -26,11 +26,11 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -118,7 +118,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     String password;
     private Envios envio;
-    private DataFavoritos favoritos;
+    private Favoritos favoritos;
     private View rootview;
 
     private CustomErrorDialog customErrorDialog;
@@ -140,12 +140,12 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private static int PIN_LENGHT = 6;
     private Preferencias prefs = App.getInstance().getPrefs();
 
-    public static PaymentAuthorizeFragment newInstance(Payments envio, DataFavoritos dataFavoritos) {
+    public static PaymentAuthorizeFragment newInstance(Payments envio, Favoritos favoritos) {
         fragmentCode = new PaymentAuthorizeFragment();
         //PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
         Bundle args = new Bundle();
         args.putSerializable("envios", envio);
-        args.putSerializable("favorito", dataFavoritos);
+        args.putSerializable("favorito", favoritos);
         fragmentCode.setArguments(args);
         return fragmentCode;
     }
@@ -155,7 +155,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         envio = (Envios) getArguments().getSerializable("envios");
-        favoritos = (DataFavoritos) getArguments().getSerializable("favorito");
+        favoritos = (Favoritos) getArguments().getSerializable("favorito");
         paymentAuthorizePresenter = new PaymentAuthorizePresenter(this);
     }
 

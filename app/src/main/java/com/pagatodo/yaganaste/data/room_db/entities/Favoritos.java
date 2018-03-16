@@ -1,66 +1,53 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.room_db.entities;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
-import android.os.Parcelable;
 
-import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.FieldName;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.Ignore;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.TableName;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.COLOR_MARCA;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_COMERCIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_CUENTA;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_FAVORITO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_TIPO_COMERCIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.IMAGEN_URL;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.IMAGEN_URL_COMERCIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.IMAGEN_URL_COMERCIO_COLOR;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.NOMBRE;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.NOMBRE_COMERIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.REFERENCIA;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.TABLE;
 
 /**
  * Created by Omar on 13/09/2017.
  */
-@TableName(TABLE)
-public class DataFavoritos extends AbstractEntity {
+@Entity
+public class Favoritos implements Serializable {
 
-    @FieldName(value = ID_FAVORITO, primaryKey = true)
+    @PrimaryKey
+    @ColumnInfo(name = "id_favorito")
     private long IdFavorito;
 
-    @FieldName(COLOR_MARCA)
+    @ColumnInfo(name = "color_marca")
     private String ColorMarca;
 
-    @FieldName(ID_COMERCIO)
-    private long IdComercio;
+    @ColumnInfo(name = "id_comercio")
+    private int IdComercio;
 
-    @FieldName(ID_CUENTA)
+    @ColumnInfo(name = "id_cuenta")
     private long IdCuenta;
 
-    @FieldName(ID_TIPO_COMERCIO)
+    @ColumnInfo(name = "id_tipo_comercio")
     private int IdTipoComercio;
 
-    @FieldName(IMAGEN_URL)
+    @ColumnInfo(name = "url_imagen")
     private String ImagenURL;
 
-    @FieldName(IMAGEN_URL_COMERCIO)
+    @ColumnInfo(name = "url_imagen_comercio")
     private String ImagenURLComercio;
 
-    @FieldName(IMAGEN_URL_COMERCIO_COLOR)
+    @ColumnInfo(name = "url_imagen_comercio_color")
     private String ImagenURLComercioColor;
 
-    @FieldName(NOMBRE)
+    @ColumnInfo(name = "nombre")
     private String Nombre;
 
-    @FieldName(NOMBRE_COMERIO)
+    @ColumnInfo(name = "nombre_comercio")
     private String NombreComercio;
 
-    @FieldName(REFERENCIA)
+    @ColumnInfo(name = "referencia")
     private String Referencia;
 
     @Ignore
@@ -74,11 +61,11 @@ public class DataFavoritos extends AbstractEntity {
         ColorMarca = colorMarca;
     }
 
-    public long getIdComercio() {
+    public int getIdComercio() {
         return IdComercio;
     }
 
-    public void setIdComercio(long idComercio) {
+    public void setIdComercio(int idComercio) {
         IdComercio = idComercio;
     }
 
@@ -162,12 +149,12 @@ public class DataFavoritos extends AbstractEntity {
         this.listaMontos = listaMontos;
     }
 
-    public DataFavoritos() {
+    public Favoritos() {
     }
 
-    public DataFavoritos(String colorMarca, int idComercio, int idCuenta, int idFavorito, int idTipoComercio,
-                         String imagenURL, String imagenURLComercio, String imagenURLComercioColor,
-                         String nombre, String nombreComercio, String referencia) {
+    public Favoritos(String colorMarca, int idComercio, int idCuenta, int idFavorito, int idTipoComercio,
+                     String imagenURL, String imagenURLComercio, String imagenURLComercioColor,
+                     String nombre, String nombreComercio, String referencia) {
         this.ColorMarca = colorMarca;
         this.IdComercio = idComercio;
         this.IdCuenta = idCuenta;
@@ -181,7 +168,7 @@ public class DataFavoritos extends AbstractEntity {
         this.Referencia = referencia;
     }
 
-    public DataFavoritos(int idComercio) {
+    public Favoritos(int idComercio) {
         listaMontos = new ArrayList<Double>();
         this.IdComercio = idComercio;
         this.IdTipoComercio = 0;
@@ -191,10 +178,10 @@ public class DataFavoritos extends AbstractEntity {
         this.ColorMarca = "#00FFFFFF";
     }
 
-    protected DataFavoritos(Parcel in) {
+    protected Favoritos(Parcel in) {
         this.IdFavorito = in.readLong();
         this.ColorMarca = in.readString();
-        this.IdComercio = in.readLong();
+        this.IdComercio = in.readInt();
         this.IdCuenta = in.readLong();
         this.IdTipoComercio = in.readInt();
         this.ImagenURL = in.readString();

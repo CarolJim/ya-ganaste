@@ -1,22 +1,15 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.TextView;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataListaNotificationArray;
 import com.pagatodo.yaganaste.interfaces.INotificationHistory;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
-import com.pagatodo.yaganaste.ui_wallet.views.GenericDummyData;
 
 import java.util.ArrayList;
 

@@ -20,7 +20,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
@@ -41,11 +41,8 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.AUDIO_SERVICE;
-import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -493,12 +490,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         }
         imgInsertCard.setVisibility(VISIBLE);
         imgInsertCard.playAnimation();
-
-        try {
-            ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         tv_lector.setText(message);
         tv_lector.setVisibility(View.VISIBLE);

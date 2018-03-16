@@ -11,27 +11,26 @@ import android.widget.ImageView;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.MontoComercio;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
-import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.File;
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
@@ -43,9 +42,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener {
-    private Preferencias pref;
-    private CatalogsDbApi api;
     private Preferencias preferencias;
+    private AppDatabase db;
     private static final String TAG = "SplashActivity";
     boolean downloadFile = false;
     ImageView imgLogo;
@@ -96,31 +94,19 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
-        api = new CatalogsDbApi(this);
-        pref = App.getInstance().getPrefs();
+        preferencias = App.getInstance().getPrefs();
+        db = App.getAppDatabase();
         final IRequestResult iRequestResult = this;
         final Handler handler = new Handler();
         preferencias = App.getInstance().getPrefs();
+        new DatabaseManager().checkCountries();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (api.isPaisesTableEmpty()) {
-                        String json = JsonManager.loadJSONFromAsset("files/paises.json");
-                        Type token = new TypeToken<List<Countries>>() {
-                        }.getType();
-                        List<Countries> countries = new Gson().fromJson(json, token);
-                        api.insertPaises(countries);
-                    }
-
-                    //if (api.isCatalogTableEmpty()) {
                     ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
                     request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(StringConstants.CATALOG_VERSION));
                     ApiAdtvo.obtenerCatalogos(request, iRequestResult);
-                    //} else {
-                    //    callNextActivity();
-                    //}
-
                 } catch (OfflineException e) {
                     e.printStackTrace();
                     callNextActivity();
@@ -140,12 +126,9 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             case OBTENER_CATALOGOS:
                 ObtenerCatalogosResponse response = (ObtenerCatalogosResponse) result.getData();
                 if (response.getCodigoRespuesta() == CODE_OK && response.getData() != null) {
-                    try {
-                        preferencias.saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
-                        api.insertComercios(response.getData().getComercios());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    preferencias.saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
+                    List<MontoComercio> montos = new ArrayList<>();
+                    new DatabaseManager().insertComercios(response.getData().getComercios());
                 }
                 callNextActivity();
                 break;

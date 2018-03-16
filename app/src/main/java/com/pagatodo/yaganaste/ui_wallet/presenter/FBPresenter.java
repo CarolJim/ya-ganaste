@@ -1,10 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.presenter;
 
-import android.util.Log;
-
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBPresenter;

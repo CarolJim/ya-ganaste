@@ -7,12 +7,12 @@ import android.util.Log;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
@@ -436,11 +436,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void getPaisesList() {
-        ArrayList<Countries> arrayList = accountIteractor.getPaisesList();
+        List<Paises> arrayList = accountIteractor.getPaisesList();
         if (arrayList == null) {
             arrayList = new ArrayList<>();
         }
-
         ((IRenapoView) accountView).showDialogList(arrayList);
     }
 

@@ -3,10 +3,10 @@ package com.pagatodo.yaganaste.ui.adquirente.interactores;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCobrosMensualesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
@@ -20,12 +20,12 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicional
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_COBROS;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_DESTINO;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_MONTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_ORIGEN;
-import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_PAISES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COBROS_MENSUALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DESTINO_RECURSOS;
@@ -47,12 +47,17 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     }
 
     @Override
-    public ArrayList<Countries> getPaisesList() {
-        CatalogsDbApi api = new CatalogsDbApi(App.getContext());
+    public List<Paises> getPaisesList() {
         ObtenerCobrosMensualesRequest request = new ObtenerCobrosMensualesRequest();
-        createProccesRequest(request,App.getContext().getString(R.string.obtenerCobrosMensuales),OBTENER_PAISES,App.getInstance().getString(R.string.no_internet_access));
-
-        return api.getPaisesList();
+        createProccesRequest(request, App.getContext().getString(R.string.obtenerCobrosMensuales), OBTENER_PAISES, App.getInstance().getString(R.string.no_internet_access));
+        try {
+            return new DatabaseManager().getPaisesList();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -71,13 +76,13 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
         ObtenerCobrosMensualesRequest request = new ObtenerCobrosMensualesRequest();
         request.setIdTipoRegimenFiscal("1");
         if (sp == SPINNER_PLD_COBROS) {
-            createProccesRequest(request,App.getContext().getString(R.string.obtenerCobrosMensuales),OBTENER_COBROS_MENSUALES,App.getInstance().getString(R.string.no_internet_access));
+            createProccesRequest(request, App.getContext().getString(R.string.obtenerCobrosMensuales), OBTENER_COBROS_MENSUALES, App.getInstance().getString(R.string.no_internet_access));
         } else if (sp == SPINNER_PLD_MONTOS) {
-            createProccesRequest(request,App.getContext().getString(R.string.obtenerMontos),OBTENER_MONTOS,App.getInstance().getString(R.string.no_internet_access));
+            createProccesRequest(request, App.getContext().getString(R.string.obtenerMontos), OBTENER_MONTOS, App.getInstance().getString(R.string.no_internet_access));
         } else if (sp == SPINNER_PLD_ORIGEN) {
-            createProccesRequest(request,App.getContext().getString(R.string.obtenerOrigenRecursos),OBTENER_ORIGEN_RECURSOS,App.getInstance().getString(R.string.no_internet_access));
+            createProccesRequest(request, App.getContext().getString(R.string.obtenerOrigenRecursos), OBTENER_ORIGEN_RECURSOS, App.getInstance().getString(R.string.no_internet_access));
         } else if (sp == SPINNER_PLD_DESTINO) {
-            createProccesRequest(request,App.getContext().getString(R.string.obtenerDestinoRecursos),OBTENER_DESTINO_RECURSOS,App.getInstance().getString(R.string.no_internet_access));
+            createProccesRequest(request, App.getContext().getString(R.string.obtenerDestinoRecursos), OBTENER_DESTINO_RECURSOS, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -85,14 +90,14 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     public void setPaises() {
         ObtenerCobrosMensualesRequest request = new ObtenerCobrosMensualesRequest();
         request.setIdTipoRegimenFiscal("1");
-        createProccesRequest(request,App.getContext().getString(R.string.obtenerPaisesPLD),OBTENER_PAISES,App.getInstance().getString(R.string.no_internet_access));
+        createProccesRequest(request, App.getContext().getString(R.string.obtenerPaisesPLD), OBTENER_PAISES, App.getInstance().getString(R.string.no_internet_access));
     }
 
-    private void createProccesRequest(ObtenerCobrosMensualesRequest request, String urlComplet, WebService ws, String msjError){
+    private void createProccesRequest(ObtenerCobrosMensualesRequest request, String urlComplet, WebService ws, String msjError) {
         try {
             ApiAdtvo.obtenerCobrosMensuales(request, this, urlComplet, ws);
         } catch (OfflineException e) {
-            infoAdicionalPresenter.onWSError(ws,msjError);
+            infoAdicionalPresenter.onWSError(ws, msjError);
         }
     }
 
@@ -102,28 +107,28 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
             infoAdicionalPresenter.onSuccessCreateUsuarioAdquirente(result);
         }
 
-        if (result.getWebService() == OBTENER_PAISES){
+        if (result.getWebService() == OBTENER_PAISES) {
             proccesPaises(result);
         }
-        if (result.getWebService() == OBTENER_COBROS_MENSUALES){
-            processSpinnerResult(result,SPINNER_PLD_COBROS);
+        if (result.getWebService() == OBTENER_COBROS_MENSUALES) {
+            processSpinnerResult(result, SPINNER_PLD_COBROS);
         }
 
-        if (result.getWebService() == OBTENER_MONTOS){
-            processSpinnerResult(result,SPINNER_PLD_MONTOS);
+        if (result.getWebService() == OBTENER_MONTOS) {
+            processSpinnerResult(result, SPINNER_PLD_MONTOS);
         }
 
-        if (result.getWebService() == OBTENER_ORIGEN_RECURSOS){
-            processSpinnerResult(result,SPINNER_PLD_ORIGEN);
+        if (result.getWebService() == OBTENER_ORIGEN_RECURSOS) {
+            processSpinnerResult(result, SPINNER_PLD_ORIGEN);
         }
 
-        if (result.getWebService() == OBTENER_DESTINO_RECURSOS){
-            processSpinnerResult(result,SPINNER_PLD_DESTINO);
+        if (result.getWebService() == OBTENER_DESTINO_RECURSOS) {
+            processSpinnerResult(result, SPINNER_PLD_DESTINO);
         }
 
     }
 
-    private void proccesPaises(DataSourceResult response){
+    private void proccesPaises(DataSourceResult response) {
         ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<CobrosMensualesResponse> listaCobrosMensuales = data.getData();
@@ -138,12 +143,12 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
         }
     }
 
-    private void processSpinnerResult(DataSourceResult response,SpinnerPLD sp){
+    private void processSpinnerResult(DataSourceResult response, SpinnerPLD sp) {
         ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<CobrosMensualesResponse> listaCobrosMensuales = data.getData();
             if (listaCobrosMensuales != null && !listaCobrosMensuales.isEmpty()) {
-                infoAdicionalPresenter.onSuccessSpinnerList(response,sp);
+                infoAdicionalPresenter.onSuccessSpinnerList(response, sp);
             } else {
                 infoAdicionalPresenter.onWSError(response.getWebService(), "Verifica tu Informacion");//Retornamos mensaje de error.
             }

@@ -7,7 +7,7 @@ import com.pagatodo.yaganaste.R;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;

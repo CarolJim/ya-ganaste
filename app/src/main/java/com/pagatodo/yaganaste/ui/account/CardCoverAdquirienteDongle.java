@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 
 /**
  * Created by Armando Sandoval on 26/09/2017.

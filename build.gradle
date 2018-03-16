@@ -33,7 +33,7 @@ ext {
     espressoCoreVersion = "2.2.2"
     multidexVersion = "1.0.3"
     playServicesVersion = "11.0.4"
-    firebaseVersion = "11.8.0"
+    firebaseVersion = "10.0.1"
     constraintLayoutVersion = "1.0.2"
     onboardingVersion = "3.2.0"
     swipyVersion = "1.2.3"

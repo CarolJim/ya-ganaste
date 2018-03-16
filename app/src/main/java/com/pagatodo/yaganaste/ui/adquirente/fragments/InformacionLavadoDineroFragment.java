@@ -22,7 +22,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -265,7 +265,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     }
 
     @Override
-    public void onCountrySelectedListener(Countries item) {
+    public void onCountrySelectedListener(Paises item) {
 
     }
 
@@ -478,7 +478,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     }
 
     @Override
-    public void onSucessContryList(ArrayList<Countries> paises) {
+    public void onSucessContryList(ArrayList<Paises> paises) {
 
     }
 

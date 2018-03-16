@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerGenericBase;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ISearchCarrier;
@@ -38,10 +36,9 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
 
     public static final String SEARCH_DATA = "SEARCH_DATA";
     public static final String SEARCH_IS_RELOAD = "SEARCH_IS_RELOAD";
-    private ArrayList<ComercioResponse> comercioResponse;
+    private ArrayList<Comercio> comercioResponse;
     private boolean isReload;
     private RecyclerGenericBase recyclerGenericBase;
-
 
 
     @Override
@@ -54,9 +51,9 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
         if (getIntent().getExtras() != null) {
             isReload = getIntent().getBooleanExtra(SEARCH_IS_RELOAD, true);
             if (isReload) {
-                comercioResponse = (ArrayList<ComercioResponse>) getIntent().getExtras().get(SEARCH_DATA);
+                comercioResponse = (ArrayList<Comercio>) getIntent().getExtras().get(SEARCH_DATA);
             } else {
-                comercioResponse = (ArrayList<ComercioResponse>) getIntent().getExtras().get(SEARCH_DATA);
+                comercioResponse = (ArrayList<Comercio>) getIntent().getExtras().get(SEARCH_DATA);
             }
         }
         initViews();
@@ -79,7 +76,7 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
     }
 
     @Override
-    public void setData(ComercioResponse posCcomercioResponse) {
+    public void setData(Comercio posCcomercioResponse) {
         /**
          * Enviamos el objeto resultante a nuestra actividad de pagos, con un bandera para eliminar
          * la actividad SearchCarrier del BackStack

@@ -13,10 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.ui.account.register.adapters.NacionalidadSpinnerAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,17 +37,17 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
     @BindView(R.id.searchCountry)
     SearchView searchViewPaises;
 
-    private ArrayList<Countries> paises;
+    private List<Paises> paises;
     private NacionalidadSpinnerAdapter arrayAdapter;
 
     private final static String COUNTRIES_LIST = "COUNTRIES_LIST";
     View rootView;
     private OnCountrySelectedListener onCountrySelectedListener;
 
-    public final static CountriesDialogFragment newInstance(ArrayList<Countries> paises) {
+    public final static CountriesDialogFragment newInstance(List<Paises> paises) {
         CountriesDialogFragment dialogFragment = new CountriesDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(COUNTRIES_LIST, paises);
+        args.putSerializable(COUNTRIES_LIST, (Serializable) paises);
         dialogFragment.setArguments(args);
         return dialogFragment;
     }
@@ -54,11 +55,11 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        paises = (ArrayList<Countries>) getArguments().getSerializable(COUNTRIES_LIST);
-        Collections.sort(paises, new Comparator<Countries>() {
+        paises = (List<Paises>) getArguments().getSerializable(COUNTRIES_LIST);
+        Collections.sort(paises, new Comparator<Paises>() {
             @Override
-            public int compare(Countries countries, Countries t1) {
-                return countries.getPais().compareTo(t1.getPais());
+            public int compare(Paises paises, Paises t1) {
+                return paises.getPais().compareTo(t1.getPais());
             }
         });
 

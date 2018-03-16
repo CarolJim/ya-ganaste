@@ -17,7 +17,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
@@ -58,13 +58,13 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     private float MIN_AMOUNT = 1.0f, current_mount;
     Double monto;
     Envios payments;
-    DataFavoritos dataFavoritos;
+    Favoritos favoritos;
 
-    public static SendWalletFragment newInstance(Envios payments, DataFavoritos dataFavoritos) {
+    public static SendWalletFragment newInstance(Envios payments, Favoritos favoritos) {
         SendWalletFragment fragment = new SendWalletFragment();
         Bundle args = new Bundle();
         args.putSerializable("payments", payments);
-        args.putSerializable("favorites", dataFavoritos);
+        args.putSerializable("favorites", favoritos);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,7 +73,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         payments = (Envios) getArguments().getSerializable("payments");
-        dataFavoritos = (DataFavoritos) getArguments().getSerializable("favorites");
+        favoritos = (Favoritos) getArguments().getSerializable("favorites");
     }
 
     @Override
@@ -93,11 +93,11 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
         txtReceiverName.setText(payments.getNombreDestinatario());
-        if (dataFavoritos != null) {
+        if (favoritos != null) {
             txtInicialesFav.setVisibility(View.GONE);
-            if (!dataFavoritos.getImagenURL().equals("")) {
+            if (!favoritos.getImagenURL().equals("")) {
                 Picasso.with(getContext())
-                        .load(dataFavoritos.getImagenURL())
+                        .load(favoritos.getImagenURL())
                         .placeholder(R.mipmap.icon_user)
                         .into(crlImageFavorite);
             } else {
@@ -152,7 +152,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 payments.setMonto(monto);
                 Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
                 intent.putExtra("pagoItem", payments);
-                intent.putExtra("favoriteItem", dataFavoritos);
+                intent.putExtra("favoriteItem", favoritos);
                 intent.putExtra("TAB", Constants.PAYMENT_ENVIOS);
                 SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
                 getActivity().startActivityForResult(intent, 999);

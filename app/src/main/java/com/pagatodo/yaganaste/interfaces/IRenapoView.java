@@ -1,8 +1,9 @@
 package com.pagatodo.yaganaste.interfaces;
 
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Juan Guerra on 29/06/2017.
@@ -11,5 +12,5 @@ import java.util.ArrayList;
 public interface IRenapoView extends INavigationView {
     void onValidateUserDataSuccess();
 
-    void showDialogList(ArrayList<Countries> paises);
+    void showDialogList(List<Paises> paises);
 }

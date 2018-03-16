@@ -1,16 +1,18 @@
 package com.pagatodo.yaganaste.ui_wallet.interactors;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by FranciscoManzo on 28/12/2017.
@@ -19,7 +21,6 @@ import java.util.List;
 public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResult {
 
     INewPaymentPresenter mPresenter;
-    CatalogsDbApi catalogsDbApi;
     private int typeDataFav;
 
     public NewPaymentInteractor(INewPaymentPresenter mPresenter) {
@@ -33,7 +34,14 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
 
     @Override
     public void getCatalogosFromDB(int mType) {
-        List<ComercioResponse> catalogos = catalogsDbApi.getComerciosList(mType);
+        List<Comercio> catalogos = new ArrayList<>();
+        try {
+            catalogos = new DatabaseManager().getComerciosByType(mType);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (catalogos.size() > 0) {
             mPresenter.onSuccesDBObtenerCatalogos(catalogos);
         } else {
@@ -53,7 +61,14 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
 
     @Override
     public void getFavoritesFromDB(int id) {
-        List<DataFavoritos> catalogos = catalogsDbApi.getFavoritesList(id);
+        List<Favoritos> catalogos = new ArrayList<>();
+        try {
+            catalogos = new DatabaseManager().getListFavoritosByIdComercio(id);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mPresenter.onSuccessDBFavorites(catalogos);
     }
 
@@ -61,7 +76,7 @@ public class NewPaymentInteractor implements INewPaymentInteractor, IRequestResu
     public void onSuccess(DataSourceResult dataSourceResult) {
         switch (dataSourceResult.getWebService()) {
             case OBTENER_CATALOGOS:
-               // mPresenter.onSuccessWSObtenerCatalogos(dataSourceResult);
+                // mPresenter.onSuccessWSObtenerCatalogos(dataSourceResult);
                 break;
             case OBTENER_FAVORITOS:
                 mPresenter.onSuccessWSFavorites(dataSourceResult, typeDataFav);

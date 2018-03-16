@@ -13,12 +13,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.db.Countries;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -33,8 +31,8 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> imple
 
     private Context mContext;
     private int mLayoutResourceId;
-    private List<Countries> orgCountriesList;
-    private List<Countries> countriesList;
+    private List<Paises> orgPaisesList;
+    private List<Paises> paisesList;
     private List<CarouselItem> orgListServ;
     private List<CarouselItem> listServ;
     private Filter countriesFilter;
@@ -127,9 +125,9 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> imple
 
                 }
 
-               /* Collections.sort(nCountriesList, new Comparator<Countries>() {
+               /* Collections.sort(nCountriesList, new Comparator<Paises>() {
                     @Override
-                    public int compare(Countries countries, Countries t1) {
+                    public int compare(Paises countries, Paises t1) {
                         return countries.getPais().compareTo(t1.getPais());
                     }
                 });
@@ -144,7 +142,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> imple
                 if (results.count == 0) {
                     String noExisten = mContext.getResources()
                             .getString(R.string.without_items);
-                    nCountriesList.add(new CarouselItem(mContext, new ComercioResponse(999,999,noExisten,999,"Nada")));
+                    nCountriesList.add(new CarouselItem(mContext, new Comercio(999,999,noExisten,999,"Nada")));
                     results.count = nCountriesList.size();
                     results.values = nCountriesList;
                 }

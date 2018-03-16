@@ -12,7 +12,7 @@ public class Recursos {
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "";
+    public static final String DATABASE_NAME = "ya_ganaste.db";
 
     public static final int TIMEOUT = 60000;
 

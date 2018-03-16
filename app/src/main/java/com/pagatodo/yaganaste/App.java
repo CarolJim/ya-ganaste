@@ -19,8 +19,9 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -35,7 +36,10 @@ import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -59,6 +63,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 public class App extends Application {
 
     private static App m_singleton;
+    private static AppDatabase m_database;
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
 
@@ -76,9 +81,7 @@ public class App extends Application {
     private boolean cancel;
 
     private String datoHuellaC;
-
     private ApplicationLifecycleHandler lifecycleHandler;
-
     private Map<String, Activity> quoeeuActivites;
 
     public static App getInstance() {
@@ -87,6 +90,10 @@ public class App extends Application {
 
     public static Context getContext() {
         return m_singleton.getApplicationContext();
+    }
+
+    public static AppDatabase getAppDatabase() {
+        return m_database = AppDatabase.getInMemoryDatabase(getContext());
     }
 
     @Override
@@ -138,6 +145,12 @@ public class App extends Application {
         if (!f.exists()) {
             f.mkdir();
         }
+        // TODO: Borrar en version 4.0.5
+        File oldDb = new File("/data/data/com.pagatodo.yaganaste/databases/yaganaste.db");
+        if (oldDb.exists()) {
+            oldDb.delete();
+        }
+
         statusId = "-1";
         datoHuellaC = "";
     }

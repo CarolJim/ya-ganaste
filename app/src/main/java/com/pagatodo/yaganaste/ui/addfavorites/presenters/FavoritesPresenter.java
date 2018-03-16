@@ -3,12 +3,12 @@ package com.pagatodo.yaganaste.ui.addfavorites.presenters;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
@@ -22,6 +22,8 @@ import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
+import java.util.concurrent.ExecutionException;
+
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITULAR_CUENTA;
 
 /**
@@ -31,17 +33,14 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITUL
 public class FavoritesPresenter implements IFavoritesPresenter {
     IAddFavoritesActivity mView;
     IFavoritesIteractor favoritesIteractor;
-    private CatalogsDbApi api;
     int idFavorito;
 
     public FavoritesPresenter(){
         this.favoritesIteractor = new FavoritesIteractor(this);
-        this.api = new CatalogsDbApi(App.getContext());
     }
     public FavoritesPresenter(IAddFavoritesActivity mView) {
         this.mView = mView;
         favoritesIteractor = new FavoritesIteractor(this);
-        this.api = new CatalogsDbApi(App.getContext());
     }
 
     @Override
@@ -78,15 +77,22 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     }
 
     @Override
-    public void updateLocalFavorite(DataFavoritos dataFavoritos) {
-        api.deleteFavorite((int) dataFavoritos.getIdFavorito());
-        api.insertFavorite(dataFavoritos);
+    public void updateLocalFavorite(Favoritos favoritos) {
+        new DatabaseManager().deleteFavoriteById((int)favoritos.getIdFavorito());
+        new DatabaseManager().insertFavorite(favoritos);
         mView.hideLoader();
     }
 
     @Override
     public boolean alreadyExistFavorite(String reference, int idComercio) {
-        return api.favoriteExists(reference, idComercio);
+        try {
+            return new DatabaseManager().favoriteAllreadyExists(reference, idComercio);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -120,7 +126,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          */
         if (dataSourceResult.getData() instanceof FavoritosDatosResponse) {
             // Damos de alta el Dato en la DB
-            DataFavoritos dataFavoritos = new DataFavoritos(((FavoritosDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
+            Favoritos favoritos = new Favoritos(((FavoritosDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getIdComercio(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getIdCuenta(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getIdFavorito(),
@@ -132,7 +138,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            api.insertFavorite(dataFavoritos);
+            new DatabaseManager().insertFavorite(favoritos);
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessAdd(response);
@@ -143,7 +149,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          */
         if (dataSourceResult.getData() instanceof FavoritosNewDatosResponse) {
             // Damos de alta el Dato en la DB
-            DataFavoritos dataFavoritos = new DataFavoritos(
+            Favoritos favoritos = new Favoritos(
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdComercio(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdCuenta(),
@@ -156,7 +162,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            api.insertFavorite(dataFavoritos);
+            new DatabaseManager().insertFavorite(favoritos);
             mView.hideLoader();
             FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessAdd(response);
@@ -170,9 +176,9 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
             // Eliminamos el Favorito con el ID que obtenemos
             int idFavoritoOld = ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getIdFavorito();
-            api.deleteFavorite(idFavoritoOld);
+            new DatabaseManager().deleteFavoriteById(idFavoritoOld);
 
-            DataFavoritos dataFavoritos = new DataFavoritos(
+            Favoritos favoritos = new Favoritos(
                     ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
                     ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getIdComercio(),
                     ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getIdCuenta(),
@@ -185,7 +191,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
                     ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            api.insertFavorite(dataFavoritos);
+            new DatabaseManager().insertFavorite(favoritos);
 
             mView.hideLoader();
             FavoritosNewFotoDatosResponse response = (FavoritosNewFotoDatosResponse) dataSourceResult.getData();
@@ -207,7 +213,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          */
         if (dataSourceResult.getData() instanceof FavoritosDeleteDatosResponse) {
             mView.hideLoader();
-            api.deleteFavorite(idFavorito);
+            new DatabaseManager().deleteFavoriteById(idFavorito);
             idFavorito = 0;
             FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessDeleteFavorite(response.getMensaje());

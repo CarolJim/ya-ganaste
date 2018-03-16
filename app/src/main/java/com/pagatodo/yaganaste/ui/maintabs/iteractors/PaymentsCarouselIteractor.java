@@ -2,20 +2,23 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerBancoBinRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.AppDatabase;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.utils.StringConstants;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Jordan on 11/04/2017.
@@ -24,14 +27,10 @@ import java.util.List;
 public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IRequestResult {
 
     IPaymentsCarouselPresenter carouselPresenter;
-    CatalogsDbApi catalogsDbApi;
 
-    public PaymentsCarouselIteractor(IPaymentsCarouselPresenter paymentsCarouselPresenter, CatalogsDbApi dbApi) {
+    public PaymentsCarouselIteractor(IPaymentsCarouselPresenter paymentsCarouselPresenter) {
         carouselPresenter = paymentsCarouselPresenter;
-        catalogsDbApi = dbApi;
     }
-
-
 
     @Override
     public void getdatabank(String pbusqueda, String cob) {
@@ -59,7 +58,14 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
 
     @Override
     public void getCatalogosFromDB(int tab_id) {
-        List<ComercioResponse> catalogos = catalogsDbApi.getComerciosList(tab_id);
+        List<Comercio> catalogos = new ArrayList<>();
+        try {
+            catalogos = new DatabaseManager().getComerciosByType(tab_id);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (catalogos.size() > 0) {
             carouselPresenter.onSuccesDBObtenerCatalogos(catalogos);
         } else {
@@ -78,7 +84,14 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
 
     @Override
     public void getFavoritesFromDB(int tabID) {
-        List<DataFavoritos> catalogos = catalogsDbApi.getFavoritesList(tabID);
+        List<Favoritos> catalogos = new ArrayList<>();
+        try {
+            catalogos = new DatabaseManager().getListFavoritosByIdComercio(tabID);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         carouselPresenter.onSuccessDBFavorites(catalogos);
     }
 

@@ -5,10 +5,10 @@ import android.content.Context;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
@@ -31,7 +32,6 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     NewPaymentFragment mView;
     INewPaymentInteractor mInteractor;
     Context mContext;
-    private CatalogsDbApi api;
     private int typeData;
     private int typeDataFav;
 
@@ -39,17 +39,21 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
         this.mView = mView;
         mInteractor = new NewPaymentInteractor(this);
         this.mContext = context;
-        this.api = new CatalogsDbApi(context);
     }
 
     @Override
     public void getCarriersItems(int typeData) {
         this.typeData = typeData;
-        //Revisar que la tabla no esté
-        if (api.isCatalogTableEmpty()) {
-            mInteractor.getCatalogosRecargarFromService();
-        } else {
-            mInteractor.getCatalogosFromDB(typeData);
+        try {
+            if (new DatabaseManager().isComerciosEmpty()) {
+                mInteractor.getCatalogosRecargarFromService();
+            } else {
+                mInteractor.getCatalogosFromDB(typeData);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -71,7 +75,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
             try {
                 App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
-                    api.insertFavorites(response.getData());
+                    new DatabaseManager().insertListFavorites(response.getData());
                 }
                 mInteractor.getFavoritesFromDB(typeDataFav);
             } catch (Exception e) {
@@ -84,12 +88,12 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
+    public void onSuccesDBObtenerCatalogos(List<Comercio> comercios) {
         mView.setCarouselData(comercios, typeData);
     }
 
     @Override
-    public void onSuccessDBFavorites(List<DataFavoritos> catalogos) {
+    public void onSuccessDBFavorites(List<Favoritos> catalogos) {
         mView.setDataFavorite(catalogos, typeDataFav);
 
 
@@ -102,13 +106,13 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     }
 
     @Override
-    public void sendChoiceCarrier(ComercioResponse mComercio, int mType) {
+    public void sendChoiceCarrier(Comercio mComercio, int mType) {
         mView.sendCarrierToView(mComercio, mType);
     }
 
     @Override
-    public void sendChoiceFavorite(DataFavoritos dataFavoritos, int mType) {
-        mView.sendFavoriteToView(dataFavoritos, mType);
+    public void sendChoiceFavorite(Favoritos favoritos, int mType) {
+        mView.sendFavoriteToView(favoritos, mType);
     }
 
     @Override
@@ -125,7 +129,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     /**
      * METODO AUXILIARES
      */
-    private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
+    private ArrayList<CarouselItem> getCarouselItems(List<Comercio> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
 
         CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
@@ -134,7 +138,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
         CarouselItem carouselItemCommerce;
-        for (ComercioResponse comercio : comercios) {
+        for (Comercio comercio : comercios) {
             if (comercio.getIdTipoComercio() == typeData) {
                 if (comercio.getIdComercio() != 0) {
                     if (comercio.getColorMarca().isEmpty()) {

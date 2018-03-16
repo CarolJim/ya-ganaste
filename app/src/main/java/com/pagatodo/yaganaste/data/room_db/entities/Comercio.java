@@ -1,62 +1,50 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.room_db.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
-import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.FieldName;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.Ignore;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.TableName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.COLOR_MARCA;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.COMERCIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.FORMATO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ID_COMERCIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ID_TIPO_COMERCIO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.LONGITUD_REFERENCIA;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.MENSAJE;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ORDEN;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.SOBRECARGO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.TABLE;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_IMAGEN;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_LOGO;
-import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_LOGO_COLOR;
-
 /**
  * Created by flima on 21/03/2017.
  */
 
-@TableName(TABLE)
-public class ComercioResponse extends AbstractEntity implements Serializable {
+@Entity
+public class Comercio implements Serializable {
 
     @SerializedName("IdComercio")
-    @FieldName(value = ID_COMERCIO, primaryKey = true)
+    @PrimaryKey
+    @ColumnInfo(name = "id_comercio")
     private int idComercio;
 
     @SerializedName("IdTipoComercio")
-    @FieldName(ID_TIPO_COMERCIO)
+    @ColumnInfo(name = "id_tipo_comercio")
     private int idTipoComercio;
 
     @SerializedName("NombreComercio")
-    @FieldName(COMERCIO)
+    @ColumnInfo(name = "nombre_comercio")
     private String nombreComercio;
 
     @SerializedName("LogoURL")
-    @FieldName(URL_LOGO)
+    @ColumnInfo(name = "url_logo")
     private String logoURL;
 
     @SerializedName("LogoURLColor")
-    @FieldName(URL_LOGO_COLOR)
+    @ColumnInfo(name = "url_logo_color")
     private String logoURLColor;
 
     @SerializedName("ImagenURL")
-    @FieldName(URL_IMAGEN)
+    @ColumnInfo(name = "url_imagen")
     private String imagenURL;
 
     @SerializedName("ColorMarca")
-    @FieldName(COLOR_MARCA)
+    @ColumnInfo(name = "color_marca")
     private String colorMarca;
 
     @SerializedName("ListaMontos")
@@ -64,30 +52,27 @@ public class ComercioResponse extends AbstractEntity implements Serializable {
     private List<Double> listaMontos;
 
     @SerializedName("LongitudReferencia")
-    @FieldName(LONGITUD_REFERENCIA)
+    @ColumnInfo(name = "longitud_referencia")
     private int longitudReferencia;
 
     @SerializedName("Formato")
-    @FieldName(FORMATO)
+    @ColumnInfo(name = "formato")
     private String formato;
 
     @SerializedName("Mensaje")
-    @FieldName(MENSAJE)
+    @ColumnInfo(name = "mensaje")
     private String mensaje;
 
     @SerializedName("Orden")
-    @FieldName(ORDEN)
+    @ColumnInfo(name = "orden")
     private int orden;
 
     @SerializedName("SobreCargo")
-    @FieldName(SOBRECARGO)
+    @ColumnInfo(name = "sobrecargo")
     private Double sobrecargo;
 
-
-    public ComercioResponse() {
-
+    public Comercio() {
         listaMontos = new ArrayList<Double>();
-
         this.idComercio = 0;
         this.idTipoComercio = 0;
         this.nombreComercio = "";
@@ -100,7 +85,8 @@ public class ComercioResponse extends AbstractEntity implements Serializable {
         this.sobrecargo = 0.0;
     }
 
-    public ComercioResponse(int idComercio, int idTipoComercio, String nombreComercio, int longitudReferencia, String formato) {
+    @Ignore
+    public Comercio(int idComercio, int idTipoComercio, String nombreComercio, int longitudReferencia, String formato) {
         this.idComercio = idComercio;
         this.idTipoComercio = idTipoComercio;
         this.nombreComercio = nombreComercio;
@@ -108,8 +94,8 @@ public class ComercioResponse extends AbstractEntity implements Serializable {
         this.formato = formato;
     }
 
-    public ComercioResponse(int idComercio) {
-
+    @Ignore
+    public Comercio(int idComercio) {
         listaMontos = new ArrayList<Double>();
         this.idComercio = idComercio;
         this.idTipoComercio = 0;

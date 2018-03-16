@@ -36,8 +36,8 @@ import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -83,8 +83,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         IPaymentFromFragment, View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
 
-    private ComercioResponse comercioResponse;
-    private DataFavoritos dataFavoritos;
+    private Comercio comercioResponse;
+    private Favoritos favoritos;
 
     private View rootView;
     @BindView(R.id.txt_title_payment)
@@ -159,7 +159,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     public PaymentFormFragment() {
     }
 
-    public static PaymentFormFragment newInstance(ComercioResponse param1) {
+    public static PaymentFormFragment newInstance(Comercio param1) {
         PaymentFormFragment fragment = new PaymentFormFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, param1);
@@ -167,7 +167,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         return fragment;
     }
 
-    public static PaymentFormFragment newInstance(DataFavoritos param1) {
+    public static PaymentFormFragment newInstance(Favoritos param1) {
         PaymentFormFragment fragment = new PaymentFormFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, param1);
@@ -182,25 +182,25 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         iPresenterPayment = new PresenterPaymentFragment(this);
 
         /**
-         * Sin importar que sea un proceso de comercioResponse o dataFavoritos, siempre trabaajreos con
+         * Sin importar que sea un proceso de comercioResponse o favoritos, siempre trabaajreos con
          * ccomercioResponse. En el caso de favorito, accesamos a las propiedades del comercio y lo
          * asignamos
          */
         if (getArguments() != null) {
             // Verifiamos si es una recarga o un pds
 
-            if (getArguments().getSerializable(ARG_PARAM1) instanceof DataFavoritos) {
-                dataFavoritos = (DataFavoritos) getArguments().getSerializable(ARG_PARAM1);
-                if (dataFavoritos != null) {
-                    if (dataFavoritos.getIdFavorito() >= 0) {
-                        comercioResponse = iPresenterPayment.getComercioById(dataFavoritos.getIdComercio());
+            if (getArguments().getSerializable(ARG_PARAM1) instanceof Favoritos) {
+                favoritos = (Favoritos) getArguments().getSerializable(ARG_PARAM1);
+                if (favoritos != null) {
+                    if (favoritos.getIdFavorito() >= 0) {
+                        comercioResponse = iPresenterPayment.getComercioById(favoritos.getIdComercio());
                     }
-                    if (dataFavoritos.getIdTipoComercio() == 1) {
+                    if (favoritos.getIdTipoComercio() == 1) {
                         isRecarga = true;
                     }
                 }
             } else {
-                comercioResponse = (ComercioResponse) getArguments().getSerializable(ARG_PARAM1);
+                comercioResponse = (Comercio) getArguments().getSerializable(ARG_PARAM1);
                 if (comercioResponse != null) {
                     if (comercioResponse.getIdTipoComercio() == 1) {
                         isRecarga = true;
@@ -247,9 +247,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 int tipoPhoto;
                 String nameRefer;
-                if (dataFavoritos != null) {
+                if (favoritos != null) {
                     tipoPhoto = 1;
-                    nameRefer = dataFavoritos.getNombre();
+                    nameRefer = favoritos.getNombre();
                 } else {
                     tipoPhoto = 2;
                     nameRefer = comercioResponse.getNombreComercio();
@@ -312,8 +312,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 spnMontoRecarga.setAdapter(dataAdapter);
 
 
-                if (dataFavoritos != null) {
-                    edtPhoneNumber.setText(dataFavoritos.getReferencia());
+                if (favoritos != null) {
+                    edtPhoneNumber.setText(favoritos.getReferencia());
                 }
                 //recargaNumber.setEnabled(false);
                 /**
@@ -346,9 +346,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 int tipoPhoto;
                 String nameRefer;
-                if (dataFavoritos != null) {
+                if (favoritos != null) {
                     tipoPhoto = 1;
-                    nameRefer = dataFavoritos.getNombre();
+                    nameRefer = favoritos.getNombre();
                 } else {
                     tipoPhoto = 2;
                     nameRefer = comercioResponse.getNombreComercio();
@@ -378,8 +378,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     txtComision.setVisibility(View.INVISIBLE);
                     txtComisionServicio.setVisibility(View.INVISIBLE);
                 }
-                if (dataFavoritos != null) {
-                    edtReferenceNumber.setText(dataFavoritos.getReferencia());
+                if (favoritos != null) {
+                    edtReferenceNumber.setText(favoritos.getReferencia());
                     //edtReferenceNumber.setEnabled(false);
                 }
 
@@ -475,14 +475,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
      */
     private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
         if (mType == 1) {
-            String mPhoto = dataFavoritos.getImagenURL();
+            String mPhoto = favoritos.getImagenURL();
             if (!mPhoto.equals("")) {
                 Picasso.with(App.getContext())
                         .load(mPhoto)
                         .placeholder(R.mipmap.icon_user)
                         .into(circuleDataPhoto);
             }
-            //  circuleDataPhoto.setBorderColor(Color.parseColor(dataFavoritos.getColorMarca()));
+            //  circuleDataPhoto.setBorderColor(Color.parseColor(favoritos.getColorMarca()));
         }
 
         if (mType == 2) {
@@ -687,7 +687,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             isValid = true;
 
             payment = new Servicios(referencia, monto, concepto, comercioResponse,
-                    dataFavoritos != null);
+                    favoritos != null);
             sendPayment();
         }
     }
@@ -711,7 +711,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 this.monto = importe;
                 isValid = true;
 
-                payment = new Recarga(referencia, monto, comercioResponse, dataFavoritos != null);
+                payment = new Recarga(referencia, monto, comercioResponse, favoritos != null);
                 sendPayment();
             } else {
                 UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access),

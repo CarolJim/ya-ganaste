@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ISearchCarrier;
 import com.squareup.picasso.Picasso;
 
@@ -29,12 +29,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCarrierRV.ViewHolder>
         implements Filterable {
-    ArrayList<ComercioResponse> mDataSetCarrier;
-    ArrayList<ComercioResponse> mDataSetCarrierFilter;
+    ArrayList<Comercio> mDataSetCarrier;
+    ArrayList<Comercio> mDataSetCarrierFilter;
     ISearchCarrier mView;
     public EditText searchEditText;
 
-    public AdapterSearchCarrierRV(ISearchCarrier mView, ArrayList<ComercioResponse> mDataSetCarrier,
+    public AdapterSearchCarrierRV(ISearchCarrier mView, ArrayList<Comercio> mDataSetCarrier,
                                   EditText searchEditText) {
         this.mView = mView;
         this.searchEditText = searchEditText;
@@ -125,9 +125,9 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
                     results.values = mDataSetCarrier;
                 } else {
                     //Si existen conlindancion en la cadena de busqueda las agregamos a la lista
-                    ArrayList<ComercioResponse> resultsData = new ArrayList<>();
+                    ArrayList<Comercio> resultsData = new ArrayList<>();
                     String searchStr = constraint.toString().toUpperCase();
-                    for (ComercioResponse s : mDataSetCarrier) {
+                    for (Comercio s : mDataSetCarrier) {
                         if (s.getNombreComercio().toUpperCase().contains(searchStr)) {
                             resultsData.add(s);
                         }
@@ -154,7 +154,7 @@ public class AdapterSearchCarrierRV extends RecyclerView.Adapter<AdapterSearchCa
              */
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDataSetCarrierFilter = (ArrayList<ComercioResponse>) results.values;
+                mDataSetCarrierFilter = (ArrayList<Comercio>) results.values;
                 notifyDataSetChanged();
             }
         };

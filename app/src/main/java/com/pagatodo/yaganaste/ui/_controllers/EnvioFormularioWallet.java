@@ -8,9 +8,9 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -24,7 +24,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
 
     private Preferencias pref;
     private Envios payment;
-    private DataFavoritos dataFavoritos;
+    private Favoritos favoritos;
     ImageView imgOk;
 
     @Override
@@ -33,7 +33,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         payment = (Envios) getIntent().getExtras().get("pagoItem");
-        dataFavoritos = (DataFavoritos) getIntent().getExtras().get("favoritoItem");
+        favoritos = (Favoritos) getIntent().getExtras().get("favoritoItem");
         showToolbarOk(true);
         imgOk = (ImageView) findViewById(R.id.btn_ok);
         pref = App.getInstance().getPrefs();
@@ -56,7 +56,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_ENVIOS:
-                loadFragment(SendWalletFragment.newInstance(payment, dataFavoritos), Direction.FORDWARD, false);
+                loadFragment(SendWalletFragment.newInstance(payment, favoritos), Direction.FORDWARD, false);
                 // loadFragment(PaymentAuthorizeFragmentWallwt.newInstance(), Direction.FORDWARD, false);
                 break;
         }

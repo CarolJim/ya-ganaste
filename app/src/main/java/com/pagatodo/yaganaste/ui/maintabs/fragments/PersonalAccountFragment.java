@@ -10,8 +10,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
@@ -232,7 +232,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
                         }
                         if (isValidMov && idComercio != 0) {
-                            ComercioResponse comercioResponse = paymentPresenter.getComercioById(idComercio);
+                            Comercio comercioResponse = paymentPresenter.getComercioById(idComercio);
                             if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
 
                                 Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
