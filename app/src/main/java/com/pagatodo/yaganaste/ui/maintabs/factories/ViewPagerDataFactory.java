@@ -21,7 +21,6 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteF
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
@@ -55,10 +54,10 @@ public class ViewPagerDataFactory {
             case MAIN_ELECTION:
                 addMainFragmentsselection(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
-            case MAIN_ELECTION_ACTUALIZACIONDOCS:
+            /*case MAIN_ELECTION_ACTUALIZACIONDOCS:
                 addMainFragmentsselection(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
-
+*/
             case HOME_FRAGMENT:
                 addHomeFragments(fragmentList);
                 return new ViewPagerData<>(fragmentList, AdqEmTab.values());
@@ -86,14 +85,12 @@ public class ViewPagerDataFactory {
     }
     private static void addMainFragmentsselection(List<Fragment> fragmentList) {
         fragmentList.remove(StatusRegisterAdquirienteFragment.newInstance());
-        fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
         fragmentList.add(DocumentsContainerFragment.newInstance());
 
     }
     private static void addMainFragments(List<Fragment> fragmentList) {
        int Idestatus;
-        //fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
         fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(NewPaymentFragment.newInstance());

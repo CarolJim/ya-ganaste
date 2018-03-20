@@ -23,7 +23,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
@@ -141,7 +141,15 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private void getLoadFragment(int idoperation) {
         switch (idoperation) {
             case 1:
-                loadFragment(HomeTabFragment.newInstance(currentPage), R.id.fragment_container);
+                switch (currentPage) {
+                    case PAGE_EMISOR:
+                        loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS), R.id.fragment_container);
+                        break;
+                    case PAGE_ADQ:
+                        loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS), R.id.fragment_container);
+                        break;
+                }
+
                 //loadFragment(MovementsEmisorFragmentMovementsEmisorView.newInstance(), R.id.fragment_container);
                 break;
             case 2:
@@ -180,7 +188,14 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         if (requestCode == REGISTER_ADQUIRENTE_CODE) {
             showMainTab();
         } if (requestCode == REQUEST_CODE_FAVORITES) {
-            loadFragment(HomeTabFragment.newInstance(currentPage), R.id.fragment_container);
+            switch (currentPage) {
+                case PAGE_EMISOR:
+                    loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS), R.id.fragment_container);
+                    break;
+                case PAGE_ADQ:
+                    loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS), R.id.fragment_container);
+                    break;
+            }
         } else {
             if (data != null) {
                 getCurrentFragment().onActivityResult(requestCode, resultCode, data);
@@ -196,41 +211,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     }
 
     @Override
-    public boolean requiresTimer() {
-
-        return true;
-    }
-
-   /* @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        //finish();
-        /* Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
-        if (!disableBackButton) {
-            if (actualFragment instanceof PaymentsTabFragment) {
-                PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
-                if (paymentsTabFragment.isOnForm) {
-                    paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
-                } else {
-                    goHome();
-                }
-            } else if (actualFragment instanceof DepositsFragment) {
-                imageNotification.setVisibility(View.GONE);
-                imageshare.setVisibility(View.VISIBLE);
-                ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
-            } else if (actualFragment instanceof GetMountFragment) {
-                goHome();
-            } else if (actualFragment instanceof HomeTabFragment) {
-                showDialogOut();
-            } else if (actualFragment instanceof WalletTabFragment) {
-                showDialogOut();
-            } else if (actualFragment instanceof SendWalletFragment) {
-                goHome();
-            } else {
-                goHome();
-            }
-        }
-    }*/
+    public boolean requiresTimer() { return true;}
 
     @Override
     public void onEvent(String event, Object data) {

@@ -90,7 +90,7 @@
     <LinearLayout
         android:id="@+id/tabs_adq_emisor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
