@@ -4,10 +4,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
@@ -45,6 +49,7 @@ import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
 
     RecyclerView.Adapter currentAdapter;
+    public static final String TAG = PersonalAccountFragment.class.getSimpleName();
 
     public static PersonalAccountFragment newInstance() {
         PersonalAccountFragment personalAccountFragment = new PersonalAccountFragment();
@@ -152,31 +157,18 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     }
 
     @Override
-    protected void performClickOnRecycler(ItemMovements<MovimientosResponse> itemClicked) {
-        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_image_transform));
-            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.explode));
-        }*/
-        /*
-        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        intent.putExtra(DetailsActivity.ID, Contact.CONTACTS[position].getId());
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                // the context of the activity
-                MainActivity.this,
+    protected void performClickOnRecycler(ItemMovements<MovimientosResponse> itemClicked, int pos) {
+        //startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
+        DetailsEmisorFragment simpleFragmentB = DetailsEmisorFragment.newInstance(itemClicked.getMovement());
+        View v = recyclerMovements.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.card_view);
+        getFragmentManager()
+                .beginTransaction()
+                .addSharedElement(v, ViewCompat.getTransitionName(v))
+                .replace(R.id.fragment_container, simpleFragmentB)
+                .commit();
 
-                // For each shared element, add to this method a new Pair item,
-                // which contains the reference of the view we are transitioning *from*,
-                // and the value of the transitionName attribute
-                new Pair<View, String>(view.findViewById(R.id.CONTACT_circle),
-                        getString(R.string.transition_name_circle)),
-                new Pair<View, String>(view.findViewById(R.id.CONTACT_name),
-                        getString(R.string.transition_name_name)),
-                new Pair<View, String>(view.findViewById(R.id.CONTACT_phone),
-                        getString(R.string.transition_name_phone))
-        );
-        ActivityCompat.startActivity(MainActivity.this, intent, options.toBundle());
-        */
+        //loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data));
+
     }
 
     private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getListenerItemTouchLeft() {

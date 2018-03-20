@@ -11,6 +11,7 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

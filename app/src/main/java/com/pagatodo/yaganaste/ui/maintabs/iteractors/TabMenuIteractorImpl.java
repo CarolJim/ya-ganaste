@@ -5,10 +5,6 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.TabMenuIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.TabMenuManager;
 
-/**
- * @author Juan Guerra on 24/03/2017.
- */
-
 public class TabMenuIteractorImpl implements TabMenuIteractor {
 
     private TabMenuManager tabMenuManager;

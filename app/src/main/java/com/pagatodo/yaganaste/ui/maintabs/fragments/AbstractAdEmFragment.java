@@ -42,7 +42,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 /**
  * Android TEAM 28/02/2018
  */
@@ -250,10 +249,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onRecyclerItemClick(View v, int position) {
-        performClickOnRecycler(movementsList.get(tabMonths.getSelectedTabPosition()).get(position));
+        performClickOnRecycler(movementsList.get(tabMonths.getSelectedTabPosition()).get(position), position);
     }
 
-    protected abstract void performClickOnRecycler(ItemRecycler itemClicked);
+    protected abstract void performClickOnRecycler(ItemRecycler itemClicked, int position);
 
     protected void notifyDataSetChanged() {
         recyclerMovements.getAdapter().notifyDataSetChanged();

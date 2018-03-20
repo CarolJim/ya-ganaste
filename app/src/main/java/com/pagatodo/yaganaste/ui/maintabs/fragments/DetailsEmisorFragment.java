@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +22,8 @@ import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -32,22 +37,18 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RECARGA;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
 
-/**
- * @author Juan Guerra on 12/04/2017.
- */
 
 public class DetailsEmisorFragment extends GenericFragment implements View.OnClickListener {
 
 
     @BindView(R.id.layoutMontoTotal)
     LinearLayout layoutMontoTotal;
+
     @BindView(R.id.txtMontoTotal)
     MontoTextView txtMontoTotal;
     @BindView(R.id.titleMontoTotal)
     StyleTextView titleMontoTotal;
 
-    @BindView(R.id.layoutMontoCompra)
-    LinearLayout layoutMontoCompra;
 
     @BindView(R.id.txtMontoCompra)
     MontoTextView txtMontoCompra;
@@ -132,8 +133,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     Button btnCancel;
     @BindView(R.id.btn_volver)
     Button btnVolver;
+///////
+    //@BindView(R.id.content_linearlayout)
+    //LinearLayout mLinearLayout;
+
     private View rootView;
     private MovimientosResponse movimientosResponse;
+    private Container builderView;
 
 
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
@@ -149,10 +155,16 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         setHasOptionsMenu(true);
+
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
+
+
         } else {
             throw new IllegalCallException(DetailsEmisorFragment.class.getSimpleName() + "must be called by newInstance factory method");
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(2000));
         }
     }
 
@@ -171,6 +183,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        //builderView = new Container(getContext(),mLinearLayout);
+
         initFieldsViews();
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
         //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
@@ -210,39 +224,12 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             upDown.setBackgroundResource(R.drawable.down);
         }
 
-
-
-        //layoutMovementTypeColor.setBackgroundColor(item.getColor());
         layoutMovementTypeColor.setBackgroundResource(item.getColor());
         txtItemMovDate.setText(item.getDate());
         txtItemMovMonth.setText(item.getMonth());
         txtTituloDescripcion.setText(item.getTituloDescripcion());
         txtSubTituloDetalle.setText(item.getSubtituloDetalle());
 
-       /* BORRAR ESTE BLOQUE EN version aprobadas
-       Glide.with(this)
-                .load(movimientosResponse.getURLImagen())
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .into(imageDetail);
-
-        Picasso.with(getContext())
-                .load(movimientosResponse.getURLImagen())
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.logo_ya_ganaste)
-                .into(imageDetail);
-                */
-
-        /**
-         * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
-         * Glide permite falla y cargar un PlaceHolder
-         */
-        /*String url = movimientosResponse.getURLImagen();
-        if (url != null && !url.isEmpty()) {
-            Picasso.with(getContext())
-                    .load(getString(R.string.url_images_logos) + url)
-                    .placeholder(R.mipmap.logo_ya_ganaste)
-                    .into(imageDetail);
-        }*/
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
@@ -256,6 +243,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         txtConceptoDescripcion.setSelected(true);
         txtClaveRastreo.setSelected(true);
         btnVolver.setOnClickListener(this);
+
+
+
     }
 
 
@@ -356,11 +346,14 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
                 break;
             case CASH_BACK://11
-                layoutMontoCompra.setVisibility(VISIBLE);
+                //layoutMontoCompra.setVisibility(VISIBLE);
                 txtMontoCompra.setText(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
                 layoutMontoTotal.setVisibility(VISIBLE);
                 titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
+
+               // builderView.addTextData(new TextData(R.string.details_monto_compra,StringUtils.getCurrencyValue(movimientosResponse.getImporte())));
+
                 break;
             case COMISION://12
                 layoutComision.setVisibility(VISIBLE);

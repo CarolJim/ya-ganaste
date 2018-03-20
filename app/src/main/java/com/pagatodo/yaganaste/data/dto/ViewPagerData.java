@@ -6,10 +6,6 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
 import java.util.List;
 
-/**
- * @author Juan Guerra on 24/03/2017.
- */
-
 public class ViewPagerData<T extends IEnumTab> {
 
     private List<Fragment> fragmentList;

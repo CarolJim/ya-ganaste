@@ -1219,7 +1219,7 @@
     <string name="error_1_new_password">Verifica tu nueva contraseña</string>
 
     <!-- Transitions -->
-    <string name="transition_name_mov">transition:MO|VE</string>
+    <string name="transition_name_mov">name</string>
 
     <!--Navegation Drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -1,11 +1,11 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="UnusedAttribute">
 
 
     <RelativeLayout
@@ -42,6 +42,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/view_background_left_adq"
         android:layout_width="match_parent"
@@ -104,7 +105,19 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card_view"
+        android:clickable="true"
+        android:transitionName="@string/transition_name_mov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_margin="10dp">
+
+
+        <LinearLayout
         android:id="@+id/view_foreground"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -170,12 +183,12 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtTituloDescripcion"
                     style="@style/generic_text_style_3"
-                    android:transitionName="@string/transition_name_mov"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textColor="@color/colorAccent"
-                    tools:text="Pago de servicio" />
+                    tools:text="Pago de servicio"
+                    tools:ignore="UnusedAttribute" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSubTituloDetalle"
@@ -241,4 +254,5 @@
 
         </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -12,10 +12,6 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
 import java.util.List;
 
-/**
- * @author Juan Guerra on 21/03/2017.
- */
-
 public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapter {
 
     private T[] values;

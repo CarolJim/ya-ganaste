@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -74,6 +75,28 @@ public class SupportComponent {
         }
 
         lastFragment = fragment;
+        fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commitAllowingStateLoss();
+
+    }
+
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
+                                boolean addToBackStack, View shareElement, String transitionName) {
+
+        this.containerID = idContainer;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (direction.equals(Direction.FORDWARD)) {
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation(),
+                    Direction.BACK.getEnterAnimation(), Direction.BACK.getExitAnimation());
+        } else if (direction.equals(Direction.BACK)) {
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation(),
+                    Direction.FORDWARD.getEnterAnimation(), Direction.FORDWARD.getExitAnimation());
+        }
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        lastFragment = fragment;
+        fragmentTransaction.addSharedElement(shareElement,transitionName);
         fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commitAllowingStateLoss();
 
     }

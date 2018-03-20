@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.pagatodo.yaganaste.ui_wallet.MovimentsActivity">
+
+    <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
+        android:id="@+id/tab_months"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        app:tabTextColor="@color/texthint"
+        app:tabIndicatorColor="@color/whiteColor"
+        app:tabGravity="center"
+        app:tabMode="fixed"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/title"
+        style="@style/generic_text_style_5"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"
+        android:paddingLeft="18dp"
+        android:gravity="center_vertical"
+        android:background = "@color/tab_movement_undselected"
+        android:text="Movimientos recientes"
+        android:layout_below="@id/tab_months"
+        android:paddingStart="18dp"
+        android:visibility="visible"
+        tools:ignore="RtlSymmetry" />
+
+    <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_movements"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:visibility="visible" />
+
+    </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+
+</RelativeLayout>

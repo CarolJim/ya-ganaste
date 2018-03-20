@@ -13,9 +13,6 @@ import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
-/**
- * @author jguerras on 10/11/2016.
- */
 
 public abstract class GenericFragment extends Fragment implements ISessionExpired {
 
