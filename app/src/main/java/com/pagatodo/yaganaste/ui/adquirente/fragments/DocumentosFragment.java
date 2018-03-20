@@ -882,6 +882,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         adqPresenter.getEstatusDocs();
         lnr_buttons.setVisibility(GONE);
         swipeRefreshLayout.setEnabled(true);
+
     }
 }
 
