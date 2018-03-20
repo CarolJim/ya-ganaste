@@ -15,10 +15,8 @@ public class CuentaResponse implements Serializable {
     private int IdCuenta=0;
     private boolean AsignoNip; // TODO validar, ya que no se encuentra en la documentacion
     private String Cuenta = "";
-    private String Descripcion = "";
     private String CLABE = "";
     private String Tarjeta = "";
-    private String BIN7 = "";
     private double Saldo;
     @SerializedName("Telefono")
     private String telefono;
@@ -49,14 +47,6 @@ public class CuentaResponse implements Serializable {
         Cuenta = cuenta;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
-    }
-
     public String getCLABE() {
         return CLABE;
     }
@@ -71,14 +61,6 @@ public class CuentaResponse implements Serializable {
 
     public void setTarjeta(String tarjeta) {
         Tarjeta = tarjeta;
-    }
-
-    public String getBIN7() {
-        return BIN7;
-    }
-
-    public void setBIN7(String BIN7) {
-        this.BIN7 = BIN7;
     }
 
     public double getSaldo() {

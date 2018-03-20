@@ -10,7 +10,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDe
  */
 
 public interface IAdqIteractor {
-    void loginAdq();
 
     void registerDongle();
 

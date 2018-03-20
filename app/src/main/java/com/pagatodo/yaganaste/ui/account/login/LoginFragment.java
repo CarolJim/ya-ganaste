@@ -399,7 +399,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void versionOk() {
-        Log.i("Ya Ganaste","Tiempo Iniciado: "+System.currentTimeMillis());
         accountPresenter.login(username, password); // Realizamos el  Login
     }
 

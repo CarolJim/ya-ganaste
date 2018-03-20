@@ -25,8 +25,6 @@ public interface IAccountIteractorNew<T> {
 
     void login(IniciarSesionRequest request);
 
-    public void loginAdq();
-
     void logout();
 
     void updateSessionData();

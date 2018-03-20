@@ -185,21 +185,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-
-    @Override
-    public void loginAdq() {
-        SingletonUser singletonUser = SingletonUser.getInstance();
-        LoginAdqRequest request = new LoginAdqRequest(
-                singletonUser.getDataUser().getUsuario().getPetroNumero(),
-                singletonUser.getDataUser().getUsuario().getClaveAgente());
-        try {
-            ApiAdq.loginAdq(request, this);
-        } catch (OfflineException e) {
-            accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
-        }
-
-    }
-
     @Override
     public void logout() {
         try {
@@ -825,7 +810,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             }
 
             user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
-            Log.i("Ya Ganaste","Tiempo Finalizado: "+System.currentTimeMillis());
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
