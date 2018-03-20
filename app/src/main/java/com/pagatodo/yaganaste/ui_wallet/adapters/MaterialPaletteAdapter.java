@@ -11,12 +11,11 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,11 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPaletteAdapter.PaletteViewHolder> {
-    private List<DataFavoritos> data;
+    private List<Favoritos> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
     private boolean isEditable;
 
-    public MaterialPaletteAdapter(List<DataFavoritos> data, boolean isEditable, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+    public MaterialPaletteAdapter(List<Favoritos> data, boolean isEditable, RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
         this.isEditable = isEditable;
@@ -53,7 +52,7 @@ public class MaterialPaletteAdapter extends RecyclerView.Adapter<MaterialPalette
             holder.crlImageStatus.setVisibility(View.VISIBLE);
         }
 
-        DataFavoritos item = data.get(position);
+        Favoritos item = data.get(position);
 
         if (item.getIdComercio() == 0) {
             holder.crlImageFavorite.setBorderColor(item.getColorMarca() != null ? android.graphics.Color.parseColor(item.getColorMarca()) : App.getContext().getResources().getColor(R.color.colorAccent));

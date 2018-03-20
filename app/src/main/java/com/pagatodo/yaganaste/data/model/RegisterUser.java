@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.data.model;
 
 import android.net.Uri;
 
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 
 /**
  * Created by flima on 27/03/2017.
@@ -35,7 +35,7 @@ public class RegisterUser {
     private String colonia = "";
     private String idColonia = "";
     private boolean aceptaTerminos;
-    private Countries paisNacimiento;
+    private Paises paisNacimiento;
 
     private String urifotoperfil;
     private Uri perfirlfoto;
@@ -60,11 +60,11 @@ public class RegisterUser {
         this.urifotoperfil = urifotoperfil;
     }
 
-    public Countries getPaisNacimiento() {
+    public Paises getPaisNacimiento() {
         return paisNacimiento;
     }
 
-    public void setPaisNacimiento(Countries paisNacimiento) {
+    public void setPaisNacimiento(Paises paisNacimiento) {
         this.paisNacimiento = paisNacimiento;
         this.nacionalidad = paisNacimiento.getIdPais();
         this.idPaisNacimiento = paisNacimiento.getIdPais();

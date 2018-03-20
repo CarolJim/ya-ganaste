@@ -38,11 +38,11 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -82,7 +82,6 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
-import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
@@ -186,8 +185,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     AppCompatImageView btn_back;
     IFavoritesPresenter favoritesPresenter;
-    DataFavoritos dataFavoritos;
-    DataFavoritos dataFavoritosLimpiar;
+    Favoritos favoritos;
+    Favoritos favoritosLimpiar;
     int idTipoComercio, idComercio, idFavorito, idTipoEnvio, tipoTab, longitudRefer, keyIdComercio,
             maxLength, current_tab, longRefer;
     String stringFoto, nombreDest, mReferencia, tabName, formatoComercio = "", nombreComercio;
@@ -219,15 +218,15 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         btn_back.setOnClickListener(this);
         favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
 
-        dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+        favoritos = (Favoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
         current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
 
-        idComercio = (int) dataFavoritos.getIdComercio();
-        idTipoComercio = dataFavoritos.getIdTipoComercio();
-        nombreComercio = dataFavoritos.getNombreComercio();
-        mReferencia = dataFavoritos.getReferencia();
-        nombreDest = dataFavoritos.getNombre();
-        idFavorito = (int) dataFavoritos.getIdFavorito();
+        idComercio = (int) favoritos.getIdComercio();
+        idTipoComercio = favoritos.getIdTipoComercio();
+        nombreComercio = favoritos.getNombreComercio();
+        mReferencia = favoritos.getReferencia();
+        nombreDest = favoritos.getNombre();
+        idFavorito = (int) favoritos.getIdFavorito();
 
         // Iniciamos el presentes del carrousel
         backUpResponse = new ArrayList<>();
@@ -382,7 +381,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         // txtLytListServ.setHint(getString(R.string.details_bank));
 
     /*    Glide.with(this)
-                .load(dataFavoritos.getImagenURL())
+                .load(favoritos.getImagenURL())
                 .asBitmap()
                 .into(imageViewCamera.getCircleImageView());*/
 
@@ -391,10 +390,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
          * Glide permite falla y cargar un PlaceHolder
          */
-        String url = dataFavoritos.getImagenURL();
+        String url = favoritos.getImagenURL();
         if (url != null && !url.isEmpty()) {
             Picasso.with(this)
-                    .load(dataFavoritos.getImagenURL())
+                    .load(favoritos.getImagenURL())
                     .into(imageViewCamera.getCircleImageView());
         }
 
@@ -681,7 +680,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
 
         } else {
-            favoritesPresenter.updateLocalFavorite(dataFavoritos);
+            favoritesPresenter.updateLocalFavorite(favoritos);
             showDialogMesage(getString(R.string.title_dialog_edit_favorite),
                     getString(R.string.respond_ok_edit_favorite), 1);
         }
@@ -964,10 +963,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         // stringFoto Poner el String de foto cuando el servicio no se muera
         EditFavoritesRequest addFavoritesRequest = new EditFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
-        dataFavoritos.setIdTipoComercio(idTipoComercio);
-        dataFavoritos.setIdComercio(idComercio);
-        dataFavoritos.setNombre(mAlias);
-        dataFavoritos.setReferencia(referService);
+        favoritos.setIdTipoComercio(idTipoComercio);
+        favoritos.setIdComercio(idComercio);
+        favoritos.setNombre(mAlias);
+        favoritos.setReferencia(referService);
         favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
         favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
     }
@@ -1369,7 +1368,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
-    public void setFavolist(List<DataFavoritos> lista) {
+    public void setFavolist(List<Favoritos> lista) {
 
     }
 

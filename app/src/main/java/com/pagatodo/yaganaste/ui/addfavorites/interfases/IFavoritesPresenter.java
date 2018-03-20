@@ -5,7 +5,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
@@ -33,7 +33,7 @@ public interface IFavoritesPresenter {
 
     void toPresenterDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito);
 
-    void updateLocalFavorite(DataFavoritos dataFavoritos);
+    void updateLocalFavorite(Favoritos favoritos);
 
     boolean alreadyExistFavorite(String reference, int idComercio);
 

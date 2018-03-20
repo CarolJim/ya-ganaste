@@ -13,12 +13,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -27,41 +26,41 @@ import java.util.List;
  * Created by Jordan on 28/03/2017.
  */
 
-public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implements Filterable {
+public class NacionalidadSpinnerAdapter extends ArrayAdapter<Paises> implements Filterable {
     private Context mContext;
     private int mLayoutResourceId;
-    private List<Countries> orgCountriesList;
-    private List<Countries> countriesList;
+    private List<Paises> orgPaisesList;
+    private List<Paises> paisesList;
     private Filter countriesFilter;
 
-    public NacionalidadSpinnerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Countries> countries) {
+    public NacionalidadSpinnerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Paises> countries) {
         super(context, resource, countries);
         this.mLayoutResourceId = resource;
         this.mContext = context;
-        this.orgCountriesList = countries;
-        this.countriesList = countries;
+        this.orgPaisesList = countries;
+        this.paisesList = countries;
     }
 
 
-    public Countries getItem(int position) {
-        return countriesList.get(position);
+    public Paises getItem(int position) {
+        return paisesList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return countriesList.get(position).hashCode();
+        return paisesList.get(position).hashCode();
     }
 
     @Override
     public int getCount() {
-        return countriesList.size();
+        return paisesList.size();
     }
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         DropDownHolder holder;
-        Countries item = countriesList.get(position);
+        Paises item = paisesList.get(position);
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
@@ -81,21 +80,21 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
     }
 
     public void resetData() {
-        countriesList = orgCountriesList;
+        paisesList = orgPaisesList;
     }
 
 
     public String getItemIdString(int position) {
-        return countriesList.get(position).getIdPais();
+        return paisesList.get(position).getIdPais();
     }
 
     public String getItemName(int position) {
-        return countriesList.get(position).getPais();
+        return paisesList.get(position).getPais();
     }
 
     public int getPositionItemByName(String name) {
-        for (int position = 0; position < countriesList.size(); position++) {
-            if (countriesList.get(position).getPais().equals(name))
+        for (int position = 0; position < paisesList.size(); position++) {
+            if (paisesList.get(position).getPais().equals(name))
                 return position;
         }
         return -1;
@@ -122,26 +121,26 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
             FilterResults results = new FilterResults();
 
             if (constraint == null || constraint.length() == 0) {
-                results.values = orgCountriesList;
-                results.count = orgCountriesList.size();
+                results.values = orgPaisesList;
+                results.count = orgPaisesList.size();
             } else {
-                List<Countries> nCountriesList = new ArrayList<>();
-                for (Countries country : orgCountriesList) {
+                List<Paises> nPaisesList = new ArrayList<>();
+                for (Paises country : orgPaisesList) {
                     if (removeDiacriticalMarks(country.getPais()).toUpperCase().contains(removeDiacriticalMarks(constraint.toString()).toUpperCase())) {
-                        nCountriesList.add(country);
+                        nPaisesList.add(country);
                     }
                 }
 
-                Collections.sort(nCountriesList, new Comparator<Countries>() {
+                Collections.sort(nPaisesList, new Comparator<Paises>() {
                     @Override
-                    public int compare(Countries countries, Countries t1) {
-                        return countries.getPais().compareTo(t1.getPais());
+                    public int compare(Paises paises, Paises t1) {
+                        return paises.getPais().compareTo(t1.getPais());
                     }
                 });
 
 
-                results.count = nCountriesList.size();
-                results.values = nCountriesList;
+                results.count = nPaisesList.size();
+                results.values = nPaisesList;
 
                 /**
                  * Si no tenenmos resultados, agregamos al leyenda de No existen Resultados
@@ -149,14 +148,14 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
                 if (results.count == 0) {
                     String noExisten = mContext.getResources()
                             .getString(R.string.without_items);
-                    nCountriesList.add(new Countries(
+                    nPaisesList.add(new Paises(
                                     999,
                                     noExisten,
                                     "999"
                             )
                     );
-                    results.count = nCountriesList.size();
-                    results.values = nCountriesList;
+                    results.count = nPaisesList.size();
+                    results.values = nPaisesList;
                 }
             }
             return results;
@@ -165,10 +164,10 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             if (results.count == 0) {
-                countriesList = new ArrayList<>();
+                paisesList = new ArrayList<>();
                 notifyDataSetChanged();
             } else {
-                countriesList = (List<Countries>) results.values;
+                paisesList = (List<Paises>) results.values;
                 notifyDataSetChanged();
             }
         }

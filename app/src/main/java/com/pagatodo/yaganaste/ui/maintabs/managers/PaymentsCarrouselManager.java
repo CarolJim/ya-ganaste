@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.managers;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public interface PaymentsCarrouselManager extends PaymentsManager {
 
     void setCarouselDataFavoritos(ArrayList<CarouselItem> response);
 
-    void setFavolist(List<DataFavoritos> lista);
+    void setFavolist(List<Favoritos> lista);
 
     void showErrorService();
 }

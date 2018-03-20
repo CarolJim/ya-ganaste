@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 /**
@@ -9,7 +9,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 public interface IPaymentsTabPresenter {
     CarouselItem getCarouselItem();
-    ComercioResponse getComercioById(long idComercio);
+    Comercio getComercioById(int idComercio);
 
     void setCarouselItem(CarouselItem carouselItem);
 }

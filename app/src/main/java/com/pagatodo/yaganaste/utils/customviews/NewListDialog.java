@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
@@ -30,7 +30,7 @@ public class NewListDialog extends Dialog implements AdapterView.OnItemClickList
     ArrayAdapter<String> adapter = null;
     CustomAdapterPagos adapter2 = null;
     ArrayList<String> mList = new ArrayList<>();
-    List<ComercioResponse> listCarousel;
+    List<Comercio> listCarousel;
     Context context;
     INewPaymentPresenter presenter;
     int mType;
@@ -53,7 +53,7 @@ public class NewListDialog extends Dialog implements AdapterView.OnItemClickList
         }
     };
 
-    public NewListDialog(Context context, List<ComercioResponse> list, INewPaymentPresenter presenter,
+    public NewListDialog(Context context, List<Comercio> list, INewPaymentPresenter presenter,
                          int mType) {
         super(context);
         this.context = context;
@@ -61,14 +61,10 @@ public class NewListDialog extends Dialog implements AdapterView.OnItemClickList
         this.mType = mType;
         listCarousel = list;
 
-        for (ComercioResponse item : list) {
+        for (Comercio item : list) {
             if (item.getIdComercio() != 0) {
                 mList.add(item.getNombreComercio().trim());
             }
-
-//            else if (item.getFavoritos() != null) {
-//                mList.add(item.getFavoritos().getNombre().trim());
-//            }
         }
     }
 
@@ -107,7 +103,7 @@ public class NewListDialog extends Dialog implements AdapterView.OnItemClickList
         String value = adapter2.getItem(position);
         int pos = mList.indexOf(value);
 
-        presenter.sendChoiceCarrier(listCarousel.get(pos+1) , mType);
+        presenter.sendChoiceCarrier(listCarousel.get(pos + 1), mType);
         dismiss();
     }
 }

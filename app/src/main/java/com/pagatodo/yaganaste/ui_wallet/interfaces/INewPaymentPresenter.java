@@ -1,8 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public interface INewPaymentPresenter {
     void getCarriersItems(int typeReload);
 
-    void onSuccesDBObtenerCatalogos(List<ComercioResponse> catalogos);
+    void onSuccesDBObtenerCatalogos(List<Comercio> catalogos);
 
     void onErrorService();
 
@@ -21,11 +21,11 @@ public interface INewPaymentPresenter {
 
     void onSuccessWSFavorites(DataSourceResult dataSourceResult, int typeDataFav);
 
-    void onSuccessDBFavorites(List<DataFavoritos> catalogos);
+    void onSuccessDBFavorites(List<Favoritos> catalogos);
 
-    void sendChoiceCarrier(ComercioResponse position, int mType);
+    void sendChoiceCarrier(Comercio position, int mType);
 
-    void sendChoiceFavorite(DataFavoritos dataFavoritos, int mType);
+    void sendChoiceFavorite(Favoritos favoritos, int mType);
 
     void onFail(DataSourceResult error);
 }

@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.model;
 
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 
 /**
  * Created by Tato on 07/08/17.
@@ -55,7 +55,7 @@ public class RegisterCupo {
     private String estadoDomicilio = "";
     private String colonia = "";
     private String idColonia = "";
-    private Countries paisNacimiento;
+    private Paises paisNacimiento;
     private String nacionalidad = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimineto = "";
@@ -64,11 +64,11 @@ public class RegisterCupo {
 
     }
 
-    public Countries getPaisNacimiento() {
+    public Paises getPaisNacimiento() {
         return paisNacimiento;
     }
 
-    public void setPaisNacimiento(Countries paisNacimiento) {
+    public void setPaisNacimiento(Paises paisNacimiento) {
         this.paisNacimiento = paisNacimiento;
         this.nacionalidad = paisNacimiento.getIdPais();
     }

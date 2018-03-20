@@ -196,6 +196,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS), R.id.fragment_container);
                     break;
             }
+        }if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO) {
+            getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         } else {
             if (data != null) {
                 getCurrentFragment().onActivityResult(requestCode, resultCode, data);

@@ -31,7 +31,7 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -105,6 +105,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
+import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE;
@@ -140,7 +141,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private CameraManager cameraManager;
     private CropIwaResultReceiver cropResultReceiver;
     private DrawerLayout navDrawer;
-
+    private Preferencias preferencias;
     CircleImageView imgLoginExistProfile;
     TextView nameUser;
     ImageView imageNotification;
@@ -168,6 +169,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setContentView(R.layout.main_menu_drawer);
         aplicacion = new App();
         load();
+        this.preferencias = App.getInstance().getPrefs();
         imgLoginExistProfile = (CircleImageView) findViewById(R.id.imgLoginExistProfile);
         imgLoginExistProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -606,10 +608,30 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */
     private void updatePhoto() {
-        String mUserImage = pref.loadData(URL_PHOTO_USER);
-        Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
-                .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .into(imgLoginExistProfile);
+
+
+
+        if (preferencias.loadData(GENERO)=="H"||preferencias.loadData(GENERO)=="h") {
+
+            String mUserImage = pref.loadData(URL_PHOTO_USER);
+            Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
+                    .into(imgLoginExistProfile);
+
+        }else if (preferencias.loadData(GENERO)=="M"||preferencias.loadData(GENERO)=="m"){
+
+            String mUserImage = pref.loadData(URL_PHOTO_USER);
+            Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
+                    .into(imgLoginExistProfile);
+
+        }else {
+            String mUserImage = pref.loadData(URL_PHOTO_USER);
+            Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .into(imgLoginExistProfile);
+
+        }
     }
 
     @Override

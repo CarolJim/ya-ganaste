@@ -1,11 +1,15 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import android.arch.persistence.room.Database;
 import android.content.Context;
 
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Jordan on 11/04/2017.
@@ -13,11 +17,6 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 public class PaymentsTabPresenter implements IPaymentsTabPresenter {
     private CarouselItem carouselItem;
-    private CatalogsDbApi catalogsDbApi;
-
-    public PaymentsTabPresenter(Context context) {
-        catalogsDbApi = new CatalogsDbApi(context);
-    }
 
     @Override
     public CarouselItem getCarouselItem() {
@@ -25,8 +24,15 @@ public class PaymentsTabPresenter implements IPaymentsTabPresenter {
     }
 
     @Override
-    public ComercioResponse getComercioById(long idComercio) {
-        return catalogsDbApi.getComercioById(idComercio);
+    public Comercio getComercioById(int idComercio) {
+        try {
+            return new DatabaseManager().getComercioById(idComercio);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Comercio();
     }
 
     @Override

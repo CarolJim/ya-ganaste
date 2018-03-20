@@ -14,8 +14,8 @@ import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -45,8 +45,8 @@ public class CarouselItem extends FrameLayout
     private boolean empty;
     private Matrix mCIMatrix;
     private int gestureType;
-    private ComercioResponse comercio;
-    private DataFavoritos favoritos;
+    private Comercio comercio;
+    private Favoritos favoritos;
 
     public CarouselItem(Context context) {
         super(context);
@@ -54,21 +54,21 @@ public class CarouselItem extends FrameLayout
         inflateLayout();
     }
 
-    public CarouselItem(Context context, ComercioResponse comercio) {
+    public CarouselItem(Context context, Comercio comercio) {
         super(context);
         this.context = context;
         this.comercio = comercio;
         inflateLayout();
     }
 
-    public CarouselItem(Context context, DataFavoritos favoritos) {
+    public CarouselItem(Context context, Favoritos favoritos) {
         super(context);
         this.context = context;
         this.favoritos = favoritos;
         inflateLayout();
     }
 
-    public CarouselItem(Context context, int resource, int gestureType, ComercioResponse comercio) {
+    public CarouselItem(Context context, int resource, int gestureType, Comercio comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -84,7 +84,7 @@ public class CarouselItem extends FrameLayout
 
     }
 
-    public CarouselItem(Context context, int resource, int gestureType, DataFavoritos favoritos) {
+    public CarouselItem(Context context, int resource, int gestureType, Favoritos favoritos) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -95,7 +95,7 @@ public class CarouselItem extends FrameLayout
 
     }
 
-    public CarouselItem(Context context, String imageUrl, int gestureType, ComercioResponse comercio) {
+    public CarouselItem(Context context, String imageUrl, int gestureType, Comercio comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -108,7 +108,7 @@ public class CarouselItem extends FrameLayout
                 .into(mImage);
     }
 
-    public CarouselItem(Context context, String imageUrl, int gestureType, DataFavoritos favoritos) {
+    public CarouselItem(Context context, String imageUrl, int gestureType, Favoritos favoritos) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -122,7 +122,7 @@ public class CarouselItem extends FrameLayout
     }
 
     //
-    public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio, DataFavoritos favoritos) {
+    public CarouselItem(Context context, int resource, String color, int gestureType, Comercio comercio, Favoritos favoritos) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -148,7 +148,7 @@ public class CarouselItem extends FrameLayout
      * @param gestureType
      * @param comercio
      */
-    public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio) {
+    public CarouselItem(Context context, int resource, String color, int gestureType, Comercio comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -160,7 +160,7 @@ public class CarouselItem extends FrameLayout
     }
 
     //
-    public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
+    public CarouselItem(Context context, String imageUrl, String color, int gestureType, Comercio comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -177,7 +177,7 @@ public class CarouselItem extends FrameLayout
     }
 
     //*
-    public CarouselItem(Context context, String imageUrl, String color, int gestureType, DataFavoritos favoritos) {
+    public CarouselItem(Context context, String imageUrl, String color, int gestureType, Favoritos favoritos) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -351,11 +351,11 @@ public class CarouselItem extends FrameLayout
         this.mCIMatrix = mMatrix;
     }
 
-    public ComercioResponse getComercio() {
+    public Comercio getComercio() {
         return this.comercio;
     }
 
-    public DataFavoritos getFavoritos() {
+    public Favoritos getFavoritos() {
         return this.favoritos;
     }
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 
@@ -20,13 +20,13 @@ import java.util.ArrayList;
  */
 
 class AdapterPagosRV extends RecyclerView.Adapter<AdapterPagosRV.ViewHolder> {
-    ArrayList<ArrayList<DataFavoritos>> mFullListaFav;
-    ArrayList<DataFavoritos> mAuxFav, mAuxFav2;
+    ArrayList<ArrayList<Favoritos>> mFullListaFav;
+    ArrayList<Favoritos> mAuxFav, mAuxFav2;
     private ArrayList mRecargarGrid;
     IPaymentFragment mView;
     int mType, typeOperation;
 
-    public AdapterPagosRV(ArrayList<ArrayList<DataFavoritos>> mFullListaFav, IPaymentFragment mView,
+    public AdapterPagosRV(ArrayList<ArrayList<Favoritos>> mFullListaFav, IPaymentFragment mView,
                           int mType, int typeOperation) {
         this.mFullListaFav = mFullListaFav;
         this.mView = mView;

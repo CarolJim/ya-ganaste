@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -87,7 +87,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     StyleButton btnSolicitar;
     boolean isadd = false;
     PaymentsCarouselPresenter paymentsCarouselPresenter;
-    List<DataFavoritos> lstFavorites;
+    List<Favoritos> lstFavorites;
     ArrayList<DtoRequestPayment> lstRequestPayment;
     private float monto;
     private IEnviosPresenter enviosPresenter;
@@ -244,7 +244,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     }
 
     @Override
-    public void setFavolist(List<DataFavoritos> lista) {
+    public void setFavolist(List<Favoritos> lista) {
         if (lista.size() > 1) {
             setBackUpResponseFav(lista);
         } else {
@@ -265,7 +265,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         switch (v.getId()) {
             case R.id.lyt_favorite_item:
                 if (calculateAmountPerPerson() >= 1) {
-                    DataFavoritos fav = lstFavorites.get(position);
+                    Favoritos fav = lstFavorites.get(position);
                     DtoRequestPayment dto = new DtoRequestPayment(fav.getIdFavorito(), fav.getNombre(), fav.getReferencia(), fav.getColorMarca(), fav.getImagenURL());
                     String msj = "¡Hola! " + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
                     dto.setHeadMessage(msj);
@@ -369,18 +369,18 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         }
     }
 
-    private void setBackUpResponseFav(List<DataFavoritos> mResponse) {
+    private void setBackUpResponseFav(List<Favoritos> mResponse) {
         lstFavorites = new ArrayList<>();
-        for (DataFavoritos item : mResponse) {
+        for (Favoritos item : mResponse) {
             if (item.getReferencia().length() == 10) {
                 lstFavorites.add(item);
             }
         }
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         if (lstFavorites.size() > 0) {
-            Collections.sort(lstFavorites, new Comparator<DataFavoritos>() {
+            Collections.sort(lstFavorites, new Comparator<Favoritos>() {
                 @Override
-                public int compare(DataFavoritos o1, DataFavoritos o2) {
+                public int compare(Favoritos o1, Favoritos o2) {
                     return o1.getNombre().compareToIgnoreCase(o2.getNombre());
                 }
             });

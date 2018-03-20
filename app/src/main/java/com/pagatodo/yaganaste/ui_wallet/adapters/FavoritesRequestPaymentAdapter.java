@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.squareup.picasso.Picasso;
 
@@ -25,10 +25,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class FavoritesRequestPaymentAdapter extends RecyclerView.Adapter<FavoritesRequestPaymentAdapter.PaletteViewHolder> {
-    private List<DataFavoritos> data;
+    private List<Favoritos> data;
     private RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
 
-    public FavoritesRequestPaymentAdapter(@NonNull List<DataFavoritos> data, @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+    public FavoritesRequestPaymentAdapter(@NonNull List<Favoritos> data, @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
         this.data = data;
         this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
     }
@@ -41,7 +41,7 @@ public class FavoritesRequestPaymentAdapter extends RecyclerView.Adapter<Favorit
 
     @Override
     public void onBindViewHolder(PaletteViewHolder holder, int position) {
-        DataFavoritos item = data.get(position);
+        Favoritos item = data.get(position);
         holder.crlImageFavorite.setBorderColor(android.graphics.Color.parseColor(item.getColorMarca()));
         holder.txtNameFav.setText(item.getNombre());
         if (item.getImagenURL().equals("")) {

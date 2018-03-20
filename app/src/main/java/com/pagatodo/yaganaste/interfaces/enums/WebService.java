@@ -143,7 +143,7 @@ public enum WebService {
     ACTUALIZA_DOCUMENTOS_CUPO,
     ACTUALIZA_REFERENCIAS,
     /**
-     * Servicios para DataFavoritos
+     * Servicios para Favoritos
      */
     OBTENER_FAVORITOS,
     /**

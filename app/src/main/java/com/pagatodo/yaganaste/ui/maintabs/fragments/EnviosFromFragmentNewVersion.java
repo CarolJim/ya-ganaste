@@ -46,9 +46,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
@@ -79,10 +79,8 @@ import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -111,7 +109,6 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
-import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
 
 /**
  * Created by Armando Sandoval on 03/01/2018.
@@ -173,9 +170,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             referencia, formatoComercio, concepto;
     private boolean isCuentaValida = true, isUp, bancoselected = false, solicitabanco = true,
             isfavo = false, isValid = true;
-    List<DataFavoritos> backUpResponseFavoritos;
-    DataFavoritos favoriteItem;
-    ComercioResponse comercioItem;
+    List<Favoritos> backUpResponseFavoritos;
+    Favoritos favoriteItem;
+    Comercio comercioItem;
     ArrayList<CarouselItem> backUpResponse, finalList, backUpResponsefinal, backUpResponsefavo;
     IEnviosPaymentPresenter newPaymentPresenter;
     IEnviosPresenter enviosPresenter;
@@ -712,14 +709,14 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     }
 
     @Override
-    public void setFavolist(List<DataFavoritos> lista) {
+    public void setFavolist(List<Favoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
 
-        DataFavoritos itemAdd = new DataFavoritos(0);
+        Favoritos itemAdd = new Favoritos(0);
         itemAdd.setNombre("Agregar");
         backUpResponseFavoritos.add(itemAdd);
 
-        for (DataFavoritos carouselItem : lista) {
+        for (Favoritos carouselItem : lista) {
             backUpResponseFavoritos.add(carouselItem);
         }
 

@@ -2,12 +2,10 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
 
 import java.util.ArrayList;
@@ -23,10 +21,10 @@ public class AdapterPagosClass {
     private static final String TAG = AdapterPagosClass.class.getSimpleName();
 
     IPaymentFragment mView;
-    ArrayList<DataFavoritos> mDataset;
-    ArrayList<DataFavoritos> mDataAux;
-    ArrayList<DataFavoritos> mDataAux2;
-    ArrayList<ArrayList<DataFavoritos>> mFullListaFav;
+    ArrayList<Favoritos> mDataset;
+    ArrayList<Favoritos> mDataAux;
+    ArrayList<Favoritos> mDataAux2;
+    ArrayList<ArrayList<Favoritos>> mFullListaFav;
     GridView mGridView;
     int maxItem, numGrids, numRest, countItem;
 
@@ -34,9 +32,9 @@ public class AdapterPagosClass {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public AdapterPagosClass(IPaymentFragment mView, List<DataFavoritos> mDataset, RecyclerView mRecyclerView, GridView mGridView) {
+    public AdapterPagosClass(IPaymentFragment mView, List<Favoritos> mDataset, RecyclerView mRecyclerView, GridView mGridView) {
         this.mView = mView;
-        this.mDataset = (ArrayList<DataFavoritos>) mDataset;
+        this.mDataset = (ArrayList<Favoritos>) mDataset;
         this.mRecyclerView = mRecyclerView;
         this.mGridView = mGridView;
         countItem = 0;
@@ -99,7 +97,7 @@ public class AdapterPagosClass {
         }
     }
 
-    public ArrayList<ArrayList<DataFavoritos>> getmFullListaFav() {
+    public ArrayList<ArrayList<Favoritos>> getmFullListaFav() {
         return mFullListaFav;
     }
 }

@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
-import android.app.Fragment;
-
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
@@ -65,7 +63,7 @@ public interface IAccountIteractorNew<T> {
 
     void getBalanceCupo();
 
-    ArrayList<Countries> getPaisesList();
+    List<Paises> getPaisesList();
 
     void logoutSinRespuesta();
 

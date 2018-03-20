@@ -1,15 +1,8 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.cupo;
 
-import com.google.gson.annotations.SerializedName;
-import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.utils.customviews.ReferenciaView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Created by Tato on 17/08/17.

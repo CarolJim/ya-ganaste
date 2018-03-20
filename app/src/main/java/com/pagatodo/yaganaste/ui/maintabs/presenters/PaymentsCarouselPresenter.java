@@ -5,12 +5,12 @@ import android.content.Context;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.PaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
@@ -35,7 +36,6 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     IPaymentsCarouselIteractor paymentsTabIteractor;
     PaymentsCarrouselManager paymentsManager;
     Context mContext;
-    private CatalogsDbApi api;
     boolean showFavorite; //Sirve para saber si el presenter se manda a llamar desde el carrusel de Favoritos
 
     public PaymentsCarouselPresenter(int current_tab,
@@ -43,8 +43,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
         this.mContext = context;
-        this.api = new CatalogsDbApi(context);
-        this.paymentsTabIteractor = new PaymentsCarouselIteractor(this, api);
+        this.paymentsTabIteractor = new PaymentsCarouselIteractor(this);
         this.showFavorite = showFavorite;
     }
 
@@ -86,17 +85,22 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }*/
 
     @Override
-    public void getdatabank(String bin,String cob) {
-        paymentsTabIteractor.getdatabank(bin,cob);
+    public void getdatabank(String bin, String cob) {
+        paymentsTabIteractor.getdatabank(bin, cob);
     }
 
     @Override
     public void getCarouselItems() {
-        //Revisar que la tabla no esté
-        if (api.isCatalogTableEmpty()) {
-            paymentsTabIteractor.getCatalogosFromService();
-        } else {
-            paymentsTabIteractor.getCatalogosFromDB(current_tab);
+        try {
+            if (new DatabaseManager().isComerciosEmpty()) {
+                paymentsTabIteractor.getCatalogosFromService();
+            } else {
+                paymentsTabIteractor.getCatalogosFromDB(current_tab);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -127,7 +131,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {
                 App.getInstance().getPrefs().saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
-                api.insertComercios(response.getData().getComercios());
+                new DatabaseManager().insertComercios(response.getData().getComercios());
                 paymentsManager.setCarouselData(getCarouselItems(response.getData().getComercios()));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -145,7 +149,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             try {
                 App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
-                    api.insertFavorites(response.getData());
+                    new DatabaseManager().insertListFavorites(response.getData());
                 }
                 paymentsTabIteractor.getFavoritesFromDB(current_tab);
             } catch (Exception e) {
@@ -162,8 +166,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         ObtenerBancoBinResponse response = (ObtenerBancoBinResponse) result.getData();
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {
-                if (response.getData()!=null) {
-                    paymentsManager.setDataBank(response.getData().getIdComercioAfectado(),response.getData().getNombre());
+                if (response.getData() != null) {
+                    paymentsManager.setDataBank(response.getData().getIdComercioAfectado(), response.getData().getNombre());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -176,7 +180,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }
 
     @Override
-    public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
+    public void onSuccesDBObtenerCatalogos(List<Comercio> comercios) {
         ArrayList<CarouselItem> items = getCarouselItems(comercios);
         items = orderList(items);
 
@@ -312,13 +316,13 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     private CarouselItem createItemToAddFav() {
         //Se agrega un id en -1 en el constructor para hacer referencia a que el item responde a la accion de agregar favorito desde 0
-        CarouselItem carouselItemAdd = new CarouselItem(App.getInstance(), R.drawable.new_fav_add, "#747E84", CarouselItem.DRAG, new ComercioResponse(-1), null);
+        CarouselItem carouselItemAdd = new CarouselItem(App.getInstance(), R.drawable.new_fav_add, "#747E84", CarouselItem.DRAG, new Comercio(-1), null);
         carouselItemAdd.setAddImageViewMargin();
         return carouselItemAdd;
     }
 
     @Override
-    public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
+    public void onSuccessDBFavorites(List<Favoritos> favoritos) {
         if (showFavorite) {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
         } else {
@@ -327,7 +331,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         }
     }
 
-    private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
+    private ArrayList<CarouselItem> getCarouselItems(List<Comercio> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
 
         CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), current_tab != PAYMENT_ENVIOS ? R.drawable.new_fav_search : R.drawable.new_fav_add,
@@ -337,7 +341,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
         CarouselItem carouselItemCommerce;
-        for (ComercioResponse comercio : comercios) {
+        for (Comercio comercio : comercios) {
             if (comercio.getIdTipoComercio() == current_tab) {
                 if (comercio.getIdComercio() != 0) {
                     if (comercio.getColorMarca() == null || comercio.getColorMarca().isEmpty()) {
@@ -360,7 +364,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         return carouselItems;
     }
 
-    private ArrayList<CarouselItem> getCarouselItemsFavoritos(List<DataFavoritos> favoritos) {
+    private ArrayList<CarouselItem> getCarouselItemsFavoritos(List<Favoritos> favoritos) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
         CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
         carouselItemSearch.setSearchImageViewMargin();
@@ -372,7 +376,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             carouselItems.add(0, createItemToAddFav());
         }
 
-        for (DataFavoritos favorito : favoritos) {
+        for (Favoritos favorito : favoritos) {
             if (favorito.getIdTipoComercio() == current_tab) {
                 if (favorito.getIdComercio() != 0) {
                     if (favorito.getColorMarca().isEmpty()) {
@@ -397,7 +401,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             }
         }
 
-        if(current_tab!=PAYMENT_ENVIOS) {
+        if (current_tab != PAYMENT_ENVIOS) {
             int toAdd = 8 - carouselItems.size();
             for (int n = 0; n < toAdd; n++) {
                 carouselItems.add(createItemToAddFav());

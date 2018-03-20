@@ -3,14 +3,12 @@ package com.pagatodo.yaganaste.ui_wallet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.View;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment;
 import com.pagatodo.yaganaste.utils.UI;
@@ -29,8 +27,8 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     @BindView(R.id.btn_back)
     AppCompatImageView back;
 
-    private ComercioResponse comercioResponse;
-    private DataFavoritos dataFavoritos;
+    private Comercio comercioResponse;
+    private Favoritos favoritos;
     private boolean isFavorite;
 
     @Override
@@ -40,9 +38,9 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         if (getIntent().getExtras() != null) {
             isFavorite = getIntent().getBooleanExtra(PAYMENT_IS_FAV, false);
             if (!isFavorite) {
-                comercioResponse = (ComercioResponse) getIntent().getExtras().get(PAYMENT_DATA);
+                comercioResponse = (Comercio) getIntent().getExtras().get(PAYMENT_DATA);
             } else {
-                dataFavoritos = (DataFavoritos) getIntent().getExtras().get(PAYMENT_DATA);
+                favoritos = (Favoritos) getIntent().getExtras().get(PAYMENT_DATA);
             }
         }
         initViews();
@@ -54,7 +52,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
         if (!isFavorite) {
             loadFragment(PaymentFormFragment.newInstance(comercioResponse), R.id.fragment_container);
         } else {
-            loadFragment(PaymentFormFragment.newInstance(dataFavoritos), R.id.fragment_container);
+            loadFragment(PaymentFormFragment.newInstance(favoritos), R.id.fragment_container);
         }
     }
 

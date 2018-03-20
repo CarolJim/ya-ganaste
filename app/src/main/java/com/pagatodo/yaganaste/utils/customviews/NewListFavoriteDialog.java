@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
@@ -31,7 +31,7 @@ public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemC
     ArrayAdapter<String> adapter = null;
     CustomAdapterPagos adapter2 = null;
     ArrayList<String> mList = new ArrayList<>();
-    List<DataFavoritos> listCarousel;
+    List<Favoritos> listCarousel;
     Context context;
     INewPaymentPresenter presenter;
     int mType;
@@ -54,7 +54,7 @@ public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemC
         }
     };
 
-    public NewListFavoriteDialog(Context context, List<DataFavoritos> list, INewPaymentPresenter presenter,
+    public NewListFavoriteDialog(Context context, List<Favoritos> list, INewPaymentPresenter presenter,
                                  int mType) {
         super(context);
         this.context = context;
@@ -62,7 +62,7 @@ public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemC
         this.mType = mType;
         listCarousel = list;
 
-        for (DataFavoritos item : list) {
+        for (Favoritos item : list) {
             if (item.getIdComercio() > 0) {
                 mList.add(item.getNombre().trim());
             }

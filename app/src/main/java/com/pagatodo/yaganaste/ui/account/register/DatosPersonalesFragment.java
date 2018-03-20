@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -19,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -34,7 +32,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBuscaPais;
 import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
@@ -48,7 +46,6 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
-import com.pagatodo.yaganaste.utils.CustomDatePicker;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -167,7 +164,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String apMaterno = "";
     private String fechaNacimiento = "";
     private String curp = "";
-    private Countries country;
+    private Paises country;
     int year;
     int month;
     int day;
@@ -397,7 +394,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
-    public void showDialogList(ArrayList<Countries> paises) {
+    public void showDialogList(List<Paises> paises) {
         CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(paises);
         dialogFragment.setOnCountrySelectedListener(this);
         dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
@@ -700,7 +697,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             registerUser.setPaisNacimiento(country);
             //registerUser.setNacionalidad(country.getIdPais());
         } else {
-            registerUser.setPaisNacimiento(new Countries(127, "Mexico", "MX"));
+            registerUser.setPaisNacimiento(new Paises(127, "Mexico", "MX"));
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
@@ -848,7 +845,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
-    public void onCountrySelectedListener(Countries item) {
+    public void onCountrySelectedListener(Paises item) {
         country = item;
         editCountry.setText(country.getPais());
         lytCountry.setBackgroundResource(R.drawable.inputtext_normal);

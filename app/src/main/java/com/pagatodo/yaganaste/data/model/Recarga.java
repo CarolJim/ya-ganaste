@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.model;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 
 /**
  * Created by Jordan on 26/04/2017.
@@ -12,7 +12,7 @@ public class Recarga extends Payments {
         super();
     }
 
-    public Recarga(String numero, Double importe, ComercioResponse comercio, boolean isFavorite) {
+    public Recarga(String numero, Double importe, Comercio comercio, boolean isFavorite) {
         this.referencia = numero;
         this.monto = importe;
         this.comercio = comercio;

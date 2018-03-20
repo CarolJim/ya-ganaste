@@ -12,7 +12,7 @@ public class Recursos {
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "";
+    public static final String DATABASE_NAME = "ya_ganaste.db";
 
     public static final int TIMEOUT = 60000;
 
@@ -109,6 +109,7 @@ public class Recursos {
     public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
+    public static String GENERO = "GENERO";
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
     public static String PASSWORD_CHANGE = "PASSWORD_CHANGE";

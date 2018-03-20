@@ -3,9 +3,8 @@ package com.pagatodo.yaganaste.ui_wallet.presenter;
 import android.content.Context;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui_wallet.interactors.EnviosPaymentIteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentIteractor;
@@ -22,7 +21,6 @@ public class EnviosPaymentPresenter implements IEnviosPaymentPresenter {
     EnviosFromFragmentNewVersion mView;
     IEnviosPaymentIteractor mInteractor;
     Context mContext;
-    private CatalogsDbApi api;
     private int typeData;
     private int typeDataFav;
 
@@ -31,9 +29,7 @@ public class EnviosPaymentPresenter implements IEnviosPaymentPresenter {
         this.mView = mView;
         mInteractor = new EnviosPaymentIteractor(this);
         this.mContext = context;
-        this.api = new CatalogsDbApi(context);
     }
-
 
 
     @Override
@@ -42,8 +38,7 @@ public class EnviosPaymentPresenter implements IEnviosPaymentPresenter {
     }
 
     @Override
-    public void onSuccesDBObtenerCatalogos(List<ComercioResponse> catalogos) {
-
+    public void onSuccesDBObtenerCatalogos(List<Comercio> catalogos) {
     }
 
     @Override
@@ -62,17 +57,17 @@ public class EnviosPaymentPresenter implements IEnviosPaymentPresenter {
     }
 
     @Override
-    public void onSuccessDBFavorites(List<DataFavoritos> catalogos) {
+    public void onSuccessDBFavorites(List<Favoritos> catalogos) {
 
     }
 
     @Override
-    public void sendChoiceCarrier(ComercioResponse position, int mType) {
+    public void sendChoiceCarrier(Comercio position, int mType) {
 
     }
 
     @Override
-    public void sendChoiceFavorite(DataFavoritos dataFavoritos, int mType) {
+    public void sendChoiceFavorite(Favoritos favoritos, int mType) {
 
     }
 

@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -29,9 +29,9 @@ import com.pagatodo.yaganaste.ui_wallet.PaymentActivity;
 import com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.AdapterPagosClass;
 import com.pagatodo.yaganaste.ui_wallet.adapters.PaymentAdapterGV;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.DataFavoritosGridView;
 import com.pagatodo.yaganaste.utils.UI;
@@ -115,12 +115,12 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private ArrayList myDatasetAux;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     INewPaymentPresenter newPaymentPresenter;
-    private List<ComercioResponse> mDataRecargar;
-    private List<ComercioResponse> mDataPagar;
-    private List<DataFavoritos> mDataRecargarFav;
-    private List<DataFavoritos> mDataPagarFav;
-    ArrayList<ArrayList<DataFavoritos>> mFullListaRecar;
-    ArrayList<ArrayList<DataFavoritos>> mFullListaServ;
+    private List<Comercio> mDataRecargar;
+    private List<Comercio> mDataPagar;
+    private List<Favoritos> mDataRecargarFav;
+    private List<Favoritos> mDataPagarFav;
+    ArrayList<ArrayList<Favoritos>> mFullListaRecar;
+    ArrayList<ArrayList<Favoritos>> mFullListaServ;
     private AdapterPagosClass adapterPagosClass;
     private AdapterPagosClass adapterPDSClass;
 
@@ -328,7 +328,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         pdsTittle.setText("" + getResources().getString(R.string.btn_payment_favorites_txt));
     }
 
-    public void setCarouselData(List<ComercioResponse> comercios, int typeData) {
+    public void setCarouselData(List<Comercio> comercios, int typeData) {
         // Ocultams el Loader siempre que tenemos el exito en la consulta en este paso
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         onEventListener.onEvent("DISABLE_BACK", false);
@@ -405,7 +405,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     @Override
-    public void setDataFavorite(List<DataFavoritos> dataFavoritos, int typeDataFav) {
+    public void setDataFavorite(List<Favoritos> favoritos, int typeDataFav) {
 
         /**
          * Mostramos los RV de favoritos y ocultamos los GV de Carriers
@@ -430,7 +430,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
              * - Recargas
              * - Servicios
              */
-            mDataRecargarFav = dataFavoritos;
+            mDataRecargarFav = favoritos;
             mDataRecargarFav = orderFavoritos(mDataRecargarFav, typeDataFav);
 
             adapterPagosClass = new AdapterPagosClass(this, mDataRecargarFav,
@@ -441,7 +441,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
         } else if (typeDataFav == 2) {
 
-            mDataPagarFav = dataFavoritos;
+            mDataPagarFav = favoritos;
             mDataPagarFav = orderFavoritos(mDataPagarFav, typeDataFav);
 
             adapterPDSClass = new AdapterPagosClass(this, mDataPagarFav,
@@ -462,14 +462,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         }
     }
 
-    private List<ComercioResponse> orderCarriers(List<ComercioResponse> originalList, int typeData) {
+    private List<Comercio> orderCarriers(List<Comercio> originalList, int typeData) {
         ArrayList<Integer> orderBy = new ArrayList<>();
-        ArrayList<ComercioResponse> finalList = new ArrayList<>();
+        ArrayList<Comercio> finalList = new ArrayList<>();
 
         // Agregamos la lupa solo si tenemos mas de 8 items en el servicio. En caso de 0 no agrega nada
         int lenghtArray = originalList.size();
         if (lenghtArray > 8 && lenghtArray != 0) {
-            ComercioResponse itemLupa = new ComercioResponse();
+            Comercio itemLupa = new Comercio();
             itemLupa.setLogoURLColor("R.mipmap.buscar_con_texto");
             itemLupa.setNombreComercio("Buscar");
             finalList.add(itemLupa);
@@ -524,14 +524,14 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         return finalList;
     }
 
-    private List<DataFavoritos> orderFavoritos(List<DataFavoritos> originalList, int typeDataFav) {
-        ArrayList<DataFavoritos> finalList = new ArrayList<>();
+    private List<Favoritos> orderFavoritos(List<Favoritos> originalList, int typeDataFav) {
+        ArrayList<Favoritos> finalList = new ArrayList<>();
 
         // Agregamos la lupa solo si tenemos mas de 8 items en el servicio. En caso de 0 no agrega nada
         int lenghtArray = originalList.size();
         if (lenghtArray < 9) {
 
-            DataFavoritos itemAdd = new DataFavoritos(-2);
+            Favoritos itemAdd = new Favoritos(-2);
             itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
             itemAdd.setNombre(App.getContext().getResources().getString(R.string.btn_req_payment_2_txt));
             finalList.add(itemAdd);
@@ -543,7 +543,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         }
 
         if (lenghtArray > 8 && lenghtArray != 0) {
-            DataFavoritos itemAdd = new DataFavoritos(-2);
+            Favoritos itemAdd = new Favoritos(-2);
             itemAdd.setImagenURL("R.mipmap.ic_add_new_favorite");
             itemAdd.setNombre(App.getContext().getResources().getString(R.string.btn_req_payment_2_txt));
             finalList.add(itemAdd);
@@ -725,7 +725,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         }
     }
 
-    public void sendCarrierToView(ComercioResponse mComercio, int mType) {
+    public void sendCarrierToView(Comercio mComercio, int mType) {
         Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);
         intentPayment.putExtra(PAYMENT_DATA, mComercio);
         intentPayment.putExtra(PAYMENT_IS_FAV, false);
@@ -733,9 +733,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     }
 
     @Override
-    public void sendFavoriteToView(DataFavoritos dataFavoritos, int mType) {
+    public void sendFavoriteToView(Favoritos favoritos, int mType) {
         Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);
-        intentPayment.putExtra(PAYMENT_DATA, dataFavoritos);
+        intentPayment.putExtra(PAYMENT_DATA, favoritos);
         intentPayment.putExtra(PAYMENT_IS_FAV, true);
         startActivity(intentPayment);
     }

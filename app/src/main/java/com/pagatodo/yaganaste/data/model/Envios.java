@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.model;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 
 /**
@@ -18,7 +18,7 @@ public class Envios extends Payments {
     }
 
     public Envios(TransferType tipo, String destino, Double importe, String nombreDestinatario,
-                  String concepto, String referenceNumber, ComercioResponse comercio, boolean isFavorite) {
+                  String concepto, String referenceNumber, Comercio comercio, boolean isFavorite) {
         this.tipoEnvio = tipo;
         this.referencia = destino;
         this.setMonto(importe);

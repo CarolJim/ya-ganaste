@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.data.local.persistence;
+package com.pagatodo.yaganaste.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;

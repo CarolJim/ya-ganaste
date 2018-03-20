@@ -1,12 +1,9 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +32,7 @@ public interface IPaymentsCarouselPresenter {
 
     void onSuccessWSBankBin(DataSourceResult result);
 
-    void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios);
+    void onSuccesDBObtenerCatalogos(List<Comercio> comercios);
 
-    void onSuccessDBFavorites(List<DataFavoritos> favoritos);
+    void onSuccessDBFavorites(List<Favoritos> favoritos);
 }

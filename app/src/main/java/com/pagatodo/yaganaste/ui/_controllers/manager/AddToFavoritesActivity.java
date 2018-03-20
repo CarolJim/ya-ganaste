@@ -33,9 +33,9 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -75,7 +75,6 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
-import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
@@ -1514,7 +1513,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     @Override
-    public void setFavolist(List<DataFavoritos> lista) {
+    public void setFavolist(List<Favoritos> lista) {
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {

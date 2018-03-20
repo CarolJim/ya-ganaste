@@ -11,19 +11,14 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.Manifest;
 import android.os.CancellationSignal;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.data.Preferencias;
 
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
-import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
 @SuppressLint("NewApi")

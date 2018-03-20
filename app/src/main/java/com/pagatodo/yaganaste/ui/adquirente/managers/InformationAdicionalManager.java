@@ -1,7 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.managers;
 
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
-import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -29,7 +29,7 @@ public interface InformationAdicionalManager extends ValidationForms, INavigatio
 
     void onSucessSpinnerList(List<CobrosMensualesResponse> Dat,SpinnerPLD sp);
 
-    void onSucessContryList(ArrayList<Countries> paises);
+    void onSucessContryList(ArrayList<Paises> paises);
 
     void onErroContryList();
 

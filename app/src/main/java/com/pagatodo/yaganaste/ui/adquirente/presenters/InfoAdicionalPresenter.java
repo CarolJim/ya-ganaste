@@ -2,9 +2,9 @@ package com.pagatodo.yaganaste.ui.adquirente.presenters;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
-import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -67,10 +67,10 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
     @Override
     public void getPaisesList() {
         informationAdicionalManager.showLoader("");
-        /*ArrayList<Countries> arrayList = infoAdicionalInteractor.getPaisesList();
+        List<Paises> arrayList = infoAdicionalInteractor.getPaisesList();
         if (arrayList == null) {
             arrayList = new ArrayList<>();
-        }*/
+        }
         infoAdicionalInteractor.setPaises();
     }
 
@@ -92,9 +92,9 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         informationAdicionalManager.hideLoader();
         ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) ((DataSourceResult) success).getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            ArrayList<Countries> paises = new ArrayList<>();
+            ArrayList<Paises> paises = new ArrayList<>();
             for (int i = 0; i < data.getData().size();i++){
-                paises.add(new Countries(Integer.parseInt(data.getData().get(i).getIdPais()),
+                paises.add(new Paises(Integer.parseInt(data.getData().get(i).getIdPais()),
                         data.getData().get(i).getDescripcion(),
                         data.getData().get(i).getIdPais()));
             }

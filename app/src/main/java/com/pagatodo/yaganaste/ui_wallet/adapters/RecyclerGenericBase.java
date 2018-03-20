@@ -2,17 +2,13 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataListaNotificationArray;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.interfaces.INotificationHistory;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ISearchCarrier;
-import com.pagatodo.yaganaste.ui_wallet.views.GenericDummyData;
 
 import java.util.ArrayList;
 
@@ -36,7 +32,7 @@ public class RecyclerGenericBase {
     private int lastPos;
     private int mTotalItem;
     ArrayList<DataListaNotificationArray> myDataset;
-    private ArrayList<ComercioResponse> mDataSetCarrier;
+    private ArrayList<Comercio> mDataSetCarrier;
     public static int VERTICAL_ORIENTATION = 1;
     public static int HORIZONTAL_ORIENTATION = 2;
     public EditText searchEditText;
@@ -105,7 +101,7 @@ public class RecyclerGenericBase {
      * @param mDataSetCarrier
      * @param searchEditText
      */
-    public void createRecyclerList(ISearchCarrier iView, ArrayList<ComercioResponse> mDataSetCarrier,
+    public void createRecyclerList(ISearchCarrier iView, ArrayList<Comercio> mDataSetCarrier,
                                    EditText searchEditText) {
         this.mDataSetCarrier = mDataSetCarrier;
         this.searchEditText = searchEditText;

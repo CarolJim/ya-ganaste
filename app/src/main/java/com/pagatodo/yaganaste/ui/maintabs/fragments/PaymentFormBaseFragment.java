@@ -7,11 +7,10 @@ import android.widget.SeekBar;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 
@@ -31,8 +30,8 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
     boolean isValid = false;
     Payments payment;
     IPaymentsTabPresenter paymentsTabPresenter;
-    ComercioResponse comercioItem;
-    DataFavoritos favoriteItem;
+    Comercio comercioItem;
+    Favoritos favoriteItem;
     String errorText;
     String referencia;
     Double monto;

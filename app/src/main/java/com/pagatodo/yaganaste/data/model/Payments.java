@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.model;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ public class Payments implements Serializable {
     protected String referencia;
     protected Double monto;
     protected String concepto;
-    protected ComercioResponse comercio;
+    protected Comercio comercio;
     protected boolean isFavorite;
 
     public boolean isFavorite() {
@@ -48,11 +48,11 @@ public class Payments implements Serializable {
         this.concepto = concepto;
     }
 
-    public ComercioResponse getComercio() {
+    public Comercio getComercio() {
         return comercio;
     }
 
-    public void setComercio(ComercioResponse comercio) {
+    public void setComercio(Comercio comercio) {
         this.comercio = comercio;
     }
 }

@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -204,8 +205,14 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
         btnVolver.setOnClickListener(this);
 
-        CatalogsDbApi catalogsDbApi = new CatalogsDbApi(getContext());
-        String url = catalogsDbApi.getURLIconComercio(dataMovimientoAdq.getBancoEmisor());
+        String url = null;
+        try {
+            url = new DatabaseManager().getUrlLogoComercio(dataMovimientoAdq.getBancoEmisor());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         /**
          * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
@@ -230,19 +237,19 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 break;
         }
 
-        if (color == R.color.redColorNegativeMovements){
+        if (color == R.color.redColorNegativeMovements) {
             upDown.setBackgroundResource(R.drawable.down_red);
         }
 
-        if (color == R.color.greenColorPositiveMovements){
+        if (color == R.color.greenColorPositiveMovements) {
             upDown.setBackgroundResource(R.drawable.up);
         }
 
-        if (color == R.color.colorAccent){
+        if (color == R.color.colorAccent) {
             upDown.setBackgroundResource(R.drawable.ico_idle);
         }
 
-        if (color == R.color.redColorNegativeMovements){
+        if (color == R.color.redColorNegativeMovements) {
             upDown.setBackgroundResource(R.drawable.down);
         }
 

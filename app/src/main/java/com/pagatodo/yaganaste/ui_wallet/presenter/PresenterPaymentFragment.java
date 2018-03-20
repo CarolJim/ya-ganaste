@@ -2,12 +2,14 @@ package com.pagatodo.yaganaste.ui_wallet.presenter;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.ServiciosInteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IServiciosInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPaymentFromFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IPresenterPaymentFragment;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by FranciscoManzo on 10/01/2018.
@@ -17,21 +19,24 @@ public class PresenterPaymentFragment implements IPresenterPaymentFragment, ISer
     IPaymentFromFragment iView;
     IServiciosInteractor serviciosInteractor;
 
-    private CatalogsDbApi catalogsDbApi;
-
-    public PresenterPaymentFragment(){
-        catalogsDbApi = new CatalogsDbApi(App.getContext());
+    public PresenterPaymentFragment() {
     }
 
     public PresenterPaymentFragment(IPaymentFromFragment iView) {
         this.iView = iView;
-        catalogsDbApi = new CatalogsDbApi(App.getContext());
         serviciosInteractor = new ServiciosInteractor();
     }
 
     @Override
-    public ComercioResponse getComercioById(long idComercio) {
-        return catalogsDbApi.getComercioById(idComercio);
+    public Comercio getComercioById(int idComercio) {
+        try {
+            return new DatabaseManager().getComercioById(idComercio);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Comercio();
     }
 
     @Override
