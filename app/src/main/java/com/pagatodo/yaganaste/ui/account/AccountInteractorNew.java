@@ -825,6 +825,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             }
 
             user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
+            Log.i("Ya Ganaste","Tiempo Finalizado: "+System.currentTimeMillis());
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;

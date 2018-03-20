@@ -303,7 +303,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 // Intentional fall through
 
             case INTENTS:
-                mPasswordDescriptionTextView.setText("Demasiados Intentos\nFallidos, Por Favor\nUsa Tú Contraseña");
+                mPasswordDescriptionTextView.setText("Demasiados intentos\nallidos, por favor\nusa tú contraseña");
                 mCancelButton.setText("Usar Contraseña");
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
@@ -321,7 +321,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 mSecondDialogButton.setText("Configuración");
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
-                mPasswordDescriptionTextView.setText("No Existe una Huella Digital Registrada, Por Favor \nIngrese a Configuración");
+                mPasswordDescriptionTextView.setText("No existe una huella digital registrada, por favor \ningrese a configuración");
                 mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

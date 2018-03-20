@@ -1127,7 +1127,7 @@
     <string name="fingerprint_eneable_security">Habilite la seguridad de LockScreen en la configuración de su dispositivo</string>
     <string name="fingerprint_verification">Coloque su huella digital para verificar su identidad</string>
     <string name="fingerprint_failed">Demasiados intentos fallidos \nPor favor, \nIngresa la contraseña</string>
-    <string name="fingerprint_try_later">Error de autenticación, demaciados intentos fallidos  Intentalo más tarde</string>
+    <string name="fingerprint_try_later">Error de autenticación, demasiados intentos fallidos  Intentalo más tarde</string>
     <string name="fingerprint_unrecognized">Huella no reconocida\nIntentalo otra vez</string>
     <string name="fingerprint_failed_authentification">Error de autenticación</string>
     <string name="trans_spei_envio_txt">Transferencia SPEI</string>

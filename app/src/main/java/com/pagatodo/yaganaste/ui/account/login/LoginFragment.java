@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -398,6 +399,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void versionOk() {
+        Log.i("Ya Ganaste","Tiempo Iniciado: "+System.currentTimeMillis());
         accountPresenter.login(username, password); // Realizamos el  Login
     }
 

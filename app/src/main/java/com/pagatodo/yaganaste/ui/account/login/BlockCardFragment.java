@@ -384,7 +384,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             mKeyGenerator.generateKey();
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
                 | CertificateException | IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
