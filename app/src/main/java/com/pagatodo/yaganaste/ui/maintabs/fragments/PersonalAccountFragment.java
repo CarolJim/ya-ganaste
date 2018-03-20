@@ -47,10 +47,10 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     RecyclerView.Adapter currentAdapter;
 
     public static PersonalAccountFragment newInstance() {
-        PersonalAccountFragment homeTabFragment = new PersonalAccountFragment();
+        PersonalAccountFragment personalAccountFragment = new PersonalAccountFragment();
         Bundle args = new Bundle();
-        homeTabFragment.setArguments(args);
-        return homeTabFragment;
+        personalAccountFragment.setArguments(args);
+        return personalAccountFragment;
     }
 
     @Override

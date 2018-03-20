@@ -50,7 +50,6 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
@@ -493,12 +492,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void refreshAdquirenteMovements() {
         @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragmentList) {
-            if (fragment instanceof HomeTabFragment) {
+            /*if (fragment instanceof HomeTabFragment) {
                 goHome();
                 ((HomeTabFragment) fragment).setCurrentItem(1);
                 ((HomeTabFragment) fragment).getPaymentsFragment().onRefresh(SwipyRefreshLayoutDirection.TOP);
                 ((HomeTabFragment) fragment).getPaymentsFragment().showLoader("");
-            }
+            }*/
         }
     }
 
@@ -522,8 +521,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         @SuppressLint("RestrictedApi") List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
-                if ((fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
+                /*if ((fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
+                    return fragment;
+                }*/
+                if ((fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
+                        || (fragmentType == TYPE_DETAILS)) {
                     return fragment;
                 }
             }
@@ -541,8 +544,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
             } else if (actualFragment instanceof GetMountFragment) {
                 goHome();
-            } else if (actualFragment instanceof HomeTabFragment) {
-                showDialogOut();
             } else if (actualFragment instanceof WalletTabFragment) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {

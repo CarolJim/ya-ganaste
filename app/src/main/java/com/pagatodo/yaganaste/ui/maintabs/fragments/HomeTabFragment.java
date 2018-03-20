@@ -44,19 +44,11 @@ import java.util.List;
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-/**
- * @author Juan Guerra on 10/11/2016.
- */
-
 public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
         AbstractAdEmFragment.UpdateBalanceCallback, TabLayoutEmAd.onBlockCard, TabLayoutEmAd.clikdongle {
 
     private static final int MY_PERMISSIONS_REQUEST_SOUND = 100;
-    @BindView(R.id.my_card_name_user)
-    TextView mNameTV;
-    @BindView(R.id.my_card_num_cuenta)
-    TextView mCuentaTV;
+
     private String mTDC;
     PreferUserPresenter mPreferPresenter;
 
@@ -73,7 +65,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     private CardEmisorSelected cardEmisorSelected;
 
-    public static HomeTabFragment newInstance() {
+    /*public static HomeTabFragment newInstance() {
         HomeTabFragment homeTabFragment = new HomeTabFragment();
         Bundle args = new Bundle();
         homeTabFragment.setArguments(args);
@@ -86,7 +78,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         args.putInt("CURRENT_PAGE",setCurrentPage);
         homeTabFragment.setArguments(args);
         return homeTabFragment;
-    }
+    }*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -122,14 +114,16 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void initViews() {
         tabLayoutEmAd = rootView.findViewById(R.id.tab_em_adq);
-        pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
+        pagerAdquirente = rootView.findViewById(R.id.pager_adquirente);
+
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
+
         tabLayoutEmAd.setInviteAdquirenteCallback(this);
         tabLayoutEmAd.setOnBlockCard(this);
         tabLayoutEmAd.setClickdongle(this);
         tabLayoutEmAd.setOnBlockCard(this);
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
-        cardEmisorSelected = new CardEmisorSelected(getContext());
+         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
@@ -178,7 +172,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void onUpdateBalance() {
-        tabLayoutEmAd.updateData();
+        //tabLayoutEmAd.updateData();
     }
 
     @Override

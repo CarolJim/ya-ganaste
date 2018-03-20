@@ -177,9 +177,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         void onInviteAdquirente();
     }
 
-    /**
-     * Interfaz para bloquear abrir bloquear tarjeta desde el HomeTabFragment
-     */
     public interface onBlockCard {
         void onLongClickBlockCard();
     }

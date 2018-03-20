@@ -102,6 +102,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.movementsList = new ArrayList<>();
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         Bundle args = getArguments();
         if (args != null) {
             type = args.getInt(TYPE);
@@ -152,7 +153,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void updateBalance() {
-        ((UpdateBalanceCallback) getParentFragment()).onUpdateBalance();
+        //((UpdateBalanceCallback) getParentFragment()).onUpdateBalance();
     }
 
     @Override

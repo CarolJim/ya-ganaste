@@ -40,11 +40,11 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
 
 
     public static TxDetailsFragment newInstance(Serializable data) {
-        TxDetailsFragment homeTabFragment = new TxDetailsFragment();
+        TxDetailsFragment txDetailsFragment = new TxDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable(OnlineTxActivity.DATA, data);
-        homeTabFragment.setArguments(args);
-        return homeTabFragment;
+        txDetailsFragment.setArguments(args);
+        return txDetailsFragment;
     }
 
     @Override
