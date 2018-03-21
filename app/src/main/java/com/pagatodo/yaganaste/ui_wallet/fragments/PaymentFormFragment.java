@@ -105,6 +105,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     StyleTextView txtMonto;
     @BindView(R.id.btn_continue_payment)
     StyleButton btnContinue;
+    @BindView(R.id.textmontorecarga)
+    StyleTextView textmontorecarga;
+
+
 
     /* RECARGAS BLOCK */
     @BindView(R.id.containerRecargaForm)
@@ -119,6 +123,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     StyleTextView comisionTextRecarga;
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
+
     /***/
 
     /* SERVICIOS BLOCK */
@@ -139,6 +144,29 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     @BindView(R.id.til_num_telefono)
     TextInputLayout til_num_telefono;
+
+    @BindView(R.id.txt_num_telefono)
+    LinearLayout txt_num_telefono;
+    @BindView(R.id.txt_referenciaserv)
+    LinearLayout txt_referenciaserv;
+    @BindView(R.id.txt_monotserv)
+    LinearLayout txt_monotserv;
+    @BindView(R.id.txtconcepto)
+    LinearLayout txtconcepto;
+
+
+
+    @BindView(R.id.til_num_telefono2)
+    TextInputLayout til_num_telefono2;
+
+
+
+
+
+
+
+
+
 
     boolean isRecarga = false;
     boolean isIAVE;
@@ -229,6 +257,30 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
         // edtPhoneNumber.setCursorVisible(true);
+
+        edtPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    txt_num_telefono.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    txt_num_telefono.setBackgroundResource(R.drawable.inputtext_normal);
+                }
+            }
+        });
+
+        edtServiceConcept.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    txtconcepto.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    txtconcepto.setBackgroundResource(R.drawable.inputtext_normal);
+                }
+            }
+        });
+
+
 
         // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
@@ -325,6 +377,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                         if (position != 0) {
                             monto = (Double) spnMontoRecarga.getSelectedItem();
                             txtMonto.setText("" + Utils.getCurrencyValue(monto));
+                            textmontorecarga.setVisibility(View.VISIBLE);
                         } else {
                             txtMonto.setText("" + Utils.getCurrencyValue(0));
                         }
@@ -360,6 +413,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 edtServiceImport.setLongClickable(true);
                 edtServiceImport.setSingleLine();
                 edtServiceImport.addTextChangedListener(new NumberTextWatcher(edtServiceImport));
+
+
 
                 if (comercioResponse.getLongitudReferencia() > 0) {
                     InputFilter[] fArray = new InputFilter[1];
@@ -416,6 +471,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
                         if (hasFocus) {
+                            txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_active);
+                        }else {
+                            txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_normal);
 
                         }
                     }
@@ -428,6 +486,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     public void onFocusChange(View v, boolean hasFocus) {
                         if (!hasFocus) {
                             // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
+                            txt_monotserv.setBackgroundResource(R.drawable.inputtext_normal);
+
                             if (edtServiceImport.getText().length() > 0) {
                                 String serviceImportStr = edtServiceImport.getText().toString().substring(1).replace(",", "");
 
@@ -438,6 +498,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                                     txtMonto.setText("" + Utils.getCurrencyValue(0.0));
                                 }
                             }
+                        }else {
+                            txt_monotserv.setBackgroundResource(R.drawable.inputtext_active);
                         }
 
                     }

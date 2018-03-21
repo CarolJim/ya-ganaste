@@ -184,29 +184,60 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
+
                 <LinearLayout
+                    android:id="@+id/txtgiro"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="3dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="@dimen/space_between_elements"
-                    android:background="@drawable/inputtext_normal">
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/sp_montoRecarga"
-                        style="@style/CustomSpinner"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
-                        android:visibility="visible" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
 
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        >
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/textmontorecarga"
+                            style="@style/generic_text_style_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginLeft="15dp"
+                            android:text="Monto"
+                            android:textColor="@color/colorAccent"
+                            android:visibility="gone" />
+
+                        <Spinner
+                            android:id="@+id/sp_montoRecarga"
+                            style="@style/CustomSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="15dp"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="11dp"
+                        android:src="@drawable/ico_select" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:id="@+id/txt_num_telefono"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
@@ -222,7 +253,11 @@
                         android:hint="@string/numero_telefono"
                         android:maxLines="1"
                         android:textColor="@color/blue_text_wallet"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        android:textColorHint="@color/hint_color"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -236,11 +271,13 @@
                             android:imeOptions="actionDone"
                             android:inputType="text"
                             android:longClickable="false"
+                            android:textColorHint="@color/hint_color"
                             android:maxLength="12"
                             android:maxLines="1"
                             android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:textColor="@color/texthint_edittext"
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor"
                             android:textSize="14sp" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -279,11 +316,12 @@
                 android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/txt_monotserv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="horizontal">
 
@@ -295,7 +333,10 @@
                         android:hint="@string/details_monto"
                         android:maxLines="1"
                         android:textColor="@color/blue_text_wallet"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -312,7 +353,8 @@
                             android:maxLength="10"
                             android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:textColor="@color/texthint_edittext"
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor"
                             android:textSize="14sp" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -324,6 +366,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="8dp"
+                    android:id="@+id/txt_referenciaserv"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="horizontal">
 
@@ -336,7 +379,11 @@
                         android:hint="@string/txt_numero_referencia"
                         android:maxLines="1"
                         android:textColor="@color/blue_text_wallet"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        android:textColorHint="@color/hint_color"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -350,11 +397,13 @@
                             android:imeOptions="actionNext"
                             android:inputType="number"
                             android:longClickable="false"
+                            android:textColorHint="@color/hint_color"
                             android:maxLength="12"
                             android:maxLines="1"
                             android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:textColor="@color/texthint_edittext"
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor"
                             android:textSize="14sp" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -381,6 +430,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:id="@+id/txtconcepto"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="horizontal">
@@ -391,9 +441,13 @@
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_concepto"
+                        android:textColorHint="@color/hint_color"
                         android:maxLines="1"
                         android:textColor="@color/blue_text_wallet"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -408,10 +462,12 @@
                             android:imeOptions="actionDone"
                             android:inputType="textCapSentences"
                             android:longClickable="false"
+                            android:textColorHint="@color/hint_color"
                             android:maxLength="40"
                             android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:textColor="@color/texthint_edittext"
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor"
                             android:textSize="14sp" />
 
                     </android.support.design.widget.TextInputLayout>
