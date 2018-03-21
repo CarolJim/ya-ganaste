@@ -127,7 +127,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         ButterKnife.bind(this, rootView);
         //txtInfoMovements.setVisibility(View.GONE);
         //txtInfoMovements.setOnClickListener(this);
-        progress_emisor.setVisibility(View.VISIBLE);
+        //progress_emisor.setVisibility(View.VISIBLE);
         //progress_emisor.setBackgroundColor(getResources().getColor(R.color.colorLoaderAlpha));
         swipeContainer.setDirection(type == MOVEMENTS ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
         swipeContainer.setOnRefreshListener(this);
@@ -162,10 +162,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         }*/
         //txtInfoMovements.setVisibility(View.GONE);
         swipeContainer.setRefreshing(false);
-        showLoader("");
-        movementsPresenter.updateBalance();
-        progress_emisor.setVisivilityImage(View.VISIBLE);
-        progress_emisor.setVisibility(View.VISIBLE);
+        //showLoader("");
+        //movementsPresenter.updateBalance();
+        //progress_emisor.setVisivilityImage(View.VISIBLE);
+        //progress_emisor.setVisibility(View.VISIBLE);
     }
 
     protected abstract void onTabLoaded();
@@ -179,13 +179,13 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         } else {
             swipeContainer.setDirection(SwipyRefreshLayoutDirection.TOP);
         }
-        movementsPresenter.updateBalance();
+        //movementsPresenter.updateBalance();
         recyclerMovements.setVisibility(View.GONE);
 
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
-            showLoader("");
+            //showLoader("");
             getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
         }
     }

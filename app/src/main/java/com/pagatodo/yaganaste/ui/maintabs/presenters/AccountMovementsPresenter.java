@@ -31,10 +31,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMB
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.getTipoTransaccionById;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
-/**
- * @author Juan Guerra on 28/03/2017.
- */
-
 public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<MonthsMovementsTab>,
         MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> {
 
@@ -51,7 +47,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
-        //movementsView.showLoader("");
+        movementsView.showLoader("Cargando mivimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
             request.setAnio("");
@@ -68,7 +64,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
-        //movementsView.showLoader("");
+        movementsView.showLoader("Cargando mivimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
             request.setAnio("");

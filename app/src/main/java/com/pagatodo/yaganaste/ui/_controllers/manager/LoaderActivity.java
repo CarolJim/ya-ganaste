@@ -56,14 +56,14 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(R.layout.activity_loader);
         if (layoutResID != R.layout.activity_loader) {
-            LinearLayout content = (LinearLayout) findViewById(R.id.ll_content);
+            LinearLayout content = findViewById(R.id.ll_content);
             View view = getLayoutInflater().inflate(layoutResID, null);
             content.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
             setUpActionBar();
         }
 
-        progressLayout = (ProgressLayout) findViewById(R.id.progress_view);
+        progressLayout = findViewById(R.id.progress_view);
     }
 
     @Override

@@ -1389,5 +1389,6 @@
     <string name="action_repayment">Reembolsar cobro</string>
     <string name="action_cancel_repayment">Cancelar cobro</string>
 
+    <string name="load_movimientos">Cargando mivimientos</string>
 
 </resources>

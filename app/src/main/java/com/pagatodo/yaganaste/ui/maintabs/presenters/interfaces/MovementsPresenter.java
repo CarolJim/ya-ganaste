@@ -4,10 +4,6 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
-/**
- * @author Juan Guerra on 28/03/2017.
- */
-
 public interface MovementsPresenter<T extends IEnumTab> extends TabPresenter {
 
     void getRemoteMovementsData(T data);

@@ -39,12 +39,10 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.RIGHT;
 
-/**
- * @author Juan Guerra on 27/11/2016.
- */
 
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
 
@@ -101,7 +99,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             }
             movementsPresenter.getRemoteMovementsData(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()), direction, itemId);
         } else {
-            //showLoader("");
             getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
         }
     }
@@ -159,15 +156,15 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     @Override
     protected void performClickOnRecycler(ItemMovements<MovimientosResponse> itemClicked, int pos) {
         //startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
-        DetailsEmisorFragment simpleFragmentB = DetailsEmisorFragment.newInstance(itemClicked.getMovement());
-        View v = recyclerMovements.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.card_view);
+        //DetailsEmisorFragment simpleFragmentB = DetailsEmisorFragment.newInstance(itemClicked.getMovement());
+        /*View v = recyclerMovements.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.card_view);
         getFragmentManager()
                 .beginTransaction()
                 .addSharedElement(v, ViewCompat.getTransitionName(v))
                 .replace(R.id.fragment_container, simpleFragmentB)
-                .commit();
-
-        //loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data));
+                .commit();*/
+        onEventListener.onEvent(EVENT_GO_DETAIL_EMISOR,itemClicked.getMovement());
+        //loadFragment(DetailsEmisorFragment.newInstance(itemClicked.getMovement()), R.id.fragment_container);
 
     }
 

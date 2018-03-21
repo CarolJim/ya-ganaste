@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT_AD;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 
@@ -84,9 +85,10 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked, int pos) {
         this.itemClicked = itemClicked;
-        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
+        //startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
         //getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
         //UI.showToastShort(itemClicked.getMovement().getTransactionIdentity(),getContext());
+        onEventListener.onEvent(EVENT_GO_DETAIL_ADQ,itemClicked.getMovement());
 
     }
 

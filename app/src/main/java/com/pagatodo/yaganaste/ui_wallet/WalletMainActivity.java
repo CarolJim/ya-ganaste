@@ -12,6 +12,8 @@ import android.widget.ShareActionProvider;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
@@ -24,6 +26,8 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
@@ -51,6 +55,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
     public final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
+    public final static String EVENT_GO_DETAIL_EMISOR = "EVENT_GO_DETAIL_EMISOR";
+    public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91;
     public static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
@@ -133,6 +139,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 } else {
                     onBackPressed();
                 }
+                break;
         }
         return super.onOptionsItemSelected(item);
 
@@ -260,6 +267,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_CONFIG_REPAYMENT_BACK:
                 loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container, Direction.BACK, false);
+                break;
+            case EVENT_GO_DETAIL_EMISOR:
+                loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data), R.id.fragment_container, Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_DETAIL_ADQ:
+                loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
                 break;
         }
     }
