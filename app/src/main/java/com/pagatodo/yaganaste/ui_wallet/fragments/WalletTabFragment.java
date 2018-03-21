@@ -239,7 +239,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoAprobado(), 2);
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                         Idestatus == IdEstatus.ADQUIRENTE.getId()) {
+                llm.setSpanCount(3);
+                rcvOpciones.setLayoutManager(llm);
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
+                txtSaldo.setVisibility(View.VISIBLE);
+                txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+                anuncio.setVisibility(View.GONE);
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I13.getId()) {
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);

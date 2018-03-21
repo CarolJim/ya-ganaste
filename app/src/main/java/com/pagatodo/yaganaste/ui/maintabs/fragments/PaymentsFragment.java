@@ -27,10 +27,6 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAI
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT_AD;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 
-/**
- * @author Juan Guerra on 27/11/2016.
- */
-
 public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab, ItemMovements<DataMovimientoAdq>> {
 
 

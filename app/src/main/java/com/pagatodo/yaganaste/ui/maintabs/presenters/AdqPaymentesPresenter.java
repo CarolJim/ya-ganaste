@@ -52,7 +52,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void getRemoteMovementsData(AdquirentePaymentsTab data) {
-        //movementsView.showLoader("");
+        movementsView.showLoader("Cargando mivimientos");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
