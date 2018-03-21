@@ -236,7 +236,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                     Idestatus == IdEstatus.I11.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoAprobado(), 2);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
             } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                         Idestatus == IdEstatus.ADQUIRENTE.getId()) {
                 llm.setSpanCount(3);

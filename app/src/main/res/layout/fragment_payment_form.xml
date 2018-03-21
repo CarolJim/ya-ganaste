@@ -335,6 +335,7 @@
                         android:textColor="@color/blue_text_wallet"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
+                        android:textColorHint="@color/hint_color"
                         app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
@@ -353,6 +354,7 @@
                             android:maxLength="10"
                             android:paddingLeft="15dp"
                             android:singleLine="true"
+                            android:textColorHint="@color/hint_color"
                             android:theme ="@style/NewEdittextwallet"
                             android:textColor="@color/grayColor"
                             android:textSize="14sp" />
