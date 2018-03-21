@@ -105,7 +105,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             public void run() {
                 try {
                     ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
-                    request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(StringConstants.CATALOG_VERSION));
+                    request.setVersion(/*preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? */"1"/* : preferencias.loadData(StringConstants.CATALOG_VERSION)*/);
                     ApiAdtvo.obtenerCatalogos(request, iRequestResult);
                 } catch (OfflineException e) {
                     e.printStackTrace();

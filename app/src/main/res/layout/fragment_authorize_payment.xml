@@ -70,8 +70,7 @@
                         android:layout_width="@dimen/radio_image_pago_payment_tab"
                         android:layout_height="@dimen/radio_image_pago_payment_tab"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:src="@color/colorAccent" />
+                        android:layout_centerVertical="true" />
 
                     <TextView
                         android:id="@+id/txtIniciales"
