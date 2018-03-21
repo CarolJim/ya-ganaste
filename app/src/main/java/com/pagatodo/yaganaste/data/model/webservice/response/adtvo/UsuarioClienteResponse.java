@@ -24,13 +24,9 @@ public class UsuarioClienteResponse implements Serializable {
     private String TokenSesionAdquirente = "";
     private String FechaUltimoAcceso = "";
     private List<CuentaResponse> Cuentas;
-
-
-
     private Boolean PasswordAsignado = null;
     private String NumeroAgente = "";
     private String PetroNumero = "72851001";
-    private String ClaveAgente = "7320";
     private int TipoAgente;
     @SerializedName("EsExtranjero")
     private boolean isExtranjero;
@@ -140,14 +136,6 @@ public class UsuarioClienteResponse implements Serializable {
 
     public void setPetroNumero(String petroNumero) {
         PetroNumero = petroNumero;
-    }
-
-    public String getClaveAgente() {
-        return ClaveAgente;
-    }
-
-    public void setClaveAgente(String claveAgente) {
-        ClaveAgente = claveAgente;
     }
 
     public int getTipoAgente() {

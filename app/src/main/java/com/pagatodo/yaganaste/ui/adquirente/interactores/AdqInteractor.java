@@ -78,23 +78,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     }
 
     @Override
-    public void loginAdq() {
-
-        SingletonUser singletonUser = SingletonUser.getInstance();
-        LoginAdqRequest request = new LoginAdqRequest(
-                singletonUser.getDataUser().getUsuario().getPetroNumero(),
-                singletonUser.getDataUser().getUsuario().getClaveAgente());
-
-        try {
-            ApiAdq.loginAdq(request, this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @Override
     public void registerDongle() {
         String serial = prefs.loadData(KSN_LECTOR);
         RegistroDongleRequest request = new RegistroDongleRequest(serial);
@@ -104,12 +87,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             accountManager.hideLoader();
             accountManager.onError(REGISTRO_DONGLE, context.getString(R.string.no_internet_access));
         }
-// FLUJO DUMMY
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//                accountManager.onSucces(REGISTRO_DONGLE, "Ejecución Exitosa");
-//            }
-//        }, DELAY_MESSAGE_PROGRESS * 2);
     }
 
     @Override
