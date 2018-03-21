@@ -127,7 +127,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
                 ObtenerCatalogosResponse response = (ObtenerCatalogosResponse) result.getData();
                 if (response.getCodigoRespuesta() == CODE_OK && response.getData() != null) {
                     preferencias.saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
-                    List<MontoComercio> montos = new ArrayList<>();
                     new DatabaseManager().insertComercios(response.getData().getComercios());
                 }
                 callNextActivity();

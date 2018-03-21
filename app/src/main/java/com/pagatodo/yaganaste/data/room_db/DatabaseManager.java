@@ -85,29 +85,15 @@ public class DatabaseManager {
                 App.getAppDatabase().comercioModel().deleteAll();
                 App.getAppDatabase().montoComercioModel().deleteAll();
                 App.getAppDatabase().comercioModel().insertComercios(comercios);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
                 for (Comercio comercio : comercios) {
                     for (Double monto : comercio.getListaMontos()) {
                         MontoComercio montoComercio = new MontoComercio();
                         montoComercio.setIdComercio(comercio.getIdComercio());
                         montoComercio.setMonto(monto);
-                        insertMontoComercio(montoComercio);
+                        /* Inserta los montos respectivos de los comercios en la BD */
+                        App.getAppDatabase().montoComercioModel().insertMonto(montoComercio);
                     }
                 }
-            }
-        }.execute();
-    }
-
-    /* Inserta los montos respectivos de los comercios en la BD */
-    private void insertMontoComercio(final MontoComercio montoComercio) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                App.getAppDatabase().montoComercioModel().insertMonto(montoComercio);
                 return null;
             }
         }.execute();

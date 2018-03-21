@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class MontoComercio {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_monto_comercio")
     public int idMontoComercio;
 
