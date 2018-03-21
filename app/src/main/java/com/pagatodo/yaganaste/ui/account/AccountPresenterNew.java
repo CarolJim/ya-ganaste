@@ -82,6 +82,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
@@ -165,7 +166,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void goToNextStepAccount(String event, Object data) {
-        accountView.hideLoader();
+        if (!event.equals(EVENT_GO_MAINTAB)) accountView.hideLoader();
         accountView.nextScreen(event, data);
     }
 
