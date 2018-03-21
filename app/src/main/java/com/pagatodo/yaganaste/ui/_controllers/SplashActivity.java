@@ -105,7 +105,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             public void run() {
                 try {
                     ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
-                    request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(StringConstants.CATALOG_VERSION));
+                    request.setVersion(/*preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? */"1"/* : preferencias.loadData(StringConstants.CATALOG_VERSION)*/);
                     ApiAdtvo.obtenerCatalogos(request, iRequestResult);
                 } catch (OfflineException e) {
                     e.printStackTrace();
@@ -127,7 +127,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
                 ObtenerCatalogosResponse response = (ObtenerCatalogosResponse) result.getData();
                 if (response.getCodigoRespuesta() == CODE_OK && response.getData() != null) {
                     preferencias.saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
-                    List<MontoComercio> montos = new ArrayList<>();
                     new DatabaseManager().insertComercios(response.getData().getComercios());
                 }
                 callNextActivity();
