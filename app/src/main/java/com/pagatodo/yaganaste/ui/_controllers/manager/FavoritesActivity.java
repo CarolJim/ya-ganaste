@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -91,10 +92,13 @@ import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 public class FavoritesActivity extends LoaderActivity implements View.OnClickListener,
@@ -123,9 +127,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     private static Preferencias preferencias = App.getInstance().getPrefs();
 
     int favoriteProcess, current_tab, favoriteProcesS, idTipoComercio, idComercio, longitudRefer,
-            maxLength, keyIdComercio, idTipoEnvio;
-    String stringFoto = "", formatoComercio, mReferencia;
-    boolean isIAVE;
+            maxLength, keyIdComercio, idTipoEnvio, idFavorito, longRefer;
+    String stringFoto = "", formatoComercio, mReferencia, nombreComercio, nombreDest;
+    boolean isIAVE, showRefEnvio;
 
     TransferType selectedType;
     CameraManager cameraManager;
@@ -134,6 +138,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     private PhoneTextWatcher phoneTextWatcher;
     private NumberClabeTextWatcher numberClabeTextWatcher;
     private TextWatcher currentTextWatcher;
+    DataFavoritos dataFavoritos;
 
     @BindView(R.id.add_favorites_camera)
     UploadCircleDocumentView imageViewCamera;
@@ -171,6 +176,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     LinearLayout layout_cardNumber;
     @BindView(R.id.til_num_telefono)
     TextInputLayout til_num_telefono;
+    @BindView(R.id.til_num_telefono2)
+    TextInputLayout til_name_favorite;
 
     // Dudas
     public static final String FAV_PROCESS = "FAV_PROCESS";
@@ -212,6 +219,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(this);
 
+        // Hacemos Set de Reglas de validacion
+        setValidationRules();
+
         /**
          * PROCESOS BASICOS para cada tipo de EVENTO
          Identificar:
@@ -246,10 +256,124 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         } else if (favoriteProcesS == TYPE_NEW_FAV_OPER) {
 
         } else if (favoriteProcesS == TYPE_EDIT_FAV) {
+            dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+            current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
 
+            idComercio = (int) dataFavoritos.getIdComercio();
+            idTipoComercio = dataFavoritos.getIdTipoComercio();
+            nombreComercio = dataFavoritos.getNombreComercio();
+            mReferencia = dataFavoritos.getReferencia();
+            nombreDest = dataFavoritos.getNombre();
+            idFavorito = (int) dataFavoritos.getIdFavorito();
+
+            // Funcionalidad para borrar elementos
+            ImageView deleteFav = (ImageView) findViewById(R.id.delete_fav);
+            deleteFav.setVisibility(View.VISIBLE);
+            deleteFav.setOnClickListener(this);
+
+            /**
+             * Iniciamos los cambos de EditTExt Sencillos
+             */
+            til_name_favorite.setHint("Nombre");
+            editAlias.setText(nombreDest);
+            editListServ.setText(nombreComercio);
+
+            /**
+             * Le damos formato al tipo de pago
+             */
+            String formatoPago = mReferencia;
+
+            // Sacamos la logintud de la referencia antes del formato
+            longRefer = mReferencia.length();
+
+            // Boolean para mostrar la referencia por 1era vez en Envio
+            showRefEnvio = true;
+
+            if (current_tab == 1) {
+                if (idComercio != 7) {
+                    formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+                }
+                if (idComercio == 7) {
+                    formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
+                }
+                txtLytListServ.setHint(getString(R.string.details_compania));
+            } else if (current_tab == 2) {
+                formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+                txtLytListServ.setHint(getString(R.string.details_compania));
+            } else if (current_tab == 3) {
+                if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                    formatoPago = getCreditCardFormat(formatoPago);
+                } else {
+                    formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+                }
+                txtLytListServ.setHint(getString(R.string.details_bank));
+            }
+
+            /**
+             * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
+             * Esto se controlar con la posicion del Tab que seleccionamos
+             */
+            if (current_tab == 1) {
+                LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_tae_ll);
+                taeLL.setVisibility(View.VISIBLE);
+
+                initFormatoLogitud();
+                initTAERefer();
+                recargaNumber.setText(formatoPago);
+            } else if (current_tab == 2) {
+                LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_serv_ll);
+                taeLL.setVisibility(View.VISIBLE);
+
+                initFormatoLogitud();
+                initPDSRefer();
+                referenceNumber.setText(formatoPago);
+            } else if (current_tab == 3) {
+                //  LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_envio_ll);
+                //   taeLL.setVisibility(View.VISIBLE);
+
+                //longRefer
+                switch (longRefer) {
+                    case 10:
+                        idTipoEnvio = 1;
+                        break;
+                    case 16:
+                        idTipoEnvio = 2;
+                        break;
+                    case 18:
+                        idTipoEnvio = 3;
+                        break;
+                }
+
+                initEnviosPrefer();
+
+                tipoEnvio.setSelection(idTipoEnvio);
+                cardNumber.setText(formatoPago);
+            }
+
+            /**
+             * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
+             * Glide permite falla y cargar un PlaceHolder
+             */
+            String url = dataFavoritos.getImagenURL();
+            if (url != null && !url.isEmpty()) {
+                Picasso.with(this)
+                        .load(dataFavoritos.getImagenURL())
+                        .into(imageViewCamera.getCircleImageView());
+            }
         }
     }
 
+    /**
+     * Procedimientos para inicializar el FormatoComercio y logitudRefer
+     */
+    private void initFormatoLogitud() {
+        for (CarouselItem customCarouselItem : backUpResponse) {
+            if (customCarouselItem.getComercio().getNombreComercio().equals(nombreComercio)) {
+                formatoComercio = customCarouselItem.getComercio().getFormato();
+                longitudRefer = customCarouselItem.getComercio().getLongitudReferencia();
+            }
+        }
+   }
 
     @Override
     public void onClick(View view) {
@@ -557,7 +681,90 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
      */
     @Override
     public void setValidationRules() {
+        editAlias.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideValidationError(editAlias.getId());
+                    //   editAlias.imageViewIsGone(true);
+                } else {
+                    if (editAlias.getText().toString().isEmpty()) {
+                        //showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
+                        //editAlias.setIsInvalid();
 
+                        UI.showErrorSnackBar(FavoritesActivity.this, getString(R.string.addFavoritesErrorAlias), Snackbar.LENGTH_SHORT);
+                    } else {
+                        hideValidationError(editAlias.getId());
+                        // editAlias.setIsValid();
+                    }
+                }
+            }
+        });
+
+        /**
+         * Asiganmos un FocusListenr dependiendo del Tab de referencia que tengamos listo
+         */
+        if (current_tab == 1) {
+            recargaNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    // Hacemos SET del contenido de recargaNumber a editRefer SIEMPRE que cambiemos foco
+                    editRefer.setText(recargaNumber.getText().toString());
+                    if (hasFocus) {
+                        hideValidationError(editRefer.getId());
+                        editRefer.imageViewIsGone(true);
+                    } else {
+                        if (editRefer.getText().isEmpty()) {
+                            // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            editRefer.setIsInvalid();
+                        } else {
+                            hideValidationError(editRefer.getId());
+                            editRefer.setIsValid();
+                        }
+                    }
+                }
+            });
+        } else if (current_tab == 2) {
+            referenceNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    // Hacemos SET del contenido de recargaNumber a editRefer SIEMPRE que cambiemos foco
+                    editRefer.setText(referenceNumber.getText().toString());
+                    if (hasFocus) {
+                        hideValidationError(editRefer.getId());
+                        editRefer.imageViewIsGone(true);
+                    } else {
+                        if (editRefer.getText().isEmpty()) {
+                            //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            editRefer.setIsInvalid();
+                        } else {
+                            hideValidationError(editRefer.getId());
+                            editRefer.setIsValid();
+                        }
+                    }
+                }
+            });
+        } else if (current_tab == 3) {
+            cardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    // Hacemos SET del contenido de recargaNumber a editRefer SIEMPRE que cambiemos foco
+                    editRefer.setText(cardNumber.getText().toString());
+                    if (hasFocus) {
+                        hideValidationError(editRefer.getId());
+                        editRefer.imageViewIsGone(true);
+                    } else {
+                        if (editRefer.getText().isEmpty()) {
+                            //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            editRefer.setIsInvalid();
+                        } else {
+                            hideValidationError(editRefer.getId());
+                            editRefer.setIsValid();
+                        }
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -600,7 +807,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
              * como auxiliar, en cambio AddNewFavorito toma la referencia de campos dinamicos
              */
             if (favoriteProcess == 1) {
-                editRefer.setText(editRefer.getText().toString());
+               // editRefer.setText(editRefer.getText().toString());
+                editRefer.setText(recargaNumber.getText().toString());
             } else {
                 editRefer.setText(recargaNumber.getText().toString());
             }
@@ -615,7 +823,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
         } else if (current_tab == 2) {
             if (favoriteProcess == 1) {
-                editRefer.setText(editRefer.getText().toString());
+               // editRefer.setText(editRefer.getText().toString());
+                editRefer.setText(referenceNumber.getText().toString());
             } else {
                 editRefer.setText(referenceNumber.getText().toString());
             }
@@ -640,7 +849,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
 
             if (favoriteProcess == 1) {
-                editRefer.setText(editRefer.getText().toString());
+               // editRefer.setText(editRefer.getText().toString());
+                editRefer.setText(cardNumber.getText().toString());
             } else {
                 editRefer.setText(cardNumber.getText().toString());
 
@@ -983,7 +1193,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
-        cardNumber.setText("");
+       // cardNumber.setText("");
 
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -691,7 +692,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
 
     @Override
     public void editFavorite(int position, int mType, int typePosition) {
-        Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+        //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+        Intent intentEditFav = new Intent(getContext(), FavoritesActivity.class);
         switch (mType) {
             case ITEM_FAVORITO_RECARGA:
                 if (mFullListaRecar != null) {
@@ -702,6 +704,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaRecar.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_RECARGA);
+                        intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
+                                FavoritesActivity.TYPE_EDIT_FAV);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
@@ -719,6 +723,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaServ.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_PAGOS);
+                        intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
+                                FavoritesActivity.TYPE_EDIT_FAV);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {

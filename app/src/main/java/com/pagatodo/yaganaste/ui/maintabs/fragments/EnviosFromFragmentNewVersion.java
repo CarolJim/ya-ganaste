@@ -740,9 +740,12 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                         // Vibrate for 500 milliseconds
                         vibrator.vibrate(100);
-                        Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+                        //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+                        Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
                         intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                        intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
+                                FavoritesActivity.TYPE_EDIT_FAV);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {

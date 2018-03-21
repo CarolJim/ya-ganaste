@@ -89,6 +89,7 @@
 
                 <!-- Elemento de nobre del favorito. SIEMPRE visible en todos los campos -->
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_num_telefono2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="22dp"
@@ -382,7 +383,7 @@
                             android:imeOptions="actionDone"
                             android:inputType="numberSigned"
                             android:longClickable="false"
-                            android:maxLength="12"
+                            android:maxLength="22"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:textColor="@color/texthint_edittext"
