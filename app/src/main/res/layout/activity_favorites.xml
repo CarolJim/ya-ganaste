@@ -28,6 +28,7 @@
             android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/act_favorites_tittle_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -368,7 +369,7 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingLeft="6dp"
-                        android:textColor="@color/blue_text_wallet"
+                        android:textColorHint="@color/texthint"
                         android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
@@ -386,7 +387,7 @@
                             android:maxLength="22"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/texthint_edittext"
+                            android:textColor="@color/texthint"
                             android:textSize="14sp" />
 
                     </android.support.design.widget.TextInputLayout>

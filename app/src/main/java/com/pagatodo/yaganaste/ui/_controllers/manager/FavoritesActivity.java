@@ -37,6 +37,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
@@ -93,6 +95,12 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -144,8 +152,12 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     UploadCircleDocumentView imageViewCamera;
     @BindView(R.id.add_favorites_foto_title)
     StyleTextView fotoTittle;
+    @BindView(R.id.act_favorites_tittle_tv)
+    StyleTextView textTittle;
     @BindView(R.id.txt_lyt_list_serv)
     TextInputLayout txtLytListServ;
+    @BindView(R.id.add_favorites_linear_tipo)
+    TextInputLayout helpLinearTipoServ;
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
     @BindView(R.id.layoutImageContact2)
@@ -156,6 +168,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     EditText recargaNumber;
     @BindView(R.id.referenceNumber)
     EditText referenceNumber;
+    @BindView(R.id.add_favorites_tipo)
+    EditText textViewTipo;
     @BindView(R.id.txt_til_tae)
     TextInputLayout helpLinearTaeRef;
     @BindView(R.id.layoutImageReference)
@@ -235,6 +249,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
              * TAE, PDS o Envio
              */
 
+            // Hacemos Set del Titulo
+            textTittle.setText(App.getContext().getResources().getString(R.string.add_favorites));
+
             // HAcemos Set del hint en el layout de tipo de servicio del favorito que vamos a guardar
             if (current_tab == 1) {
                 txtLytListServ.setHint(getString(R.string.details_compania));
@@ -254,8 +271,223 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             editListServ.setOnClickListener(this);
 
         } else if (favoriteProcesS == TYPE_NEW_FAV_OPER) {
+            // Hacemos Set del Titulo
+            textTittle.setText(App.getContext().getResources().getString(R.string.add_favorites));
+
+            dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+            current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
+
+            idComercio = intent.getIntExtra(ID_COMERCIO, 99);
+            idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
+            idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
+            nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
+            mReferencia = intent.getStringExtra(REFERENCIA);
+            formatoComercio = intent.getStringExtra(REFERENCIA);
+
+            // Set NOMBRE Destinatorio
+            nombreDest = intent.getStringExtra(DESTINATARIO);
+            if (nombreDest != null) {
+                editAlias.setText(nombreDest);
+            }
+
+            // Set NOMBRE COMERCION
+            editListServ.setText(nombreComercio);
+            String formatoPago = mReferencia;
+            if (current_tab == 1) {
+                if (idComercio != 7) {
+                    formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+                }
+                if (idComercio == 7) {
+                    formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
+                }
+                txtLytListServ.setHint(getString(R.string.details_compania));
+                // editListServ.setHintText(getString(R.string.details_compania));
+                recargaNumber.setText(mReferencia);
+                LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_tae_ll);
+                taeLL.setVisibility(View.VISIBLE);
+            } else if (current_tab == 2) {
+                formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+                txtLytListServ.setHint(getString(R.string.details_compania));
+               // Eliminar referenceNumber.setText(mReferencia);
+                referenceNumber.setText(formatoPago);
+
+                LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_serv_ll);
+                taeLL.setVisibility(View.VISIBLE);
+                // editListServ.setHintText(getString(R.string.details_compania));
+            } else if (current_tab == 3) {
+                if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                    formatoPago = getCreditCardFormat(formatoPago);
+                } else {
+                    formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+                }
+                // layout_cardNumber.setVisibility(View.VISIBLE);
+                cardNumber.setText(mReferencia);
+                txtLytListServ.setHint(getString(R.string.details_bank));
+                // editListServ.setHintText(getString(R.string.details_bank));
+            }
+
+            // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
+            editListServ.setEnabled(false);
+            editListServ.setFocusable(false);
+            editListServ.setFocusableInTouchMode(false);
+            editListServ.setOnClickListener(this);
+            // txtLytListServ.setHint(getString(R.string.details_bank));
+
+            //SET de la referencia, dependiendo del tipo de pestaña ponemos el formato
+            editRefer.setText(formatoPago);
+            editRefer.setVisibility(View.GONE);
+            editRefer.setEnabled(false);
+
+            /**
+             * Linear que usamos como auxiliar para mostrar el tipo de servicio que usaremos en envio
+             * Puede ser Telefono, Debito o Clabe. Mostramos el Linear y el Edittext, este no se puede
+             * editar, solo se muestra en Add Favorito desde una transaccion y envios
+             * helpLinearTipoServ Es el Layout contenedor, aqui hacemos Set del Titulo
+             * textViewTipo Es el EditTExt, aqui hacemos Set del contendido del campo
+             */
+            switch (current_tab) {
+                case 1:
+                    initFormatoLogitud();
+                    initTAERefer();
+                    recargaNumber.setText(formatoPago);
+                    break;
+                case 2:
+                    initFormatoLogitud();
+                    initPDSRefer();
+                    referenceNumber.setText(formatoPago);
+                    break;
+                case 3:
+                    helpLinearTipoServ.setVisibility(View.VISIBLE);
+                    textViewTipo.setVisibility(View.VISIBLE);
+                    switch (idTipoEnvio) {
+                        case 1:
+                            textViewTipo.setText(getResources().getString(R.string.transfer_phone));
+                            break;
+                        case 2:
+                            textViewTipo.setText(getResources().getString(R.string.debit_card_number));
+                            break;
+                        case 3:
+                            textViewTipo.setText(getResources().getString(R.string.transfer_cable));
+                            break;
+                    }
+
+                    /**
+                     Agregamos el tipo de envio al campo auxiliar de Spinner editSpinner, nos funciona para
+                     validar el tipo de idTipoEnvio, se usa textViewTipo para mostrar en pantalla y editSpinner
+                     para validaciones
+                     */
+
+                    editSpinner.setText("" + idTipoEnvio);
+
+
+                    int position = idTipoEnvio;
+                    layout_cardNumber.setVisibility(View.VISIBLE);
+                    cardNumber.setText("");
+
+                    // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
+                    if (position == 0) {
+                        editSpinner.setText("");
+                    } else {
+                        editSpinner.setText("" + position);
+                    }
+
+                    InputFilter[] fArray = new InputFilter[1];
+
+                    if (position == NUMERO_TARJETA.getId()) {
+                        maxLength = idComercio == 814 ? 18 : 19;
+                        /*cardNumber.setHint(getString(R.string.card_number, String.valueOf(
+                                idComercio == 814 ? 15 : 16
+                        )));*/
+                        cardNumber.setHint(getString(R.string.debit_card_number));
+
+                        // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+
+                        // CReamos el te numberCardTextWatcher si no existe
+                        if (numberCardTextWatcher == null) {
+                            numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+                        }
+
+                        // Borramos el contenido de TextWatcher del elemento
+                        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+                        cardNumber.removeTextChangedListener(phoneTextWatcher);
+                        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+
+                        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                            numberCardTextWatcher.setOnITextChangeListener(this);
+                        }
+                        cardNumber.addTextChangedListener(numberCardTextWatcher);
+                        layoutImageContact2.setVisibility(View.GONE);
+                        layoutImageContact2.setOnClickListener(null);
+                        selectedType = NUMERO_TARJETA;
+                        til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
+
+                    } else if (position == NUMERO_TELEFONO.getId()) {
+                        maxLength = 12;
+                        cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
+                        layoutImageContact2.setVisibility(View.VISIBLE);
+                        layoutImageContact2.setOnClickListener(this);
+
+                        // CReamos el te phoneTextWatcher si no existe
+                        if (phoneTextWatcher == null) {
+                            phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+                        }
+
+                        // Borramos el contenido de TextWatcher del elemento
+                        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+                        cardNumber.removeTextChangedListener(phoneTextWatcher);
+                        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+
+                        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                            phoneTextWatcher.setOnITextChangeListener(this);
+                        }
+                        cardNumber.addTextChangedListener(phoneTextWatcher);
+                        selectedType = NUMERO_TELEFONO;
+                        til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
+                    } else if (position == CLABE.getId()) {
+                        maxLength = 22;
+                        cardNumber.setHint(getString(R.string.transfer_cable));
+
+                        // CReamos el te numberCardTextWatcher si no existe
+                        if (numberClabeTextWatcher == null) {
+                            numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+                        }
+
+                        // Borramos el contenido de TextWatcher del elemento
+                        cardNumber.removeTextChangedListener(numberCardTextWatcher);
+                        cardNumber.removeTextChangedListener(phoneTextWatcher);
+                        cardNumber.removeTextChangedListener(numberClabeTextWatcher);
+
+                        cardNumber.addTextChangedListener(numberClabeTextWatcher);
+                        layoutImageContact2.setVisibility(View.GONE);
+                        layoutImageContact2.setOnClickListener(null);
+                        selectedType = CLABE;
+                        til_num_telefono.setHint(CLABE.getName(this));
+                    } else {
+                        maxLength = 2;
+                        cardNumber.setHint("");
+                        layout_cardNumber.setVisibility(GONE);
+                        layoutImageContact2.setVisibility(View.GONE);
+                        layoutImageContact2.setOnClickListener(null);
+                        selectedType = null;
+                    }
+
+                    fArray[0] = new InputFilter.LengthFilter(maxLength);
+                    cardNumber.setFilters(fArray);
+
+                    cardNumber.setText(mReferencia);
+                    editRefer.setText(mReferencia);
+
+                    // Hacemos Set de Reglas de validacion
+                    setValidationRules();
+                    break;
+            }
 
         } else if (favoriteProcesS == TYPE_EDIT_FAV) {
+            // Hacemos Set del Titulo
+            textTittle.setText(App.getContext().getResources().getString(R.string.editarFavorites));
+
             dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
             current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
 
@@ -373,7 +605,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 longitudRefer = customCarouselItem.getComercio().getLongitudReferencia();
             }
         }
-   }
+    }
 
     @Override
     public void onClick(View view) {
@@ -414,7 +646,20 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             case R.id.btn_back:
                 finish();
                 break;
+            case R.id.delete_fav:
+                UI.createSimpleCustomDialog(getString(R.string.delete_fav_title), getString(R.string.delete_fav_text),
+                        getSupportFragmentManager(), new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                DeleteFavoriteRequest deleteFavoriteRequest = new DeleteFavoriteRequest();
+                                favoritesPresenter.toPresenterDeleteFavorite(deleteFavoriteRequest, idFavorito);
+                            }
 
+                            @Override
+                            public void actionCancel(Object... params) {
+                            }
+                        }, true, true);
+                break;
             default:
                 break;
         }
@@ -807,7 +1052,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
              * como auxiliar, en cambio AddNewFavorito toma la referencia de campos dinamicos
              */
             if (favoriteProcess == 1) {
-               // editRefer.setText(editRefer.getText().toString());
+                // editRefer.setText(editRefer.getText().toString());
                 editRefer.setText(recargaNumber.getText().toString());
             } else {
                 editRefer.setText(recargaNumber.getText().toString());
@@ -823,7 +1068,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
         } else if (current_tab == 2) {
             if (favoriteProcess == 1) {
-               // editRefer.setText(editRefer.getText().toString());
+                // editRefer.setText(editRefer.getText().toString());
                 editRefer.setText(referenceNumber.getText().toString());
             } else {
                 editRefer.setText(referenceNumber.getText().toString());
@@ -849,7 +1094,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
 
             if (favoriteProcess == 1) {
-               // editRefer.setText(editRefer.getText().toString());
+                // editRefer.setText(editRefer.getText().toString());
                 editRefer.setText(cardNumber.getText().toString());
             } else {
                 editRefer.setText(cardNumber.getText().toString());
@@ -882,7 +1127,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             if (isOnline) {
                 onValidationSuccess();
             } else {
-                  showDialogMesage("", getResources().getString(R.string.no_internet_access), 0);
+                showDialogMesage("", getResources().getString(R.string.no_internet_access), 0);
             }
         }
     }
@@ -971,7 +1216,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessAddFoto(String mensaje) {
-
+        showDialogMesage(getString(R.string.title_dialog_edit_favorite),
+                getString(R.string.respond_ok_edit_favorite), 1);
     }
 
     @Override
@@ -981,12 +1227,21 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessDeleteFavorite(String mensaje) {
-
+        showDialogMesage(getString(R.string.title_dialog_delete_favorite), getString(R.string.respond_ok_delete_favorite), 1);
     }
 
     @Override
     public void toViewSuccessEdit(FavoritosEditDatosResponse response) {
+        if (stringFoto != null) {
+            AddFotoFavoritesRequest addFotoFavoritesRequest =
+                    new AddFotoFavoritesRequest(stringFoto, "png");
+            favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
 
+        } else {
+            favoritesPresenter.updateLocalFavorite(dataFavoritos);
+            showDialogMesage(getString(R.string.title_dialog_edit_favorite),
+                    getString(R.string.respond_ok_edit_favorite), 1);
+        }
     }
 
     @Override
@@ -1100,7 +1355,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void failLoadJpg() {
-
+        showDialogMesage(getString(R.string.msg_format_image),
+                getString(R.string.msg_format_image_warning), 0);
     }
 
     @Override
@@ -1193,12 +1449,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
-       // cardNumber.setText("");
+        // TODO FRank eliminar el texto de cardNumber cuando cambiamos de item, pero debe de mantenerse
+        // la primera vez que pasa por aqui en la carga inicial de informacion
+
+        // cardNumber.setText("");
 
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {
             editSpinner.setText("");
-          // Eliminar editReferError.setVisibility(View.INVISIBLE);
+            // Eliminar editReferError.setVisibility(View.INVISIBLE);
         } else {
             editSpinner.setText("" + position);
 
@@ -1216,10 +1475,10 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
         if (position == NUMERO_TARJETA.getId()) {
             maxLength = idComercio == 814 ? 18 : 19;
-            cardNumber.setHint(getString(R.string.card_number, String.valueOf(
+           /* cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                     idComercio == 814 ? 15 : 16
-            )));
-            // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+            )));*/
+            cardNumber.setHint(getString(R.string.debit_card_number));
 
             // CReamos el te numberCardTextWatcher si no existe
             if (numberCardTextWatcher == null) {
@@ -1315,6 +1574,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     public void onTextComplete() {
         favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
     }
+
     /**
      * FIN MEtodos de ITextChangeListener
      */
