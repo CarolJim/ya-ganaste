@@ -152,7 +152,10 @@
                         android:longClickable="false"
                         android:maxLines="1"
                         android:textColorHint="@color/texthint"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -161,13 +164,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
-                            android:layout_marginLeft="15dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionNext"
                             android:inputType="number"
                             android:maxLength="19"
                             android:singleLine="true"
-                            android:textColor="@color/texthint" />
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor"/>
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -230,7 +233,10 @@
                     android:longClickable="false"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -245,7 +251,8 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:paddingLeft="15dp"
-                        android:textColor="@color/texthint"
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor"
                         android:windowSoftInputMode="stateHidden" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -263,7 +270,10 @@
                     android:longClickable="false"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:hintTextAppearance="@style/HintText"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -279,7 +289,8 @@
                         android:maxLines="1"
                         android:paddingLeft="15dp"
                         android:singleLine="true"
-                        android:textColor="@color/texthint" />
+                        android:theme ="@style/NewEdittextwallet"
+                        android:textColor="@color/grayColor" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -303,7 +314,10 @@
                         android:longClickable="false"
                         android:maxLines="1"
                         android:textColorHint="@color/texthint"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -312,7 +326,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
-                            android:layout_marginLeft="15dp"
+
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionNext"
@@ -320,7 +334,8 @@
                             android:maxLength="40"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/texthint" />
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -337,7 +352,10 @@
                         android:longClickable="false"
                         android:maxLines="1"
                         android:textColorHint="@color/texthint"
-                        android:theme="@style/TextLabel"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -352,9 +370,9 @@
                             android:inputType="number"
                             android:maxLength="6"
                             android:maxLines="1"
-                            android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:textColor="@color/texthint" />
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor" />
 
                     </android.support.design.widget.TextInputLayout>
 
