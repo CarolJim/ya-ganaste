@@ -35,15 +35,15 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
@@ -111,9 +111,9 @@ import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 public class FavoritesActivity extends LoaderActivity implements View.OnClickListener,
-        IAddFavoritesActivity, PaymentsCarrouselManager, ICropper, IListaOpcionesView,
+        IAddFavoritesActivity, ICropper, IListaOpcionesView,
         CropIwaResultReceiver.Listener, OnListServiceListener, AdapterView.OnItemSelectedListener,
-        ValidationForms, ITextChangeListener {
+        ValidationForms, ITextChangeListener,PaymentsCarrouselManager {
 
     // Fijas
     public static final String TAG = FavoritesActivity.class.getSimpleName();
@@ -147,7 +147,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     private PhoneTextWatcher phoneTextWatcher;
     private NumberClabeTextWatcher numberClabeTextWatcher;
     private TextWatcher currentTextWatcher;
-    DataFavoritos dataFavoritos;
+    Favoritos dataFavoritos;
 
     @BindView(R.id.add_favorites_camera)
     UploadCircleDocumentView imageViewCamera;
@@ -275,7 +275,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // Hacemos Set del Titulo
             textTittle.setText(App.getContext().getResources().getString(R.string.add_favorites));
 
-            dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+            dataFavoritos = (Favoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
             current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
 
             idComercio = intent.getIntExtra(ID_COMERCIO, 99);
@@ -489,7 +489,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // Hacemos Set del Titulo
             textTittle.setText(App.getContext().getResources().getString(R.string.editarFavorites));
 
-            dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+            dataFavoritos = (Favoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
             current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
 
             idComercio = (int) dataFavoritos.getIdComercio();
@@ -1279,6 +1279,21 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
      * MEtodos de PaymentsCarrouselManager
      */
     @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
+    }
+
+    @Override
+    public void onSuccess(Double importe) {
+
+    }
+
+    @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
         backUpResponse = new ArrayList<>();
         for (CarouselItem carouselItem : response) {
@@ -1313,7 +1328,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     }
 
     @Override
-    public void setFavolist(List<DataFavoritos> lista) {
+    public void setFavolist(List<Favoritos> lista) {
 
     }
 
@@ -1322,18 +1337,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     }
 
-    // Metodos padre PaymentsManager de PaymentsCarrouselManager
-    @Override
-    public void showError() {
-    }
-
-    @Override
-    public void onError(String error) {
-    }
-
-    @Override
-    public void onSuccess(Double importe) {
-    }
     /**
      * FIN MEtodos de PaymentsCarrouselManager
      */
@@ -1622,5 +1625,4 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 },
                 true, false);
     }
-
 }
