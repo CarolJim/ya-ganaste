@@ -154,14 +154,22 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     LinearLayout slideView;
     @BindView(R.id.envio_from_slide_view_ll)
     LinearLayout slideViewLl;
-    @BindView(R.id.envio_from_slide_view_l1)
-    LinearLayout slideViewL1;
     @BindView(R.id.iv_triangule_blue)
     ImageView triBlue;
     @BindView(R.id.txtEditarFavoritos)
     StyleTextView editarFavoritos;
     @BindView(R.id.txt_show_references)
     TextView txtShowReferences;
+    @BindView(R.id.txt_lyt_receiver_name)
+    TextInputLayout txt_lyt_receiver_name;
+    @BindView(R.id.envio_from_slide_view_l1)
+    TextInputLayout envio_from_slide_view_l1;
+
+
+
+
+
+
 
     TransferType selectedType;
     List<String> tipoPago = new ArrayList<>();
@@ -222,6 +230,79 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        /**
+         *
+         * Parte de los focus change para manejar los edit text activados y normales
+         */
+
+
+        cardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //hideValidationError(edtitConfirmEmail.getId());
+                    // edtitConfirmEmail.imageViewIsGone(true);
+                    layout_cardNumber.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+
+                    layout_cardNumber.setBackgroundResource(R.drawable.inputtext_normal);
+
+                }
+            }
+        });
+
+
+
+        receiverName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //hideValidationError(edtitConfirmEmail.getId());
+                    // edtitConfirmEmail.imageViewIsGone(true);
+                    txt_lyt_receiver_name.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+
+                    txt_lyt_receiver_name.setBackgroundResource(R.drawable.inputtext_normal);
+
+                }
+            }
+        });
+
+        concept.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //hideValidationError(edtitConfirmEmail.getId());
+                    // edtitConfirmEmail.imageViewIsGone(true);
+                    envio_from_slide_view_l1.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+
+                    envio_from_slide_view_l1.setBackgroundResource(R.drawable.inputtext_normal);
+
+                }
+            }
+        });
+
+
+        numberReference.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //hideValidationError(edtitConfirmEmail.getId());
+                    // edtitConfirmEmail.imageViewIsGone(true);
+                    referenciaLayout.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+
+                    referenciaLayout.setBackgroundResource(R.drawable.inputtext_normal);
+
+                }
+            }
+        });
+        /**/
+
+
+
         btnenviar.setOnClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setHasFixedSize(true);
