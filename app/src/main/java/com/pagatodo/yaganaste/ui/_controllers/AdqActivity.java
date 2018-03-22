@@ -28,6 +28,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY
 public class AdqActivity extends LoaderActivity implements OnEventListener {
     //Nuevo diseño-flujo
     public final static String EVENT_GO_INSERT_DONGLE = "EVENT_GO_INSERT_DONGLE";
+    public final static String EVENT_GO_INSERT_DONGLE_CANCELATION = "EVENT_GO_INSERT_DONGLE_CANCELATION";
     public final static String EVENT_GO_TRANSACTION_RESULT = "EVENT_GO_TRANSACTION_RESULT";
     public final static String EVENT_GO_REMOVE_CARD = "EVENT_GO_REMOVE_CARD";
     public final static String EVENT_GO_GET_SIGNATURE = "EVENT_GO_GET_SIGNATURE";
@@ -64,6 +65,10 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
+                // AQUI
+                loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_INSERT_DONGLE_CANCELATION:
                 // AQUI
                 loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
