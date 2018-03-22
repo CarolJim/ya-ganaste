@@ -47,7 +47,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
-        movementsView.showLoader("Cargando mivimientos");
+        movementsView.showLoader("Cargando movimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
             request.setAnio("");
@@ -64,7 +64,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
-        movementsView.showLoader("Cargando mivimientos");
+        movementsView.showLoader("Cargando movimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
             request.setAnio("");
