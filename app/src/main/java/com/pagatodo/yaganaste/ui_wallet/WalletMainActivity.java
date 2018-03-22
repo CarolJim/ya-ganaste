@@ -43,9 +43,11 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
@@ -57,6 +59,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     public final static String EVENT_GO_DETAIL_EMISOR = "EVENT_GO_DETAIL_EMISOR";
     public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
+    public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
+    public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91;
     public static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
@@ -229,6 +233,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case EVENT_GO_INSERT_DONGLE:
                 loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
+            case EVENT_GO_INSERT_DONGLE_CANCELATION:
+                loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, false);
+                break;
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
                         R.id.fragment_container, Direction.FORDWARD, false);
@@ -273,6 +280,14 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_DETAIL_ADQ:
                 loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_TO_FINALIZE_SUCCESS:
+                setResult(RESULT_CANCEL_OK);
+                this.finish();
+                break;
+            case EVENT_GO_TO_FINALIZE_ERROR:
+                setResult(-1);
+                this.finish();
                 break;
         }
     }
