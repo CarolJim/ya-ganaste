@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.IB;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -259,16 +261,13 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
     }
 
-
     @Override
-    public void onClick(View v) {
-        // TODO: 14/06/2017 Proceso para cancelar venta
-        switch (v.getId()) {
-            case R.id.btn_volver:
-                getActivity().onBackPressed();
-                break;
-            case R.id.btn_cancel:
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            /*case android.R.id.home:
+                onBackPressed();
+                return true;*/
+            case R.id.action_cancelar_cobro:
                 UI.createCustomDialogCancelacionCobro(getString(R.string.cancelacion_dialog_title),
                         getString(R.string.cancelacion_dialog_message),
                         getFragmentManager(),
@@ -284,7 +283,22 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
                             }
                         }, getString(R.string.cancelacion_dialog_aceptar), "");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        // TODO: 14/06/2017 Proceso para cancelar venta
+        switch (v.getId()) {
+            case R.id.btn_volver:
+                getActivity().onBackPressed();
                 break;
         }
     }
