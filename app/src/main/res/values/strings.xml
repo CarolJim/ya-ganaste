@@ -342,7 +342,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
-    <string name="exito_nip">"Tu NIP ha sido cambiada correctamente"</string>
+    <string name="exito_nip">"Tu NIP ha sido cambiado correctamente"</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
