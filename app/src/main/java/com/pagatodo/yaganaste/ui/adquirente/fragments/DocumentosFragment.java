@@ -404,7 +404,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         DataDocuments dataDoc = new DataDocuments();
         if (!validateDuplicado) {
             contador.remove(imgBase64);
-            UI.createSimpleCustomDialogNoCancel("", getString(R.string.imagen_duplicada), getActivity().getSupportFragmentManager(), null);
+         //   UI.createSimpleCustomDialogNoCancel("", getString(R.string.imagen_duplicada), getActivity().getSupportFragmentManager(), null);
         } else {
             switch (documentProcessed) {
                 case IFE_FRONT:
@@ -776,9 +776,10 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
-        UI.createSimpleCustomDialogError(mData.getMotivo(), mData.getComentario(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+
+        UI.showAlertDialog(getContext(), mData.getMotivo()+"\n"+mData.getComentario(), new DialogInterface.OnClickListener() {
             @Override
-            public void actionConfirm(Object... params) {
+            public void onClick(DialogInterface dialogInterface, int i) {
                 switch (mPosition) {
                     case 0:
                         selectImageSource(IFE_FRONT);
@@ -796,12 +797,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                         break;
                 }
             }
-
-            @Override
-            public void actionCancel(Object... params) {
-
-            }
-        }, true, false, getString(R.string.adq_upload_again));
+        });
     }
 
     /**

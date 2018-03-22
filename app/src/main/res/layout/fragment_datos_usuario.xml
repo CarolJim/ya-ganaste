@@ -66,8 +66,6 @@
                     app:counterMaxLength="1"
                     app:hintTextAppearance="@style/HintText"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
-
-
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
