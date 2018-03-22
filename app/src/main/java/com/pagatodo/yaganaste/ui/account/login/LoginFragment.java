@@ -54,6 +54,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -463,9 +464,20 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
      */
     private void updatePhoto() {
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
-        Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .into(imgLoginExistProfile);
+        if (preferencias.loadData(GENERO)=="H"||preferencias.loadData(GENERO)=="h") {
+            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
+                    .into(imgLoginExistProfile);
+        }else if (preferencias.loadData(GENERO)=="M"||preferencias.loadData(GENERO)=="m"){
+            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
+                    .into(imgLoginExistProfile);
+        }else {
+            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .into(imgLoginExistProfile);
+        }
+
     }
 
     /**

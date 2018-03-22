@@ -84,6 +84,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
@@ -187,6 +188,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountView.showLoader(context.getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
         prefs.saveData(SHA_256_FREJA, Utils.getSHA256(registerUser.getContrasenia()));//Freja
+        prefs.saveData(GENERO,registerUser.getGenero());//genero
         accountIteractor.createUser();
     }
 

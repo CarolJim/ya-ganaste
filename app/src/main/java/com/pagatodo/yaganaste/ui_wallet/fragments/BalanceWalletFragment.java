@@ -55,6 +55,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECUR
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
+import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
@@ -372,10 +373,27 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     }
 
     private void updatePhoto() {
+
         String mUserImage = prefs.loadData(URL_PHOTO_USER);
-        Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+       /* Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                 .into(crlProfileBalance);
+        */
+
+
+        if (prefs.loadData(GENERO)=="H"||prefs.loadData(GENERO)=="h") {
+            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
+                    .into(crlProfileBalance);
+        }else if (prefs.loadData(GENERO)=="M"||prefs.loadData(GENERO)=="m"){
+            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
+                    .into(crlProfileBalance);
+        }else {
+            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .into(crlProfileBalance);
+        }
     }
 
     private void setVisibilityFrontItems(int visibility) {

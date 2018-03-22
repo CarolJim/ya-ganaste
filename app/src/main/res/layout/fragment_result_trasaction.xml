@@ -59,18 +59,18 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtSubtitleResult"
         style="@style/textDescInputs2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitleResult"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
         android:gravity="center"
         app:tipo="Text" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDescriptionResult"
         style="@style/textDescInputs2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtSubtitleResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
@@ -99,15 +99,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="30" />
-<!--
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btn_continueEnvio"
-                style="@style/buttonDirecctionBack"
-                android:gravity="center"
-                android:text="Terminar"
-                android:textAllCaps="false" />
+            <!--
+                        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                            android:id="@+id/btn_continueEnvio"
+                            style="@style/buttonDirecctionBack"
+                            android:gravity="center"
+                            android:text="Terminar"
+                            android:textAllCaps="false" />
 
--->
+            -->
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
