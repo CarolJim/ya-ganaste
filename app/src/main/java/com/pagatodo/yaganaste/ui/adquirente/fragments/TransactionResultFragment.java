@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -52,6 +53,11 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     LinearLayout llContentBtns;
     @BindView(R.id.txtDescriptionResult)
     StyleTextView txtDescriptionResult;
+    @BindView(R.id.check)
+    LottieAnimationView check;
+
+
+
     private View rootview;
     private PageResult pageResultData;
 
@@ -172,6 +178,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
             llContentBtns.addView(btnPrimary, params);
             llContentBtns.addView(new Space(getContext()), spaceParams);
             if (pageResultData.isHasSecondaryAction()) {
+                check.setVisibility(View.GONE);
                 StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
                 btnSecondary.setOnClickListener(this);
                 btnSecondary.setId(idBtnSecondary);
