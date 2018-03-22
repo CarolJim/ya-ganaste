@@ -178,7 +178,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                         showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
                         nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
-                        if(nipConfir.editText.getText().toString().equalsIgnoreCase(nipNueva.editText.getText().toString())) {
+                        if (nipConfir.editText.getText().toString().equalsIgnoreCase(nipNueva.editText.getText().toString())) {
                             nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                         } else {
                             nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
@@ -202,7 +202,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             isValid = false;
             showSnakErrorBar(getString(R.string.cambiar_nip_actual));
         }
-        if (nip.length() < 4){
+        if (nip.length() < 4) {
             isValid = false;
             showSnakErrorBar(getString(R.string.new_nip_four_digits));
         }
@@ -210,7 +210,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             isValid = false;
             showSnakErrorBar(getString(R.string.cambiar_nip_nueva));
         }
-        if (nipNew.length() < 4){
+        if (nipNew.length() < 4) {
             isValid = false;
             showSnakErrorBar(getString(R.string.new_nip_four_digits));
         }
@@ -218,7 +218,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             isValid = false;
             showSnakErrorBar(getString(R.string.cambiar_nip_nueva));
         }
-        if (nipNewConfirm.length() < 4){
+        if (nipNewConfirm.length() < 4) {
             isValid = false;
             showSnakErrorBar(getString(R.string.new_nip_four_digits));
         }
@@ -254,7 +254,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onValidationSuccess() {
         showLoader(getContext().getResources().getString(R.string.msg_renapo));
-        accountPresenter.changeNIP(nipNew,nipNewConfirm);
+        accountPresenter.changeNIP(nipNew, nipNewConfirm);
     }
 
     @Override
@@ -266,7 +266,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_myemail_btn:
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
@@ -331,7 +331,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void setSuccessChangeNip(Object data) {
-
+        nipActual.editText.setText("");
+        nipNueva.editText.setText("");
+        nipConfir.editText.setText("");
         UI.showSuccessSnackBar(getActivity(), getResources().getString(R.string.exito_nip), Snackbar.LENGTH_SHORT);
 
     }
