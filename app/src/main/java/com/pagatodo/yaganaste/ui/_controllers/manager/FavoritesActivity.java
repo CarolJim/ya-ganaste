@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
@@ -308,7 +309,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             } else if (current_tab == 2) {
                 formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
                 txtLytListServ.setHint(getString(R.string.details_compania));
-               // Eliminar referenceNumber.setText(mReferencia);
+                // Eliminar referenceNumber.setText(mReferencia);
                 referenceNumber.setText(formatoPago);
 
                 LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_serv_ll);
@@ -1152,28 +1153,47 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         mReferencia = editRefer.getText().toString();
         String referService = StringUtils.formatCardToService(mReferencia);
 
-        AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, referService, stringFoto.equals("") ? null : stringFoto, stringFoto.equals("") ? null : "png");
-
+        /**
+         * Validamos con que operacion estamso trabajando
+         *
+         */
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
-        if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+
+        if (favoriteProcesS == TYPE_EDIT_FAV) {
+            // stringFoto Poner el String de foto cuando el servicio no se muera
+            EditFavoritesRequest addFavoritesRequest = new EditFavoritesRequest(idTipoComercio, idTipoEnvio,
+                    idComercio, mAlias, referService, "");
+            dataFavoritos.setIdTipoComercio(idTipoComercio);
+            dataFavoritos.setIdComercio(idComercio);
+            dataFavoritos.setNombre(mAlias);
+            dataFavoritos.setReferencia(referService);
             favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-            //   favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
-            LOADER_SHOWED = true;
+            favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
+
         } else {
+            if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+                AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
+                        idComercio, mAlias, referService, stringFoto.equals("") ? null : stringFoto, stringFoto.equals("") ? null : "png");
+
+                favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
+                favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
+                LOADER_SHOWED = true;
+            } else {
              /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
-            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
-                    "");
+                UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
+                        "");
+            }
         }
 
+
         // Codigo para mostrar el llenado de la peticion
-        Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
+      /*  Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Alias " + mAlias
                 + " idTipoComercio " + idTipoComercio
                 + " idComercio " + idComercio
                 + " idTipoEnvio " + idTipoEnvio
                 + " mReferencia " + mReferencia
-                + " stringFoto " + stringFoto);
+                + " stringFoto " + stringFoto);*/
     }
 
 
@@ -1201,11 +1221,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mensaje) {
-
-    }
-
-    @Override
-    public void showLoader(String s) {
+        LOADER_SHOWED = false;
+        showDialogMesage(getString(R.string.title_dialog_favorite),
+                getString(R.string.respond_ok_add_new_favorite), 1);
 
     }
 
@@ -1232,7 +1250,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessEdit(FavoritosEditDatosResponse response) {
-        if (stringFoto != null) {
+        if (stringFoto != null && !stringFoto.isEmpty()) {
             AddFotoFavoritesRequest addFotoFavoritesRequest =
                     new AddFotoFavoritesRequest(stringFoto, "png");
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
@@ -1406,7 +1424,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void showProgress(String mMensaje) {
-
+        showLoader(getString(R.string.load_photo_favorite));
+        LOADER_SHOWED = true;
     }
 
     @Override
