@@ -1042,7 +1042,7 @@
 
     <!--Dialogo de cancelacion-->
     <string name="cancelacion_dialog_title">Cancelar cobro</string>
-    <string name="cancelacion_dialog_message">Para cancelar es necesario que tu cliente\npresente la tarjeta con la que se realizó el cobro</string>
+    <string name="cancelacion_dialog_message">Para cancelar es necesario que tu cliente presente la tarjeta con la que se realizó el cobro</string>
     <string name="cancelacion_dialog_aceptar">Entendido</string>
 
     <!--Dialog de error-->
@@ -1275,7 +1275,7 @@
     <string name="item_menu_share">Compartir</string>
     <string name="item_menu_remmbolsar">Rembolsar cobro</string>
     <string name="item_menu_reenviar">Reenviar ticket</string>
-    <string name="item_menu_cancelar">Cancelar</string>
+    <string name="item_menu_cancelar">Cancelar cobro</string>
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.wallet.Wallet;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
@@ -20,7 +22,9 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.IB;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -32,6 +36,8 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
@@ -255,16 +261,13 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
     }
 
-
     @Override
-    public void onClick(View v) {
-        // TODO: 14/06/2017 Proceso para cancelar venta
-        switch (v.getId()) {
-            case R.id.btn_volver:
-                getActivity().onBackPressed();
-                break;
-            case R.id.btn_cancel:
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            /*case android.R.id.home:
+                onBackPressed();
+                return true;*/
+            case R.id.action_cancelar_cobro:
                 UI.createCustomDialogCancelacionCobro(getString(R.string.cancelacion_dialog_title),
                         getString(R.string.cancelacion_dialog_message),
                         getFragmentManager(),
@@ -272,7 +275,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                         new DialogDoubleActions() {
                             @Override
                             public void actionConfirm(Object... params) {
-                                ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
+                                onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq);
                             }
 
                             @Override
@@ -280,7 +283,22 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
                             }
                         }, getString(R.string.cancelacion_dialog_aceptar), "");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        // TODO: 14/06/2017 Proceso para cancelar venta
+        switch (v.getId()) {
+            case R.id.btn_volver:
+                getActivity().onBackPressed();
                 break;
         }
     }

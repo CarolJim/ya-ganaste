@@ -8,7 +8,8 @@
         android:id="@+id/action_share"
         android:title="@string/item_menu_share"
         android:icon="@drawable/ic_share_toolbar"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
 
     <!--<item android:id="@+id/action_rembolsar"
         android:title="@string/item_menu_remmbolsar"
@@ -19,10 +20,9 @@
         android:title="@string/item_menu_reenviar"
         android:orderInCategory="100"
         app:showAsAction="never"/>
-
+-->
     <item android:id="@+id/action_cancelar_cobro"
         android:title="@string/item_menu_cancelar"
         android:orderInCategory="100"
-        app:showAsAction="never" />
-        -->
+        android:visible="false"/>
 </menu>

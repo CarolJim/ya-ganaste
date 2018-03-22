@@ -13,6 +13,26 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
+**_VERSION 4.0.2 - 12 al 22 de Marzo del 2018 (ID:4440)_**
+
+Descripción al desarrollador:
+
+    * Nuevo manejador de la base de datos
+    * Corrección de diseños
+    * Revisión y corrección de ortografía de textos
+    * Eliminación de clases de Cupo
+    * Eliminación de imagenes y xml's no utilizados
+    * Reducción de Alta/Edición favoritos a una sola clase
+    * Corrección de solicitud de movimientos Emisor/Adquiriente.
+    * Corrección bug para actualizar documentos Adquiriente
+    
+Funcionamiento:
+
+    * Mejoras gráficas
+    * Reducción de peso de la App
+    * Corrección de bugs menores
+
+
 **_VERSION 4.0.1 - 6 al 9 de Marzo del 2018 (ID:4368)_**
 
 Descripción al desarrollador:
