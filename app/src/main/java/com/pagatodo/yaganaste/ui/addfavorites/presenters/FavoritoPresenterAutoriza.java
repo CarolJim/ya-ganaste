@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.freja.otp.presenter.OtpPresenterAbs;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 
 /**
  * Created by Armando Sandoval on 07/11/2017.
@@ -24,6 +25,12 @@ public class FavoritoPresenterAutoriza extends OtpPresenterAbs {
     public FavoritoPresenterAutoriza(Context context, EditFavoritesActivity addnewView) {
         super(context);
         this.editFavoritesActivity = addnewView;
+    }
+
+    FavoritesActivity favoritesActivity;
+    public FavoritoPresenterAutoriza(Context context, FavoritesActivity favoritesActivity) {
+        super(context);
+        this.favoritesActivity = favoritesActivity;
     }
 
 
