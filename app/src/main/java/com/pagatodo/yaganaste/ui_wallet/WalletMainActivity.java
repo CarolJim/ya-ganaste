@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -117,7 +118,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (idOperation == 2 && currentPage == PAGE_EMISOR) {
             menu.getItem(ACTION_SHARE).setVisible(true);
-        } else if (idOperation == 1 && currentPage == PAGE_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment){
+        } else if (idOperation == 1 && currentPage == PAGE_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
         }
         return true;
@@ -227,7 +228,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:
-                loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
                 menu.getItem(ACTION_CANCEL_CHARGE).setVisible(false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
@@ -274,7 +275,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_DETAIL_ADQ:
                 loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
-                menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
+                if (((DataMovimientoAdq) data).getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId()))
+                    menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
                 break;
             case EVENT_GO_TO_FINALIZE_SUCCESS:
                 setResult(RESULT_CANCEL_OK);

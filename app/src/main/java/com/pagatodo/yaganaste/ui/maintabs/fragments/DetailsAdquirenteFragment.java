@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -268,21 +269,16 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 onBackPressed();
                 return true;*/
             case R.id.action_cancelar_cobro:
-                UI.createCustomDialogCancelacionCobro(getString(R.string.cancelacion_dialog_title),
-                        getString(R.string.cancelacion_dialog_message),
-                        getFragmentManager(),
-                        getFragmentTag(),
-                        new DialogDoubleActions() {
-                            @Override
-                            public void actionConfirm(Object... params) {
-                                onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq);
-                            }
 
-                            @Override
-                            public void actionCancel(Object... params) {
+                UI.showAlertDialog(getContext(), getString(R.string.cancelacion_dialog_message), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq);
+                    }
+                });
 
-                            }
-                        }, getString(R.string.cancelacion_dialog_aceptar), "");
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

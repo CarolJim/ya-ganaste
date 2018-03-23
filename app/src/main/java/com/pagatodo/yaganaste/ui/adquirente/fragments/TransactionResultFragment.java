@@ -206,11 +206,11 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 //                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
 //                break;
             case BTN_ACTION_ERROR:
-                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBlue);
+                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBluewallet);
                 button = new StyleButton(themeContext);
                 break;
             default:
-                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBlue);
+                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBluewallet);
                 button = new StyleButton(themeContext);
                 break;
         }
