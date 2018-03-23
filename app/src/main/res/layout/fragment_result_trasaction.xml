@@ -38,9 +38,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="false"
-            app:lottie_rawRes="@raw/check" />
+            app:lottie_loop="false" />
 
 
     </RelativeLayout>

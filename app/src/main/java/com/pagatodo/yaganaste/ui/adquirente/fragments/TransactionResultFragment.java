@@ -56,8 +56,6 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @BindView(R.id.check)
     LottieAnimationView check;
 
-
-
     private View rootview;
     private PageResult pageResultData;
 
@@ -110,6 +108,12 @@ public class TransactionResultFragment extends GenericFragment implements View.O
             txtMessageResult.setText(!pageResultData.getMessage().isEmpty() ? pageResultData.getMessage() : "");
 
             txtDescriptionResult.setText(!pageResultData.getDescription().isEmpty() ? pageResultData.getDescription() : "");
+            if(pageResultData.getIdResurceIcon() == R.drawable.ic_check_success){
+                check.setAnimation(R.raw.check);
+            } else {
+                check.setAnimation(R.raw.alert);
+            }
+            check.playAnimation();
             imgResult.setImageResource(pageResultData.getIdResurceIcon());
         }
         setAndConfigureBtns(llContentBtns);
@@ -178,7 +182,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
             llContentBtns.addView(btnPrimary, params);
             llContentBtns.addView(new Space(getContext()), spaceParams);
             if (pageResultData.isHasSecondaryAction()) {
-                check.setVisibility(View.GONE);
+                //check.setVisibility(View.GONE);
                 StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
                 btnSecondary.setOnClickListener(this);
                 btnSecondary.setId(idBtnSecondary);

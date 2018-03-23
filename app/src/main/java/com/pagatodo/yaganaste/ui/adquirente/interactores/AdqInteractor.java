@@ -353,7 +353,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
-                pageResult.setDescription(App.getContext().getString(R.string.adq_remove_tdc));
+                pageResult.setDescription("");
                 result.setPageResult(pageResult);
                 if (!DEBUG) {
                     Answers.getInstance().logPurchase(new PurchaseEvent()
