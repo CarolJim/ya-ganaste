@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -43,9 +44,11 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
@@ -57,15 +60,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     public final static String EVENT_GO_DETAIL_EMISOR = "EVENT_GO_DETAIL_EMISOR";
     public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
-    private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1;
-    public static final int REQUEST_CHECK_SETTINGS = 91;
-    public static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
+    public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
+    public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
+    private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1, ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
+    public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
 
 
     @BindView(R.id.toolbar_wallet)
     Toolbar toolbar;
 
-
+    private Menu menu;
     private int idOperation;
     private int currentPage;
 
@@ -110,31 +114,21 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        switch (idOperation) {
-            case 2:
-                getMenuInflater().inflate(R.menu.menu_wallet, menu);
-                /*MenuItem edit_item = menu.add(0, R.menu.menu_wallet, 0, R.string.item_menu_share);
-                edit_item.setIcon(R.drawable.ic_share_toolbar);
-                edit_item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-                menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Item name");
-
-                MenuItem delete_item = menu.add(0, MenuItem_DeleteId, 1, R.string.edit);
-                delete_item.setIcon(R.drawable.delete);
-                delete_item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);*/
-                //return super.onCreateOptionsMenu(menu);
-                return true;
-            default:
-                return false;
+        this.menu = menu;
+        getMenuInflater().inflate(R.menu.menu_wallet, menu);
+        if (idOperation == 2 && currentPage == PAGE_EMISOR) {
+            menu.getItem(ACTION_SHARE).setVisible(true);
+        } else if (idOperation == 1 && currentPage == PAGE_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
+            menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
         }
-
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (getCurrentFragment() instanceof TimeRepaymentFragment){
+                if (getCurrentFragment() instanceof TimeRepaymentFragment) {
                     onEvent(EVENT_GO_CONFIG_REPAYMENT_BACK, null);
                 } else {
                     onBackPressed();
@@ -194,7 +188,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REGISTER_ADQUIRENTE_CODE) {
             showMainTab();
-        } if (requestCode == REQUEST_CODE_FAVORITES) {
+        }
+        if (requestCode == REQUEST_CODE_FAVORITES) {
             switch (currentPage) {
                 case PAGE_EMISOR:
                     loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS), R.id.fragment_container);
@@ -203,7 +198,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS), R.id.fragment_container);
                     break;
             }
-        }if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO) {
+        }
+        if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         } else {
             if (data != null) {
@@ -220,7 +216,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     }
 
     @Override
-    public boolean requiresTimer() { return true;}
+    public boolean requiresTimer() {
+        return true;
+    }
 
     @Override
     public void onEvent(String event, Object data) {
@@ -228,6 +226,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
                 loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_INSERT_DONGLE_CANCELATION:
+                loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
+                menu.getItem(ACTION_CANCEL_CHARGE).setVisible(false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
@@ -273,6 +275,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_DETAIL_ADQ:
                 loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
+                if (((DataMovimientoAdq) data).getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId()))
+                    menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
+                break;
+            case EVENT_GO_TO_FINALIZE_SUCCESS:
+                setResult(RESULT_CANCEL_OK);
+                this.finish();
+                break;
+            case EVENT_GO_TO_FINALIZE_ERROR:
+                setResult(-1);
+                this.finish();
                 break;
         }
     }

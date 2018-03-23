@@ -313,9 +313,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
-        imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
-        deposito_Share = (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        deposito_Share.setVisibility(View.GONE);
+       // imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
+       // deposito_Share = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+       // deposito_Share.setVisibility(View.GONE);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
@@ -412,7 +412,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         /*if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
         } else {*/
-        imageView.setVisibility(View.GONE);
+     //   imageView.setVisibility(View.GONE);
         //}
     }
 
@@ -457,13 +457,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showInsertDongle() {
-        imgInsertDongle.setVisibility(VISIBLE);
-        imgInsertDongle.playAnimation();
-        imgInsertCard.setVisibility(View.INVISIBLE);
-        imgInsertCard.pauseAnimation();
-        tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
-        tv_lector.setVisibility(VISIBLE);
 
+        try {
+            imgInsertDongle.setVisibility(VISIBLE);
+            imgInsertDongle.playAnimation();
+            imgInsertCard.setVisibility(View.INVISIBLE);
+            imgInsertCard.pauseAnimation();
+            tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
+            tv_lector.setVisibility(VISIBLE);
+        }catch (Exception e){
+
+
+        }
 
     }
 

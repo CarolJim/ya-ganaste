@@ -31,6 +31,7 @@
             app:srcCompat="@drawable/ic_triangle_error" />
 
         <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/check"
             android:layout_width="135dp"
             android:layout_height="135dp"
             android:layout_centerHorizontal="true"
