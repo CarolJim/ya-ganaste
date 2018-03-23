@@ -387,7 +387,7 @@
                             android:maxLength="22"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textColor="@color/texthint"
+                            android:textColor="@color/texthint_edittext"
                             android:textSize="14sp" />
 
                     </android.support.design.widget.TextInputLayout>

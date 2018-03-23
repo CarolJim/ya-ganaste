@@ -1497,10 +1497,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
         if (position == NUMERO_TARJETA.getId()) {
             maxLength = idComercio == 814 ? 18 : 19;
-           /* cardNumber.setHint(getString(R.string.card_number, String.valueOf(
-                    idComercio == 814 ? 15 : 16
-            )));*/
-            cardNumber.setHint(getString(R.string.debit_card_number));
 
             // CReamos el te numberCardTextWatcher si no existe
             if (numberCardTextWatcher == null) {
@@ -1523,7 +1519,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
-            cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
+
             layoutImageContact2.setVisibility(View.VISIBLE);
             layoutImageContact2.setOnClickListener(this);
 
@@ -1546,7 +1542,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
         } else if (position == CLABE.getId()) {
             maxLength = 22;
-            cardNumber.setHint(getString(R.string.transfer_cable));
 
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
