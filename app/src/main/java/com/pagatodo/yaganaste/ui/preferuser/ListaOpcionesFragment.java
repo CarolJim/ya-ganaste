@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -32,7 +30,6 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -48,7 +45,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_LEGAL;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_DONGLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
@@ -282,10 +278,6 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
                 break;
-            case R.id.fragment_my_account_config_notify:
-                onEventListener.onEvent(PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY, 1);
-                break;
-
             /**
              * Evento para Click de camara
              */
@@ -316,7 +308,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                     }
 
                     if (isValid) {
-                        mPreferPresenter.openMenuPhoto(1, cameraManager);
+                        //mPreferPresenter.openMenuPhoto(1, cameraManager);
                     }
 
                 } else {
@@ -350,7 +342,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         onEventListener.onEvent("DISABLE_BACK", true);
 
         // Enviamos al presenter
-        mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
+        //mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
 
 
     }

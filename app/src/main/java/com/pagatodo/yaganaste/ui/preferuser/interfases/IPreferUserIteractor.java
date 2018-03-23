@@ -18,8 +18,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoCo
 public interface IPreferUserIteractor {
     void desasociarToIteracto(Request request);
 
-    void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest);
-
     void showExceptionBitmapDownloadToIteractor(String s);
 
     void sendChangePassToIteractor(CambiarContraseniaRequest cambioPassRequest);
@@ -36,6 +34,5 @@ public interface IPreferUserIteractor {
 
     void enviarCorreoContactanos(EnviarCorreoContactanosRequest enviarCorreoContactanosRequest);
 
-    void logOutSession();
 
 }

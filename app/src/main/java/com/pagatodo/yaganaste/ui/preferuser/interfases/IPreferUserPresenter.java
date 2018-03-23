@@ -18,11 +18,11 @@ public interface IPreferUserPresenter {
 
     void sendErrorServerPresenter(String error);
 
-    void openMenuPhoto(int i, CameraManager cameraManager);
+    //void openMenuPhoto(int i, CameraManager cameraManager);
 
-    void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
+    //void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
-    void showExceptionAvatarToPresenter(String s);
+    //void showExceptionAvatarToPresenter(String s);
 
     void showExceptionToPresenter(String mMesage);
 
@@ -58,5 +58,5 @@ public interface IPreferUserPresenter {
 
     void sendErrorServerCorreoContactanosPresenter(String s);
 
-    void logOutSession();
+    //void logOutSession();
 }

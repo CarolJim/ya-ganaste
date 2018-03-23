@@ -31,10 +31,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
 
     public static DepositsFragment newInstance() {
-        DepositsFragment depositsFragment = new DepositsFragment();
-        Bundle args = new Bundle();
-        depositsFragment.setArguments(args);
-        return depositsFragment;
+        return new DepositsFragment();
     }
 
     @Nullable

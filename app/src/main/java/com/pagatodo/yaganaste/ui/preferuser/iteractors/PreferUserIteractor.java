@@ -79,7 +79,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             }
         }
     }
-
+/*
     @Override
     public void logOutSession() {
         logOutBefore = true;
@@ -95,7 +95,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             preferUserPresenter.showExceptionAvatarToPresenter(e.toString());
         }
     }
-
+*/
     /**
      * Manejo de la excepcion de error en el BitmapDownload, usamos el showExceptionToPresenter generico
      * para mostrar el mensaje de error
@@ -400,8 +400,8 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     @Override
     public void onFailed(DataSourceResult error) {
         // Log.d("PreferUserIteractor", "Error: " + error);
-        if (error.getWebService().equals(ENVIARCORREO_CONTACTANOS)) {
-            preferUserPresenter.sendErrorServerCorreoContactanosPresenter(error.getData().toString());
+            if (error.getWebService().equals(ENVIARCORREO_CONTACTANOS)) {
+                preferUserPresenter.sendErrorServerCorreoContactanosPresenter(error.getData().toString());
         }else if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
              // Log.d("PreferUserIteractor", "Error: " + error);
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());

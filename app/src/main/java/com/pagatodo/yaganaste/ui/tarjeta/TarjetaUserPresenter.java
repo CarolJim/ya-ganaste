@@ -70,15 +70,6 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
     public void sendErrorServerPresenter(String error) {    }
 
     @Override
-    public void openMenuPhoto(int i, CameraManager cameraManager) {    }
-
-    @Override
-    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {    }
-
-    @Override
-    public void showExceptionAvatarToPresenter(String s) {    }
-
-    @Override
     public void showExceptionToPresenter(String mMesage) {    }
 
     @Override
@@ -182,10 +173,5 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
     public void sendErrorServerCorreoContactanosPresenter(String s) {
         iMyHelpMensajeContactanos.hideLoader();
         iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(s);
-    }
-
-    @Override
-    public void logOutSession() {
-
     }
 }
