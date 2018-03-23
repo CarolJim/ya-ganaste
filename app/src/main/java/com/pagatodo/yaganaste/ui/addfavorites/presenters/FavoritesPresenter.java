@@ -203,7 +203,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosEditDatosResponse) {
-            //mView.hideLoader();
+            mView.hideLoader();
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessEdit(response);
         }
@@ -245,7 +245,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosNewDatosResponse) {
-            //mView.hideLoader();
             mView.hideLoader();
             FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());
@@ -255,7 +254,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosNewFotoDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosNewFotoDatosResponse) {
-            //mView.hideLoader();
             mView.hideLoader();
             FavoritosNewFotoDatosResponse response = (FavoritosNewFotoDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());
@@ -265,7 +263,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosEditDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosEditDatosResponse) {
-            //mView.hideLoader();
             mView.hideLoader();
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());
@@ -275,7 +272,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosDeleteDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosDeleteDatosResponse) {
-            //mView.hideLoader();
             mView.hideLoader();
             FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());
