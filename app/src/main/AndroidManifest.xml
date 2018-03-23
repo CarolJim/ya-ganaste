@@ -182,7 +182,9 @@
         <activity android:name=".ui_wallet.NotificationActivity" />
         <activity android:name=".ui_wallet.SearchCarrierActivity" />
         <activity android:name=".ui_wallet.MovimentsActivity"></activity>
-        <activity android:name=".ui._controllers.manager.FavoritesActivity"></activity>
+        <activity
+            android:name=".ui._controllers.manager.FavoritesActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
 
     </application>
 

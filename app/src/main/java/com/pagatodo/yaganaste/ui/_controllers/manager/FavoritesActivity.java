@@ -399,7 +399,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         /*cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                                 idComercio == 814 ? 15 : 16
                         )));*/
-                        cardNumber.setHint(getString(R.string.debit_card_number));
+                        txtLytListServ.setHint(getString(R.string.debit_card_number));
 
                         // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
 
