@@ -32,7 +32,6 @@ import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
-import com.pagatodo.yaganaste.ui.preferuser.MyNotifyConfigFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
@@ -85,8 +84,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_HELP_LEGAL = "PREFER_USER_HELP_LEGAL";
     public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
-    public static String PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY = "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY";
-    public static String PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK = "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK";
     public static String PREFER_USER_MY_CARD = "PREFER_USER_MY_CARD";
     public static String PREFER_USER_MY_USER_BACK = "PREFER_USER_MY_USER_BACK";
     public static String PREFER_USER_EMAIL = "PREFER_USER_EMAIL";
@@ -301,12 +298,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_CUENTA_REEMBOLSO_BACK":
                 loadFragment(MyAccountFragment.newInstance(), Direction.BACK, false);
                 break;
-            case "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY":
-                loadFragment(MyNotifyConfigFragment.newInstance(), Direction.FORDWARD, false);
-                break;
-            case "PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK":
-                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
-                break;
+
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 //loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
@@ -500,8 +492,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
             } else if (currentFragment instanceof CuentaReembolsoFragment) {
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
-            } else if (currentFragment instanceof MyNotifyConfigFragment) {
-                onEvent(PREFER_USER_MY_ACCOUNT_CONFIG_NOTIFY_BACK, null);
             } else if (currentFragment instanceof SecurityFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof NotificacionesPrefFragment) {

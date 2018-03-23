@@ -92,10 +92,6 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
 
     }
 
-    @Override
-    public void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
-
-    }
 
     @Override
     public void showExceptionBitmapDownloadToIteractor(String s) {
@@ -154,8 +150,4 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
         }
     }
 
-    @Override
-    public void logOutSession() {
-
-    }
 }

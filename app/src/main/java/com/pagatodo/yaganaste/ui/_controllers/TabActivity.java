@@ -21,17 +21,14 @@ import android.util.Base64;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -55,14 +52,15 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.NavigationDrawerPresenter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.ui_wallet.presenter.FBPresenter;
+import com.pagatodo.yaganaste.ui_wallet.presenter.NavigationDrawerPresenterImpl;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringConstants;
@@ -72,7 +70,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
@@ -80,6 +77,8 @@ import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -108,8 +107,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE;
-import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_STATUS;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOTO;
@@ -130,23 +127,31 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
     public static final int TYPE_DETAILS = 3;
-    private Preferencias pref;
-    private ViewPager mainViewPager;
-    private TabLayout mainTab;
+
+
     private AprovPresenter tabPresenter;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
-    private ProgressLayout progressGIF;
     private ResetPinPresenter resetPinPresenter;
-    private PreferUserPresenter mPreferPresenter;
+    private NavigationDrawerPresenter drawerPresenter;
     private CameraManager cameraManager;
     private CropIwaResultReceiver cropResultReceiver;
-    private DrawerLayout navDrawer;
-    private Preferencias preferencias;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout navDrawer;
+    @BindView(R.id.main_view_pager)
+    ViewPager mainViewPager;
+    @BindView(R.id.main_tab)
+    TabLayout mainTab;
+    @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
+    @BindView(R.id.txtVersionApp)
+    StyleTextView textViewversion;
+    @BindView(R.id.content_linearlayout)
+    ViewGroup mLinearLayout;
+    @BindView(R.id.txt_name_user)
     TextView nameUser;
-    ImageView imageNotification;
-    ImageView imageshare;
-    App aplicacion;
+
+
     private boolean disableBackButton = false;
 
     FBPresenter fbmPresenter;
@@ -167,53 +172,39 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu_drawer);
-        aplicacion = new App();
-        load();
-        this.preferencias = App.getInstance().getPrefs();
-        imgLoginExistProfile = (CircleImageView) findViewById(R.id.imgLoginExistProfile);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        ButterKnife.bind(this);
+        init();
+        showBack(false);
+        drawerPresenter = new NavigationDrawerPresenterImpl(this);
+        cameraManager = new CameraManager(this);
+        cameraManager.initCamera(this, imgLoginExistProfile, this);
+        cropResultReceiver = new CropIwaResultReceiver();
+        cropResultReceiver.setListener(this);
+        cropResultReceiver.register(this);
+        fbmPresenter = new FBPresenter(this, new FBInteractor());
+        this.tabPresenter = new MainMenuPresenterImp(this);
+        this.resetPinPresenter = new ResetPinPresenterImp(false);
+        this.resetPinPresenter.setResetNIPView(this);
+        this.tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+
+    }
+
+    private void init(){
+        ContainerBuilder.MAINMENU(this, mLinearLayout, this);
+        textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
+        nameUser.setText(App.getInstance().getPrefs().loadData(StringConstants.SIMPLE_NAME));
         imgLoginExistProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAvatar();
             }
         });
-        imageNotification = (ImageView) findViewById(R.id.imgNotifications);
-        imageNotification.setVisibility(View.GONE);
-        imageshare = (ImageView) findViewById(R.id.deposito_Share);
-        // rootview = inflater.inflate(R.layout.fragment_my_change_nip, container, false);
-        //mLinearLayout = rootview.findViewById(R.id.content_linearlayout);
 
-        ViewGroup mLinearLayout = findViewById(R.id.content_linearlayout);
-        ContainerBuilder.MAINMENU(this, mLinearLayout, this);
-        StyleTextView textViewversion = findViewById(R.id.txtVersionApp);
-        textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
-        showBack(false);
-        /*if (!pref.containsData(COUCHMARK_EMISOR)) {
-            pref.saveDataBool(COUCHMARK_EMISOR, true);
-            startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
-        }*/
-        mPreferPresenter = new PreferUserPresenter(this);
-        cameraManager = new CameraManager(this);
-        cameraManager.initCamera(this, imgLoginExistProfile, this);
-
-        cropResultReceiver = new CropIwaResultReceiver();
-        cropResultReceiver.setListener(this);
-        cropResultReceiver.register(this);
-
-        fbmPresenter = new FBPresenter(this, new FBInteractor());
-        String tokenFBExist = pref.loadData(TOKEN_FIREBASE_STATUS);
-        String tokenFB = pref.loadData(TOKEN_FIREBASE);
-        //Log.d(TAG2, "tokenFB " + tokenFB);
-        //Log.d(TAG2, "tokenFBExist " + tokenFBExist);
-       /* if (!tokenFBExist.equals(TOKEN_FIREBASE_SUCCESS) && !tokenFB.isEmpty()) {
-            //  Log.d(TAG2, "FBPresenter " + tokenFB);
-            fbmPresenter.registerFirebaseToken(tokenFB);
-        }*/
     }
 
     public void setAvatar() {
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
+        if (Utils.isDeviceOnline()) {
             boolean isValid = true;
             int permissionCamera = ContextCompat.checkSelfPermission(App.getContext(),
                     Manifest.permission.CAMERA);
@@ -234,27 +225,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 isValid = false;
             }
             if (isValid) {
-                mPreferPresenter.openMenuPhoto(1, cameraManager);
+                drawerPresenter.openMenuPhoto(1, cameraManager);
             }
-        } else {
-            //showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
-    }
-
-
-    private void load() {
-        this.tabPresenter = new MainMenuPresenterImp(this);
-        pref = App.getInstance().getPrefs();
-        mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
-        mainTab = findViewById(R.id.main_tab);
-        progressGIF = (ProgressLayout) findViewById(R.id.progressGIF);
-        progressGIF.setVisibility(View.GONE);
-        resetPinPresenter = new ResetPinPresenterImp(false);
-        resetPinPresenter.setResetNIPView(this);
-        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
-        nameUser = (TextView) findViewById(R.id.txt_name_user);
-        nameUser.setText(pref.loadData(StringConstants.SIMPLE_NAME));
-        navDrawer = findViewById(R.id.drawer_layout);
     }
 
     @Override
@@ -265,19 +238,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainViewPager.setCurrentItem(1);
         mainTab.setupWithViewPager(mainViewPager);
-        //mainTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
-        /*LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
-        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(ContextCompat.getColor(this, R.color.colorGrayMenuDivider));
-        drawable.setSize(1, 1);
-        linearLayout.setDividerPadding(0);
-        linearLayout.setDividerDrawable(drawable);*/
 
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
         } else if (SingletonUser.getInstance().needsReset()) {
-            resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
+            resetPinPresenter.doReseting(App.getInstance().getPrefs().loadData(SHA_256_FREJA));
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
 
@@ -289,20 +254,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-
     }
 
     @Override
     public void finishAssociation() {
-        /*if (SingletonUser.getInstance().needsReset()) {
-            resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
-        } else {*/
         hideLoader();
-        //}
     }
-
 
     @Override
     public void finishReseting() {
@@ -315,13 +272,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         tabPresenter.doProvisioning();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (pref.containsData(CUPO_COMPLETE) && pref.loadDataBoolean(CUPO_COMPLETE, false)) {
-            pref.saveDataBool(CUPO_COMPLETE, false);
+        if (App.getInstance().getPrefs().containsData(CUPO_COMPLETE) && App.getInstance().getPrefs().loadDataBoolean(CUPO_COMPLETE, false)) {
+            App.getInstance().getPrefs().saveDataBool(CUPO_COMPLETE, false);
         }
 
         updatePhoto();
@@ -330,20 +286,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public boolean requiresTimer() {
         return true;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-       /* if (!pref.containsData(COUCHMARK_EMISOR)) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    startActivityForResult(LandingActivity.createIntent(TabActivity.this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
-                }
-            }, 500);
-        }*/
     }
 
     @Override
@@ -418,7 +360,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -485,9 +426,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             cameraManager.setOnActivityResult(requestCode, resultCode, data);
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             cameraManager.setOnActivityResult(requestCode, resultCode, data);
-        } else if (resultCode == CROP_RESULT) {
-
+        } else if (requestCode == CROP_RESULT) {
             onHideProgress();
+            updatePhoto();
         }
     }
 
@@ -541,8 +482,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
         if (!disableBackButton) {
             if (actualFragment instanceof DepositsFragment) {
-                imageNotification.setVisibility(View.GONE);
-                imageshare.setVisibility(View.VISIBLE);
+                //imageNotification.setVisibility(View.GONE);
+                //imageshare.setVisibility(View.VISIBLE);
                 ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
             } else if (actualFragment instanceof GetMountFragment) {
                 goHome();
@@ -562,7 +503,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     @Override
                     public void actionConfirm(Object... params) {
                         SingletonSession.getInstance().setFinish(true);//Terminamos CupoStatusFragment si va a background
-                        aplicacion.cerrarAppsms();
+                        new App().cerrarAppsms();
                         Intent intent = new Intent(TabActivity.this, MainActivity.class);
                         intent.putExtra(SELECTION, MAIN_SCREEN);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -579,19 +520,19 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onPause() {
         super.onPause();
-        if (pref.containsData(COUCHMARK_EMISOR) && SingletonSession.getInstance().isFinish()) {
+        if (App.getInstance().getPrefs().containsData(COUCHMARK_EMISOR) && SingletonSession.getInstance().isFinish()) {
             SingletonSession.getInstance().setFinish(false);
             finish();
         }
     }
 
     public void showProgressLayout(String msg) {
-        progressGIF.setTextMessage(msg);
-        progressGIF.setVisibility(View.VISIBLE);
+        showLoader(msg);
     }
 
     public void hideProgresLayout() {
-        progressGIF.setVisibility(View.GONE);
+
+        hideLoader();
     }
 
     @Override
@@ -608,25 +549,22 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */
     private void updatePhoto() {
+        if (App.getInstance().getPrefs().loadData(GENERO)=="H"||App.getInstance().getPrefs().loadData(GENERO)=="h") {
 
-
-
-        if (preferencias.loadData(GENERO)=="H"||preferencias.loadData(GENERO)=="h") {
-
-            String mUserImage = pref.loadData(URL_PHOTO_USER);
+            String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
 
-        }else if (preferencias.loadData(GENERO)=="M"||preferencias.loadData(GENERO)=="m"){
+        }else if (App.getInstance().getPrefs().loadData(GENERO)=="M"||App.getInstance().getPrefs().loadData(GENERO)=="m"){
 
-            String mUserImage = pref.loadData(URL_PHOTO_USER);
+            String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
                     .into(imgLoginExistProfile);
 
         }else {
-            String mUserImage = pref.loadData(URL_PHOTO_USER);
+            String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                     .into(imgLoginExistProfile);
@@ -674,7 +612,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                         Intent intent = new Intent(TabActivity.this, MainActivity.class);
                         intent.putExtra(SELECTION, MAIN_SCREEN);
                         startActivity(intent);
-                        mPreferPresenter.logOutSession();
+                        drawerPresenter.logOutSession();
                         finish();
                     }
                 }).setCancelable(false)
@@ -726,7 +664,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         //onEventListener.onEvent("DISABLE_BACK", true);
         // Enviamos al presenter
-        mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
+        drawerPresenter.sendPresenterActualizarAvatar(avatarRequest);
 
     }
 
@@ -738,6 +676,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void showExceptionToView(String mMesage) {
+        //ES un snackbar
         showDialogMesage(mMesage);
     }
 

@@ -132,12 +132,12 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         DesasociarDispositivoRequest desasociarRequest = new DesasociarDispositivoRequest();
         iPreferUserIteractor.desasociarToIteracto(desasociarRequest);
     }
-
+/*
     @Override
     public void logOutSession() {
         iPreferUserIteractor.logOutSession();
     }
-
+*/
     /**
      * Error en la conexion al servidor y procedimiento de Desasociar. Cerrarmos el Loader y enviamos
      * el control a la vista
@@ -154,10 +154,9 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     /**
      * Usamos la instancia del CameraManager para abrir la camara e iniciar el procedimiento
      *
-     * @param i
-     * @param cameraManager
+     *
      */
-    @Override
+/*    @Override
     public void openMenuPhoto(int i, CameraManager cameraManager) {
         try {
             cameraManager.createPhoto(1);
@@ -172,7 +171,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
         iPreferUserIteractor.sendIteractorActualizarAvatar(avatarRequest);
     }
-
+*/
     public void sendPresenterUpdateDatosCuenta(ActualizarDatosCuentaRequest datosCuentaRequest) {
         mView.showLoader(App.getContext().getResources().getString(R.string.update_data));
         iPreferUserIteractor.sendIteractorDatosCuenta(datosCuentaRequest);
@@ -452,10 +451,10 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      * EXCEPTIONS VARIADOS
      **/
 
-    @Override
+   /* @Override
     public void showExceptionAvatarToPresenter(String mMessage) {
         iListaOpcionesView.sendErrorAvatarToView(mMessage);
-    }
+    }*/
 
     /**
      * Exception al enviar el Pass al servicio. Usamos el metodo generico de Pass para enviar los errores
