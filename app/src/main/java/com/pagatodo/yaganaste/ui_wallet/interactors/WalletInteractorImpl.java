@@ -7,8 +7,10 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -77,13 +79,23 @@ public class WalletInteractorImpl implements WalletInteractor {
         }
     }
 
+    @Override
+    public void getStatusAccount(EstatusCuentaRequest request) {
+        try {
+            ApiTrans.estatusCuenta(request, this);
+
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
+
     //REQUEST
     @Override
     public void onSuccess(DataSourceResult result) {
         switch (result.getWebService()) {
             case CONSULTAR_MOVIMIENTOS_MES:
                 validateResponse((ConsultarMovimientosMesResponse) result.getData());
-
                 break;
             case CONSULTAR_SALDO:
                 this.listener.onSuccessEmisor(((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
@@ -92,7 +104,16 @@ public class WalletInteractorImpl implements WalletInteractor {
                 //validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 this.listener.onSuccessADQ(((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
                 break;
-
+            case ESTATUS_CUENTA:
+                if (result.getData() instanceof EstatusCuentaResponse) {
+                    EstatusCuentaResponse response = (EstatusCuentaResponse) result.getData();
+                    if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                        this.listener.onSuccessResponse(response);
+                    } else {
+                        this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION,response.getMensaje());
+                    }
+                }
+                break;
 
         }
     }
@@ -111,5 +132,7 @@ public class WalletInteractorImpl implements WalletInteractor {
         } else {
             listener.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
         }
+
+
     }
 }

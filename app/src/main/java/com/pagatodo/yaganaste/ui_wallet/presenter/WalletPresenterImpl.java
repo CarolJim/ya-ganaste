@@ -4,8 +4,11 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
@@ -41,23 +44,24 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         this.walletInteractor = new WalletInteractorImpl(this);
     }
 
-
-
-    @Override
+        @Override
     public void getWalletsCards(boolean error){
         walletView.showProgress();
         walletInteractor.getWalletsCards(error, this);
     }
 
     @Override
-    public void onDestroy() {
-        walletView = null;
-    }
-
-    @Override
     public void updateBalance() {
         walletView.showProgress();
         walletInteractor.getBalance();
+    }
+
+    @Override
+    public void getStatusAccount(String mTDC) {
+        //mView.showLoader("Obteniendo Estatus de Tarjeta");
+        walletView.showProgress();
+        EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
+        walletInteractor.getStatusAccount(estatusCuentaRequest);
     }
 
     @Override
@@ -93,6 +97,8 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         }
     }
 
+
+
     @Override
     public void onSuccessEmisor(String responds) {
         SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(responds);
@@ -126,13 +132,22 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         }
     }
 
+
+    @Override
+    public void onSuccessResponse(GenericResponse response) {
+        if (response instanceof EstatusCuentaResponse){
+            walletView.hideProgress();
+            walletView.sendSuccessStatusAccount((EstatusCuentaResponse)response);
+        }
+    }
+
     @Override
     public void onFailed(int errorCode, int action, String error) {
         if (walletView != null){
-            walletView.setError();
+            walletView.setError(error);
             walletView.hideProgress();
         } else if (this.movementsEmisorView != null){
-            movementsEmisorView.setError();
+            movementsEmisorView.setError(error);
             movementsEmisorView.hideProgress();
         }
     }

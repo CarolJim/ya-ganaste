@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -26,18 +26,18 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
-import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -48,9 +48,6 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
-/**
- *
- */
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
 
@@ -73,7 +70,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     StyleTextView anuncio;
 
     private WalletPresenter walletPresenter;
-    private TarjetaUserPresenter mPreferPresenter;
     private CardWalletAdpater cardWalletAdpater;
     private ElementsWalletAdapter elementsWalletAdapter;
     protected OnEventListener onEventListener;
@@ -103,7 +99,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         super.onCreate(savedInstanceState);
         pageCurrent = 0;
         walletPresenter = new WalletPresenterImpl(this);
-        mPreferPresenter = new TarjetaUserPresenter(this);
     }
 
 
@@ -143,8 +138,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
-    public void setError() {
-        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+    public void setError(String message) {
+        //Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+        UI.showErrorSnackBar(getActivity(),message, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -299,6 +295,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
+    public void sendSuccessStatusAccount(EstatusCuentaResponse response) {
+        String statusId = response.getData().getStatusId();
+        SingletonUser.getInstance().setCardStatusId(statusId);
+        pager_indicator.removeAllViews();
+        walletPresenter.getWalletsCards(false);
+    }
+
+    @Override
     public void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response) {
 
     }
@@ -349,7 +353,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
                 if (usuarioClienteResponse.getCuentas().size() != 0) {
                     mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
-                    mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+                    walletPresenter.getStatusAccount(mTDC);
                 }
             } else {
                 pager_indicator.removeAllViews();
