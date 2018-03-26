@@ -34,7 +34,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private MaterialLinearLayout llMaterialAdquirenteContainer;
     private NoSwipeViewPager mViewPager;
 
-    private CardAdq cardAdq;
     private TabViewElement cardAdqSel;
     private CardEmisor cardEmisor;
     private CardEmisorSelected cardEmisorSelected;
@@ -79,7 +78,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private void init() {
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
-        cardAdq = new CardAdq(getContext());
         DataIniciarSesion dataUser = SingletonUser.getInstance().getDataUser();
         updateData();
 
@@ -163,7 +161,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public void updateData() {
         cardEmisor.updateData();
         cardEmisorSelected.updateData();
-        cardAdq.updateData();
         if (cardAdqSel != null) {
             cardAdqSel.updateData();
         }

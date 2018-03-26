@@ -84,14 +84,14 @@ public class ElementWallet {
     //Datos seteado de prueb
     public ElementWallet getCardyaganaste(Context context) {
         return new ElementWallet(R.drawable.tarjeta_yg,
-                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 context.getResources().getString(R.string.saldo_disponible));
     }
 
     public ElementWallet getCardyaganasteBloqueda(Context context) {
         return new ElementWallet(R.mipmap.main_card_zoom_gray,
-                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 context.getResources().getString(R.string.saldo_disponible));
     }
@@ -128,7 +128,7 @@ public class ElementWallet {
 
     public ElementWallet getCardBalanceEmiBloqueda(Context context) {
         return new ElementWallet(R.mipmap.main_card_zoom_gray, R.mipmap.card_back_backmara_2,
-                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisorBalance(context),
                 context.getResources().getString(R.string.saldo_disponible));
     }

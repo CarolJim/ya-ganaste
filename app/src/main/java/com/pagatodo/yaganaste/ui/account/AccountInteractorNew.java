@@ -14,10 +14,7 @@ import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
-import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
@@ -61,15 +58,17 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsig
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataConsultarAsignacion;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataCuentaDisponible;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
-import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -122,6 +121,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 /**
@@ -809,7 +809,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
             }
 
-            user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
@@ -1048,7 +1047,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);
             /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
-            userInfo.setDatosSaldo(new DatosSaldo(String.format("%s", userInfo.getDataUser().getUsuario().getCuentas().get(0).getSaldo())));
             accountManager.onSucces(response.getWebService(), "Información Actualizada.");
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.

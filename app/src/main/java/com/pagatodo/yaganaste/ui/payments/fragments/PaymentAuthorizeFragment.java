@@ -74,6 +74,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * Created by Jordan on 02/05/2017.
@@ -180,7 +181,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         ButterKnife.bind(this, rootview);
         SingletonUser dataUser = SingletonUser.getInstance();
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        importe.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
+        importe.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txt_username_payment.setText(usuario.getNombre());
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override

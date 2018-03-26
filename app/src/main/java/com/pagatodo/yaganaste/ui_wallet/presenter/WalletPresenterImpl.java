@@ -19,7 +19,9 @@ import com.pagatodo.yaganaste.utils.StringConstants;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -42,9 +44,8 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
 
-
     @Override
-    public void getWalletsCards(boolean error){
+    public void getWalletsCards(boolean error) {
         walletView.showProgress();
         walletInteractor.getWalletsCards(error, this);
     }
@@ -65,11 +66,11 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         movementsEmisorView.showProgress();
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         //if (data.getYear() == -1) {
-            request.setAnio("2018");
-            request.setMes("1");
+        request.setAnio("2018");
+        request.setMes("1");
         //} else {
-            //request.setAnio(String.valueOf(data.getYear()));
-            request.setMes("1");
+        //request.setAnio(String.valueOf(data.getYear()));
+        request.setMes("1");
         //}
         request.setDireccion("");
         request.setIdMovimiento("");
@@ -80,36 +81,34 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccessADQ(String response) {
         walletView.hideProgress();
-        SingletonUser.getInstance().getDatosSaldo().setSaldoAdq(response);
-        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response);
+        App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, response);
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
         walletView.getSaldo();
     }
 
     @Override
     public void onSuccess(boolean error) {
-        if (walletView != null){
+        if (walletView != null) {
             walletView.completed(error);
         }
     }
 
     @Override
     public void onSuccessEmisor(String responds) {
-        SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(responds);
-        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, responds);
+        App.getInstance().getPrefs().saveData(USER_BALANCE, responds);
         walletView.getSaldo();
     }
 
     @Override
     public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
-        if (movementsEmisorView != null){
+        if (movementsEmisorView != null) {
 
             List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
             String[] date;
             for (MovimientosResponse movimientosResponse : response.getData()) {
                 date = movimientosResponse.getFechaMovimiento().split(" ");
 
-                if (movimientosResponse.getIdTipoTransaccion()!=14) {
+                if (movimientosResponse.getIdTipoTransaccion() != 14) {
                     movementsList.add(new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                             movimientosResponse.getTotal(), date[0], date[1],
                             MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
@@ -128,10 +127,10 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onFailed(int errorCode, int action, String error) {
-        if (walletView != null){
+        if (walletView != null) {
             walletView.setError();
             walletView.hideProgress();
-        } else if (this.movementsEmisorView != null){
+        } else if (this.movementsEmisorView != null) {
             movementsEmisorView.setError();
             movementsEmisorView.hideProgress();
         }
