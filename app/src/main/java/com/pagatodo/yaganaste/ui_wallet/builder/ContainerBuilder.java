@@ -125,13 +125,14 @@ public class ContainerBuilder {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
         } else if (isAgente && Idestatus == IdEstatus.I11.getId()) {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
-        } else if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
-        } else if (isAgente && Idestatus == IdEstatus.I13.getId()) {
+        } //else if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
+            //elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
+        //}
+        else if (isAgente && Idestatus == IdEstatus.I13.getId()) {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
-        } else if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+        } /*else if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
-        } else {
+        }*/ else {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorEmi(), 1);
         }
         return elementsWalletAdapter;

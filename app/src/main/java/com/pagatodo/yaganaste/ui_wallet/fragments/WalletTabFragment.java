@@ -204,11 +204,13 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
                 anuncio.setVisibility(View.GONE);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
             }
             if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
                 colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
                 anuncio.setVisibility(View.GONE);
+                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
             }
         }
 
