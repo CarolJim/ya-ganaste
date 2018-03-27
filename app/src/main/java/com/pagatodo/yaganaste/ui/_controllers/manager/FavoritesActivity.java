@@ -95,6 +95,7 @@ import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
@@ -113,7 +114,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 public class FavoritesActivity extends LoaderActivity implements View.OnClickListener,
         IAddFavoritesActivity, ICropper, IListaOpcionesView,
         CropIwaResultReceiver.Listener, OnListServiceListener, AdapterView.OnItemSelectedListener,
-        ValidationForms, ITextChangeListener,PaymentsCarrouselManager {
+        ValidationForms, ITextChangeListener, PaymentsCarrouselManager {
 
     // Fijas
     public static final String TAG = FavoritesActivity.class.getSimpleName();
@@ -661,6 +662,13 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                             }
                         }, true, true);
                 break;
+
+            // TODO aqui reacciona el Clic para abrir la actiidad de Scan de QR
+            case R.id.layoutScanQr:
+                Intent intentQR = new Intent(this, ScannVisionActivity.class);
+                intentQR.putExtra(ScannVisionActivity.QRObject, true);
+                startActivityForResult(intentQR, BARCODE_READER_REQUEST_CODE);
+                break;
             default:
                 break;
         }
@@ -795,9 +803,10 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         tipoPago.add(0, "");
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(this));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(this));
+        tipoPago.add(CLABE.getId(), CLABE.getName(this));
 
-        if (keyIdComercio != IDCOMERCIO_YA_GANASTE) {
-            tipoPago.add(CLABE.getId(), CLABE.getName(this));
+        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+            tipoPago.add(QR_CODE.getId(), QR_CODE.getName(this));
         }
 
         /**
@@ -1558,6 +1567,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layoutImageContact2.setOnClickListener(null);
             selectedType = CLABE;
             til_num_telefono.setHint(CLABE.getName(this));
+        } else if (position == QR_CODE.getId()) {
+            // Bloque para decisiones de QR
+            Toast.makeText(this, "Proceso para mostrar QR", Toast.LENGTH_SHORT).show();
         } else {
             maxLength = 2;
             cardNumber.setHint("");
