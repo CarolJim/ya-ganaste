@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * @author Juan Guerra on 05/04/2017.
@@ -84,7 +85,7 @@ public class CardEmisorSelected extends TabViewElement {
 //                        "\n" + userData.getSegundoApellido())
 //        );
 
-        double saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+        double saldo = StringUtils.getDoubleValue(App.getInstance().getPrefs().loadData(USER_BALANCE));
         if (Math.abs(saldo) >= 99999) {
             txtSaldo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         }

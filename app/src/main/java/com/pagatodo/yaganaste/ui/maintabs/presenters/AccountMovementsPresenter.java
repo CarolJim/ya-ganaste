@@ -30,6 +30,7 @@ import java.util.List;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.getTipoTransaccionById;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<MonthsMovementsTab>,
         MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> {
@@ -121,9 +122,8 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
-        SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(response.getData().getSaldo());
         App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
-        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
+        App.getInstance().getPrefs().saveData(USER_BALANCE, response.getData().getSaldo());
         movementsView.updateBalance();
     }
 

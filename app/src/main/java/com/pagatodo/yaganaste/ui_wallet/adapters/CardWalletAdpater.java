@@ -61,7 +61,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
                 .inflate(R.layout.wallet_element, container, false);
         container.addView(view);
         bind(elementViewList.get(position), view);
-        CardView cardView = (CardView) view.findViewById(R.id.cardView);
+        CardView cardView = view.findViewById(R.id.cardView);
         if (mBaseElevation == 0) {
             mBaseElevation = cardView.getCardElevation();
         }

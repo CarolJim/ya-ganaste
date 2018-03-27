@@ -1,15 +1,26 @@
 package com.pagatodo.yaganaste.ui_wallet.builder;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
+import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
+import com.pagatodo.yaganaste.utils.Recursos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
@@ -100,16 +111,57 @@ public class ContainerBuilder {
         return new InputTexAdapter(context,s.getInputTextList());
     }
 
+    public static ElementsWalletAdapter getAdapter(Activity activity, OnItemClickListener listener){
+        ElementsWalletAdapter elementsWalletAdapter;
+        boolean isAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
+        int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+        if (isAgente && Idestatus == IdEstatus.I7.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
+        } else if (isAgente && Idestatus == IdEstatus.I8.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
+        } else if (isAgente && Idestatus == IdEstatus.I9.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoError(), 2);
+        } else if (isAgente && Idestatus == IdEstatus.I10.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
+        } else if (isAgente && Idestatus == IdEstatus.I11.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
+        } else if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
+        } else if (isAgente && Idestatus == IdEstatus.I13.getId()) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
+        } else if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
+        } else {
+            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorEmi(), 1);
+        }
+        return elementsWalletAdapter;
+    }
 
-    /*
-    public static InputTexAdapter DatosUsuario(Context context, InputTexAdapter.ChangeEditListener listener){
-        Container s = new Container();
-        s.addInputText(new InputText("Correo electrónico","EMA"));
-        s.addInputText(new InputText("Confirma Correo","EMA"));
-        s.addInputText(new InputText("Contraseña","PAS"));
-        s.addInputText(new InputText("Confirma Contraseña","PAS"));
-        return new InputTexAdapter(context,s.getInputTextList(),listener);
-    }*/
+    public static CardWalletAdpater getCardWalletAdapter(boolean error){
+        CardWalletAdpater adpater = new CardWalletAdpater();
+        boolean isAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
+        int statusDoc = SingletonUser.getInstance().getDataUser().getEstatusDocumentacion();
+        String statusCard = SingletonUser.getInstance().getCardStatusId();
+
+        if (error) {
+            adpater.addCardItem(new ElementWallet().getCardyaganaste());
+        } else if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
+            adpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
+            if (isAgente && statusDoc == Recursos.CRM_DOCTO_APROBADO) {
+                adpater.addCardItem(new ElementWallet().getCardLectorAdq());
+            } else {
+                adpater.addCardItem(new ElementWallet().getCardLectorEmi());
+            }
+        } else {
+            adpater.addCardItem(new ElementWallet().getCardyaganaste());
+            if (isAgente && statusDoc == Recursos.CRM_DOCTO_APROBADO) {
+                adpater.addCardItem(new ElementWallet().getCardLectorAdq());
+            } else {
+                adpater.addCardItem(new ElementWallet().getCardLectorEmi());
+            }
+        }
+        return adpater;
+    }
 
 
 }

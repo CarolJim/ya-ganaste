@@ -22,7 +22,6 @@ public class UsuarioClienteResponse implements Serializable {
     private String TokenSesion = "";
 
     private String TokenSesionAdquirente = "";
-    private String FechaUltimoAcceso = "";
     private List<CuentaResponse> Cuentas;
     private Boolean PasswordAsignado = null;
     private String NumeroAgente = "";
@@ -104,14 +103,6 @@ public class UsuarioClienteResponse implements Serializable {
 
     public void setTokenSesion(String tokenSesion) {
         TokenSesion = tokenSesion;
-    }
-
-    public String getFechaUltimoAcceso() {
-        return FechaUltimoAcceso;
-    }
-
-    public void setFechaUltimoAcceso(String fechaUltimoAcceso) {
-        FechaUltimoAcceso = fechaUltimoAcceso;
     }
 
     public List<CuentaResponse> getCuentas() {

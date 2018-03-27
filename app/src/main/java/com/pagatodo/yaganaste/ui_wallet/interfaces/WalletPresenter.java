@@ -9,4 +9,6 @@ public interface WalletPresenter {
     void getWalletsCards(boolean error);
     void updateBalance();
     void getStatusAccount(String mTDC);
+
+
 }

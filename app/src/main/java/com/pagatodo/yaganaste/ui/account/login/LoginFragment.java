@@ -379,8 +379,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-        //accountPresenter.validateVersion();
-        versionOk();
+        accountPresenter.validateVersion();
+        //versionOk();
     }
 
     @Override

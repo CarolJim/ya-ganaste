@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,11 +30,12 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -139,35 +141,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void setError(String message) {
-        //Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         UI.showErrorSnackBar(getActivity(),message, Snackbar.LENGTH_SHORT);
     }
 
     @Override
-    public void completed(boolean error) {
+    public void getPagerAdapter(PagerAdapter pagerAdapter) {
         progressLayout.setVisibility(View.GONE);
-        cardWalletAdpater = new CardWalletAdpater();
-
-        if (error) {
-            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
-        } else if (SingletonUser.getInstance().getCardStatusId().equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
-            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda(getContext()));
-            if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-                cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
-            } else {
-                cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
-            }
-        } else {
-            cardWalletAdpater.addCardItem(new ElementWallet().getCardyaganaste(getContext()));
-            if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-                cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorAdq(getContext()));
-
-            } else {
-                cardWalletAdpater.addCardItem(new ElementWallet().getCardLectorEmi(getContext()));
-            }
-        }
-
-        viewPagerWallet.setAdapter(cardWalletAdpater);
+        cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
+        viewPagerWallet.setAdapter(pagerAdapter);
         viewPagerWallet.setCurrentItem(pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(this);
@@ -192,73 +173,51 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             );
 
             params.setMargins(22, 0, 22, 0);
-
             pager_indicator.addView(dots[i], params);
         }
         dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
+    private void selectDots(int lastPosition,int nextposition){
+        dots[lastPosition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
+        dots[nextposition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
+    }
+
     private void updateOperations(int position) {
+        int colums = 3;
+        boolean isAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
         pageCurrent = position;
-        String setMont = "";
+
         if (position == 0) {
-            llm.setSpanCount(3);
-            rcvOpciones.setLayoutManager(llm);
+            colums = 3;
             elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(), 0);
             txtSaldo.setVisibility(View.VISIBLE);
-            txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
             anuncio.setVisibility(View.GONE);
         }
         if (position == 1) {
-
             int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-            llm.setSpanCount(1);
-            rcvOpciones.setLayoutManager(llm);
+            colums = 1;
             txtSaldo.setVisibility(View.GONE);
             anuncio.setVisibility(View.VISIBLE);
-            anuncio.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
-            if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                    && Idestatus == IdEstatus.I7.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
-
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                    && Idestatus == IdEstatus.I8.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                    Idestatus == IdEstatus.I9.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoError(), 2);
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                    Idestatus == IdEstatus.I10.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                    Idestatus == IdEstatus.I11.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRevisando(), 2);
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                        Idestatus == IdEstatus.ADQUIRENTE.getId()) {
-                llm.setSpanCount(3);
-                rcvOpciones.setLayoutManager(llm);
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
+            elementsWalletAdapter = ContainerBuilder.getAdapter(getActivity(),this);
+            if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
+                colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
-                txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
                 anuncio.setVisibility(View.GONE);
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                    Idestatus == IdEstatus.I13.getId()) {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEstadoRechazado(), 2);
-            } else if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-                llm.setSpanCount(3);
-                rcvOpciones.setLayoutManager(llm);
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
+            }
+            if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+                colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
-                txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
                 anuncio.setVisibility(View.GONE);
-            } else {
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorEmi(), 1);
             }
         }
 
+        llm.setSpanCount(colums);
+        rcvOpciones.setLayoutManager(llm);
+        anuncio.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+        txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
-
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
     }
 
@@ -274,7 +233,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void getSaldo() {
         cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
-        //cardWalletAdpater.updateSaldo(1,Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);
     }
 
@@ -327,15 +285,15 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onPageSelected(int position) {
-        for (int i = 0; i < dotsCount; i++) {
+        /*for (int i = 0; i < dotsCount; i++) {
             dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
         }
-        dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
-        int pos = position + 1;
-        if (pos == dotsCount && previous_pos == (dotsCount - 1)) {
-        } else if (pos == (dotsCount - 1) && previous_pos == dotsCount) {
-        }
-        previous_pos = pos;
+        dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));*/
+
+
+        previous_pos = pageCurrent;
+        selectDots(previous_pos,position);
+        pageCurrent = position;
         updateOperations(position);
     }
 

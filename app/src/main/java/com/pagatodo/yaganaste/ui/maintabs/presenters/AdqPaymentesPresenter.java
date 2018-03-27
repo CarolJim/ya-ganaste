@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
 
@@ -126,15 +127,13 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void onSuccesBalance(String response) {
-        SingletonUser.getInstance().getDatosSaldo().setSaldoAdq(response);
-        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response);
+        App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, response);
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
         movementsView.updateBalance();
     }
 
     @Override
     public void onSuccessDataCupo(ObtieneDatosCupoResponse response) {
-        SingletonUser.getInstance().setDatosCupo(new DatosCupo(response.getLimiteDeCredito(), response.getSaldoDisponible(), response.getTotalADepositar(), response.getTotalAReembolsar()));
         App.getInstance().getPrefs().saveData(StringConstants.CUPO_BALANCE, response.getSaldoDisponible());
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_CUPO, DateUtil.getTodayCompleteDateFormat());
         movementsView.updateBalance();

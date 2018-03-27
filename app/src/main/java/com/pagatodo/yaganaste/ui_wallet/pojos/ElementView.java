@@ -162,7 +162,7 @@ public class ElementView implements Serializable {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListEmisorBalance(Context context) {
+    public static ArrayList<ElementView> getListEmisorBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
             elementViews.add(new ElementView(1, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
@@ -173,7 +173,7 @@ public class ElementView implements Serializable {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListAdqBalance(Context context) {
+    public static ArrayList<ElementView> getListAdqBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(3, R.drawable.ic_cobrar, R.string.realizar_cobro));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));

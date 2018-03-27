@@ -21,19 +21,19 @@ public class ElementWallet {
     private int resourceCard, resourceBack;
     private String saldo;
     private ArrayList<ElementView> elementViews;
-    private String tipoSaldo;
+    private int tipoSaldo;
 
     public ElementWallet() {
     }
 
-    public ElementWallet(int resourceCard, String saldo, ArrayList<ElementView> elementViews, String tipoSaldo) {
+    public ElementWallet(int resourceCard, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo) {
         this.resourceCard = resourceCard;
         this.saldo = saldo;
         this.elementViews = elementViews;
         this.tipoSaldo = tipoSaldo;
     }
 
-    public ElementWallet(int resourceCard, int resourceBack, String saldo, ArrayList<ElementView> elementViews, String tipoSaldo) {
+    public ElementWallet(int resourceCard, int resourceBack, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo) {
         this.resourceCard = resourceCard;
         this.resourceBack = resourceBack;
         this.saldo = saldo;
@@ -73,27 +73,27 @@ public class ElementWallet {
         this.elementViews = elementViews;
     }
 
-    public String getTipoSaldo() {
+    public int getTipoSaldo() {
         return tipoSaldo;
     }
 
-    public void setTipoSaldo(String tipoSaldo) {
+    public void setTipoSaldo(int tipoSaldo) {
         this.tipoSaldo = tipoSaldo;
     }
 
     //Datos seteado de prueb
-    public ElementWallet getCardyaganaste(Context context) {
+    public ElementWallet getCardyaganaste() {
         return new ElementWallet(R.drawable.tarjeta_yg,
-                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
-                context.getResources().getString(R.string.saldo_disponible));
+                R.string.saldo_disponible);
     }
 
-    public ElementWallet getCardyaganasteBloqueda(Context context) {
+    public ElementWallet getCardyaganasteBloqueda() {
         return new ElementWallet(R.mipmap.main_card_zoom_gray,
-                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
-                context.getResources().getString(R.string.saldo_disponible));
+                R.string.saldo_disponible);
     }
 
     /*public ElementWallet getCardStarBucks(Context context) {
@@ -102,41 +102,39 @@ public class ElementWallet {
                 context.getResources().getString(R.string.saldo_disponible));
     }*/
 
-    public ElementWallet getCardLectorAdq(Context context) {
+    public ElementWallet getCardLectorAdq() {
         return new ElementWallet(R.mipmap.lector_front,
                 //Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
                 Utils.getCurrencyValue("0.00"),
                 new ElementView().getListLectorAdq(),
-                context.getResources().getString(R.string.saldo_reembolso)
-                );
+                R.string.saldo_reembolso);
     }
 
-    public ElementWallet getCardLectorEmi(Context context) {
+    public ElementWallet getCardLectorEmi() {
         return new ElementWallet(R.mipmap.lector_front,
-                //Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
-                context.getResources().getString(R.string.cobro_tarjeta),
+                "Cobra con tarjeta",
                 new ElementView().getListLectorEmi(),
-                context.getResources().getString(R.string.mejor_precio));
+                R.string.mejor_precio);
     }
 
-    public ElementWallet getCardBalanceEmi(Context context) {
+    public ElementWallet getCardBalanceEmi() {
         return new ElementWallet(R.mipmap.main_card_zoom_blue, R.mipmap.back_yg_card_white,
                 Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
-                new ElementView().getListEmisorBalance(context),
-                context.getResources().getString(R.string.saldo_disponible));
+                new ElementView().getListEmisorBalance(),
+                R.string.saldo_disponible);
     }
 
-    public ElementWallet getCardBalanceEmiBloqueda(Context context) {
+    public ElementWallet getCardBalanceEmiBloqueda() {
         return new ElementWallet(R.mipmap.main_card_zoom_gray, R.mipmap.card_back_backmara_2,
-                StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()),
-                new ElementView().getListEmisorBalance(context),
-                context.getResources().getString(R.string.saldo_disponible));
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
+                new ElementView().getListEmisorBalance(),
+                R.string.saldo_disponible);
     }
 
-    public ElementWallet getCardBalanceAdq(Context context) {
+    public ElementWallet getCardBalanceAdq() {
         return new ElementWallet(R.mipmap.lector_front, R.mipmap.lector_back,
                 Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
-                new ElementView().getListAdqBalance(context),
-                context.getResources().getString(R.string.saldo_reembolso));
+                new ElementView().getListAdqBalance(),
+                R.string.saldo_reembolso);
     }
 }

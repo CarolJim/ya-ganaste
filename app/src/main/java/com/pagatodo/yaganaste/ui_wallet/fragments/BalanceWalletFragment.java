@@ -321,12 +321,12 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         balanceWalletAdpater = new BalanceWalletAdpater(this);
         if (Status.equals(ESTATUS_CUENTA_BLOQUEADA)) {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda(getContext()));
+            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
         } else {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi(getContext()));
+            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
         }
         if (!RequestHeaders.getTokenAdq().isEmpty()) {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq(getContext()));
+            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
         }
         vpBalace.setAdapter(balanceWalletAdpater);
         vpBalace.setCurrentItem(pageCurrent);
@@ -359,13 +359,13 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             txtAmountBalance.setText(Utils.getCurrencyValue(balanceEmisor));
             txtCardDescBalance.setText(getString(R.string.tarjeta_yg));
             txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
-            elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance(getContext()));
+            elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance());
         }
         if (position == 1) {
             txtAmountBalance.setText(Utils.getCurrencyValue(balanceAdq));
             txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
             txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
-            elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance(getContext()));
+            elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
         }
         rcvElementsBalance.setAdapter(elementsBalanceAdpater);
         rcvElementsBalance.scheduleLayoutAnimation();

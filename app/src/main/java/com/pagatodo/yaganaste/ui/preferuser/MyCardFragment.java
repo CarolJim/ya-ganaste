@@ -157,15 +157,6 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         // ultimaTransaccionSingleton = SingletonUser.getInstance().getUltimaTransaccion();
         String ultimaTransaccion = "";
 
-        if (mLastTime != null && !mLastTime.isEmpty()) {
-       //     mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"+ mLastTime);
-        } else {
-            ultimaTransaccion =
-                    SingletonUser.getInstance().getDataUser().getUsuario().getFechaUltimoAcceso();
-            //mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + ultimaTransaccion);
-        }
-       // printCard(mTDC,mName);
-
         cardEmisorSelected = new CardEmisorSelected(getContext());
         llMaterialEmisorContainer = (MaterialLinearLayout) rootview.findViewById(R.id.ll_material_emisor_container);
 
