@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.StringUtils;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * @author Juan Guerra on 05/04/2017.
@@ -44,6 +47,6 @@ public class CardEmisor extends TabViewElement {
 
     @Override
     public void updateData() {
-        txtSaldoEm.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()));
+        txtSaldoEm.setText(StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
     }
 }

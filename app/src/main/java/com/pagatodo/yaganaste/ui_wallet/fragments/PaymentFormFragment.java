@@ -72,6 +72,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,7 +108,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     StyleButton btnContinue;
     @BindView(R.id.textmontorecarga)
     StyleTextView textmontorecarga;
-
 
 
     /* RECARGAS BLOCK */
@@ -155,17 +155,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     LinearLayout txtconcepto;
 
 
-
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_num_telefono2;
-
-
-
-
-
-
-
-
 
 
     boolean isRecarga = false;
@@ -279,7 +270,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 }
             }
         });
-
 
 
         // Procesos para Recargas, sin importar si es carrier o favorito
@@ -415,7 +405,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 edtServiceImport.addTextChangedListener(new NumberTextWatcher(edtServiceImport));
 
 
-
                 if (comercioResponse.getLongitudReferencia() > 0) {
                     InputFilter[] fArray = new InputFilter[1];
                     maxLength = Utils.calculateFilterLength(comercioResponse.getLongitudReferencia());
@@ -472,7 +461,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     public void onFocusChange(View v, boolean hasFocus) {
                         if (hasFocus) {
                             txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_active);
-                        }else {
+                        } else {
                             txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_normal);
 
                         }
@@ -498,7 +487,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                                     txtMonto.setText("" + Utils.getCurrencyValue(0.0));
                                 }
                             }
-                        }else {
+                        } else {
                             txt_monotserv.setBackgroundResource(R.drawable.inputtext_active);
                         }
 
@@ -515,7 +504,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtMonto.setText("" + Utils.getCurrencyValue(0));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtNameUser.setText("" + dataUser.getDataUser().getUsuario().getNombre());
-        txtSaldo.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
+        txtSaldo.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
             Picasso.with(App.getContext())

@@ -67,7 +67,11 @@ public class ProgressLayout extends LinearLayout implements View.OnClickListener
     }
 
     public void setTextMessage(String message) {
-        txtMessage.setText(message);
+        try {
+            txtMessage.setText(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*public void setBackgroundColor(@DrawableRes int color) {

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
@@ -34,6 +35,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 public class SendWalletFragment extends GenericFragment implements EditTextImeBackListener {
 
@@ -91,7 +94,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         SingletonUser dataUser = SingletonUser.getInstance();
-        saldoDisponible.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
+        saldoDisponible.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txtReceiverName.setText(payments.getNombreDestinatario());
         if (favoritos != null) {
             txtInicialesFav.setVisibility(View.GONE);

@@ -17,19 +17,11 @@ public class CuentaResponse implements Serializable {
     private String Cuenta = "";
     private String CLABE = "";
     private String Tarjeta = "";
-    private double Saldo;
     @SerializedName("Telefono")
     private String telefono;
-    private List<MovimientosResponse> ListaMovimientos;
-    private List<FavoritosResponse> ListaFavoritos;
-
 
     public CuentaResponse() {
-
-        ListaMovimientos = new ArrayList<MovimientosResponse>();
-        ListaFavoritos = new ArrayList<FavoritosResponse>();
     }
-
 
     public int getIdCuenta() {
         return IdCuenta;
@@ -63,36 +55,12 @@ public class CuentaResponse implements Serializable {
         Tarjeta = tarjeta;
     }
 
-    public double getSaldo() {
-        return Saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        Saldo = saldo;
-    }
-
     public boolean isAsignoNip() {
         return AsignoNip;
     }
 
     public void setAsignoNip(boolean asignoNip) {
         AsignoNip = asignoNip;
-    }
-
-    public List<MovimientosResponse> getListaMovimientos() {
-        return ListaMovimientos;
-    }
-
-    public void setListaMovimientos(List<MovimientosResponse> listaMovimientos) {
-        ListaMovimientos = listaMovimientos;
-    }
-
-    public List<FavoritosResponse> getListaFavoritos() {
-        return ListaFavoritos;
-    }
-
-    public void setListaFavoritos(List<FavoritosResponse> listaFavoritos) {
-        ListaFavoritos = listaFavoritos;
     }
 
     public String getTelefono() {

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.payments.presenters;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Recarga;
@@ -22,6 +23,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * Created by Jordan on 27/04/2017.
@@ -80,7 +82,7 @@ public class PaymentsProcessingPresenter extends GenericPresenterMain implements
         EjecutarTransaccionResponse data = (EjecutarTransaccionResponse) result.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             //Actualizamos el Saldo del Emisor
-            SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(String.valueOf(data.getData().getSaldo()));
+            App.getInstance().getPrefs().saveData(USER_BALANCE, String.valueOf(data.getData().getSaldo()));
             manager.onSuccessPaymentRespone(result);
 
             /**

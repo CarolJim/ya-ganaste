@@ -31,8 +31,6 @@ public class    SingletonUser {
 
     private DataIniciarSesion dataUser;
     private ExtraInfoUser dataExtraUser;
-    private DatosSaldo datosSaldo;
-    private DatosCupo datosCupo;
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
     private boolean needsReset;
@@ -42,8 +40,6 @@ public class    SingletonUser {
     private SingletonUser() {
         dataUser = new DataIniciarSesion();
         dataExtraUser = new ExtraInfoUser();
-        datosSaldo = new DatosSaldo();
-        datosCupo = new DatosCupo();
     }
 
     public static synchronized SingletonUser getInstance() {
@@ -127,29 +123,12 @@ public class    SingletonUser {
         this.activacionCodeFreja = activacionCodeFreja;
     }
 
-    public DatosSaldo getDatosSaldo() {
-        return datosSaldo;
-    }
-
-    public void setDatosSaldo(DatosSaldo datosSaldo) {
-        this.datosSaldo = datosSaldo;
-    }
-
-
     public boolean needsReset() {
         return needsReset;
     }
 
     public void setNeedsReset(boolean needsReset) {
         this.needsReset = needsReset;
-    }
-
-    public DatosCupo getDatosCupo() {
-        return datosCupo;
-    }
-
-    public void setDatosCupo(DatosCupo datosCupo) {
-        this.datosCupo = datosCupo;
     }
 
     public String getCardStatusId() {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
@@ -50,6 +51,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -140,7 +142,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         requestAmout.setText(String.format("%s", StringUtils.getCurrencyValue(monto)));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtUsername.setText("" + dataUser.getDataUser().getUsuario().getNombre());
-        txtBalance.setText("" + Utils.getCurrencyValue(dataUser.getDatosSaldo().getSaldoEmisor()));
+        txtBalance.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
             Picasso.with(getContext())
@@ -162,7 +164,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void onResume() {
-       // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+        // onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
         paymentsCarouselPresenter.getFavoriteCarouselItems();
         super.onResume();
     }

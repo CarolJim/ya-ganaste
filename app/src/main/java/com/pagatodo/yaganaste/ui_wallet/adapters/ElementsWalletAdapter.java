@@ -118,4 +118,29 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
         return this.elementViews.size();
     }
 
+    public class DataWallet {
+        int columnas;
+        int texResource;
+
+        public DataWallet(int columnas, int texResource) {
+            this.columnas = columnas;
+            this.texResource = texResource;
+        }
+
+        public int getColumnas() {
+            return columnas;
+        }
+
+        public void setColumnas(int columnas) {
+            this.columnas = columnas;
+        }
+
+        public int getTexResource() {
+            return texResource;
+        }
+
+        public void setTexResource(int texResource) {
+            this.texResource = texResource;
+        }
+    }
 }

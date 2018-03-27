@@ -65,6 +65,7 @@ public class MovementsEmisorFragmentMovementsEmisorView extends SupportFragment 
         walletPresenter.getRemoteMovementsData();
     }
 
+
     @Override
     public void showProgress() {
         progressLayout.setVisibility(View.VISIBLE);
@@ -76,8 +77,8 @@ public class MovementsEmisorFragmentMovementsEmisorView extends SupportFragment 
     }
 
     @Override
-    public void setError() {
-        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+    public void setError(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

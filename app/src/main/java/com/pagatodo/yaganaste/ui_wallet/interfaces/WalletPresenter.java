@@ -8,5 +8,7 @@ public interface WalletPresenter {
     void getRemoteMovementsData();
     void getWalletsCards(boolean error);
     void updateBalance();
-    void onDestroy();
+    void getStatusAccount(String mTDC);
+
+
 }
