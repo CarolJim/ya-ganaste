@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -80,7 +81,15 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void showErrorMessage(String message) {
-        UI.createSimpleCustomDialog("Error", message, getChildFragmentManager(), getFragmentTag());
+        //UI.createSimpleCustomDialog("Error", message, getChildFragmentManager(), getFragmentTag());
+
+        UI.showAlertDialog(getContext(), getString(R.string.title_error),message, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
     }
 
     @Override

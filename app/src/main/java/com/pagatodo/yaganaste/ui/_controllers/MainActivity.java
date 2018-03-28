@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.animation.Animator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,8 +55,14 @@ public class MainActivity extends ToolBarActivity {
             } else {
                 loadFragment(MainFragment.newInstance(), true);
                 if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
-                    UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
-                            this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+                    //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+
+                    UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+
                 }
                 /*if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         getIntent().hasExtra(EXTRA_CIRCULAR_REVEAL_X) &&

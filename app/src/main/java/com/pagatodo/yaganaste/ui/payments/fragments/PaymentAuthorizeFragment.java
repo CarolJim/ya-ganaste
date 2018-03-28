@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.hardware.fingerprint.FingerprintManager;
@@ -450,7 +451,16 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (error.toString().equals(getString(R.string.error_codigo_de_seguridad))) {
             errorTittle = "Contraseña Inválida";
             errorBody = "La contraseña ingresada no es válida, verifícala";
-            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+            //UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+
+            UI.showAlertDialog(getContext(), errorTittle, errorBody, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+
+
+
         } else if (error.toString().equals(getString(R.string.no_internet_access))) {
             errorTittle = "Ya Ganaste";
             errorBody = getString(R.string.no_internet_access);

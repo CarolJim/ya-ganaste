@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -226,20 +227,13 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showValidationError(int id, Object error) {
-        //UI.showToastShort(error.toString(), getActivity());
-        UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
 
-                    }
+        UI.showAlertDialog(getContext(), error.toString(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
 
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
     }
 
     @Override

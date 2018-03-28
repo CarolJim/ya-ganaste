@@ -262,21 +262,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         void onUpdateBalance();
     }
 
-    private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
-    }
-
     /*@Override
     public void onClick(View v) {
         if (v.getId() == R.id.txt_info_movements) {

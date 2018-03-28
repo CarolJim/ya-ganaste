@@ -131,9 +131,10 @@
                             android:maxLines="1"
                             android:paddingTop="1dp"
                             android:textColorHint="@color/texthint"
+                            app:counterEnabled="true"
                             app:counterMaxLength="1"
                             app:hintTextAppearance="@style/HintText"
-                            app:passwordToggleTint="@color/hint_color"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
                             tools:ignore="UnusedAttribute">
 
                             <EditText
@@ -193,8 +194,10 @@
                             android:textColorHint="@color/texthint"
                             app:counterMaxLength="1"
                             app:hintTextAppearance="@style/HintText"
-
                             app:passwordToggleTint="@color/hint_color"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+
                             tools:ignore="UnusedAttribute">
 
                             <EditText
@@ -243,6 +246,8 @@
                             android:textColorHint="@color/texthint"
                             app:hintTextAppearance="@style/HintText"
                             app:passwordToggleTint="@color/hint_color"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
                             tools:ignore="UnusedAttribute">
 
                             <EditText
@@ -313,6 +318,9 @@
                                 android:textColorHint="@color/texthint"
                                 app:hintTextAppearance="@style/HintText"
                                 app:passwordToggleTint="@color/hint_color"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="1"
+                                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                                 tools:ignore="UnusedAttribute">
 
                                 <EditText
@@ -407,7 +415,11 @@
                             android:textColorHint="@color/texthint"
                             app:hintTextAppearance="@style/HintText"
                             android:visibility="visible"
+                            app:counterMaxLength="1"
+                            app:counterEnabled="true"
+                            app:counterOverflowTextAppearance="@style/CounterOverFlow"
                             app:passwordToggleTint="@color/hint_color"
+
                             tools:ignore="UnusedAttribute">
 
                             <EditText

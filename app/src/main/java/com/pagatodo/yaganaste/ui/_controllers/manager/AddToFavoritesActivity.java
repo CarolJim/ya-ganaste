@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -859,6 +860,11 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 true, false);
     }
 
+
+
+
+
+
     /**
      * Resultado de tomar una foto o escoger una de galeria, se envia el resultado al CameraManager
      *
@@ -1137,8 +1143,17 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             LOADER_SHOWED = true;
         } else {
              /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
-            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
-                    "");
+            //UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
+              //      "");
+            UI.showAlertDialog(this, getString(R.string.title_error),getString(R.string.error_favorite_exist), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+
+
         }
 
         // Codigo para mostrar el llenado de la peticion

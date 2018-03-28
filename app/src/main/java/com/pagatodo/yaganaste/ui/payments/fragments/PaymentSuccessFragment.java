@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -289,14 +291,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
-
         // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
         fecha.setText(DateUtil.getPaymentDateSpecialCustom(Calendar.getInstance()));
         hora.setText(dateFormatH.format(new Date()) + " hrs");
-
         btnContinueEnvio.setOnClickListener(this);
-
-
         showBack(false);
     }
 
@@ -331,7 +329,14 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     }
 
     private void showSimpleDialog(String title, String text) {
-        UI.createSimpleCustomDialog(title, text, getFragmentManager(), this.getFragmentTag());
+        //UI.createSimpleCustomDialog(title, text, getFragmentManager(), this.getFragmentTag());
+
+
+        UI.showAlertDialog(getContext(), title, text, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
     }
 
 
@@ -352,6 +357,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
 
     private void showDialogErrorSendTicket(String text) {
+        /*
         UI.createCustomDialog(getString(R.string.error_enviando_ticket),
                 text != null ? text : getString(R.string.error_enviando_ticket),
                 getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
@@ -366,7 +372,28 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                     }
                 }, getString(R.string.txt_reintent_lowcase),
                 getString(R.string.txt_cancelar));
+
+            */
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(getString(R.string.error_enviando_ticket))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.txt_reintent_lowcase), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        validateMail();
+                    }
+                })
+                .setNegativeButton(getString(R.string.txt_cancelar), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finalizePayment();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
+
+
+
 
 
     @Override

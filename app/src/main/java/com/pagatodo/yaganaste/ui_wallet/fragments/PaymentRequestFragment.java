@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -258,7 +259,13 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     @Override
     public void showErrorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-        UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+        //UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+        UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.no_internet_access), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
     }
 
     // OnItemClickRecyclerView
@@ -280,19 +287,22 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                         lstRequestPayment.add(dto);
                         notifyRequestContainer();
                     } else {
-                        UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_fav), getActivity().getSupportFragmentManager(), getFragmentTag());
+                        //UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_fav), getActivity().getSupportFragmentManager(), getFragmentTag());
+                        UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.error_add_fav), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+
+
                         // UI.showToastShort(App.getContext().getString(R.string.error_add_fav), getActivity());
                     }
                 } else {
-                    UI.createSimpleCustomDialog(getActivity().getString(R.string.title_error), getActivity().getString(R.string.txt_error_calculate_amount), getFragmentManager(), new DialogDoubleActions() {
+                    UI.showAlertDialog(getContext(), getActivity().getString(R.string.title_error), getActivity().getString(R.string.txt_error_calculate_amount), new DialogInterface.OnClickListener() {
                         @Override
-                        public void actionConfirm(Object... params) {
+                        public void onClick(DialogInterface dialogInterface, int i) {
                         }
-
-                        @Override
-                        public void actionCancel(Object... params) {
-                        }
-                    }, true, false);
+                    });
                 }
                 break;
             case R.id.row_request_payment:
@@ -367,7 +377,12 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
             //lstRequestPayment.add(dtoRequestPayment);
             //notifyRequestContainer();
         } else {
-            UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_numero), getActivity().getSupportFragmentManager(), getFragmentTag());
+            //UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_numero), getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.error_add_numero), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
         }
     }
 

@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -95,7 +96,13 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             if (contenidoemail.isEmpty()) {
-                UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
+                //UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
+                UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.correo_vacio), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+
             }
             if (!contenidoemail.isEmpty()) {
                 EnviarCorreoContactanosRequest mensajeRequest = new EnviarCorreoContactanosRequest(contenidoemail);

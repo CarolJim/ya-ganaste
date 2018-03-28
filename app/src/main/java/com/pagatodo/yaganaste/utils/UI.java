@@ -287,6 +287,9 @@ public class UI {
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
 
+
+
+
     public static void createSimpleCustomDialogError(String title, String message,
                                                      FragmentManager fragmentManager, final DialogDoubleActions actions,
                                                      boolean hasConfirmBtn, boolean hasCancelBtn, String titleBtnAcept) {
@@ -349,6 +352,31 @@ public class UI {
                 .create();
         builder.show();
     }
+    public static void showAlertDialog(Context context, String titulo,String message, DialogInterface.OnClickListener positive) {
+        AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
+                .setTitle(titulo)
+                .setMessage(message)
+                .setPositiveButton(R.string.title_aceptar, positive)
+                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        builder.show();
+    }
+
+    public static void showAlertDialognegative(Context context, String titulo,String message, DialogInterface.OnClickListener positive,DialogInterface.OnClickListener negative) {
+        AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
+                .setTitle(titulo)
+                .setMessage(message)
+                .setPositiveButton(R.string.title_aceptar, positive)
+                .setNegativeButton(R.string.title_cancelar, negative)
+                .create();
+        builder.show();
+    }
+
 
     public static void showAlertDialog(Context context, String title, String message, int textPsitive,DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))

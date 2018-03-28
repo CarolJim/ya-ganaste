@@ -202,6 +202,9 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim());
 
         if (dataMovimientoAdq.getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId())) {
+
+
+
             btnCancel.setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.view).setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);
@@ -283,6 +286,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+
 
 
 

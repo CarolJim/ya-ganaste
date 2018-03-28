@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -765,8 +766,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 payment = new Recarga(referencia, monto, comercioResponse, favoritos != null);
                 sendPayment();
             } else {
-                UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access),
-                        getActivity().getSupportFragmentManager(), getFragmentTag());
+                //UI.createSimpleCustomDialog("Error Interno", getResources().getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+                UI.showAlertDialog(getContext(), "Error Interno", getResources().getString(R.string.no_internet_access), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+
             }
         }
     }

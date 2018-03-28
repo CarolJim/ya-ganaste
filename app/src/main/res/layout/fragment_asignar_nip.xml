@@ -62,7 +62,10 @@
                 android:hint="@string/nip"
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
                 app:hintTextAppearance="@style/HintText"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
@@ -98,6 +101,9 @@
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
                 app:hintTextAppearance="@style/HintText"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -259,8 +260,15 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
      * @param mAction
      */
     private void createSimpleCustomDialog(String mTittle, String mMessage, int mAction) {
-        UI.createSimpleCustomDialog(mTittle, mMessage,
-                getActivity().getSupportFragmentManager(), getFragmentTag());
+        //UI.createSimpleCustomDialog(mTittle, mMessage, getActivity().getSupportFragmentManager(), getFragmentTag());
+
+        UI.showAlertDialog(getContext(), mTittle, mMessage, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+
     }
 
     @Override

@@ -61,8 +61,12 @@
                 android:hint="@string/streetHint"
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
                 app:hintTextAppearance="@style/HintText"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleTint="@color/hint_color"
+
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -74,6 +78,7 @@
                     android:imeOptions="actionNext"
                     android:paddingLeft="15dp"
                     android:singleLine="true"
+                    android:paddingTop="4dp"
                     android:theme ="@style/NewEdittextwallet"
                     android:textColor="@color/grayColor" />
 
@@ -102,7 +107,9 @@
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
                     app:hintTextAppearance="@style/HintText"
-                    app:passwordToggleTint="@color/hint_color"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
@@ -112,6 +119,7 @@
                         android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
+                        android:paddingTop="4dp"
                         android:paddingLeft="15dp"
                         android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-"
                         android:singleLine="true"
@@ -133,8 +141,10 @@
                     android:hint="@string/intern_number"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
                     app:hintTextAppearance="@style/HintText"
-                    app:passwordToggleTint="@color/hint_color"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
@@ -144,6 +154,7 @@
                         android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
+                        android:paddingTop="4dp"
                         android:paddingLeft="15dp"
                         android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-"
                         android:singleLine="true"
@@ -171,6 +182,9 @@
                 android:textColorHint="@color/texthint"
                 app:hintTextAppearance="@style/HintText"
                 app:passwordToggleTint="@color/hint_color"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -182,6 +196,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="5"
+
                     android:paddingLeft="15dp"
                     android:singleLine="true"
                     android:digits="1,2,3,4,5,6,7,8,9,0"
@@ -223,7 +238,7 @@
                         android:layout_gravity="start"
                         android:layout_marginLeft="15dp"
                         android:text="Colonia"
-                        android:textColor="@color/hint_color"
+                        android:textColor="@color/colorAccent"
                         android:visibility="gone" />
 
                     <Spinner
@@ -272,7 +287,7 @@
                     android:layout_gravity="start"
                     android:layout_marginLeft="15dp"
                     android:text="Estado"
-                    android:textColor="@color/hint_color"
+                    android:textColor="@color/colorAccent"
                     android:visibility="invisible" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText

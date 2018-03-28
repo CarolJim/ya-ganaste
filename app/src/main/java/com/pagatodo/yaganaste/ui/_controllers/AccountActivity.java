@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -146,8 +147,15 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         container = (FrameLayout) findViewById(R.id.container);
 
         if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
-            UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
-                    this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+            //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
+              //      this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+            UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+
+
         }
         switch (action) {
             case GO_TO_LOGIN:
@@ -450,21 +458,18 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     }
 
     private void showDialogOut() {
-        UI.createSimpleCustomDialog("", getString(R.string.desea_cacelar), getSupportFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        //aplicacion.cerrarAppsms();
-                        finish();
 
-                    }
+        UI.showAlertDialog(this,  getString(R.string.desea_cacelar), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
 
-                    @Override
-                    public void actionCancel(Object... params) {
 
-                    }
-                }, true, true);
     }
+
+
 
     /*Se eliminan los datos almacenados en Memoria*/
     private void resetRegisterData() {
@@ -496,7 +501,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
     @Override
     public void showError(ErrorObject error) {
+
         UI.createSimpleCustomDialog("", error.getErrorMessage(), getSupportFragmentManager(), error.getErrorActions(), error.hasConfirm(), error.hasCancel());
+
     }
 
     @Override
