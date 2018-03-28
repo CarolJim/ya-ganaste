@@ -35,7 +35,7 @@ import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_CLOSE
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
 public class CompartirReciboFragment extends GenericFragment implements ValidationForms,
         INavigationView {

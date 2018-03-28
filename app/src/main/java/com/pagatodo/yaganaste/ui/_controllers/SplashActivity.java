@@ -19,25 +19,21 @@ import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
-import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
-import com.pagatodo.yaganaste.data.room_db.entities.MontoComercio;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
@@ -105,7 +101,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             public void run() {
                 try {
                     ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
-                    request.setVersion(/*preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? */"1"/* : preferencias.loadData(StringConstants.CATALOG_VERSION)*/);
+                    request.setVersion(preferencias.loadData(CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(CATALOG_VERSION));
                     ApiAdtvo.obtenerCatalogos(request, iRequestResult);
                 } catch (OfflineException e) {
                     e.printStackTrace();
@@ -126,7 +122,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             case OBTENER_CATALOGOS:
                 ObtenerCatalogosResponse response = (ObtenerCatalogosResponse) result.getData();
                 if (response.getCodigoRespuesta() == CODE_OK && response.getData() != null) {
-                    preferencias.saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
+                    preferencias.saveData(CATALOG_VERSION, response.getData().getVersion());
                     new DatabaseManager().insertComercios(response.getData().getComercios());
                 }
                 callNextActivity();

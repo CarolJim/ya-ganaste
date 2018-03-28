@@ -15,7 +15,6 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.PaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -24,8 +23,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
+import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 
 /**
  * Created by Jordan on 11/04/2017.
@@ -106,12 +105,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void getFavoriteCarouselItems() {
-        //if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
         paymentsTabIteractor.getFavoritesFromService();
-            /* paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
-        } else {
-            paymentsTabIteractor.getFavoritesFromService();
-        }*/
     }
 
     @Override
@@ -130,7 +124,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {
-                App.getInstance().getPrefs().saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
+                App.getInstance().getPrefs().saveData(CATALOG_VERSION, response.getData().getVersion());
                 new DatabaseManager().insertComercios(response.getData().getComercios());
                 paymentsManager.setCarouselData(getCarouselItems(response.getData().getComercios()));
             } catch (Exception e) {
@@ -147,7 +141,6 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         ConsultarFavoritosResponse response = (ConsultarFavoritosResponse) result.getData();
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {
-                App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
                     new DatabaseManager().insertListFavorites(response.getData());
                 }

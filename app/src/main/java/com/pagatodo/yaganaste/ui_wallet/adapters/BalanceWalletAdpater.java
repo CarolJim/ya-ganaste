@@ -25,10 +25,10 @@ import java.util.List;
 import eu.davidea.flipview.FlipView;
 
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
-import static com.pagatodo.yaganaste.utils.StringConstants.CLABE_NUMBER;
-import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.PHONE_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
 /**
  * Created by icruz on 11/12/2017.

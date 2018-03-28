@@ -56,7 +56,7 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment.USER_NAME;
-import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
 
 /**

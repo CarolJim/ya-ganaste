@@ -114,7 +114,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         }
     };
-    private boolean isEsAgente;
+    private boolean isEsAgente = false;
     private String mName;
     private String mEmail;
     private String mUserImage;
@@ -130,9 +130,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prefer_user);
-
-        isEsAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
-        isEsAgente = false;
 
         UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
 

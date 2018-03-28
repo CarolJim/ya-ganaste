@@ -41,7 +41,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIARCORREO_CO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -238,7 +237,6 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
             RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
-            App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
             //CerrarSesionRequest response = (CerrarSesionRequest) dataSourceResult.getData();
             preferUserPresenter.successGenericToPresenter(dataSourceResult);
 

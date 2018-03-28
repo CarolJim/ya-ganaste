@@ -13,15 +13,14 @@ import com.pagatodo.yaganaste.freja.reset.iteractors.ResetPinIteractorImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.managers.ResetPinManager;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.utils.Utils;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Executors;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
-import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 
 /**
  * @author Juan Guerra on 31/03/2017.

@@ -30,7 +30,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -42,6 +41,7 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -283,7 +283,7 @@ public class MyDongleFragment extends GenericFragment implements
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        txtCompanyName.setText( prefs.loadData(StringConstants.COMPANY_NAME));
+        txtCompanyName.setText( prefs.loadData(COMPANY_NAME));
 
         lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
             @Override

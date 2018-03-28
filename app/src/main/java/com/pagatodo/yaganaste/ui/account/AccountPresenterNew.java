@@ -85,10 +85,10 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.

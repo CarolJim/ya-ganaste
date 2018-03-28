@@ -16,4 +16,5 @@ public interface IWalletView extends IMainWalletView {
     void getPagerAdapter(PagerAdapter pagerAdapter);
     void getSaldo();
     void sendSuccessStatusAccount(EstatusCuentaResponse response);
+    void sendSuccessInfoAgente();
 }

@@ -15,7 +15,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * @author Juan Guerra on 05/04/2017.

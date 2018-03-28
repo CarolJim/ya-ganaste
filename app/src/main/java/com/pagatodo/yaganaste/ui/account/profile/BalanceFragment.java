@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -24,6 +25,7 @@ import static com.pagatodo.yaganaste.ui._controllers.SessionActivity.EVENT_TO_PA
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -67,7 +69,7 @@ public class BalanceFragment extends GenericFragment implements View.OnClickList
         imgArrowBalanceLeft.setOnClickListener(this);
         imgArrowBalanceRight.setOnClickListener(this);
         imgArrowBalanceRight.setVisibility(
-                SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO ?
+                App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE)==CRM_DOCTO_APROBADO ?
                         VISIBLE : GONE);
     }
 

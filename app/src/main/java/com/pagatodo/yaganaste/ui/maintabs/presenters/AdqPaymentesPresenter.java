@@ -6,7 +6,6 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
-import com.pagatodo.yaganaste.data.model.DatosCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
@@ -23,17 +22,17 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteract
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
 
 /**
  * @author Juan Guerra on 28/03/2017.
@@ -66,7 +65,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void updateBalance() {
-        if (SingletonUser.getInstance().getDataUser().getIdEstatus() == IdEstatus.CUPO.getId()) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
             movementsIteractor.getDatosCupo();
         } else {
             movementsIteractor.getBalance();
@@ -134,7 +133,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void onSuccessDataCupo(ObtieneDatosCupoResponse response) {
-        App.getInstance().getPrefs().saveData(StringConstants.CUPO_BALANCE, response.getSaldoDisponible());
+        App.getInstance().getPrefs().saveData(CUPO_BALANCE, response.getSaldoDisponible());
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_CUPO, DateUtil.getTodayCompleteDateFormat());
         movementsView.updateBalance();
     }

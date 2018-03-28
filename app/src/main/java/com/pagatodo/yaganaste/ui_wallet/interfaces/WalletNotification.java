@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
 /**
@@ -14,4 +15,5 @@ public interface WalletNotification {
     void onSuccessADQ(String responds);
     void onSuccesMovements(ConsultarMovimientosMesResponse response);
     void onSuccessResponse(GenericResponse response);
+    void onSuccessInfoAgente(DataInfoAgente response);
 }

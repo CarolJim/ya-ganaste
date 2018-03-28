@@ -73,8 +73,8 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * Created by Jordan on 02/05/2017.

@@ -21,7 +21,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
 public class MainActivity extends ToolBarActivity {
 

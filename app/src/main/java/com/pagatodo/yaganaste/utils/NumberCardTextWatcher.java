@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
  * Created by Francisco Manzo on 17/03/2017.

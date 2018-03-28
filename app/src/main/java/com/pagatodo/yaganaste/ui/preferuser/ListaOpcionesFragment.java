@@ -50,6 +50,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
@@ -154,7 +155,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         config_notify.setOnClickListener(this);
         ll_usuario.setOnClickListener(this);
 
-        int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+        int idEstatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
         if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
            /* ll_cuenta.setVisibility(View.VISIBLE);
             View view_cuenta = rootview.findViewById(R.id.content_prefer_view_acount);

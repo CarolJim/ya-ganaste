@@ -13,7 +13,6 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,6 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -56,9 +54,10 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
 
 /**
@@ -166,7 +165,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         txtLoginExistUserRecoverPass.setText(ss);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            textNameUser.setText("¡Hola " + prefs.loadData(StringConstants.NAME_USER) + "!");
+            textNameUser.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
             btnLogin.setText(getString(R.string.txt_iniciar_sesion));
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(GONE);

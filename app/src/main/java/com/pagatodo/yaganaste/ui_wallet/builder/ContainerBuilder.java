@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
@@ -31,6 +32,9 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 
 /**
@@ -113,8 +117,8 @@ public class ContainerBuilder {
 
     public static ElementsWalletAdapter getAdapter(Activity activity, OnItemClickListener listener){
         ElementsWalletAdapter elementsWalletAdapter;
-        boolean isAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
-        int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE,false);
+        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
         if (isAgente && Idestatus == IdEstatus.I7.getId()) {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
         } else if (isAgente && Idestatus == IdEstatus.I8.getId()) {
@@ -140,8 +144,8 @@ public class ContainerBuilder {
 
     public static CardWalletAdpater getCardWalletAdapter(boolean error){
         CardWalletAdpater adpater = new CardWalletAdpater();
-        boolean isAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
-        int statusDoc = SingletonUser.getInstance().getDataUser().getEstatusDocumentacion();
+        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
+        int statusDoc = App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION);
         String statusCard = SingletonUser.getInstance().getCardStatusId();
 
         if (error) {

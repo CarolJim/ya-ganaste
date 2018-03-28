@@ -10,7 +10,9 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovim
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -19,11 +21,10 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
-import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.StringConstants;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -39,13 +40,13 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void getWalletsCards(final boolean error, final WalletNotification listener) {
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 listener.onSuccess(error);
             }
-        }, 1000);
-
+        }, 1000);*/
+        listener.onSuccess(error);
     }
 
     /*
@@ -90,10 +91,30 @@ public class WalletInteractorImpl implements WalletInteractor {
         }
     }
 
+    @Override
+    public void getInfoAgente() {
+        try {
+            ApiAdtvo.getInformacionAgente(this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            listener.onFailed(Recursos.CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
+
     //REQUEST
     @Override
     public void onSuccess(DataSourceResult result) {
         switch (result.getWebService()) {
+            case GET_INFORMACION_AGENTE:
+                if(result.getData() instanceof InformacionAgenteResponse){
+                    InformacionAgenteResponse response = (InformacionAgenteResponse) result.getData();
+                    if(response.getCodigoRespuesta() == CODE_OK){
+                        listener.onSuccessInfoAgente(response.getData());
+                    } else {
+                        this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, response.getMensaje());
+                    }
+                }
+                break;
             case CONSULTAR_MOVIMIENTOS_MES:
                 validateResponse((ConsultarMovimientosMesResponse) result.getData());
                 break;
@@ -110,7 +131,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
                         this.listener.onSuccessResponse(response);
                     } else {
-                        this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION,response.getMensaje());
+                        this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, response.getMensaje());
                     }
                 }
                 break;

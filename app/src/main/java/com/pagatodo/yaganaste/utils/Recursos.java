@@ -87,7 +87,7 @@ public class Recursos {
     public static final int CODE_SESSION_EXPIRED = 16;
 
     public static final String CODE_ADQ_OK = "00";
-    public static final int ERROR_LOGIN = 91;
+    public static final int CODE_ERROR_INFO_AGENTE = 91;
     public static final int CODE_OFFLINE = -1;
     public static final int INVALID_TOKEN = 3001;
     public static final int INCORRECT_FORMAT = -2;
@@ -99,82 +99,22 @@ public class Recursos {
     public static final int ADQ_TRANSACTION_APROVE = 0;
     public static final int ADQ_TRANSACTION_ERROR = 1;
 
-    /*Preferencias de Sesion*/
-    public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
-    public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
-    public static String COUCHMARK_ADQ = "COUCHMARKADQ";
-    public static String COUCHMARK_EDIT_FAV = "COUCHMARKEF";
-
-    public static String CO_QUICK_EM = "CO_QUICK_EM";
-    public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
-
-    public static String SHA_256_FREJA = "SHA_256_FREJA";
-    public static String GENERO = "GENERO";
-    public static String HUELLACADENA = "HUELLACADENA";
-    public static String HUELLA_FAIL = "HUELLA_FAIL";
-    public static String PASSWORD_CHANGE = "PASSWORD_CHANGE";
-    public static String VERSION_APP = "VERSION_APP";
-    public static String FIREBASE_KEY = "FIREBASE_KEY";
-    public static String NOTIF_COUNT = "NOTIF_COUNT";
-
-    public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
-    public static final String ADQ_PROCESS = "FLAG_PROCESS";
-    public static final String CUPO_PROCESS = "FLAG_PROCESS_CUPO";
-    public static String CUPO_COMPLETE = "CUPO_COMPLETE";
-
-    // Preferencias para Foto de Usuario. URL
-    public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
-    public static final String CONSULT_FAVORITE = "CONSULT_FAVORITE";
-
-    // Preferencias Uso de Huella Digital
-    public static final String USE_FINGERPRINT = "USE_FINGERPRINT";
-    public static final String FINGERPRINT_KEY = "YAGANASTEFINGERK";
-
     /**
      * Catálogos
      **/
-    /*PTH – Estatus Comercios*/
-    public static final int PTH_DOCUMENTACION_INCOMPLETA = 7;
-    public static final int PTH_PENDIENTE_DE_REVISION = 8;
-    public static final int PTH_EN_REVISION = 9;
-    public static final int PTH_RECHAZADO = 10;
-    public static final int PTH_AGENTE_EN_TRAMITE = 11;
-    /*PTH – Estatus DocumentosFragment*/
-    public static final int PTH_PENDIENTE = 1;
-    public static final int PTH_DOCTO_APROBADO = 2;
-    public static final int PTH_DOCTO_RECHAZADO = 3;
     /*CRM – Adquiriente*/
     public static final int CRM_PENDIENTE = 1;
     public static final int CRM_DOCTO_APROBADO = 2;
-    public static final int CRM_DOCTO_RECHAZADO = 3;
 
     public static final int DOC_ID_FRONT = 5;
     public static final int DOC_ID_BACK = 6;
     public static final int DOC_DOM_FRONT = 7;
     public static final int DOC_DOM_BACK = 30;
 
-    // Documentos Cupo
-
-    public static final int DOC_CUPO_FRONT = 3;
-    public static final int DOC_CUPO_BACK = 29;
-
-    public static final int STATUS_DOCTO_ACTUALIZADO = 5;
     public static final int STATUS_DOCTO_RECHAZADO = 3;
     public static final int STATUS_DOCTO_APROBADO = 2;
     public static final int STATUS_DOCTO_PENDIENTE = 1;
-    public static final int STATUS_DOCTO_SIN_ENVIAR = 0;
-    /*Tipo de Comercios*/
-    public static final int TELEFONICA = 1;
-    public static final int COMPANIA_DE_SERVICIOS = 2;
-    public static final int INSTITUCIONES_FINANCIERAS = 3;
-    /*Tipo de Movimientos*/
-    public static final int CARGO = 1;
-    public static final int ABONO = 2;
-    public static final int PROMOCODE = 3;
-    /*Tipo de Transaccion*/
-    public static final int RECARGA = 1;
-    public static final int PAGO_DE_SERVICIO = 2;
-    public static final int ENVIO_DE_DINERO = 3;
+
     /*Id's de Preguntas  en Cuestionario Negocio*/ //TODO esto debería de ser un catálogo de ws
     public static final int PREGUNTA_RANGOS_MONTOS = 1;
     public static final int PREGUNTA_RANGO_OPERACIONES = 2;
@@ -272,4 +212,76 @@ public class Recursos {
     public static final String ESTATUS_POR_REMBOLSAR = "2";
     public static final String ESTATUS_REMBOLSADO = "3";
 
+    /*Preferencias de Sesion*/
+    public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
+    public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
+    public static String COUCHMARK_ADQ = "COUCHMARKADQ";
+    public static String COUCHMARK_EDIT_FAV = "COUCHMARKEF";
+
+    public static String CO_QUICK_EM = "CO_QUICK_EM";
+    public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
+
+    public static String SHA_256_FREJA = "SHA_256_FREJA";
+    public static String GENERO = "GENERO";
+    public static String HUELLACADENA = "HUELLACADENA";
+    public static String HUELLA_FAIL = "HUELLA_FAIL";
+    public static String VERSION_APP = "VERSION_APP";
+    public static String FIREBASE_KEY = "FIREBASE_KEY";
+    public static String NOTIF_COUNT = "NOTIF_COUNT";
+
+    public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
+    public static final String ADQ_PROCESS = "FLAG_PROCESS";
+    public static final String CUPO_PROCESS = "FLAG_PROCESS_CUPO";
+    public static String CUPO_COMPLETE = "CUPO_COMPLETE";
+
+    // Preferencias para Foto de Usuario. URL
+    public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
+
+    // Preferencias Uso de Huella Digital
+    public static final String USE_FINGERPRINT = "USE_FINGERPRINT";
+    public static final String FINGERPRINT_KEY = "YAGANASTEFINGERK";
+
+    public static final String SPACE = " ";
+    public static final String HAS_SESSION = "HAS_SESSION";
+    public static final String PASSWORD_CHANGE = "PASSWORD_CHANGE";
+
+    public static final String IS_CUPO = "IS_CUPO";
+    public static final String ESTADO_RECHAZADO = "ESTADO_RECHAZADO";
+    public static final String NAME_USER = "NAME_USER";
+    public static final String FULL_NAME_USER = "FULL_NAME_USER";
+    public static final String LAST_NAME = "LAST_NAME";
+    public static final String CARD_NUMBER = "CARD_NUMBER";
+    public static final String USER_BALANCE = "USER_BALANCE";
+    public static final String UPDATE_DATE = "UPDATE_DATE";
+    public static final String UPDATE_DATE_BALANCE_ADQ = "UPDATE_DATE_BALANCE_ADQ";
+    public static final String UPDATE_DATE_BALANCE_CUPO = "UPDATE_DATE_BALANCE_CUPO";
+    public static final String ID_CUENTA = "ID_CUENTA";
+    public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
+    public static final String CUPO_BALANCE = "CUPO_BALANCE";
+    public static final String ADQUIRENTE_APPROVED = "ADQUIRENTE_APPROVED";
+    public static final String PHONE_NUMBER = "PHONE_NUMBER";
+    public static final String CLABE_NUMBER = "CLABE_NUMBER";
+    public static final String COMPANY_NAME = "COMPANY_NAME";
+    public static final String CATALOG_VERSION = "CATALOG_VERSION";
+    public static final String SIMPLE_NAME = "SIMPLE_NAME";
+    public static final String PSW_CPR = "PSW_CPR";
+
+    public static final String HAS_PROVISIONING = "HAS_PROVISIONING";
+    public static final String USER_PROVISIONED = "USER_PROVISIONED";
+    public static final String HAS_PUSH = "HAS_PUSH";
+
+    public static final String OLD_NIP = "OLD_NIP";
+    public static final String HAS_TOKEN_ONLINE = "HAS_TOKEN_ONLINE";
+    public static final String TOKEN_FIREBASE = "TOKEN_FIREBASE";
+    public static final String TOKEN_FIREBASE_STATUS = "TOKEN_FIREBASE_STATUS";
+    public static final String TOKEN_FIREBASE_SUCCESS = "TOKEN_FIREBASE_SUCCESS";
+    public static final String TOKEN_FIREBASE_FAIL = "TOKEN_FIREBASE_FAIL";
+
+    public static final String ES_AGENTE = "ES_AGENTE"; // boolean
+    public static final String ES_AGENTE_RECHAZADO = "ES_AGENTE_RECHAZADO"; //boolean
+    public static final String ESTATUS_AGENTE = "ESTATUS_AGENTE"; // int
+    public static final String ESTATUS_DOCUMENTACION = "ESTATUS_DOCUMENTACION"; // int
+    public static final String ID_USUARIO_ADQUIRIENTE = "ID_USUARIO_ADQUIRIENTE"; // string
+    public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
+    public static final String ID_ESTATUS = "ID_ESTATUS"; // int
 }

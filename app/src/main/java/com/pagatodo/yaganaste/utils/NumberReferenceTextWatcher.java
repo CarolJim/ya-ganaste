@@ -4,7 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
  * Created by FManzo on 25/01/2018.

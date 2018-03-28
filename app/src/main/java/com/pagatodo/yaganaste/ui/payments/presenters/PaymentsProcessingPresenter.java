@@ -5,7 +5,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -18,12 +17,9 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcess
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Constants;
 
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * Created by Jordan on 27/04/2017.

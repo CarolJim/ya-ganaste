@@ -6,6 +6,7 @@
     </string>
 
     <!--Métodos de WS YaGanaste-->
+    <string name="consultaInformacionAgente">/ConsultarInformacionAgente</string>
     <string name="activateMobileServiceUrl">/ActivacionServicioMovil</string>
     <string name="updateAvatarUrl">/ActualizarAvatar</string>
     <string name="updateDocumentosUrl">/ActualizarDocumentos</string>

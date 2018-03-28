@@ -59,7 +59,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
  * Created by Jordan on 27/04/2017.

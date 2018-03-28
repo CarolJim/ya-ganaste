@@ -26,7 +26,7 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
 /**
  * A simple {@link Fragment} subclass.

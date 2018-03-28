@@ -18,7 +18,6 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.StringUtils.procesarURLString;
 
 /**
@@ -64,7 +63,6 @@ public class INavigationDrawerInteractorImpl implements INavigationDrawerInterac
         if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
             RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
-            App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
             //CerrarSesionRequest response = (CerrarSesionRequest) dataSourceResult.getData();
             navigationDrawerPresenter.successGenericToPresenter(dataSourceResult);
         }

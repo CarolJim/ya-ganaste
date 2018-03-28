@@ -36,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 public class SendWalletFragment extends GenericFragment implements EditTextImeBackListener {
 

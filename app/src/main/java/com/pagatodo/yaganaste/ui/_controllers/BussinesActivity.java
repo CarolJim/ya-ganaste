@@ -30,6 +30,9 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_ERROR_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
@@ -70,27 +73,21 @@ public class BussinesActivity extends LoaderActivity {
         setUpActionBar();
         setVisibilityPrefer(false);
         int Idestatus;
-        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-
-    if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I7.getId()) {
-        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-            && Idestatus == IdEstatus.I8.getId()) {
-        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-            Idestatus == IdEstatus.I9.getId()) {
-        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-         }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-            Idestatus == IdEstatus.I10.getId()) {
-        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-            Idestatus == IdEstatus.I11.getId()) {
-        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-            Idestatus == IdEstatus.I13.getId()) {
-        loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        }else if  (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
+        if (esAgente && Idestatus == IdEstatus.I7.getId()) {
+            loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (esAgente && Idestatus == IdEstatus.I8.getId()) {
+            loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (esAgente && Idestatus == IdEstatus.I9.getId()) {
+            loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (esAgente && Idestatus == IdEstatus.I10.getId()) {
+            loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (esAgente && Idestatus == IdEstatus.I11.getId()) {
+            loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (esAgente && Idestatus == IdEstatus.I13.getId()) {
+            loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
+        } else if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
@@ -154,8 +151,8 @@ public class BussinesActivity extends LoaderActivity {
                 finish();
                 break;
             case EVENT_DOC_CHECK:
-                SingletonUser.getInstance().getDataUser().setEstatusDocumentacion(STATUS_DOCTO_PENDIENTE);
-                SingletonUser.getInstance().getDataUser().setEsAgente(true);
+                App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_PENDIENTE);
+                App.getInstance().getPrefs().saveDataBool(ES_AGENTE, true);
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
 

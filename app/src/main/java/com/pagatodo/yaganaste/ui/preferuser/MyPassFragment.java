@@ -39,8 +39,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 
 /**
  * Encargada de gestionar el cambio de contraseña, los elementos graficos de la vista y enviar al MVP
@@ -187,7 +187,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
                         showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
                         editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
-                        if(editConfir.editText.getText().toString().equalsIgnoreCase(editNueva.editText.getText().toString())) {
+                        if (editConfir.editText.getText().toString().equalsIgnoreCase(editNueva.editText.getText().toString())) {
                             editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                         } else {
                             editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);

@@ -18,8 +18,8 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * @author Juan Guerra on 05/04/2017.

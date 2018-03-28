@@ -12,8 +12,8 @@ import com.pagatodo.yaganaste.interfaces.IChangeNipView;
 
 import java.lang.reflect.Method;
 
+import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 
 /**
  * @author Juan on 17/08/2017.
@@ -59,6 +59,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
 
     /**
      * Este metodo es el que se encarga de pedir las politicas de cambio de nip
+     *
      * @param oldPin
      * @param newPin
      */
@@ -66,9 +67,11 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     public void changeNip(String oldPin, String newPin) {
         Log.e(TAG, "Get Change Nip Policy");
         individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethod = new Object() {
+        }.getClass().getEnclosingMethod();
         this.currentMethodParams = new Object[]{oldPin, newPin};
-        this.initChangeNipMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.initChangeNipMethod = new Object() {
+        }.getClass().getEnclosingMethod();
         this.initChangeParams = new Object[]{oldPin, newPin};
         super.changeNip(oldPin, newPin);
     }
@@ -76,6 +79,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     /**
      * Metodo que se llama cuando responde el metodo de politicas para cambiar nip, estge mismo
      * metodo llama al cambio de NIP
+     *
      * @param min
      * @param max
      */
@@ -88,7 +92,8 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     public void callChangeNip(int min, int max) {
         Log.e(TAG, "Change NIP");
         individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethod = new Object() {
+        }.getClass().getEnclosingMethod();
         this.currentMethodParams = new Object[]{min, max};
         super.setChangePinPolicy(min, max);
     }
@@ -112,7 +117,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
             return;
         }
 
-        if (generalReintent < maxIntents-1) { //Si el numero de intentos general aun no excede
+        if (generalReintent < maxIntents - 1) { //Si el numero de intentos general aun no excede
             generalReintent++;
             individualReintent = 0;
             currentMethod = initChangeNipMethod;
@@ -131,16 +136,16 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
 
         currentMethod.setAccessible(true);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        currentMethod.invoke(ChangeNipPresenterImp.this, currentMethodParams);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    currentMethod.invoke(ChangeNipPresenterImp.this, currentMethodParams);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }, 6000);
+            }
+        }, 6000);
 
 
         /*DialogDoubleActions actions = new DialogDoubleActions() {

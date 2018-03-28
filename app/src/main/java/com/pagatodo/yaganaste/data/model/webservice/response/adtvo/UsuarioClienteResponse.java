@@ -24,13 +24,8 @@ public class UsuarioClienteResponse implements Serializable {
     private String TokenSesionAdquirente = "";
     private List<CuentaResponse> Cuentas;
     private Boolean PasswordAsignado = null;
-    private String NumeroAgente = "";
-    private String PetroNumero = "72851001";
-    private int TipoAgente;
     @SerializedName("EsExtranjero")
     private boolean isExtranjero;
-
-    private String NombreNegocio;
 
     public Boolean getPasswordAsignado() {
         return PasswordAsignado;
@@ -111,38 +106,6 @@ public class UsuarioClienteResponse implements Serializable {
 
     public void setCuentas(List<CuentaResponse> cuentas) {
         Cuentas = cuentas;
-    }
-
-    public String getNumeroAgente() {
-        return NumeroAgente;
-    }
-
-    public void setNumeroAgente(String numeroAgente) {
-        NumeroAgente = numeroAgente;
-    }
-
-    public String getPetroNumero() {
-        return PetroNumero;
-    }
-
-    public void setPetroNumero(String petroNumero) {
-        PetroNumero = petroNumero;
-    }
-
-    public int getTipoAgente() {
-        return TipoAgente;
-    }
-
-    public void setTipoAgente(int tipoAgente) {
-        TipoAgente = tipoAgente;
-    }
-
-    public String getNombreNegocio() {
-        return NombreNegocio;
-    }
-
-    public void setNombreNegocio(String NombreNegocio) {
-        this.NombreNegocio = NombreNegocio;
     }
 
     public String getTokenSesionAdquirente() {

@@ -27,10 +27,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.

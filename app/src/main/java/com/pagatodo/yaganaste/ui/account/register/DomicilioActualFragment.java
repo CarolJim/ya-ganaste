@@ -348,11 +348,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                     //    editIntNumber.imageViewIsGone(true);
                     text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
-                    if (editIntNumber.getText().toString().isEmpty()) {
+                    /*if (editIntNumber.getText().toString().isEmpty()) {
                         text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {
+                    } else {*/
                         text_num_interior.setBackgroundResource(R.drawable.inputtext_normal);
-                    }
+                    //}
                 }
             }
         });

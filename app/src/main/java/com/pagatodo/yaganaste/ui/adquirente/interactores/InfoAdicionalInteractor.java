@@ -33,6 +33,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_MONTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ORIGEN_RECURSOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_PAISES;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 /**
  * Created by Jordan on 04/08/2017.
@@ -63,7 +64,7 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     @Override
     public void registrarAdquirente() {
         CrearAgenteRequest request = new CrearAgenteRequest(RegisterAgent.getInstance(),
-                SingletonUser.getInstance().getDataUser().getUsuario().getTipoAgente());
+                Integer.valueOf(App.getInstance().getPrefs().loadData(TIPO_AGENTE)));
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {

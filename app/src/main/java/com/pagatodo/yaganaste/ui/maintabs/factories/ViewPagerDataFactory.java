@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.maintabs.factories;
 
 import android.support.v4.app.Fragment;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -137,8 +140,8 @@ public class ViewPagerDataFactory {
     private static void addHomeFragments(List<Fragment> fragmentList) {
         fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
 
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE)==CRM_DOCTO_APROBADO) {
             fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
         } else {
             fragmentList.add(BlankFragment.newInstance());

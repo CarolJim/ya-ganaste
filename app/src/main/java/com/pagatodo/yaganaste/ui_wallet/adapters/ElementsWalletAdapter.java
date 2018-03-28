@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 /**
  * Created by ozuniga on 14/02/2017.
@@ -62,7 +64,7 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
                 op = new StatusZoneViewHolder(this.context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
 
                 int Idestatus;
-                Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+                Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
 /*
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && Idestatus == IdEstatus.I7.getId()) {

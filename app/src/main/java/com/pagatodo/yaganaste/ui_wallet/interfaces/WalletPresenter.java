@@ -5,10 +5,9 @@ package com.pagatodo.yaganaste.ui_wallet.interfaces;
  */
 
 public interface WalletPresenter {
-    void getRemoteMovementsData();
     void getWalletsCards(boolean error);
     void updateBalance();
     void getStatusAccount(String mTDC);
-
+    void getInformacionAgente();
 
 }

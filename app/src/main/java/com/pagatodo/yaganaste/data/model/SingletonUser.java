@@ -4,28 +4,34 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTADO_RECHAZADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_CUPO;
+import static com.pagatodo.yaganaste.utils.Recursos.LAST_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
-import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
-import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
-import static com.pagatodo.yaganaste.utils.StringConstants.LAST_NAME;
-import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.SIMPLE_NAME;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author flima
  */
 
-public class    SingletonUser {
+public class SingletonUser {
 
     public static SingletonUser user;
 
@@ -34,7 +40,7 @@ public class    SingletonUser {
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
     private boolean needsReset;
-    private String cardStatusId =null;
+    private String cardStatusId = null;
     private String UltimaTransaccion = "";
 
     private SingletonUser() {
@@ -69,14 +75,15 @@ public class    SingletonUser {
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
                             concat(dataUser.getUsuario().getSegundoApellido())));
             prefs.saveData(LAST_NAME, dataUser.getUsuario().getPrimerApellido().concat(SPACE));
-            dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ",""));
+            dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ", ""));
             prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
             prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
         }
 
-        dataUser.getUsuario().setTipoAgente(1);
-        if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
-                && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
+        App.getInstance().getPrefs().saveDataInt(TIPO_AGENTE, 1);
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) != CRM_DOCTO_APROBADO
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)!=STATUS_DOCTO_PENDIENTE) {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         }
 
@@ -90,12 +97,13 @@ public class    SingletonUser {
 
         }
 
-        if (dataUser.getIdEstatus() == IdEstatus.I10.getId() ||dataUser.getIdEstatus() == IdEstatus.I13.getId()) {
-            prefs.saveDataBool(StringConstants.ESTADO_RECHAZADO, true);
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I10.getId() ||
+                App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I13.getId()) {
+            prefs.saveDataBool(ESTADO_RECHAZADO, true);
         }
 
-        if (dataUser.getIdEstatus() == IdEstatus.CUPO.getId()) {
-            prefs.saveDataBool(StringConstants.IS_CUPO, true);
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
+            prefs.saveDataBool(IS_CUPO, true);
         }
     }
 

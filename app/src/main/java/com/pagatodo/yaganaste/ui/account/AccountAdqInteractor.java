@@ -44,6 +44,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 /**
  * Created by flima on 22/03/2017.
@@ -135,7 +138,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         request.setGiro(registerAgent.getGiro().getIdGiro());
         request.setSubGiro(registerAgent.getSubGiros().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
-        request.setTipoAgente(SingletonUser.getInstance().getDataUser().getUsuario().getTipoAgente());
+        request.setTipoAgente(App.getInstance().getPrefs().loadDataInt(TIPO_AGENTE));
         request.setCuestionario(registerAgent.getCuestionario());
 
         DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
@@ -207,8 +210,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             ValidarEstatusUsuarioResponse data = (ValidarEstatusUsuarioResponse) response.getData();
             DataEstatusUsuario userStatus = data.getData();
             SingletonUser user = SingletonUser.getInstance();
-            user.getDataUser().setEsAgente(userStatus.isEsAgente());
-            user.getDataUser().setEstatusAgente(CRM_PENDIENTE);
+            App.getInstance().getPrefs().saveDataBool(ES_AGENTE, userStatus.isEsAgente());
+            App.getInstance().getPrefs().saveDataInt(ESTATUS_AGENTE, CRM_PENDIENTE);
         } catch (Exception e) {
             Log.d("AccountAdqInteractor", "Exception " + e);
         }

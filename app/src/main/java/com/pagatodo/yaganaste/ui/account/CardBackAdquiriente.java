@@ -15,7 +15,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCardBack;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * Created by Armando Sandoval on 25/09/2017.

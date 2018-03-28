@@ -51,7 +51,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * A simple {@link Fragment} subclass.

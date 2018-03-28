@@ -10,8 +10,8 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * Created by icruz on 12/12/2017.

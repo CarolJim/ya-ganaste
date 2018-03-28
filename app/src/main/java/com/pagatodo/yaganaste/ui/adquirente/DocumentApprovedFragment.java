@@ -1,3 +1,4 @@
+
 package com.pagatodo.yaganaste.ui.adquirente;
 
 
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_APPROVED;
 
 /**
  * A simple {@link Fragment} subclass.

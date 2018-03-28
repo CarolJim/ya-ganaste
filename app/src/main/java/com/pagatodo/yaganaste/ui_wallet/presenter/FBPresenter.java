@@ -7,9 +7,10 @@ import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
-import com.pagatodo.yaganaste.utils.StringConstants;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.TOKEN_FIREBASE_SUCCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_STATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SUCCESS;
 
 /**
  * Created by FranciscoManzo on 17/01/2018.
@@ -37,13 +38,13 @@ public class FBPresenter implements IFBPresenter, IFBInteractor.IFBInteractorLis
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         //  Log.d(TAG2, "onSuccess " + TOKEN_FIREBASE_SUCCESS + " " + dataSourceResult.getData());
-        prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, TOKEN_FIREBASE_SUCCESS);
+        prefs.saveData(TOKEN_FIREBASE_STATUS, TOKEN_FIREBASE_SUCCESS);
     }
 
     @Override
     public void onError(DataSourceResult error) {
         // Log.d(TAG2, "onError " + error.getData());
-        prefs.saveData(StringConstants.TOKEN_FIREBASE_STATUS, StringConstants.TOKEN_FIREBASE_FAIL);
+        prefs.saveData(TOKEN_FIREBASE_STATUS, TOKEN_FIREBASE_FAIL);
     }
 
 

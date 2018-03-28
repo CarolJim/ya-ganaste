@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 
 /**
@@ -126,7 +127,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         ButterKnife.bind(this, rootview);
         int Idestatus;
 
-        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
 
         statusViewCupo.setVisibility(View.GONE);
         statusViewadqrevsolc.setVisibility(View.GONE);
@@ -237,7 +238,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         if (id == R.id.btnNextScreen) {
             int Idestatus;
 
-            Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+            Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
 
             if (Idestatus == IdEstatus.I7.getId()) {
                 if (onEventListener != null) {

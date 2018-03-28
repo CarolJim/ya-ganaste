@@ -73,6 +73,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
@@ -187,9 +191,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
          */
         dataDocumnetsServer = new ArrayList<>();
         dataDocumnets = new HashMap<>();
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
-                && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE)==CRM_PENDIENTE
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)==STATUS_DOCTO_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
             mExisteDocs = true;
             // lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
@@ -404,7 +408,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         DataDocuments dataDoc = new DataDocuments();
         if (!validateDuplicado) {
             contador.remove(imgBase64);
-         //   UI.createSimpleCustomDialogNoCancel("", getString(R.string.imagen_duplicada), getActivity().getSupportFragmentManager(), null);
+            //   UI.createSimpleCustomDialogNoCancel("", getString(R.string.imagen_duplicada), getActivity().getSupportFragmentManager(), null);
         } else {
             switch (documentProcessed) {
                 case IFE_FRONT:
@@ -589,6 +593,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         dataDocumnets.clear();
         nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
         SingletonUser.getInstance().getDataUser().setIdEstatus(7);
+        App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, 7);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
 
     }
@@ -602,6 +607,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         dataDocumnets.clear();
         refreshContent();
         SingletonUser.getInstance().getDataUser().setIdEstatus(7);
+        App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, 7);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
 
     }
@@ -630,7 +636,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
         int idStatus;
         int tipoDoc;
-        int idDrawableStatus=0;
+        int idDrawableStatus = 0;
         Bitmap bitmap;
 
         for (EstatusDocumentosResponse estatusDocs : data) {
@@ -777,7 +783,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
 
-        UI.showAlertDialog(getContext(), mData.getMotivo()+"\n"+mData.getComentario(), new DialogInterface.OnClickListener() {
+        UI.showAlertDialog(getContext(), mData.getMotivo() + "\n" + mData.getComentario(), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (mPosition) {

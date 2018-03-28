@@ -33,7 +33,6 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -57,11 +56,12 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
-import static com.pagatodo.yaganaste.utils.StringConstants.COMPANY_NAME;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * Created by Omar on 13/02/2018.
@@ -139,7 +139,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         ButterKnife.bind(this, rootView);
         btnLoginBalance.setOnClickListener(this);
         imgRefreshBalance.setOnClickListener(this);
-        txtUserNameBalance.setText("¡Hola " + prefs.loadData(StringConstants.NAME_USER) + "!");
+        txtUserNameBalance.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
         balanceEmisor = prefs.loadData(USER_BALANCE);
         balanceAdq = prefs.loadData(ADQUIRENTE_BALANCE);
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);

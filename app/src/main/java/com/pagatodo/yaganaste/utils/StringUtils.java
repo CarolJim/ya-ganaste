@@ -10,18 +10,15 @@ import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.pagatodo.yaganaste.data.model.Envios;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Locale;
 
 import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
  * @author Juan Guerra on 27/03/2017.
@@ -47,8 +44,8 @@ public class StringUtils {
         return monthLongName.substring(0, SHORT_MONTH_NAME_L);
     }
 
-    public static String cleanMount(String value){
-        return getCurrencyValue(value).replace("$","");
+    public static String cleanMount(String value) {
+        return getCurrencyValue(value).replace("$", "");
     }
 
     public static String getCurrencyValue(double value) {
@@ -146,13 +143,13 @@ public class StringUtils {
     }
 
     /**
+     * @param mFormatoPago
+     * @return
      * @deprecated Use {@link StringUtils#format(String, String, int...)} instead
      * <p>
      * Se encarga de dar fomato a los 10 digitos dr telefono, 16 de TDC y 18 de clave, segun las
      * reglas de espaciado seleccionado
      * </p>
-     * @param mFormatoPago
-     * @return
      */
     @Deprecated
     public static String formatoPagoMedios(String mFormatoPago) {
@@ -174,11 +171,11 @@ public class StringUtils {
                  * Cambiamos el codigo que separa, por el metodo ocultarCardNumberFormat que
                  * separa y ofusca
 
-                String formatoTDC1 = mFormatoPago.substring(0, 4);
-                String formatoTDC2 = mFormatoPago.substring(4, 8);
-                String formatoTDC3 = mFormatoPago.substring(8, 12);
-                String formatoTDC4 = mFormatoPago.substring(12, 16);
-                formatoPago = formatoTDC1 + comodin + formatoTDC2 + comodin + formatoTDC3 + comodin + formatoTDC4;
+                 String formatoTDC1 = mFormatoPago.substring(0, 4);
+                 String formatoTDC2 = mFormatoPago.substring(4, 8);
+                 String formatoTDC3 = mFormatoPago.substring(8, 12);
+                 String formatoTDC4 = mFormatoPago.substring(12, 16);
+                 formatoPago = formatoTDC1 + comodin + formatoTDC2 + comodin + formatoTDC3 + comodin + formatoTDC4;
                  */
                 formatoPago = ocultarCardNumberFormat(mFormatoPago);
             } catch (Exception e) {
@@ -202,6 +199,7 @@ public class StringUtils {
 
         return formatoPago;
     }
+
     @Deprecated
     public static String formatoPagoMediostag(String mFormatoPago) {
         String formatoPago = "";
@@ -213,7 +211,7 @@ public class StringUtils {
                 String parteTel3 = mFormatoPago.substring(5, 9);
                 String parteTel4 = mFormatoPago.substring(9, 13);
 
-                formatoPago = parteTel1 + comodin + parteTel2 + comodin + parteTel3+ comodin + parteTel4;
+                formatoPago = parteTel1 + comodin + parteTel2 + comodin + parteTel3 + comodin + parteTel4;
             } catch (Exception e) {
                 Log.d("StringUtils", "Exception tipo" + e);
                 formatoPago = mFormatoPago;
@@ -225,8 +223,9 @@ public class StringUtils {
 
     /**
      * added by Juan Guerra
-     * @param text text to format
-     * @param separator string that must be between groups
+     *
+     * @param text          text to format
+     * @param separator     string that must be between groups
      * @param formatPattern int array for example 2,4,4 for phone number
      * @return String formatted or empty if text is null
      */
@@ -234,20 +233,20 @@ public class StringUtils {
         StringBuilder format = new StringBuilder();
         int size = 0;
         for (int current : formatPattern) {
-            size+= current;
+            size += current;
         }
-        if ( text == null || text.length() > size) {
+        if (text == null || text.length() > size) {
             return text;
         }
 
         int currentGroup = 0;
         int currentSize = formatPattern[currentGroup];
-        for (int n = 0 ; n < text.length() ; n++){
+        for (int n = 0; n < text.length(); n++) {
             format.append(text.charAt(n));
             currentSize--;
-            if (currentSize == 0){
+            if (currentSize == 0) {
                 currentGroup++;
-                if (n != text.length() - 1){
+                if (n != text.length() - 1) {
                     currentSize = formatPattern[currentGroup];
                     format.append(separator);
                 }
@@ -274,12 +273,13 @@ public class StringUtils {
     /**
      * Metodo que da formato generico en 4 4 4 4 4 4 4 de derecha a izquierda, ejemplo:
      * <p>
-     *     Si son 8 digitos el formato regresado es: 2 4 4
+     * Si son 8 digitos el formato regresado es: 2 4 4
      * </p>
      * <p>
-     *     Si son 13 Digitos el formato será: 1 4 4 4
+     * Si son 13 Digitos el formato será: 1 4 4 4
      * </p>
-     * @param text Texto a formatear
+     *
+     * @param text      Texto a formatear
      * @param separator Texto separador entre grupos
      * @return
      */
@@ -291,7 +291,7 @@ public class StringUtils {
         StringBuilder format = new StringBuilder();
         int size = 0;
         for (int current : formatPattern) {
-            size+= current;
+            size += current;
         }
 
         if (text.length() > size) {
@@ -300,12 +300,12 @@ public class StringUtils {
 
         int currentGroup = formatPattern.length - 1;
         int currentSize = formatPattern[currentGroup];
-        for (int n = text.length()-1 ; n >= 0 ; n--){
+        for (int n = text.length() - 1; n >= 0; n--) {
             format.insert(0, text.charAt(n));
             currentSize--;
-            if (currentSize == 0){
+            if (currentSize == 0) {
                 currentGroup--;
-                if (n != 0){
+                if (n != 0) {
                     currentSize = formatPattern[currentGroup];
                     format.insert(0, separator);
                 }
@@ -315,13 +315,12 @@ public class StringUtils {
         return format.toString();
     }
 
-    public static String formatWithSpace(@Nullable String text,@NonNull int... formatPattern) {
+    public static String formatWithSpace(@Nullable String text, @NonNull int... formatPattern) {
         return format(text, SPACE, formatPattern);
     }
 
 
-
-    public static String getFirstName(String name){
+    public static String getFirstName(String name) {
         return name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name;
     }
 
@@ -336,6 +335,7 @@ public class StringUtils {
 
     /**
      * Se encarga de cifrar el correo, muestra 3 caracteres, asteriscos y la direccion de servidor
+     *
      * @param username
      * @return
      */
@@ -347,9 +347,7 @@ public class StringUtils {
     }
 
 
-
-    public static SpannableString formatStyles(Context context, SpanTextStyle... elements)
-    {
+    public static SpannableString formatStyles(Context context, SpanTextStyle... elements) {
         StringBuilder fullText = new StringBuilder("");
         for (SpanTextStyle spanTextStyle : elements) {
             fullText.append(spanTextStyle.getText());
@@ -368,8 +366,8 @@ public class StringUtils {
 
     public static String formatStatus(String estatus) {
         String mTitleStatus = "";
-        switch (estatus){
-            case "DOCTO. RECHAZADO" :
+        switch (estatus) {
+            case "DOCTO. RECHAZADO":
                 mTitleStatus = "Documento Rechazado";
                 break;
             default:

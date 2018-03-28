@@ -10,7 +10,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
-import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -73,7 +72,6 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -109,20 +107,23 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
-import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
-import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.
@@ -339,7 +340,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void createUserClient(CrearUsuarioClienteRequest request) {
-         /*Establecemos las cabeceras de la peticion*/
+        /*Establecemos las cabeceras de la peticion*/
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         try {
             ApiAdtvo.crearUsuarioCliente(request, this);
@@ -473,7 +474,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             case CERRAR_SESION:
                 RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
-                prefs.saveDataBool(CONSULT_FAVORITE, false); //Limpiamos bandera de descarga favoritos
                 if (logOutBefore) {
                     logOutBefore = false;
                     switch (this.operationAccount) {
@@ -623,7 +623,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-            prefs.saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
+            prefs.saveData(USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalance();
         } else {
@@ -644,7 +644,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
         if (response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
-            prefs.saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+            prefs.saveData(ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalanceAdq();
         } else {
@@ -654,7 +654,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateDataCupo(ObtieneDatosCupoResponse response) {
         if (response.getResult().getId().equals(Recursos.CODE_ADQ_OK)) {
-            prefs.saveData(StringConstants.CUPO_BALANCE, response.getSaldoDisponible());
+            prefs.saveData(CUPO_BALANCE, response.getSaldoDisponible());
             prefs.saveData(UPDATE_DATE_BALANCE_CUPO, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalanceCupo();
         } else {
@@ -708,7 +708,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             UsuarioClienteResponse dataUser = SingletonUser.getInstance().getDataUser().getUsuario();
             dataUser.setTokenSesionAdquirente(data.getToken());
             dataUser.setIdUsuarioAdquirente(data.getId_user());
-            dataUser.setNumeroAgente(data.getAgente());
             checkAfterLogin();
         } else {
             String error = App.getInstance().getString(R.string.error_respuesta);
@@ -728,7 +727,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.isEsUsuario()) {
                 user.setDataUser(dataUser);// Si Usuario
-                user.getDataUser().setEsAgente(dataUser.isEsAgente());
+                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, dataUser.getIdEstatus());
                 String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
                 App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
@@ -739,14 +738,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                     if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
                         if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                            //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
-                        /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
-                            loginAdq();
-                            return;
-                        } else {*/
                             checkAfterLogin();
                             return;
-                            //}
                         } else {//Requiere setear el NIP
                             stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                         }
@@ -758,14 +751,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                         } else {
 
                             if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                                //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
-                        /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
-                            loginAdq();
-                            return;
-                        } else {*/
                                 checkAfterLogin();
                                 return;
-                                //}
                             } else {//Requiere setear el NIP
                                 stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                             }
@@ -800,7 +787,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         DataIniciarSesion dataUser = user.getDataUser();
         if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
-                            /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
+            /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
 
 
             String old = prefs.loadData(OLD_NIP);
@@ -1002,8 +989,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
             if (FirebaseInstanceId.getInstance().getToken() != null) {
-                prefs.saveData(StringConstants.TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
-                // prefs.saveData(StringConstants.TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);
+                prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
+                // prefs.saveData(TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);
             }
             MessageValidation messageValidation = new MessageValidation(phone, message);
             accountManager.onSucces(response.getWebService(), messageValidation);

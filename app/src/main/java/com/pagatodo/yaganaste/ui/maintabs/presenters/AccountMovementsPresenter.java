@@ -6,7 +6,6 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
@@ -22,15 +21,12 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteract
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
-import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.getTipoTransaccionById;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<MonthsMovementsTab>,
         MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> {
@@ -43,7 +39,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         this.movementsView = movementsView;
         this.movementsIteractor = new AccountMovementsIteractorImp(this);
     }
-
 
 
     @Override
@@ -104,7 +99,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         for (MovimientosResponse movimientosResponse : response.getData()) {
             date = movimientosResponse.getFechaMovimiento().split(" ");
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
-            if (movimientosResponse.getIdTipoTransaccion()!=14) {
+            if (movimientosResponse.getIdTipoTransaccion() != 14) {
                 movementsList.add(new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                         movimientosResponse.getTotal(), date[0], date[1],
                         MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),

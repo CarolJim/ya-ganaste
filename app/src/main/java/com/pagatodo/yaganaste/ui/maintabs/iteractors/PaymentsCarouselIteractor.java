@@ -5,7 +5,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerBancoBinRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
-import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
@@ -14,11 +13,12 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 
 /**
  * Created by Jordan on 11/04/2017.
@@ -49,7 +49,7 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
         try {
             ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
             Preferencias preferencias = App.getInstance().getPrefs();
-            request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(StringConstants.CATALOG_VERSION));
+            request.setVersion(preferencias.loadData(CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(CATALOG_VERSION));
             ApiAdtvo.obtenerCatalogos(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();

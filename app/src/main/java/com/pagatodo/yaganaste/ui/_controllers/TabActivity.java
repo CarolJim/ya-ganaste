@@ -63,7 +63,6 @@ import com.pagatodo.yaganaste.ui_wallet.presenter.FBPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.NavigationDrawerPresenterImpl;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -106,6 +105,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
@@ -193,7 +193,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private void init(){
         ContainerBuilder.MAINMENU(this, mLinearLayout, this);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
-        nameUser.setText(App.getInstance().getPrefs().loadData(StringConstants.SIMPLE_NAME));
+        nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
         imgLoginExistProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

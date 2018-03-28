@@ -47,7 +47,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_REPORTA_TARJETA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,7 +83,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     public String mName;
     public String mTDC;
     public String mLastTime;
-    private  String textodata;
+    private String textodata;
     PreferUserPresenter mPreferPresenter;
     View rootview;
     int statusBloqueo;
@@ -91,6 +91,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     boolean statusInternetOperation = true;
     String ultimaTransaccionSingleton;
     private static Preferencias preferencias = App.getInstance().getPrefs();
+
     public MyCardFragment() {
         // Required empty public constructor
     }
@@ -130,21 +131,21 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
         String nombreprimerUser;
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()){
-            apellidoMostrarUser=userData.getSegundoApellido();
-        }else {
-            apellidoMostrarUser=userData.getPrimerApellido();
+        if (userData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = userData.getSegundoApellido();
+        } else {
+            apellidoMostrarUser = userData.getPrimerApellido();
         }
-        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
-        if (nombreprimerUser.isEmpty()){
-            nombreprimerUser=userData.getNombre();
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()) {
+            nombreprimerUser = userData.getNombre();
         }
 
         //tv_name.setText(mName);
-         mNameTV.setText(nombreprimerUser+" "+apellidoMostrarUser);
+        mNameTV.setText(nombreprimerUser + " " + apellidoMostrarUser);
         //mNameTV.setText(mName);
 
-        textodata= getArguments().getString(M_TDC);
+        textodata = getArguments().getString(M_TDC);
         /**
          * Mostramos la uinformacion disponible de la Card que tenemos desde el Singleton
          */
@@ -180,8 +181,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         mycard_reporta_tarjeta.setOnClickListener(this);
     }
 
-    private void checkState(String state){
-        switch (state){
+    private void checkState(String state) {
+        switch (state) {
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
@@ -193,10 +194,11 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
                 break;
             default:
-                Log.d("ESTAUS",state);
+                Log.d("ESTAUS", state);
                 break;
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -348,6 +350,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         /**
@@ -360,7 +363,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
          */
 
         imgStatus.setImageResource(isChecked ? R.drawable.ic_candado_closed : R.drawable.ic_candado_open);
-        imgYaGanasteCard.setImageResource(isChecked ? R.mipmap.main_card_zoom_gray  : R.mipmap.main_card_zoom_blue );
+        imgYaGanasteCard.setImageResource(isChecked ? R.mipmap.main_card_zoom_gray : R.mipmap.main_card_zoom_blue);
 
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {

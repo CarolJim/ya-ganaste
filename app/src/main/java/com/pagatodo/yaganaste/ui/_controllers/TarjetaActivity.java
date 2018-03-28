@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome,

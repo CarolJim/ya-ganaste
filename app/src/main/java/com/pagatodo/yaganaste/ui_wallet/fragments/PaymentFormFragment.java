@@ -72,7 +72,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
  * A simple {@link Fragment} subclass.

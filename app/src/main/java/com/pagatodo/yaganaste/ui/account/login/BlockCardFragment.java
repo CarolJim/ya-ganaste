@@ -62,7 +62,7 @@ import butterknife.OnClick;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
-import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
+import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 
 /**
  * Encargada de bloquear la Card por medio de nuestra contraseña.

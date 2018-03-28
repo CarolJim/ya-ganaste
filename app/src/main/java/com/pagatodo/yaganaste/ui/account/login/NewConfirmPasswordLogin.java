@@ -40,7 +40,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
+import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 
 /**
  * Created by Armando Sandoval on 13/12/2017.

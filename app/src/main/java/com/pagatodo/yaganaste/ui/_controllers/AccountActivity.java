@@ -61,14 +61,13 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTE
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_APPROVED;
+import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
-import static com.pagatodo.yaganaste.utils.StringConstants.CLABE_NUMBER;
-import static com.pagatodo.yaganaste.utils.StringConstants.COMPANY_NAME;
-import static com.pagatodo.yaganaste.utils.StringConstants.PHONE_NUMBER;
-
+import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
 public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella {
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
@@ -347,14 +346,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 resetRegisterData();
 
                 /*
-                * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
-                */
+                 * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
+                 */
                 SingletonUser user = SingletonUser.getInstance();
                 DataIniciarSesion dataUser = user.getDataUser();
                 String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
 
                 Preferencias prefs = App.getInstance().getPrefs();
-                prefs.saveData(COMPANY_NAME, SingletonUser.getInstance().getDataUser().getUsuario().getNombreNegocio());
                 prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
                 prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getCLABE());
                 boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);

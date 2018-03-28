@@ -66,7 +66,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
-import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
+import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 
 /**
@@ -373,7 +374,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
         request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
-        request.setTipoCliente(String.valueOf(currentUser.getDataUser().getUsuario().getTipoAgente()));
+        request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadData(TIPO_AGENTE)));
         request.setTransactionDateTime(Utils.getTimeStamp());
         return request;
     }

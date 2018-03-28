@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
@@ -17,6 +18,8 @@ import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 
 /**
  * @author Juan Guerra on 05/04/2017.
@@ -130,7 +133,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     }
 
     private void clickAdquirente() {
-        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) &&
+                App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE)==CRM_DOCTO_APROBADO) {
             mViewPager.setCurrentItem(1);
         } else if (inviteAdquirenteCallback != null) {
             inviteAdquirenteCallback.onInviteAdquirente();

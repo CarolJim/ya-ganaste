@@ -47,8 +47,11 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
@@ -124,7 +127,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         imgReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkDataCard();
+                walletPresenter.getInformacionAgente();
+                walletPresenter.updateBalance();
             }
         });
     }
@@ -141,7 +145,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void setError(String message) {
-        UI.showErrorSnackBar(getActivity(),message, Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -154,7 +158,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
 
-        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)==Recursos.CRM_DOCTO_APROBADO) {
             walletPresenter.updateBalance();
         } else {
             updateOperations(pageCurrent);
@@ -178,14 +182,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
-    private void selectDots(int lastPosition,int nextposition){
+    private void selectDots(int lastPosition, int nextposition) {
         dots[lastPosition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
         dots[nextposition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
     private void updateOperations(int position) {
         int colums = 3;
-        boolean isAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
+        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         pageCurrent = position;
 
         if (position == 0) {
@@ -195,18 +199,18 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             anuncio.setVisibility(View.GONE);
         }
         if (position == 1) {
-            int Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+            int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
             colums = 1;
             txtSaldo.setVisibility(View.GONE);
             anuncio.setVisibility(View.VISIBLE);
-            elementsWalletAdapter = ContainerBuilder.getAdapter(getActivity(),this);
+            elementsWalletAdapter = ContainerBuilder.getAdapter(getActivity(), this);
             if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
                 colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
                 anuncio.setVisibility(View.GONE);
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
             }
-            if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+            if (isAgente && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)==Recursos.CRM_DOCTO_APROBADO) {
                 colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
                 anuncio.setVisibility(View.GONE);
@@ -234,14 +238,16 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void getSaldo() {
         cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
-        cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false))
+            cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        checkDataCard();
+        walletPresenter.getInformacionAgente();
+        //checkDataCard();
     }
 
     @Override
@@ -260,6 +266,11 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         SingletonUser.getInstance().setCardStatusId(statusId);
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards(false);
+    }
+
+    @Override
+    public void sendSuccessInfoAgente() {
+        checkDataCard();
     }
 
     @Override
@@ -294,7 +305,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
 
         previous_pos = pageCurrent;
-        selectDots(previous_pos,position);
+        selectDots(previous_pos, position);
         pageCurrent = position;
         updateOperations(position);
     }

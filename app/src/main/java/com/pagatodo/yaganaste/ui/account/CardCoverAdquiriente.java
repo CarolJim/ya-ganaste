@@ -14,7 +14,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 
 /**
  * Created by Armando Sandoval on 26/09/2017.

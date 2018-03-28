@@ -107,7 +107,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 

@@ -12,13 +12,9 @@ public class DataIniciarSesion implements Serializable {
 
     private boolean EsUsuario;
     private boolean EsCliente;
-    private boolean EsAgente = false;//EsAdquirente
-    private boolean EsAgenteRechazado;
     private boolean ConCuenta;
 
     private int IdEstatus;
-    private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
-    private int EstatusAgente = CRM_DOCTO_APROBADO;//CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
     private boolean RequiereActivacionSMS=false;
     private String Semilla = "";
     private UsuarioClienteResponse Usuario;
@@ -26,15 +22,6 @@ public class DataIniciarSesion implements Serializable {
     public DataIniciarSesion() {
 
         Usuario = new UsuarioClienteResponse();
-    }
-
-    public DataIniciarSesion(boolean esUsuario, boolean esCliente, boolean esAgente, boolean conCuenta, UsuarioClienteResponse dataUser,int idestatus) {
-        EsUsuario = esUsuario;
-        EsCliente = esCliente;
-        EsAgente = esAgente;
-        ConCuenta = conCuenta;
-        Usuario = dataUser;
-        IdEstatus=idestatus;
     }
 
     public int getIdEstatus() {
@@ -59,22 +46,6 @@ public class DataIniciarSesion implements Serializable {
 
     public void setEsCliente(boolean esCliente) {
         EsCliente = esCliente;
-    }
-
-    public boolean isEsAgente() {
-        return EsAgente;
-    }
-
-    public void setEsAgente(boolean esAgente) {
-        EsAgente = esAgente;
-    }
-
-    public boolean isEsAgenteRechazado() {
-        return EsAgenteRechazado;
-    }
-
-    public void setEsAgenteRechazado(boolean esAgenteRechazado) {
-        EsAgenteRechazado = esAgenteRechazado;
     }
 
     public boolean isConCuenta() {
@@ -107,21 +78,5 @@ public class DataIniciarSesion implements Serializable {
 
     public void setUsuario(UsuarioClienteResponse usuario) {
         Usuario = usuario;
-    }
-
-    public int getEstatusDocumentacion() {
-        return EstatusDocumentacion;
-    }
-
-    public void setEstatusDocumentacion(int estatusDocumentacion) {
-        EstatusDocumentacion = estatusDocumentacion;
-    }
-
-    public int getEstatusAgente() {
-        return EstatusAgente;
-    }
-
-    public void setEstatusAgente(int estatusAgente) {
-        EstatusAgente = estatusAgente;
     }
 }

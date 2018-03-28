@@ -63,7 +63,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
-import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
+import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 
 /**
@@ -101,7 +102,7 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
                 App.getInstance().pos.getQposInfo();
-               //App.getInstance().emvListener.onQposIdResult();
+                //App.getInstance().emvListener.onQposIdResult();
                 getKSN();
                 //App.getInstance().pos.getQposId();
                 App.getInstance().pos.getQposId();
@@ -311,7 +312,6 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
             checkDongleStatus(ksn);
 
 
-
         } else {
             hideLoader();
             showSimpleDialogError(getString(R.string.inserta_lector_valido),
@@ -348,7 +348,7 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
         request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
-        request.setTipoCliente(String.valueOf(currentUser.getDataUser().getUsuario().getTipoAgente()));
+        request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadData(TIPO_AGENTE)));
         request.setTransactionDateTime(Utils.getTimeStamp());
 
         return request;
@@ -386,10 +386,11 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
     }
-    public void setVisibilityPrefer(Boolean mBoolean){
-        if(mBoolean){
+
+    public void setVisibilityPrefer(Boolean mBoolean) {
+        if (mBoolean) {
             //imageView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             //imageView.setVisibility(View.GONE);
         }
     }
@@ -437,15 +438,15 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
 
     @Override
     public void showInsertDongle() {
-      //  imgInsertDongle.setVisibility(VISIBLE);
-    //    imgInsertCard.setVisibility(View.INVISIBLE);
+        //  imgInsertDongle.setVisibility(VISIBLE);
+        //    imgInsertCard.setVisibility(View.INVISIBLE);
         tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
     }
 
     @Override
     public void showInsertCard() {
-     //   imgInsertDongle.setVisibility(View.INVISIBLE);
+        //   imgInsertDongle.setVisibility(View.INVISIBLE);
         String message;
 
         if (isCancelation) {
@@ -453,15 +454,15 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 message = getString(R.string.text_insert_cancelation);
             } else {
                 message = getString(R.string.text_slide_cancelation);
-       //         imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+                //         imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
             }
         } else {
             message = getString(R.string.text_slide_or_insert);
         }
-       // imgInsertCard.setVisibility(VISIBLE);
+        // imgInsertCard.setVisibility(VISIBLE);
 
         try {
-         //   ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
+            //   ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

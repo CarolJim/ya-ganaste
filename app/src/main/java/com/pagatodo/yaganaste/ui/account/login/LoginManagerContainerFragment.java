@@ -24,7 +24,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
 /**
  * Created by Jordan on 06/07/2017.

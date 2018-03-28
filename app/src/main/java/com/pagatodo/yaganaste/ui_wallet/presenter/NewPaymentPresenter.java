@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 
 /**
  * Created by FranciscoManzo on 28/12/2017.
@@ -60,12 +59,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     @Override
     public void getFavoritesItems(int typeDataFav) {
         this.typeDataFav = typeDataFav;
-        if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE, false)) {
-            mInteractor.getFavoritesFromService(typeDataFav);
-            //paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
-        } else {
-            mInteractor.getFavoritesFromService(typeDataFav);
-        }
+        mInteractor.getFavoritesFromService(typeDataFav);
     }
 
     @Override
@@ -73,7 +67,6 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
         ConsultarFavoritosResponse response = (ConsultarFavoritosResponse) result.getData();
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {
-                App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
                     new DatabaseManager().insertListFavorites(response.getData());
                 }

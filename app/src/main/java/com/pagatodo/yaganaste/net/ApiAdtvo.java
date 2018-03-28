@@ -61,6 +61,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewD
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
@@ -121,6 +122,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_T
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FB_REGISTER_TOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GENERAR_CODIGO_RECUPERACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_FIRST_DATA_NOTIFICATION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_INFORMACION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_NEXT_DATA_NOTIFICATION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
@@ -142,7 +144,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
-import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_FB;
 
@@ -354,7 +355,6 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void iniciarSesionSimple(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
-        App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         if (!RequestHeaders.getTokenauth().isEmpty())//Si ya se almaceno el tokenAuth, se envia en el login
@@ -851,6 +851,17 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(asd,
                 METHOD_GET, URL_SERVER_ADTVO + metodo,
                 headers, request, ObtenerCobrosMensualesResponse.class, result);
+    }
+
+    /*
+     * Método que se invoca para obtener la información del agente.
+     */
+    public static void getInformacionAgente(IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(GET_INFORMACION_AGENTE,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.consultaInformacionAgente),
+                headers, null, InformacionAgenteResponse.class, result);
     }
 
     public static void registerFBToken(RegisterFBTokenRequest request, IRequestResult result) throws OfflineException {
