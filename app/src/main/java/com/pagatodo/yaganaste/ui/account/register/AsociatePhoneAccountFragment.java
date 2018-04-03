@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -258,22 +259,17 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     @Override
     public void showError(final Object error) {
         if (error != null && !error.toString().isEmpty()) {
-            //  UI.showToastShort(error.toString(), getActivity());
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
-                    new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-                            if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
-                                onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                            }
-                        }
 
-                        @Override
-                        public void actionCancel(Object... params) {
 
-                        }
-                    },
-                    true, false);
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),error.toString(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                        onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                    }
+                }
+            });
+
         }
     }
 

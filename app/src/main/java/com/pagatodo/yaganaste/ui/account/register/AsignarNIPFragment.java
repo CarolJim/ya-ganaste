@@ -1,5 +1,8 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.Editable;
@@ -129,20 +132,20 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void showValidationError(int id, Object error) {
-        //UI.showToastShort(error.toString(), getActivity());
-        UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
 
-                    }
 
-                    @Override
-                    public void actionCancel(Object... params) {
 
-                    }
-                },
-                true, false);
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),error.toString(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+
+
+
+
     }
 
     @Override
@@ -184,22 +187,18 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     @Override
     public void showError(final Object error) {
         if (!error.toString().isEmpty()) {
-            //UI.showToastShort(error.toString(), getActivity()); error
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
-                    new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-                            if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
-                                onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                            }
-                        }
 
-                        @Override
-                        public void actionCancel(Object... params) {
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),error.toString(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                        onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                    }
+                }
+            });
 
-                        }
-                    },
-                    true, false);
+
+
         }
     }
 

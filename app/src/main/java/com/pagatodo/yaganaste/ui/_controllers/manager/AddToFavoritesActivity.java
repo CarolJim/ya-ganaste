@@ -837,27 +837,26 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     }
 
     private void showDialogMesage(final String title, final String mensaje, final int closeAct) {
-        UI.createSimpleCustomDialog(title, mensaje, getSupportFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        if (closeAct == 1) {
-                            /**
-                             * Regresamos el exito como un OK a nuestra actividad anterior para
-                             * ocultar el icono de agregar
-                             */
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_OK, returnIntent);
-                            finish();
-                        }
-                    }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+        UI.showAlertDialog(this, title,mensaje, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (closeAct == 1) {
+                    /**
+                     * Regresamos el exito como un OK a nuestra actividad anterior para
+                     * ocultar el icono de agregar
+                     */
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+            }
+        });
 
-                    }
-                },
-                true, false);
+
+
+
+
     }
 
 

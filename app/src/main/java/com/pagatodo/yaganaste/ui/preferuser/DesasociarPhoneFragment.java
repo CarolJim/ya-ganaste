@@ -140,8 +140,14 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     public void sendSuccessDesasociarToView(String mensaje) {
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                closeSession, true, false);
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         RequestHeaders.clearPreferences();
@@ -183,18 +189,14 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      * @param mensaje
      */
     public void showDialogCustom(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                    }
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    @Override
-                    public void actionCancel(Object... params) {
+            }
+        });
 
-                    }
-                },
-                true, false);
+
     }
 
 //    /**

@@ -2,6 +2,7 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -80,18 +81,14 @@ public class DocumentApprovedFragment extends GenericFragment implements
 
         if (!UtilsNet.isOnline(getActivity())) {
             swipeRefreshLayout.setRefreshing(false);
-            UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),getResources().getString(R.string.no_internet_access), new DialogInterface.OnClickListener() {
                 @Override
-                public void actionConfirm(Object... params) {
-                    // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+                public void onClick(DialogInterface dialogInterface, int i) {
 
                 }
+            });
 
-                @Override
-                public void actionCancel(Object... params) {
-
-                }
-            }, true, false);
 
         } else {
             swipeRefreshLayout.setRefreshing(false);

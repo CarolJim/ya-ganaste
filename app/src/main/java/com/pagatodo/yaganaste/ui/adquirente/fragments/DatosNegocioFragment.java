@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -53,6 +54,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST;
+import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_CLOSE_ACT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment.USER_NAME;
@@ -570,19 +572,15 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     }
 
     private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        //onEventListener.onEvent("",null);
-                    }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                },
-                true, false);
+            }
+        });
+
+
     }
 }
 
