@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
@@ -213,7 +214,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             App.getInstance().getPrefs().saveDataBool(ES_AGENTE, userStatus.isEsAgente());
             App.getInstance().getPrefs().saveDataInt(ESTATUS_AGENTE, CRM_PENDIENTE);
         } catch (Exception e) {
-            Log.d("AccountAdqInteractor", "Exception " + e);
+            if (BuildConfig.DEBUG)
+                Log.d("AccountAdqInteractor", "Exception " + e);
         }
 
     }

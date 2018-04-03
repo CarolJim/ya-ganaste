@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -188,7 +189,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountView.showLoader(context.getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
         prefs.saveData(SHA_256_FREJA, Utils.getSHA256(registerUser.getContrasenia()));//Freja
-        prefs.saveData(GENERO,registerUser.getGenero());//genero
+        prefs.saveData(GENERO, registerUser.getGenero());//genero
         accountIteractor.createUser();
     }
 
@@ -531,7 +532,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((RecoveryPasswordView) accountView).recoveryPasswordSuccess(data.toString());
             }
         } else if (ws == CERRAR_SESION) {
-            Log.i(TAG, context.getString(R.string.sesion_close));
+            if (BuildConfig.DEBUG)
+                Log.i(TAG, context.getString(R.string.sesion_close));
         } else if (accountView instanceof IDocumentApproved) {
             ((IDocumentApproved) accountView).dataUpdated(data.toString());
         } else if (accountView instanceof ILoginView) {

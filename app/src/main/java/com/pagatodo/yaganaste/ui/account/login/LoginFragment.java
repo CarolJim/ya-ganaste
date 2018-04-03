@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
+import android.util.TimingLogger;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -112,8 +113,8 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
 
     }
 
-    private void checkState(String state){
-        switch (state){
+    private void checkState(String state) {
+        switch (state) {
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //mycard_switch.setChecked(false);
                 card.setImageResource(R.drawable.tarjeta_yg);
@@ -127,7 +128,8 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
                 radioButtonSi.setChecked(true);
                 break;
             default:
-                Log.d("ESTAUS",state);
+                if (BuildConfig.DEBUG)
+                    Log.d("ESTAUS", state);
                 break;
         }
     }
@@ -139,16 +141,16 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
 
     @Override
     public void OnMenuItem(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()){
+        switch (optionMenuItem.getIdItem()) {
             case 1:
                 if (SingletonUser.getInstance().getCardStatusId().equals(Recursos.ESTATUS_CUENTA_DESBLOQUEADA)) {
-                    onEventListener.onEvent(EVENT_GO_NIP_CHANGE,null);
+                    onEventListener.onEvent(EVENT_GO_NIP_CHANGE, null);
                 } else {
                     showDialogMesage(getString(R.string.change_nip_block_card));
                 }
                 break;
             case 2:
-                onEventListener.onEvent(EVENT_GO_CARD_REPORT,null);
+                onEventListener.onEvent(EVENT_GO_CARD_REPORT, null);
                 break;
 
         }
@@ -178,15 +180,15 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
             checkState(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         }
 
-        UI.showSuccessSnackBar(getActivity(),messageStatus,Snackbar.LENGTH_SHORT);
+        UI.showSuccessSnackBar(getActivity(), messageStatus, Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
-        UI.showErrorSnackBar(getActivity(),getResources().getString(R.string.no_internet_access),Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
     }
 
-    private void setOnchangeListener(){
+    private void setOnchangeListener() {
         final boolean isOnline = Utils.isDeviceOnline();
         radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -197,7 +199,7 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
                         statusBloqueo = BLOQUEO;
                         //checkState(Recursos.ESTATUS_CUENTA_BLOQUEADA);
                     } else {
-                        UI.showErrorSnackBar(getActivity(),getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
                         radioButtonSi.setChecked(false);
                         // Toast.makeText(getContext(), "Deschecked 2", Toast.LENGTH_SHORT).show();
                         //mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
@@ -215,7 +217,7 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
                         mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
                         statusBloqueo = DESBLOQUEO;
                     } else {
-                        UI.showErrorSnackBar(getActivity(),getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
                         radioButtonNo.setChecked(false);
                     }
                 }

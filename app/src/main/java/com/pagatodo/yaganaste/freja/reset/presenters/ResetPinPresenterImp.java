@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.freja.reset.presenters;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -70,9 +71,11 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
 
 
     private void getResetCode() {
-        Log.e(TAG, "Get Reset Code");
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "Get Reset Code");
         individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethod = new Object() {
+        }.getClass().getEnclosingMethod();
         this.currentMethodParams = new Object[]{};
         this.initResetNipMethod = currentMethod;
         this.initResetParams = currentMethodParams;
@@ -81,7 +84,8 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
 
     @Override
     public void setResetCode(String rpc) {
-        Log.e(TAG, "Set Reset Code");
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "Set Reset Code");
         this.rpcCode = translateUserPinToFmcFormat(rpc.getBytes());
         individualReintent = 0;
         resetNip();
@@ -89,7 +93,7 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
 
     private byte[] translateUserPinToFmcFormat(byte[] pin) {
         byte[] transformedUserPin = new byte[pin.length];
-        for (int i=0; i<pin.length; i++) {
+        for (int i = 0; i < pin.length; i++) {
             transformedUserPin[i] = (byte) (pin[i] - 48);
         }
         return transformedUserPin;
@@ -97,14 +101,16 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
 
     private void resetNip() {
         individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethod = new Object() {
+        }.getClass().getEnclosingMethod();
         this.currentMethodParams = new Object[]{};
         resetPinIteractor.getResetPinPolicy();
     }
 
     @Override
     public void setResetPinPolicy(int min, int max) {
-        Log.e(TAG, "SET Reset NIP Policy");
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "SET Reset NIP Policy");
         individualReintent = 0;
         int size = newPin.length;
         if (min <= size && size <= max) {
@@ -114,9 +120,10 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
         }
     }
 
-    private void callResetPin(){
+    private void callResetPin() {
         individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethod = new Object() {
+        }.getClass().getEnclosingMethod();
         this.currentMethodParams = new Object[]{};
         resetPinIteractor.resetPin(rpcCode, newPin);
     }
@@ -132,7 +139,8 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
 
     @Override
     public void onError(final Errors error) {
-        Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
 
         if (individualReintent < 3) { //Si el reintento individual aun no excede el maximo
             if (userFeedback) {
@@ -147,7 +155,7 @@ public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager 
         }
 
 
-        if (generalReintent < maxIntents-1) { //Si el numero de intentos general aun no excede
+        if (generalReintent < maxIntents - 1) { //Si el numero de intentos general aun no excede
             generalReintent++;
             individualReintent = 0;
             if (userFeedback) {

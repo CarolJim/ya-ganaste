@@ -2,11 +2,13 @@ package com.pagatodo.yaganaste.utils;
 
 import android.util.Log;
 
+import com.pagatodo.yaganaste.BuildConfig;
+
 import java.util.zip.CRC32;
 
 /**
  * @author carlos.
- *         Created 28/08/2012.
+ * Created 28/08/2012.
  */
 public class Codec {
 
@@ -37,7 +39,8 @@ public class Codec {
         CRC32 crc = new CRC32();
         crc.update(s.getBytes());
         String encode = String.format("%08X", crc.getValue());
-        Log.i("CRC32", String.format("Source: %s ----- Result: %s", s, encode));
+        if (BuildConfig.DEBUG)
+            Log.i("CRC32", String.format("Source: %s ----- Result: %s", s, encode));
         return encode;
 
     }

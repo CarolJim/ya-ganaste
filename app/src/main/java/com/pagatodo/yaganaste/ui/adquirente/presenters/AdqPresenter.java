@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.adquirente.presenters;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -149,7 +150,8 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 //                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
                 break;
             case ENVIAR_TICKET_COMPRA_AUTOM:
-                Log.e(App.getContext().getString(R.string.app_name), "No se pudo mandar correo automático al agente");
+                if (BuildConfig.DEBUG)
+                    Log.e(App.getContext().getString(R.string.app_name), "No se pudo mandar correo automático al agente");
                 break;
             case ENVIAR_TICKET_COMPRA:
                 iAdqView.showError(error);
@@ -228,7 +230,8 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, data);
                 break;
             case ENVIAR_TICKET_COMPRA_AUTOM:
-                Log.i(App.getContext().getString(R.string.app_name), "Notificación exitosa al Agente");
+                if (BuildConfig.DEBUG)
+                    Log.i(App.getContext().getString(R.string.app_name), "Notificación exitosa al Agente");
                 break;
             case ENVIAR_TICKET_COMPRA:
                 iAdqView.hideLoader();

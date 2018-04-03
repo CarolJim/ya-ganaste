@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -192,8 +193,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         dataDocumnetsServer = new ArrayList<>();
         dataDocumnets = new HashMap<>();
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE)==CRM_PENDIENTE
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)==STATUS_DOCTO_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) == CRM_PENDIENTE
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
             mExisteDocs = true;
             // lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
@@ -323,11 +324,13 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Log.e("Ya Ganaste", "@Entrada 1");
+            if (BuildConfig.DEBUG)
+                Log.e("Ya Ganaste", "@Entrada 1");
             showLoader("");
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
-            Log.e("Ya Ganaste", "@Path Foto = " + path);
+            if (BuildConfig.DEBUG)
+                Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
                 Bitmap original = BitmapFactory.decodeFile(path);
                 Bitmap scaled;
@@ -398,7 +401,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
-        Log.e("Ya Ganaste", "@Entrada 2");
+        if (BuildConfig.DEBUG)
+            Log.e("Ya Ganaste", "@Entrada 2");
     }
 
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {

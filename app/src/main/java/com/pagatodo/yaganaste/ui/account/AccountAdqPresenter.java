@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -174,7 +175,8 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
                 ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
         } else {
-            Log.i(TAG, "La sesión se ha cerrado.");
+            if (BuildConfig.DEBUG)
+                Log.i(TAG, "La sesión se ha cerrado.");
         }
     }
 

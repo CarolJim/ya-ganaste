@@ -24,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -89,10 +90,12 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     private final Handler handler = new Handler();
     private final Runnable longPressed = new Runnable() {
         public void run() {
-            Log.i(getTag(), "LongPress");
+            if (BuildConfig.DEBUG)
+                Log.i(getTag(), "LongPress");
         }
     };
-    private String cadenaHuella=null;
+    private String cadenaHuella = null;
+
     public TienesTarjetaFragment() {
     }
 
@@ -110,21 +113,21 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
 
-        cadenaHuella=App.getInstance().getCadenaHuella();
+        cadenaHuella = App.getInstance().getCadenaHuella();
 
-        cadenaHuella= new StringBuilder()
+        cadenaHuella = new StringBuilder()
                 .append(cadenaHuella)
                 .append("-")
                 .append(preferencias.loadData("SHA_256_FREJA"))
                 .toString();
         App.getInstance().setCadenaHuella(cadenaHuella);
 
-        String f= cadenaHuella;
+        String f = cadenaHuella;
 
-if (f!=null){
+        if (f != null) {
 
 
-}
+        }
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -258,7 +261,7 @@ if (f!=null){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                   // keyboardView.showCustomKeyboard(v);
+                    // keyboardView.showCustomKeyboard(v);
                 } else {
                     keyboardView.hideCustomKeyboard();
                 }
@@ -295,7 +298,7 @@ if (f!=null){
         int inType = edittext.getInputType();       // Backup the input type
         edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
         edittext.onTouchEvent(event);               // Call native handler
-      //  keyboardView.showCustomKeyboard(v);
+        //  keyboardView.showCustomKeyboard(v);
         edittext.setInputType(inType);// Restore input type
     }
 

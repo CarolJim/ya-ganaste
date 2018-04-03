@@ -37,6 +37,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
@@ -1153,7 +1154,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          * Creamos el nuevo TextWatcher de currentTextWatcherPDS y lo agregamos
          * a referenceNumber
          */
-       // currentTextWatcherPDS = new NumberTagPase(referenceNumber, maxLength);
+        // currentTextWatcherPDS = new NumberTagPase(referenceNumber, maxLength);
         currentTextWatcherPDS = new NumberReferenceTextWatcher(referenceNumber, maxLength);
         referenceNumber.addTextChangedListener(currentTextWatcherPDS);
     }
@@ -1170,7 +1171,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 longitudRefer = customCarouselItem.getComercio().getLongitudReferencia();
             }
         }
-        Log.d(TAG, "Log");
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "Log");
 
 
        /* layoutImageReference.setOnClickListener(this);

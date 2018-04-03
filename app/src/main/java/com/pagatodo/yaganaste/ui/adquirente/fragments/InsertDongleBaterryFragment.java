@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -99,7 +100,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
         @Override
         public void run() {
             if (isReaderConected) {
-                Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
+                if (BuildConfig.DEBUG)
+                    Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
                 App.getInstance().pos.getQposInfo();
                 //App.getInstance().emvListener.onQposIdResult();
@@ -125,8 +127,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
 
             switch (mensaje) {
                 case LECTURA_OK:
-                    Log.i("IposListener: ", "=====>>  LECTURA OK");
-
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>  LECTURA OK");
                     break;
                 case READ_KSN:
                     TransaccionEMVDepositRequest transactionKsn = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
@@ -134,22 +136,27 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                     break;
                 case READ_BATTERY_LEVEL:
                     int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
-                    Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
                     App.getInstance().pos.getQposId();
-                    Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
                     break;
                 case ERROR_LECTOR:
-                    Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
                     hideLoader();
                     //closeProgress();
                     break;
                 case LEYENDO:
-                    Log.i("IposListener: ", "=====>>    LEYENDO");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    LEYENDO");
                     App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
                     showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
                     break;
                 case REQUEST_AMOUNT:
-                    Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
 
                     String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".", "");
                     if (isCancelation) {
@@ -161,19 +168,23 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 case REQUEST_TIME:
                     String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
                     App.getInstance().pos.sendTime(terminalTime);
-                    Log.i("IposListener: ", "=====>>    REQUEST_TIME");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    REQUEST_TIME");
                     break;
                 case REQUEST_IS_SERVER_CONNECTED:
                     App.getInstance().pos.isServerConnected(true);
-                    Log.i("IposListener: ", "=====>>    REQUEST_IS_SERVER_CONNECTED");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    REQUEST_IS_SERVER_CONNECTED");
                     break;
                 case REQUEST_FINAL_CONFIRM:
                     App.getInstance().pos.finalConfirm(true);
-                    Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
                     break;
                 case REQUEST_PIN:
                     App.getInstance().pos.bypassPin();
-                    Log.i("IposListener: ", "=====>>    REQUEST_PIN");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    REQUEST_PIN");
                     break;
                 case SW_TIMEOUT:
                     //initListenerDongle();
@@ -191,10 +202,12 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                                 }
                             });
                     //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
-                    Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
                     break;
                 case SW_ERROR:
-                    Log.i("IposListener: ", "=====>>    SW_ERROR");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    SW_ERROR");
                     hideLoader();
                     if (!isWaitingCard)
                         unregisterReceiverDongle();
@@ -215,14 +228,12 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                     break;
                 case ENCENDIDO:
                     App.getInstance().pos.getQposInfo();
-
-
-                    Log.i("IposListener: ", "=====>>    ENCENDIDO");
-
-
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    ENCENDIDO");
                     break;
                 default:
-                    Log.i("IposListener: ", "=====>>    default");
+                    if (BuildConfig.DEBUG)
+                        Log.i("IposListener: ", "=====>>    default");
                     hideLoader();
                     break;
             }
@@ -244,7 +255,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                         hideLoader();
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
                         showInsertDongle();
-                        Log.i("IposListener: ", "isReaderConected  false");
+                        if (BuildConfig.DEBUG)
+                            Log.i("IposListener: ", "isReaderConected  false");
                         break;
                     case 1:
                         isReaderConected = true;
@@ -255,7 +267,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                         //validatingDng = false; // Cancelar Validacion
                         //insertCard();
                         handlerSwipe.postDelayed(starReaderEmvSwipe, 500);
-                        Log.i("IposListener: ", "isReaderConected  true");
+                        if (BuildConfig.DEBUG)
+                            Log.i("IposListener: ", "isReaderConected  true");
                         break;
                     default:
                         break;
@@ -306,9 +319,11 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
 
     @Override
     public void verifyDongle(String ksn) {
-        Log.i("IposListener: ", "=====>>  READ_KSN  " + ksn);
+        if (BuildConfig.DEBUG)
+            Log.i("IposListener: ", "=====>>  READ_KSN  " + ksn);
         if (ksn.length() > 10) {
-            Log.i("IposListener: ", "=====>>  saveData");
+            if (BuildConfig.DEBUG)
+                Log.i("IposListener: ", "=====>>  saveData");
             checkDongleStatus(ksn);
 
 
@@ -415,7 +430,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
         try {
             getActivity().unregisterReceiver(emvSwipeBroadcastReceiver); // Desregistramos receiver
         } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
         }
     }
 
@@ -423,7 +439,8 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
         try {
             getActivity().unregisterReceiver(headPhonesReceiver);
         } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
         }
     }
 

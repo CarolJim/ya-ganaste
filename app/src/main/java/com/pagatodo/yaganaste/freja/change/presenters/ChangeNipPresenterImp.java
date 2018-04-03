@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.freja.Errors;
@@ -65,7 +66,8 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
      */
     @Override
     public void changeNip(String oldPin, String newPin) {
-        Log.e(TAG, "Get Change Nip Policy");
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "Get Change Nip Policy");
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
@@ -90,7 +92,8 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     }
 
     public void callChangeNip(int min, int max) {
-        Log.e(TAG, "Change NIP");
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "Change NIP");
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
@@ -110,7 +113,8 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
 
     @Override
     public void onError(final Errors error) {
-        Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
+        if (BuildConfig.DEBUG)
+            Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
 
         if (individualReintent < 3 && error.allowsReintent()) { //Si el reintento individual aun no excede el maximo
             handleError(error);

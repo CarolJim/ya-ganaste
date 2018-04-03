@@ -824,7 +824,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 card.setAlias(dataCard.getAlias());
                 card.setUserName(dataCard.getNombreUsuario());
                 card.setIdAccount(dataCard.getIdCuenta());
-                Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
+                if (BuildConfig.DEBUG)
+                    Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
                 accountManager.onSucces(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card));
@@ -980,14 +981,16 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser user = SingletonUser.getInstance();
             String phone = data.getData().getNumeroTelefono();
             String tokenValidation = user.getDataUser().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
-            Log.d("WSC", "TokenValidation: " + tokenValidation);
+            if (BuildConfig.DEBUG)
+                Log.d("WSC", "TokenValidation: " + tokenValidation);
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
-            Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
+            if (BuildConfig.DEBUG)
+                Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
                     user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
-
-            Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            if (BuildConfig.DEBUG)
+                Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
             if (FirebaseInstanceId.getInstance().getToken() != null) {
                 prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
                 // prefs.saveData(TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);

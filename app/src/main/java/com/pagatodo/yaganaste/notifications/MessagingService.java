@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 
@@ -51,7 +52,8 @@ public class MessagingService extends FirebaseMessagingService {
 
             // Dependiendo del tipo de idType mandamos a una URL o al proceso de descargar archivos
             if (idType != null) {
-                Log.d(TAG, "idType: " + idType);
+                if (BuildConfig.DEBUG)
+                    Log.d(TAG, "idType: " + idType);
                 switch (idType) {
                     case "1":
                         //String url = "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste";

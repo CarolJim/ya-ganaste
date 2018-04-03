@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -101,7 +102,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     }
 
     private void setContent() {
-        Log.e("type ", "- -- - - - - " + type);
+        if (BuildConfig.DEBUG)
+            Log.e("type ", "- -- - - - - " + type);
         switch (type) {
             case EMISOR:
                 iIdIcon = R.drawable.ic_done;
@@ -112,7 +114,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
             case ADQ_REVISION:
-                Log.e(TAG, "- ADQ_REVISION");
+                if (BuildConfig.DEBUG)
+                    Log.e(TAG, "- ADQ_REVISION");
                 iIdIcon = R.drawable.ic_done;
                 title = getString(R.string.adq_title_thanks);
                 subTitle = getString(R.string.adq_subtitle_thanks);

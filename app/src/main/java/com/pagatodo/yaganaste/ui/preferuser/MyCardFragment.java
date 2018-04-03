@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -194,7 +195,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
                 break;
             default:
-                Log.d("ESTAUS", state);
+                if (BuildConfig.DEBUG)
+                    Log.d("ESTAUS", state);
                 break;
         }
     }

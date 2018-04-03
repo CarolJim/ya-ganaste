@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
@@ -37,6 +38,7 @@ public class QRFragment extends SupportFragment {
 
     @BindView(R.id.imgYaGanasteQR)
     ImageView imgYaGanasteQR;
+
     public static QRFragment newInstance() {
         return new QRFragment();
     }
@@ -104,7 +106,8 @@ public class QRFragment extends SupportFragment {
         QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjeta(), usuario.getCLABE());
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
-        Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
+        if (BuildConfig.DEBUG)
+            Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
         QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), smallerDimension);
         try {
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
