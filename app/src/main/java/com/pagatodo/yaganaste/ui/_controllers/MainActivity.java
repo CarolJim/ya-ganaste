@@ -41,7 +41,6 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_container);
         initViews();
-        ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
         String action = getIntent().getExtras().getString(SELECTION);
         revealX = getIntent().getIntExtra(EXTRA_CIRCULAR_REVEAL_X, 0);
         revealY = getIntent().getIntExtra(EXTRA_CIRCULAR_REVEAL_Y, 0);
@@ -58,6 +57,7 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
                 startActivity(intent);
                 finish();
             } else {
+                ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
                 loadFragment(MainFragment.newInstance(), true);
                 if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
                     //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());

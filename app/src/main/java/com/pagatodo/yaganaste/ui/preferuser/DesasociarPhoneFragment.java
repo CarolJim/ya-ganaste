@@ -55,21 +55,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
 
         }
     };
-    /**
-     * Acciones para controlar el Dialog de exito en desasociar, al aceptar enviamos el controlar a
-     * PreferActivity que contiene el mecanimo para cerrar la app y dejarla en Main
-     */
-    DialogDoubleActions closeSession = new DialogDoubleActions() {
-        @Override
-        public void actionConfirm(Object... params) {
-            onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null);
-        }
-
-        @Override
-        public void actionCancel(Object... params) {
-
-        }
-    };
 
     public DesasociarPhoneFragment() {
         // Required empty public constructor
@@ -143,11 +128,9 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null);
             }
         });
-
-
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         RequestHeaders.clearPreferences();

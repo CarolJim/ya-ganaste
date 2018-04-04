@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -53,6 +55,8 @@ import java.security.KeyStore;
 
 import javax.crypto.KeyGenerator;
 
+import static android.os.Process.killProcess;
+import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
@@ -68,7 +72,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
-public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella {
+public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
+        ForcedUpdateChecker.OnUpdateNeededListener{
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
     public final static String EVENT_GO_GET_CARD = "EVENT_GO_GET_CARD";
     public final static String EVENT_GO_BASIC_INFO = "EVENT_GO_BASIC_INFO";
@@ -137,7 +142,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         setUpActionBar();
-
+        ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
         App aplicacion = new App();
         presenterAccount = new AccountPresenterNew(this);
         loginContainerFragment = LoginManagerContainerFragment.newInstance();
@@ -518,6 +523,32 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         if (fm instanceof BlockCardFragment)
             ((BlockCardFragment) fm).loadOtpHuella();
 
+    }
+
+    @Override
+    public void onUpdateNeeded(String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.title_update))
+                .setMessage(getString(R.string.text_update_forced))
+                .setPositiveButton("Actualizar",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                                startActivity(i);
+                                killProcess(myPid());
+                            }
+                        })
+                .setNegativeButton("No gracias",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                killProcess(myPid());
+                            }
+                        }).create();
+        dialog.show();
     }
 }
 

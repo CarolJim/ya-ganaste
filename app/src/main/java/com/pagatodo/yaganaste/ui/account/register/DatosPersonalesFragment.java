@@ -764,8 +764,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 e.printStackTrace();
             }
         }
-
-        //1975 - 06 - 29
     }
 
     @Override
