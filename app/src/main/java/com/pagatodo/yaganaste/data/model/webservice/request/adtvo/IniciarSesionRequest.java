@@ -12,13 +12,22 @@ public class IniciarSesionRequest extends Request implements Serializable {
 
     private String UsuarioCorreo = "";
     private String Contrasena = "";
+    private String Version = "2.0.0";
 
     public IniciarSesionRequest() {
     }
 
-    public IniciarSesionRequest(String usuarioCorreo, String contrasena, String telefono) {
+    public IniciarSesionRequest(String usuarioCorreo, String contrasena) {
         UsuarioCorreo = usuarioCorreo;
         Contrasena = contrasena;
+    }
+
+    public String getVersion() {
+        return Version;
+    }
+
+    public void setVersion(String version) {
+        Version = version;
     }
 
     public String getUsuarioCorreo() {

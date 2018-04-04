@@ -17,10 +17,6 @@ public interface IAccountManager<T> {
 
     void onError(WebService ws, T error);
 
-    void onForcedUpdate();
-
-    void onWarningUpdate();
-
     void hideLoader();
 
     void onSuccesBalance();

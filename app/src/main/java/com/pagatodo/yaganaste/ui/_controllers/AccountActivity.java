@@ -17,13 +17,12 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -46,9 +45,9 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
-import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import java.security.KeyStore;
 
@@ -64,7 +63,6 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
-import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
@@ -148,14 +146,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
         if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
             //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
-              //      this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+            //      this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
             UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                 }
             });
-
-
         }
         switch (action) {
             case GO_TO_LOGIN:
@@ -171,13 +167,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 resetRegisterData();
                 break;
         }
-/*
-        /*Validamos Permisos
-        ValidatePermissions.checkPermissions(this, new String[]{
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);*/
     }
 
     public AccountPresenterNew getPresenter() {
@@ -459,7 +448,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
     private void showDialogOut() {
 
-        UI.showAlertDialog(this,  getString(R.string.desea_cacelar), new DialogInterface.OnClickListener() {
+        UI.showAlertDialog(this, getString(R.string.desea_cacelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -468,7 +457,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
 
     }
-
 
 
     /*Se eliminan los datos almacenados en Memoria*/
@@ -531,6 +519,5 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             ((BlockCardFragment) fm).loadOtpHuella();
 
     }
-
 }
 

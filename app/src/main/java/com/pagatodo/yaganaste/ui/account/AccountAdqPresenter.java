@@ -110,15 +110,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
-    public void onForcedUpdate() {
-    }
-
-    @Override
-    public void onWarningUpdate() {
-
-    }
-
-    @Override
     public void hideLoader() {
         iAdqView.hideLoader();
     }

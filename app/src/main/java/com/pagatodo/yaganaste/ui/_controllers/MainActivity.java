@@ -1,8 +1,10 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.animation.Animator;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,16 +17,19 @@ import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
+import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
+import static android.os.Process.killProcess;
+import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
-public class MainActivity extends ToolBarActivity {
+public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker.OnUpdateNeededListener {
 
     public static final String EXTRA_CIRCULAR_REVEAL_X = "EXTRA_CIRCULAR_REVEAL_X";
     public static final String EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y";
@@ -36,7 +41,7 @@ public class MainActivity extends ToolBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_container);
         initViews();
-
+        ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
         String action = getIntent().getExtras().getString(SELECTION);
         revealX = getIntent().getIntExtra(EXTRA_CIRCULAR_REVEAL_X, 0);
         revealY = getIntent().getIntExtra(EXTRA_CIRCULAR_REVEAL_Y, 0);
@@ -111,6 +116,32 @@ public class MainActivity extends ToolBarActivity {
             rootLayout.setVisibility(View.VISIBLE);
             circularReveal.start();
         }
+    }
+
+    @Override
+    public void onUpdateNeeded(String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.title_update))
+                .setMessage(getString(R.string.text_update_forced))
+                .setPositiveButton("Actualizar",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                                startActivity(i);
+                                killProcess(myPid());
+                            }
+                        })
+                .setNegativeButton("No gracias",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                killProcess(myPid());
+                            }
+                        }).create();
+        dialog.show();
     }
 }
 
