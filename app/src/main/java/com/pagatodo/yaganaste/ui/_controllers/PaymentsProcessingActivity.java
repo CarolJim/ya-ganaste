@@ -29,7 +29,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTrans
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
@@ -327,7 +326,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         if (!((Payments) pago).isFavorite()) {
            // Intent intent = new Intent(this, AddToFavoritesActivity.class);
             Intent intent = new Intent(this, FavoritesActivity.class);
-            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
+            intent.putExtra(FavoritesActivity.FAV_PROCESS, 1);
             intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
             intent.putExtra(ID_COMERCIO, idComercio);
             intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);

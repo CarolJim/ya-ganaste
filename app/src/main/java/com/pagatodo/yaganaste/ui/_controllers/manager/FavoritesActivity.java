@@ -7,21 +7,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -97,7 +95,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
@@ -119,7 +116,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     // Fijas
     public static final String TAG = FavoritesActivity.class.getSimpleName();
-
+    public static final String FAV_PROCESS = "FAV_PROCESS";
+    public static final String CURRENT_TAB_ID = "currentTabId";
     public static final String TYPE_FAV = "TYPE_FAV";
     public static final int TYPE_NEW_FAV = 1;
     public static final int TYPE_NEW_FAV_OPER = 2;
@@ -195,11 +193,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     TextInputLayout til_num_telefono;
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_name_favorite;
-
-    // Dudas
-    public static final String FAV_PROCESS = "FAV_PROCESS";
-    public static final String CURRENT_TAB_ID = "currentTabId";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
