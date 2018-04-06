@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +24,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -34,6 +36,7 @@ import butterknife.OnClick;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_CLOSE_ACT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
@@ -202,20 +205,16 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
     }
 
     private void showDialogMesage(final String mensaje, final int mControl) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        if (mControl == 1) {
-                            onEventListener.onEvent(EVENT_CLOSE_ACT, null);
-                        }
-                    }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (mControl == 1) {
+                    onEventListener.onEvent(EVENT_CLOSE_ACT, null);
+                }
+            }
+        });
 
-                    }
-                },
-                true, false);
+
     }
 }

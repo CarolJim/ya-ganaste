@@ -17,7 +17,7 @@ public enum States implements IEnumSpinner {
     S6(6, "Coahuila"),
     S7(7, "Colima"),
     S8(8, "Chiapas"),
-    S9(9, "Distrito Federal"),
+    S9(9, "Ciudad de México"),
     S10(10, "Durango"),
     S11(11, "Guerrero"),
     S12(12, "Guanajuato"),

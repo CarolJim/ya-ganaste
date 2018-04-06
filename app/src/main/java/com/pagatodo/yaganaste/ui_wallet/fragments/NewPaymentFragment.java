@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
@@ -24,8 +23,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
@@ -642,10 +639,9 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         dialog.show();
                     } else if (mFullListaServ.get(typePosition).get(position).getNombre().equals("Agregar")) {
                         // Iniciamos la actividad de Favoritos
-                      //  Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         Intent intent = new Intent(getContext(), FavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
-                        intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                        intent.putExtra(FavoritesActivity.FAV_PROCESS, 2);
                         intent.putExtra(FavoritesActivity.TYPE_FAV,
                                 FavoritesActivity.TYPE_NEW_FAV);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

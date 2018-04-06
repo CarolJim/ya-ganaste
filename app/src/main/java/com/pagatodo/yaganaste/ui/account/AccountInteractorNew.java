@@ -24,7 +24,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContr
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarVersionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
@@ -48,7 +47,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarCont
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarVersionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
@@ -100,7 +98,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
@@ -328,17 +325,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void validateVersionApp() {
-        try {
-            ValidarVersionRequest request = new ValidarVersionRequest(2);
-            ApiAdtvo.validateVersionApp(request, this);
-        } catch (Exception e) {
-            e.printStackTrace();
-            accountManager.onError(VALIDAR_VERSION, "");
-        }
-    }
-
-    @Override
     public void createUserClient(CrearUsuarioClienteRequest request) {
         /*Establecemos las cabeceras de la peticion*/
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
@@ -561,9 +547,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             case LOGIN_ADQ:
                 processLoginAdq(dataSourceResult);
-                break;
-            case VALIDAR_VERSION:
-                validateLocalVersion(dataSourceResult);
                 break;
             default:
                 break;
@@ -1051,26 +1034,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
-        }
-    }
-
-    /* Método para validar la versión de la App de manera local contra los datos que vienen del servicio */
-    private void validateLocalVersion(DataSourceResult response) {
-        ValidarVersionResponse data = (ValidarVersionResponse) response.getData();
-        // Si el código de Respuesta fue exitoso
-        if (data.getCodigoRespuesta() == CODE_OK) {
-            if (data.getData().getVersion().equals(BuildConfig.VERSION_NAME)) {
-                // Validar primero que la versión sea la misma
-                accountManager.onSucces(response.getWebService(), data.getMensaje());
-            } else if (data.getData().isForcedUpdate()) {
-                // Si no es la misma entonces hay que validar si necesita una actualización forzosa
-                accountManager.onForcedUpdate();
-            } else {
-                // En caso de que no coincida la version y no necesite una actualización forzosa, se debe permitir al usuario que proceda con el Login
-                accountManager.onWarningUpdate();
-            }
-        } else {
-            accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
 }

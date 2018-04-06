@@ -37,7 +37,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RegisterFBToke
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarVersionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.ActualizarReferenciasCupoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
@@ -77,7 +76,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarCont
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RegisterFBTokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarVersionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.ActualizaReferenciasResponse;
@@ -142,7 +140,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CU
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
@@ -873,19 +870,6 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_FB + App.getContext().getString(R.string.fbRegisterToken),
                 headers, request, RegisterFBTokenResponse.class, result);
 
-    }
-
-    /**
-     * Método que se invoca para obtener la versión de la App actualmente activa en producción
-     *
-     * @param request {@link ValidarVersionRequest} body de la petición
-     * @param result  {@link IRequestResult} listener del resultado de la petición
-     */
-    public static void validateVersionApp(ValidarVersionRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        NetFacade.consumeWS(VALIDAR_VERSION,
-                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerVersionAplicacion),
-                headers, request, ValidarVersionResponse.class, result);
     }
 
     public static void getFirstDataNotification(IRequestResult result, ListaNotificationRequest request) throws OfflineException {

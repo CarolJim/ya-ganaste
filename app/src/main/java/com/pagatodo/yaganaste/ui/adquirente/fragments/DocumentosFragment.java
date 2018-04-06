@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -345,7 +347,13 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.createSimpleCustomDialog("", getString(R.string.error_cargar_imagen), getActivity().getSupportFragmentManager(), null, true, false);
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
             }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             Cursor cursor = null;
@@ -375,7 +383,14 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.createSimpleCustomDialog("", getString(R.string.error_cargar_imagen), getActivity().getSupportFragmentManager(), null, true, false);
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+
                 adqPresenter.showGaleryError();
             } finally {
                 if (cursor != null) {
@@ -405,6 +420,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             Log.e("Ya Ganaste", "@Entrada 2");
     }
 
+    @SuppressLint("ResourceType")
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
         Boolean validateDuplicado;
         contador.add(imgBase64);
@@ -416,6 +432,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         } else {
             switch (documentProcessed) {
                 case IFE_FRONT:
+                    ifeFront.setBackgroundResource(0);
                     ifeFront.setImageBitmap(bitmap);
                     ifeFront.setVisibilityStatus(true);
                     ifeFront.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.ic_status_upload));
@@ -428,6 +445,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     break;
 
                 case IFE_BACK:
+                    ifeBack.setBackgroundResource(0);
                     ifeBack.setImageBitmap(bitmap);
                     ifeBack.setVisibilityStatus(true);
                     ifeBack.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.ic_status_upload));
@@ -438,8 +456,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     dataDoc.setExtension("jpg");
                     dataDocumnets.put(IFE_BACK, dataDoc);
                     break;
-
                 case COMPROBANTE_FRONT:
+                    addressFront.setBackgroundResource(0);
                     addressFront.setImageBitmap(bitmap);
                     addressFront.setVisibilityStatus(true);
                     addressFront.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.ic_status_upload));
@@ -449,9 +467,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
                     dataDocumnets.put(COMPROBANTE_FRONT, dataDoc);
-
                     break;
                 case COMPROBANTE_BACK:
+                    addressBack.setBackgroundResource(0);
                     addressBack.setImageBitmap(bitmap);
                     addressBack.setVisibilityStatus(true);
                     addressBack.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.ic_status_upload));

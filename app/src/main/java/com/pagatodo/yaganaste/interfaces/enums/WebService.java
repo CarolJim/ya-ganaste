@@ -150,8 +150,6 @@ public enum WebService {
      * Operaciones FBM
      **/
     FB_REGISTER_TOKEN,
-    /* Validar version de la App */
-    VALIDAR_VERSION,
     GET_FIRST_DATA_NOTIFICATION, // Lista de notificaciones del usuario
     GET_NEXT_DATA_NOTIFICATION, // Lista de notificaciones del usuario
     /* Obtiene lista de tipos de reembolso */

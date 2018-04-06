@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
@@ -19,6 +20,9 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.AppDatabase;
@@ -32,6 +36,7 @@ import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.FileDownload;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
+import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
@@ -40,6 +45,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -145,14 +151,31 @@ public class App extends Application {
         if (!f.exists()) {
             f.mkdir();
         }
-        // TODO: Borrar en version 4.0.5
-        File oldDb = new File("/data/data/com.pagatodo.yaganaste/databases/yaganaste.db");
-        if (oldDb.exists()) {
-            oldDb.delete();
-        }
-
         statusId = "-1";
         datoHuellaC = "";
+        firebaseRemoteConfig();
+    }
+
+    /* Firebase Remote Configuration */
+    private void firebaseRemoteConfig() {
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        Map<String, Object> remoteConfigDefaults = new HashMap();
+        remoteConfigDefaults.put(ForcedUpdateChecker.KEY_UPDATE_REQUIRED, true);
+        remoteConfigDefaults.put(ForcedUpdateChecker.KEY_CURRENT_VERSION, BuildConfig.VERSION_NAME);
+        remoteConfigDefaults.put(ForcedUpdateChecker.KEY_UPDATE_URL,
+                "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste");
+
+        firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
+        firebaseRemoteConfig.fetch(60)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("YA GANASTE", "remote config is fetched.");
+                            firebaseRemoteConfig.activateFetched();
+                        }
+                    }
+                });
     }
 
     public void clearCache() {
@@ -189,7 +212,6 @@ public class App extends Application {
     }
 
     //Curren Mount
-
     public String getCurrentMount() {
         return currentMount;
     }
@@ -360,6 +382,4 @@ public class App extends Application {
                 nameData, typeData, fileDownloadListener);
         fileDownload.execute("");
     }
-
-
 }

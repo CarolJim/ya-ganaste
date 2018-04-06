@@ -582,19 +582,4 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     public void loginSucced() {
 
     }
-
-    @Override
-    public void versionOk() {
-
-    }
-
-    @Override
-    public void forceUpdate() {
-
-    }
-
-    @Override
-    public void warningUpdate() {
-
-    }
 }

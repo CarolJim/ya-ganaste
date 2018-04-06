@@ -23,16 +23,6 @@ public class MainMenuPresenterImp extends AprovPresenter {
     }
 
     @Override
-    public void onForcedUpdate() {
-
-    }
-
-    @Override
-    public void onWarningUpdate() {
-
-    }
-
-    @Override
     public void hideLoader() {
 
     }

@@ -4,21 +4,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
-import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
@@ -224,8 +219,8 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                             Comercio comercioResponse = paymentPresenter.getComercioById(idComercio);
                             if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
 
-                                Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
-                                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
+                                Intent intent = new Intent(getContext(), FavoritesActivity.class);
+                                intent.putExtra(FavoritesActivity.FAV_PROCESS, 1);
                                 intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
                                 intent.putExtra(ID_COMERCIO, idComercio);
                                 intent.putExtra(ID_TIPO_COMERCIO, comercioResponse.getIdTipoComercio());

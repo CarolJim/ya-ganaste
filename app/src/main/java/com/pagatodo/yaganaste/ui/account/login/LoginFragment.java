@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -13,7 +12,6 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
-import android.util.TimingLogger;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +26,6 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -54,11 +51,11 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 
 
 /**
@@ -379,8 +376,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-        accountPresenter.validateVersion();
-        //versionOk();
+        accountPresenter.login(username, password); // Realizamos el  Login
     }
 
     @Override
@@ -396,49 +392,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);
         startActivity(intentLogin);
         getActivity().finish();
-    }
-
-    @Override
-    public void versionOk() {
-        accountPresenter.login(username, password); // Realizamos el  Login
-    }
-
-    @Override
-    public void forceUpdate() {
-        setEnableViews(true);
-        UI.createSimpleCustomDialog(getString(R.string.title_update),
-                getString(R.string.text_update_forced), getFragmentManager(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
-                        startActivity(i);
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                }, true, true);
-    }
-
-    @Override
-    public void warningUpdate() {
-        setEnableViews(true);
-        UI.createSimpleCustomDialog(getString(R.string.title_update),
-                getString(R.string.text_update_warn), getFragmentManager(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
-                        startActivity(i);
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-                        versionOk();
-                    }
-                }, true, true);
     }
 
     private void setEnableViews(boolean isEnable) {
@@ -464,15 +417,15 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
      */
     private void updatePhoto() {
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
-        if (preferencias.loadData(GENERO)=="H"||preferencias.loadData(GENERO)=="h") {
+        if (preferencias.loadData(GENERO) == "H" || preferencias.loadData(GENERO) == "h") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
-        }else if (preferencias.loadData(GENERO)=="M"||preferencias.loadData(GENERO)=="m"){
+        } else if (preferencias.loadData(GENERO) == "M" || preferencias.loadData(GENERO) == "m") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
                     .into(imgLoginExistProfile);
-        }else {
+        } else {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                     .into(imgLoginExistProfile);

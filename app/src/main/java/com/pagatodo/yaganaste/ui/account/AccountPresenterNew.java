@@ -13,7 +13,6 @@ import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
@@ -22,6 +21,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContr
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
@@ -79,7 +79,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_VERSION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
@@ -179,12 +178,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
-    public void validateVersion() {
-        accountView.showLoader("");
-        accountIteractor.validateVersionApp();
-    }
-
-    @Override
     public void createUser() {
         accountView.showLoader(context.getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
@@ -199,7 +192,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         accountView.showLoader("");
         prefs.saveData(SHA_256_FREJA, Utils.getSHA256(password));//Freja
-        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password), "");//TODO Validar si se envia el telefono vacío-
+        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password));
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin, password);
         ///accountIteractor.login(requestLogin);
@@ -384,9 +377,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else if (accountView instanceof IDocumentApproved) {
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
-            if (ws == VALIDAR_VERSION) {
-                //RequestHeaders.setUsername("");
-            }
             accountView.showError(error);
         } else if (accountView instanceof IMyPassValidation) {
             if (ws == VALIDAR_FORMATO_CONTRASENIA) {
@@ -399,18 +389,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else {
             accountView.showError(error);
         }
-    }
-
-    @Override
-    public void onForcedUpdate() {
-        this.accountView.hideLoader();
-        ((ILoginView) accountView).forceUpdate();
-    }
-
-    @Override
-    public void onWarningUpdate() {
-        this.accountView.hideLoader();
-        ((ILoginView) accountView).warningUpdate();
     }
 
     @Override
@@ -536,10 +514,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 Log.i(TAG, context.getString(R.string.sesion_close));
         } else if (accountView instanceof IDocumentApproved) {
             ((IDocumentApproved) accountView).dataUpdated(data.toString());
-        } else if (accountView instanceof ILoginView) {
-            if (ws == VALIDAR_VERSION) {
-                ((ILoginView) accountView).versionOk();
-            }
         }
 
         if (accountView instanceof IMyPassValidation) {

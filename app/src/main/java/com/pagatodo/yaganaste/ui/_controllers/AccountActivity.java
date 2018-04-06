@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -17,13 +19,12 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.LoginEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -46,14 +47,16 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
-import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import java.security.KeyStore;
 
 import javax.crypto.KeyGenerator;
 
+import static android.os.Process.killProcess;
+import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
@@ -64,13 +67,13 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
-import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
-public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella {
+public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
+        ForcedUpdateChecker.OnUpdateNeededListener{
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
     public final static String EVENT_GO_GET_CARD = "EVENT_GO_GET_CARD";
     public final static String EVENT_GO_BASIC_INFO = "EVENT_GO_BASIC_INFO";
@@ -139,7 +142,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         setUpActionBar();
-
+        ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
         App aplicacion = new App();
         presenterAccount = new AccountPresenterNew(this);
         loginContainerFragment = LoginManagerContainerFragment.newInstance();
@@ -148,14 +151,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
         if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
             //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
-              //      this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+            //      this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
             UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                 }
             });
-
-
         }
         switch (action) {
             case GO_TO_LOGIN:
@@ -171,13 +172,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 resetRegisterData();
                 break;
         }
-/*
-        /*Validamos Permisos
-        ValidatePermissions.checkPermissions(this, new String[]{
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);*/
     }
 
     public AccountPresenterNew getPresenter() {
@@ -459,7 +453,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
     private void showDialogOut() {
 
-        UI.showAlertDialog(this,  getString(R.string.desea_cacelar), new DialogInterface.OnClickListener() {
+        UI.showAlertDialog(this, getString(R.string.desea_cacelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -468,7 +462,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
 
     }
-
 
 
     /*Se eliminan los datos almacenados en Memoria*/
@@ -532,5 +525,30 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
     }
 
+    @Override
+    public void onUpdateNeeded(String updateUrl) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.title_update))
+                .setMessage(getString(R.string.text_update_forced))
+                .setPositiveButton("Actualizar",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                                startActivity(i);
+                                killProcess(myPid());
+                            }
+                        })
+                .setNegativeButton("No gracias",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                killProcess(myPid());
+                            }
+                        }).create();
+        dialog.show();
+    }
 }
 

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -763,8 +764,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 e.printStackTrace();
             }
         }
-
-        //1975 - 06 - 29
     }
 
     @Override
@@ -794,33 +793,25 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (!error.toString().isEmpty() && errorVerificationData < 4) {
             //  UI.showToastShort(error.toString(), getActivity());
             text = getString(R.string.problem_with_register1);
-            UI.createSimpleCustomDialog("", text, getFragmentManager(),
-                    new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
 
-                        }
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),text, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                        @Override
-                        public void actionCancel(Object... params) {
+                }
+            });
 
-                        }
-                    }, true, false);
         } else {
             text = getString(R.string.problem_with_register2);
             titulo = getString(R.string.titulo_extranjero);
             seencuentra = true;
-            UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+            UI.showAlertDialogLlamar(getActivity(), titulo,text, new DialogInterface.OnClickListener() {
                 @Override
-                public void actionConfirm(Object... params) {
+                public void onClick(DialogInterface dialogInterface, int i) {
                     llamar();
                 }
+            });
 
-                @Override
-                public void actionCancel(Object... params) {
-                    /*llamar();*/
-                }
-            }, "", "Llamar");
         }
     }
 
