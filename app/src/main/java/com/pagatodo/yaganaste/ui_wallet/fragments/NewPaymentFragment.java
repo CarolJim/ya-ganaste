@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,17 +128,8 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     private AdapterPagosClass adapterPagosClass;
     private AdapterPagosClass adapterPDSClass;
 
-    public NewPaymentFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * @return A new instance of fragment NewPaymentFragment.
-     */
     public static NewPaymentFragment newInstance() {
-        NewPaymentFragment fragment = new NewPaymentFragment();
-        Bundle args = new Bundle();
-        return fragment;
+        return new NewPaymentFragment();
     }
 
     @Override

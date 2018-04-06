@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
+import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
@@ -167,6 +169,27 @@ public class ContainerBuilder {
         }
         return adpater;
     }
+
+    private static ArrayList<PaletteViewHolder> list;
+
+    public static void FAVORITOS(Context context, ViewGroup parent, List<Favoritos> listF, PaletteViewHolder.OnClickListener listener){
+        Container builder = new Container(context,parent);
+        Favoritos itemAdd = new Favoritos(0);
+        itemAdd.setNombre("Agregar");
+        builder.addSimpleHolder(itemAdd,listener);
+        for (Favoritos carouselItem : listF) {
+            builder.addHolder(carouselItem,listener);
+        }
+
+        list = builder.getHoldersList();
+    }
+
+    public static void edition(boolean edition){
+        for (PaletteViewHolder item : list) {
+            item.edition(edition);
+        }
+    }
+
 
 
 }

@@ -1,11 +1,15 @@
 package com.pagatodo.yaganaste.ui_wallet.builder;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
@@ -26,6 +30,7 @@ public class Container {
     private ViewGroup parent;
 
     public Container(){}
+
     public Container(Context context, ViewGroup parent){
         this.context = context;
         this.parent = parent;
@@ -45,6 +50,7 @@ public class Container {
     private ArrayList<InputText.ViewHolderInputText> arrayListInput = new ArrayList<>();
     private ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> arrayListOptionMenu = new ArrayList<>();
     private ArrayList<OptionMenuItem.ViewHolderMenuSegurity> arrayListOptionMenuSegurity = new ArrayList<>();
+    private ArrayList<PaletteViewHolder> holdersList = new ArrayList<>();
 
     void addOption(OptionMenuItem options){
         this.options.add(options);
@@ -77,10 +83,10 @@ public class Container {
     }
     ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> getArrayListOptionMenu(){ return this.arrayListOptionMenu;}
     public ArrayList<OptionMenuItem.ViewHolderMenuSegurity> getArrayListOptionMenuSegurity(){ return this.arrayListOptionMenuSegurity;}
-
     public ArrayList<InputText> getInputTextList() {
         return this.inputTextList;
     }
+
 
     public void addLayout(ViewGroup parent, InputText inputText) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
@@ -95,6 +101,28 @@ public class Container {
         this.arrayListInput.add(viewHolderInputText);
     }
 
+    public void addHolder(Favoritos favorito, PaletteViewHolder.OnClickListener listener){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.row_envios, parent, false);
+        PaletteViewHolder holder =  new PaletteViewHolder(layout);
+        holder.bind(favorito,listener);
+        this.parent.addView(layout);
+        this.holdersList.add(holder);
+    }
+
+    public void addSimpleHolder(final Favoritos favorito, final PaletteViewHolder.OnClickListener listener){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.row_envios, parent, false);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(favorito);
+            }
+        });
+        this.parent.addView(layout);
+    }
+
     public InputText.ViewHolderInputText addLayoutPass(ViewGroup parent, InputText inputText) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.adapter_input_text, parent, false);
@@ -104,7 +132,6 @@ public class Container {
         viewHolderInputText.inputLayout.setHint(context.getResources().getString(inputText.getHintText()));
         //viewHolderInputText.inputLayout.setPasswordVisibilityToggleEnabled(true);
         //viewHolderInputText.editText.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-
         parent.addView(layout);
         this.arrayListInput.add(viewHolderInputText);
         return viewHolderInputText;
@@ -174,5 +201,7 @@ public class Container {
         this.arrayListOptionMenuSegurity.add(viewHolder);
     }
 
-
+    public ArrayList<PaletteViewHolder>  getHoldersList(){
+        return this.holdersList;
+    }
 }
