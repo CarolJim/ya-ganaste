@@ -124,7 +124,6 @@ public class App extends Application {
         System.loadLibrary("a01jni");
         initEMVListener();
         RequestHeaders.initHeaders(this);
-        if (BuildConfig.DEBUG)
             Log.e(getString(R.string.app_name), "BuildConfig.VERSION_NAME: " + BuildConfig.VERSION_NAME + " prefs.loadData(VERSION_APP):" + prefs.loadData(VERSION_APP));
         /*if (!BuildConfig.VERSION_NAME.equals(prefs.loadData(VERSION_APP))) {
             clearCache();
@@ -290,7 +289,6 @@ public class App extends Application {
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        if (BuildConfig.DEBUG)
             Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         if (lifecycleHandler.isInBackground()) {

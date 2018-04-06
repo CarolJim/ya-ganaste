@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -35,9 +36,9 @@ import static com.pagatodo.yaganaste.data.model.PageResult.BTN_DIRECTION_NEXT;
 public class TransactionResultFragment extends GenericFragment implements View.OnClickListener, INavigationView {
 
     @IdRes
-    private static final int idBtnPrimary = 43322;
+    private static final int idBtnPrimary = R.id.id_primary_button;
     @IdRes
-    private static final int idBtnSecondary = 43321;
+    private static final int idBtnSecondary = R.id.id_secondary_button;
     public static String KEY_PAGE_RESULT = "KEYPAGERESULT";
     @BindView(R.id.imgResult)
     ImageView imgResult;

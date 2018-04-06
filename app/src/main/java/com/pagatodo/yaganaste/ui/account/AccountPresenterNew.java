@@ -510,7 +510,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((RecoveryPasswordView) accountView).recoveryPasswordSuccess(data.toString());
             }
         } else if (ws == CERRAR_SESION) {
-            if (BuildConfig.DEBUG)
                 Log.i(TAG, context.getString(R.string.sesion_close));
         } else if (accountView instanceof IDocumentApproved) {
             ((IDocumentApproved) accountView).dataUpdated(data.toString());

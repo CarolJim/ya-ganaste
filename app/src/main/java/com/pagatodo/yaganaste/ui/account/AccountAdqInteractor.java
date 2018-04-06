@@ -214,7 +214,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             App.getInstance().getPrefs().saveDataBool(ES_AGENTE, userStatus.isEsAgente());
             App.getInstance().getPrefs().saveDataInt(ESTATUS_AGENTE, CRM_PENDIENTE);
         } catch (Exception e) {
-            if (BuildConfig.DEBUG)
                 Log.d("AccountAdqInteractor", "Exception " + e);
         }
 

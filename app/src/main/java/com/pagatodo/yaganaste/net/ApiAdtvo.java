@@ -216,10 +216,8 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
-        if (BuildConfig.DEBUG) {
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokensesion());
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokenauth());
-        }
         NetFacade.consumeWS(CAMBIAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, CambiarContraseniaResponse.class, result);
@@ -234,10 +232,8 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
-        if (BuildConfig.DEBUG) {
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokensesion());
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokenauth());
-        }
         NetFacade.consumeWS(CHANGE_PASS_6,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, CambiarContraseniaResponse.class, result);

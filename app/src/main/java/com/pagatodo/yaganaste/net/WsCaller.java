@@ -42,20 +42,17 @@ public class WsCaller implements IServiceConsumer {
     public void sendJsonPost(final WsRequest request) {
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
-        if (BuildConfig.DEBUG)
             Log.d(TAG, "Request : " + request.get_url_request());
         if (request.getHeaders() != null && request.getHeaders().size() > 0) {
-            if (BuildConfig.DEBUG)
                 Log.d(TAG, "Headers : ");
             for (String name : request.getHeaders().keySet()) {
                 String key = name.toString();
                 String value = request.getHeaders().get(name).toString();
-                if (BuildConfig.DEBUG)
                     Log.d(TAG, key + " : " + value);
             }
         }
 
-        if (request.getBody() != null && BuildConfig.DEBUG)
+        if (request.getBody() != null)
             Log.d(TAG, "Body Request : " + request.getBody().toString());
         CustomJsonObjectRequest jsonRequest = new CustomJsonObjectRequest(
                 request.getMethod(),
@@ -64,7 +61,6 @@ public class WsCaller implements IServiceConsumer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if (BuildConfig.DEBUG)
                             Log.d(TAG, "Response Success : " + response.toString());
                         if (request.getRequestResult() != null) {
                             request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse())));
@@ -74,12 +70,10 @@ public class WsCaller implements IServiceConsumer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (BuildConfig.DEBUG) {
                             Log.d(TAG, error.toString());
                             Log.d(TAG, "Request Failed : " + error.getMessage());
-                        }
                         if (request.getRequestResult() != null) {
-                            if (error.networkResponse != null && BuildConfig.DEBUG) {
+                            if (error.networkResponse != null) {
                                 Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
                             }
 
