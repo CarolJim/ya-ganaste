@@ -12,7 +12,6 @@
         android:id="@+id/itemGallery"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:background="@drawable/ic_circle_border_shadow"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -21,7 +20,8 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            app:civ_border_color="#FF09CC20" />
+            android:background="@drawable/circle"
+            />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgItemGalleryStatus"
@@ -40,7 +40,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:visibility="visible"
+            android:src="@drawable/new_fav_add"/>
 
         <TextView
             android:id="@+id/txtInicialesFav"
@@ -49,7 +51,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="FM"
             android:textColor="@color/whiteColor"
             android:textSize="18sp"
             android:visibility="gone" />
@@ -63,5 +64,5 @@
         android:gravity="center"
         android:textColor="@color/gray_text_wallet"
         android:textSize="11sp"
-        tools:text="Nombre"></TextView>
+        android:text="Agregar"/>
 </LinearLayout>
