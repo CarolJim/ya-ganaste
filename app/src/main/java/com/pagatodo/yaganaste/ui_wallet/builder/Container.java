@@ -113,7 +113,6 @@ public class Container {
     public void addSimpleHolder(final Favoritos favorito, final PaletteViewHolder.OnClickListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
-
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

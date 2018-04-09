@@ -47,6 +47,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
@@ -117,6 +118,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
+    public static final int RESUL_FAVORITES = 7894;
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
     public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
@@ -429,6 +431,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (requestCode == CROP_RESULT) {
             onHideProgress();
             updatePhoto();
+        } else if (resultCode == RESUL_FAVORITES) {
+
+            //if (getCurrentFragment() instanceof EnviosFromFragmentNewVersion){
+                //EnviosFromFragmentNewVersion.newInstance().onActivityResult(requestCode, resultCode, data);
+                Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
+                childFragment.onActivityResult(requestCode,resultCode,data);
+
+            //}
         }
     }
 

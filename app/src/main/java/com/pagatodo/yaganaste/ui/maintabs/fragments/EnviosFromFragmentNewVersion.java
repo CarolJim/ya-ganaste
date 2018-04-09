@@ -104,6 +104,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAV_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -791,18 +792,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void setFavolist(List<Favoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
-
-        //Favoritos itemAdd = new Favoritos(0);
-        ///itemAdd.setNombre("Agregar");
-        //backUpResponseFavoritos.add(itemAdd);
-        //builder.addSimpleHolder(itemAdd,this);
-        //for (Favoritos carouselItem : lista) {
-            //backUpResponseFavoritos.add(carouselItem);
-          //  builder.addHolder(carouselItem,this);
-        //}
-        //builder = new Container(getContext(),mLinearLayout);
+        mLinearLayout.removeAllViews();
         ContainerBuilder.FAVORITOS(getContext(),mLinearLayout,lista,this);
-
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
 
     }
@@ -1179,6 +1170,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESUL_FAVORITES) {
+            paymentsCarouselPresenter.getCarouselItems();
+            paymentsCarouselPresenter.getFavoriteCarouselItems();
+        }
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CONTACTS_CONTRACT) {
                 contactPicked(data);
@@ -1306,7 +1301,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
-
     @Override
     public void onClick(Favoritos favorito) {
         /**
@@ -1338,7 +1332,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
                 intentAddFavorite.putExtra(FavoritesActivity.TYPE_FAV,
                         FavoritesActivity.TYPE_NEW_FAV);
-                startActivity(intentAddFavorite);
+                startActivityForResult(intentAddFavorite,RESUL_FAVORITES);
             } else {
                 // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 

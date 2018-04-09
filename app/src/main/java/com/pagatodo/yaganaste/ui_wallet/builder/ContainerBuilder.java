@@ -177,10 +177,10 @@ public class ContainerBuilder {
         Favoritos itemAdd = new Favoritos(0);
         itemAdd.setNombre("Agregar");
         builder.addSimpleHolder(itemAdd,listener);
+        list = new ArrayList<>();
         for (Favoritos carouselItem : listF) {
             builder.addHolder(carouselItem,listener);
         }
-
         list = builder.getHoldersList();
     }
 
@@ -189,7 +189,5 @@ public class ContainerBuilder {
             item.edition(edition);
         }
     }
-
-
 
 }

@@ -101,6 +101,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -1621,7 +1622,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                              * ocultar el icono de agregar
                              */
                             Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_OK, returnIntent);
+                            setResult(RESUL_FAVORITES);
                             finish();
                         }
                     }

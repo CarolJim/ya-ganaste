@@ -28,7 +28,8 @@
             android:id="@+id/imgYaGanasteCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            app:numberCard="asd"/>
 
 
         <android.support.v7.widget.AppCompatImageView
