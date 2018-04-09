@@ -178,6 +178,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
+    public void validatePersonDataHomonimia() {
+        accountView.showLoader(context.getString(R.string.msg_renapo));
+        accountIteractor.validatePersonDataHomonimia();
+    }
+
+    @Override
     public void createUser() {
         accountView.showLoader(context.getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
@@ -309,7 +315,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountView.hideLoader();
         if (accountView instanceof IRenapoView) {
             if (ws == VALIDAR_DATOS_PERSONA) {
-                accountView.showError(error.toString());
+                    accountView.showError(error.toString());
             }
         } else if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {

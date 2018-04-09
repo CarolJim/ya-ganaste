@@ -96,6 +96,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONAHOMO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
@@ -322,6 +323,28 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
         }
 
+    }
+
+    @Override
+    public void validatePersonDataHomonimia() {
+
+        RegisterUser registerUser = RegisterUser.getInstance();
+        ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
+
+        request.setNombre(registerUser.getNombre());
+        request.setPrimerApellido(registerUser.getApellidoPaterno());
+        request.setSegundoApellido(registerUser.getApellidoMaterno());
+        request.setFechaNacimiento(registerUser.getFechaNacimiento());
+        request.setGenero(registerUser.getGenero());
+        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
+        request.setCURP(registerUser.getCURP());
+
+        try {
+            ApiAdtvo.validarDatosPersona(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.onError(VALIDAR_DATOS_PERSONAHOMO, App.getContext().getString(R.string.no_internet_access));
+        }
     }
 
     @Override

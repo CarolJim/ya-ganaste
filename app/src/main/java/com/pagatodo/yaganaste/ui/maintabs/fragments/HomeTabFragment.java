@@ -124,11 +124,13 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         tabLayoutEmAd.setOnBlockCard(this);
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
          cardEmisorSelected = new CardEmisorSelected(getContext());
-        cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
+
+
+         cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View view) {
-                UI.createCustomDialogextranjero("Ya Ganaste", "Texto", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+         /*       UI.createCustomDialogextranjero("Ya Ganaste", "Texto", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
 
@@ -138,7 +140,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
                     public void actionCancel(Object... params) {
 
                     }
-                }, " ", "Llamar");
+                }, " ", "Llamar");*/
                 return false;
             }
         });

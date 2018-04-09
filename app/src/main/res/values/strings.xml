@@ -1383,5 +1383,6 @@
     <string name="action_cancel_repayment">Cancelar cobro</string>
 
     <string name="load_movimientos">Cargando mivimientos</string>
+    <string name="ingresa_tu_curp">Ingresa tu CURP</string>
 
 </resources>

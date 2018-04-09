@@ -29,6 +29,16 @@ public class ValidarDatosPersonaRequest implements Serializable {
     @SerializedName("IdEstadoNacimiento")
     private int idEstadoNacimiento;
 
+    @SerializedName("CURP")
+    private String CURP;
+
+    public String getCURP() {
+        return CURP;
+    }
+
+    public void setCURP(String CURP) {
+        this.CURP = CURP;
+    }
 
     public String getNombre() {
         return nombre;
