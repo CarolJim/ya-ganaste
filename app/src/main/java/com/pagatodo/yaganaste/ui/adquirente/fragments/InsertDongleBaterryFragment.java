@@ -100,7 +100,6 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
         @Override
         public void run() {
             if (isReaderConected) {
-                if (BuildConfig.DEBUG)
                     Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
                 App.getInstance().pos.getQposInfo();
@@ -127,7 +126,6 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
 
             switch (mensaje) {
                 case LECTURA_OK:
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>  LECTURA OK");
                     break;
                 case READ_KSN:
@@ -136,26 +134,21 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                     break;
                 case READ_BATTERY_LEVEL:
                     int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
                     App.getInstance().pos.getQposId();
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
                     break;
                 case ERROR_LECTOR:
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
                     hideLoader();
                     //closeProgress();
                     break;
                 case LEYENDO:
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    LEYENDO");
                     App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
                     showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
                     break;
                 case REQUEST_AMOUNT:
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
 
                     String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".", "");
@@ -168,17 +161,14 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 case REQUEST_TIME:
                     String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
                     App.getInstance().pos.sendTime(terminalTime);
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    REQUEST_TIME");
                     break;
                 case REQUEST_IS_SERVER_CONNECTED:
                     App.getInstance().pos.isServerConnected(true);
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    REQUEST_IS_SERVER_CONNECTED");
                     break;
                 case REQUEST_FINAL_CONFIRM:
                     App.getInstance().pos.finalConfirm(true);
-                    if (BuildConfig.DEBUG)
                         Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
                     break;
                 case REQUEST_PIN:

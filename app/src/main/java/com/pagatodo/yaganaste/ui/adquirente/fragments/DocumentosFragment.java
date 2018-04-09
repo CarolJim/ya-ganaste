@@ -326,12 +326,10 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            if (BuildConfig.DEBUG)
                 Log.e("Ya Ganaste", "@Entrada 1");
             showLoader("");
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
-            if (BuildConfig.DEBUG)
                 Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
                 Bitmap original = BitmapFactory.decodeFile(path);
@@ -416,7 +414,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
-        if (BuildConfig.DEBUG)
             Log.e("Ya Ganaste", "@Entrada 2");
     }
 

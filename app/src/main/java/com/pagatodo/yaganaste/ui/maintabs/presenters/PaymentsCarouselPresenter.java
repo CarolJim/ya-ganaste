@@ -26,10 +26,6 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
-/**
- * Created by Jordan on 11/04/2017.
- */
-
 public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     int current_tab;
     IPaymentsCarouselIteractor paymentsTabIteractor;

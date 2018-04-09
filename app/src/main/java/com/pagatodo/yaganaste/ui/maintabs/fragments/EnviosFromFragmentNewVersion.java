@@ -17,6 +17,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -66,6 +67,9 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.MaterialPaletteAdapter;
+import com.pagatodo.yaganaste.ui_wallet.builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.presenter.EnviosPaymentPresenter;
@@ -114,13 +118,14 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
  */
 
 public class EnviosFromFragmentNewVersion extends GenericFragment implements
-        EnviosManager, TextView.OnEditorActionListener, View.OnClickListener, PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener {
+        EnviosManager, TextView.OnEditorActionListener, View.OnClickListener,
+        PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener,
+        PaletteViewHolder.OnClickListener{
 
     private View rootview;
     @BindView(R.id.spnTypeSend)
     Spinner tipoEnvio;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+
     @BindView(R.id.txt_lyt_cardnumber)
     TextInputLayout txtLytCardNumber;
     @BindView(R.id.cardNumber)
@@ -164,11 +169,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @BindView(R.id.envio_from_slide_view_l1)
     TextInputLayout envio_from_slide_view_l1;
 
-
-
-
-
-
+    @BindView(R.id.content_linearlayout)
+    LinearLayout mLinearLayout;
 
     TransferType selectedType;
     List<String> tipoPago = new ArrayList<>();
@@ -187,14 +189,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     Payments payment;
     TextWatcher txtWatcherSetted;
     private boolean isEditable = false;
-    private MaterialPaletteAdapter adapterMaterialPalet;
     private RecyclerViewOnItemClickListener adapterMaterialListener;
+    private Container builder;
 
     public static EnviosFromFragmentNewVersion newInstance() {
-        EnviosFromFragmentNewVersion fragment = new EnviosFromFragmentNewVersion();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new EnviosFromFragmentNewVersion();
     }
 
 
@@ -229,13 +228,14 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        builder = new Container(getContext(),mLinearLayout);
+
+        //listView.setAdapter(adapterList);
 
         /**
          *
          * Parte de los focus change para manejar los edit text activados y normales
          */
-
-
         cardNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -303,8 +303,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
 
 
         btnenviar.setOnClickListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setHasFixedSize(true);
 
         editListServ.setEnabled(true);
         editListServ.setFocusable(false);
@@ -407,7 +405,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        paymentsCarouselPresenter.getFavoriteCarouselItems();
+        //paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
     @Override
@@ -469,19 +467,21 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 if (isEditable) {
                     editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
                     isEditable = false;
+                    ContainerBuilder.edition(false);
                     // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
                 } else {
                     editarFavoritos.setTextColor(getResources().getColor(R.color.colorTituloDialog));
                     isEditable = true;
+                    ContainerBuilder.edition(true);
                     // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
                 }
 
                 // Borramos el adaptar antterior, y volvemos a crearlo para mostrar las imagernes de editar
-                if (adapterMaterialPalet != null) {
+                /*if (adapterMaterialPalet != null) {
                     adapterMaterialPalet = null;
                     adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
                     recyclerView.setAdapter(adapterMaterialPalet);
-                }
+                }*/
 
                 break;
             default:
@@ -492,7 +492,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void onSlideViewButtonClick(View view) {
         if (isUp) {
             txtShowReferences.setText(getString(R.string.Ocultar_Referencia));
-            final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+            final ScrollView scrollView = getActivity().findViewById(R.id.scrollView);
             scrollView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -795,120 +795,19 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void setFavolist(List<Favoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
 
-        Favoritos itemAdd = new Favoritos(0);
-        itemAdd.setNombre("Agregar");
-        backUpResponseFavoritos.add(itemAdd);
-
-        for (Favoritos carouselItem : lista) {
-            backUpResponseFavoritos.add(carouselItem);
-        }
+        //Favoritos itemAdd = new Favoritos(0);
+        ///itemAdd.setNombre("Agregar");
+        //backUpResponseFavoritos.add(itemAdd);
+        //builder.addSimpleHolder(itemAdd,this);
+        //for (Favoritos carouselItem : lista) {
+            //backUpResponseFavoritos.add(carouselItem);
+          //  builder.addHolder(carouselItem,this);
+        //}
+        //builder = new Container(getContext(),mLinearLayout);
+        ContainerBuilder.FAVORITOS(getContext(),mLinearLayout,lista,this);
 
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
 
-        // Verificamos que el adapter exista si no, lo creamos
-        adapterMaterialListener = new RecyclerViewOnItemClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-
-                /**
-                 * Si es editable mandamos a Edittar, si no a proceso normal
-                 */
-
-                if (isEditable) {
-                    if (backUpResponseFavoritos.get(position).getIdComercio() != 0) {
-                        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                        // Vibrate for 500 milliseconds
-                        vibrator.vibrate(100);
-                        //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
-                        Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
-                        intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), backUpResponseFavoritos.get(position));
-                        intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                        intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
-                                FavoritesActivity.TYPE_EDIT_FAV);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                        } else {
-                            startActivity(intentEditFav);
-                        }
-                    }
-                } else {
-                    if (backUpResponseFavoritos.get(position).getIdComercio() == 0) { // Click en item Agregar
-                     //   Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
-                        Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
-                        intentAddFavorite.putExtra(FAV_PROCESS, 2);
-                        intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                        intentAddFavorite.putExtra(FavoritesActivity.TYPE_FAV,
-                                FavoritesActivity.TYPE_NEW_FAV);
-                        startActivity(intentAddFavorite);
-                    } else {
-                        // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
-
-                        idComercio = 0;
-                        isfavo = true;
-                        bancoselected = true;
-                        bancoselected = true;
-                        favoriteItem = backUpResponseFavoritos.get(position);
-                        long myIdComercio = backUpResponseFavoritos.get(position).getIdComercio();
-                        String myName = backUpResponseFavoritos.get(position).getNombre();
-
-                        myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-
-                        switch (backUpResponseFavoritos.get(position).getReferencia().length()) {
-                            case 10:
-                                myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                                tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
-                                receiverName.setText(myName);
-                                cardNumber.setText("");
-                                cardNumber.setText(myReferencia);
-                                break;
-                            case 16:
-                                myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                                tipoEnvio.setSelection(NUMERO_TARJETA.getId());
-                                receiverName.setText(myName);
-                                cardNumber.setText("");
-                                cardNumber.setText(myReferencia);
-                                break;
-                            case 18:
-                                myReferencia = backUpResponseFavoritos.get(position).getReferencia();
-                                tipoEnvio.setSelection(CLABE.getId());
-                                receiverName.setText(myName);
-                                cardNumber.setText("");
-                                cardNumber.setText(myReferencia);
-                                break;
-                        }
-
-                        //backUpResponseFavoritos
-                    /*1 - Con ese id myIdComercio buscamos en backUpResponseFavoritos. Por ejemplo la posicion5
-                            2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
-                            3 - IguLAS comercioItem CON CarouselItem2*/
-
-                        for (int x = 0; x < finalList.size(); x++) {
-                            if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
-                                comercioItem = finalList.get(x).getComercio();
-                                editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
-                                idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
-                                idComercio = finalList.get(x).getComercio().getIdComercio();
-                                if (idComercio == IDCOMERCIO_YA_GANASTE) {
-                                    referenciaLayout.setVisibility(GONE);
-                                    concept.setImeOptions(IME_ACTION_DONE);
-                                    concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                                } else {
-                                    referenciaLayout.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onLongClick(View v, int position) {
-
-            }
-        };
-
-        adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
-        recyclerView.setAdapter(adapterMaterialPalet);
     }
 
     private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
@@ -1409,4 +1308,99 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             return;
         }
     }
+
+
+    @Override
+    public void onClick(Favoritos favorito) {
+        /**
+         * Si es editable mandamos a Edittar, si no a proceso normal
+         */
+
+        if (isEditable) {
+            if (favorito.getIdComercio() != 0) {
+                Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                // Vibrate for 500 milliseconds
+                vibrator.vibrate(100);
+                //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
+                Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
+                intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), favorito);
+                intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
+                        FavoritesActivity.TYPE_EDIT_FAV);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                } else {
+                    startActivity(intentEditFav);
+                }
+            }
+        } else {
+            if (favorito.getIdComercio() == 0) { // Click en item Agregar
+                //Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
+                intentAddFavorite.putExtra(FAV_PROCESS, 2);
+                intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                intentAddFavorite.putExtra(FavoritesActivity.TYPE_FAV,
+                        FavoritesActivity.TYPE_NEW_FAV);
+                startActivity(intentAddFavorite);
+            } else {
+                // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+
+                idComercio = 0;
+                isfavo = true;
+                bancoselected = true;
+                bancoselected = true;
+                favoriteItem = favorito;
+                long myIdComercio = favorito.getIdComercio();
+                String myName = favorito.getNombre();
+
+                myReferencia = favorito.getReferencia();
+
+                switch (favorito.getReferencia().length()) {
+                    case 10:
+                        myReferencia = favorito.getReferencia();
+                        tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
+                        receiverName.setText(myName);
+                        cardNumber.setText("");
+                        cardNumber.setText(myReferencia);
+                        break;
+                    case 16:
+                        myReferencia = favorito.getReferencia();
+                        tipoEnvio.setSelection(NUMERO_TARJETA.getId());
+                        receiverName.setText(myName);
+                        cardNumber.setText("");
+                        cardNumber.setText(myReferencia);
+                        break;
+                    case 18:
+                        myReferencia = favorito.getReferencia();
+                        tipoEnvio.setSelection(CLABE.getId());
+                        receiverName.setText(myName);
+                        cardNumber.setText("");
+                        cardNumber.setText(myReferencia);
+                        break;
+                }
+
+                //backUpResponseFavoritos
+                    /*1 - Con ese id myIdComercio buscamos en backUpResponseFavoritos. Por ejemplo la posicion5
+                            2 - Guardar ese dato en una variable CarouselItem2 que solo tenga esa posicion
+                            3 - IguLAS comercioItem CON CarouselItem2*/
+
+                for (int x = 0; x < finalList.size(); x++) {
+                    if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                        comercioItem = finalList.get(x).getComercio();
+                        editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                        idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                        idComercio = finalList.get(x).getComercio().getIdComercio();
+                        if (idComercio == IDCOMERCIO_YA_GANASTE) {
+                            referenciaLayout.setVisibility(GONE);
+                            concept.setImeOptions(IME_ACTION_DONE);
+                            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                        } else {
+                            referenciaLayout.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

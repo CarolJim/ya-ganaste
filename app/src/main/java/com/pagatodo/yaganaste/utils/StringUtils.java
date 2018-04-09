@@ -392,4 +392,27 @@ public class StringUtils {
     public static String formatCardToService(String mFullName) {
         return mFullName.replace(" ", "");
     }
+
+    /**
+     * Obtiene las iniciales a mostrar si no tenemos foto: Ejemplo
+     * Frank Manzo Nava= FM
+     * Francisco = Fr
+     *
+     * @param fullName
+     * @return
+     */
+    public static String getIniciales(String fullName){
+        String[] spliName = fullName.split(" ");
+        String sIniciales = "";
+        if (spliName.length > 1) {
+            sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
+        } else {
+            if (fullName.length() > 1) {
+                sIniciales = fullName.substring(0, 2).toUpperCase();
+            } else {
+                sIniciales = fullName.substring(0, 1).toUpperCase();
+            }
+        }
+        return sIniciales;
+    }
 }

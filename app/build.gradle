@@ -22,12 +22,12 @@ apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 19
+        versionCode 20
         versionName "4.0.3"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

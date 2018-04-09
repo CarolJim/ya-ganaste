@@ -155,6 +155,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         sp.saveData(COMPANY_NAME, response.getNombreNegocio());
         sp.saveData(TIPO_AGENTE, response.getTipoAgente());
         RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
+        RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
         walletView.sendSuccessInfoAgente();
     }
 

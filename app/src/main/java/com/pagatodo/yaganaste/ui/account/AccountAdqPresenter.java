@@ -166,7 +166,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
                 ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
         } else {
-            if (BuildConfig.DEBUG)
                 Log.i(TAG, "La sesión se ha cerrado.");
         }
     }

@@ -90,7 +90,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     private final Handler handler = new Handler();
     private final Runnable longPressed = new Runnable() {
         public void run() {
-            if (BuildConfig.DEBUG)
                 Log.i(getTag(), "LongPress");
         }
     };
