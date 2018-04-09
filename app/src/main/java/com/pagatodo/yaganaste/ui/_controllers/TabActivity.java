@@ -97,7 +97,10 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
@@ -192,7 +195,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     }
 
-    private void init(){
+    private void init() {
         ContainerBuilder.MAINMENU(this, mLinearLayout, this);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
@@ -368,8 +371,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS
-                || requestCode == Constants.NEW_FAVORITE
-                || requestCode == Constants.EDIT_FAVORITE
+                || requestCode == NEW_FAVORITE_FROM_CERO
+                || requestCode == NEW_FAVORITE_FROM_OPERATION
+                || requestCode == EDIT_FAVORITE
                 || requestCode == CREDITCARD_READER_REQUEST_CODE) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
@@ -559,21 +563,21 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */
     private void updatePhoto() {
-        if (App.getInstance().getPrefs().loadData(GENERO)=="H"||App.getInstance().getPrefs().loadData(GENERO)=="h") {
+        if (App.getInstance().getPrefs().loadData(GENERO) == "H" || App.getInstance().getPrefs().loadData(GENERO) == "h") {
 
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
 
-        }else if (App.getInstance().getPrefs().loadData(GENERO)=="M"||App.getInstance().getPrefs().loadData(GENERO)=="m"){
+        } else if (App.getInstance().getPrefs().loadData(GENERO) == "M" || App.getInstance().getPrefs().loadData(GENERO) == "m") {
 
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
                     .into(imgLoginExistProfile);
 
-        }else {
+        } else {
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)

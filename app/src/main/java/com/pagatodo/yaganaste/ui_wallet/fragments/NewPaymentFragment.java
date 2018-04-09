@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,13 +49,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
 import static com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity.SEARCH_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity.SEARCH_IS_RELOAD;
-import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 
@@ -455,7 +456,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
          * Hacemos la peticion de favoritpos de Pagos, ahora que los favoritos de recargas estan listos
          */
         if (mDataPagarFav != null && mDataPagarFav.size() == 0) {
-             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
             newPaymentPresenter.getFavoritesItems(PAYMENT_SERVICIOS);
             typeView = TYPE_FAVORITE;
         }
@@ -609,19 +610,16 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                                 newPaymentPresenter, mType);
                         dialog.show();
                     } else if (mFullListaRecar.get(typePosition).get(position).getNombre().equals(
-                            App.getContext().getResources().getString(R.string.btn_req_payment_2_txt)
-                    )) {
+                            App.getContext().getResources().getString(R.string.btn_req_payment_2_txt))) {
                         // Iniciamos la actividad de Favoritos para recargas
-                      //  Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
+                        //  Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         Intent intent = new Intent(getContext(), FavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
-                        intent.putExtra(FavoritesActivity.FAV_PROCESS, 2);
-                        intent.putExtra(FavoritesActivity.TYPE_FAV,
-                                FavoritesActivity.TYPE_NEW_FAV);
+                        intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE_FROM_CERO, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
-                            getActivity().startActivityForResult(intent, NEW_FAVORITE);
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE_FROM_CERO);
                         }
                     } else {
                         intentPayment.putExtra(PAYMENT_DATA, mFullListaRecar.get(typePosition).get(position));
@@ -641,13 +639,11 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         // Iniciamos la actividad de Favoritos
                         Intent intent = new Intent(getContext(), FavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
-                        intent.putExtra(FavoritesActivity.FAV_PROCESS, 2);
-                        intent.putExtra(FavoritesActivity.TYPE_FAV,
-                                FavoritesActivity.TYPE_NEW_FAV);
+                        intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE_FROM_CERO, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
-                            getActivity().startActivityForResult(intent, NEW_FAVORITE);
+                            getActivity().startActivityForResult(intent, NEW_FAVORITE_FROM_CERO);
                         }
                     } else {
                         intentPayment.putExtra(PAYMENT_DATA, mFullListaServ.get(typePosition).get(position));
@@ -700,8 +696,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaRecar.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_RECARGA);
-                        intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
-                                FavoritesActivity.TYPE_EDIT_FAV);
+                        intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {
@@ -719,8 +714,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaServ.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_PAGOS);
-                        intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
-                                FavoritesActivity.TYPE_EDIT_FAV);
+                        intentEditFav.putExtra(FAVORITE_PROCESS,EDIT_FAVORITE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {

@@ -17,9 +17,16 @@ Las intrucciones de uso son las siguientes:
 
 Descripción al desarrollador:
 
+    * Separación de LogIn.
+    * Obtención de información adquiriente por catálogo.
+    * Homologación de clases editar y alta favoritos.
+    * Actualizaciones forzosas por medio de version en Firebase.
+    * Letras en mayúsculas para registro emisor, validacion de RENAPO.
+    * Corrección catálogo de Estados de la República.
+
 Funcionalidad:
 
-
+    * Tiempos de respuesta más rápidos para el inicio de sesión.
     
 **_VERSION 4.0.2 - 12 al 22 de Marzo del 2018 (ID:4440)_**
 

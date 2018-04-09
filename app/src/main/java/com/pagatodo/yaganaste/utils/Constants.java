@@ -29,9 +29,6 @@ public class Constants {
     public static final int PAYMENTS_ADQUIRENTE = 818;
     public static final int ACTIVITY_LANDING = 181;
 
-    public static final int NEW_FAVORITE = 1001;
-    public static final int EDIT_FAVORITE = 1002;
-
     public static final String RESULT = "Resultado";
     public static final String MESSAGE = "Mensaje";
     public static final String RESULT_ERROR = "Fail";
@@ -49,6 +46,11 @@ public class Constants {
 
     public static final String TIPO_TRANSACCION_CHIP = "1";
     public static final String TIPO_TRANSACCION_BANDA = "2";
+
+    /* FAVORITE CONSTANTS */
+    public static final int NEW_FAVORITE_FROM_CERO = 1;
+    public static final int NEW_FAVORITE_FROM_OPERATION = 2;
+    public static final int EDIT_FAVORITE = 3;
 
     // PaymentActivity
     public static final int PAYMENT_RECARGAS = 1;

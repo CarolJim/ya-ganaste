@@ -405,6 +405,21 @@
                             android:layout_height="20dp"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layoutScanQr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imgScanQr"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/icono_camara_servicios" />
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 

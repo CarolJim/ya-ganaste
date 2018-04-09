@@ -34,9 +34,11 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.RIGHT;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
 
 
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
@@ -220,7 +222,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                             if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
 
                                 Intent intent = new Intent(getContext(), FavoritesActivity.class);
-                                intent.putExtra(FavoritesActivity.FAV_PROCESS, 1);
+                                intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_OPERATION);
                                 intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
                                 intent.putExtra(ID_COMERCIO, idComercio);
                                 intent.putExtra(ID_TIPO_COMERCIO, comercioResponse.getIdTipoComercio());

@@ -157,12 +157,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
-
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)==Recursos.CRM_DOCTO_APROBADO) {
-            walletPresenter.updateBalance();
-        } else {
-            updateOperations(pageCurrent);
-        }
+        walletPresenter.updateBalance();
     }
 
     private void setUiPageViewController() {
@@ -210,7 +205,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 anuncio.setVisibility(View.GONE);
                 elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
             }
-            if (isAgente && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)==Recursos.CRM_DOCTO_APROBADO) {
+            if (isAgente && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == Recursos.CRM_DOCTO_APROBADO) {
                 colums = 3;
                 txtSaldo.setVisibility(View.VISIBLE);
                 anuncio.setVisibility(View.GONE);

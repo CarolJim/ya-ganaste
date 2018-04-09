@@ -53,7 +53,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.interfaces.enums.Direction.FORDWARD;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
@@ -324,9 +326,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
      */
     public void openAddFavoritos(View view) {
         if (!((Payments) pago).isFavorite()) {
-           // Intent intent = new Intent(this, AddToFavoritesActivity.class);
+            // Intent intent = new Intent(this, AddToFavoritesActivity.class);
             Intent intent = new Intent(this, FavoritesActivity.class);
-            intent.putExtra(FavoritesActivity.FAV_PROCESS, 1);
             intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
             intent.putExtra(ID_COMERCIO, idComercio);
             intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
@@ -334,8 +335,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             intent.putExtra(REFERENCIA, referencia);
             intent.putExtra(CURRENT_TAB_ID, tipoTab);
             intent.putExtra(DESTINATARIO, nombreDest);
-            intent.putExtra(FavoritesActivity.TYPE_FAV,
-                    FavoritesActivity.TYPE_NEW_FAV_OPER);
+            intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_OPERATION);
             startActivityForResult(intent, REQUEST_CODE_FAVORITES);
         }
     }

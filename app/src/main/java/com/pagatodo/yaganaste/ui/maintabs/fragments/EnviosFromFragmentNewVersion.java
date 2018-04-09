@@ -17,9 +17,6 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -55,7 +52,6 @@ import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.EnvioFormularioWallet;
-import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -66,7 +62,6 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.ui_wallet.adapters.MaterialPaletteAdapter;
 import com.pagatodo.yaganaste.ui_wallet.builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
@@ -104,14 +99,16 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
-import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.CURRENT_TAB_ID;
-import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAV_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
@@ -121,7 +118,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 public class EnviosFromFragmentNewVersion extends GenericFragment implements
         EnviosManager, TextView.OnEditorActionListener, View.OnClickListener,
         PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener,
-        PaletteViewHolder.OnClickListener{
+        PaletteViewHolder.OnClickListener {
 
     private View rootview;
     @BindView(R.id.spnTypeSend)
@@ -253,7 +250,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         });
 
 
-
         receiverName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -300,7 +296,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             }
         });
         /**/
-
 
 
         btnenviar.setOnClickListener(this);
@@ -798,7 +793,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         mLinearLayout.removeAllViews();
         ContainerBuilder.FAVORITOS(getContext(),mLinearLayout,lista,this);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-
     }
 
     private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
@@ -1318,9 +1312,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
                 Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
                 intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), favorito);
-                intentEditFav.putExtra(PaymentsProcessingActivity.CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                intentEditFav.putExtra(FavoritesActivity.TYPE_FAV,
-                        FavoritesActivity.TYPE_EDIT_FAV);
+                intentEditFav.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 } else {
@@ -1331,10 +1324,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             if (favorito.getIdComercio() == 0) { // Click en item Agregar
                 //Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
                 Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
-                intentAddFavorite.putExtra(FAV_PROCESS, 2);
                 intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
-                intentAddFavorite.putExtra(FavoritesActivity.TYPE_FAV,
-                        FavoritesActivity.TYPE_NEW_FAV);
+                intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
                 startActivityForResult(intentAddFavorite,RESUL_FAVORITES);
             } else {
                 // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
