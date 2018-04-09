@@ -752,6 +752,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         bancoselected = true;
 
         if (!solicitabanco) {
+
+
+
             UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override

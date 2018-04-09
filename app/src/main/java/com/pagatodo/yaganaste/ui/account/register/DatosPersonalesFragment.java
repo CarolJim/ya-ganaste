@@ -93,6 +93,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.edit_nombre)
     EditText editNames;
 
+
+
+
+
     @BindView(R.id.text_nombre)
     TextInputLayout text_nombre;
     @BindView(R.id.text_apater)
@@ -703,7 +707,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
-        if (BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             onValidationSuccess();
         } else {
             accountPresenter.validatePersonData();
@@ -790,28 +794,48 @@ public class DatosPersonalesFragment extends GenericFragment implements
     public void showError(Object error) {
         errorVerificationData++;
         String titulo = "", text = "";
-        if (!error.toString().isEmpty() && errorVerificationData < 4) {
-            //  UI.showToastShort(error.toString(), getActivity());
-            text = getString(R.string.problem_with_register1);
 
-            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),text, new DialogInterface.OnClickListener() {
+        String CURP="";
+        if (error.equals("601")){
+            UI.createCustomDialogCURP(getResources().getString(R.string.ingresa_tu_curp), " ", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                public void actionConfirm(Object... params) {
+                    EditText curphomo=(EditText) getActivity().findViewById(R.id.edit_curp);
+                    RegisterUser registerUser = RegisterUser.getInstance();
+                    registerUser.setCURP(curphomo.getText().toString());
+                }
+
+                @Override
+                public void actionCancel(Object... params) {
 
                 }
-            });
+            }, "Confirmar", "");
 
-        } else {
-            text = getString(R.string.problem_with_register2);
-            titulo = getString(R.string.titulo_extranjero);
-            seencuentra = true;
-            UI.showAlertDialogLlamar(getActivity(), titulo,text, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    llamar();
-                }
-            });
+        }else {
 
+            if (!error.toString().isEmpty() && errorVerificationData < 4) {
+                //  UI.showToastShort(error.toString(), getActivity());
+                text = getString(R.string.problem_with_register1);
+
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+            } else {
+                text = getString(R.string.problem_with_register2);
+                titulo = getString(R.string.titulo_extranjero);
+                seencuentra = true;
+                UI.showAlertDialogLlamar(getActivity(), titulo, text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        llamar();
+                    }
+                });
+
+            }
         }
     }
 
@@ -861,6 +885,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 String text = getString(R.string.problem_with_register2);
                 String titulo = getString(R.string.titulo_extranjero);
                 seencuentra = true;
+                /*
                 UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -872,7 +897,15 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         llamar();
                     }
                 }, " ", "Llamar");
+*/
 
+                seencuentra = true;
+                UI.showAlertDialogLlamar(getActivity(), titulo,text, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        llamar();
+                    }
+                });
             }
             if (!seencuentra && i == paises.size() - 1) {
                 setPersonData();

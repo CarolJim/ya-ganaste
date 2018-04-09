@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.utils.customviews.CustomDocumentsErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 public class UI {
@@ -151,7 +150,23 @@ public class UI {
     }
 
     public static void createSimpleCustomDialog(String title, String message, FragmentManager fragmentManager, String tag) {
-        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, true, false);
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_message, title, message, true, false);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                customErrorDialog.dismiss();
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        });
+        customErrorDialog.show(fragmentManager, tag);
+    }
+
+    public static void SimpleCustomDialogCURP(String title, String message, FragmentManager fragmentManager, String tag) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_error_message, title, message, true, false);
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
@@ -170,7 +185,7 @@ public class UI {
 
     public static void createCustomDialogSMS(String title, String message, FragmentManager fragmentManager, String tag,
                                              DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
-        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message,
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_message,
                 title, message, true, true);
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
@@ -194,6 +209,20 @@ public class UI {
     }
 
 
+    public static void createCustomDialogCURP(String title, String message, FragmentManager fragmentManager, String tag,
+                                                    DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_error_message,
+                title, message, true, false);
+
+
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+    }
+
+
     public static void createSimpleCustomDialogNoCancel(String title, String message,
                                                         FragmentManager fragmentManager, final DialogDoubleActions actions) {
         createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
@@ -202,7 +231,7 @@ public class UI {
     public static void createSimpleCustomDialog(String title, String message,
                                                 FragmentManager fragmentManager, final DialogDoubleActions actions,
                                                 boolean hasConfirmBtn, boolean hasCancelBtn) {
-        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, hasConfirmBtn, hasCancelBtn);
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_message, title, message, hasConfirmBtn, hasCancelBtn);
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {

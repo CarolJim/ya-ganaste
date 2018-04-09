@@ -26,6 +26,7 @@ public class RegisterUser {
     private String idPaisNacimiento = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimineto = "";
+    private String CURP = "";
     //Datos Domicilio Actual
     private String calle = "";
     private String numExterior = "";
@@ -50,6 +51,14 @@ public class RegisterUser {
 
     private RegisterUser() {
 
+    }
+
+    public String getCURP() {
+        return CURP;
+    }
+
+    public void setCURP(String CURP) {
+        this.CURP = CURP;
     }
 
     public String getUrifotoperfil() {

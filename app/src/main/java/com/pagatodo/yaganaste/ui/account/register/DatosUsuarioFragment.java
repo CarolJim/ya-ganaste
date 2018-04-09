@@ -620,7 +620,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     }
 
     private CustomErrorDialog createCustomDialog(String title, String message) {
-        CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, true, false);
+        CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_message, title, message, true, false);
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
