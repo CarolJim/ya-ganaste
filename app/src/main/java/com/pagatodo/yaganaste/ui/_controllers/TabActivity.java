@@ -564,14 +564,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
      */
     private void updatePhoto() {
         if (App.getInstance().getPrefs().loadData(GENERO) == "H" || App.getInstance().getPrefs().loadData(GENERO) == "h") {
-
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
                     .into(imgLoginExistProfile);
 
         } else if (App.getInstance().getPrefs().loadData(GENERO) == "M" || App.getInstance().getPrefs().loadData(GENERO) == "m") {
-
             String mUserImage = App.getInstance().getPrefs().loadData(URL_PHOTO_USER);
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)

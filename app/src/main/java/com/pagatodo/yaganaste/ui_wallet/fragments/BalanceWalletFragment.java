@@ -380,7 +380,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 .into(crlProfileBalance);
         */
 
-
         if (prefs.loadData(GENERO)=="H"||prefs.loadData(GENERO)=="h") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
