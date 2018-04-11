@@ -17,8 +17,8 @@ public class Constants {
 
     //region requests codes
     public static final int CONTACTS_CONTRACT = 50;
-    public static final int CONTACTS_CONTRACT_FAMILIAR  = 51;
-    public static final int CONTACTS_CONTRACT_PERSONAL  = 52;
+    public static final int CONTACTS_CONTRACT_FAMILIAR = 51;
+    public static final int CONTACTS_CONTRACT_PERSONAL = 52;
     public static final int CONTACTS_CONTRACT_PROVEEDOR = 53;
 
     public static final int BARCODE_READER_REQUEST_CODE = 60;
@@ -56,4 +56,9 @@ public class Constants {
     public static final int PAYMENT_RECARGAS = 1;
     public static final int PAYMENT_SERVICIOS = 2;
     public static final int PAYMENT_ENVIOS = 3;
+
+    /* Movements Id's */
+    public static final int MOVEMENTS_EMISOR = 1;
+    public static final int MOVEMENTS_ADQ = 2;
+    public static final int MOVEMENTS_STARBUCKS = 3;
 }

@@ -12,5 +12,7 @@ import java.util.List;
 public interface IRenapoView extends INavigationView {
     void onValidateUserDataSuccess();
 
+    void onHomonimiaError();
+
     void showDialogList(List<Paises> paises);
 }

@@ -30,6 +30,8 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_ADQ;
+import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
@@ -86,14 +88,16 @@ public class ViewPagerDataFactory {
                 throw new IllegalFactoryParameterException(type.toString());
         }
     }
+
     private static void addMainFragmentsselection(List<Fragment> fragmentList) {
         fragmentList.remove(StatusRegisterAdquirienteFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
         fragmentList.add(DocumentsContainerFragment.newInstance());
 
     }
+
     private static void addMainFragments(List<Fragment> fragmentList) {
-       int Idestatus;
+        int Idestatus;
         fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
         fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(NewPaymentFragment.newInstance());
@@ -138,11 +142,11 @@ public class ViewPagerDataFactory {
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {
-        fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
+        fragmentList.add(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR));
 
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE)==CRM_DOCTO_APROBADO) {
-            fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) == CRM_DOCTO_APROBADO) {
+            fragmentList.add(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ));
         } else {
             fragmentList.add(BlankFragment.newInstance());
         }

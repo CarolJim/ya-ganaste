@@ -50,6 +50,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSA
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
+import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_ADQ;
+import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
@@ -144,10 +146,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case 1:
                 switch (currentPage) {
                     case PAGE_EMISOR:
-                        loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS), R.id.fragment_container);
+                        loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR), R.id.fragment_container);
                         break;
                     case PAGE_ADQ:
-                        loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS), R.id.fragment_container);
+                        loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ), R.id.fragment_container);
                         break;
                 }
 
@@ -192,10 +194,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         if (requestCode == REQUEST_CODE_FAVORITES) {
             switch (currentPage) {
                 case PAGE_EMISOR:
-                    loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS), R.id.fragment_container);
+                    loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR), R.id.fragment_container);
                     break;
                 case PAGE_ADQ:
-                    loadFragment(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS), R.id.fragment_container);
+                    loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ), R.id.fragment_container);
                     break;
             }
         }

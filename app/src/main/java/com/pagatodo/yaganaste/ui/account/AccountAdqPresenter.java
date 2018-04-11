@@ -142,6 +142,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
+    public void onHomonimiaDataPerson() {
+
+    }
+
+    @Override
     public void onSuccesStateCuenta() {
 
     }
