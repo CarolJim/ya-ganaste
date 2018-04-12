@@ -311,11 +311,17 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
+    public void onHomonimiaDataPerson() {
+        accountView.hideLoader();
+        ((IRenapoView) accountView).onHomonimiaError();
+    }
+
+    @Override
     public void onError(WebService ws, Object error) {
         accountView.hideLoader();
         if (accountView instanceof IRenapoView) {
             if (ws == VALIDAR_DATOS_PERSONA) {
-                    accountView.showError(error.toString());
+                accountView.showError(error.toString());
             }
         } else if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
@@ -516,7 +522,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((RecoveryPasswordView) accountView).recoveryPasswordSuccess(data.toString());
             }
         } else if (ws == CERRAR_SESION) {
-                Log.i(TAG, context.getString(R.string.sesion_close));
+            Log.i(TAG, context.getString(R.string.sesion_close));
         } else if (accountView instanceof IDocumentApproved) {
             ((IDocumentApproved) accountView).dataUpdated(data.toString());
         }

@@ -42,17 +42,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_ADQ;
+import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
+
 /**
  * Android TEAM 28/02/2018
  */
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener{
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
 
     public SwipyRefreshLayoutDirection direction;
-    public static final int MOVEMENTS = 1;
-    public static final int PAYMENTS = 2;
     public static final String TYPE = "TYPE";
     @BindView(R.id.tab_months)
     GenericTabLayout<T> tabMonths;
@@ -82,10 +83,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     public static AbstractAdEmFragment newInstance(int type) {
         AbstractAdEmFragment instance;
         switch (type) {
-            case MOVEMENTS:
+            case MOVEMENTS_EMISOR:
                 instance = PersonalAccountFragment.newInstance();
                 break;
-            case PAYMENTS:
+            case MOVEMENTS_ADQ:
                 instance = PaymentsFragment.newInstance();
                 break;
             default:
@@ -130,7 +131,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         //txtInfoMovements.setOnClickListener(this);
         //progress_emisor.setVisibility(View.VISIBLE);
         //progress_emisor.setBackgroundColor(getResources().getColor(R.color.colorLoaderAlpha));
-        swipeContainer.setDirection(type == MOVEMENTS ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
+        swipeContainer.setDirection(type == MOVEMENTS_EMISOR ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
         swipeContainer.setOnRefreshListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerMovements.setLayoutManager(layoutManager);
@@ -206,7 +207,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         recyclerMovements.setVisibility(View.VISIBLE);
 
 
-
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
@@ -229,10 +229,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void showError(String error) {
-      // UI.showToastShort(error, getActivity());
+        // UI.showToastShort(error, getActivity());
         //showDialogMesage(error.toString());
         hideLoader();
-        UI.showErrorSnackBar(getActivity(),error, Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), error, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -258,15 +258,4 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected void notifyDataSetChanged() {
         recyclerMovements.getAdapter().notifyDataSetChanged();
     }
-
-    public interface UpdateBalanceCallback {
-        void onUpdateBalance();
-    }
-
-    /*@Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.txt_info_movements) {
-            onRefresh(SwipyRefreshLayoutDirection.TOP);
-        }
-    }*/
 }

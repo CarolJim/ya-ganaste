@@ -13,26 +13,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
-import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.DongleBatteryHome;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
@@ -41,11 +35,8 @@ import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
 import java.util.List;
 
-import butterknife.BindView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
-        AbstractAdEmFragment.UpdateBalanceCallback, TabLayoutEmAd.onBlockCard, TabLayoutEmAd.clikdongle {
+       TabLayoutEmAd.onBlockCard, TabLayoutEmAd.clikdongle {
 
     private static final int MY_PERMISSIONS_REQUEST_SOUND = 100;
 
@@ -170,11 +161,6 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         if (onEventListener != null) {
             onEventListener.onEvent(TabActivity.EVENT_INVITE_ADQUIRENTE, null);
         }
-    }
-
-    @Override
-    public void onUpdateBalance() {
-        //tabLayoutEmAd.updateData();
     }
 
     @Override

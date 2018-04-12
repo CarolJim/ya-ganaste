@@ -202,6 +202,11 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
+    public void onHomonimiaDataPerson() {
+
+    }
+
+    @Override
     public void onSuccesStateCuenta() {
 
     }

@@ -329,7 +329,12 @@ public class StringUtils {
      */
     public static String procesarURLString(String mUserImage) {
         String[] urlSplit = mUserImage.split("_");
-        String urlEdit = urlSplit[0] + "_M.png";
+        String urlEdit = "";
+        if (urlSplit[1].contains("png")) {
+            urlEdit = urlSplit[0] + "_M.png";
+        } else if (urlSplit[1].contains("jpg")) {
+            urlEdit = urlSplit[0] + "_M.jpg";
+        }
         return urlEdit;
     }
 
@@ -401,7 +406,7 @@ public class StringUtils {
      * @param fullName
      * @return
      */
-    public static String getIniciales(String fullName){
+    public static String getIniciales(String fullName) {
         String[] spliName = fullName.trim().split(" ");
         String sIniciales = "";
         if (spliName.length > 1) {
