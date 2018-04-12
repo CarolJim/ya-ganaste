@@ -29,6 +29,8 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PersonalAccountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
@@ -146,10 +148,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case 1:
                 switch (currentPage) {
                     case PAGE_EMISOR:
-                        loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR), R.id.fragment_container);
+                        //loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR), R.id.fragment_container);
+                        loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
+
                         break;
                     case PAGE_ADQ:
-                        loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ), R.id.fragment_container);
+                        loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                        //loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ), R.id.fragment_container);
                         break;
                 }
 
@@ -194,10 +199,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         if (requestCode == REQUEST_CODE_FAVORITES) {
             switch (currentPage) {
                 case PAGE_EMISOR:
-                    loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR), R.id.fragment_container);
+                    loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
                     break;
                 case PAGE_ADQ:
-                    loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ), R.id.fragment_container);
+                    loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
                     break;
             }
         }

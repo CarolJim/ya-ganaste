@@ -79,9 +79,12 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected IFavoritesPresenter favoritesPresenter;
     protected PresenterPaymentFragment paymentPresenter;
 
+    public AbstractAdEmFragment(){
 
-    public static AbstractAdEmFragment newInstance(int type) {
-        AbstractAdEmFragment instance;
+    }
+
+   /*public static AbstractAdEmFragment newInstance(int type) {
+        /* AbstractAdEmFragment instance;
         switch (type) {
             case MOVEMENTS_EMISOR:
                 instance = PersonalAccountFragment.newInstance();
@@ -95,9 +98,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         Bundle args = new Bundle();
         args.putInt(TYPE, type);
 
-        instance.setArguments(args);
-        return instance;
-    }
+        instance.setArguments(args);*
+
+    }*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

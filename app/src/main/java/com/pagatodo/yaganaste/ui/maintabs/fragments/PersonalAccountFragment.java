@@ -43,8 +43,9 @@ import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION
 
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
 
-    RecyclerView.Adapter currentAdapter;
     public static final String TAG = PersonalAccountFragment.class.getSimpleName();
+    RecyclerView.Adapter currentAdapter;
+
 
     public static PersonalAccountFragment newInstance() {
         PersonalAccountFragment personalAccountFragment = new PersonalAccountFragment();

@@ -63,10 +63,10 @@ public class ViewPagerDataFactory {
                 addMainFragmentsselection(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
 */
-            case HOME_FRAGMENT:
+            /*case HOME_FRAGMENT:
                 addHomeFragments(fragmentList);
                 return new ViewPagerData<>(fragmentList, AdqEmTab.values());
-
+*/
             case PERSONAL_ACCOUNT:
                 return new ViewPagerData<>(null, DateUtil.getLastMovementstMonths().toArray(new MonthsMovementsTab[0]));
 
@@ -142,14 +142,14 @@ public class ViewPagerDataFactory {
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {
-        fragmentList.add(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR));
+        /*fragmentList.add(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR));
 
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
                 && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) == CRM_DOCTO_APROBADO) {
             fragmentList.add(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ));
         } else {
             fragmentList.add(BlankFragment.newInstance());
-        }
+        }*/
     }
 
 
