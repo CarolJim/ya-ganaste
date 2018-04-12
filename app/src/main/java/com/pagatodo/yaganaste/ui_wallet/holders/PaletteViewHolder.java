@@ -63,6 +63,7 @@ public class PaletteViewHolder extends RecyclerView.ViewHolder {
             crlImageStatus.setVisibility(View.GONE);
         }
     }
+
     // Se encarga de crear el circulo Drawable que usaremos para mostrar las imagenes o los textos
     private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
         // Creamos el circulo que mostraremos

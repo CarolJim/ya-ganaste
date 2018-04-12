@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
@@ -229,6 +230,8 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
             ((PaymentAuthorizeFragment) fm).loadOtpHuella();
         if (fm instanceof BlockCardFragment)
             ((BlockCardFragment) fm).loadOtpHuella();
+        if (fm instanceof CancelAccountFragment)
+            ((CancelAccountFragment) fm).loadOtpHuella();
 
     }
 }

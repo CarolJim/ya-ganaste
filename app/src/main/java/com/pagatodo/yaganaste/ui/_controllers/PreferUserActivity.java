@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.AvisoPrivacidadFragment;
 import com.pagatodo.yaganaste.ui.preferuser.CuentaReembolsoFragment;
@@ -37,6 +38,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
@@ -56,7 +58,7 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_L
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener{
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_CLOSE = "PREFER_USER_CLOSE";
@@ -71,6 +73,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_CUENTA_REEMBOLSO = "PREFER_USER_CUENTA_REEMBOLSO";
     public static String PREFER_USER_CUENTA_REEMBOLSO_BACK = "PREFER_USER_CUENTA_REEMBOLSO_BACK";
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
+    public static String PREFER_USER_CANCELACION = "PREFER_USER_CANCELACION";
     public static String PREFER_USER_DESASOCIAR_BACK = "PREFER_USER_DESASOCIAR_BACK";
     public static String PREFER_USER_MY_USER = "PREFER_USER_MY_USER";
     public static String PREFER_USER_HELP_CONTACT = "PREFER_USER_HELP_CONTACT";
@@ -443,6 +446,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                     disableBackButton = false;
                 }
                 break;
+            case "PREFER_USER_CANCELACION":
+                loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title),getResources().getString(R.string.cacncel_desc)),Direction.FORDWARD, false);
+                break;
+
         }
     }
 
@@ -576,4 +583,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         showDialogMesage(mensaje);
         // onEventListener.onEvent("DISABLE_BACK", false);
     }
+
+
 }

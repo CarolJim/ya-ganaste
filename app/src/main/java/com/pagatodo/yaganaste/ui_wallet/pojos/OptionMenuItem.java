@@ -133,15 +133,15 @@ public class OptionMenuItem {
     final public static int ID_DESVINCULAR = 6;
     final public static int ID_LOGOUT = 7;
     final public static int ID_CODE = 8;
+    final public static int ID_CANCELACION = 9;
 
 
-
-    public static class ViewHolderOptionMenuItme {
+    /*public static class OptionMenuIViewHolder {
         public RelativeLayout relativeLayout;
         public ImageView imageView;
         public StyleTextView title;
         public View dividerList;
-    }
+    }*/
 
     public static class ViewHolderMenuSegurity {
         public RelativeLayout relativeLayout;

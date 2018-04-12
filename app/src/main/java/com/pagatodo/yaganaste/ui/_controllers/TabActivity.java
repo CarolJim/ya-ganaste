@@ -56,6 +56,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.NavigationDrawerPresenter;
@@ -85,6 +86,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
+import static com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder.MAINMENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
@@ -117,7 +119,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OptionMenuItem.OnMenuItemClickListener,
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OnClickItemHolderListener,
         IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
@@ -196,7 +198,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     private void init() {
-        ContainerBuilder.MAINMENU(this, mLinearLayout, this);
+        ContainerBuilder.builder(this,mLinearLayout,this,MAINMENU);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
         imgLoginExistProfile.setOnClickListener(new View.OnClickListener() {
@@ -249,11 +251,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(App.getInstance().getPrefs().loadData(SHA_256_FREJA));
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
+        Toolbar toolbar = findViewById(R.id.toolbarTest);
 
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -587,7 +589,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     @Override
-    public void OnMenuItem(OptionMenuItem optionMenuItem) {
+    public void onClick(Object item) {
+        OptionMenuItem optionMenuItem = (OptionMenuItem) item;
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:
                 actionMenu(MENU_SEGURIDAD);

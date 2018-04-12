@@ -1228,6 +1228,7 @@
     <string name="ajustes_notificar_option">Notificaciones</string>
     <string name="ajustes_notificar_suboption">Selecciona Las Notificaciones Que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>
+    <string name="ajustes_cancelacion_option">Cancelar Cuenta</string>
     <string name="notific_discreption">Selecciona las Notificaciones que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="notific_pagos_option">Pagos con Tarjeta</string>
     <string name="notific_retiros_option">Retiros de Efectivo</string>
@@ -1385,4 +1386,6 @@
     <string name="load_movimientos">Cargando mivimientos</string>
     <string name="ingresa_tu_curp">Ingresa tu CURP</string>
 
+    <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
+    <string name="cacncel_desc">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>
 </resources>

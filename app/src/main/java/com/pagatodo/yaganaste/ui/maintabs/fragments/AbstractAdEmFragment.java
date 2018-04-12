@@ -93,6 +93,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         }
         Bundle args = new Bundle();
         args.putInt(TYPE, type);
+
         instance.setArguments(args);
         return instance;
     }

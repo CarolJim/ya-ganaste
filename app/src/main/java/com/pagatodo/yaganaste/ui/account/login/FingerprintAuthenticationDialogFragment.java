@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 
@@ -164,6 +165,9 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
             mActivity = (AccountActivity) getActivity();
         if (context instanceof PaymentsProcessingActivity)
             mActivity = (PaymentsProcessingActivity) getActivity();
+        if (context instanceof PreferUserActivity){
+            mActivity = (PreferUserActivity) getActivity();
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mInputMethodManager = context.getSystemService(InputMethodManager.class);
         }

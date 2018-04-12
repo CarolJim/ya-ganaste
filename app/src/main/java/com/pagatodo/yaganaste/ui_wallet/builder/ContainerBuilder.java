@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.builder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +15,11 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
+import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
+import com.pagatodo.yaganaste.ui_wallet.holders.OptionMenuIViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.ViewHolderMenuSegurity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
@@ -27,6 +32,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CANCELACION;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
@@ -45,37 +51,48 @@ import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 public class ContainerBuilder {
 
-    public static ArrayList<InputText.ViewHolderInputText> NIP(Context context, ViewGroup parent){
-        Container s = new Container(context);
-        s.addLayout(parent, new InputText(R.string.nip_actual));
-        s.addLayout(parent, new InputText(R.string.nip_nuevo));
-        s.addLayout(parent, new InputText(R.string.nip_confima));
-        return s.getArrayListInput();
+    public static final String MAINMENU = "MAINMENU";
+    public static final String SETTINGS_MENU = "SETTINGS_MENU";
+
+    public static void builder(Context context, ViewGroup parent, OnClickItemHolderListener  listener, String type){
+        Container s = new Container(context,parent,listener);
+        switch (type){
+            case MAINMENU:
+                mainMenu(s);
+                break;
+            case SETTINGS_MENU:
+                settingsMenu(s);
+                break;
+        }
     }
 
-    public static ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> MAINMENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
-        Container s = new Container(context,listener);
-        s.addOptionMenu(parent,new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
-        s.addOptionMenu(parent,new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
-        s.addOptionMenu(parent,new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
-        s.addOptionMenu(parent,new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
-        s.addOptionMenu(parent,new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout,false));
-        return s.getArrayListOptionMenu();
+    private static void mainMenu(Container s){
+        int res = R.layout.option_menu_tem_view;
+        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
+        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
+        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
+        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
+        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout,false));
     }
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SECURITY_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
+    private static void settingsMenu(Container s){
+        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option,0, RAW));
+        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_CANCELACION, R.string.ajustes_cancelacion_option,0, RAW));
+    }
+
+    /*public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SECURITY_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
         Container s = new Container(context,listener);
         s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
         s.addOptionMenuSegurity(parent,new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
         return s.getArrayListOptionMenuSegurity();
-    }
+    }*/
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
+    /*public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
         Container s = new Container(context,listener);
         //s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_NOTIFICACIONES, R.string.ajustes_notificar_option, 0,RAW));
         s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option,0, RAW));
         return s.getArrayListOptionMenuSegurity();
-    }
+    }*/
 
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_NOTIFICACIONES(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
         Container s = new Container(context,listener);
@@ -97,6 +114,7 @@ public class ContainerBuilder {
         s.addOptionMenuSegurity(parent,new OptionMenuItem(1, R.string.aviso_privacidad_cuenta_ganaste,0, RAW));
         return s.getArrayListOptionMenuSegurity();
     }
+
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ADMINISTRACION(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
         Container s = new Container(context,listener);
         s.addOptionMenuSegurity(parent,new OptionMenuItem(1, R.string.my_card_change_nip,0, RAW));

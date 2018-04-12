@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui_wallet.builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomRadioButton;
@@ -30,8 +31,11 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.FINGERPRINT_SERVICE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_NOTIFICACIONES;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CANCELACION;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PASS;
+import static com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder.SETTINGS_MENU;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CANCELACION;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_NOTIFICACIONES;
@@ -44,7 +48,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
  * Use the {@link SecurityFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SecurityFragment extends SupportFragment implements OptionMenuItem.OnMenuItemClickListener {
+public class SecurityFragment extends SupportFragment implements OnClickItemHolderListener {
 
     public static String MENU = "MENU";
     public static String MENSAJE = "MENSAJE";
@@ -117,7 +121,7 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
             case 2:
                 //listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
-                ContainerBuilder.SETTINGS_MENU(getContext(),mLinearLayout,this);
+                ContainerBuilder.builder(getContext(),mLinearLayout,this,SETTINGS_MENU);
                 break;
             case 3:
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_acerca));
@@ -128,7 +132,7 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
         }
     }
 
-    @Override
+    /*@Override
     public void OnMenuItem(OptionMenuItem optionMenuItem) {
         switch (optionMenuItem.getIdItem()) {
             case ID_CCAMBIAR_PASS:
@@ -139,6 +143,27 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
                 break;
             case ID_DESVINCULAR:
                 onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
+                break;
+            default:
+                break;
+        }
+    }*/
+
+    @Override
+    public void onClick(Object item) {
+        OptionMenuItem optionMenuItem = (OptionMenuItem) item;
+        switch (optionMenuItem.getIdItem()) {
+            case ID_CCAMBIAR_PASS:
+                onEventListener.onEvent(PREFER_USER_PASS, null);
+                break;
+            case ID_NOTIFICACIONES:
+                onEventListener.onEvent(PREFER_NOTIFICACIONES, null);
+                break;
+            case ID_DESVINCULAR:
+                onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
+                break;
+            case ID_CANCELACION:
+                onEventListener.onEvent(PREFER_USER_CANCELACION,null);
                 break;
             default:
                 break;
@@ -168,7 +193,7 @@ public class SecurityFragment extends SupportFragment implements OptionMenuItem.
                                 }
                             }
                         });
-                        radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                                 if (b){

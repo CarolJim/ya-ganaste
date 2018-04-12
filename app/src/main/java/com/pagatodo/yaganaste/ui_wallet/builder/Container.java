@@ -1,15 +1,17 @@
 package com.pagatodo.yaganaste.ui_wallet.builder;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
+import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.holders.OptionMenuIViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.ViewHolderMenuSegurity;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
@@ -27,13 +29,21 @@ public class Container {
 
     private Context context;
     private OptionMenuItem.OnMenuItemClickListener listener;
+    private OnClickItemHolderListener listenerHolder;
     private ViewGroup parent;
+    private View viewItem;
 
-    public Container(){}
+    private ArrayList<GenericHolder> listItems;
 
-    public Container(Context context, ViewGroup parent){
+    public Container(){
+
+    }
+
+    public Container(Context context, ViewGroup parent, OnClickItemHolderListener listener){
+        this.listItems = new ArrayList<>();
         this.context = context;
         this.parent = parent;
+        this.listenerHolder = listener;
     }
 
     public Container(Context context){
@@ -44,11 +54,60 @@ public class Container {
         this.context = context;
         this.listener = listener;
     }
+
+    public Container(Context context, OnClickItemHolderListener listener){
+        this.context = context;
+        this.listenerHolder = listener;
+    }
+
+    public Container(Context context, ViewGroup parent){
+        this.context = context;
+        this.parent = parent;
+    }
+
+    public void addItemOptionMenuIViewHolder(int resource, Object item){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(resource, this.parent, false);
+        GenericHolder holder = new OptionMenuIViewHolder(layout);
+        holder.bind(item,this.listenerHolder);
+        parent.addView(layout);
+        listItems.add(holder);
+    }
+
+    public void addItemViewHolderMenuSegurity(Object item){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        OptionMenuItem optionMenuItem = (OptionMenuItem) item;
+        View layout = null;
+        if (optionMenuItem.getIndication() != null && optionMenuItem.getIndication() == RAW) {
+            layout = inflater.inflate(R.layout.menu_navegation_drawwer_adpater, parent, false);
+        }
+        if (optionMenuItem.getIndication() != null && optionMenuItem.getIndication() == RADIOBUTTON) {
+            layout = inflater.inflate(R.layout.option_menu_tem_view, parent, false);
+        }
+
+        GenericHolder holder = new ViewHolderMenuSegurity(layout);
+        holder.bind(item,this.listenerHolder);
+        parent.addView(layout);
+        listItems.add(holder);
+    }
+
+    public ViewGroup getParent(){
+        return this.parent;
+    }
+
+    public Context getContext(){
+        return this.context;
+    }
+
+    public GenericHolder getItem(int position){
+        return listItems.get(position);
+    }
+
     private ArrayList<OptionMenuItem> options = new ArrayList<>();
     private ArrayList<TextData> textDataList = new ArrayList<>();
     private ArrayList<InputText> inputTextList = new ArrayList<>();
     private ArrayList<InputText.ViewHolderInputText> arrayListInput = new ArrayList<>();
-    private ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> arrayListOptionMenu = new ArrayList<>();
+    private ArrayList<OptionMenuIViewHolder> arrayListOptionMenu = new ArrayList<>();
     private ArrayList<OptionMenuItem.ViewHolderMenuSegurity> arrayListOptionMenuSegurity = new ArrayList<>();
     private ArrayList<PaletteViewHolder> holdersList = new ArrayList<>();
 
@@ -74,6 +133,15 @@ public class Container {
         this.inputTextList.add(inputText);
     }
 
+    /*public void addOptionMenu(ViewGroup parent, final OptionMenuItem optionMenuItem) {
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View view = inflater.inflate(R.layout.option_menu_tem_view, parent, false);
+        OptionMenuIViewHolder viewHolder = new OptionMenuIViewHolder(view);
+        viewHolder.bind(optionMenuItem,listener);
+        parent.addView(view);
+        this.arrayListOptionMenu.add(viewHolder);
+    }*/
+
     ArrayList<OptionMenuItem> getOptions() {
         return this.options;
     }
@@ -81,7 +149,7 @@ public class Container {
     ArrayList<InputText.ViewHolderInputText> getArrayListInput(){
         return this.arrayListInput;
     }
-    ArrayList<OptionMenuItem.ViewHolderOptionMenuItme> getArrayListOptionMenu(){ return this.arrayListOptionMenu;}
+    ArrayList<OptionMenuIViewHolder> getArrayListOptionMenu(){ return this.arrayListOptionMenu;}
     public ArrayList<OptionMenuItem.ViewHolderMenuSegurity> getArrayListOptionMenuSegurity(){ return this.arrayListOptionMenuSegurity;}
     public ArrayList<InputText> getInputTextList() {
         return this.inputTextList;
@@ -136,32 +204,6 @@ public class Container {
         return viewHolderInputText;
     }
 
-    public void addOptionMenu(ViewGroup parent, final OptionMenuItem optionMenuItem) {
-        LayoutInflater inflater = LayoutInflater.from(this.context);
-        View layout = inflater.inflate(R.layout.option_menu_tem_view, parent, false);
-        OptionMenuItem.ViewHolderOptionMenuItme viewHolder = new OptionMenuItem.ViewHolderOptionMenuItme();
-        viewHolder.relativeLayout = layout.findViewById(R.id.item_menu);
-        viewHolder.imageView = layout.findViewById(R.id.ic_item);
-        viewHolder.title = layout.findViewById(R.id.title);
-        viewHolder.dividerList = layout.findViewById(R.id.dividerList);
-        viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.OnMenuItem(optionMenuItem);
-            }
-        });
-        viewHolder.imageView.setBackgroundResource(optionMenuItem.getResourceItem());
-        viewHolder.title.setText(optionMenuItem.getResourceTitle());
-
-        if (optionMenuItem.isDivider()) {
-            viewHolder.dividerList.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.dividerList.setVisibility(View.INVISIBLE);
-        }
-        parent.addView(layout);
-        this.arrayListOptionMenu.add(viewHolder);
-    }
-
     public void addOptionMenuSegurity(ViewGroup parent, final OptionMenuItem optionMenuItem) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = null;
@@ -175,7 +217,7 @@ public class Container {
             viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.OnMenuItem(optionMenuItem);
+                    listenerHolder.onClick(optionMenuItem);
                 }
             });
             parent.addView(layout);
