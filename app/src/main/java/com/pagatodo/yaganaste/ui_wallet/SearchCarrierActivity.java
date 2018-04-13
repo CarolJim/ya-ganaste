@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -18,9 +19,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_DATA;
 import static com.pagatodo.yaganaste.ui_wallet.PaymentActivity.PAYMENT_IS_FAV;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerGenericBase.VERTICAL_ORIENTATION;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 
 /**
  * Ecargada de mostrar un RV con el RecyclerGenericBase, ademas de un EditText para realizar un filtro
@@ -29,6 +33,8 @@ import static com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerGenericBase.VERT
 
 public class SearchCarrierActivity extends LoaderActivity implements ISearchCarrier {
 
+    @BindView(R.id.txt_title_search)
+    TextView txtTitleSearch;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.activity_search_edittext)
@@ -39,7 +45,7 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
     private ArrayList<Comercio> comercioResponse;
     private boolean isReload;
     private RecyclerGenericBase recyclerGenericBase;
-
+    private int currentTab = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
 
         if (getIntent().getExtras() != null) {
             isReload = getIntent().getBooleanExtra(SEARCH_IS_RELOAD, true);
+            currentTab = getIntent().getExtras().getInt(CURRENT_TAB_ID);
             if (isReload) {
                 comercioResponse = (ArrayList<Comercio>) getIntent().getExtras().get(SEARCH_DATA);
             } else {
@@ -61,7 +68,11 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
 
     private void initViews() {
         ButterKnife.bind(this);
-
+        if (currentTab == PAYMENT_RECARGAS) {
+            txtTitleSearch.setText(getString(R.string.btn_recharge_txt));
+        } else if (currentTab == PAYMENT_SERVICIOS) {
+            txtTitleSearch.setText(getString(R.string.btn_payment_txt));
+        }
         /**
          * Creamos el RV con los elementos adicionales del EditText
          */

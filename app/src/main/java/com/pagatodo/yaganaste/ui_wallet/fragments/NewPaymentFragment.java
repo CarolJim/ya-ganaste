@@ -580,6 +580,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
                         intent.putExtra(SEARCH_DATA, (Serializable) mDataRecargar);
                         intent.putExtra(SEARCH_IS_RELOAD, true);
+                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
                         startActivity(intent);
                     } else {
                         intentPayment.putExtra(PAYMENT_DATA, mDataRecargar.get(position));
@@ -595,6 +596,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         Intent intent = new Intent(getActivity(), SearchCarrierActivity.class);
                         intent.putExtra(SEARCH_DATA, (Serializable) mDataPagar);
                         intent.putExtra(SEARCH_IS_RELOAD, false);
+                        intent.putExtra(CURRENT_TAB_ID, PAYMENT_SERVICIOS);
                         startActivity(intent);
                     } else {
                         intentPayment.putExtra(PAYMENT_DATA, mDataPagar.get(position));
@@ -714,7 +716,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         v.vibrate(100);
                         intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), mFullListaServ.get(typePosition).get(position));
                         intentEditFav.putExtra(CURRENT_TAB_ID, ITEM_CARRIER_PAGOS);
-                        intentEditFav.putExtra(FAVORITE_PROCESS,EDIT_FAVORITE);
+                        intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {

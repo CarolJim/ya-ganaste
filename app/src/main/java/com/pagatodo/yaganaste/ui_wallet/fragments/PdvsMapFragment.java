@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -43,6 +44,8 @@ public class PdvsMapFragment extends GenericFragment {
     private View rootView;
     @BindView(R.id.mapView)
     MapView mMapView;
+    @BindView(R.id.edt_search_place)
+    EditText edtSearch;
     private GoogleMap map;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
@@ -78,12 +81,12 @@ public class PdvsMapFragment extends GenericFragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
-                // For showing a move to my location button
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
                 map.setMyLocationEnabled(true);
+                map.getUiSettings().setMapToolbarEnabled(false);
                 getLastLocation();
             }
         });
@@ -131,7 +134,7 @@ public class PdvsMapFragment extends GenericFragment {
                     LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
                     map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
                     // For zooming automatically to the location of the marker
-                    CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(19).build();
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
                     map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 }
             }

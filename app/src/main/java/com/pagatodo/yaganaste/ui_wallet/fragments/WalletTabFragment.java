@@ -127,7 +127,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         imgReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                walletPresenter.getInformacionAgente();
                 walletPresenter.updateBalance();
             }
         });

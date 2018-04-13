@@ -1297,15 +1297,13 @@
     <string name="hint_card_number">Número de Tarjeta (16 Dígitos)</string>
     <string name="hint_password">Contraseña (6 dígitos)</string>
     <string name="hint_password_confirm">Confirma tu contraseña (6 dígitos)</string>
-
     <string name="hint_cobros_mensual">Cobros mensuales</string>
     <string name="hint_monto_mensual_estimado">Monto mensual estimado</string>
     <string name="hint_origen_recursos">Origen de los Recursos</string>
     <string name="hint_destino_recursos">Destino de los Recursos</string>
-
-
     <string name="hint_reference">Referencia</string>
     <string name="hint_tag">Número de TAG</string>
+    <string name="hint_search">Buscar</string>
 
     <!-- Registro Emisor  -->
     <string name="correo_electronico">Correo electrónico</string>
@@ -1323,9 +1321,6 @@
 
     <string name="favorte_name">Nombre de favorito</string>
     <string name="service_txt">Servicio</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="tituloselfie">Sube una foto para añadirla a tu perfil</string>
     <string name="tituloselfietegusta">Esta es tu foto de perfil ¿Te gusta?</string>

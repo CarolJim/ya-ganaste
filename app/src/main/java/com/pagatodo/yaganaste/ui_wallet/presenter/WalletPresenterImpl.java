@@ -67,7 +67,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void updateBalance() {
-        //walletView.showProgress();
+        walletView.showProgress();
         walletInteractor.getBalance();
     }
 
@@ -86,7 +86,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onSuccessADQ(String response) {
-        //walletView.hideProgress();
+        walletView.hideProgress();
         App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, response);
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
         walletView.getSaldo();

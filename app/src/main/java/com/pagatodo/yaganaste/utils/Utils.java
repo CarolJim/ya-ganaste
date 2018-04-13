@@ -1147,27 +1147,6 @@ public class Utils {
 
     }
 
-    public static List<GiroComercio> getGirosArray(Context context) {
-        List<GiroComercio> giroComercioList = null;
-        Gson gson = new Gson();
-        try {
-            InputStream inputStream = context.getAssets().open("files/giros_comercio.json");
-            int size = inputStream.available();
-
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            Type listType = new TypeToken<List<GiroComercio>>() {
-            }.getType();
-            giroComercioList = gson.fromJson(new String(buffer, "UTF-8"), listType);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return giroComercioList;
-    }
-
     public static String getJSONStringFromAssets(Context context, String uri) {
         String response = "";
         try {

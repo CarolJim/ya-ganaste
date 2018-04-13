@@ -38,7 +38,7 @@ public class MessagingService extends FirebaseMessagingService {
             // Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             // sendNotification(remoteMessage.getData().get("myBody"), remoteMessage.getData().get("id"));
             int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT) + 1;
-            App.setBadge(notifPendents);
+            //App.setBadge(notifPendents);
             App.getInstance().getPrefs().saveDataInt(NOTIF_COUNT, notifPendents);
             /*String idType = getIntent().getExtras().get("id").toString();
             String urlData = getIntent().getExtras().get("urlData").toString();

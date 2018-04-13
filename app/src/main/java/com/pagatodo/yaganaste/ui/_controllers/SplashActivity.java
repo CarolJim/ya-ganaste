@@ -53,10 +53,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         imgLogo = (ImageView) findViewById(R.id.img_logo_splash);
-        // Codigo para mostrar el token y los datos de las notificaciones FCM. Solo necesitamos
-        // acomodar el Data con valores validos
-        Log.d(TAG, "Token ID: " + FirebaseInstanceId.getInstance().getToken());
-        Bundle intent = getIntent().getExtras();
+        /*Bundle intent = getIntent().getExtras();
         if (intent != null && intent.get("id") != null) {
             // Recibimos todos los datos que estan en nuestro Intent
             String idType = getIntent().getExtras().get("id").toString();
@@ -88,7 +85,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
                         break;
                 }
             }
-        }
+        }*/
 
         if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
@@ -142,11 +139,6 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
 
     private void callNextActivity() {
         Intent intent = null;
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(this, imgLogo, "transition");
-        int revealX = (int) (imgLogo.getX() + (imgLogo.getWidth() - 1) / 2);
-        int revealY = (int) (imgLogo.getY() + (imgLogo.getHeight() - 1) / 2);
-
         /*TODO Descomentar para validar flujo correctamente*/
         if (ValidatePermissions.validateSIMCard(this)) {
             /*if(!RequestHeaders.getTokenauth().isEmpty()) {
@@ -155,14 +147,10 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
             }else {*/
             intent = new Intent(SplashActivity.this, MainActivity.class);
             intent.putExtra(SELECTION, MAIN_SCREEN);
-            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
             //}
         } else {
             intent = new Intent(SplashActivity.this, MainActivity.class);
             intent.putExtra(SELECTION, NO_SIM_CARD);
-            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_X, revealX);
-            intent.putExtra(MainActivity.EXTRA_CIRCULAR_REVEAL_Y, revealY);
         }
 
         /**
