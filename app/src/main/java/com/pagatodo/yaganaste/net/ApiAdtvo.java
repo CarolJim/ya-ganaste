@@ -311,6 +311,19 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person),
                 headers, request, GenericResponse.class, result);
     }
+    /**
+     * Método que se invoca cuando se desean obtener más movimientos por mes.
+     *
+     * @param request {@link ValidarDatosPersonaRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void validarDatosPersonaHomonimia(ValidarDatosPersonaRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(VALIDAR_DATOS_PERSONA,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person_curp),
+                headers, request, GenericResponse.class, result);
+    }
 
 
     /**

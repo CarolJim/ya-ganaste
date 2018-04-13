@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="21dp"
+    android:paddingTop="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:weightSum="3">
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_reward_subtitul"
+            style="@style/generic_text_style_bubtitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13.5dp"
+            android:gravity="start"
+            android:layout_marginLeft="@dimen/marginleftreciclerstarbucks"
+            android:text="Nivel Green"
+            android:textColor="@color/colorAccent" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titulo_datos_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginleftreciclerstarbucks"
+            android:gravity="start"
+            android:text="5 Estrellas para obtener NIvel Gold"
+            android:textAlignment="center"
+            android:textColor="@color/adadad"
+            android:textSize="14sp"
+            app:tipo="Text" />
+
+    </LinearLayout>
+</LinearLayout>

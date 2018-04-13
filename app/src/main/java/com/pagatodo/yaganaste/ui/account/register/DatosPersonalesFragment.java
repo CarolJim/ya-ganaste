@@ -29,10 +29,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -840,19 +842,17 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onHomonimiaError() {
         String CURP = "";
-        UI.createCustomDialogCURP(getResources().getString(R.string.ingresa_tu_curp), " ", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-            @Override
-            public void actionConfirm(Object... params) {
-                EditText curphomo = (EditText) getActivity().findViewById(R.id.edit_curp);
-                RegisterUser registerUser = RegisterUser.getInstance();
-                registerUser.setCURP(curphomo.getText().toString());
-            }
+        UI.createSimpleCustomDialogCURP(getString(R.string.ingresa_tu_curp), "",
+                getFragmentManager(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        accountPresenter.validatePersonDataHomonimia();
+                    }
 
-            @Override
-            public void actionCancel(Object... params) {
-
-            }
-        }, "Confirmar", "");
+                    @Override
+                    public void actionCancel(Object... params) {
+                    }
+                }, true, false);
     }
 
     @Override

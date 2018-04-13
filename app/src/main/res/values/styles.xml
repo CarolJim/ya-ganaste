@@ -556,11 +556,27 @@
 
 
     <!-- Estilos revisados 10-07-17 -->
-    <style name="generic_text_style_1">
+       <style name="generic_text_style_1">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_1_value</item>
         <item name="tipo">Subtitulo</item>
     </style>
+
+    <style name="generic_text_style_titulo_starbucks">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Titulo</item>
+    </style>
+
+
+
+    <style name="generic_text_style_bubtitulo">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+
 
     <style name="generic_text_style_1_cobro">
         <item name="android:textColor">@color/whiteColor</item>
@@ -608,10 +624,10 @@
     </style>
 
     <style name="generic_text_style_3">
-        <item name="android:textColor">@color/textColorAlternative</item>
-        <item name="android:textSize">@dimen/size_text_style_3_value</item>
-        <item name="tipo">Text</item>
-    </style>
+    <item name="android:textColor">@color/textColorAlternative</item>
+    <item name="android:textSize">@dimen/size_text_style_3_value</item>
+    <item name="tipo">Text</item>
+</style>
 
     <style name="generic_text_style_3wallet">
         <item name="android:textColor">@color/textColorAlternative</item>

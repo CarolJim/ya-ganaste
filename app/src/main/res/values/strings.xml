@@ -21,6 +21,9 @@
     <string name="consultAssignCardUrl">/ConsultarAsignacionTarjeta</string>
     <string name="getMovementsByMonthUrl">/ConsultarMovimientosMes</string>
     <string name="validate_data_person">/ValidarDatosPersona</string>
+    <string name="validate_data_person_curp">/ValidarDatosCurp</string>
+
+
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
@@ -963,6 +966,8 @@
     <string name="card_unlocked_success">La tarjeta fue desbloqueada con éxito</string>
     <string name="card_num_autorization">Num. Autorización:</string>
 
+
+    <string name="input_letters_capital">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890</string>
     <string name="input_letters">ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz\u0020</string>
     <string name="input_alphanumeric_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890\u0020</string>
     <string name="input_alphanumeric_space_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890\u0020</string>
@@ -1380,6 +1385,7 @@
 
     <string name="load_movimientos">Cargando mivimientos</string>
     <string name="ingresa_tu_curp">Ingresa tu CURP</string>
+    <string name="mis_recompensas">Mis Recompensas</string>
 
     <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
     <string name="cacncel_desc">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>

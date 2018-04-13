@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    tools:context=".ui._controllers.PaymentsProcessingActivity">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_rewardTitle"
+        style="@style/generic_text_style_titulo_starbucks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/mis_recompensas"
+        android:textColor="@color/colorAccent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/margintopstarbucks"
+
+        >
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/reward"
+    android:layout_gravity="center_horizontal"
+    />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_reward_subtitul"
+            style="@style/generic_text_style_bubtitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13.5dp"
+            android:gravity="center"
+            android:text="Nivel Green"
+            android:textColor="@color/colorAccent" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titulo_datos_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:text="5 Estrellas para obtener NIvel Gold"
+            android:textAlignment="center"
+            android:textColor="@color/adadad"
+            android:textSize="14sp"
+            app:tipo="Text" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

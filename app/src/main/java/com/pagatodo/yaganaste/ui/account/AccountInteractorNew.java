@@ -340,7 +340,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setCURP(registerUser.getCURP());
 
         try {
-            ApiAdtvo.validarDatosPersona(request, this);
+            ApiAdtvo.validarDatosPersonaHomonimia(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(VALIDAR_DATOS_PERSONAHOMO, App.getContext().getString(R.string.no_internet_access));
@@ -603,7 +603,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void validatePersonDataResponse(GenericResponse data) {
         if (data.getCodigoRespuesta() == 0) {
             accountManager.onSuccessDataPerson();
-        }else if(data.getCodigoRespuesta() == 352){ // Caso Homonímia
+        }else if(data.getCodigoRespuesta() == 231){ // 325 Caso Homonímia
             accountManager.onHomonimiaDataPerson();
         } else {
             accountManager.onError(VALIDAR_DATOS_PERSONA, data.getMensaje());

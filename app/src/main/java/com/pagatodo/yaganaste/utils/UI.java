@@ -11,11 +11,13 @@ import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
@@ -215,6 +217,7 @@ public class UI {
                 title, message, true, false);
 
 
+
         customErrorDialog.setTitleBtnAcept(btnAceptar);
         customErrorDialog.setTitleBtnCancel(btnCancelar);
 
@@ -252,6 +255,36 @@ public class UI {
         customErrorDialog.setCancelable(false);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
+
+    public static void createSimpleCustomDialogCURP(String title, String message,
+                                                FragmentManager fragmentManager, final DialogDoubleActions actions,
+                                                boolean hasConfirmBtn, boolean hasCancelBtn) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_error_message, title, message, hasConfirmBtn, hasCancelBtn);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    RegisterUser registerUser = RegisterUser.getInstance();
+                    String curp=customErrorDialog.getcurpedittext();
+                    registerUser.setCURP(curp);
+                    actions.actionConfirm(params);
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionCancel(params);
+                }
+            }
+        });
+        customErrorDialog.setCancelable(false);
+        customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
+    }
+
+
 
     public static void showErrorSnackBar(Activity rootView, String message, int length) {
         Snackbar snack = Snackbar.make(rootView.getWindow().getDecorView(), message, length);

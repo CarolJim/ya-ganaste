@@ -7,14 +7,18 @@ package com.pagatodo.yaganaste.utils.customviews;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
@@ -42,6 +46,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     private String my_card_name_user = "";
     private String my_card_number_user = "";
 
+    public String curp="";
 
     private DialogDoubleActions dialogActions;
 
@@ -102,6 +107,46 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         final StyleButton btnConfirmNotification = (StyleButton) rootView.findViewById(R.id.btnConfirmDialog);
         final StyleButton btnCancelNotification = (StyleButton) rootView.findViewById(R.id.btnCancelDialog);
 
+try {
+
+   final TextInputLayout text_curp= (TextInputLayout) rootView.findViewById(R.id.text_curp);
+    final EditText curphomo = (EditText) rootView.findViewById(R.id.edit_curp);
+    curphomo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+
+            if (hasFocus){
+                text_curp.setBackgroundResource(R.drawable.inputtext_active);
+            }
+
+        }
+    });
+
+    curphomo.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            curp=curphomo.getText().toString();
+        }
+    });
+
+
+
+}catch (Exception e){
+
+}
+
+
+
         /*Seteamos visibilidad de botones*/
         if (btnConfirmNotification != null) {
             btnConfirmNotification.setVisibility(showConfirmButton ? View.VISIBLE : View.GONE);
@@ -160,6 +205,9 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
             buttonsContainer.getViewTreeObserver().addOnGlobalLayoutListener(this);
         }
 
+
+
+
         return rootView;
     }
 
@@ -174,6 +222,8 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
             showConfirmButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
             showCancelButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, true);
         }
+
+
 
     }
 
@@ -242,6 +292,17 @@ try {
         }
 
     }
+
+    public String getcurpedittext() {
+        try {
+
+            return curp;
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
 
     public void myCardNameUser(String nombreusuario) {
         this.my_card_name_user = nombreusuario;

@@ -233,6 +233,8 @@
     <dimen name="wallet_text_size_3">14sp</dimen>
     <dimen name="wallet_text_size_4">16sp</dimen>
     <dimen name="wallet_text_size_5">17sp</dimen>
+    <dimen name="margintopstarbucks">39dp</dimen>
+    <dimen name="marginleftreciclerstarbucks">12dp</dimen>
 
 </resources>
 
