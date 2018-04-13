@@ -20,7 +20,7 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
 import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
-import com.pagatodo.yaganaste.utils.IB;
+import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -261,7 +261,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                                 "Fecha: " + movlResponse.getFechaMovimiento() + "\n" +
                                 "Hora:" + movlResponse.getHoraMovimiento() + "\n" +
                                 "Autorización: " + movlResponse.getNumAutorizacion();
-                        IB.IntentShare(getContext(), message);
+                        UtilsIntents.IntentShare(getContext(), message);
                     }
                 }
             }

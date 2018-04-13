@@ -36,10 +36,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 
-/**
- * @author Juan Guerra on 24/03/2017.
- */
-
 public class ViewPagerDataFactory {
 
     private ViewPagerDataFactory() {
@@ -151,7 +147,6 @@ public class ViewPagerDataFactory {
             fragmentList.add(BlankFragment.newInstance());
         }*/
     }
-
 
     public enum TABS {
         MAIN_LOGIN,

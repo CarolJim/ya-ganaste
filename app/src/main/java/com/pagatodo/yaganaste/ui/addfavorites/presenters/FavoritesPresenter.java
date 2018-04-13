@@ -209,7 +209,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         }
 
         /**
-         * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
+         * Instancia de peticion exitosa y operacion exitosa de Delete
          */
         if (dataSourceResult.getData() instanceof FavoritosDeleteDatosResponse) {
             mView.hideLoader();

@@ -110,6 +110,8 @@ import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_C
 import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.UtilsIntents.favoriteIntents;
 
 /**
  * Created by Armando Sandoval on 03/01/2018.
@@ -1167,10 +1169,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESUL_FAVORITES) {
+        if (resultCode == RESUL_FAVORITES || resultCode == INTENT_FAVORITE) {
             paymentsCarouselPresenter.getCarouselItems();
             paymentsCarouselPresenter.getFavoriteCarouselItems();
         }
+
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CONTACTS_CONTRACT) {
                 contactPicked(data);
@@ -1307,10 +1310,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         if (isEditable) {
             if (favorito.getIdComercio() != 0) {
                 Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                // Vibrate for 500 milliseconds
                 vibrator.vibrate(100);
+                favoriteIntents(getActivity(),favorito);
                 //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
-                Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
+                /*Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
                 intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), favorito);
                 intentEditFav.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
                 intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
@@ -1318,7 +1321,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 } else {
                     startActivity(intentEditFav);
-                }
+                }*/
             }
         } else {
             if (favorito.getIdComercio() == 0) { // Click en item Agregar

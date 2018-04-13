@@ -117,6 +117,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
+import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 public class FavoritesActivity extends LoaderActivity implements View.OnClickListener,
@@ -873,7 +874,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessDeleteFavorite(String mensaje) {
-        showDialogMesage(getString(R.string.title_dialog_delete_favorite), getString(R.string.respond_ok_delete_favorite), 1);
+        //showDialogMesage(getString(R.string.title_dialog_delete_favorite), getString(R.string.respond_ok_delete_favorite), 1);
+        setResult(INTENT_FAVORITE);
+        finish();
     }
 
     @Override

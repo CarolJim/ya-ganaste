@@ -113,6 +113,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOTO;
@@ -445,7 +446,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 childFragment.onActivityResult(requestCode,resultCode,data);
 
             //}
+        } else if (resultCode == INTENT_FAVORITE){
+            Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
+            childFragment.onActivityResult(requestCode,resultCode,data);
         }
+
     }
 
     protected void refreshAdquirenteMovements() {

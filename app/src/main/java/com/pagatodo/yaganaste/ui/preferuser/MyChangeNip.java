@@ -3,12 +3,8 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -29,10 +25,7 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui_wallet.builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
-import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
-import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
-import com.pagatodo.yaganaste.utils.IB;
-import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -44,7 +37,6 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.MY_PERMISSIONS_REQUEST_PHONE;
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
  * Created by Team Android on 22/03/2017.
@@ -277,7 +269,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
                 break;
             case R.id.call_phone:
-                //IB.createCallIntent(getActivity());
+                //UtilsIntents.createCallIntent(getActivity());
                 showDialogCallIntent();
                 break;
         }
@@ -361,7 +353,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
-            IB.createCallIntent(getActivity());
+            UtilsIntents.createCallIntent(getActivity());
         }
 
         @Override

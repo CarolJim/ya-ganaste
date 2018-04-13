@@ -35,7 +35,7 @@ import com.pagatodo.yaganaste.ui_wallet.builder.Container;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
-import com.pagatodo.yaganaste.utils.IB;
+import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -82,7 +82,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 onBackPressed();
                 return true;*/
             case R.id.action_share:
-                IB.IntentShare(getContext(),mensaje);
+                UtilsIntents.IntentShare(getContext(),mensaje);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
