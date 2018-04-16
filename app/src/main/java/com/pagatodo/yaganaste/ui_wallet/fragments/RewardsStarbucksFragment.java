@@ -53,6 +53,5 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
     }
 }

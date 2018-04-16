@@ -276,7 +276,6 @@
                     android:layout_height="match_parent"
                     android:visibility="gone" />
 
-
             </LinearLayout>
 
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
