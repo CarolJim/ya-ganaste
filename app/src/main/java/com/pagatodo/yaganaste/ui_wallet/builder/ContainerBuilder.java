@@ -15,10 +15,14 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
+import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionMenuIViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.StatusZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.ViewHolderMenuSegurity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
@@ -30,6 +34,8 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CANCELACION;
@@ -135,10 +141,11 @@ public class ContainerBuilder {
         return new InputTexAdapter(context,s.getInputTextList());
     }
 
-    public static ElementsWalletAdapter getAdapter(Activity activity, OnItemClickListener listener){
+    /*public static ElementsWalletAdapter getAdapter(Activity activity, OnItemClickListener listener){
         ElementsWalletAdapter elementsWalletAdapter;
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE,false);
         int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+
         if (isAgente && Idestatus == IdEstatus.I7.getId()) {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
         } else if (isAgente && Idestatus == IdEstatus.I8.getId()) {
@@ -156,35 +163,24 @@ public class ContainerBuilder {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
         } /*else if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
-        }*/ else {
+        } else {
             elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorEmi(), 1);
         }
         return elementsWalletAdapter;
-    }
+    }*/
 
     public static CardWalletAdpater getCardWalletAdapter(boolean error){
         CardWalletAdpater adpater = new CardWalletAdpater();
-        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
-        int statusDoc = App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION);
         String statusCard = SingletonUser.getInstance().getCardStatusId();
+        adpater.addCardItem(new ElementWallet().getCardyaganaste());
 
-        if (error) {
-            adpater.addCardItem(new ElementWallet().getCardyaganaste());
-        } else if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
+        if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)){
             adpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
-            if (isAgente && statusDoc == Recursos.CRM_DOCTO_APROBADO) {
-                adpater.addCardItem(new ElementWallet().getCardLectorAdq());
-            } else {
-                adpater.addCardItem(new ElementWallet().getCardLectorEmi());
-            }
-        } else {
-            adpater.addCardItem(new ElementWallet().getCardyaganaste());
-            if (isAgente && statusDoc == Recursos.CRM_DOCTO_APROBADO) {
-                adpater.addCardItem(new ElementWallet().getCardLectorAdq());
-            } else {
-                adpater.addCardItem(new ElementWallet().getCardLectorEmi());
-            }
         }
+        adpater.addCardItem(new ElementWallet().getCardLectorAdq());
+        adpater.addCardItem(new ElementWallet().getCardStarBucks());
+        adpater.addCardItem(new ElementWallet().getCardSettings());
+
         return adpater;
     }
 
@@ -206,6 +202,26 @@ public class ContainerBuilder {
         for (PaletteViewHolder item : list) {
             item.edition(edition);
         }
+    }
+
+    public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder){
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        OptionsViewHolder op = null;
+        //OPTION_ZONE
+        switch (typeholder){
+            case OPTION_ZONE:
+                op = new IndicationZoneViewHolder(context,inflater.inflate(R.layout.indicator_zone, parent, false));
+                break;
+            case OPTION_ZONE_UNO:
+                op = new StatusZoneViewHolder(context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
+                break;
+                default:
+                    op = new ButtonsViewHolder(context,inflater.inflate(R.layout.view_element, parent, false));
+                    break;
+        }
+
+        return op;
     }
 
 }

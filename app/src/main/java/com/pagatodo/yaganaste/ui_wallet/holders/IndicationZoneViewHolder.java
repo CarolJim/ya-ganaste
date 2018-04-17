@@ -32,7 +32,8 @@ public class IndicationZoneViewHolder extends OptionsViewHolder {
 
     @Override
     public void bind(final ElementView elementView, final OnItemClickListener listener) {
-        if (elementView.getResource() != 0) {
+        if (elementView.getResource() != -1) {
+
 
         }
         this.button.setOnClickListener(new View.OnClickListener() {

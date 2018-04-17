@@ -1203,7 +1203,11 @@
     <string name="numero"><u>01800-500-1000</u></string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="mas_info"><u>Más información</u></string>
-
+    
+    <!-- Wallet StarBucks-->
+    <string name="opt_recompensas">Mis\nRecompensas</string>
+    <string name="opt_consulta">Consultar\nmovimientos</string>
+    <string name="opt_sucursales">Sucursales\nCercanas</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Contraseña actual</string>
@@ -1291,6 +1295,13 @@
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
     <string name="operation_registrar">Registrar</string>
+
+    <!-- Wallet Settings Card -->
+    <string name="title_main">Todas tus tarjetas en un solo lugar</string>
+    <string name="title_second">Suscribete o inicia sesión en tus programas\nde lealtad favoritos y obten beneficios exclusivos</string>
+    <string name="title_button_card">Configurar Tarjetas</string>
+    <string name="title_wallet_main_settings">Mis Tarjetas</string>
+    <string name="title_wallet_second_settings">Lorem Ipsum Dolor Sit Amet</string>
 
     <!-- Hint's -->
     <string name="hint_referencia_numerica">Referencia numérica (6 dígitos)</string>

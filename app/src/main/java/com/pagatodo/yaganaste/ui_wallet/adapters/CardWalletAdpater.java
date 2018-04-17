@@ -32,10 +32,6 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
         mViews = new ArrayList<>();
     }
 
-    public void setEmptyList(){
-        this.elementViewList = new ArrayList<>();
-        this.mViews = new ArrayList<>();
-    }
     public void addCardItem(ElementWallet item) {
         mViews.add(null);
         elementViewList.add(item);
@@ -101,4 +97,6 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
     public void updateSaldo(int position, String saldo){
         elementViewList.get(position).setSaldo(saldo);
     }
+
+
 }

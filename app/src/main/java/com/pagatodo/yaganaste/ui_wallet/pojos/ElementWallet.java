@@ -5,12 +5,15 @@ import android.content.Context;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
@@ -18,6 +21,13 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
  */
 
 public class ElementWallet {
+
+    public static final int TYPE_EMISOR = 11;
+    public static final int TYPE_ADQ = 12;
+    public static final int TYPE_STARBUCKS = 13;
+    public static final int TYPE_SETTINGS = 14;
+
+    private int typeWallet;
     private int resourceCard, resourceBack;
     private String saldo;
     private ArrayList<ElementView> elementViews;
@@ -26,19 +36,30 @@ public class ElementWallet {
     public ElementWallet() {
     }
 
-    public ElementWallet(int resourceCard, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo) {
+    public ElementWallet(int typeWallet, int resourceCard, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo) {
+        this.typeWallet = typeWallet;
         this.resourceCard = resourceCard;
         this.saldo = saldo;
         this.elementViews = elementViews;
         this.tipoSaldo = tipoSaldo;
     }
 
-    public ElementWallet(int resourceCard, int resourceBack, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo) {
+
+   public ElementWallet(int typeWallet, int resourceCard, int resourceBack, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo) {
+        this.typeWallet = typeWallet;
         this.resourceCard = resourceCard;
         this.resourceBack = resourceBack;
         this.saldo = saldo;
         this.elementViews = elementViews;
         this.tipoSaldo = tipoSaldo;
+    }
+
+    public int getTypeWallet() {
+        return typeWallet;
+    }
+
+    public void setgetTypeWallet(int tipo_wallet) {
+        this.typeWallet = tipo_wallet;
     }
 
     public int getResourceBack() {
@@ -83,58 +104,76 @@ public class ElementWallet {
 
     //Datos seteado de prueb
     public ElementWallet getCardyaganaste() {
-        return new ElementWallet(R.drawable.tarjeta_yg,
+        return new ElementWallet(TYPE_EMISOR, R.drawable.tarjeta_yg,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 R.string.saldo_disponible);
     }
 
     public ElementWallet getCardyaganasteBloqueda() {
-        return new ElementWallet(R.mipmap.main_card_zoom_gray,
+        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_gray,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 R.string.saldo_disponible);
     }
 
-    /*public ElementWallet getCardStarBucks(Context context) {
-        return new ElementWallet(R.drawable.starbucks_card,
-                "$11,350.00", new ElementView().getListStartBuck(),
-                context.getResources().getString(R.string.saldo_disponible));
-    }*/
-
-    public ElementWallet getCardLectorAdq() {
-        return new ElementWallet(R.mipmap.lector_front,
-                //Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
-                Utils.getCurrencyValue("0.00"),
-                new ElementView().getListLectorAdq(),
-                R.string.saldo_reembolso);
+    public ElementWallet getCardStarBucks() {
+        return new ElementWallet(TYPE_STARBUCKS,R.drawable.card_sbux,
+                "$250.00", new ElementView().getListStartBuck(),
+                (R.string.saldo_disponible));
     }
 
+    public ElementWallet getCardSettings(){
+        return new ElementWallet(TYPE_SETTINGS,R.drawable.config_card,
+                "Mis Tarjetas",new ElementView().getListConfigCard(),
+                R.string.title_wallet_second_settings);
+    }
+
+    public ElementWallet getCardLectorAdq() {
+
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)){
+            String leyenda;
+            if(App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()){
+                leyenda = Utils.getCurrencyValue("0.00");
+            } else {
+                leyenda = "Cobra con tarjeta";
+            }
+            return new ElementWallet(TYPE_ADQ, R.mipmap.lector_front,leyenda,
+                    new ElementView().getListLectorAdq(),
+                    R.string.saldo_reembolso);
+        } else {
+            return getCardLectorEmi();
+        }
+    }
+
+
     public ElementWallet getCardLectorEmi() {
-        return new ElementWallet(R.mipmap.lector_front,
+        return new ElementWallet(TYPE_ADQ,R.mipmap.lector_front,
                 "Cobra con tarjeta",
                 new ElementView().getListLectorEmi(),
                 R.string.mejor_precio);
     }
 
     public ElementWallet getCardBalanceEmi() {
-        return new ElementWallet(R.mipmap.main_card_zoom_blue, R.mipmap.back_yg_card_white,
+        return new ElementWallet(TYPE_EMISOR,R.mipmap.main_card_zoom_blue, R.mipmap.back_yg_card_white,
                 Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisorBalance(),
                 R.string.saldo_disponible);
     }
 
     public ElementWallet getCardBalanceEmiBloqueda() {
-        return new ElementWallet(R.mipmap.main_card_zoom_gray, R.mipmap.card_back_backmara_2,
+        return new ElementWallet(TYPE_EMISOR,R.mipmap.main_card_zoom_gray, R.mipmap.card_back_backmara_2,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisorBalance(),
                 R.string.saldo_disponible);
     }
 
     public ElementWallet getCardBalanceAdq() {
-        return new ElementWallet(R.mipmap.lector_front, R.mipmap.lector_back,
+        return new ElementWallet(TYPE_ADQ,R.mipmap.lector_front, R.mipmap.lector_back,
                 Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
                 new ElementView().getListAdqBalance(),
                 R.string.saldo_reembolso);
     }
+
+
 }

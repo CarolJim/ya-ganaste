@@ -47,15 +47,9 @@ public class StatusZoneViewHolder extends OptionsViewHolder {
         this.button = itemView.findViewById(R.id.btn_action);
     }
 
-
     @Override
     public void bind(final ElementView elementView, final OnItemClickListener listener) {
-        /*
-         private int idOperacion;
-    private int resource;
-    private int title;
-    private int description;
-         */
+
         this.iconImg.setBackgroundResource(elementView.getResource());
         this.title.setText(elementView.getTitle());
         this.description.setText(elementView.getDescription());

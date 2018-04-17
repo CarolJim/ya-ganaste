@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
@@ -22,6 +23,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
@@ -34,81 +36,26 @@ import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolder> {
 
     private List<ElementView> elementViews;
-
     private Activity context;
     private OnItemClickListener listener;
-    private int state;
-    OptionsViewHolder op;
 
-    public ElementsWalletAdapter(Activity context, OnItemClickListener listener, List<ElementView> elementViews, int state) {
+    public ElementsWalletAdapter(Activity context, OnItemClickListener listener) {
         this.context = context;
-        this.elementViews = elementViews;
+        this.elementViews = new ArrayList<>();
         this.listener = listener;
-        this.state = state;
-        this.op = null;
     }
+
+
 
     @Override
     public OptionsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        op = null;
-
-        switch (this.state){
-            case 0:
-                op = new ButtonsViewHolder(this.context,inflater.inflate(R.layout.view_element, parent, false));
-                break;
-            case 1:
-                op = new IndicationZoneViewHolder(this.context,inflater.inflate(R.layout.indicator_zone, parent, false));
-                break;
-            case 2:
-                op = new StatusZoneViewHolder(this.context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
-
-                int Idestatus;
-                Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
-/*
-                if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && Idestatus == IdEstatus.I7.getId()) {
-                    //loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD); 08 - Proceso Revisando
-                    op = new StatusZoneViewHolder(this.context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
-                }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && Idestatus == IdEstatus.I8.getId()) {
-                    //loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD); 08 - Proceso Revisando
-                    op = new StatusZoneViewHolder(this.context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
-                } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                        Idestatus == IdEstatus.I9.getId()) {
-                    //loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD); 11 - Proceso Error Docs
-                    op = new StatusZoneViewHolder(this.context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
-
-                }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                        Idestatus == IdEstatus.I10.getId()) {
-                    //loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD); 13 - Proceso Rechazado
-
-                }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                        Idestatus == IdEstatus.I11.getId()) {
-                    //loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD); 09 - Proceso Aprobado
-
-                }else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                        Idestatus == IdEstatus.I13.getId()) {
-                    //loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD); 13 - Proceso Rechazado
-                }else if  (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
-                    //loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
-                    //showBack(true);
-                } else {
-                    //loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
-                    //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
-                }*/
-                break;
-
-        }
-
-        return op;
+        return ContainerBuilder.getViewHolder(context,parent,elementViews.get(position).getTypeOptions());
     }
 
     @Override
     public void onBindViewHolder(final OptionsViewHolder holder, final int position) {
         holder.bind(elementViews.get(position), listener);
     }
-
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -120,7 +67,12 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
         return this.elementViews.size();
     }
 
-    public class DataWallet {
+    public void setListOptions(List<ElementView> elementViews){
+        this.elementViews = elementViews;
+    }
+
+
+    /*public class DataWallet {
         int columnas;
         int texResource;
 
@@ -144,5 +96,5 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
         public void setTexResource(int texResource) {
             this.texResource = texResource;
         }
-    }
+    }*/
 }

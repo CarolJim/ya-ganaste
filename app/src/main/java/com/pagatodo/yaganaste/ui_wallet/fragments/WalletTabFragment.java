@@ -47,6 +47,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
@@ -71,8 +72,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     StyleTextView tipoSaldo;
     @BindView(R.id.img_reload)
     ImageView imgReload;
-    @BindView(R.id.txt_anuncio)
-    StyleTextView anuncio;
+    //@BindView(R.id.txt_anuncio)
+    //StyleTextView anuncio;
 
     private WalletPresenter walletPresenter;
     private CardWalletAdpater cardWalletAdpater;
@@ -118,12 +119,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void initViews() {
+        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(),this);
         llm = new GridLayoutManager(getContext(), 3);
         linearLayoutManager = new LinearLayoutManager(getContext());
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
+
         imgReload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,43 +186,26 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     private void updateOperations(int position) {
         int colums = 3;
-        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
+        //boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         pageCurrent = position;
 
-        if (position == 0) {
-            colums = 3;
-            elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListEmisor(), 0);
-            txtSaldo.setVisibility(View.VISIBLE);
-            anuncio.setVisibility(View.GONE);
-        }
-        if (position == 1) {
-            int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
             colums = 1;
-            txtSaldo.setVisibility(View.GONE);
-            anuncio.setVisibility(View.VISIBLE);
-            elementsWalletAdapter = ContainerBuilder.getAdapter(getActivity(), this);
-            if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
-                colums = 3;
-                txtSaldo.setVisibility(View.VISIBLE);
-                anuncio.setVisibility(View.GONE);
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
-            }
-            if (isAgente && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == Recursos.CRM_DOCTO_APROBADO) {
-                colums = 3;
-                txtSaldo.setVisibility(View.VISIBLE);
-                anuncio.setVisibility(View.GONE);
-                elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, ElementView.getListLectorAdq(), 0);
-            }
         }
+
+        elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
+        elementsWalletAdapter.notifyDataSetChanged();
 
         llm.setSpanCount(colums);
         rcvOpciones.setLayoutManager(llm);
-        anuncio.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+        //rcvOpciones.setHasFixedSize(false);
         txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
     }
+
+
 
     @Override
     public void onItemClick(ElementView elementView) {
@@ -232,7 +218,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void getSaldo() {
         cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false))
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId())
             cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);
     }
@@ -292,16 +278,11 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onPageSelected(int position) {
-        /*for (int i = 0; i < dotsCount; i++) {
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
-        }
-        dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));*/
-
-
         previous_pos = pageCurrent;
         selectDots(previous_pos, position);
         pageCurrent = position;
         updateOperations(position);
+
     }
 
     @Override
