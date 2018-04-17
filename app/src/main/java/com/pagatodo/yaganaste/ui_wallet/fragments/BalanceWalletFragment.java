@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -380,19 +381,32 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 .into(crlProfileBalance);
         */
 
+
+
+
+
+        Picasso.with(getContext())
+                .load(StringUtils.procesarURLString(mUserImage))
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(crlProfileBalance);
+       /*
+
         if (prefs.loadData(GENERO)=="H"||prefs.loadData(GENERO)=="h") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_el)
+                    .error(R.drawable.avatar_el)
                     .into(crlProfileBalance);
         }else if (prefs.loadData(GENERO)=="M"||prefs.loadData(GENERO)=="m"){
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.drawable.avatar_ella)
+                    .error(R.drawable.avatar_ella)
                     .into(crlProfileBalance);
         }else {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .error(R.mipmap.icon_user)
                     .into(crlProfileBalance);
         }
+        */
+
+
     }
 
     private void setVisibilityFrontItems(int visibility) {

@@ -579,7 +579,7 @@
     <style name="subtitulo_starbucks_acent">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Subtitulo</item>
+        <item name="tipo">Text</item>
     </style>
 
 

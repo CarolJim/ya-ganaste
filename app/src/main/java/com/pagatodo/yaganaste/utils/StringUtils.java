@@ -329,11 +329,21 @@ public class StringUtils {
      */
     public static String procesarURLString(String mUserImage) {
         String[] urlSplit = mUserImage.split("_");
-        String urlEdit = "";
-        if (urlSplit[1].contains("png")) {
-            urlEdit = urlSplit[0] + "_M.png";
-        } else if (urlSplit[1].contains("jpg")) {
-            urlEdit = urlSplit[0] + "_M.jpg";
+        String urlEdit;
+        String split=urlSplit[0];
+        if (split.isEmpty()){
+            urlEdit="_M.png";
+
+        }else {
+            if (urlSplit[1].contains("jpg")){
+                urlEdit = urlSplit[0] + "_M.jpg";
+            }else if (urlSplit[1].contains("png")){
+                urlEdit = urlSplit[0] + "_M.png";
+            }else {
+
+                urlEdit="_M.png";
+            }
+
         }
         return urlEdit;
     }
