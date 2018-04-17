@@ -1389,5 +1389,14 @@
 
     <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
     <string name="cacncel_desc">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>
-    <string name="texto_resgister_starbucks">Regístarte, acumula Stars\n y obten beneficios exclusivos</string>
+
+
+<!-- Starbucks seccion de registro y login -->
+    <string name="texto_resgister_starbucks">Regístarte, acumula Stars\n y obtén beneficios exclusivos</string>
+    <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
+    <string name="codigo_8_digitos">Código de 8 digitos</string>
+    <string name="registrarme">Registrarme</string>
+    <string name="subtitulo_login_starbucks">Inicia sesión en My Starbucks Rewards</string>
+    <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
+
 </resources>

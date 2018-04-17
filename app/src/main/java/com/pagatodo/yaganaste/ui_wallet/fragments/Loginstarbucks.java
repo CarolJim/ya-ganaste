@@ -1,20 +1,20 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
-import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
-import com.pagatodo.yaganaste.utils.TarjetaStarbucksTextWatcher;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementStatus;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -22,29 +22,28 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by asandovals on 16/04/2018.
  */
 
-public class RegisterStarbucksFragment  extends GenericFragment implements   View.OnClickListener, ValidationForms {
+public class Loginstarbucks extends GenericFragment implements   View.OnClickListener, ValidationForms {
     private View rootView;
+
     @BindView(R.id.txt_subtitul)
     StyleTextView txt_subtitul;
 
-    @BindView(R.id.text_numero_tarjeta)
-    TextInputLayout text_numero_tarjeta;
-    @BindView(R.id.text_codigo)
-    TextInputLayout text_codigo;
+    @BindView(R.id.text_correo)
+    TextInputLayout text_correo;
+    @BindView(R.id.text_password)
+    TextInputLayout text_password;
 
+    @BindView(R.id.editcorreo)
+    EditText editcorreo;
+    @BindView(R.id.editpassword)
+    EditText editpassword;
 
-
-
-
-    @BindView(R.id.editnumero_tarjeta)
-    EditText editnumero_tarjeta;
-    @BindView(R.id.editcodigo)
-    EditText editcodigo;
 
     @BindView(R.id.txtbottom)
     StyleTextView txtbottom;
@@ -58,35 +57,33 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
     @BindView(R.id.block_iniciar_sesion)
     LinearLayout block_iniciar_sesion;
 
-    private String numerotarjeta, codigo;
+    private String correo, contrasena;
 
-    public static RegisterStarbucksFragment newInstance() {
-        RegisterStarbucksFragment fragmentRegister = new RegisterStarbucksFragment();
-        Bundle args = new Bundle();
-        fragmentRegister.setArguments(args);
-        return fragmentRegister;
-    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_starbucks_register, container, false);
         initViews();
+        setValidationRules();
         return rootView;
     }
+
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        txt_subtitul.setText(R.string.texto_resgister_starbucks);
-        block_iniciar_sesion.setVisibility(View.GONE);
-        block_register.setVisibility(View.VISIBLE);
+        block_iniciar_sesion.setVisibility(View.VISIBLE);
+        block_register.setVisibility(View.GONE);
         btnNextStarbucks.setOnClickListener(this);
-        setValidationRules();
-        editnumero_tarjeta.addTextChangedListener(new TarjetaStarbucksTextWatcher(editnumero_tarjeta));
+
 
     }
 
@@ -99,52 +96,56 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     }
 
+
+
     @Override
     public void setValidationRules() {
-        editnumero_tarjeta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editcorreo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus){
-                    text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_active);
+                    text_correo.setBackgroundResource(R.drawable.inputtext_active);
                 }else {
-                    text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_normal);
+                    text_correo.setBackgroundResource(R.drawable.inputtext_normal);
                 }
             }
         });
-        editcodigo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editpassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (hasFocus){
-                    text_codigo.setBackgroundResource(R.drawable.inputtext_active);
+                    text_password.setBackgroundResource(R.drawable.inputtext_active);
                 }else {
-                    text_codigo.setBackgroundResource(R.drawable.inputtext_normal);
+                    text_password.setBackgroundResource(R.drawable.inputtext_normal);
                 }
             }
         });
     }
-
     @Override
     public void validateForm() {
         getDataForm();
         boolean isValid = true;
-        if (numerotarjeta.isEmpty()){
-            UI.showErrorSnackBar(getActivity(),getString(R.string.numero_tarjeta_necesario), Snackbar.LENGTH_SHORT);
-            text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_error);
+        if (correo.isEmpty()){
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+            text_correo.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }else if(!ValidateForm.isValidEmailAddress(correo)){
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo_formato), Snackbar.LENGTH_SHORT);
+            text_correo.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }else {
-            text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_normal);
+            text_correo.setBackgroundResource(R.drawable.inputtext_normal);
         }
-        if (codigo.isEmpty()){
+        if (contrasena.isEmpty()){
             UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
-            text_codigo.setBackgroundResource(R.drawable.inputtext_error);
+            text_password.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }else {
-            text_codigo.setBackgroundResource(R.drawable.inputtext_normal);
+            text_password.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (isValid) {
             onValidationSuccess();
         }
-
     }
 
     @Override
@@ -164,9 +165,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void getDataForm() {
-
-        numerotarjeta= editnumero_tarjeta.getText().toString().trim();
-        codigo= editcodigo.getText().toString().trim();
-
+        correo= editcorreo.getText().toString().trim();
+        contrasena= editpassword.getText().toString().trim();
     }
 }
