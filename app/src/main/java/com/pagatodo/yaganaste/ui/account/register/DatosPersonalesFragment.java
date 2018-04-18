@@ -707,11 +707,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
-       /* if (!BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             onValidationSuccess();
-        } else {*/
+        } else {
         accountPresenter.validatePersonData();
-        //}
+        }
     }
 
     @Override

@@ -31,6 +31,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_profile_balance"
                     android:layout_width="67dp"
+                    android:src="@mipmap/icon_user"
                     android:layout_height="67dp"
                      />
             </LinearLayout>
