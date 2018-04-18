@@ -72,8 +72,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     StyleTextView tipoSaldo;
     @BindView(R.id.img_reload)
     ImageView imgReload;
-    //@BindView(R.id.txt_anuncio)
-    //StyleTextView anuncio;
+
 
     private WalletPresenter walletPresenter;
     private CardWalletAdpater cardWalletAdpater;
@@ -195,17 +194,24 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
         elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
         elementsWalletAdapter.notifyDataSetChanged();
-
         llm.setSpanCount(colums);
         rcvOpciones.setLayoutManager(llm);
-        //rcvOpciones.setHasFixedSize(false);
-        txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+        upDateSaldo(position);
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
+
+        if (!cardWalletAdpater.getElemenWallet(position).isUpdate()){
+            imgReload.setVisibility(View.INVISIBLE);
+        } else {
+            imgReload.setVisibility(View.VISIBLE);
+        }
+
     }
 
-
+    private void upDateSaldo(int position){
+        txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+    }
 
     @Override
     public void onItemClick(ElementView elementView) {

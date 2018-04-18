@@ -69,9 +69,6 @@
                     app:dotBottom="false"
                     app:symbolSmaller="true" />
 
-
-
-
             </RelativeLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView

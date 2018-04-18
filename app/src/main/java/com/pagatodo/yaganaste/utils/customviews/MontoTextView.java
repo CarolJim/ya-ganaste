@@ -61,8 +61,6 @@ public class MontoTextView extends StyleTextView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (isCustom) {
-            try {
-                int isint = Integer.parseInt(getText().toString().trim().replace("$", "").replace(".", ""));
 
                 if (!getText().toString().contains("$"))
                     setText(String.format("$%s", getText())); // Agregamos símbolo $
@@ -128,8 +126,16 @@ public class MontoTextView extends StyleTextView {
 
 
                 setText(text, TextView.BufferType.SPANNABLE);
-            } catch (NumberFormatException nfe){
-                setText(getText());
+
+
+            try {
+                Double number = Double.parseDouble(getText().toString().trim().replace("$", "").replace(",",""));
+            }catch (NumberFormatException nfe){
+                String[] clean = getText().toString().trim().replace("$", "").replace(",","").split("\\.");
+                SpannableString textS = new SpannableString(clean[0]);
+
+                setText(textS, TextView.BufferType.SPANNABLE);
+
             }
         }
 
