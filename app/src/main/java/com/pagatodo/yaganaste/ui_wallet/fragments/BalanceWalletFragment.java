@@ -382,12 +382,10 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         */
 
 
-
-
-
         Picasso.with(getContext())
                 .load(StringUtils.procesarURLString(mUserImage))
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .error(R.mipmap.icon_user)
                 .into(crlProfileBalance);
        /*
 

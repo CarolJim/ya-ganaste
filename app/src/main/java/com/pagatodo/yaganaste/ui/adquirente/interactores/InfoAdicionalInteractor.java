@@ -64,7 +64,7 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     @Override
     public void registrarAdquirente() {
         CrearAgenteRequest request = new CrearAgenteRequest(RegisterAgent.getInstance(),
-                Integer.valueOf(App.getInstance().getPrefs().loadData(TIPO_AGENTE)));
+                1);
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
