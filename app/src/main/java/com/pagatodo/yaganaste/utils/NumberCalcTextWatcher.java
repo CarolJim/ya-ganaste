@@ -97,7 +97,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
         } else {
             //Si es diferente a 99, mostramos el formato y hacemos Set CodeKey
             CustomKeyboardView.setCodeKey(99);
-            etMonto.setText(Utils.getCurrencyValue(strAmountEditText));
+            etMonto.setText(StringUtils.getCurrencyValue(strAmountEditText));
             if (!etMonto.toString().equals("") && strAmountEditText != null) {
                 Selection.setSelection(etMonto.getText(), strAmountEditText.toString().length());
             }
@@ -196,10 +196,10 @@ public class NumberCalcTextWatcher implements TextWatcher {
                         tmp = formatter.format(Double.parseDouble(amount));
                     }
                     //  Log.d(TAG, "NumberCalc " + keyData + " tmp " + Utils.getCurrencyValue(tmp));
-                    strAmountEditText = Utils.getCurrencyValue(tmp);
+                    strAmountEditText = StringUtils.getCurrencyValue(tmp);
                     CustomKeyboardView.setCodeKey(99);
-                    etMonto.setText(Utils.getCurrencyValue(tmp));
-                    Selection.setSelection(etMonto.getText(), Utils.getCurrencyValue(tmp).toString().length());
+                    etMonto.setText(StringUtils.getCurrencyValue(tmp));
+                    Selection.setSelection(etMonto.getText(), StringUtils.getCurrencyValue(tmp).toString().length());
 
                     // Guardamos la cantidad en el modelo para recuperar en caso de perdida
                     //TransactionAdqData.getCurrentTransaction().setAmount(Utils.getCurrencyValue(strAmountEditText));

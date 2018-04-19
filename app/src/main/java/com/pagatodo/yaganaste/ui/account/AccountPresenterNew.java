@@ -87,6 +87,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
@@ -198,7 +199,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         accountView.showLoader("");
         prefs.saveData(SHA_256_FREJA, Utils.getSHA256(password));//Freja
-        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password));
+        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password, PUBLIC_KEY_RSA));
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin, password);
         ///accountIteractor.login(requestLogin);
@@ -250,7 +251,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void validatePasswordFormat(String password) {
         accountView.showLoader(App.getInstance().getString(R.string.validando_password));
-        accountIteractor.validatePassword(Utils.cipherRSA(password));
+        accountIteractor.validatePassword(Utils.cipherRSA(password, PUBLIC_KEY_RSA));
     }
 
     @Override
@@ -262,15 +263,15 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void assignNIP(String nip) {
         accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
-        AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
+        AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip, PUBLIC_KEY_RSA));
         accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
     }
 
     public void changeNIP(String nip, String nipNewConfirm) {
         accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
         AsignarNIPRequest request = new AsignarNIPRequest(
-                Utils.cipherRSA(nip),
-                Utils.cipherRSA(nipNewConfirm)
+                Utils.cipherRSA(nip, PUBLIC_KEY_RSA),
+                Utils.cipherRSA(nipNewConfirm, PUBLIC_KEY_RSA)
         );
         accountIteractor.assignmentNIP(request, ASIGNAR_NEW_NIP);
     }

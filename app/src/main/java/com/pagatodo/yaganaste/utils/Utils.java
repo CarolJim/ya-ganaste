@@ -462,66 +462,7 @@ public class Utils {
     }
 
     public static String getUdid(Context context) {
-        return Settings.Secure.getString(context.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-    }
-
-    public static void setDefaultPreferences() {
-        /*
-        Preferencias prefs = App.getInstance().getPrefs();
-        if (prefs.loadData("INICIALIZED") == null) {
-            prefs.saveData("INICIALIZED", "ACTUALIZACION2.0");
-            prefs.saveData("URL_SERVER", Recursos.URL_SERVER);
-            prefs.saveData("URL_NOTIFICACIONES", Recursos.URL_NOTIFICACIONES);
-            prefs.saveData("URL_SWITCH", Recursos.URL_SWITCH_SERVER);
-            prefs.saveData("PIN_PT", Recursos.PIN_PT);
-            prefs.saveData("SESION", Recursos.SESION);
-            prefs.saveData("VERSION", Recursos.VERSION_NAME);
-            prefs.saveData("REG_AUT", Recursos.REG_AUT);
-            prefs.saveData("TRACKER_ID", Recursos.TRACKER_ID_PRODUCCION);
-            prefs.saveData("URL_TERMINOS_CONDICIONES", Recursos.URL_TERMINOS_Y_CONDICIONES);
-            prefs.saveData(Recursos.TRANSACTION_SEQUENCE, "0");
-            prefs.saveData("IS_CVV_REQUIRED", Boolean.toString(Recursos.IS_CVV_REQUIRED));
-            prefs.saveData("REEMBOLSO", Boolean.toString(Recursos.IS_REEMBOLSO_VISIBLE));
-            prefs.saveData("APLICACION_BANCARIA", Boolean.toString(Recursos.IS_APLICACION_BANCARIA));
-            prefs.saveData("VISIBLE_DAYS", Recursos.VISIBLE_DAYSVAL);
-            prefs.saveData("DEVOLUCION", Boolean.toString(Recursos.IS_DEVOLUCION_VISIBLE));
-            prefs.saveData("PROPINA", Boolean.toString(Recursos.IS_PROPINA_ACTIVA));
-            numberIntents = 0;
-        } else {
-            if (!prefs.loadData("INICIALIZED").equals("ACTUALIZACION2.0")) {
-                prefs.saveData("URL_SWITCH", Recursos.URL_SWITCH_SERVER);
-                prefs.saveData(Recursos.TRANSACTION_SEQUENCE, "0");
-                prefs.saveData("IS_CVV_REQUIRED", Boolean.toString(Recursos.IS_CVV_REQUIRED));
-                prefs.saveData("APLICACION_BANCARIA", Boolean.toString(Recursos.IS_APLICACION_BANCARIA));
-                prefs.saveData("INICIALIZED", "ACTUALIZACION2.0");
-                prefs.saveData("VISIBLE_DAYS", Recursos.VISIBLE_DAYSVAL);
-                prefs.saveData("REEMBOLSO", Boolean.toString(Recursos.IS_REEMBOLSO_VISIBLE));
-                prefs.saveData("PROPINA", Boolean.toString(Recursos.IS_PROPINA_ACTIVA));
-                prefs.saveData("DEVOLUCION", Boolean.toString(Recursos.IS_DEVOLUCION_VISIBLE));
-            }
-        }*/
-    }
-
-    public static void initPreferences() {
-       /* Preferencias prefs = App.getInstance().getPrefs();
-        if (!prefs.compare(Recursos.VERSION, Recursos.VERSION_NAME)) {
-            prefs.saveData("URL_SERVER", Recursos.URL_SERVER);
-            prefs.saveData("URL_NOTIFICACIONES", Recursos.URL_NOTIFICACIONES);
-            prefs.saveData("URL_SWITCH", Recursos.URL_SWITCH_SERVER);
-            prefs.saveData("PIN_PT", Recursos.PIN_PT);
-            prefs.saveData("SESION", Recursos.SESION);
-            prefs.saveData("VERSION", Recursos.VERSION_NAME);
-            prefs.saveData("TRACKER_ID", Recursos.TRACKER_ID_PRODUCCION);
-            prefs.saveData("URL_TERMINOS_CONDICIONES", Recursos.URL_TERMINOS_Y_CONDICIONES);
-            prefs.saveData(Recursos.TRANSACTION_SEQUENCE, "0");
-            prefs.saveData("IS_CVV_REQUIRED", Boolean.toString(Recursos.IS_CVV_REQUIRED));
-            prefs.saveData("REEMBOLSO", Boolean.toString(Recursos.IS_REEMBOLSO_VISIBLE));
-            prefs.saveData("APLICACION_BANCARIA", Boolean.toString(Recursos.IS_APLICACION_BANCARIA));
-            prefs.saveData("DEVOLUCION", Boolean.toString(Recursos.IS_DEVOLUCION_VISIBLE));
-            prefs.saveData("PROPINA", Boolean.toString(Recursos.IS_PROPINA_ACTIVA));
-            numberIntents = 0;
-        }*/
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     public synchronized static String id(Context context) {
@@ -665,8 +606,8 @@ public class Utils {
 
     public static String toHex(String arg) {
         return String.format("%040x", new BigInteger(1, arg.getBytes(/*
-                                                                     * YOUR_CHARSET?
-																	 */)));
+         * YOUR_CHARSET?
+         */)));
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -1048,10 +989,6 @@ public class Utils {
         return formatter.format(value);
     }
 
-    public static String getCurrencyValue(String value) {
-        return getCurrencyValue(getDoubleValue(value));
-    }
-
     public static double getDoubleValue(String value) {
         try {
             value = value.replace("$", "").replace(",", "").replace("%", "")
@@ -1199,11 +1136,11 @@ public class Utils {
         return value;
     }
 
-    public static String cipherRSA(String text) {
+    public static String cipherRSA(String text, String rsaKey) {
         String result;
         try {
             byte[] expBytes = Base64.decode("AQAB".getBytes("UTF-8"), Base64.DEFAULT);
-            byte[] modBytes = Base64.decode(PUBLIC_KEY_RSA.getBytes("UTF-8"), Base64.DEFAULT);
+            byte[] modBytes = Base64.decode(rsaKey.getBytes("UTF-8"), Base64.DEFAULT);
 
             BigInteger modules = new BigInteger(1, modBytes);
             BigInteger exponent = new BigInteger(1, expBytes);
@@ -1223,9 +1160,12 @@ public class Utils {
         return result;
     }
 
-    /** Method used only to cipher string with password.
+    /**
+     * Method used only to cipher string with password.
      * Implementation in {@link com.pagatodo.yaganaste.ui.account.AccountInteractorNew} line 672
-     * @value{mode} = (true)ENCRYPT_MODE / (false)DECRYPT_MODE */
+     *
+     * @value{mode} = (true)ENCRYPT_MODE / (false)DECRYPT_MODE
+     */
     public static String cipherAES(String text, boolean mode) {
         String strData = "";
         try {
@@ -1335,12 +1275,12 @@ public class Utils {
         }
     }
 
-    public static ArrayList<CarouselItem> removeNullCarouselItem(ArrayList<CarouselItem> originalList){
+    public static ArrayList<CarouselItem> removeNullCarouselItem(ArrayList<CarouselItem> originalList) {
         ArrayList<CarouselItem> items = originalList;
 
-         // Funcion para eliminar los nuos de nuestra lista. A futuro se cambiara por ComercioResponse
-        for(int x=0; x<items.size();x++){
-            if(items.get(x).getComercio() == null){
+        // Funcion para eliminar los nuos de nuestra lista. A futuro se cambiara por ComercioResponse
+        for (int x = 0; x < items.size(); x++) {
+            if (items.get(x).getComercio() == null) {
                 items.remove(x);
             }
         }

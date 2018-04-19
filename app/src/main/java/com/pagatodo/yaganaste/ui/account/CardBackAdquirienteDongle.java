@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
@@ -51,7 +52,7 @@ public class CardBackAdquirienteDongle extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        txtSaldo.setText(Utils.getCurrencyValue(prefs.loadData(ADQUIRENTE_BALANCE)));
+        txtSaldo.setText(StringUtils.getCurrencyValue(prefs.loadData(ADQUIRENTE_BALANCE)));
 /*
         rootView.findViewById(R.id.llcardsaldo).setOnTouchListener(new View.OnTouchListener() {
             @Override

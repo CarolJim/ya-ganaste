@@ -3,29 +3,20 @@ package com.pagatodo.yaganaste.ui_wallet.builder;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
-import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
-import com.pagatodo.yaganaste.ui_wallet.holders.OptionMenuIViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.StatusZoneViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.holders.ViewHolderMenuSegurity;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
@@ -39,16 +30,12 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CANCELACION;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
-import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 
 /**
@@ -60,9 +47,9 @@ public class ContainerBuilder {
     public static final String MAINMENU = "MAINMENU";
     public static final String SETTINGS_MENU = "SETTINGS_MENU";
 
-    public static void builder(Context context, ViewGroup parent, OnClickItemHolderListener  listener, String type){
-        Container s = new Container(context,parent,listener);
-        switch (type){
+    public static void builder(Context context, ViewGroup parent, OnClickItemHolderListener listener, String type) {
+        Container s = new Container(context, parent, listener);
+        switch (type) {
             case MAINMENU:
                 mainMenu(s);
                 break;
@@ -72,18 +59,18 @@ public class ContainerBuilder {
         }
     }
 
-    private static void mainMenu(Container s){
+    private static void mainMenu(Container s) {
         int res = R.layout.option_menu_tem_view;
-        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
-        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
-        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
-        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
-        s.addItemOptionMenuIViewHolder(res,new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout,false));
+        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
+        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
+        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
+        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
+        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
     }
 
-    private static void settingsMenu(Container s){
-        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option,0, RAW));
-        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_CANCELACION, R.string.ajustes_cancelacion_option,0, RAW));
+    private static void settingsMenu(Container s) {
+        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option, 0, RAW));
+        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_CANCELACION, R.string.ajustes_cancelacion_option, 0, RAW));
     }
 
     /*public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SECURITY_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
@@ -99,6 +86,7 @@ public class ContainerBuilder {
         s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option,0, RAW));
         return s.getArrayListOptionMenuSegurity();
     }*/
+
 
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_NOTIFICACIONES(Context context, ViewGroup parent, OnClickItemHolderListener listener){
         Container s = new Container(context,listener);
@@ -129,16 +117,16 @@ public class ContainerBuilder {
         return s.getArrayListOptionMenuSegurity();
     }
 
-    public static TextDataAdapter DEPOSITO(Context context, Container s){
-        return new TextDataAdapter(context,s.getTextDataList());
+    public static TextDataAdapter DEPOSITO(Context context, Container s) {
+        return new TextDataAdapter(context, s.getTextDataList());
     }
 
-    public static InputTexAdapter NIP(Context context){
+    public static InputTexAdapter NIP(Context context) {
         Container s = new Container();
         s.addInputText(new InputText(R.string.nip_actual));
         s.addInputText(new InputText(R.string.nip_nuevo));
         s.addInputText(new InputText(R.string.nip_confima));
-        return new InputTexAdapter(context,s.getInputTextList());
+        return new InputTexAdapter(context, s.getInputTextList());
     }
 
     /*public static ElementsWalletAdapter getAdapter(Activity activity, OnItemClickListener listener){
@@ -169,56 +157,56 @@ public class ContainerBuilder {
         return elementsWalletAdapter;
     }*/
 
-    public static CardWalletAdpater getCardWalletAdapter(boolean error){
-        CardWalletAdpater adpater = new CardWalletAdpater();
+    public static CardWalletAdpater getCardWalletAdapter(boolean error) {
+        CardWalletAdpater adapter = new CardWalletAdpater();
         String statusCard = SingletonUser.getInstance().getCardStatusId();
-        adpater.addCardItem(new ElementWallet().getCardyaganaste());
+        adapter.addCardItem(new ElementWallet().getCardyaganaste());
 
-        if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)){
-            adpater.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
+        if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
+            adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
         }
-        adpater.addCardItem(new ElementWallet().getCardLectorAdq());
-        adpater.addCardItem(new ElementWallet().getCardStarBucks());
-        adpater.addCardItem(new ElementWallet().getCardSettings());
+        adapter.addCardItem(new ElementWallet().getCardLectorAdq());
+        //adapter.addCardItem(new ElementWallet().getCardStarbucks());
+        adapter.addCardItem(new ElementWallet().getCardSettings());
 
-        return adpater;
+        return adapter;
     }
 
     private static ArrayList<PaletteViewHolder> list;
 
-    public static void FAVORITOS(Context context, ViewGroup parent, List<Favoritos> listF, PaletteViewHolder.OnClickListener listener){
-        Container builder = new Container(context,parent);
+    public static void FAVORITOS(Context context, ViewGroup parent, List<Favoritos> listF, PaletteViewHolder.OnClickListener listener) {
+        Container builder = new Container(context, parent);
         Favoritos itemAdd = new Favoritos(0);
         itemAdd.setNombre("Agregar");
-        builder.addSimpleHolder(itemAdd,listener);
+        builder.addSimpleHolder(itemAdd, listener);
         list = new ArrayList<>();
         for (Favoritos carouselItem : listF) {
-            builder.addHolder(carouselItem,listener);
+            builder.addHolder(carouselItem, listener);
         }
         list = builder.getHoldersList();
     }
 
-    public static void edition(boolean edition){
+    public static void edition(boolean edition) {
         for (PaletteViewHolder item : list) {
             item.edition(edition);
         }
     }
 
-    public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder){
+    public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         OptionsViewHolder op = null;
         //OPTION_ZONE
-        switch (typeholder){
+        switch (typeholder) {
             case OPTION_ZONE:
-                op = new IndicationZoneViewHolder(context,inflater.inflate(R.layout.indicator_zone, parent, false));
+                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone, parent, false));
                 break;
             case OPTION_ZONE_UNO:
-                op = new StatusZoneViewHolder(context,inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
+                op = new StatusZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
                 break;
-                default:
-                    op = new ButtonsViewHolder(context,inflater.inflate(R.layout.view_element, parent, false));
-                    break;
+            default:
+                op = new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));
+                break;
         }
 
         return op;

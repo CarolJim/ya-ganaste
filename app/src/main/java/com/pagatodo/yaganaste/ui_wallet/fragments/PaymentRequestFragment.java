@@ -143,7 +143,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         requestAmout.setText(String.format("%s", StringUtils.getCurrencyValue(monto)));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtUsername.setText("" + dataUser.getDataUser().getUsuario().getNombre());
-        txtBalance.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+        txtBalance.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
             Picasso.with(getContext())

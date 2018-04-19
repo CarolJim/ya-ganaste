@@ -182,7 +182,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         ButterKnife.bind(this, rootview);
         SingletonUser dataUser = SingletonUser.getInstance();
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        importe.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+        importe.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txt_username_payment.setText(usuario.getNombre());
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override

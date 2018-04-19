@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -94,7 +95,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         SingletonUser dataUser = SingletonUser.getInstance();
-        saldoDisponible.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+        saldoDisponible.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txtReceiverName.setText(payments.getNombreDestinatario());
         if (favoritos != null) {
             txtInicialesFav.setVisibility(View.GONE);

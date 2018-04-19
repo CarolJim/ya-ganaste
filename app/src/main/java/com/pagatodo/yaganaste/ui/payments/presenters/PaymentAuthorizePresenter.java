@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthoriz
 import com.pagatodo.yaganaste.utils.Utils;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 
 /**
  * Created by Jordan on 14/08/2017.
@@ -31,7 +32,7 @@ public class PaymentAuthorizePresenter extends OtpPresenterImp implements IPayme
     @Override
     public void validatePasswordFormat(String password) {
         manager.showLoader("");
-        interactor.validatePasswordFormat(Utils.cipherRSA(password));
+        interactor.validatePasswordFormat(Utils.cipherRSA(password, PUBLIC_KEY_RSA));
     }
 
     @Override

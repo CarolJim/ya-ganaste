@@ -505,7 +505,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         txtMonto.setText("" + Utils.getCurrencyValue(0));
         SingletonUser dataUser = SingletonUser.getInstance();
         txtNameUser.setText("" + dataUser.getDataUser().getUsuario().getNombre());
-        txtSaldo.setText("" + Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+        txtSaldo.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
             Picasso.with(App.getContext())
