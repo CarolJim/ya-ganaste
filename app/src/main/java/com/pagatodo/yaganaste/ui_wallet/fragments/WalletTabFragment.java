@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -223,9 +224,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void getSaldo() {
-        cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
+        cardWalletAdpater.updateSaldo(0, StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId())
-            cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
+            cardWalletAdpater.updateSaldo(1, StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
         updateOperations(pageCurrent);
     }
 

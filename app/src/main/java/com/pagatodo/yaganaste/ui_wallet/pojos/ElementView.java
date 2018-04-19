@@ -250,7 +250,7 @@ public class ElementView implements Serializable {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListStartBuck(){
+    public static ArrayList<ElementView> getListStarbucks(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_RECOMPENSAS,R.drawable.icon_star,R.string.opt_recompensas));
         elementViews.add(new ElementView(1,R.drawable.icono_movimientos,R.string.opt_consulta));

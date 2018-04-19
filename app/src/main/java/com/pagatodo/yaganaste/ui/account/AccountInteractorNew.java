@@ -115,6 +115,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
@@ -278,7 +279,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         /*Creamos Request para realizar registro*/
         CrearUsuarioClienteRequest request = new CrearUsuarioClienteRequest(
                 registerUser.getEmail(),
-                Utils.cipherRSA(registerUser.getContrasenia()),
+                Utils.cipherRSA(registerUser.getContrasenia(), PUBLIC_KEY_RSA),
                 registerUser.getNombre(),
                 registerUser.getApellidoPaterno(),
                 registerUser.getApellidoMaterno(),
@@ -603,7 +604,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void validatePersonDataResponse(GenericResponse data) {
         if (data.getCodigoRespuesta() == 0) {
             accountManager.onSuccessDataPerson();
-        }else if(data.getCodigoRespuesta() == 231){ // 325 Caso Homonímia
+        } else if (data.getCodigoRespuesta() == 231) { // 325 Caso Homonímia
             accountManager.onHomonimiaDataPerson();
         } else {
             accountManager.onError(VALIDAR_DATOS_PERSONA, data.getMensaje());
@@ -832,7 +833,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 card.setAlias(dataCard.getAlias());
                 card.setUserName(dataCard.getNombreUsuario());
                 card.setIdAccount(dataCard.getIdCuenta());
-                    Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
+                Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
                 accountManager.onSucces(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card));
@@ -988,13 +989,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser user = SingletonUser.getInstance();
             String phone = data.getData().getNumeroTelefono();
             String tokenValidation = user.getDataUser().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
-                Log.d("WSC", "TokenValidation: " + tokenValidation);
+            Log.d("WSC", "TokenValidation: " + tokenValidation);
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
-                Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
+            Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
                     user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
-                Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
             if (FirebaseInstanceId.getInstance().getToken() != null) {
                 prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
                 // prefs.saveData(TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);

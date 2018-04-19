@@ -1301,7 +1301,7 @@
     <string name="title_second">Suscribete o inicia sesión en tus programas\nde lealtad favoritos y obten beneficios exclusivos</string>
     <string name="title_button_card">Configurar Tarjetas</string>
     <string name="title_wallet_main_settings">Mis Tarjetas</string>
-    <string name="title_wallet_second_settings">Lorem Ipsum Dolor Sit Amet</string>
+    <string name="title_wallet_second_settings">Tarjetas disponibles: 1</string>
 
     <!-- Hint's -->
     <string name="hint_referencia_numerica">Referencia numérica (6 dígitos)</string>

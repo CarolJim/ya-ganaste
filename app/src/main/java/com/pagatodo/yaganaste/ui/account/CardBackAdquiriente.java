@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCardBack;
@@ -81,7 +82,7 @@ public class CardBackAdquiriente extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        txtSaldo.setText(Utils.getCurrencyValue(prefs.loadData(USER_BALANCE)));
+        txtSaldo.setText(StringUtils.getCurrencyValue(prefs.loadData(USER_BALANCE)));
     }
 
 }

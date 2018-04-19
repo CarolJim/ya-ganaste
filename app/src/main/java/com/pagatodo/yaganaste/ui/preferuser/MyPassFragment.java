@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 /**
@@ -296,8 +297,8 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
         onEventListener.onEvent("DISABLE_BACK", true);
 
         mPreferPresenter.changePassToPresenter(
-                Utils.cipherRSA(editActual.editText.getText().toString().trim()),
-                Utils.cipherRSA(editNueva.editText.getText().toString().trim())
+                Utils.cipherRSA(editActual.editText.getText().toString().trim(), PUBLIC_KEY_RSA),
+                Utils.cipherRSA(editNueva.editText.getText().toString().trim(), PUBLIC_KEY_RSA)
         );
     }
 

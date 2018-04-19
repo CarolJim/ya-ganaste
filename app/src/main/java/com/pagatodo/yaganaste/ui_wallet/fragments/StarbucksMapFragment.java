@@ -6,9 +6,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +25,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
-import java.util.Locale;
-import java.util.concurrent.Executor;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PdvsMapFragment extends GenericFragment {
+public class StarbucksMapFragment extends GenericFragment {
 
     private View rootView;
     @BindView(R.id.mapView)
@@ -51,16 +44,16 @@ public class PdvsMapFragment extends GenericFragment {
     private LocationCallback mLocationCallback;
     private LocationRequest mLocationRequest;
 
-    public static PdvsMapFragment newInstance() {
-        PdvsMapFragment pdvsMapFragment = new PdvsMapFragment();
-        return pdvsMapFragment;
+    public static StarbucksMapFragment newInstance() {
+        StarbucksMapFragment starbucksMapFragment = new StarbucksMapFragment();
+        return starbucksMapFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_pdvs_map, container, false);
+            rootView = inflater.inflate(R.layout.fragment_starbucks_map, container, false);
             ButterKnife.bind(this, rootView);
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
             mMapView.onCreate(savedInstanceState);

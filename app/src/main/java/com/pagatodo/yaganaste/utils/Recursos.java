@@ -9,6 +9,7 @@ public class Recursos {
     public static final String URL_SERVER_TRANS;
     public static final String URL_SERVER_ADQ;
     public static final String URL_SERVER_FB;
+    public static final String URL_STARBUCKS;
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;
@@ -17,7 +18,7 @@ public class Recursos {
     public static final int TIMEOUT = 60000;
 
     public static final String PUBLIC_KEY_RSA;
-
+    public static final String PUBLIC_STARBUCKS_KEY_RSA;
 
     public static final String PIN_ADVO;
     public static final String PIN_TRANS;
@@ -42,8 +43,10 @@ public class Recursos {
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
             URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
             URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
+            URL_STARBUCKS = "https://crt-rewards.starbucks.mx:17443";
 
             PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
+            PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
             PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
@@ -55,8 +58,10 @@ public class Recursos {
                 URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
                 URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
                 URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
+                URL_STARBUCKS = "https://crt-rewards.starbucks.mx:17443";
 
                 PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
+                PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
                 PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
                 PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
@@ -65,10 +70,11 @@ public class Recursos {
                 URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
                 URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
                 URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
-                //URL_SERVER_ADQ = "https://agentemovil.pagatodo.com:19443/Middleware.svc";
                 URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
+                URL_STARBUCKS = "https://crt-rewards.starbucks.mx:17443";
 
                 PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
+                PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
                 PIN_ADVO = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
                 PIN_TRANS = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
@@ -252,12 +258,13 @@ public class Recursos {
     public static final String LAST_NAME = "LAST_NAME";
     public static final String CARD_NUMBER = "CARD_NUMBER";
     public static final String USER_BALANCE = "USER_BALANCE";
+    public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
+    public static final String STARBUCKS_BALANCE = "STABUCKS_BALANCE";
+    public static final String CUPO_BALANCE = "CUPO_BALANCE";
     public static final String UPDATE_DATE = "UPDATE_DATE";
     public static final String UPDATE_DATE_BALANCE_ADQ = "UPDATE_DATE_BALANCE_ADQ";
     public static final String UPDATE_DATE_BALANCE_CUPO = "UPDATE_DATE_BALANCE_CUPO";
     public static final String ID_CUENTA = "ID_CUENTA";
-    public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
-    public static final String CUPO_BALANCE = "CUPO_BALANCE";
     public static final String ADQUIRENTE_APPROVED = "ADQUIRENTE_APPROVED";
     public static final String PHONE_NUMBER = "PHONE_NUMBER";
     public static final String CLABE_NUMBER = "CLABE_NUMBER";

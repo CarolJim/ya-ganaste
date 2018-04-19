@@ -357,13 +357,13 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     private void updateOperations(int position) {
         pageCurrent = position;
         if (position == 0) {
-            txtAmountBalance.setText(Utils.getCurrencyValue(balanceEmisor));
+            txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceEmisor));
             txtCardDescBalance.setText(getString(R.string.tarjeta_yg));
             txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance());
         }
         if (position == 1) {
-            txtAmountBalance.setText(Utils.getCurrencyValue(balanceAdq));
+            txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceAdq));
             txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
             txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
