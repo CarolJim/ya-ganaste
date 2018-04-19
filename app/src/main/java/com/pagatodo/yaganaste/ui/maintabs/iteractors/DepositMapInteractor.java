@@ -46,7 +46,7 @@ public class DepositMapInteractor implements IDepositMapInteractor, IRequestResu
         if (response.getCodigoRespuesta() == CODE_OK) {
             List<DataLocalizaSucursal> sucursales = response.getData();
             if (sucursales != null && sucursales.size() > 0) {
-                //List<DataLocalizaSucursal> s = new Gson().fromJson(v, new TypeToken<List<DataLocalizaSucursal>>() {}.getType());
+                //List<DataLocalizaSucursal> s = new Gson().fromJson(v, new TypeToken<List<DataLocalizaSucursal>>() {}.getTypeView());
                 depositMapPresenter.onGetSucursalesSuccess(sucursales);//sucursales);
             } else {
                 depositMapPresenter.onSucursalesNull();

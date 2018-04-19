@@ -1181,6 +1181,7 @@
     <string name="realizar_cobro">Realizar un\ncobro rápido</string>
     <string name="calcular_comisiones">Calcular comisiones</string>
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
+    <string name="lector_yg">Lector de Tarjetas Ya Ganaste</string>
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
     <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
     <string name="send_sms">Enviar SMS</string>
@@ -1401,8 +1402,13 @@
     <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
     <string name="cacncel_desc">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>
 
+    <!-- Administración tarjetas YG -->
+    <string name="admin_cards_active">Tarjetas Activas</string>
+    <string name="admin_cards_available">Tarjetas Disponibles</string>
 
 <!-- Starbucks seccion de registro y login -->
+    <string name="starbucks_card">My Starbucks Rewards</string>
+    <string name="starbucks_available">Inicia sesión o Regístrate</string>
     <string name="texto_resgister_starbucks">Regístarte, acumula Stars\n y obtén beneficios exclusivos</string>
     <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
     <string name="codigo_8_digitos">Código de 8 digitos</string>

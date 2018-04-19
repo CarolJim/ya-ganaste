@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/header_admin_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tab_movement_undselected"
+        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="5dp"
+        android:text="Tarjetas Activas"
+        android:textColor="@color/white_text_wallet"
+        android:textSize="11sp" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -95,11 +95,6 @@
     <color name="hint_color">#42000000</color>
     <color name="success_color">#009688</color>
 
-    <item name="primary" type="color">#9C27B0</item>
-    <item name="primaryDark" type="color">#7B1FA2</item>
-    <item name="textColorPrimary" type="color">@android:color/white</item>
-    <item name="text_grey" type="color">#8f8f8f</item>
-
     <!-- Navegtin Drawer-->
     <color name="head_menu">#f3f3f3</color>
     <color name="text_item_color">#888888</color>

@@ -291,4 +291,6 @@ public class Recursos {
     public static final String ID_USUARIO_ADQUIRIENTE = "ID_USUARIO_ADQUIRIENTE"; // string
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS = "ID_ESTATUS"; // int
+
+    public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean
 }
