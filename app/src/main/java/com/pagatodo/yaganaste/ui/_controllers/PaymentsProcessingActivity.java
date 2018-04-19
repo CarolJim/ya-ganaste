@@ -228,7 +228,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             if (getCurrentFragment() instanceof PaymentAuthorizeFragment) {
                 setResult(RESULT_CODE_BACK_PRESS, intent);
             } else {
-                setResult(RESULT_CODE_FAIL, intent);
+                setResult(RESULT_CODE_OK_CLOSE, intent);
             }
             finish();
             //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
