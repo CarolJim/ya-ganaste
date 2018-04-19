@@ -30,10 +30,10 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     StyleTextView titulo_datos_usuario;
     @BindView(R.id.txt_reward_subtitul)
     StyleTextView txt_reward_subtitul;
-    @BindView(R.id.edt_message_payment)
-    StyleEdittext edtMessagePayment;
-    @BindView(R.id.btn_send_payment)
-    StyleButton btnSendPayment;
+    //@BindView(R.id.edt_message_payment)
+    //StyleEdittext edtMessagePayment;
+    //@BindView(R.id.btn_send_payment)
+    //StyleButton btnSendPayment;
 
 
     public static RewardsStarbucksFragment newInstance(){

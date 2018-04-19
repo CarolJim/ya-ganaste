@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
@@ -36,6 +37,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 
 
 /**
@@ -129,33 +131,6 @@ public class ContainerBuilder {
         return new InputTexAdapter(context, s.getInputTextList());
     }
 
-    /*public static ElementsWalletAdapter getAdapter(Activity activity, OnItemClickListener listener){
-        ElementsWalletAdapter elementsWalletAdapter;
-        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE,false);
-        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
-
-        if (isAgente && Idestatus == IdEstatus.I7.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
-        } else if (isAgente && Idestatus == IdEstatus.I8.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
-        } else if (isAgente && Idestatus == IdEstatus.I9.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoError(), 2);
-        } else if (isAgente && Idestatus == IdEstatus.I10.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
-        } else if (isAgente && Idestatus == IdEstatus.I11.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRevisando(), 2);
-        } //else if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId()) {
-            //elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
-        //}
-        else if (isAgente && Idestatus == IdEstatus.I13.getId()) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListEstadoRechazado(), 2);
-        } /*else if (isAgente && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorAdq(), 0);
-        } else {
-            elementsWalletAdapter = new ElementsWalletAdapter(activity, listener, ElementView.getListLectorEmi(), 1);
-        }
-        return elementsWalletAdapter;
-    }*/
 
     public static CardWalletAdpater getCardWalletAdapter(boolean error) {
         CardWalletAdpater adapter = new CardWalletAdpater();
@@ -166,7 +141,9 @@ public class ContainerBuilder {
             adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
-        //adapter.addCardItem(new ElementWallet().getCardStarbucks());
+        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS,false)){
+            adapter.addCardItem(new ElementWallet().getCardStarbucks());
+        }
         adapter.addCardItem(new ElementWallet().getCardSettings());
 
         return adapter;

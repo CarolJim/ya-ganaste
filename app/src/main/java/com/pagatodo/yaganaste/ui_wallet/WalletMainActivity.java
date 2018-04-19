@@ -34,7 +34,10 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragmen
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.StarbucksMapFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
@@ -59,6 +62,9 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
@@ -183,8 +189,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case 12:
                 loadFragment(DocumentosFragment.newInstance(), R.id.fragment_container);
                 break;
+            case OPTION_RECOMPENSAS:
+                loadFragment(RewardsStarbucksFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_SUCURSALES:
+                loadFragment(StarbucksMapFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_SETTINGSCARD:
+                loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container);
+                break;
             default:
-                //Toast.makeText(this, "Proximamente", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }
