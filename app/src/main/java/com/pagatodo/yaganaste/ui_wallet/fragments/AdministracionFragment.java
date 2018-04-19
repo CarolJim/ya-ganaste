@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -47,7 +48,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
  * Use the {@link AdministracionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdministracionFragment extends SupportFragment implements OptionMenuItem.OnMenuItemClickListener,
+public class AdministracionFragment extends SupportFragment implements OnClickItemHolderListener,
         IMyCardView {
 
     public static final int BLOQUEO = 1;
@@ -98,6 +99,7 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
 
         ArrayList<OptionMenuItem.ViewHolderMenuSegurity> listComponent = ContainerBuilder.ADMINISTRACION(getContext(), mLinearLayout, this);
         OptionMenuItem.ViewHolderMenuSegurity viewHolder = listComponent.get(2);
+
         radioButtonSi = viewHolder.radioButtonSi;
         radioButtonNo = viewHolder.radioButtonNo;
         card.setCardNumber(App.getInstance().getPrefs().loadData(CARD_NUMBER));
@@ -140,8 +142,9 @@ public class AdministracionFragment extends SupportFragment implements OptionMen
     }
 
     @Override
-    public void OnMenuItem(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()) {
+    public void onClick(Object optionMenuItem) {
+        OptionMenuItem item = (OptionMenuItem) optionMenuItem;
+        switch (item.getIdItem()){
             case 1:
                 if (SingletonUser.getInstance().getCardStatusId().equals(Recursos.ESTATUS_CUENTA_DESBLOQUEADA)) {
                     onEventListener.onEvent(EVENT_GO_NIP_CHANGE, null);

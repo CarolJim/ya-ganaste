@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -39,7 +40,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome,
-        OptionMenuItem.OnMenuItemClickListener{
+        OnClickItemHolderListener {
 
     private String nombreCompleto, ultimaTransaccion;
     @BindView(R.id.imgYaGanasteCard)
@@ -325,8 +326,9 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     }
 
     @Override
-    public void OnMenuItem(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()){
+    public void onClick(Object optionMenuItem) {
+        OptionMenuItem item = (OptionMenuItem) optionMenuItem;
+        switch (item.getIdItem()){
             case 3:
                 /**
                  * 1 - Validacion para operaciones con internet, en caso contrario regresamos los botones a
@@ -342,7 +344,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
                     if (statusOperation) {
-                        if (optionMenuItem.isStatusSwtich()) {
+                        if (item.isStatusSwtich()) {
                             // Toast.makeText(getContext(), "checked 1", Toast.LENGTH_SHORT).show();
                             mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
                             statusBloqueo = BLOQUEO;
@@ -355,7 +357,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 } else {
                     showDialogCustom(getResources().getString(R.string.no_internet_access));
                     if (statusOperation) {
-                        if (optionMenuItem.isStatusSwtich()) {
+                        if (item.isStatusSwtich()) {
                             statusOperation = false;
 
                             //menuAdapter.setStatus(false);

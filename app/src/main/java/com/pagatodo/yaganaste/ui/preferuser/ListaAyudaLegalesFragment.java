@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -22,7 +23,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS;
 
 
-public class ListaAyudaLegalesFragment extends GenericFragment implements OptionMenuItem.OnMenuItemClickListener {
+public class ListaAyudaLegalesFragment extends GenericFragment implements OnClickItemHolderListener {
 
     @BindView(R.id.content_linearlayout)
     LinearLayout mLinearLayout;
@@ -64,8 +65,9 @@ public class ListaAyudaLegalesFragment extends GenericFragment implements Option
     }
 
     @Override
-    public void OnMenuItem(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()){
+    public void onClick(Object optionMenuItem) {
+        OptionMenuItem item = (OptionMenuItem) optionMenuItem;
+        switch (item.getIdItem()){
             case 1:
                 onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
                 break;

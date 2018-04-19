@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AvisoPrivacidadFragment extends GenericFragment implements OptionMenuItem.OnMenuItemClickListener{
+public class AvisoPrivacidadFragment extends GenericFragment implements OnClickItemHolderListener {
 
     //private int Idestatus;
     @BindView(R.id.content_linearlayout)
@@ -55,8 +56,9 @@ public class AvisoPrivacidadFragment extends GenericFragment implements OptionMe
     }
 
     @Override
-    public void OnMenuItem(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()){
+    public void onClick(Object optionMenuItem) {
+        OptionMenuItem item = (OptionMenuItem) optionMenuItem;
+        switch (item.getIdItem()){
             case 1:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD_CUENTA_YA, 1);
                 break;

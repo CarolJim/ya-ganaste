@@ -95,6 +95,8 @@
                 android:layout_toRightOf="@id/titles"
                 android:src="@drawable/ic_reload"
                 android:visibility="visible" />
+
+
         </RelativeLayout>
 
         <LinearLayout

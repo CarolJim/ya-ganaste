@@ -132,23 +132,6 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
         }
     }
 
-    /*@Override
-    public void OnMenuItem(OptionMenuItem optionMenuItem) {
-        switch (optionMenuItem.getIdItem()) {
-            case ID_CCAMBIAR_PASS:
-                onEventListener.onEvent(PREFER_USER_PASS, null);
-                break;
-            case ID_NOTIFICACIONES:
-                onEventListener.onEvent(PREFER_NOTIFICACIONES, null);
-                break;
-            case ID_DESVINCULAR:
-                onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
-                break;
-            default:
-                break;
-        }
-    }*/
-
     @Override
     public void onClick(Object item) {
         OptionMenuItem optionMenuItem = (OptionMenuItem) item;

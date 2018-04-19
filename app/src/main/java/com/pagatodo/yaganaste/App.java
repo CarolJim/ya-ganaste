@@ -88,6 +88,7 @@ public class App extends Application {
     private String datoHuellaC;
     private ApplicationLifecycleHandler lifecycleHandler;
     private Map<String, Activity> quoeeuActivites;
+    private String currentSaldo;
 
     public static App getInstance() {
         return m_singleton;
@@ -104,7 +105,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        currentSaldo = "0.00";
         String languageToLoad = "es"; // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
@@ -153,6 +154,7 @@ public class App extends Application {
         statusId = "-1";
         datoHuellaC = "";
         firebaseRemoteConfig();
+
     }
 
     /* Firebase Remote Configuration */
@@ -325,7 +327,6 @@ public class App extends Application {
             countDownTimer.cancel();
         }
     }
-
     private void startCounter() {
         countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
             @Override
@@ -379,5 +380,13 @@ public class App extends Application {
         FileDownload fileDownload = new FileDownload(urlData,
                 nameData, typeData, fileDownloadListener);
         fileDownload.execute("");
+    }
+
+    public String getCurrentSaldo() {
+        return currentSaldo;
+    }
+
+    public void setCurrentSaldo(String currentSaldo) {
+        this.currentSaldo = currentSaldo;
     }
 }

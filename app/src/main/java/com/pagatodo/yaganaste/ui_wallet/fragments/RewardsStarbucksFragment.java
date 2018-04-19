@@ -36,6 +36,10 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     StyleButton btnSendPayment;
 
 
+    public static RewardsStarbucksFragment newInstance(){
+        return new RewardsStarbucksFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

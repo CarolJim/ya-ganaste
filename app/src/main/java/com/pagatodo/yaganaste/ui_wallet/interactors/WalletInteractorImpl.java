@@ -40,12 +40,6 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void getWalletsCards(final boolean error, final WalletNotification listener) {
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                listener.onSuccess(error);
-            }
-        }, 1000);*/
         listener.onSuccess(error);
     }
 
@@ -60,6 +54,7 @@ public class WalletInteractorImpl implements WalletInteractor {
             }
         }
     */
+
     @Override
     public void getBalance() {
         try {

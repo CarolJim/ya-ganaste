@@ -26,7 +26,6 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
@@ -37,6 +36,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,9 +51,14 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ID_OPERATION;
-import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_ADQ;
-import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_STARBUCK;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
@@ -74,8 +79,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     Toolbar toolbar;
 
     private Menu menu;
-    private int idOperation;
-    private int currentPage;
+    private ElementView itemOperation;
+
 
     private ShareActionProvider mShareActionProvider;
 
@@ -90,10 +95,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             }
 
             if (getIntent().getExtras() != null) {
-                currentPage = getIntent().getIntExtra("CURRENT_PAGE", 0);
-                idOperation = getIntent().getIntExtra(ID_OPERATION, 0);
+
+                itemOperation = (ElementView) getIntent().getSerializableExtra(ITEM_OPERATION);
+                getLoadFragment(itemOperation.getIdOperacion());
             }
-            getLoadFragment(idOperation);
+
+
             //loadFragment(MovementsGenericFragment.newInstance(), R.id.fragment_container);
         }
 
@@ -120,9 +127,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_wallet, menu);
-        if (idOperation == 2 && currentPage == PAGE_EMISOR) {
+        if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
             menu.getItem(ACTION_SHARE).setVisible(true);
-        } else if (idOperation == 1 && currentPage == PAGE_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
+        } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
         }
         return true;
@@ -145,33 +152,26 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     private void getLoadFragment(int idoperation) {
         switch (idoperation) {
-            case 1:
-                switch (currentPage) {
-                    case PAGE_EMISOR:
-                        //loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_EMISOR), R.id.fragment_container);
-                        loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
-
-                        break;
-                    case PAGE_ADQ:
-                        loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
-                        //loadFragment(AbstractAdEmFragment.newInstance(MOVEMENTS_ADQ), R.id.fragment_container);
-                        break;
-                }
-
-                //loadFragment(MovementsEmisorFragmentMovementsEmisorView.newInstance(), R.id.fragment_container);
+            case OPTION_MVIMIENTOS_EMISOR:
+                loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
                 break;
-            case 2:
+            case OPTION_MVIMIENTOS_ADQ:
+                loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_MVIMIENTOS_STARBUCKS:
+                finish();
+                break;
+            case OPTION_DEPOSITO:
                 loadFragment(DepositsDataFragment.newInstance(), R.id.fragment_container);
                 break;
-            case 3:
-                switch (currentPage) {
-                    case PAGE_EMISOR:
-                        loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
-                        break;
-                    case PAGE_ADQ:
-                        loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container);
-                        break;
-                }
+            case OPTION_ADMON_EMISOR:
+                loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_ADMON_ADQ:
+                loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_ADMON_STARBUCK:
+                finish();
                 break;
             case 6:
                 loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
@@ -197,11 +197,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             showMainTab();
         }
         if (requestCode == REQUEST_CODE_FAVORITES) {
-            switch (currentPage) {
-                case PAGE_EMISOR:
+            switch (itemOperation.getIdOperacion()) {
+                case OPTION_MVIMIENTOS_EMISOR:
                     loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
                     break;
-                case PAGE_ADQ:
+                case OPTION_MVIMIENTOS_ADQ:
                     loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
                     break;
             }

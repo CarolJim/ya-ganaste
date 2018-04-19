@@ -3,8 +3,12 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -57,7 +61,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
 
-    public static final String ID_OPERATION = "ID_OPERATION";
+    public static final String ITEM_OPERATION = "ITEM_OPERATION";
+
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
     @BindView(R.id.viewpager_wallet)
@@ -126,11 +131,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
 
-        imgReload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                walletPresenter.updateBalance();
-            }
+        imgReload.setOnClickListener(view -> {
+            walletPresenter.updateBalance();
         });
     }
 
@@ -158,6 +160,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
+        updateOperations(pageCurrent);
         walletPresenter.updateBalance();
     }
 
@@ -201,10 +204,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.scheduleLayoutAnimation();
         tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
 
-        if (!cardWalletAdpater.getElemenWallet(position).isUpdate()){
-            imgReload.setVisibility(View.INVISIBLE);
-        } else {
+        if (cardWalletAdpater.getElemenWallet(position).isUpdate()){
             imgReload.setVisibility(View.VISIBLE);
+        } else {
+            imgReload.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -214,10 +217,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
-    public void onItemClick(ElementView elementView) {
+    public void onItemClick(ElementView itemOperation) {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
-        intent.putExtra(ID_OPERATION, elementView.getIdOperacion());
-        intent.putExtra("CURRENT_PAGE", pageCurrent);
+        intent.putExtra(ITEM_OPERATION, itemOperation);
         startActivity(intent);
     }
 
@@ -226,14 +228,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         cardWalletAdpater.updateSaldo(0, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId())
             cardWalletAdpater.updateSaldo(1, Utils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
-        updateOperations(pageCurrent);
+        //updateOperations(pageCurrent);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         walletPresenter.getInformacionAgente();
-        //checkDataCard();
+
     }
 
     @Override

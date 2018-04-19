@@ -28,7 +28,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.R
 public class Container {
 
     private Context context;
-    private OptionMenuItem.OnMenuItemClickListener listener;
+    //private OptionMenuItem.OnMenuItemClickListener listener;
     private OnClickItemHolderListener listenerHolder;
     private ViewGroup parent;
     private View viewItem;
@@ -50,10 +50,10 @@ public class Container {
         this.context = context;
     }
 
-    public Container(Context context, OptionMenuItem.OnMenuItemClickListener listener) {
+    /*public Container(Context context, OptionMenuItem.OnMenuItemClickListener listener) {
         this.context = context;
         this.listener = listener;
-    }
+    }*/
 
     public Container(Context context, OnClickItemHolderListener listener){
         this.context = context;

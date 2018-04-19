@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_DESBLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
@@ -19,10 +18,25 @@ import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
  * Created by icruz on 12/12/2017.
  */
 
+@SuppressWarnings("serial")
 public class ElementView implements Serializable {
 
     final public static int ID_ENVIAR = 8;
     final public static int ID_SOLICITAR = 9;
+
+    static public final int OPTION_MVIMIENTOS_EMISOR = 101;
+    static public final int OPTION_MVIMIENTOS_ADQ = 102;
+    static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
+
+    static public final int OPTION_ADMON_EMISOR = 301;
+    static public final int OPTION_ADMON_ADQ = 302;
+    static public final int OPTION_ADMON_STARBUCK = 303;
+
+
+    static public final int OPTION_DEPOSITO = 203;
+    static public final int OPTION_RECOMPENSAS = 6482;
+    static public final int OPTION_SUCURSALES  = 6453;
+    static public final int OPTION_SETTINGSCARD  = 2112;
 
     public static final int OPTION_SIMPLE = 0;
     public static final int OPTION_ZONE = 1;
@@ -125,9 +139,9 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListEmisor() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(1, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(2, R.drawable.ico_depositos, R.string.operation_deposito));
-        elementViews.add(new ElementView(3, R.drawable.ico_admin_tarj, R.string.operation_administracion));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_EMISOR, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.ico_depositos, R.string.operation_deposito));
+        elementViews.add(new ElementView(OPTION_ADMON_EMISOR, R.drawable.ico_admin_tarj, R.string.operation_administracion));
         return elementViews;
     }
 
@@ -144,9 +158,9 @@ public class ElementView implements Serializable {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
 
-        elementViews.add(new ElementView(1, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(6, R.drawable.ico_cobrar_in, R.string.operation_cobro));
-        elementViews.add(new ElementView(3, R.drawable.ico_admin, R.string.operation_configurar));
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ico_admin, R.string.operation_configurar));
 
         if (!isAgente){
             elementViews = ElementView.getListLectorEmi();
@@ -235,17 +249,17 @@ public class ElementView implements Serializable {
     public static ArrayList<ElementView> getListEmisorBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
-            elementViews.add(new ElementView(1, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
+            elementViews.add(new ElementView(OPTION_MVIMIENTOS_EMISOR, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
         } else {
-            elementViews.add(new ElementView(1, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
+            elementViews.add(new ElementView(OPTION_MVIMIENTOS_EMISOR, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
         }
-        elementViews.add(new ElementView(2, R.drawable.ic_generar, R.string.generar_codigo));
+        elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.ic_generar, R.string.generar_codigo));
         return elementViews;
     }
 
     public static ArrayList<ElementView> getListAdqBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(3, R.drawable.ic_cobrar, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ic_cobrar, R.string.realizar_cobro));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }
@@ -253,13 +267,11 @@ public class ElementView implements Serializable {
     public static ArrayList<ElementView> getListStartBuck(){
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_RECOMPENSAS,R.drawable.icon_star,R.string.opt_recompensas));
-        elementViews.add(new ElementView(1,R.drawable.icono_movimientos,R.string.opt_consulta));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_STARBUCKS,R.drawable.icono_movimientos,R.string.opt_consulta));
         elementViews.add(new ElementView(OPTION_SUCURSALES,R.drawable.ico_store,R.string.opt_sucursales));
-        elementViews.add(new ElementView(3, R.drawable.ico_admin_tarj, R.string.operation_administracion));
+        elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
         return elementViews;
     }
 
-    static public final int OPTION_RECOMPENSAS = 6482;
-    static public final int OPTION_SUCURSALES  = 6453;
-    static public final int OPTION_SETTINGSCARD  = 2112;
+
 }
