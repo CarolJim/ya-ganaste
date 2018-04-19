@@ -228,7 +228,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        builder = new Container(getContext(),mLinearLayout);
+        builder = new Container(getContext(), mLinearLayout);
 
         //listView.setAdapter(adapterList);
 
@@ -689,6 +689,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 tipoEnvio.setSelection(0);
                 editListServ.setText("");
                 editListServ.clearFocus();
+                referencia = "";
                 receiverName.setText("");
                 receiverName.clearFocus();
                 concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
@@ -751,7 +752,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         if (!solicitabanco) {
 
 
-
             UI.createSimpleCustomDialog("", "Selecciona tu Banco", getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
@@ -793,7 +793,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void setFavolist(List<Favoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
         mLinearLayout.removeAllViews();
-        ContainerBuilder.FAVORITOS(getContext(),mLinearLayout,lista,this);
+        ContainerBuilder.FAVORITOS(getContext(), mLinearLayout, lista, this);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
@@ -1311,7 +1311,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             if (favorito.getIdComercio() != 0) {
                 Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(100);
-                favoriteIntents(getActivity(),favorito);
+                favoriteIntents(getActivity(), favorito);
                 //Intent intentEditFav = new Intent(getActivity(), EditFavoritesActivity.class);
                 /*Intent intentEditFav = new Intent(getActivity(), FavoritesActivity.class);
                 intentEditFav.putExtra(getActivity().getString(R.string.favoritos_tag), favorito);
@@ -1329,7 +1329,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
                 intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
                 intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
-                startActivityForResult(intentAddFavorite,RESUL_FAVORITES);
+                startActivityForResult(intentAddFavorite, RESUL_FAVORITES);
             } else {
                 // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
 
