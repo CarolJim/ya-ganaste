@@ -101,7 +101,7 @@
 
     <!-- Métodos de WS Starbucks -->
     <string name="loginstarbucks">/LoginMobile</string>
-    <string name="getSucursalesStarbucks">/getStores</string>
+    <string name="getSucursalesStarbucks">/CatalogosStarbucks.svc/getStores</string>
 
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
