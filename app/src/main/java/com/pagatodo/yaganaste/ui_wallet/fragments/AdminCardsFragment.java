@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.AdminCardsAdapter.TYPE_HEADER;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.AdminCardsAdapter.TYPE_ITEM;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
@@ -79,10 +80,11 @@ public class AdminCardsFragment extends GenericFragment implements OnRecyclerIte
                     break;
                 case TYPE_STARBUCKS:
                     if (cardsList.get(position).getStatus() == 1) {
-                        Log.e("", "Abrir Log Out Starbucks");
+                        Log.e("YG", "Abrir Log Out Starbucks");
                         App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
                     } else {
-                        Log.e("", "Abrir Log In Starbucks");
+                        Log.e("YG", "Abrir Log In Starbucks");
+                        onEventListener.onEvent(EVENT_GO_TO_LOGIN_STARBUCKS, null);
                     }
                     break;
             }

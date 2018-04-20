@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.Loginstarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.StarbucksMapFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
@@ -77,6 +79,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
+    public final static String EVENT_GO_TO_LOGIN_STARBUCKS = "EVENT_GO_TO_LOGIN_STARBUCKS";
+    public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
     private static final int PAGE_EMISOR = 0, PAGE_ADQ = 1, ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
 
@@ -99,23 +103,17 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             if (savedInstanceState != null) {
                 return;
             }
-
             if (getIntent().getExtras() != null) {
-
                 itemOperation = (ElementView) getIntent().getSerializableExtra(ITEM_OPERATION);
                 getLoadFragment(itemOperation.getIdOperacion());
             }
-
-
             //loadFragment(MovementsGenericFragment.newInstance(), R.id.fragment_container);
         }
-
     }
 
     public void showToolbarShadow() {
         ///android:background="@color/colorAccent"
         toolbar.setBackgroundResource(R.drawable.background_toolbar);
-
     }
 
     private void init() {
@@ -153,7 +151,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     private void getLoadFragment(int idoperation) {
@@ -227,7 +224,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 getCurrentFragment().onActivityResult(requestCode, resultCode, data);
             }
         }
-
     }
 
     protected void showMainTab() {
@@ -307,6 +303,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 setResult(-1);
                 this.finish();
                 break;
+            case EVENT_GO_TO_LOGIN_STARBUCKS:
+                loadFragment(Loginstarbucks.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                break;
         }
     }
 
@@ -324,6 +323,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getCurrentFragment();
+        if (fragment instanceof Loginstarbucks) {
+            loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container, Direction.BACK);
+        } else {
+            super.onBackPressed();
         }
     }
 }
