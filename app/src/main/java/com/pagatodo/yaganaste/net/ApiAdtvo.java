@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.net;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
@@ -66,6 +65,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAg
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LoginStarBucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
@@ -366,7 +366,7 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         NetFacade.consumeWS(LOGINSTARBUCKS,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
-                null, request, CrearUsuarioClienteResponse.class, result);
+                null, request, LoginStarBucksResponse.class, result);
     }
 
 
