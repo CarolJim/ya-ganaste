@@ -106,7 +106,7 @@
 
     <color name="item_movement">#f7f7f7</color>
     <color name="tab_movement_undselected">#95d7f1</color>
-    <color name="colr_item_movement">#e1e1e1</color>
+    <color name="color_item_movement">#e1e1e1</color>
 
     <!-- Wallet Letters -->
     <color name="blue_text_wallet">#00a1e1</color>

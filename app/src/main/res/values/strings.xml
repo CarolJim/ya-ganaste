@@ -23,14 +23,12 @@
     <string name="validate_data_person">/ValidarDatosPersona</string>
     <string name="validate_data_person_curp">/ValidarDatosCurp</string>
 
-
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="createUserClientUrl">/CrearUsuarioCliente</string>
-    <string name="loginstarbucks">/LoginMobile</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -100,6 +98,10 @@
     <string name="adqGetTypeRepayment">/agMov/ObtieneTipoReembolso</string>
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
     <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
+
+    <!-- Métodos de WS Starbucks -->
+    <string name="loginstarbucks">/LoginMobile</string>
+    <string name="getSucursalesStarbucks">/getStores</string>
 
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>

@@ -10,7 +10,7 @@
         android:layout_width="75dp"
         android:layout_height="45dp"
         android:layout_marginRight="16dp"
-        android:background="@color/white_text_wallet"
+        android:background="@null"
         android:src="@mipmap/main_card_zoom_blue" />
 
     <LinearLayout
