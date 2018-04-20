@@ -30,6 +30,7 @@
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="createUserClientUrl">/CrearUsuarioCliente</string>
+    <string name="loginstarbucks">/LoginMobile</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -1413,7 +1414,8 @@
     <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
     <string name="codigo_8_digitos">Código de 8 digitos</string>
     <string name="registrarme">Registrarme</string>
-    <string name="subtitulo_login_starbucks">Inicia sesión en My Starbucks Rewards</string>
+    <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
+    <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
 
 </resources>

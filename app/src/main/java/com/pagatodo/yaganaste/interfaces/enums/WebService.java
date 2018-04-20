@@ -158,6 +158,7 @@ public enum WebService {
     /* Actualiza el tipo de reembolso */
     UPDATE_TYPE_REPAYMENT,
     SEND_REEMBOLSO,
-    GET_INFORMACION_AGENTE
+    GET_INFORMACION_AGENTE,
+    LOGINSTARBUCKS //login para starbucks
 }
 

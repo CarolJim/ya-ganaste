@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormato
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.ActualizarReferenciasCupoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
@@ -125,6 +126,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_INFORMACION
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_NEXT_DATA_NOTIFICATION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_BANCOSBIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOGOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -144,6 +146,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_FB;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_STARBUCKS;
 
 /**
  * Created by flima on 17/03/2017.
@@ -356,6 +359,17 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserClientUrl),
                 headers, request, CrearUsuarioClienteResponse.class, result);
     }
+
+
+    public static void loginstarbucks(LoginStarbucksRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        NetFacade.consumeWS(LOGINSTARBUCKS,
+                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
+                null, request, CrearUsuarioClienteResponse.class, result);
+    }
+
+
 
     /**
      * Método que se invoca para realizar el inicio de sesión de un Usuario o un Cliente BPT.

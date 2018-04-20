@@ -340,7 +340,6 @@ public class StringUtils {
             }else if (urlSplit[1].contains("png")){
                 urlEdit = urlSplit[0] + "_M.png";
             }else {
-
                 urlEdit="_M.png";
             }
 

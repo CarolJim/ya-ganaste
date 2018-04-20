@@ -228,6 +228,7 @@ public class Recursos {
     public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
+    public static String SHA_256_STARBUCKS = "SHA_256_STARBUCKS";
     public static String GENERO = "GENERO";
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";

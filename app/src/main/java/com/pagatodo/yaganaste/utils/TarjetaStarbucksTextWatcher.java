@@ -33,9 +33,9 @@ public class TarjetaStarbucksTextWatcher implements TextWatcher{
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         auxText= s.toString().replaceAll(" ","");
-        if (auxText.length()>24){
+        if (auxText.length()>16){
          editText.removeTextChangedListener(this);
-         String subString = String.valueOf(s.subSequence(0,24));
+         String subString = String.valueOf(s.subSequence(0,16));
          editText.setText(subString);
          editText.addTextChangedListener(this);
          finalText = subString;
@@ -47,9 +47,9 @@ public class TarjetaStarbucksTextWatcher implements TextWatcher{
         editText.removeTextChangedListener(this);
         String response="";
         if (finalText.length()>0){
-            response=StringUtils.format(finalText.toString().replaceAll(" ",""),SPACE,4,4,4,4,8);
+            response=StringUtils.format(finalText.toString().replaceAll(" ",""),SPACE,4,4,4,4);
         }else {
-            response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4,4,4,8);
+            response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4,4,4);
         }
         editText.setText(response);
         editText.setSelection(response.length());
@@ -57,7 +57,7 @@ public class TarjetaStarbucksTextWatcher implements TextWatcher{
 
         if (listener != null) {
             listener.onTextChanged();
-            if (response.length() == 28) {
+            if (response.length() == 19) {
                 listener.onTextComplete();
             }
         }

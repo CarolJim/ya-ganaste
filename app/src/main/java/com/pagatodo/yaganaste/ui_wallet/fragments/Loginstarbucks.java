@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementStatus;
+import com.pagatodo.yaganaste.ui_wallet.presenter.LoginPresenterStarbucks;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -28,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by asandovals on 16/04/2018.
  */
 
-public class Loginstarbucks extends GenericFragment implements   View.OnClickListener, ValidationForms {
+public class Loginstarbucks extends GenericFragment implements   View.OnClickListener, ValidationForms, Iloginstarbucks {
     private View rootView;
 
     @BindView(R.id.txt_subtitul)
@@ -50,17 +52,19 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     @BindView(R.id.btnNextStarbucks)
     StyleButton btnNextStarbucks;
 
-
-    @BindView(R.id.block_register)
-    LinearLayout block_register;
-
     @BindView(R.id.block_iniciar_sesion)
     LinearLayout block_iniciar_sesion;
 
     private String correo, contrasena;
 
+    LoginPresenterStarbucks loginPresenterStarbucks;
 
-
+    public static Loginstarbucks newInstance() {
+        Loginstarbucks fragmentRegister = new Loginstarbucks();
+        Bundle args = new Bundle();
+        fragmentRegister.setArguments(args);
+        return fragmentRegister;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,17 +75,17 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_starbucks_register, container, false);
+        rootView = inflater.inflate(R.layout.fragment_starbucks_login, container, false);
         initViews();
         setValidationRules();
+        loginPresenterStarbucks = new LoginPresenterStarbucks(this);
         return rootView;
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        block_iniciar_sesion.setVisibility(View.VISIBLE);
-        block_register.setVisibility(View.GONE);
+
         btnNextStarbucks.setOnClickListener(this);
 
 
@@ -90,7 +94,7 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     @Override
     public void onClick(View view) {
 
-        if (view.getId()==R.id.btnNext){
+        if (view.getId()==R.id.btnNextStarbucks){
             validateForm();
         }
 
@@ -160,12 +164,17 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
 
     @Override
     public void onValidationSuccess() {
-
+        loginPresenterStarbucks.login(correo, contrasena);
     }
 
     @Override
     public void getDataForm() {
         correo= editcorreo.getText().toString().trim();
         contrasena= editpassword.getText().toString().trim();
+    }
+
+    @Override
+    public void loginstarsucced() {
+
     }
 }
