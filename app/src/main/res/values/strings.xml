@@ -23,14 +23,12 @@
     <string name="validate_data_person">/ValidarDatosPersona</string>
     <string name="validate_data_person_curp">/ValidarDatosCurp</string>
 
-
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="createUserClientUrl">/CrearUsuarioCliente</string>
-    <string name="loginstarbucks">/LoginMobile</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -101,7 +99,9 @@
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
     <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
 
-    <!--Métodos de WS Starbuck -->
+    <!-- Métodos de WS Starbucks -->
+    <string name="loginstarbucks">/LoginMobile</string>
+    <string name="getSucursalesStarbucks">/CatalogosStarbucks.svc/getStores</string>
     <string name="sbMovements">/wsrewards/ConsultaMovimientosPorCuenta</string>
 
     <!-- Metodos para operaciones con FB -->
@@ -1213,6 +1213,7 @@
     <string name="opt_recompensas">Mis\nRecompensas</string>
     <string name="opt_consulta">Consultar\nmovimientos</string>
     <string name="opt_sucursales">Sucursales\nCercanas</string>
+    <string name="title_fragment_movimientos">Movimientos recientes</string>
 
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Contraseña actual</string>

@@ -23,6 +23,7 @@ public class Recursos {
     public static final String PIN_ADVO;
     public static final String PIN_TRANS;
     public static final String PIN_YA;
+    public static final String PIN_STARBUCKS;
 
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
@@ -51,6 +52,7 @@ public class Recursos {
             PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+            PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
 
         } else {
             if (DEBUG) {
@@ -66,6 +68,7 @@ public class Recursos {
                 PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
                 PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+                PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
             } else {
                 URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
                 URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
@@ -78,9 +81,8 @@ public class Recursos {
 
                 PIN_ADVO = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
                 PIN_TRANS = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-
                 PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
-                //PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+                PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
             }
         }
     }

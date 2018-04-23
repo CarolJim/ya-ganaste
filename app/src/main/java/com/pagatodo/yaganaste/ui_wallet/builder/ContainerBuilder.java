@@ -141,9 +141,9 @@ public class ContainerBuilder {
             adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
-        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS,false)){
+        //if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS,false)){
             adapter.addCardItem(new ElementWallet().getCardStarbucks());
-        }
+        //}
         adapter.addCardItem(new ElementWallet().getCardSettings());
 
         return adapter;

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="60dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/day_txt"
@@ -41,7 +44,7 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/description_txt"
         style="@style/generic_text_style_3"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -52,14 +55,14 @@
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/sub_title"
         app:layout_constraintEnd_toStartOf="@+id/monto_txt"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/day_txt"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/sub_title"
         style="@style/generic_text_style_5"
-        android:layout_width="114dp"
+        android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -72,21 +75,22 @@
 
     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
         android:id="@+id/monto_txt"
-        style="@style/generic_text_style_2"
+        style="@style/generic_text_style_5"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="$950.00"
+        android:text="950"
         android:textColor="@color/texthint"
-        app:decimalLenght="2"
-        app:dotBottom="true"
+        tools:decimalLenght="2"
+        tools:dotBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:symbolSmaller="false"
-        app:tipo="Text" />
+        app:tipo="Text"
+        android:gravity="center"/>
 
 </android.support.constraint.ConstraintLayout>

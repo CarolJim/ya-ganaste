@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoAdminCards;
@@ -60,6 +62,11 @@ public class AdminCardsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else {
                 ((ItemAdminViewHolder) holder).imgStatus.setVisibility(View.INVISIBLE);
             }
+            if(position%2==0){
+                ((ItemAdminViewHolder) holder).lytRow.setBackgroundColor(Color.WHITE);
+            } else {
+                ((ItemAdminViewHolder) holder).lytRow.setBackgroundColor(App.getContext().getResources().getColor(R.color.backgraund_wallet));
+            }
         }
     }
 
@@ -97,7 +104,6 @@ public class AdminCardsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             lytRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //positionSelected = getAdapterPosition();
                     onRecyclerItemClickListener.onRecyclerItemClick(v, getAdapterPosition());
                     notifyDataSetChanged();
                 }

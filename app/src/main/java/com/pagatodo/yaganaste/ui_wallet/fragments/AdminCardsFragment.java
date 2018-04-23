@@ -80,10 +80,10 @@ public class AdminCardsFragment extends GenericFragment implements OnRecyclerIte
                     break;
                 case TYPE_STARBUCKS:
                     if (cardsList.get(position).getStatus() == 1) {
-                        Log.e("YG", "Abrir Log Out Starbucks");
                         App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
+                        updateCards();
+                        // TODO: Cerrar sesión Starbucks
                     } else {
-                        Log.e("YG", "Abrir Log In Starbucks");
                         onEventListener.onEvent(EVENT_GO_TO_LOGIN_STARBUCKS, null);
                     }
                     break;

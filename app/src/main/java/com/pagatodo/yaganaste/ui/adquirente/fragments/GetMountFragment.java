@@ -73,7 +73,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 900;
 
-
     @BindView(R.id.et_amount)
     public EditText et_amount;
     @BindView(R.id.edtConcept)
@@ -235,7 +234,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         Task<LocationSettingsResponse> result =
                 LocationServices.getSettingsClient(getContext()).checkLocationSettings(builder.build());
         result.addOnCompleteListener(this);
-
     }
 
     private void actionCharge() {

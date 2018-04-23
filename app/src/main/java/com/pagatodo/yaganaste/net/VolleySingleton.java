@@ -26,7 +26,7 @@ import org.thoughtcrime.ssl.pinning.PinningSSLSocketFactory;
  *
  * @author flima
  * @version 1.0
- *          Clase Singleton para obtener una instancia de Volley
+ * Clase Singleton para obtener una instancia de Volley
  */
 public class VolleySingleton {
 
@@ -74,7 +74,8 @@ public class VolleySingleton {
      */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            String[] pins = new String[]{Recursos.PIN_ADVO, Recursos.PIN_TRANS, Recursos.PIN_YA};
+            String[] pins = new String[]{Recursos.PIN_ADVO, Recursos.PIN_TRANS, Recursos.PIN_YA,
+                    Recursos.PIN_STARBUCKS};
             HttpParams httpParameters = new BasicHttpParams();
 
             SchemeRegistry schemeRegistry = new SchemeRegistry();

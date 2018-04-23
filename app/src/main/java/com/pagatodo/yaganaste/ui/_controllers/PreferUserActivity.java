@@ -223,12 +223,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             if (f == null || f.isEmpty() || f.equals("0")) {
                 mPreferPresenter.toPresenterEstatusCuenta(mTDC);
             }
-
-            // Obtenemos el estado de la Card actual
-            // Creamos el objeto ActualizarAvatarRequest
-            // TODO Frank se comento este metodo debido a cambios, borrar en versiones posteriores
-            /*ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
-            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);*/
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
