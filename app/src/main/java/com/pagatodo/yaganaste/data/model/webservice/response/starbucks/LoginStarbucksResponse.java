@@ -1,8 +1,9 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
 import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DatosMiembro;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.Tarjetas;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponseStarbucks;
-import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by asandovals on 20/04/2018.
  */
 
-public class LoginStarBucksResponse extends GenericResponseStarbucks {
+public class LoginStarbucksResponse extends GenericResponseStarbucks {
 
 
     @SerializedName("beneficiosRewards")

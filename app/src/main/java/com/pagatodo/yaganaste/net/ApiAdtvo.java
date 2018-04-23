@@ -65,7 +65,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAg
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LoginStarBucksResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
@@ -365,7 +365,7 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersStarbucks();
         NetFacade.consumeWS(LOGINSTARBUCKS,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
-                headers, request, LoginStarBucksResponse.class, result);
+                headers, request, LoginStarbucksResponse.class, result);
     }
 
 

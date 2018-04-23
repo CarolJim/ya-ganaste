@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.manager;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerCatalogos;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RespuestaStarbucks;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.RespuestaStarbucks;
 
 import java.io.Serializable;
 

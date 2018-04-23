@@ -29,7 +29,6 @@
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="createUserClientUrl">/CrearUsuarioCliente</string>
-    <string name="loginstarbucks">/wsrewards/LoginMobile</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -102,6 +101,10 @@
 
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
+
+    <!-- Métodos de WS Starbucks -->
+    <string name="loginstarbucks">:17443/wsrewards/LoginMobile</string>
+    <string name="get_stores_starbucks">:16443/CatalogosStarbucks.svc/getStores</string>
 
     <!--Métodos de WS CUPO-->
     <string name="cupoCrearSolicitudCupo">/CrearSolicitudCupo</string>
@@ -1204,7 +1207,7 @@
     <string name="numero"><u>01800-500-1000</u></string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="mas_info"><u>Más información</u></string>
-    
+
     <!-- Wallet StarBucks-->
     <string name="opt_recompensas">Mis\nRecompensas</string>
     <string name="opt_consulta">Consultar\nmovimientos</string>
@@ -1406,7 +1409,7 @@
     <string name="admin_cards_active">Tarjetas Activas</string>
     <string name="admin_cards_available">Tarjetas Disponibles</string>
 
-<!-- Starbucks seccion de registro y login -->
+    <!-- Starbucks seccion de registro y login -->
     <string name="starbucks_card">My Starbucks Rewards</string>
     <string name="starbucks_available">Inicia sesión o Regístrate</string>
     <string name="texto_resgister_starbucks">Regístarte, acumula Stars\n y obtén beneficios exclusivos</string>
@@ -1416,5 +1419,9 @@
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
     <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
+
+    <!-- Sucursales Starbucks -->
+    <string name="searching_stores">Obteniendo sucursales</string>
+    <string name="searching_stores_empty">No se ha encontrado sucursales</string>
 
 </resources>

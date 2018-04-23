@@ -159,6 +159,9 @@ public enum WebService {
     UPDATE_TYPE_REPAYMENT,
     SEND_REEMBOLSO,
     GET_INFORMACION_AGENTE,
-    LOGINSTARBUCKS //login para starbucks
+    /* Login para starbucks */
+    LOGINSTARBUCKS,
+    /* Obtener Sucursales Starbucks */
+    GET_STARBUCKS_STORES
 }
 

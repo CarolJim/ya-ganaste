@@ -23,7 +23,6 @@ public class Api {
     public static Map<String, String> getHeadersStarbucks() {
         Map<String, String> headersYaGanaste = new HashMap<>();
         headersYaGanaste.put("Content-type", "application/json");
-
         return headersYaGanaste;
     }
 

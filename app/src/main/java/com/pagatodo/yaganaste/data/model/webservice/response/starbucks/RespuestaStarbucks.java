@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
 import com.google.gson.annotations.SerializedName;
 
