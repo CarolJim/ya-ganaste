@@ -295,5 +295,27 @@ public class Recursos {
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS = "ID_ESTATUS"; // int
 
+// Recursos referentes a Starbucks
+
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean
+
+    /**Datos de usuario al realizar login de starbucks
+     */
+
+    public static final String BEBIDA_FAVORITA = "BEBIDA_FAVORITA";
+    public static final String EMAIL_STARBUCKS = "EMAIL_STARBUCKS";
+    public static final String MIEMBRO_DESDE = "MIEMBRO_DESDE";
+    public static final int STATUS_GOLD=0;
+    public static final int ID_MIEMBRO_STARBUCKS = 0;
+    public static final String NIVEL_ACTUAL_STARBUCKS = "NIVEL_ACTUALSTARBUCKS";
+    public static final int NUMERO_ESTRELLAS = 0;
+    public static final int NUMERO_ESTRELLAS_FALTANTES =0;
+
+
+    public static final String SIGUIENTE_NIVEL_STARBUCKS = "SIGUIENTE_NIVEL_STARBUCKS";
+    public static final String NUMERO_MIEMBRO_STARBUCKS = "NUMERO_MIEMBRO_STARBUCKS";
+    public static final String TOKEN_SEGURIDAD_STARBUCKS = "TOKEN_SEGURIDAD_STARBUCKS";
+
+
+
 }

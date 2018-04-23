@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.manager;
 
+import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerCatalogos;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.RespuestaStarbucks;
 
 import java.io.Serializable;
@@ -14,7 +16,7 @@ public class GenericResponseStarbucks implements Serializable {
     public RespuestaStarbucks getData() {
         return respuestaStarbucks;
     }
-    public void setData(RespuestaStarbucks data) {
-        respuestaStarbucks = data;
+    public void setData(RespuestaStarbucks data){
+            respuestaStarbucks = data;
     }
 }

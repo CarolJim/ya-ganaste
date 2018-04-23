@@ -11,7 +11,15 @@ import java.io.Serializable;
 public class RespuestaStarbucks implements Serializable {
 
     private int codigoRespuesta ;
-    private int mensaje ;
+    private String mensaje ;
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
     public int getCodigoRespuesta() {
         return codigoRespuesta;
@@ -21,11 +29,5 @@ public class RespuestaStarbucks implements Serializable {
         this.codigoRespuesta = codigoRespuesta;
     }
 
-    public int getMensaje() {
-        return mensaje;
-    }
 
-    public void setMensaje(int mensaje) {
-        this.mensaje = mensaje;
-    }
 }
