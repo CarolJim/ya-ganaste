@@ -302,6 +302,10 @@ public class Recursos {
     /**Datos de usuario al realizar login de starbucks
      */
 
+    public static final String TARJETAS = "TARJETAS";
+    public static final String REWARDS = "REWARDS";
+
+
     public static final String BEBIDA_FAVORITA = "BEBIDA_FAVORITA";
     public static final String EMAIL_STARBUCKS = "EMAIL_STARBUCKS";
     public static final String MIEMBRO_DESDE = "MIEMBRO_DESDE";
@@ -309,7 +313,7 @@ public class Recursos {
     public static final int ID_MIEMBRO_STARBUCKS = 0;
     public static final String NIVEL_ACTUAL_STARBUCKS = "NIVEL_ACTUALSTARBUCKS";
     public static final int NUMERO_ESTRELLAS = 0;
-    public static final int NUMERO_ESTRELLAS_FALTANTES =0;
+    public static final String NUMERO_ESTRELLAS_FALTANTES ="NUMERO_ESTRELLAS_FALTANTES";
 
 
     public static final String SIGUIENTE_NIVEL_STARBUCKS = "SIGUIENTE_NIVEL_STARBUCKS";
