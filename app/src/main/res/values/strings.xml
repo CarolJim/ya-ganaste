@@ -101,6 +101,9 @@
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
     <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
 
+    <!--Métodos de WS Starbuck -->
+    <string name="sbMovements">/wsrewards/ConsultaMovimientosPorCuenta</string>
+
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
 
@@ -1205,7 +1208,7 @@
     <string name="numero"><u>01800-500-1000</u></string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="mas_info"><u>Más información</u></string>
-    
+
     <!-- Wallet StarBucks-->
     <string name="opt_recompensas">Mis\nRecompensas</string>
     <string name="opt_consulta">Consultar\nmovimientos</string>
@@ -1407,7 +1410,7 @@
     <string name="admin_cards_active">Tarjetas Activas</string>
     <string name="admin_cards_available">Tarjetas Disponibles</string>
 
-<!-- Starbucks seccion de registro y login -->
+    <!-- Starbucks seccion de registro y login -->
     <string name="starbucks_card">My Starbucks Rewards</string>
     <string name="starbucks_available">Inicia sesión o Regístrate</string>
     <string name="texto_resgister_starbucks">Regístarte, acumula Stars\n y obtén beneficios exclusivos</string>
@@ -1417,5 +1420,8 @@
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
     <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

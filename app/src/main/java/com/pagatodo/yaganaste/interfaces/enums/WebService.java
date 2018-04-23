@@ -93,7 +93,10 @@ public enum WebService {
     CONSULTA_SALDO_CUPO,
     CANCELA_TRANSACTION_EMV_DEPOSIT,
     OBTIENE_DATOS_CUPO,
-
+    /**
+     * WS STARBUCKS
+     */
+    CONSULTAR_MOV_SB,
     /**
      * Servicio para crer usuario
      **/
