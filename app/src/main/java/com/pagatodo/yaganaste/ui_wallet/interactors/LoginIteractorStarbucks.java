@@ -6,9 +6,11 @@ import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarb
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginIteractorStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginStarbucksss;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 
 /**
@@ -26,20 +28,24 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
+        switch (dataSourceResult.getWebService()) {
 
+        }
     }
 
     @Override
     public void onFailed(DataSourceResult error) {
+        if (error != null && error.getWebService() == ASIGNAR_NIP) {
+
+        }
 
     }
 
     @Override
     public void login(LoginStarbucksRequest request) {
 
-
         try {
-            ApiAdtvo.loginstarbucks(request, this);
+            ApiStarbucks.loginstarbucks(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
            // accountManager.onError(CREAR_USUARIO_CLIENTE, "");

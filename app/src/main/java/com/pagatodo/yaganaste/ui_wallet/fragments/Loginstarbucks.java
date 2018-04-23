@@ -78,7 +78,7 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
         rootView = inflater.inflate(R.layout.fragment_starbucks_login, container, false);
         initViews();
         setValidationRules();
-        loginPresenterStarbucks = new LoginPresenterStarbucks(this);
+        loginPresenterStarbucks = new LoginPresenterStarbucks(getContext());
         return rootView;
     }
 

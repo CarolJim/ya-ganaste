@@ -29,6 +29,7 @@
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="createUserClientUrl">/CrearUsuarioCliente</string>
+    <string name="loginstarbucks">/wsrewards/LoginMobile</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -98,10 +99,6 @@
     <string name="adqGetTypeRepayment">/agMov/ObtieneTipoReembolso</string>
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
     <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
-
-    <!-- Métodos de WS Starbucks -->
-    <string name="loginstarbucks">/LoginMobile</string>
-    <string name="getSucursalesStarbucks">/CatalogosStarbucks.svc/getStores</string>
 
     <!-- Metodos para operaciones con FB -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>

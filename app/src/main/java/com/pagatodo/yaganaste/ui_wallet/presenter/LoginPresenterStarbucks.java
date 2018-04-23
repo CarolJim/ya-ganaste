@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.ui_wallet.presenter;
 
+import android.content.Context;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.DispositivoStartBucks;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui_wallet.interactors.LoginIteractorStarbucks;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginIteractorStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginStarbucksss;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -20,13 +23,15 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
 public class LoginPresenterStarbucks implements IloginStarbucksss {
 
     private Iloginstarbucks  loginview;
-
-    LoginIteractorStarbucks loginIteractorStarbucks;
+    private Context context;
+    IloginIteractorStarbucks loginIteractorStarbucks;
 
     private Preferencias prefs = App.getInstance().getPrefs();
 
-    public LoginPresenterStarbucks(Iloginstarbucks loginview) {
-        this.loginview = loginview;
+    public LoginPresenterStarbucks(Context context) {
+        this.context= context;
+        loginIteractorStarbucks= new LoginIteractorStarbucks(this);
+
     }
 
     @Override

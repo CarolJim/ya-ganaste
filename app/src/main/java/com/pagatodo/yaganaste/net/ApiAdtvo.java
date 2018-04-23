@@ -362,11 +362,10 @@ public class ApiAdtvo extends Api {
 
 
     public static void loginstarbucks(LoginStarbucksRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        Map<String, String> headers = getHeadersStarbucks();
         NetFacade.consumeWS(LOGINSTARBUCKS,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
-                null, request, LoginStarBucksResponse.class, result);
+                headers, request, LoginStarBucksResponse.class, result);
     }
 
 

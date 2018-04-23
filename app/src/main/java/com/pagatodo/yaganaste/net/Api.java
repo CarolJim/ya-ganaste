@@ -20,6 +20,13 @@ public class Api {
         return headersYaGanaste;
     }
 
+    public static Map<String, String> getHeadersStarbucks() {
+        Map<String, String> headersYaGanaste = new HashMap<>();
+        headersYaGanaste.put("Content-type", "application/json");
+
+        return headersYaGanaste;
+    }
+
     public static Map<String, String> getHeadersAdq() {
         Map<String, String> headersAdq = new HashMap<>();
         headersAdq.put("Version", "1.0.7");

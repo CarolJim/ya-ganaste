@@ -29,7 +29,11 @@ public class LoginStarBucksResponse extends GenericResponseStarbucks {
     private String numeroMiembro;
 
     @SerializedName("tarjetas")
-    private Tarjetas tarjetas;
+    private List<Tarjetas> tarjetas;
+
+    public void setTarjetas(List<Tarjetas> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
 
     @SerializedName("tokenSeguridad")
     private String tokenSeguridad;
@@ -73,14 +77,6 @@ public class LoginStarBucksResponse extends GenericResponseStarbucks {
 
     public void setNumeroMiembro(String numeroMiembro) {
         this.numeroMiembro = numeroMiembro;
-    }
-
-    public Tarjetas getTarjetas() {
-        return tarjetas;
-    }
-
-    public void setTarjetas(Tarjetas tarjetas) {
-        this.tarjetas = tarjetas;
     }
 
     public String getTokenSeguridad() {
