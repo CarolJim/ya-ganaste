@@ -75,7 +75,7 @@ public class VolleySingleton {
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             String[] pins = new String[]{Recursos.PIN_ADVO, Recursos.PIN_TRANS, Recursos.PIN_YA,
-                    Recursos.PIN_STARBUCKS_1, Recursos.PIN_STARBUCKS_2, Recursos.PIN_STARBUCKS_3, Recursos.PIN_STARBUCKS_4};
+                    Recursos.PIN_STARBUCKS};
             HttpParams httpParameters = new BasicHttpParams();
 
             SchemeRegistry schemeRegistry = new SchemeRegistry();
