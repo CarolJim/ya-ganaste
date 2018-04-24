@@ -894,7 +894,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         // Variables necesarioas para agregar el formato de captura de telefono o referencia
         formatoComercio = item.getComercio().getFormato();
         longitudRefer = item.getComercio().getLongitudReferencia();
-
         /**
          * Mostramos el area de referencia que sea necesario al hacer Set en un servicio
          * Esto se controlar con la posicion del Tab que seleccionamos

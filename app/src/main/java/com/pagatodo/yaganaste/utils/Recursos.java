@@ -309,11 +309,13 @@ public class Recursos {
     public static final String BEBIDA_FAVORITA = "BEBIDA_FAVORITA";
     public static final String EMAIL_STARBUCKS = "EMAIL_STARBUCKS";
     public static final String MIEMBRO_DESDE = "MIEMBRO_DESDE";
-    public static final int STATUS_GOLD=0;
+    public static final String FECHA_DE_NACIMIENTO = "FECHA_DE_NACIMIENTO";
+    public static final String STATUS_GOLD="STATUS_GOLD";
     public static final int ID_MIEMBRO_STARBUCKS = 0;
     public static final String NIVEL_ACTUAL_STARBUCKS = "NIVEL_ACTUALSTARBUCKS";
-    public static final int NUMERO_ESTRELLAS = 0;
-    public static final String NUMERO_ESTRELLAS_FALTANTES ="NUMERO_ESTRELLAS_FALTANTES";
+    public static final String NUMERO_ESTRELLAS = "";
+    public static final String NUMBERSTARTS = "NUMBERSTARTS";
+    public static final String NUMERO_ESTRELLAS_FALTANTES ="";
 
 
     public static final String SIGUIENTE_NIVEL_STARBUCKS = "SIGUIENTE_NIVEL_STARBUCKS";

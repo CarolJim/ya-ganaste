@@ -22,10 +22,12 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.FECHA_DE_NACIMIENTO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MIEMBRO_DESDE;
 import static com.pagatodo.yaganaste.utils.Recursos.NIVEL_ACTUAL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMBERSTARTS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMERO_ESTRELLAS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMERO_ESTRELLAS_FALTANTES;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMERO_MIEMBRO_STARBUCKS;
@@ -84,7 +86,6 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
                  *
                  */
             }
-
             if (data.getDatosMiembro().getBebidaFavorita() == null) {
                 App.getInstance().getPrefs().saveData(BEBIDA_FAVORITA, "Sin Bebida Favorita");
             } else {
@@ -92,12 +93,13 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
             }
             App.getInstance().getPrefs().saveData(EMAIL_STARBUCKS, data.getDatosMiembro().getEmail());
             App.getInstance().getPrefs().saveData(MIEMBRO_DESDE, data.getDatosMiembro().getMiembroDesde());
-            App.getInstance().getPrefs().saveData(STATUS_GOLD, data.getDatosMiembro().getStatusGold());
+            App.getInstance().getPrefs().saveData(FECHA_DE_NACIMIENTO, data.getDatosMiembro().getFechaNacimiento());
+            App.getInstance().getPrefs().saveDataInt(STATUS_GOLD, data.getDatosMiembro().getStatusGold());
             App.getInstance().getPrefs().saveData(ID_MIEMBRO_STARBUCKS, data.getId_Miembro());
             App.getInstance().getPrefs().saveData(NIVEL_ACTUAL_STARBUCKS, data.getInfoRewardsStarbucks().getNivelActual());
-            App.getInstance().getPrefs().saveData(NUMERO_ESTRELLAS, data.getInfoRewardsStarbucks().getNumEstrellas());
-            App.getInstance().getPrefs().saveData(NUMERO_ESTRELLAS_FALTANTES, ""+data.getInfoRewardsStarbucks().getNumEstrellasFaltantes());
+            App.getInstance().getPrefs().saveData(NUMBERSTARTS,""+data.getInfoRewardsStarbucks().getNumEstrellas());
             App.getInstance().getPrefs().saveData(SIGUIENTE_NIVEL_STARBUCKS, data.getInfoRewardsStarbucks().getSiguienteNivel());
+            App.getInstance().getPrefs().saveDataInt(NUMERO_ESTRELLAS_FALTANTES, data.getInfoRewardsStarbucks().getNumEstrellasFaltantes());
             App.getInstance().getPrefs().saveData(NUMERO_MIEMBRO_STARBUCKS, data.getNumeroMiembro());
             App.getInstance().getPrefs().saveData(TOKEN_SEGURIDAD_STARBUCKS, data.getTokenSeguridad());
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, true);

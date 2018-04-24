@@ -68,10 +68,6 @@ public class LoginStarbucks extends GenericFragment implements   View.OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
     }
 
     @Override

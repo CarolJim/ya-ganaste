@@ -1,11 +1,13 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.airbnb.lottie.parser.IntegerParser;
 import com.pagatodo.yaganaste.App;
@@ -24,8 +26,11 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.NIVEL_ACTUAL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMBERSTARTS;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMERO_ESTRELLAS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMERO_ESTRELLAS_FALTANTES;
 import static com.pagatodo.yaganaste.utils.Recursos.SIGUIENTE_NIVEL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
 
 /**
  * Created by asandovals on 13/04/2018.
@@ -39,6 +44,13 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     StyleTextView titulo_datos_usuario;
     @BindView(R.id.txt_reward_subtitul)
     StyleTextView txt_reward_subtitul;
+
+    @BindView(R.id.num_starts_currently)
+    StyleTextView num_starts_currently;
+    @BindView(R.id.cup_coffee)
+    ImageView cup_coffe;
+
+
 
 
     //@BindView(R.id.edt_message_payment)
@@ -68,11 +80,18 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        int estrellas_faltantes=  App.getInstance().getPrefs().loadDataInt(NUMERO_ESTRELLAS_FALTANTES);
+        int estrellas_faltantes=  prefs.loadDataInt(NUMERO_ESTRELLAS_FALTANTES);
+        String start=(prefs.loadData(NUMBERSTARTS));
+        num_starts_currently.setText(""+start);
+
+        if (prefs.loadDataInt(STATUS_GOLD)==1){
+            cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+        }
+
         if (estrellas_faltantes!=1){
             titulo_datos_usuario.setText(estrellas_faltantes+" Estrellas para obtener el Nivel"+App.getInstance().getPrefs().loadData(SIGUIENTE_NIVEL_STARBUCKS));
         }else
         titulo_datos_usuario.setText(estrellas_faltantes+" Estrella para obtener el Nivel"+App.getInstance().getPrefs().loadData(SIGUIENTE_NIVEL_STARBUCKS));
-        txt_reward_subtitul.setText("Nivel "+App.getInstance().getPrefs().loadData(NIVEL_ACTUAL_STARBUCKS));
+        txt_reward_subtitul.setText("Nivel "+prefs.loadData(NIVEL_ACTUAL_STARBUCKS));
     }
 }
