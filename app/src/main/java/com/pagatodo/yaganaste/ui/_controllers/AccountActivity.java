@@ -225,7 +225,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 registerUser.setFechaNacimientoToShow("");
                 registerUser.setLugarNacimiento("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
-               // loadFragment(LoginStarbucks.newInstance(), Direction.FORDWARD, false);
+               // loadFragment(LoginStarbucksFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_SELFIE_BACK:

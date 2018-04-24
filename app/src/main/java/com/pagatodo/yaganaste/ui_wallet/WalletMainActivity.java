@@ -36,8 +36,9 @@ import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucks;
+import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
@@ -81,6 +82,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     public final static String EVENT_GO_TO_LOGIN_STARBUCKS = "EVENT_GO_TO_LOGIN_STARBUCKS";
     public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
+    public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
 
@@ -171,7 +173,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_ADMON_STARBUCK:
-                finish();
+                loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
             case 6:
                 loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
@@ -301,7 +303,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 this.finish();
                 break;
             case EVENT_GO_TO_LOGIN_STARBUCKS:
-                loadFragment(LoginStarbucks.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                loadFragment(LoginStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                break;
+            case EVENT_GO_TO_ADMIN_STARBUCKS:
+                loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                showBack(false);
                 break;
         }
     }
@@ -324,7 +330,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     @Override
     public void onBackPressed() {
         Fragment fragment = getCurrentFragment();
-        if (fragment instanceof LoginStarbucks) {
+        if (fragment instanceof LoginStarbucksFragment) {
             loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container, Direction.BACK);
         } else {
             super.onBackPressed();

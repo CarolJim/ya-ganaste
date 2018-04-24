@@ -1419,6 +1419,7 @@
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
     <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
+    <string name="admin_cards_starbucks">Selecciona tu tarjeta principal</string>
 
     <!-- Sucursales Starbucks -->
     <string name="searching_stores">Obteniendo sucursales</string>

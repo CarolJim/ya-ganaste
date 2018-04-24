@@ -6,14 +6,13 @@ import java.io.Serializable;
  * Created by asandovals on 20/04/2018.
  */
 
-public class Tarjetas implements Serializable {
+public class CardStarbucks implements Serializable {
 
     String alias ="";
     boolean esPrincipal;
     String fechaActivacion= "";
     String numeroTarjeta ="";
     int saldo;
-    Tarjetas tarjetas;
     String statusTarjeta ="";
     String tipoTarjeta="";
 
@@ -55,14 +54,6 @@ public class Tarjetas implements Serializable {
 
     public void setSaldo(int saldo) {
         this.saldo = saldo;
-    }
-
-    public Tarjetas getTarjetas() {
-        return tarjetas;
-    }
-
-    public void setTarjetas(Tarjetas tarjetas) {
-        this.tarjetas = tarjetas;
     }
 
     public String getStatusTarjeta() {
