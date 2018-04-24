@@ -1,13 +1,11 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -15,7 +13,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementStatus;
 import com.pagatodo.yaganaste.ui_wallet.presenter.LoginPresenterStarbucks;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -24,7 +21,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -33,7 +29,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * Created by asandovals on 16/04/2018.
  */
 
-public class Loginstarbucks extends GenericFragment implements   View.OnClickListener, ValidationForms, Iloginstarbucks {
+public class LoginStarbucks extends GenericFragment implements   View.OnClickListener, ValidationForms, Iloginstarbucks {
     private View rootView;
 
     @BindView(R.id.txt_subtitul)
@@ -62,8 +58,8 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
 
     LoginPresenterStarbucks loginPresenterStarbucks;
 
-    public static Loginstarbucks newInstance() {
-        Loginstarbucks fragmentRegister = new Loginstarbucks();
+    public static LoginStarbucks newInstance() {
+        LoginStarbucks fragmentRegister = new LoginStarbucks();
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;

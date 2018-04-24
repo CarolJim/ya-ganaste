@@ -6,17 +6,14 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.DispositivoStartBucks;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.ui_wallet.fragments.Loginstarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interactors.LoginIteractorStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginIteractorStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginStarbucksss;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
 import com.pagatodo.yaganaste.utils.Utils;
 
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
 

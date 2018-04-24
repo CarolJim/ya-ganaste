@@ -1,19 +1,16 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ShareActionProvider;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -40,12 +37,11 @@ import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.Loginstarbucks;
+import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.StarbucksMapFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +55,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
-import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
@@ -192,7 +187,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(RewardsStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_SUCURSALES:
-                loadFragment(StarbucksMapFragment.newInstance(), R.id.fragment_container);
+                loadFragment(MapStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_SETTINGSCARD:
                 loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container);
@@ -306,7 +301,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 this.finish();
                 break;
             case EVENT_GO_TO_LOGIN_STARBUCKS:
-                loadFragment(Loginstarbucks.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                loadFragment(LoginStarbucks.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 break;
         }
     }
@@ -329,7 +324,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     @Override
     public void onBackPressed() {
         Fragment fragment = getCurrentFragment();
-        if (fragment instanceof Loginstarbucks) {
+        if (fragment instanceof LoginStarbucks) {
             loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container, Direction.BACK);
         } else {
             super.onBackPressed();

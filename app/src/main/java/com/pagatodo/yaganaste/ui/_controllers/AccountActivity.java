@@ -46,8 +46,6 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.Loginstarbucks;
-import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
@@ -227,7 +225,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 registerUser.setFechaNacimientoToShow("");
                 registerUser.setLugarNacimiento("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
-               // loadFragment(Loginstarbucks.newInstance(), Direction.FORDWARD, false);
+               // loadFragment(LoginStarbucks.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_SELFIE_BACK:
