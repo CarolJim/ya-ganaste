@@ -1,6 +1,11 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import android.media.Image;
+
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoImageCardStrabucks;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by asandovals on 20/04/2018.
@@ -8,13 +13,18 @@ import java.io.Serializable;
 
 public class CardStarbucks implements Serializable {
 
-    String alias ="";
+    String alias = "";
     boolean esPrincipal;
-    String fechaActivacion= "";
-    String numeroTarjeta ="";
-    int saldo;
-    String statusTarjeta ="";
-    String tipoTarjeta="";
+    String fechaActivacion = "";
+    String numeroTarjeta = "";
+    float saldo;
+    String statusTarjeta = "";
+    String tipoTarjeta = "";
+    DtoImageCardStrabucks imagenes;
+
+    public DtoImageCardStrabucks getImagenes() {
+        return imagenes;
+    }
 
     public String getAlias() {
         return alias;
@@ -48,7 +58,7 @@ public class CardStarbucks implements Serializable {
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public int getSaldo() {
+    public float getSaldo() {
         return saldo;
     }
 

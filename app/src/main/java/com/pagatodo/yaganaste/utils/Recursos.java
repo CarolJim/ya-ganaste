@@ -313,4 +313,5 @@ public class Recursos {
     public static final String NEXT_LEVEL_STARBUCKS = "NEXT_LEVEL_STARBUCKS";
     public static final String MEMBER_NUMBER_STARBUCKS = "MEMBER_NUMBER_STARBUCKS";
     public static final String SECURITY_TOKEN_STARBUCKS = "SECURITY_TOKEN_STARBUCKS";
+    public static final String NUMBER_CARD_STARBUCKS = "NUMBER_CARD_STARBUCKS";
 }

@@ -134,7 +134,7 @@ public class ElementWallet {
 
     public ElementWallet getCardSettings() {
         return new ElementWallet(TYPE_SETTINGS, R.drawable.config_card,
-                "Mis CardStarbucks", new ElementView().getListConfigCard(),
+                "Mis Tarjetas", new ElementView().getListConfigCard(),
                 R.string.title_wallet_second_settings, false);
     }
 

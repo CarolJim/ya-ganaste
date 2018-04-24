@@ -6,6 +6,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
+import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.adapters.AdminStarbucksAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IAdminStarbucksPresenter;
 
 import java.io.IOException;
@@ -27,7 +29,8 @@ public class AdminStarbucksPresenter implements IAdminStarbucksPresenter {
         List<CardStarbucks> cards = new ArrayList<>();
         String json = App.getInstance().getPrefs().loadData(STARBUCKS_CARDS);
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<List<CardStarbucks>> mapType = new TypeReference<List<CardStarbucks>>() {};
+        TypeReference<List<CardStarbucks>> mapType = new TypeReference<List<CardStarbucks>>() {
+        };
         try {
             cards = mapper.readValue(json, mapType);
         } catch (IOException e) {

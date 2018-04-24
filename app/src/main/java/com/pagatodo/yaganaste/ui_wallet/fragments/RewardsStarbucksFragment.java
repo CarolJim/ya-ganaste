@@ -26,7 +26,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
  * Created by asandovals on 13/04/2018.
  */
 
-public class RewardsStarbucksFragment  extends GenericFragment {
+public class RewardsStarbucksFragment extends GenericFragment {
     private View rootView;
     private Preferencias prefs = App.getInstance().getPrefs();
 
@@ -41,15 +41,13 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     ImageView cup_coffe;
 
 
-
-
     //@BindView(R.id.edt_message_payment)
     //StyleEdittext edtMessagePayment;
     //@BindView(R.id.btn_send_payment)
     //StyleButton btnSendPayment;
 
 
-    public static RewardsStarbucksFragment newInstance(){
+    public static RewardsStarbucksFragment newInstance() {
         return new RewardsStarbucksFragment();
     }
 
@@ -70,18 +68,17 @@ public class RewardsStarbucksFragment  extends GenericFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        int estrellas_faltantes=  prefs.loadDataInt(MISSING_STARS_NUMBER);
-        String start=(prefs.loadData(STARS_NUMBER));
-        num_starts_currently.setText(""+start);
+        int estrellas_faltantes = prefs.loadDataInt(MISSING_STARS_NUMBER);
+        num_starts_currently.setText("" + prefs.loadDataInt(STARS_NUMBER));
 
-        if (prefs.loadDataInt(STATUS_GOLD)==1){
+        if (prefs.loadDataInt(STATUS_GOLD) == 1) {
             cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
         }
 
-        if (estrellas_faltantes!=1){
-            titulo_datos_usuario.setText(estrellas_faltantes+" Estrellas para obtener el Nivel"+App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
-        }else
-        titulo_datos_usuario.setText(estrellas_faltantes+" Estrella para obtener el Nivel"+App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
-        txt_reward_subtitul.setText("Nivel "+prefs.loadData(ACTUAL_LEVEL_STARBUCKS));
+        if (estrellas_faltantes != 1) {
+            titulo_datos_usuario.setText(estrellas_faltantes + " Estrellas para obtener el Nivel" + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
+        } else
+            titulo_datos_usuario.setText(estrellas_faltantes + " Estrella para obtener el Nivel" + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
+        txt_reward_subtitul.setText("Nivel " + prefs.loadData(ACTUAL_LEVEL_STARBUCKS));
     }
 }

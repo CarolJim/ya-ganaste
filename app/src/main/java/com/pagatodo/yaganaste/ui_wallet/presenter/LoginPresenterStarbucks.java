@@ -68,7 +68,6 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
 
     @Override
     public void login(String usuario, String password) {
-
         loginview.showLoader("");
         prefs.saveData(SHA_256_STARBUCKS, Utils.cipherRSA(password, PUBLIC_STARBUCKS_KEY_RSA));//Contraseña Starbucks
         LoginStarbucksRequest request = new LoginStarbucksRequest();
@@ -82,6 +81,5 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
         request.setDispositivoStartBucks(datadispositivo);
         request.setFuente("Movil");
         loginIteractorStarbucks.login(request);
-
     }
 }
