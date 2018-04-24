@@ -37,6 +37,10 @@ public class LoginStarbucksResponse  {
     @SerializedName("tarjetas")
     private List<Tarjetas> tarjetas;
 
+    public List<Tarjetas> getTarjetas() {
+        return tarjetas;
+    }
+
     public void setTarjetas(List<Tarjetas> tarjetas) {
         this.tarjetas = tarjetas;
     }

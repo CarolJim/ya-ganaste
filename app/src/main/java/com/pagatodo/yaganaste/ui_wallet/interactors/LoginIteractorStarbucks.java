@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.Tarjetas;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -33,6 +34,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.BEBIDA_FAVORITA;
 import static com.pagatodo.yaganaste.utils.Recursos.REWARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.SIGUIENTE_NIVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
+import static com.pagatodo.yaganaste.utils.Recursos.TARJETAS;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_SEGURIDAD_STARBUCKS;
 
 /**
@@ -99,6 +101,21 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
             App.getInstance().getPrefs().saveData(NUMERO_MIEMBRO_STARBUCKS, data.getNumeroMiembro());
             App.getInstance().getPrefs().saveData(TOKEN_SEGURIDAD_STARBUCKS, data.getTokenSeguridad());
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, true);
+            if (!data.getTarjetas().isEmpty()){
+                List<Tarjetas> listadetarjetas = data.getTarjetas();
+                Gson gson = new Gson();
+                String json = gson.toJson(listadetarjetas);
+                App.getInstance().getPrefs().saveData(TARJETAS, json);
+                /**
+                 * para obtener el valor
+                 * SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                 Gson gson = new Gson(); //Instancia Gson.
+                 String json = prefs.getString("myObjeto", "");
+                 myObject myobjeto = gson.fromJson(json, myObject.class);
+                 *
+                 */
+            }
+
             iloginStarbucksss.onSucces(LOGINSTARBUCKS, data.getData());
         }
     }
