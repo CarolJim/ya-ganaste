@@ -1,8 +1,11 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
 import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DatosMiembro;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.Tarjetas;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponseStarbucks;
-import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.InfoRewardsStarbucks;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.RespuestaStarbucks;
 import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
  * Created by asandovals on 20/04/2018.
  */
 
-public class LoginStarBucksResponse extends GenericResponseStarbucks {
+public class LoginStarbucksResponse  {
 
 
     @SerializedName("beneficiosRewards")
@@ -20,7 +23,7 @@ public class LoginStarBucksResponse extends GenericResponseStarbucks {
     private DatosMiembro datosMiembro;
 
     @SerializedName("id_Miembro")
-    private String id_Miembro;
+    private int id_Miembro;
 
     @SerializedName("infoRewards")
     private InfoRewardsStarbucks infoRewardsStarbucks;
@@ -28,12 +31,34 @@ public class LoginStarBucksResponse extends GenericResponseStarbucks {
     @SerializedName("numeroMiembro")
     private String numeroMiembro;
 
+    @SerializedName("respuesta")
+    private RespuestaStarbucks respuestaStarbucks;
+
     @SerializedName("tarjetas")
-    private Tarjetas tarjetas;
+    private List<Tarjetas> tarjetas;
+
+    public void setTarjetas(List<Tarjetas> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
 
     @SerializedName("tokenSeguridad")
     private String tokenSeguridad;
 
+    public RespuestaStarbucks getData() {
+        return respuestaStarbucks;
+    }
+    public void setData(RespuestaStarbucks data) {
+        respuestaStarbucks = data;
+    }
+
+
+    public int getId_Miembro() {
+        return id_Miembro;
+    }
+
+    public void setId_Miembro(int id_Miembro) {
+        this.id_Miembro = id_Miembro;
+    }
 
     public List<Rewards> getBeneficiosRewards() {
         return beneficiosRewards;
@@ -51,13 +76,7 @@ public class LoginStarBucksResponse extends GenericResponseStarbucks {
         this.datosMiembro = datosMiembro;
     }
 
-    public String getId_Miembro() {
-        return id_Miembro;
-    }
 
-    public void setId_Miembro(String id_Miembro) {
-        this.id_Miembro = id_Miembro;
-    }
 
     public InfoRewardsStarbucks getInfoRewardsStarbucks() {
         return infoRewardsStarbucks;
@@ -73,14 +92,6 @@ public class LoginStarBucksResponse extends GenericResponseStarbucks {
 
     public void setNumeroMiembro(String numeroMiembro) {
         this.numeroMiembro = numeroMiembro;
-    }
-
-    public Tarjetas getTarjetas() {
-        return tarjetas;
-    }
-
-    public void setTarjetas(Tarjetas tarjetas) {
-        this.tarjetas = tarjetas;
     }
 
     public String getTokenSeguridad() {

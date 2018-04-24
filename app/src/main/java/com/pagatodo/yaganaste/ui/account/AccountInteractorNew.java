@@ -466,8 +466,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
-
-
             case ACTUALIZAR_AVATAR:
                 cargarfotousuario(dataSourceResult);
                 break;

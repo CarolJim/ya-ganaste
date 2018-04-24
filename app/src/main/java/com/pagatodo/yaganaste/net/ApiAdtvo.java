@@ -48,7 +48,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContra
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultaMovimientosSBResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
@@ -66,7 +65,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAg
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LoginStarBucksResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
@@ -110,7 +109,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOV_SB;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
@@ -303,19 +301,6 @@ public class ApiAdtvo extends Api {
     }
 
     /**
-     * Método que se invoca cuando se desean obtener movimientos de starbuck.
-     *
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void consultarMovimientosSb(IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersSb();
-        NetFacade.consumeWS(CONSULTAR_MOV_SB,
-                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.sbMovements),
-                headers, null, ConsultaMovimientosSBResponse.class, result);
-    }
-
-
-    /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *
      * @param request {@link ValidarDatosPersonaRequest} body de la petición.
@@ -376,11 +361,10 @@ public class ApiAdtvo extends Api {
 
 
     public static void loginstarbucks(LoginStarbucksRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        Map<String, String> headers = getHeadersStarbucks();
         NetFacade.consumeWS(LOGINSTARBUCKS,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
-                null, request, LoginStarBucksResponse.class, result);
+                headers, request, LoginStarbucksResponse.class, result);
     }
 
 

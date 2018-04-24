@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
 import java.io.Serializable;
 

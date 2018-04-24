@@ -133,7 +133,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
 
         imgReload.setOnClickListener(view -> {
-            walletPresenter.updateBalance();
+            if (elementsWalletAdapter.getItemCount() > 0) {
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet());
+            }
         });
     }
 
@@ -162,7 +164,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
         updateOperations(pageCurrent);
-        walletPresenter.updateBalance();
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet());
     }
 
     private void setUiPageViewController() {
@@ -187,7 +189,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         dots[nextposition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
-    private void updateOperations(int position) {
+    private void updateOperations(final int position) {
         int colums = 3;
         //boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         pageCurrent = position;
@@ -215,6 +217,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     private void upDateSaldo(int position){
         txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+    }
+
+    private void upDateSaldo(String saldo){
+        txtSaldo.setText(saldo);
     }
 
     @Override
@@ -317,6 +323,11 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
+    }
+
+    @Override
+    public void setErrorSaldo(String saldoDefault) {
+        upDateSaldo(saldoDefault);
     }
 }
 

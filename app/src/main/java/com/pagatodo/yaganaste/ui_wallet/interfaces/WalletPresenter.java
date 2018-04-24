@@ -6,7 +6,7 @@ package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 public interface WalletPresenter {
     void getWalletsCards(boolean error);
-    void updateBalance();
+    void updateBalance(int typeWallet);
     void getStatusAccount(String mTDC);
     void getInformacionAgente();
 

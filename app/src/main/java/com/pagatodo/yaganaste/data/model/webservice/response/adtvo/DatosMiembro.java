@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
-import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.PreferenciasStarbucks;
 
 import java.io.Serializable;
 

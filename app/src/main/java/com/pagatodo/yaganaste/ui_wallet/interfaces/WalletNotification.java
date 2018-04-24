@@ -10,9 +10,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public interface WalletNotification {
     void onFailed(int errorCode, int action, String error);
+    void onFailedSaldo(String error);
     void onSuccess(boolean error);
-    void onSuccessEmisor(String responds);
-    void onSuccessADQ(String responds);
+    void onSuccesSaldo(int typeWallet, String response  );
     void onSuccesMovements(ConsultarMovimientosMesResponse response);
     void onSuccessResponse(GenericResponse response);
     void onSuccessInfoAgente(DataInfoAgente response);

@@ -20,6 +20,12 @@ public class Api {
         return headersYaGanaste;
     }
 
+    public static Map<String, String> getHeadersStarbucks() {
+        Map<String, String> headersYaGanaste = new HashMap<>();
+        headersYaGanaste.put("Content-type", "application/json");
+        return headersYaGanaste;
+    }
+
     public static Map<String, String> getHeadersAdq() {
         Map<String, String> headersAdq = new HashMap<>();
         headersAdq.put("Version", "1.0.7");
@@ -29,11 +35,10 @@ public class Api {
 
     public static Map<String, String> getHeadersSb(){
         Map<String, String> headersSb = new HashMap<>();
-
         //headersSb.put(RequestHeaders.TokenSeguridad, RequestHeaders.getTokenSeguridad());
         //headersSb.put(RequestHeaders.numeroMiembro, RequestHeaders.getNumeroMiembro());
-        headersSb.put(RequestHeaders.TokenSeguridad, "8b12d5f399263d74b09ede02364e6cd2c44b941696a996892630f847094c830f");
-        headersSb.put(RequestHeaders.numeroMiembro, "6135294392810562");
+        headersSb.put(RequestHeaders.TokenSeguridad, "11b1dfd55a80374100d5ca228ab55c18c3f4646c1d0c42f1511762b1c8e325a8");
+        headersSb.put(RequestHeaders.numeroMiembro, "6089031902208787");
         headersSb.put("fuente", "Movil");
         return  headersSb;
     }

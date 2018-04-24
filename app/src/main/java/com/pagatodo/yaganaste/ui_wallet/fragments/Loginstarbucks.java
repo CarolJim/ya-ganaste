@@ -26,6 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+
 /**
  * Created by asandovals on 16/04/2018.
  */
@@ -70,6 +73,9 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
     }
 
     @Override
@@ -78,7 +84,8 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
         rootView = inflater.inflate(R.layout.fragment_starbucks_login, container, false);
         initViews();
         setValidationRules();
-        loginPresenterStarbucks = new LoginPresenterStarbucks(this);
+        loginPresenterStarbucks = new LoginPresenterStarbucks(getContext());
+        loginPresenterStarbucks.setIView(this);
         return rootView;
     }
 
@@ -175,6 +182,39 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
 
     @Override
     public void loginstarsucced() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void loginfail(String mensaje) {
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
+    }
+
+
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+
+    }
+
+    @Override
+    public void hideLoader() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+    }
+
+    @Override
+    public void showError(Object error) {
 
     }
 }

@@ -8,21 +8,27 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.utils.Recursos;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 
@@ -56,12 +62,26 @@ public class WalletInteractorImpl implements WalletInteractor {
     */
 
     @Override
-    public void getBalance() {
+    public void getBalance(int typeWallet) {
         try {
-            ApiTrans.consultarSaldo(this);
-            ApiAdq.consultaSaldoCupo(this);
+            switch (typeWallet){
+                case TYPE_EMISOR:
+                    ApiTrans.consultarSaldo(this);
+                    break;
+                case TYPE_ADQ:
+                    ApiAdq.consultaSaldoCupo(this);
+                    break;
+                case TYPE_STARBUCKS:
+                    String numCard = "6135294392810562";
+                    CardRequest cardRequest = new CardRequest(numCard);
+                    ApiStarbucks.saldoSb(cardRequest,this);
+                    break;
+            }
+
+            ;
         } catch (OfflineException e) {
-            //No-op
+            e.printStackTrace();
+            this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -113,11 +133,14 @@ public class WalletInteractorImpl implements WalletInteractor {
                 validateResponse((ConsultarMovimientosMesResponse) result.getData());
                 break;
             case CONSULTAR_SALDO:
-                this.listener.onSuccessEmisor(((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
+                this.listener.onSuccesSaldo(TYPE_EMISOR,((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
                 break;
             case CONSULTAR_SALDO_ADQ:
                 //validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
-                this.listener.onSuccessADQ(((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
+                this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
+                break;
+            case CONSULTAR_SALDO_SB:
+                this.listener.onSuccesSaldo(TYPE_STARBUCKS, ((SaldoSBRespons) result.getData()).getSaldo());
                 break;
             case ESTATUS_CUENTA:
                 if (result.getData() instanceof EstatusCuentaResponse) {
@@ -135,9 +158,15 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void onFailed(DataSourceResult error) {
-        if (error.getWebService() == WebService.CONSULTAR_MOVIMIENTOS_MES) {
-            this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
+        switch (error.getWebService()){
+            case CONSULTAR_MOVIMIENTOS_MES:
+                this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
+                break;
+            case CONSULTAR_SALDO_SB:
+                this.listener.onFailedSaldo("0.00");
+                break;
         }
+
     }
 
     private void validateResponse(ConsultarMovimientosMesResponse response) {

@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
 /**
  * Created by asandovals on 20/04/2018.

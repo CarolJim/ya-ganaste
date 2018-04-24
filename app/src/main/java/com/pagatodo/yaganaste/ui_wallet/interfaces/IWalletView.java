@@ -15,4 +15,5 @@ public interface IWalletView extends IMainWalletView {
     void getSaldo();
     void sendSuccessStatusAccount(EstatusCuentaResponse response);
     void sendSuccessInfoAgente();
+    void setErrorSaldo(String saldoDefault);
 }

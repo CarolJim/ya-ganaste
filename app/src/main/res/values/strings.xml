@@ -99,13 +99,15 @@
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
     <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
 
-    <!-- Métodos de WS Starbucks -->
-    <string name="loginstarbucks">/LoginMobile</string>
-    <string name="getSucursalesStarbucks">/CatalogosStarbucks.svc/getStores</string>
-    <string name="sbMovements">/wsrewards/ConsultaMovimientosPorCuenta</string>
 
     <!-- Metodos para operaciones con FB -->
+    <string name="loginstarbucks">:17443/wsrewards/LoginMobile</string>
+    <!-- Métodos de WS Starbucks -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
+    <string name="sbMovements">:17443/wsrewards/ConsultaMovimientosPorCuenta</string>
+    <string name="sbSaldo">:17443/wsrewards/ConsultaSaldoMobile</string>
+    <string name="get_stores_starbucks">:16443/CatalogosStarbucks.svc/getStores</string>
+
 
     <!--Métodos de WS CUPO-->
     <string name="cupoCrearSolicitudCupo">/CrearSolicitudCupo</string>
@@ -1422,7 +1424,9 @@
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
     <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Sucursales Starbucks -->
+    <string name="searching_stores">Obteniendo sucursales</string>
+    <string name="searching_stores_empty">No se ha encontrado sucursales</string>
+>>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
 
 </resources>
