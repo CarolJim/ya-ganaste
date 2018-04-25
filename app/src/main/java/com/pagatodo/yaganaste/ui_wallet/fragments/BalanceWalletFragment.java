@@ -191,6 +191,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         } else {
             checkStatusCard();
         }
+        if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+            accountPresenter.updateBalanceStarbucks();
+        }
     }
 
     @Override
@@ -201,7 +204,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void updateBalanceCupo() {
+    public void updateBalanceStarbucks() {
+        balanceStarbucks = prefs.loadData(STARBUCKS_BALANCE);
+        hideLoader();
     }
 
     @Override

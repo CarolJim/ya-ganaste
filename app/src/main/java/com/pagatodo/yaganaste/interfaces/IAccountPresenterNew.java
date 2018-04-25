@@ -53,7 +53,7 @@ public interface IAccountPresenterNew {
 
     void updateBalanceAdq();
 
-    void updateBalanceCupo();
+    void updateBalanceStarbucks();
 
     void getPaisesList();
 

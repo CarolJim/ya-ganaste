@@ -9,7 +9,7 @@ public interface IBalanceView extends View, INavigationView {
 
     void updateBalanceAdq();
 
-    void updateBalanceCupo();
+    void updateBalanceStarbucks();
 
     void updateStatus();
 }

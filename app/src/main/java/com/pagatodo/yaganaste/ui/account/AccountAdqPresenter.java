@@ -121,24 +121,19 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void onSuccesChangePass6(DataSourceResult dataSourceResult) {
-
-
     }
 
 
     @Override
     public void onSuccesBalanceAdq() {
-
     }
 
     @Override
-    public void onSuccesBalanceCupo() {
-
+    public void onSuccessBalanceStarbucks() {
     }
 
     @Override
     public void onSuccessDataPerson() {
-
     }
 
     @Override

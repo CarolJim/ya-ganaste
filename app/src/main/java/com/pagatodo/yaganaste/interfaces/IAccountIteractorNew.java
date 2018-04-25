@@ -62,7 +62,7 @@ public interface IAccountIteractorNew<T> {
 
     void getBalanceAdq();
 
-    void getBalanceCupo();
+    void getBalanceStarbucks();
 
     List<Paises> getPaisesList();
 

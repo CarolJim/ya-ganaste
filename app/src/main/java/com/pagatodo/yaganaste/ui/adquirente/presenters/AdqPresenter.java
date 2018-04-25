@@ -192,7 +192,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
-    public void onSuccesBalanceCupo() {
+    public void onSuccessBalanceStarbucks() {
 
     }
 

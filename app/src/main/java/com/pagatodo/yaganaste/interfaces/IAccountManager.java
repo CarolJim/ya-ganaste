@@ -27,7 +27,7 @@ public interface IAccountManager<T> {
 
     void onSuccesBalanceAdq();
 
-    void onSuccesBalanceCupo();
+    void onSuccessBalanceStarbucks();
 
     void onSuccessDataPerson();
 
