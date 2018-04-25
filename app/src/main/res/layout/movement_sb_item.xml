@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    android:id="@+id/item"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_marginRight="8dp"
+    android:layout_height="60dp">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/day_txt"
@@ -82,15 +81,15 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="950"
         android:textColor="@color/texthint"
-        tools:decimalLenght="2"
-        tools:dotBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:symbolSmaller="false"
         app:tipo="Text"
-        android:gravity="center"/>
+        tools:decimalLenght="2"
+        tools:dotBottom="true" />
 
 </android.support.constraint.ConstraintLayout>

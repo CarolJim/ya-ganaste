@@ -6,14 +6,14 @@ public class SaldoSBRespons implements Serializable {
 
     RespuestaStarbucks respuesta;
 
-    String Saldo = "";
+    String saldo = "";
 
     public String getSaldo() {
-        return Saldo;
+        return saldo;
     }
 
     public void setSaldo(String saldo) {
-        this.Saldo = saldo;
+        this.saldo = saldo;
     }
 
     public RespuestaStarbucks getRespuesta() {

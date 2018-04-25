@@ -46,9 +46,7 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
                 loginview.loginstarsucced();
                 loginview.hideLoader();
                 break;
-
         }
-
     }
 
     @Override

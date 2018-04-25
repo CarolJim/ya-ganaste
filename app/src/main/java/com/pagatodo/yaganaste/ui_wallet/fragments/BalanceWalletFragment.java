@@ -389,7 +389,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
         }
-        if (position == 2 || (position == 1 && RequestHeaders.getTokenAdq().isEmpty())) {
+        if (position != 0 && RequestHeaders.getTokenAdq().isEmpty()) {
             txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
             txtCardDescBalance.setText(getString(R.string.starbucks_card));
             txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));

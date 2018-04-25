@@ -35,9 +35,8 @@ public class MovementsViewHolder extends RecyclerView.ViewHolder {
     @SuppressLint("SetTextI18n")
     public void bind(TransaccionesSbResponse item, boolean isPar){
         if (isPar){
-            this.constraintLayout.setBackgroundResource(R.color.color_item_movement);
+            this.constraintLayout.setBackgroundResource(R.color.backgraund_wallet);
         }
-
         this.day.setText(converFormt(item.getFecha()));
         this.month.setText(getMonth(item.getFecha()));
         this.desc.setText(item.getDetalle());

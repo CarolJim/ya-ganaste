@@ -245,7 +245,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onResume() {
         super.onResume();
         walletPresenter.getInformacionAgente();
-
     }
 
     @Override

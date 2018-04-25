@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -24,6 +25,8 @@ public interface IAccountIteractorNew<T> {
     void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest,WebService asignarNip);
 
     void login(IniciarSesionRequest request);
+
+    void login(LoginStarbucksRequest request);
 
     void logout();
 

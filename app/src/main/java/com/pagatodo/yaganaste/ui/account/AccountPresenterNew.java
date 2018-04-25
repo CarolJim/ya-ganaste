@@ -18,6 +18,8 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContras
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.DispositivoStartBucks;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -84,11 +86,15 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 /**
@@ -168,7 +174,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void goToNextStepAccount(String event, Object data) {
-        if (!event.equals(EVENT_GO_MAINTAB)) accountView.hideLoader();
+        if (!event.equals(EVENT_GO_MAINTAB)) {
+            if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+                loginStarbucks();
+            }
+            accountView.hideLoader();
+        }
         accountView.nextScreen(event, data);
     }
 
@@ -203,6 +214,21 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin, password);
         ///accountIteractor.login(requestLogin);
+    }
+
+    @Override
+    public void loginStarbucks() {
+        LoginStarbucksRequest request = new LoginStarbucksRequest();
+        request.setEmail(prefs.loadData(EMAIL_STARBUCKS));
+        request.setContrasenia(prefs.loadData(SHA_256_STARBUCKS));
+        DispositivoStartBucks datadispositivo = new DispositivoStartBucks();
+        datadispositivo.setUdid(Utils.getUdid(App.getContext()));
+        datadispositivo.setIdTokenNotificacion("");
+        datadispositivo.setLatitud("0.0");
+        datadispositivo.setLongitud("0.0");
+        request.setDispositivoStartBucks(datadispositivo);
+        request.setFuente("Movil");
+        accountIteractor.login(request);
     }
 
     @Override

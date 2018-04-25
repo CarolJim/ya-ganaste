@@ -82,8 +82,8 @@ public class RewardsStarbucksFragment extends GenericFragment {
             cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
         }else if (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).contains("Green")) {
             cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.redGreenTransparent));
-        }else if (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).contains("Welcome")) {
-            cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+        }else if (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).contains("Gold")) {
+            cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.goldColor));
         }else {
             cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
         }

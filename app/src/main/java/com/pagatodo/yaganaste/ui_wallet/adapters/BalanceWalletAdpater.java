@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -10,10 +12,14 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Writer;
 import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
@@ -24,10 +30,13 @@ import java.util.List;
 
 import eu.davidea.flipview.FlipView;
 
+import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
+import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
 /**
@@ -35,7 +44,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
  */
 
 public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
-
 
     private ArrayList<ElementWallet> elementViewList;
     private float mBaseElevation;
@@ -96,6 +104,9 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
         if (position == 0) {
             Bitmap qrCode = getQrCode();
             flipView.setRearImageBitmap(qrCode);
+        } else if (position != 0 && RequestHeaders.getTokenAdq().isEmpty()) {
+            Bitmap starbucksCode = getStarbucksCode();
+            flipView.setRearImageBitmap(starbucksCode);
         } else {
             flipView.setRearImage(item.getResourceBack());
         }
@@ -149,5 +160,29 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private Bitmap getStarbucksCode() {
+        Writer writer = new PDF417Writer();
+        String finaldata = Uri.encode(prefs.loadData(NUMBER_CARD_STARBUCKS), null);
+        BitMatrix bm = null;
+        try {
+            bm = writer.encode(finaldata, BarcodeFormat.PDF_417, 700, 400);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        int[] pixels = new int[width * height];
+        // All are 0, or black, by default
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = bm.get(x, y) ? BLUE : WHITE;
+            }
+        }
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
     }
 }

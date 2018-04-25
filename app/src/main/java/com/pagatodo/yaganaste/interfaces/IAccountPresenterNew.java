@@ -21,6 +21,8 @@ public interface IAccountPresenterNew {
 
     void login(String usuario, String password);
 
+    void loginStarbucks();
+
     void logout();
 
     void checkCardAssigment(String numberCard);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContr
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
@@ -33,6 +35,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCup
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
@@ -49,6 +52,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsignacionTarjetaResponse;
@@ -57,6 +61,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataConsultar
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataCuentaDisponible;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
+import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -65,6 +70,7 @@ import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
@@ -90,6 +96,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
@@ -105,18 +112,32 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
+import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.NEXT_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
+import static com.pagatodo.yaganaste.utils.Recursos.REWARDS;
+import static com.pagatodo.yaganaste.utils.Recursos.SECURITY_TOKEN_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_CARDS;
+import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
@@ -172,6 +193,16 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void login(LoginStarbucksRequest request) {
+        try {
+            ApiStarbucks.loginStarbucks(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.onError(LOGINSTARBUCKS, e.toString());
         }
     }
 
@@ -479,7 +510,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             case INICIAR_SESION_SIMPLE:
                 processLogin(dataSourceResult);
                 break;
-
+            case LOGINSTARBUCKS:
+                saveDataUsuStarBucks(dataSourceResult);
+                break;
             case CERRAR_SESION:
                 RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
                 if (logOutBefore) {
@@ -624,6 +657,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (error.getWebService() == INICIAR_SESION_SIMPLE && RequestHeaders.getTokenauth().isEmpty()) {
                 RequestHeaders.setUsername("");
             }
+            accountManager.onError(error.getWebService(), error.getData().toString());
+        }
+        if (error != null && error.getWebService() == LOGINSTARBUCKS) {
             accountManager.onError(error.getWebService(), error.getData().toString());
         }
     }
@@ -1054,6 +1090,52 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
+    }
+
+    private void saveDataUsuStarBucks(DataSourceResult dataSourceResult) {
+        LoginStarbucksResponse data = (LoginStarbucksResponse) dataSourceResult.getData();
+
+        if (data.getData().getCodigoRespuesta() != 0) {
+            //accountManager.onError(dataSourceResult.getWebService(), data.getData().getMensaje());
+        } else if (data.getData().getCodigoRespuesta() == 0) {
+            if (!data.getBeneficiosRewards().isEmpty()) {
+                List<Rewards> lista = data.getBeneficiosRewards();
+                Gson gson = new Gson();
+                String json = gson.toJson(lista);
+                App.getInstance().getPrefs().saveData(REWARDS, json);
+            }
+            if (data.getDatosMiembro().getBebidaFavorita() == null) {
+                App.getInstance().getPrefs().saveData(FAVORITE_DRINK, "Sin Bebida Favorita");
+            } else {
+                App.getInstance().getPrefs().saveData(FAVORITE_DRINK, data.getDatosMiembro().getBebidaFavorita());
+            }
+            App.getInstance().getPrefs().saveData(EMAIL_STARBUCKS, data.getDatosMiembro().getEmail());
+            App.getInstance().getPrefs().saveData(MEMBER_SINCE, data.getDatosMiembro().getMiembroDesde());
+            App.getInstance().getPrefs().saveDataInt(STATUS_GOLD, data.getDatosMiembro().getStatusGold());
+            App.getInstance().getPrefs().saveData(ID_MIEMBRO_STARBUCKS, data.getId_Miembro());
+            App.getInstance().getPrefs().saveData(ACTUAL_LEVEL_STARBUCKS, data.getInfoRewardsStarbucks().getNivelActual());
+            App.getInstance().getPrefs().saveDataInt(STARS_NUMBER, data.getInfoRewardsStarbucks().getNumEstrellas());
+            App.getInstance().getPrefs().saveDataInt(MISSING_STARS_NUMBER, data.getInfoRewardsStarbucks().getNumEstrellasFaltantes());
+            App.getInstance().getPrefs().saveData(NEXT_LEVEL_STARBUCKS, data.getInfoRewardsStarbucks().getSiguienteNivel());
+            App.getInstance().getPrefs().saveData(MEMBER_NUMBER_STARBUCKS, data.getNumeroMiembro());
+            App.getInstance().getPrefs().saveData(SECURITY_TOKEN_STARBUCKS, data.getTokenSeguridad());
+            App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, true);
+            if (!data.getTarjetas().isEmpty()) {
+                List<CardStarbucks> listadetarjetas = data.getTarjetas();
+                Gson gson = new Gson();
+                String json = gson.toJson(listadetarjetas);
+                App.getInstance().getPrefs().saveData(STARBUCKS_CARDS, json);
+                /**
+                 * para obtener el valor
+                 * SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                 Gson gson = new Gson(); //Instancia Gson.
+                 String json = prefs.getString("myObjeto", "");
+                 myObject myobjeto = gson.fromJson(json, myObject.class);
+                 *
+                 */
+            }
+            //accountManager.onSucces(LOGINSTARBUCKS, data.getData());
         }
     }
 }

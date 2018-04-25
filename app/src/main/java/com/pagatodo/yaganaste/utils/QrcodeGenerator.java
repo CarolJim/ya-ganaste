@@ -18,9 +18,9 @@ import java.util.Map;
 
 public class QrcodeGenerator {
 
-    private static final int WHITE = 0xFFFFFFFF;
-    private static final int BLACK = 0xFF000000;
-    private static final int BLUE = 0xFF00A1E1;
+    public static final int WHITE = 0xFFFFFFFF;
+    public static final int BLACK = 0xFF000000;
+    public static final int BLUE = 0xFF00A1E1;
 
     private int dimension = Integer.MIN_VALUE;
     private String contents = null;
