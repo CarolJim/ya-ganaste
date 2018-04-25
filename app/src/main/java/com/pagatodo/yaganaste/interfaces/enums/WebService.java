@@ -168,6 +168,8 @@ public enum WebService {
     GET_INFORMACION_AGENTE,
     /* Login para starbucks */
     LOGINSTARBUCKS,
+    /* Login para starbucks */
+    PREREGISTRO,
     /* Obtener Sucursales Starbucks */
     GET_STARBUCKS_STORES
 }

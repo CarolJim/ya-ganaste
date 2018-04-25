@@ -40,6 +40,8 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
@@ -83,6 +85,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     public final static String EVENT_GO_TO_LOGIN_STARBUCKS = "EVENT_GO_TO_LOGIN_STARBUCKS";
+    public final static String EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS = "EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS";
     public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
@@ -307,6 +310,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_LOGIN_STARBUCKS:
                 loadFragment(LoginStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                break;
+            case EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS:
+                loadFragment(RegisterCompleteStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                break;
+            case EVENT_GO_TO_REGISTER_STARBUCKS:
+                loadFragment(RegisterStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 break;
             case EVENT_GO_TO_ADMIN_STARBUCKS:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
