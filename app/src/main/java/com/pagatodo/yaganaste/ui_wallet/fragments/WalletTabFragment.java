@@ -78,6 +78,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     StyleTextView tipoSaldo;
     @BindView(R.id.img_reload)
     ImageView imgReload;
+    @BindView(R.id.downloading)
+    ImageView downloading;
 
 
     private WalletPresenter walletPresenter;
@@ -131,7 +133,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
-
         imgReload.setOnClickListener(view -> {
             if (elementsWalletAdapter.getItemCount() > 0) {
                 walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet());
@@ -209,9 +210,13 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
         if (cardWalletAdpater.getElemenWallet(position).isUpdate()){
             imgReload.setVisibility(View.VISIBLE);
+            //downloading.setVisibility(View.VISIBLE);
         } else {
             imgReload.setVisibility(View.INVISIBLE);
+            //downloading.setVisibility(View.INVISIBLE);
         }
+
+        //imgReload.setVisibility(View.GONE);
 
     }
 
@@ -220,6 +225,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void upDateSaldo(String saldo){
+        cardWalletAdpater.updateSaldo(pageCurrent, saldo);
         txtSaldo.setText(saldo);
     }
 
@@ -231,11 +237,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
-    public void getSaldo() {
-        cardWalletAdpater.updateSaldo(0, StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId())
-            cardWalletAdpater.updateSaldo(1, StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)));
-        //updateOperations(pageCurrent);
+    public void getSaldo(String saldo) {
+        upDateSaldo(saldo);
     }
 
     @Override
@@ -326,8 +329,25 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
-    public void setErrorSaldo(String saldoDefault) {
-        upDateSaldo(saldoDefault);
+    public void setErrorSaldo(String errorSaldo) {
+        //upDateSaldo(saldoDefault);
+        UI.showErrorSnackBar(getActivity(),errorSaldo,Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void beginProgressSaldo() {
+        swapAnimation(R.drawable.avd_downloading_begin);
+    }
+
+    @Override
+    public void finishProgressSaldo() {
+        swapAnimation(R.drawable.avd_downloading_finish);
+    }
+
+    private void swapAnimation(@DrawableRes int drawableResId) {
+        final Drawable avd = AnimatedVectorDrawableCompat.create(getContext(), drawableResId);
+        downloading.setImageDrawable(avd);
+        ((Animatable) avd).start();
     }
 }
 

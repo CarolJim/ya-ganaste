@@ -30,6 +30,8 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 
 /**
@@ -72,13 +74,12 @@ public class WalletInteractorImpl implements WalletInteractor {
                     ApiAdq.consultaSaldoCupo(this);
                     break;
                 case TYPE_STARBUCKS:
-                    String numCard = "6135294392810562";
+                    String numCard = App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS);
                     CardRequest cardRequest = new CardRequest(numCard);
                     ApiStarbucks.saldoSb(cardRequest,this);
                     break;
             }
 
-            ;
         } catch (OfflineException e) {
             e.printStackTrace();
             this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
@@ -140,7 +141,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
                 break;
             case CONSULTAR_SALDO_SB:
-                this.listener.onSuccesSaldo(TYPE_STARBUCKS, ((SaldoSBRespons) result.getData()).getSaldo());
+                validateResponse((SaldoSBRespons) result.getData());
                 break;
             case ESTATUS_CUENTA:
                 if (result.getData() instanceof EstatusCuentaResponse) {
@@ -163,7 +164,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                 this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
                 break;
             case CONSULTAR_SALDO_SB:
-                this.listener.onFailedSaldo("0.00");
+                this.listener.onFailedSaldo(error.getData().toString());
                 break;
         }
 
@@ -176,7 +177,14 @@ public class WalletInteractorImpl implements WalletInteractor {
         } else {
             listener.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
         }
-
-
     }
+    private void validateResponse(SaldoSBRespons response) {
+        if (response.getRespuesta().getCodigoRespuesta() == Recursos.CODE_OK) {
+            this.listener.onSuccesSaldo(TYPE_STARBUCKS, response.getSaldo());
+        } else {
+            this.listener.onFailedSaldo(response.getRespuesta().getMensaje());
+        }
+    }
+
+
 }

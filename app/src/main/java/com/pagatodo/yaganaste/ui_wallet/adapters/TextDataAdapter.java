@@ -38,7 +38,7 @@ public class TextDataAdapter extends ArrayAdapter<String> {
         this.listItems = listItems;
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("CardStarbucksViewHolder")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

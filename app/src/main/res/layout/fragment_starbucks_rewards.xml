@@ -19,19 +19,36 @@
         android:text="@string/mis_recompensas"
         android:textColor="@color/colorAccent" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="@dimen/margintopstarbucks"
+        android:orientation="vertical">
 
-        >
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/reward"
-    android:layout_gravity="center_horizontal"
-    />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/cup_coffee"
+                android:layout_width="72.5dp"
+                android:layout_height="98dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_stargreen" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/num_starts_currently"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:text="10"
+                android:textColor="@color/whiteColor"
+                android:textSize="20dp" />
+        </FrameLayout>
+
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_reward_subtitul"
             style="@style/generic_text_style_bubtitulo"

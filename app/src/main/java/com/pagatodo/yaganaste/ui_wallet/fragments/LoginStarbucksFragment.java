@@ -1,13 +1,11 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -15,7 +13,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementStatus;
 import com.pagatodo.yaganaste.ui_wallet.presenter.LoginPresenterStarbucks;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -24,16 +21,16 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
 
 /**
  * Created by asandovals on 16/04/2018.
  */
 
-public class Loginstarbucks extends GenericFragment implements   View.OnClickListener, ValidationForms, Iloginstarbucks {
+public class LoginStarbucksFragment extends GenericFragment implements View.OnClickListener, ValidationForms, Iloginstarbucks {
     private View rootView;
 
     @BindView(R.id.txt_subtitul)
@@ -62,8 +59,8 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
 
     LoginPresenterStarbucks loginPresenterStarbucks;
 
-    public static Loginstarbucks newInstance() {
-        Loginstarbucks fragmentRegister = new Loginstarbucks();
+    public static LoginStarbucksFragment newInstance() {
+        LoginStarbucksFragment fragmentRegister = new LoginStarbucksFragment();
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;
@@ -72,10 +69,6 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
     }
 
     @Override
@@ -92,31 +85,24 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
         btnNextStarbucks.setOnClickListener(this);
-
-
     }
 
     @Override
     public void onClick(View view) {
-
-        if (view.getId()==R.id.btnNextStarbucks){
+        if (view.getId() == R.id.btnNextStarbucks) {
             validateForm();
         }
-
     }
-
-
 
     @Override
     public void setValidationRules() {
         editcorreo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus) {
                     text_correo.setBackgroundResource(R.drawable.inputtext_active);
-                }else {
+                } else {
                     text_correo.setBackgroundResource(R.drawable.inputtext_normal);
                 }
             }
@@ -124,34 +110,35 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
         editpassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus){
+                if (hasFocus) {
                     text_password.setBackgroundResource(R.drawable.inputtext_active);
-                }else {
+                } else {
                     text_password.setBackgroundResource(R.drawable.inputtext_normal);
                 }
             }
         });
     }
+
     @Override
     public void validateForm() {
         getDataForm();
         boolean isValid = true;
-        if (correo.isEmpty()){
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+        if (correo.isEmpty()) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
             text_correo.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
-        }else if(!ValidateForm.isValidEmailAddress(correo)){
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo_formato), Snackbar.LENGTH_SHORT);
+        } else if (!ValidateForm.isValidEmailAddress(correo)) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_formato), Snackbar.LENGTH_SHORT);
             text_correo.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
-        }else {
+        } else {
             text_correo.setBackgroundResource(R.drawable.inputtext_normal);
         }
-        if (contrasena.isEmpty()){
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
+        if (contrasena.isEmpty()) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
             text_password.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
-        }else {
+        } else {
             text_password.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (isValid) {
@@ -176,20 +163,19 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
 
     @Override
     public void getDataForm() {
-        correo= editcorreo.getText().toString().trim();
-        contrasena= editpassword.getText().toString().trim();
+        correo = editcorreo.getText().toString().trim();
+        contrasena = editpassword.getText().toString().trim();
     }
 
     @Override
     public void loginstarsucced() {
-        getActivity().finish();
+        onEventListener.onEvent(EVENT_GO_TO_ADMIN_STARBUCKS, null);
     }
 
     @Override
     public void loginfail(String mensaje) {
         UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
-
 
 
     @Override
@@ -205,7 +191,6 @@ public class Loginstarbucks extends GenericFragment implements   View.OnClickLis
     @Override
     public void showLoader(String message) {
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
-
     }
 
     @Override

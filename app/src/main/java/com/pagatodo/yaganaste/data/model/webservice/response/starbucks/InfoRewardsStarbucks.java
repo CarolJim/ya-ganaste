@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -7,10 +9,16 @@ import java.io.Serializable;
  */
 
 public class InfoRewardsStarbucks implements Serializable {
-
+    @SerializedName("miembroDesde")
     String miembroDesde="";
+    @SerializedName("nivelActual")
     String nivelActual="";
-    int numEstrellas , numEstrellasFaltantes;
+    @SerializedName("numEstrellas")
+    int numEstrellas;
+
+    @SerializedName("numEstrellasFaltantes")
+    int numEstrellasFaltantes;
+    @SerializedName("siguienteNivel")
     String siguienteNivel="";
 
     public String getMiembroDesde() {

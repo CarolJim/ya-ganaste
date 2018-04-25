@@ -124,6 +124,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     StyleTextView comisionTextRecarga;
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
+    @BindView(R.id.layoutImageReferenceIAVE)
+    RelativeLayout layoutImageReferenceIAVE;
 
     /***/
 
@@ -328,11 +330,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
                     //edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
                     layoutImageContact.setVisibility(View.GONE);
+                    layoutImageReferenceIAVE.setVisibility(View.VISIBLE);
+                    layoutImageReferenceIAVE.setOnClickListener(this);
                 } else {
                     edtPhoneNumber.addTextChangedListener(new PhoneTextWatcher(edtPhoneNumber));
                     // edtPhoneNumber.setHint(getString(R.string.numero_telefono));
-
+                    layoutImageReferenceIAVE.setVisibility(View.GONE);
                     layoutImageContact.setOnClickListener(this);
+                    layoutImageReferenceIAVE.setOnClickListener(null);
                 }
 
                 edtPhoneNumber.setSingleLine(true);
@@ -576,6 +581,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 break;
 
             case R.id.imgMakePaymentRef:
+            case R.id.layoutImageReferenceIAVE:
                 Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
                 getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
@@ -625,7 +631,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-                    edtReferenceNumber.setText(barcode.displayValue);
+                    if (isIAVE) {
+                        edtPhoneNumber.setText(barcode.displayValue);
+                    } else {
+                        edtReferenceNumber.setText(barcode.displayValue);
+                    }
                 }
             }
         }

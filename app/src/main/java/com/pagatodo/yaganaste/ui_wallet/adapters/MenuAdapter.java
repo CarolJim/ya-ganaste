@@ -57,7 +57,7 @@ public class MenuAdapter extends ArrayAdapter<String> implements CompoundButton.
         this.viewHolder = new ViewHolderMenu();
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("CardStarbucksViewHolder")
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {

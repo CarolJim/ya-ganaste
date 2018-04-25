@@ -17,7 +17,7 @@
     <LinearLayout
         android:id="@+id/view_element"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="95dp"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center">

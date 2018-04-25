@@ -33,7 +33,6 @@ public class UtilsNet {
     }
 
     public static Object jsonToObject(String json, Type type) {
-
         Object o = null;
         try {
             o = new GsonBuilder()
@@ -41,6 +40,7 @@ public class UtilsNet {
                     .create().
                             fromJson(json, type);
         } catch (Exception e) {
+            e.printStackTrace();
             o = null;
         }
         return o;

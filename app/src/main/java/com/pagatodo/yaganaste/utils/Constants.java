@@ -14,7 +14,6 @@ public class Constants {
 
     public static final int DELAY_MESSAGE_PROGRESS = 1500;
 
-
     //region requests codes
     public static final int CONTACTS_CONTRACT = 50;
     public static final int CONTACTS_CONTRACT_FAMILIAR = 51;

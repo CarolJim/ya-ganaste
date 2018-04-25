@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +46,6 @@ import com.google.android.gms.tasks.Task;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.StarbucksStores;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IStarbucksMapsView;
@@ -56,18 +54,16 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnEditorAction;
 
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 
-public class StarbucksMapFragment extends GenericFragment implements OnCompleteListener<LocationSettingsResponse>,
+public class MapStarbucksFragment extends GenericFragment implements OnCompleteListener<LocationSettingsResponse>,
         IStarbucksMapsView, View.OnClickListener, TextView.OnEditorActionListener, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener {
 
@@ -95,11 +91,11 @@ public class StarbucksMapFragment extends GenericFragment implements OnCompleteL
     private StarbucksMapPresenter presenter;
     private boolean hasSearchAll = false;
 
-    public static StarbucksMapFragment newInstance() {
-        StarbucksMapFragment starbucksMapFragment = new StarbucksMapFragment();
+    public static MapStarbucksFragment newInstance() {
+        MapStarbucksFragment mapStarbucksFragment = new MapStarbucksFragment();
         Bundle args = new Bundle();
-        starbucksMapFragment.setArguments(args);
-        return starbucksMapFragment;
+        mapStarbucksFragment.setArguments(args);
+        return mapStarbucksFragment;
     }
 
     @Nullable
@@ -139,8 +135,8 @@ public class StarbucksMapFragment extends GenericFragment implements OnCompleteL
                 setLocationSetting();
                 map.setMyLocationEnabled(true);
                 getLastLocation();
-                map.setOnMarkerClickListener(StarbucksMapFragment.this);
-                map.setOnMapClickListener(StarbucksMapFragment.this);
+                map.setOnMarkerClickListener(MapStarbucksFragment.this);
+                map.setOnMapClickListener(MapStarbucksFragment.this);
             }
         });
         View locationButton = ((View) mMapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));

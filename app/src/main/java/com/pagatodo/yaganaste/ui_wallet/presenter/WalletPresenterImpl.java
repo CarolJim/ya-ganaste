@@ -71,6 +71,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void updateBalance(int typeWallet) {
+        //walletView.beginProgressSaldo();
         walletView.showProgress();
         walletInteractor.getBalance(typeWallet);
     }
@@ -182,12 +183,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onFailedSaldo(String error) {
+        walletView.hideProgress();
+        //walletView.finishProgressSaldo();
         walletView.setErrorSaldo(error);
     }
 
     @Override
     public void onSuccesSaldo(int typeWallet, String saldo) {
-        walletView.hideProgress();
         switch (typeWallet){
             case TYPE_STARBUCKS:
                 App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
@@ -200,7 +202,8 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
                 App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
                 break;
         }
-
-        walletView.getSaldo();
+        walletView.hideProgress();
+        //walletView.finishProgressSaldo();
+        walletView.getSaldo(saldo);
     }
 }

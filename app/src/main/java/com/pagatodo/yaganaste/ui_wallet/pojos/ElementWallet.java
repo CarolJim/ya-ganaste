@@ -142,7 +142,7 @@ public class ElementWallet {
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)) {
             String leyenda;
             if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()) {
-                leyenda = StringUtils.getCurrencyValue("0.00");
+                leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
             } else {
                 leyenda = "Cobra con tarjeta";
             }

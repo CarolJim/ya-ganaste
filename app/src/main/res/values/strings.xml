@@ -1424,6 +1424,12 @@
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
     <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
 
+    <!-- Administración Starbucks -->
+    <string name="admin_cards_starbucks">Selecciona tu tarjeta principal</string>
+    <string name="title_cards_starbucks">Tarjeta Starbucks Rewards</string>
+    <string name="error_saving">Por favor seleccione una tarjeta principal</string>
+    <string name="success_saving">Tarjeta guardada</string>
+
     <!-- Sucursales Starbucks -->
     <string name="searching_stores">Obteniendo sucursales</string>
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>

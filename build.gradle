@@ -47,6 +47,7 @@ ext {
     lottieVersion = "2.5.0"
     dotsLoaderVersion = "0.8"
     gsonVersion = "2.8.0"
+    databindVersion = "2.0.1"
     volleyVersion = "1.0.0"
     pinningVersion = "1.0.0"
     butterknifeVersion = "8.8.1"

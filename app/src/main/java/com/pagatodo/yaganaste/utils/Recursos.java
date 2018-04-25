@@ -87,7 +87,7 @@ public class Recursos {
         }
     }
 
-	/*Estatus Respuesta de Ws YaGanaste*/
+    /*Estatus Respuesta de Ws YaGanaste*/
 
     //MAPS
     public final static int ZoomMap = 16;
@@ -139,7 +139,7 @@ public class Recursos {
     //Constantes
     public static final String CARD_PAY = "PAGO CON TARJETA";
 
-	/* Codigos de Acciones*/
+    /* Codigos de Acciones*/
 
     public static final int NO_ACTION = -2;
     public static final int GO_LOGIN = -3;
@@ -295,27 +295,23 @@ public class Recursos {
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS = "ID_ESTATUS"; // int
 
-// Recursos referentes a Starbucks
-
+    // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean
-
-    /**Datos de usuario al realizar login de starbucks
+    /*
+     * Datos de usuario al realizar login de starbucks
      */
-
-    public static final String BEBIDA_FAVORITA = "BEBIDA_FAVORITA";
+    public static final String STARBUCKS_CARDS = "STARBUCKS_CARDS";
+    public static final String REWARDS = "REWARDS";
+    public static final String FAVORITE_DRINK = "FAVORITE_DRINK";
     public static final String EMAIL_STARBUCKS = "EMAIL_STARBUCKS";
-    public static final String MIEMBRO_DESDE = "MIEMBRO_DESDE";
-    public static final int STATUS_GOLD=0;
+    public static final String MEMBER_SINCE = "MEMBER_SINCE";
+    public static final String STATUS_GOLD = "STATUS_GOLD";
     public static final int ID_MIEMBRO_STARBUCKS = 0;
-    public static final String NIVEL_ACTUAL_STARBUCKS = "NIVEL_ACTUALSTARBUCKS";
-    public static final int NUMERO_ESTRELLAS = 0;
-    public static final int NUMERO_ESTRELLAS_FALTANTES =0;
-
-
-    public static final String SIGUIENTE_NIVEL_STARBUCKS = "SIGUIENTE_NIVEL_STARBUCKS";
-    public static final String NUMERO_MIEMBRO_STARBUCKS = "NUMERO_MIEMBRO_STARBUCKS";
-    public static final String TOKEN_SEGURIDAD_STARBUCKS = "TOKEN_SEGURIDAD_STARBUCKS";
-
-
-
+    public static final String ACTUAL_LEVEL_STARBUCKS = "ACTUAL_LEVEL_STARBUCKS";
+    public static final String STARS_NUMBER = "STARS_NUMBER";
+    public static final String MISSING_STARS_NUMBER = "MISSING_STARS_NUMBER";
+    public static final String NEXT_LEVEL_STARBUCKS = "NEXT_LEVEL_STARBUCKS";
+    public static final String MEMBER_NUMBER_STARBUCKS = "MEMBER_NUMBER_STARBUCKS";
+    public static final String SECURITY_TOKEN_STARBUCKS = "SECURITY_TOKEN_STARBUCKS";
+    public static final String NUMBER_CARD_STARBUCKS = "NUMBER_CARD_STARBUCKS";
 }

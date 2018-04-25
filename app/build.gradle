@@ -143,6 +143,7 @@ dependencies {
 
     // Network Gradle Compilations
     implementation 'com.google.code.gson:gson:' + rootProject.gsonVersion
+    implementation 'com.fasterxml.jackson.core:jackson-databind:' + rootProject.databindVersion
     implementation 'com.android.volley:volley:' + rootProject.volleyVersion
     implementation 'org.thoughtcrime.ssl.pinning:AndroidPinning:' + rootProject.pinningVersion
 

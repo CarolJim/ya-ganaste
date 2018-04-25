@@ -1,11 +1,8 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.starbucks;
 
 import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DatosMiembro;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.Tarjetas;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponseStarbucks;
-import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.InfoRewardsStarbucks;
-import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.RespuestaStarbucks;
 import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 
 import java.util.List;
@@ -35,9 +32,13 @@ public class LoginStarbucksResponse  {
     private RespuestaStarbucks respuestaStarbucks;
 
     @SerializedName("tarjetas")
-    private List<Tarjetas> tarjetas;
+    private List<CardStarbucks> tarjetas;
 
-    public void setTarjetas(List<Tarjetas> tarjetas) {
+    public List<CardStarbucks> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<CardStarbucks> tarjetas) {
         this.tarjetas = tarjetas;
     }
 
