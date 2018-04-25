@@ -51,13 +51,23 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_QUICK_PAYMENT;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_REWARDS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_STORES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BLOCK_CARD;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE_TOKEN;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
@@ -103,7 +113,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     private ElementsBalanceAdapter elementsBalanceAdpater;
     private int dotsCount, previous_pos = 0, pageCurrent;
     private ImageView[] dots;
-    private String balanceEmisor, balanceAdq, Status;
+    private String balanceEmisor, balanceAdq, balanceStarbucks, Status;
 
     public static final BalanceWalletFragment newInstance() {
         BalanceWalletFragment balanceWalletFragment = new BalanceWalletFragment();
@@ -143,6 +153,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         txtUserNameBalance.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
         balanceEmisor = prefs.loadData(USER_BALANCE);
         balanceAdq = prefs.loadData(ADQUIRENTE_BALANCE);
+        balanceStarbucks = prefs.loadData(STARBUCKS_BALANCE);
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);
@@ -260,14 +272,20 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
         switch (elementView.getIdOperacion()) {
-            case 1:
+            case OPTION_BLOCK_CARD:
                 nextScreen(EVENT_BLOCK_CARD, null);
                 break;
-            case 2:
+            case OPTION_GENERATE_TOKEN:
                 nextScreen(EVENT_SECURE_CODE, null);
                 break;
-            case 3:
+            case OPTION_PAYMENT_ADQ:
                 nextScreen(EVENT_QUICK_PAYMENT, null);
+                break;
+            case OPTION_RECOMPENSAS:
+                nextScreen(EVENT_REWARDS, null);
+                break;
+            case OPTION_SUCURSALES:
+                nextScreen(EVENT_STORES, null);
                 break;
             default:
                 break;
@@ -329,6 +347,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         if (!RequestHeaders.getTokenAdq().isEmpty()) {
             balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
         }
+        if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceStarbucks());
+        }
         vpBalace.setAdapter(balanceWalletAdpater);
         vpBalace.setCurrentItem(pageCurrent);
         vpBalace.setOffscreenPageLimit(3);
@@ -362,11 +383,17 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance());
         }
-        if (position == 1) {
+        if (position == 1 && !RequestHeaders.getTokenAdq().isEmpty()) {
             txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceAdq));
             txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
             txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
             elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
+        }
+        if (position == 2 || (position == 1 && RequestHeaders.getTokenAdq().isEmpty())) {
+            txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
+            txtCardDescBalance.setText(getString(R.string.starbucks_card));
+            txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));
+            elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
         }
         rcvElementsBalance.setAdapter(elementsBalanceAdpater);
         rcvElementsBalance.scheduleLayoutAnimation();
@@ -374,21 +401,17 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     }
 
     private void updatePhoto() {
-
         String mUserImage = prefs.loadData(URL_PHOTO_USER);
        /* Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                 .into(crlProfileBalance);
         */
-
-
         Picasso.with(getContext())
                 .load(StringUtils.procesarURLString(mUserImage))
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .error(R.mipmap.icon_user)
                 .into(crlProfileBalance);
        /*
-
         if (prefs.loadData(GENERO)=="H"||prefs.loadData(GENERO)=="h") {
             Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                     .error(R.drawable.avatar_el)
@@ -403,8 +426,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                     .into(crlProfileBalance);
         }
         */
-
-
     }
 
     private void setVisibilityFrontItems(int visibility) {

@@ -66,6 +66,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
@@ -177,7 +178,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_ADMON_STARBUCK:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
-            case 6:
+            case OPTION_PAYMENT_ADQ:
                 loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
                 break;
             case 7:

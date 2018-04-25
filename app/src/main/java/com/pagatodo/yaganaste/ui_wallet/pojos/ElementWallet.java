@@ -183,5 +183,9 @@ public class ElementWallet {
                 R.string.saldo_reembolso, true);
     }
 
-
+    public ElementWallet getCardBalanceStarbucks() {
+        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux, R.mipmap.back_yg_card_white,
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
+                new ElementView().getListStarbucksBalance(), R.string.saldo_disponible, false);
+    }
 }

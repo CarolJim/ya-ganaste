@@ -20,6 +20,8 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +107,16 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         showBack(true);
     }
 
+    public void loadRewards() {
+        loadFragment(RewardsStarbucksFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
+    public void loadStores() {
+        loadFragment(MapStarbucksFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -124,10 +136,10 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
                 || currentFragment instanceof BlockCardFragment) {
             showBack(false);
             loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
-        } else if (currentFragment instanceof RecoveryFragment){
+        } else if (currentFragment instanceof RecoveryFragment) {
             showBack(true);
             loadFragment(LoginFragment.newInstance(), Direction.BACK, false);
-        } else if (currentFragment instanceof LoginFragment){
+        } else if (currentFragment instanceof LoginFragment) {
             if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
                 showBack(false);
                 loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
