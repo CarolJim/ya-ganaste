@@ -133,7 +133,9 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         Fragment currentFragment = getChildFragmentManager().findFragmentById(R.id.container);
         if (currentFragment instanceof GetMountFragment
                 || currentFragment instanceof OtpContainerFratgment
-                || currentFragment instanceof BlockCardFragment) {
+                || currentFragment instanceof BlockCardFragment
+                || currentFragment instanceof RewardsStarbucksFragment
+                || currentFragment instanceof MapStarbucksFragment) {
             showBack(false);
             loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
         } else if (currentFragment instanceof RecoveryFragment) {

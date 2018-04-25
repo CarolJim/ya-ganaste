@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -46,6 +48,8 @@ import com.google.android.gms.tasks.Task;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.StarbucksStores;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IStarbucksMapsView;
@@ -190,9 +194,9 @@ public class MapStarbucksFragment extends GenericFragment implements OnCompleteL
                     currentLocation = locationResult.getLastLocation();
                     if (!hasSearchAll) {
                         presenter.getAllStores(currentLocation.getLatitude(), currentLocation.getLongitude());
-                        /*CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(currentLocation.getLatitude(),
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(currentLocation.getLatitude(),
                                 currentLocation.getLongitude())).zoom(15).build();
-                        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
+                        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     }
                 }
             }
@@ -236,15 +240,10 @@ public class MapStarbucksFragment extends GenericFragment implements OnCompleteL
     public void setStoresInMap(List<StarbucksStores> stores) {
         hasSearchAll = true;
         map.clear();
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
         for (StarbucksStores store : stores) {
-            LatLng position = new LatLng(store.getLatitude(), store.getLongitude());
-            marker = new MarkerOptions().position(position).title(store.getName()).snippet(store.getAddress()).
-                    icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_starbucks));
-            map.addMarker(marker);
+            map.addMarker(new MarkerOptions().position(new LatLng(store.getLatitude(), store.getLongitude())).title(store.getName())
+                    .snippet(store.getAddress()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_starbucks)));
         }
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(marker.getPosition()).zoom(14).build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     private void setLocationSetting() {
@@ -259,12 +258,20 @@ public class MapStarbucksFragment extends GenericFragment implements OnCompleteL
 
     @Override
     public void showLoader(String text) {
-        ((WalletMainActivity) getActivity()).showLoader(text);
+        if (getActivity() instanceof AccountActivity) {
+            ((AccountActivity) getActivity()).showLoader(text);
+        } else {
+            ((WalletMainActivity) getActivity()).showLoader(text);
+        }
     }
 
     @Override
     public void hideLoader() {
-        ((WalletMainActivity) getActivity()).hideLoader();
+        if (getActivity() instanceof AccountActivity) {
+            ((AccountActivity) getActivity()).hideLoader();
+        } else {
+            ((WalletMainActivity) getActivity()).hideLoader();
+        }
     }
 
     @Override

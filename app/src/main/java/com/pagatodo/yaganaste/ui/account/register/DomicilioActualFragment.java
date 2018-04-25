@@ -19,8 +19,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.SignUpEvent;
+/*import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.SignUpEvent;*/
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -709,7 +709,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void clientCreatedSuccess(String message) {
         showLoader("");
         if (!DEBUG) {
-            Answers.getInstance().logSignUp(new SignUpEvent());
+            //Answers.getInstance().logSignUp(new SignUpEvent());
         }
         new Handler().postDelayed(new Runnable() {
             public void run() {

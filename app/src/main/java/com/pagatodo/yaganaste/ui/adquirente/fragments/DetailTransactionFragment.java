@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ShareEvent;
+/*import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;*/
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
@@ -292,7 +292,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void onClick(View v) {
         if (v.getId() == R.id.deposito_Share) {
             if (!DEBUG) {
-                Answers.getInstance().logShare(new ShareEvent());
+                //Answers.getInstance().logShare(new ShareEvent());
             }
             takeScreenshot();
             //shareContent();

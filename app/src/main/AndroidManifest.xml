@@ -65,6 +65,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.appsee.ApiKey"
+            android:value="@string/apsee_key" />
 
         <activity android:name=".ui._controllers.SplashActivity">
             <intent-filter>
@@ -151,9 +154,9 @@
                 android:value="com.pagatodo.yaganaste.ui._controllers.TabActivity" />
         </activity>
 
-        <meta-data
+        <!--<meta-data
             android:name="io.fabric.ApiKey"
-            android:value="6586b24eda23982e86678c62a9df721f3aed82b0" />
+            android:value="6586b24eda23982e86678c62a9df721f3aed82b0" />-->
 
         <activity
             android:name=".ui._controllers.SIMActivity"

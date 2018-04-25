@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ShareEvent;
+/*import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -166,7 +166,7 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
         String getIdTransaction = dataMovimientoAdq.getIdTransaction();
         //  getIdTransaction = "";
         if (!DEBUG) {
-            Answers.getInstance().logShare(new ShareEvent());
+            //Answers.getInstance().logShare(new ShareEvent());
         }
         adqPresenter.sendTicketShare(emailToSend,
                 "",

@@ -4,6 +4,9 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyBJY6xouGAtwh5F9brJlXn1u8juF7P4VBs
     </string>
+    <string name="apsee_key" templateMerge="preserve" translatable="false">
+        206f8ddbd5a1451293a02227af120a2a
+    </string>
 
     <!--Métodos de WS YaGanaste-->
     <string name="consultaInformacionAgente">/ConsultarInformacionAgente</string>

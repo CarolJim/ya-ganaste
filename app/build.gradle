@@ -1,7 +1,10 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url 'http://dl.bintray.com/countly/maven'
+            /*'https://maven.fabric.io/public'*/
+        }
         google()
     }
 
@@ -11,14 +14,14 @@ buildscript {
 
         // We recommend changing it to the latest version from our changelog:
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        classpath 'io.fabric.tools:gradle:1.21.6'
+        //classpath 'io.fabric.tools:gradle:1.21.6'
         classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 26
@@ -75,7 +78,10 @@ android {
 }
 repositories {
     jcenter()
-    maven { url 'https://maven.fabric.io/public' }
+    maven {
+        url 'http://dl.bintray.com/countly/maven'
+        /*'https://maven.fabric.io/public'*/
+    }
     google()
     maven {
         url 'https://maven.google.com/'
@@ -88,9 +94,6 @@ dependencies {
     implementation files('libs/frejaMobileCore_486c0fb7a51.jar')
     // Dspread (Dongle) Compilation
     implementation files('libs/dspread_android_sdk_2.4.3.jar')
-
-    implementation('com.github.bumptech.glide:glide:3.8.0')
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:support-v4:26.1.0'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:' + rootProject.espressoCoreVersion, {
@@ -99,9 +102,9 @@ dependencies {
     implementation('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
-    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+    /*implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
-    }
+    }*/
 
     implementation 'com.android.support:multidex:' + rootProject.multidexVersion
     implementation 'com.android.support:appcompat-v7:' + rootProject.supportLibVersion
@@ -118,6 +121,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:' + rootProject.firebaseVersion
     implementation 'com.google.firebase:firebase-core:' + rootProject.firebaseVersion
     implementation 'com.android.support.constraint:constraint-layout:' + rootProject.constraintLayoutVersion
+    // Analytics
+    implementation 'com.appsee:appsee-android:' + rootProject.appSeeVersion
+    implementation 'ly.count.android:sdk:' + rootProject.countlyVersion
     // Onboarding
     implementation 'com.matthew-tamlin:sliding-intro-screen:' + rootProject.onboardingVersion
     // Swipe Fragments Viewer

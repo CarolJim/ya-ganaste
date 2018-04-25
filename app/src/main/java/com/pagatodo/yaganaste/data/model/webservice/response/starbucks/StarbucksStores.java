@@ -4,8 +4,8 @@ import java.util.List;
 
 public class StarbucksStores {
 
-    private String address, name;
-    private long distance, idAlsea, idStore;
+    private String address, name, idAlsea;
+    private long distance, idStore;
     private double latitude, longitude;
     private List<HourStore> hours;
 
@@ -21,7 +21,7 @@ public class StarbucksStores {
         return distance;
     }
 
-    public long getIdAlsea() {
+    public String getIdAlsea() {
         return idAlsea;
     }
 

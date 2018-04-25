@@ -17,7 +17,7 @@ import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,7 +52,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -118,7 +118,7 @@ public class App extends Application {
         if (DEBUG) {
             Stetho.initializeWithDefaults(this);
         } else {
-            Fabric.with(this, new Crashlytics());
+            //Fabric.with(this, new Crashlytics());
         }
 
         this.prefs = new Preferencias(this);

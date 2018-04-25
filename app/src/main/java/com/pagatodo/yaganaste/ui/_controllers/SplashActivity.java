@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -31,7 +31,7 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.File;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
@@ -88,7 +88,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         }*/
 
         if (!DEBUG) {
-            Fabric.with(this, new Crashlytics());
+            //Fabric.with(this, new Crashlytics());
         }
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();

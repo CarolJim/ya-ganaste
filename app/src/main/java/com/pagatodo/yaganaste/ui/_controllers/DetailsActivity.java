@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ShareEvent;
+/*import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -207,11 +207,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         //fragment = getSupportFragmentManager().findFragmentById(R.id.container);
         if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
             if(!DEBUG) {
-                Answers.getInstance().logShare(new ShareEvent());
+                //Answers.getInstance().logShare(new ShareEvent());
             }
 
             boolean isValid = true;
-
             int permissionSMS = ContextCompat.checkSelfPermission(App.getContext(),
                     Manifest.permission.SEND_SMS);
 

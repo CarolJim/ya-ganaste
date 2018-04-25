@@ -15,8 +15,8 @@ import android.view.Menu;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.LoginEvent;
+/*import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.LoginEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -353,17 +353,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
                 // Lineas de prueba, comentar al tener version lista para pruebas
                 if (!DEBUG) {
-                    Answers.getInstance().logLogin(new LoginEvent());
+                    //Answers.getInstance().logLogin(new LoginEvent());
                 }
-                /*if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
-                    // getActivity().finish();
-                    Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
-                    startActivity(intent);
-                } else {*/
                 Intent intent = new Intent(AccountActivity.this, TabActivity.class);
                 startActivity(intent);
                 finish();
-                //}
                 break;
         }
     }

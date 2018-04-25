@@ -2,8 +2,8 @@ package com.pagatodo.yaganaste.ui.adquirente.interactores;
 
 import android.content.Context;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.PurchaseEvent;
+/*import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.PurchaseEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -229,11 +229,11 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
                 result.setPageResult(pageResult);
                 if (!DEBUG) {
-                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                    /*Answers.getInstance().logPurchase(new PurchaseEvent()
                             .putItemPrice(BigDecimal.valueOf(Double.parseDouble(cancelaTransaccionDepositoEmvRequest.getAmount()) * -1))
                             .putCurrency(Currency.getInstance("MXN"))
                             .putItemName(App.getContext().getString(R.string.ce_cobro_cancelado))
-                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria));
+                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria));*/
                 }
                 cancelaTransaccionDepositoEmvRequest = null;
                 accountManager.onSucces(response.getWebService(), data.getError().getMessage());
@@ -356,12 +356,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResult.setDescription("");
                 result.setPageResult(pageResult);
                 if (!DEBUG) {
-                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                    /*Answers.getInstance().logPurchase(new PurchaseEvent()
                             .putItemPrice(BigDecimal.valueOf(Double.parseDouble(TransactionAdqData.getCurrentTransaction().getAmount())))
                             .putCurrency(Currency.getInstance("MXN"))
                             .putItemName(App.getContext().getString(R.string.ce_cobro_aceptado))
                             .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria)
-                            .putSuccess(true));
+                            .putSuccess(true));*/
                 }
                 accountManager.onSucces(response.getWebService(), data.getError().getMessage());
                 break;
@@ -401,12 +401,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
                 result.setPageResult(pageResultError);
                 if (!DEBUG) {
-                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                    /*Answers.getInstance().logPurchase(new PurchaseEvent()
                             .putItemPrice(BigDecimal.valueOf(Double.parseDouble(TransactionAdqData.getCurrentTransaction().getAmount())))
                             .putCurrency(Currency.getInstance("MXN"))
                             .putItemName(App.getContext().getString(R.string.ce_cobro_rechazado))
                             .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria)
-                            .putSuccess(false));
+                            .putSuccess(false));*/
                 }
                 accountManager.onError(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
                 break;
