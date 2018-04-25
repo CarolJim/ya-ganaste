@@ -238,7 +238,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void getSaldo(String saldo) {
-        upDateSaldo(saldo);
+        upDateSaldo(StringUtils.getCurrencyValue(saldo));
     }
 
     @Override

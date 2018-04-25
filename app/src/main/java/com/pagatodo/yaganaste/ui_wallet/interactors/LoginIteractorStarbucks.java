@@ -39,25 +39,18 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
 public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IRequestResult {
     IloginStarbucksss iloginStarbucksss;
 
-
     private Preferencias prefs = App.getInstance().getPrefs();
-
     public LoginIteractorStarbucks(IloginStarbucksss iloginStarbucksss) {
         this.iloginStarbucksss = iloginStarbucksss;
     }
-
-
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         switch (dataSourceResult.getWebService()) {
-
             case LOGINSTARBUCKS:
                 saveDataUsuStarBucks(dataSourceResult);
                 break;
-
         }
     }
-
     private void saveDataUsuStarBucks(DataSourceResult dataSourceResult) {
         LoginStarbucksResponse data = (LoginStarbucksResponse) dataSourceResult.getData();
 

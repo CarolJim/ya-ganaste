@@ -3,6 +3,10 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.Iregisterstarbucks;
+import com.pagatodo.yaganaste.ui_wallet.presenter.LoginPresenterStarbucks;
+import com.pagatodo.yaganaste.ui_wallet.presenter.RegisterPresenterStarbucks;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.TarjetaStarbucksTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
@@ -23,42 +30,39 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
+
 /**
  * Created by asandovals on 16/04/2018.
  */
 
-public class RegisterStarbucksFragment  extends GenericFragment implements   View.OnClickListener, ValidationForms {
+public class RegisterStarbucksFragment  extends GenericFragment implements   View.OnClickListener, ValidationForms,Iregisterstarbucks {
     private View rootView;
     @BindView(R.id.txt_subtitul)
     StyleTextView txt_subtitul;
-
     @BindView(R.id.text_numero_tarjeta)
     TextInputLayout text_numero_tarjeta;
     @BindView(R.id.text_codigo)
     TextInputLayout text_codigo;
-
-
-
-
-
     @BindView(R.id.editnumero_tarjeta)
     EditText editnumero_tarjeta;
     @BindView(R.id.editcodigo)
     EditText editcodigo;
-
     @BindView(R.id.txtbottom)
     StyleTextView txtbottom;
     @BindView(R.id.btnNextStarbucks)
     StyleButton btnNextStarbucks;
-
-
     @BindView(R.id.block_register)
     LinearLayout block_register;
-
     @BindView(R.id.block_iniciar_sesion)
     LinearLayout block_iniciar_sesion;
 
     private String numerotarjeta, codigo;
+
+
+    RegisterPresenterStarbucks registerPresenterStarbucks;
 
     public static RegisterStarbucksFragment newInstance() {
         RegisterStarbucksFragment fragmentRegister = new RegisterStarbucksFragment();
@@ -75,6 +79,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_starbucks_register, container, false);
+        registerPresenterStarbucks = new RegisterPresenterStarbucks(getContext());
         initViews();
         return rootView;
     }
@@ -86,7 +91,13 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
         block_register.setVisibility(View.VISIBLE);
         btnNextStarbucks.setOnClickListener(this);
         setValidationRules();
+        txtbottom.setOnClickListener(this);
         editnumero_tarjeta.addTextChangedListener(new TarjetaStarbucksTextWatcher(editnumero_tarjeta));
+        SpannableString ss;
+        ss = new SpannableString(getString(R.string.ya_tienes_cuenta_inicia_sesi));
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 20, 32, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new UnderlineSpan(), 0, 0, 0);
+        txtbottom.setText(ss);
 
     }
 
@@ -95,6 +106,9 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
         if (view.getId()==R.id.btnNext){
             validateForm();
+        }
+        if (view.getId()==R.id.txtbottom){
+            nextScreen(EVENT_GO_TO_LOGIN_STARBUCKS, null);
         }
 
     }
@@ -131,11 +145,19 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
             UI.showErrorSnackBar(getActivity(),getString(R.string.numero_tarjeta_necesario), Snackbar.LENGTH_SHORT);
             text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
+        } else if  (numerotarjeta.length()<16){
+            UI.showErrorSnackBar(getActivity(),getString(R.string.tarjeta_valido), Snackbar.LENGTH_SHORT);
+            text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
         }else {
             text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (codigo.isEmpty()){
             UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
+            text_codigo.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }else if  (codigo.length()<8){
+            UI.showErrorSnackBar(getActivity(),getString(R.string.pin_valido), Snackbar.LENGTH_SHORT);
             text_codigo.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }else {
@@ -159,7 +181,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void onValidationSuccess() {
-
+        registerPresenterStarbucks.registerStarbucks(numerotarjeta,codigo);
     }
 
     @Override
@@ -167,6 +189,41 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
         numerotarjeta= editnumero_tarjeta.getText().toString().trim();
         codigo= editcodigo.getText().toString().trim();
+
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+        onEventListener.onEvent(event, data);
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
+
+    }
+
+    @Override
+    public void registerstarsucced() {
+        nextScreen(EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS, null);
+    }
+
+    @Override
+    public void registerfail(String mensaje) {
 
     }
 }

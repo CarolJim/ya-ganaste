@@ -90,12 +90,15 @@
         android:hint="@string/codigo_8_digitos"
         android:maxLines="1"
         android:textColorHint="@color/texthint"
+        app:passwordToggleEnabled="true"
         app:counterEnabled="true"
+        app:passwordToggleTint="@color/hint_color"
         app:counterMaxLength="1"
         app:hintTextAppearance="@style/HintText"
         app:counterOverflowTextAppearance="@style/CounterOverFlow"
-        app:passwordToggleTint="@color/hint_color"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+
+        >
 
         <EditText
             android:id="@+id/editcodigo"
@@ -107,6 +110,7 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:paddingLeft="15dp"
+            android:password="true"
             android:singleLine="true"
             android:theme ="@style/NewEdittextwallet"
             android:textColor="@color/grayColor"
@@ -200,7 +204,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="@dimen/margin_medium"
-        android:text="¿Ya tienes cuenta? Inicia Sesión"
+        android:text="@string/ya_tienes_cuenta_inicia_sesi"
         android:textAlignment="center" />
 
     <LinearLayout
