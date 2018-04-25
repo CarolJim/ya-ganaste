@@ -8,4 +8,5 @@ public interface IMainWalletView {
     void setError(String message);
     void showProgress();
     void hideProgress();
+
 }

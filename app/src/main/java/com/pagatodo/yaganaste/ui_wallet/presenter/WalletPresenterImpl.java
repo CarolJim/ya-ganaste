@@ -26,6 +26,9 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
@@ -35,6 +38,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE_RECHAZADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_USUARIO_ADQUIRIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
@@ -66,9 +70,10 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
     @Override
-    public void updateBalance() {
+    public void updateBalance(int typeWallet) {
+        //walletView.beginProgressSaldo();
         walletView.showProgress();
-        walletInteractor.getBalance();
+        walletInteractor.getBalance(typeWallet);
     }
 
     @Override
@@ -84,13 +89,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         walletInteractor.getInfoAgente();
     }
 
-    @Override
+    /*@Override
     public void onSuccessADQ(String response) {
         walletView.hideProgress();
         App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, response);
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
         walletView.getSaldo();
-    }
+    }*/
 
     @Override
     public void onSuccess(boolean error) {
@@ -100,11 +105,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         }
     }
 
-    @Override
+    /*@Override
     public void onSuccessEmisor(String responds) {
         App.getInstance().getPrefs().saveData(USER_BALANCE, responds);
         walletView.getSaldo();
-    }
+    }*/
+
+
 
     @Override
     public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
@@ -172,5 +179,31 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         } else {
             walletView.sendSuccessInfoAgente();
         }
+    }
+
+    @Override
+    public void onFailedSaldo(String error) {
+        walletView.hideProgress();
+        //walletView.finishProgressSaldo();
+        walletView.setErrorSaldo(error);
+    }
+
+    @Override
+    public void onSuccesSaldo(int typeWallet, String saldo) {
+        switch (typeWallet){
+            case TYPE_STARBUCKS:
+                App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
+                break;
+            case TYPE_EMISOR:
+                App.getInstance().getPrefs().saveData(USER_BALANCE, saldo);
+                break;
+            case TYPE_ADQ:
+                App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, saldo);
+                App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                break;
+        }
+        walletView.hideProgress();
+        //walletView.finishProgressSaldo();
+        walletView.getSaldo(saldo);
     }
 }

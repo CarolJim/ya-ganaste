@@ -96,6 +96,20 @@
                 android:src="@drawable/ic_reload"
                 android:visibility="visible" />
 
+            <ImageView
+                android:id="@+id/downloading"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/titles"
+                android:layout_toRightOf="@id/titles"
+                android:src="@drawable/avd_downloading_begin"
+                android:visibility="gone"/>
+
 
         </RelativeLayout>
 

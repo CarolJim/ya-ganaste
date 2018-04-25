@@ -38,6 +38,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
@@ -162,7 +163,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_STARBUCKS:
-                finish();
+                loadFragment(MovementsSbFragment.newInstance(), R.id.fragment_container);
+
                 break;
             case OPTION_DEPOSITO:
                 loadFragment(DepositsDataFragment.newInstance(), R.id.fragment_container);

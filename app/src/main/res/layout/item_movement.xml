@@ -105,8 +105,6 @@
 
     </RelativeLayout>
 
-
-
     <LinearLayout
         android:id="@+id/view_foreground"
         android:layout_width="match_parent"

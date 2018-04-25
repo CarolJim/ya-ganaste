@@ -20,6 +20,10 @@ public class RequestHeaders {
     public static String IdTransaccionFreja = "IdTransaccionFreja";
     public static String TokenFreja = "TokenFreja";
 
+    /*Sb Headers*/
+    public static String TokenSeguridad = "tokenSeguridad";
+    public static String numeroMiembro = "numeroMiembro";
+
     /*Adq Headers*/
     public static String IdCuentaAdq = "ID";
     public static String TokenAdq = "Token";
@@ -102,6 +106,20 @@ public class RequestHeaders {
     public static String getTokensesion() {
         return sharedPreferences.getString(TokenSesion, "");
     }
+
+    /**
+     * starbucks
+     * @return
+     */
+    public static String getTokenSeguridad() {
+        return sharedPreferences.getString(TokenSeguridad, "");
+    }
+
+    public static String getNumeroMiembro() {
+        return sharedPreferences.getString(numeroMiembro, "");
+    }
+
+    ////
 
     public static void setTokensesion(String tokensesion) {
         editor = sharedPreferences.edit();

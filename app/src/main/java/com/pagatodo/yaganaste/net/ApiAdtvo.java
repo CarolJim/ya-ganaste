@@ -300,7 +300,6 @@ public class ApiAdtvo extends Api {
                 headers, request, ConsultarMovimientosMesResponse.class, result);
     }
 
-
     /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *
