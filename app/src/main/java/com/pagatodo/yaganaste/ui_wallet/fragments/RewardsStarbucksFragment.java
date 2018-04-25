@@ -82,9 +82,11 @@ public class RewardsStarbucksFragment extends GenericFragment {
             cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
         }
         if (estrellas_faltantes != 1) {
-            titulo_datos_usuario.setText(estrellas_faltantes + " Estrellas para obtener el Nivel" + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
+            titulo_datos_usuario.setText(estrellas_faltantes + " Estrellas para obtener " + (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).equals("Gold") ?
+                    "" : "el Nivel ") + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
         } else {
-            titulo_datos_usuario.setText(estrellas_faltantes + " Estrella para obtener el Nivel" + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
+            titulo_datos_usuario.setText(estrellas_faltantes + " Estrella para obtener " + (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).equals("Gold") ?
+                    "" : "el Nivel ") + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
         }
         txt_reward_subtitul.setText("Nivel " + prefs.loadData(ACTUAL_LEVEL_STARBUCKS));
         rewardsList = presenter.getMyRewards();

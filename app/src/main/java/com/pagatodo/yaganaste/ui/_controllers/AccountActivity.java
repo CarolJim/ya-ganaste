@@ -73,7 +73,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
 public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
-        ForcedUpdateChecker.OnUpdateNeededListener{
+        ForcedUpdateChecker.OnUpdateNeededListener {
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
     public final static String EVENT_GO_GET_CARD = "EVENT_GO_GET_CARD";
     public final static String EVENT_GO_BASIC_INFO = "EVENT_GO_BASIC_INFO";
@@ -112,6 +112,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_QUICK_PAYMENT = "EVENT_QUICK_PAYMENT";
     public final static String EVENT_QUICK_PAYMENT_BACK = "EVENT_QUICK_PAYMENT_BACK";
     public final static String EVENT_RETRY_PAYMENT = "EVENT_RETRY_PAYMENT";
+    public final static String EVENT_REWARDS = "EVENT_REWARDS";
+    public final static String EVENT_STORES = "EVENT_STORES";
     FrameLayout container;
     //private String TAG = getClass().getSimpleName();
     private Preferencias pref;
@@ -225,7 +227,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 registerUser.setFechaNacimientoToShow("");
                 registerUser.setLugarNacimiento("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
-               // loadFragment(LoginStarbucksFragment.newInstance(), Direction.FORDWARD, false);
+                // loadFragment(LoginStarbucksFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_SELFIE_BACK:
@@ -311,43 +313,32 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 pref.clearPreference(COUCHMARK_ADQ);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
                 break;
-
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
                 break;
-
             case EVENT_BLOCK_CARD:
-                //loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadBlockFragment();
                 break;
-
             case EVENT_BLOCK_CARD_BACK:
-                // loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
-                //loginContainerFragment.loadLoginBackFragment();
                 onBackPressed();
                 break;
-
             case EVENT_SECURE_CODE:
-                //loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadSecureCodeContainer();
                 break;
-
             case EVENT_QUICK_PAYMENT:
-                //loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadQuickPayment();
-                /*Intent intent = new Intent(this, WalletMainActivity.class);
-                intent.putExtra(ID_OPERATION, 6);
-                intent.putExtra("CURRENT_PAGE", pageCurrent);
-                startActivity(intent);*/
                 break;
-
+            case EVENT_REWARDS:
+                loginContainerFragment.loadRewards();
+                break;
+            case EVENT_STORES:
+                loginContainerFragment.loadStores();
+                break;
             case EVENT_SECURE_CODE_BACK:
                 loadFragment(loginContainerFragment, Direction.BACK, false);
                 break;
-
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
-
                 /*
                  * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
                  */
