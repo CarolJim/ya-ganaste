@@ -35,7 +35,6 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
 
     public LoginPresenterStarbucks(Context context) {
         this.context= context;
-
         loginIteractorStarbucks= new LoginIteractorStarbucks(this);
 
     }

@@ -4,9 +4,11 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.StarbucksStoresRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.ConsultaMovimientosSBResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.PreRegisterStarbucksRespónse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.StarbucksStoresResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -32,6 +34,13 @@ public class ApiStarbucks extends Api {
         NetFacade.consumeWS(LOGINSTARBUCKS,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
                 headers, request, LoginStarbucksResponse.class, result);
+    }
+
+    public static void preregistroStarbucks(RegisterStarbucksRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersStarbucks();
+        NetFacade.consumeWS(LOGINSTARBUCKS,
+                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
+                headers, request, PreRegisterStarbucksRespónse.class, result);
     }
 
     public static void searchStores(StarbucksStoresRequest request, IRequestResult result) throws OfflineException {

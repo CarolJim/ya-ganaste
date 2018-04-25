@@ -89,6 +89,7 @@
             android:hint="@string/contrasena"
             android:maxLines="1"
             android:textColorHint="@color/texthint"
+            app:passwordToggleEnabled="true"
             app:counterEnabled="true"
             app:counterMaxLength="1"
             app:hintTextAppearance="@style/HintText"

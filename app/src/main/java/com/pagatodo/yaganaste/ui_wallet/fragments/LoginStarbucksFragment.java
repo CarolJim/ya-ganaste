@@ -3,6 +3,10 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +26,11 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
 
 /**
  * Created by asandovals on 16/04/2018.
@@ -86,6 +92,13 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnNextStarbucks.setOnClickListener(this);
+        txtbottom.setOnClickListener(this);
+        SpannableString ss;
+        ss = new SpannableString(getString(R.string.no_tienes_cuenta_registrate));
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 19, 29, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new UnderlineSpan(), 0, 0, 0);
+        txtbottom.setText(ss);
+
     }
 
     @Override
@@ -93,6 +106,10 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
         if (view.getId() == R.id.btnNextStarbucks) {
             validateForm();
         }
+        if (view.getId()==R.id.txtbottom){
+            nextScreen(EVENT_GO_TO_REGISTER_STARBUCKS, null);
+        }
+
     }
 
     @Override
@@ -180,7 +197,7 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void nextScreen(String event, Object data) {
-
+            onEventListener.onEvent(event, data);
     }
 
     @Override

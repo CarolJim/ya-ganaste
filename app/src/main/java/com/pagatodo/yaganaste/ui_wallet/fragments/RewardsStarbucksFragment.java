@@ -78,9 +78,16 @@ public class RewardsStarbucksFragment extends GenericFragment {
         rcvRewards.setHasFixedSize(true);
         int estrellas_faltantes = prefs.loadDataInt(MISSING_STARS_NUMBER);
         num_starts_currently.setText("" + prefs.loadDataInt(STARS_NUMBER));
-        if (prefs.loadDataInt(STATUS_GOLD) == 1) {
+        if (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).contains("Welcome")) {
+            cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+        }else if (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).contains("Green")) {
+            cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.redGreenTransparent));
+        }else if (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).contains("Welcome")) {
             cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+        }else {
+            cup_coffe.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
         }
+
         if (estrellas_faltantes != 1) {
             titulo_datos_usuario.setText(estrellas_faltantes + " Estrellas para obtener " + (prefs.loadData(ACTUAL_LEVEL_STARBUCKS).equals("Gold") ?
                     "" : "el Nivel ") + App.getInstance().getPrefs().loadData(NEXT_LEVEL_STARBUCKS));
