@@ -157,7 +157,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void getPagerAdapter(PagerAdapter pagerAdapter) {
-        progressLayout.setVisibility(View.GONE);
         cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
         viewPagerWallet.setAdapter(pagerAdapter);
         viewPagerWallet.setCurrentItem(pageCurrent);

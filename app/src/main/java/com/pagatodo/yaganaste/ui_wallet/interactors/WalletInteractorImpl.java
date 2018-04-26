@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
@@ -66,7 +67,7 @@ public class WalletInteractorImpl implements WalletInteractor {
     @Override
     public void getBalance(int typeWallet) {
         try {
-            switch (typeWallet){
+            switch (typeWallet) {
                 case TYPE_EMISOR:
                     ApiTrans.consultarSaldo(this);
                     break;
@@ -76,7 +77,10 @@ public class WalletInteractorImpl implements WalletInteractor {
                 case TYPE_STARBUCKS:
                     String numCard = App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS);
                     CardRequest cardRequest = new CardRequest(numCard);
-                    ApiStarbucks.saldoSb(cardRequest,this);
+                    ApiStarbucks.saldoSb(cardRequest, this);
+                    break;
+                default:
+                    this.listener.onSuccesSaldo(typeWallet,"");
                     break;
             }
 
@@ -121,9 +125,9 @@ public class WalletInteractorImpl implements WalletInteractor {
     public void onSuccess(DataSourceResult result) {
         switch (result.getWebService()) {
             case GET_INFORMACION_AGENTE:
-                if(result.getData() instanceof InformacionAgenteResponse){
+                if (result.getData() instanceof InformacionAgenteResponse) {
                     InformacionAgenteResponse response = (InformacionAgenteResponse) result.getData();
-                    if(response.getCodigoRespuesta() == CODE_OK){
+                    if (response.getCodigoRespuesta() == CODE_OK) {
                         listener.onSuccessInfoAgente(response.getData());
                     } else {
                         this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, response.getMensaje());
@@ -134,7 +138,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                 validateResponse((ConsultarMovimientosMesResponse) result.getData());
                 break;
             case CONSULTAR_SALDO:
-                this.listener.onSuccesSaldo(TYPE_EMISOR,((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
+                this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
                 break;
             case CONSULTAR_SALDO_ADQ:
                 //validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
@@ -159,7 +163,10 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void onFailed(DataSourceResult error) {
-        switch (error.getWebService()){
+        switch (error.getWebService()) {
+            case GET_INFORMACION_AGENTE:
+                this.listener.onFailed(CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, error.getData().toString());
+                break;
             case CONSULTAR_MOVIMIENTOS_MES:
                 this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
                 break;
@@ -178,6 +185,7 @@ public class WalletInteractorImpl implements WalletInteractor {
             listener.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
         }
     }
+
     private void validateResponse(SaldoSBRespons response) {
         if (response.getRespuesta().getCodigoRespuesta() == Recursos.CODE_OK) {
             this.listener.onSuccesSaldo(TYPE_STARBUCKS, response.getSaldo());
