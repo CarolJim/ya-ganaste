@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IMovementsEmisorView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -70,10 +71,11 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
     @Override
-    public void updateBalance(int typeWallet) {
-        //walletView.beginProgressSaldo();
-        walletView.showProgress();
-        walletInteractor.getBalance(typeWallet);
+    public void updateBalance(ElementWallet item) {
+        if (item.isUpdate()) {
+            walletView.showProgress();
+            walletInteractor.getBalance(item.getTypeWallet());
+        }
     }
 
     @Override
@@ -99,6 +101,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onSuccess(boolean error) {
+        walletView.hideProgress();
         if (walletView != null) {
             walletView.getPagerAdapter(ContainerBuilder.getCardWalletAdapter(error));
             //walletView.completed(error);
@@ -142,6 +145,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onSuccessResponse(GenericResponse response) {
+        walletView.hideProgress();
         if (response instanceof EstatusCuentaResponse) {
             walletView.hideProgress();
             walletView.sendSuccessStatusAccount((EstatusCuentaResponse) response);
@@ -168,10 +172,10 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onFailed(int errorCode, int action, String error) {
+        walletView.hideProgress();
         if (errorCode != CODE_ERROR_INFO_AGENTE) {
             if (walletView != null) {
                 walletView.setError(error);
-                walletView.hideProgress();
             } else if (this.movementsEmisorView != null) {
                 movementsEmisorView.setError(error);
                 movementsEmisorView.hideProgress();

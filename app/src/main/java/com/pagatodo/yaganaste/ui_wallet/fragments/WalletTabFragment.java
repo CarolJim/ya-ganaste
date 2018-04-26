@@ -135,7 +135,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         imgReload.setOnClickListener(view -> {
             if (elementsWalletAdapter.getItemCount() > 0) {
-                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet());
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent));
             }
         });
     }
@@ -165,7 +165,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
         updateOperations(pageCurrent);
-        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet());
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent));
     }
 
     private void setUiPageViewController() {

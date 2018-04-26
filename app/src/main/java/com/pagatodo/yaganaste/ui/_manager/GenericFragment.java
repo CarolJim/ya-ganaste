@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.ui._manager;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -18,6 +20,12 @@ public abstract class GenericFragment extends Fragment implements ISessionExpire
 
 
     protected OnEventListener onEventListener;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onAttach(Context context) {

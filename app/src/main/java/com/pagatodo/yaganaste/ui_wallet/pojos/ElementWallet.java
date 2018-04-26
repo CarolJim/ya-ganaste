@@ -141,14 +141,16 @@ public class ElementWallet {
     public ElementWallet getCardLectorAdq() {
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)) {
             String leyenda;
+            boolean isReload = true;
             if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()) {
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
             } else {
                 leyenda = "Cobra con tarjeta";
+                isReload = false;
             }
             return new ElementWallet(TYPE_ADQ, R.mipmap.lector_front, leyenda,
                     new ElementView().getListLectorAdq(),
-                    R.string.saldo_reembolso, true);
+                    R.string.saldo_reembolso, isReload);
         } else {
             return getCardLectorEmi();
         }
@@ -159,7 +161,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_ADQ, R.mipmap.lector_front,
                 "Cobra con tarjeta",
                 new ElementView().getListLectorEmi(),
-                R.string.mejor_precio, true);
+                R.string.mejor_precio, false);
     }
 
     public ElementWallet getCardBalanceEmi() {

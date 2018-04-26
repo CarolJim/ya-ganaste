@@ -36,18 +36,10 @@ public class IndicationZoneViewHolder extends OptionsViewHolder {
 
 
         }
-        this.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onItemClick(elementView);
-            }
-        });
-        this.mas_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
-                context.startActivity(browserIntent);
-            }
+        this.button.setOnClickListener(view -> listener.onItemClick(elementView));
+        this.mas_info.setOnClickListener(view -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
+            context.startActivity(browserIntent);
         });
     }
 }
