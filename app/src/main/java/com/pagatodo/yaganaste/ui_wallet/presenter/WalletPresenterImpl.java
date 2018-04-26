@@ -71,13 +71,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
     @Override
+
     public void updateBalance(ElementWallet item) {
         if (item.isUpdate()) {
             walletView.showProgress();
             walletInteractor.getBalance(item.getTypeWallet());
         }
     }
-
     @Override
     public void getStatusAccount(String mTDC) {
         walletView.showProgress();
@@ -91,6 +91,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         walletInteractor.getInfoAgente();
     }
 
+
     @Override
     public void onSuccess(boolean error) {
         walletView.hideProgress();
@@ -101,7 +102,12 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         }
     }
 
-   
+    /*@Override
+    public void onSuccessEmisor(String responds) {
+        App.getInstance().getPrefs().saveData(USER_BALANCE, responds);
+        walletView.getSaldo();
+    }*/
+
 
     @Override
     public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
