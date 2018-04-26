@@ -624,7 +624,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
             accountManager.onError(ACTUALIZAR_AVATAR, response.getMensaje());
         }
-
     }
 
     private void processchangepass6(DataSourceResult dataSourceResult) {

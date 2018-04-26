@@ -91,30 +91,17 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         walletInteractor.getInfoAgente();
     }
 
-    /*@Override
-    public void onSuccessADQ(String response) {
-        walletView.hideProgress();
-        App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, response);
-        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-        walletView.getSaldo();
-    }*/
-
     @Override
     public void onSuccess(boolean error) {
         walletView.hideProgress();
         if (walletView != null) {
+            walletView.hideProgress();
             walletView.getPagerAdapter(ContainerBuilder.getCardWalletAdapter(error));
             //walletView.completed(error);
         }
     }
 
-    /*@Override
-    public void onSuccessEmisor(String responds) {
-        App.getInstance().getPrefs().saveData(USER_BALANCE, responds);
-        walletView.getSaldo();
-    }*/
-
-
+   
 
     @Override
     public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
@@ -147,7 +134,6 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     public void onSuccessResponse(GenericResponse response) {
         walletView.hideProgress();
         if (response instanceof EstatusCuentaResponse) {
-            walletView.hideProgress();
             walletView.sendSuccessStatusAccount((EstatusCuentaResponse) response);
         }
     }
@@ -182,6 +168,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             }
         } else {
             walletView.sendSuccessInfoAgente();
+            movementsEmisorView.hideProgress();
         }
     }
 
@@ -194,7 +181,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onSuccesSaldo(int typeWallet, String saldo) {
-        switch (typeWallet){
+        switch (typeWallet) {
             case TYPE_STARBUCKS:
                 App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
                 break;
