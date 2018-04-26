@@ -37,8 +37,8 @@ public class ElementView implements Serializable {
     static public final int OPTION_PAYMENT_ADQ = 202;
     static public final int OPTION_DEPOSITO = 203;
     static public final int OPTION_RECOMPENSAS = 6482;
-    static public final int OPTION_SUCURSALES  = 6453;
-    static public final int OPTION_SETTINGSCARD  = 2112;
+    static public final int OPTION_SUCURSALES = 6453;
+    static public final int OPTION_SETTINGSCARD = 2112;
 
     public static final int OPTION_SIMPLE = 0;
     public static final int OPTION_ZONE = 1;
@@ -158,21 +158,20 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListLectorAdq() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
+        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
+                && App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId();
 
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.operation_cobro));
         elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ico_admin, R.string.operation_configurar));
 
-        if (!isAgente){
+        if (isAgente) {
             elementViews = ElementView.getListLectorEmi();
-        }
-
-        else {
+        } else {
             int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
 
             if (isAgente && Idestatus == IdEstatus.I7.getId()) {
-                elementViews =  ElementView.getListEstadoRevisando();
+                elementViews = ElementView.getListEstadoRevisando();
             }
 
             if (isAgente && Idestatus == IdEstatus.I8.getId()) {
@@ -183,7 +182,7 @@ public class ElementView implements Serializable {
                 elementViews = ElementView.getListEstadoError();
             }
 
-            if (isAgente && Idestatus == IdEstatus.I10.getId()){
+            if (isAgente && Idestatus == IdEstatus.I10.getId()) {
                 elementViews = ElementView.getListEstadoRechazado();
             }
 
@@ -202,42 +201,42 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListLectorEmi() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(7, R.drawable.portada_adq, -1,-1,true,false,R.string.comenzar_registro,OPTION_ZONE));
+        elementViews.add(new ElementView(7, R.drawable.portada_adq, -1, -1, true, false, R.string.comenzar_registro, OPTION_ZONE));
         return elementViews;
     }
 
     //Proceso Revisando
     public static ArrayList<ElementView> getListEstadoRevisando() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false, false, R.string.next,OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false, false, R.string.next, OPTION_ZONE_UNO));
         return elementViews;
     }
 
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoAprobado() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next,OPTION_ZONE));
+        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE));
         return elementViews;
     }
 
     //Proceso Aprobado
     public static ArrayList<ElementView> getListConfigCard() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_mycard, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card,OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_mycard, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
         return elementViews;
     }
 
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoError() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true, R.string.btn_reenviar,OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true, R.string.btn_reenviar, OPTION_ZONE_UNO));
         return elementViews;
     }
 
     //Proceso Rechazado
     public static ArrayList<ElementView> getListEstadoRechazado() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar,OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar, OPTION_ZONE_UNO));
         return elementViews;
     }
 
@@ -266,19 +265,19 @@ public class ElementView implements Serializable {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListStarbucks(){
+    public static ArrayList<ElementView> getListStarbucks() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_RECOMPENSAS,R.drawable.icon_star,R.string.opt_recompensas));
-        elementViews.add(new ElementView(OPTION_MVIMIENTOS_STARBUCKS,R.drawable.icono_movimientos,R.string.opt_consulta));
-        elementViews.add(new ElementView(OPTION_SUCURSALES,R.drawable.ico_store,R.string.opt_sucursales));
+        elementViews.add(new ElementView(OPTION_RECOMPENSAS, R.drawable.icon_star, R.string.opt_recompensas));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_STARBUCKS, R.drawable.icono_movimientos, R.string.opt_consulta));
+        elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
         elementViews.add(new ElementView(OPTION_ADMON_STARBUCK, R.drawable.ico_admin_tarj, R.string.operation_administracion));
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListStarbucksBalance(){
+    public static ArrayList<ElementView> getListStarbucksBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_RECOMPENSAS,R.drawable.icon_star,R.string.opt_recompensas));
-        elementViews.add(new ElementView(OPTION_SUCURSALES,R.drawable.ico_store,R.string.opt_sucursales));
+        elementViews.add(new ElementView(OPTION_RECOMPENSAS, R.drawable.icon_star, R.string.opt_recompensas));
+        elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
         return elementViews;
     }
 }
