@@ -59,11 +59,6 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         this.walletInteractor = new WalletInteractorImpl(this);
     }
 
-    public WalletPresenterImpl(IMovementsEmisorView movementsEmisorView) {
-        this.movementsEmisorView = movementsEmisorView;
-        this.walletInteractor = new WalletInteractorImpl(this);
-    }
-
     @Override
     public void getWalletsCards(boolean error) {
         walletView.showProgress();

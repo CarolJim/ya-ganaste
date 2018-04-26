@@ -710,7 +710,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (BuildConfig.DEBUG) {
             onValidationSuccess();
         } else {
-        accountPresenter.validatePersonData();
+            accountPresenter.validatePersonData();
         }
     }
 
