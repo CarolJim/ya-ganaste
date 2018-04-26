@@ -169,7 +169,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             }
         } else {
             walletView.sendSuccessInfoAgente();
-            movementsEmisorView.hideProgress();
+            walletView.hideProgress();
         }
     }
 
