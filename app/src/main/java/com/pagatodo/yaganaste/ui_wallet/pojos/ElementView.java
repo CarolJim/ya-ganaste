@@ -158,18 +158,19 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListLectorAdq() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
-                && App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId();
+        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
 
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.operation_cobro));
         elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ico_admin, R.string.operation_configurar));
 
-        if (isAgente) {
+        if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
-            int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
-
+            if (isAgente && Idestatus == IdEstatus.I6.getId()) {
+                elementViews = ElementView.getListEstadoContinuarRegistro();
+            }
             if (isAgente && Idestatus == IdEstatus.I7.getId()) {
                 elementViews = ElementView.getListEstadoRevisando();
             }
@@ -193,9 +194,7 @@ public class ElementView implements Serializable {
             if (isAgente && Idestatus == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado();
             }
-
         }
-
         return elementViews;
     }
 
@@ -223,6 +222,13 @@ public class ElementView implements Serializable {
     public static ArrayList<ElementView> getListConfigCard() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_mycard, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
+        return elementViews;
+    }
+
+    //Proceso Continuar Registro Documentacion
+    public static ArrayList<ElementView> getListEstadoContinuarRegistro() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(12, R.drawable.portada_adq, -1, -1, true, false, R.string.continuar_registro, OPTION_ZONE));
         return elementViews;
     }
 

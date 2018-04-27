@@ -1214,6 +1214,7 @@
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nLlámanos, podemos ayudarte</string>
     <string name="numero"><u>01800-500-1000</u></string>
     <string name="comenzar_registro">Comenzar registro</string>
+    <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
 
     <!-- Wallet StarBucks-->
@@ -1431,10 +1432,6 @@
     <string name="pin_valido">Por favor, ingresa un PIN válido</string>
     <string name="tarjeta_valido">Por favor, ingresa un número de tarjeta válido</string>
 
-
-
-
-
     <!-- Administración Starbucks -->
     <string name="admin_cards_starbucks">Selecciona tu tarjeta principal</string>
     <string name="title_cards_starbucks">Tarjeta Starbucks Rewards</string>
@@ -1445,6 +1442,6 @@
     <string name="searching_stores">Obteniendo sucursales</string>
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>
     <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? Inicia Sesión</string>
->>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
+    >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
 
 </resources>
