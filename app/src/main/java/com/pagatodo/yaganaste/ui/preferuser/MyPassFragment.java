@@ -338,12 +338,6 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
 
     }
 
-    public void cleanViewSucess() {
-        editActual.editText.setText("");
-        editNueva.editText.setText("");
-        editConfir.editText.setText("");
-    }
-
     /**
      * Exito en la peticion de servidor y Fail en el cambio de Pass.
      * Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
@@ -428,9 +422,9 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
     }
 
     private void endAndBack() {
-        editActual.editText.setText("");
+        /*editActual.editText.setText("");
         editNueva.editText.setText("");
-        editConfir.editText.setText("");
+        editConfir.editText.setText("");*/
         //showSnakBar(Recursos.MESSAGE_CHANGE_PASS);
         hideLoader();
         onEventListener.onEvent("PREFER_SECURITY_SUCCESS_PASS", false);

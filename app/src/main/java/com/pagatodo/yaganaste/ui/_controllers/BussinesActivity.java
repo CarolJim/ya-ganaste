@@ -183,6 +183,8 @@ public class BussinesActivity extends LoaderActivity {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
             } else if (currentFragment instanceof InformacionAdicionalFragment) {
                 onEvent(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK, null);
+            } else if (currentFragment instanceof InformacionLavadoDineroFragment) {
+                onEvent(EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK, null);
             } else if (currentFragment instanceof DocumentosFragment) {
                 ((DocumentosFragment) currentFragment).onBtnBack();
             } else if (currentFragment instanceof RegisterCompleteFragment) {

@@ -13,6 +13,19 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
+**_VERSION 4.0.4 - 6 de Abril al 27 de Abril del 2018 (ID:4594)_**
+
+Descripción al desarrollador:
+
+    * Menos tiempo de LogIn
+    * Solución a incidencias
+
+Funcionaidad:
+
+    * Solución incidencia registro adquiriente
+    * Solución incidencia saldo wallet
+    * Correcciones menores
+
 **_VERSION 4.0.3 - 22 de Marzo al 5 de Abril del 2018 (ID:4498)_**
 
 Descripción al desarrollador:

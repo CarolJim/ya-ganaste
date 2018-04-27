@@ -341,6 +341,5 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         });*/
         onEventListener.onEvent(EVENT_LOGOUT,null);
     }
-
 }
 

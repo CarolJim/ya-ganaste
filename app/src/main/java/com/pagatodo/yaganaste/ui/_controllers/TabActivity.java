@@ -343,7 +343,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (event.equals(EVENT_LOGOUT)){
             logOut(App.getContext().getResources().getString(R.string.reload_session));
         }
-}
+    }
 
     protected void hideMainTab() {
         if (mainTab.getVisibility() == View.VISIBLE) {
