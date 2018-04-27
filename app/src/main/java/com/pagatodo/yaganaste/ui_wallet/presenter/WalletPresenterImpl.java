@@ -93,7 +93,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         if (walletView != null) {
             walletView.hideProgress();
             walletView.getPagerAdapter(ContainerBuilder.getCardWalletAdapter(error));
-            //walletView.completed(error);
+
         }
     }
 
@@ -168,7 +168,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
                 movementsEmisorView.hideProgress();
             }
         } else {
-            walletView.sendSuccessInfoAgente();
+            walletView.sendErrorInfoAgente();
             walletView.hideProgress();
         }
     }

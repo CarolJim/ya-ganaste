@@ -133,6 +133,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
     public static final String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
+    public static final String EVENT_LOGOUT = "EVENT_LOGOUT";
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
     public static final int TYPE_DETAILS = 3;
 
@@ -339,8 +340,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         } else if (event.equals(EVENT_BLOCK_CARD_BACK)) {
 
+        } else if (event.equals(EVENT_LOGOUT)){
+            logOut(App.getContext().getResources().getString(R.string.reload_session));
         }
-    }
+}
 
     protected void hideMainTab() {
         if (mainTab.getVisibility() == View.VISIBLE) {
@@ -605,7 +608,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 actionMenu(MENU_TERMINOS);
                 break;
             case ID_LOGOUT:
-                logOut();
+                logOut(App.getContext().getResources().getString(R.string.desea_cerrar_sesion));
                 break;
             case ID_CODE:
                 actionMenu(MENU_CODE);
@@ -622,26 +625,18 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         startActivityForResult(intent, CODE_LOG_OUT);
     }
 
-    public void logOut() {
+    public void logOut(String message) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(R.string.navigation_drawer_logout)
-                .setMessage(App.getContext().getResources().getString(R.string.desea_cerrar_sesion))
-                .setPositiveButton(R.string.title_aceptar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(TabActivity.this, MainActivity.class);
-                        intent.putExtra(SELECTION, MAIN_SCREEN);
-                        startActivity(intent);
-                        drawerPresenter.logOutSession();
-                        finish();
-                    }
+                .setMessage(message)
+                .setPositiveButton(R.string.title_aceptar, (dialogInterface, i) -> {
+                    Intent intent = new Intent(TabActivity.this, MainActivity.class);
+                    intent.putExtra(SELECTION, MAIN_SCREEN);
+                    startActivity(intent);
+                    drawerPresenter.logOutSession();
+                    finish();
                 }).setCancelable(false)
-                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).create();
+                .setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss()).create();
         builder.show();
 
 
@@ -712,12 +707,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void sendErrorAvatarToView(String mensaje) {
         hideLoader();
-        //onEventListener.onEvent("DISABLE_BACK", false);
         CameraManager.cleanBitmap();
         showDialogMesage(mensaje);
     }
-
-    //Crope
 
     @Override
     public void onCropper(Uri uri) {

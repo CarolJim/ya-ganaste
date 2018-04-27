@@ -52,18 +52,6 @@ public class WalletInteractorImpl implements WalletInteractor {
         listener.onSuccess(error);
     }
 
-    /*
-        @Override
-        public void getMovementsAdq(ConsultarMovimientosRequest request, final WalletNotification listener ) {
-            try {
-                ApiAdtvo.consultarMovimientosMes(request, this);
-            } catch (OfflineException e) {
-                e.printStackTrace();
-                listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-            }
-        }
-    */
-
     @Override
     public void getBalance(int typeWallet) {
         try {
@@ -130,7 +118,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     if (response.getCodigoRespuesta() == CODE_OK) {
                         listener.onSuccessInfoAgente(response.getData());
                     } else {
-                        this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, response.getMensaje());
+                        this.listener.onFailed(Recursos.CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, response.getMensaje());
                     }
                 }
                 break;

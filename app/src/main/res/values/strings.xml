@@ -784,6 +784,7 @@
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su contraseña es incorrecta</string>
     <string name="desea_cerrar_sesion">¿Estás seguro que deseas cerrar sesión?</string>
+    <string name="reload_session">Porfavor volva a iniciar seción</string>
     <string name="sesion_close">La sesión se ha cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">La contraseña no es correcta, revísala y vuelve a intentar.</string>
@@ -1442,6 +1443,6 @@
     <string name="searching_stores">Obteniendo sucursales</string>
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>
     <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? Inicia Sesión</string>
-    >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
+
 
 </resources>

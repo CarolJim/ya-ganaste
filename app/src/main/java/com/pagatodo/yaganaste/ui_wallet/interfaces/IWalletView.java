@@ -16,8 +16,7 @@ public interface IWalletView extends IMainWalletView {
     void sendSuccessStatusAccount(EstatusCuentaResponse response);
     void sendSuccessInfoAgente();
     void setErrorSaldo(String saldoDefault);
+    void sendErrorInfoAgente();
 
-    void beginProgressSaldo();
-    void finishProgressSaldo();
 
 }

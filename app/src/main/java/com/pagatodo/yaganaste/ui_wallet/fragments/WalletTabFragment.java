@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -52,6 +53,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
@@ -333,19 +335,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
-    public void beginProgressSaldo() {
-        swapAnimation(R.drawable.avd_downloading_begin);
+    public void sendErrorInfoAgente() {
+        /*UI.showAlertDialog(getContext(),"No se pudo obtenr la informacion", (dialogInterface, i) -> {
+            getActivity().finish();
+        });*/
+        onEventListener.onEvent(EVENT_LOGOUT,null);
     }
 
-    @Override
-    public void finishProgressSaldo() {
-        swapAnimation(R.drawable.avd_downloading_finish);
-    }
-
-    private void swapAnimation(@DrawableRes int drawableResId) {
-        final Drawable avd = AnimatedVectorDrawableCompat.create(getContext(), drawableResId);
-        downloading.setImageDrawable(avd);
-        ((Animatable) avd).start();
-    }
 }
 

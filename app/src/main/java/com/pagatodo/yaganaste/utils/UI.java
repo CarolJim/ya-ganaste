@@ -40,12 +40,9 @@ public class UI {
 
         builder.setMessage(message)
                 .setCancelable(false)
-                .setNeutralButton(button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        if (dialogActions != null) dialogActions.actionConfirm();
-                    }
+                .setNeutralButton(button, (dialog, id) -> {
+                    dialog.cancel();
+                    if (dialogActions != null) dialogActions.actionConfirm();
                 });
         return builder;
     }
