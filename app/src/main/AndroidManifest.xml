@@ -154,10 +154,6 @@
                 android:value="com.pagatodo.yaganaste.ui._controllers.TabActivity" />
         </activity>
 
-        <!--<meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="6586b24eda23982e86678c62a9df721f3aed82b0" />-->
-
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />

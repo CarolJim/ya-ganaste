@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.appsee.Appsee;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -46,6 +47,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
+        Appsee.start();
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment) {

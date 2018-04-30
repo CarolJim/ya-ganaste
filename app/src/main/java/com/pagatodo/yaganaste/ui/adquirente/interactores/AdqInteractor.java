@@ -2,8 +2,6 @@ package com.pagatodo.yaganaste.ui.adquirente.interactores;
 
 import android.content.Context;
 
-/*import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.PurchaseEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;

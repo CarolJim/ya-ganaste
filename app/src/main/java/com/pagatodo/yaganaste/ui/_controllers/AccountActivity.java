@@ -15,8 +15,6 @@ import android.view.Menu;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-/*import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.LoginEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
