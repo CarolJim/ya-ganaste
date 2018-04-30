@@ -59,7 +59,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.editPasswordConfirmation)
     CustomValidationEditText editPasswordConfirmdos;
 */
-
+    @BindView(R.id.text_email)
+    TextInputLayout text_email;
     @BindView(R.id.edit_email)
     EditText editMail;
     @BindView(R.id.edit_emailconfirm)
@@ -69,8 +70,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.edit_passwordconfirm)
     EditText editPasswordConfirm;
 
-    @BindView(R.id.text_email)
-    TextInputLayout text_email;
+
 
     @BindView(R.id.text_emailconfirm)
     TextInputLayout text_emailconfirm;

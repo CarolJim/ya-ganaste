@@ -67,6 +67,7 @@
     <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
     <string name="enviarCorreo">/EnviarCorreoContactanos</string>
     <string name="consultarFavorito">/ConsultarFavorito</string>
+    <string name="consultarDatosPersonaStar">/ConsultarInformacionPersona</string>
     <string name="addFavoritos">/AgregarFavorito</string>
     <string name="addFotoFavoritos">/ActualizarImagenFavorito</string>
     <string name="updateFavoritos">/ActualizarFavorito</string>
@@ -109,6 +110,7 @@
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
     <string name="sbMovements">:17443/wsrewards/ConsultaMovimientosPorCuenta</string>
     <string name="sbSaldo">:17443/wsrewards/ConsultaSaldoMobile</string>
+    <string name="registrocomplete">:17443/wsrewards//RegistroMobile</string>
     <string name="preregisterstarbucks">:17443/wsrewards/ValidaTarjetaMovil</string>
 
     <string name="get_stores_starbucks">:16443/CatalogosStarbucks.svc/getStores</string>
@@ -237,6 +239,7 @@
     <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
     <string name="txt_mail">Correo electrónico</string>
+    <string name="txt_mail_requerid">Ingresa el correo electrónico</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu correo electrónico</string>
     <string name="txt_escribe_tu_correo">Correo Electrónico</string>
@@ -783,8 +786,8 @@
     <string name="actualizando_saldo"> </string>
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su contraseña es incorrecta</string>
+    <string name="password_incorrect_format">Su contraseña no cumple con el formato </string>
     <string name="desea_cerrar_sesion">¿Estás seguro que deseas cerrar sesión?</string>
-    <string name="reload_session">Por favor vuelva a iniciar sesión</string>
     <string name="sesion_close">La sesión se ha cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">La contraseña no es correcta, revísala y vuelve a intentar.</string>
@@ -1217,6 +1220,7 @@
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
+    <string name="reload_session"><u>Recargar</u></string>
 
     <!-- Wallet StarBucks-->
     <string name="opt_recompensas">Mis\nRecompensas</string>
@@ -1444,5 +1448,9 @@
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>
     <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? Inicia Sesión</string>
 
+    >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
+    <string name="suscribirse">Suscribirse</string>
+    <string name="calle_y_numero">Calle y numero</string>
+    >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
 
 </resources>

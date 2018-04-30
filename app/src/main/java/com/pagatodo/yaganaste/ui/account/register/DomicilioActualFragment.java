@@ -79,6 +79,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @BindView(R.id.text_num_interior)
     TextInputLayout text_num_interior;
 
+
     @BindView(R.id.text_cp)
     TextInputLayout text_cp;
 
