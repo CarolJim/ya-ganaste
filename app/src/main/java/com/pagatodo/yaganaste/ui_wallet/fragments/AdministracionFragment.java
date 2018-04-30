@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_REPORT;
@@ -99,7 +100,9 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
 
         ArrayList<OptionMenuItem.ViewHolderMenuSegurity> listComponent = ContainerBuilder.ADMINISTRACION(getContext(), mLinearLayout, this);
         OptionMenuItem.ViewHolderMenuSegurity viewHolder = listComponent.get(2);
-
+        if (App.getInstance().getPrefs().loadData(CARD_NUMBER).isEmpty()) {
+            viewHolder.relativeLayout.setVisibility(GONE);
+        }
         radioButtonSi = viewHolder.radioButtonSi;
         radioButtonNo = viewHolder.radioButtonNo;
         card.setCardNumber(App.getInstance().getPrefs().loadData(CARD_NUMBER));
@@ -120,7 +123,7 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //mycard_switch.setChecked(false);
                 card.setImageResource(R.drawable.tarjeta_yg);
-                ico.setVisibility(View.GONE);
+                ico.setVisibility(GONE);
                 radioButtonNo.setChecked(true);
                 break;
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
@@ -144,7 +147,7 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
     @Override
     public void onClick(Object optionMenuItem) {
         OptionMenuItem item = (OptionMenuItem) optionMenuItem;
-        switch (item.getIdItem()){
+        switch (item.getIdItem()) {
             case 1:
                 if (SingletonUser.getInstance().getCardStatusId().equals(Recursos.ESTATUS_CUENTA_DESBLOQUEADA)) {
                     onEventListener.onEvent(EVENT_GO_NIP_CHANGE, null);

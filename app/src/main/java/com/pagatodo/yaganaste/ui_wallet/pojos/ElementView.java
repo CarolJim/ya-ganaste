@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
@@ -255,10 +256,12 @@ public class ElementView implements Serializable {
 
     public static ArrayList<ElementView> getListEmisorBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
-            elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
-        } else {
-            elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
+        if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).isEmpty()) {
+            if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
+                elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
+            } else {
+                elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
+            }
         }
         elementViews.add(new ElementView(OPTION_GENERATE_TOKEN, R.drawable.ic_generar, R.string.generar_codigo));
         return elementViews;

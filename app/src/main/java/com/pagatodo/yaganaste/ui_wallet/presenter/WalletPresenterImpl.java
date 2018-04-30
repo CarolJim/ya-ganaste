@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
@@ -34,6 +35,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE_RECHAZADO;
@@ -73,11 +75,17 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             walletInteractor.getBalance(item.getTypeWallet());
         }
     }
+
     @Override
     public void getStatusAccount(String mTDC) {
         walletView.showProgress();
-        EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
-        walletInteractor.getStatusAccount(estatusCuentaRequest);
+        if (!mTDC.isEmpty()) {
+            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
+            walletInteractor.getStatusAccount(estatusCuentaRequest);
+        } else {
+            SingletonUser.getInstance().setCardStatusId(ESTATUS_CUENTA_BLOQUEADA);
+            walletView.sendCardReported();
+        }
     }
 
     @Override

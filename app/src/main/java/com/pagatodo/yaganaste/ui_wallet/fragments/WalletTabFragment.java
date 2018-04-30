@@ -243,6 +243,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
+    public void sendCardReported() {
+        pager_indicator.removeAllViews();
+        walletPresenter.getWalletsCards(false);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         walletPresenter.getInformacionAgente();

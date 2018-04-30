@@ -111,7 +111,6 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
         mView.hideLoader();
         mView.sendErrorBloquearCuentaToView("No hay internet");
         if (dataSourceResult.getData()instanceof TarjetaActivity){
-
             mView.sendErrorBloquearCuentaToView("No tienes Acceso a Internet ");
         }
         if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {

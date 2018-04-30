@@ -13,6 +13,7 @@ public interface IWalletView extends IMainWalletView {
     //void completed(boolean error);
     void getPagerAdapter(PagerAdapter pagerAdapter);
     void getSaldo(String saldo);
+    void sendCardReported();
     void sendSuccessStatusAccount(EstatusCuentaResponse response);
     void sendSuccessInfoAgente();
     void setErrorSaldo(String saldoDefault);

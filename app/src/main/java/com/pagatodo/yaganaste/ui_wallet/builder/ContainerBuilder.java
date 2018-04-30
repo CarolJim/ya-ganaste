@@ -37,6 +37,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 
 
@@ -90,32 +91,32 @@ public class ContainerBuilder {
     }*/
 
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_NOTIFICACIONES(Context context, ViewGroup parent, OnClickItemHolderListener listener){
-        Container s = new Container(context,listener);
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(-1, R.string.notific_pagos_option,0, RADIOBUTTON));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(-1, R.string.notific_retiros_option,0, RADIOBUTTON));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(-1, R.string.notific_depositos_option,0, RADIOBUTTON));
+    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_NOTIFICACIONES(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
+        Container s = new Container(context, listener);
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(-1, R.string.notific_pagos_option, 0, RADIOBUTTON));
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(-1, R.string.notific_retiros_option, 0, RADIOBUTTON));
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(-1, R.string.notific_depositos_option, 0, RADIOBUTTON));
         return s.getArrayListOptionMenuSegurity();
     }
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ACERCA_DE(Context context, ViewGroup parent, OnClickItemHolderListener listener){
-        Container s = new Container(context,listener);
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(1, R.string.legales,0, RAW));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(2, R.string.aviso_privacidad,0, RAW));
+    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ACERCA_DE(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
+        Container s = new Container(context, listener);
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(1, R.string.legales, 0, RAW));
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(2, R.string.aviso_privacidad, 0, RAW));
         return s.getArrayListOptionMenuSegurity();
     }
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> LEGALES(Context context, ViewGroup parent, OnClickItemHolderListener listener){
-        Container s = new Container(context,listener);
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(1, R.string.aviso_privacidad_cuenta_ganaste,0, RAW));
+    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> LEGALES(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
+        Container s = new Container(context, listener);
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(1, R.string.aviso_privacidad_cuenta_ganaste, 0, RAW));
         return s.getArrayListOptionMenuSegurity();
     }
 
-    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ADMINISTRACION(Context context, ViewGroup parent, OnClickItemHolderListener listener){
-        Container s = new Container(context,listener);
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(1, R.string.my_card_change_nip,0, RAW));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(2, R.string.my_card_report,0, RAW));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(3, R.string.bloquear_tarjeta_admin,R.string.subtitle_bloquear_tarjeta, RADIOBUTTON));
+    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> ADMINISTRACION(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
+        Container s = new Container(context, listener);
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(1, R.string.my_card_change_nip, 0, RAW));
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(2, R.string.my_card_report, 0, RAW));
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(3, R.string.bloquear_tarjeta_admin, R.string.subtitle_bloquear_tarjeta, RADIOBUTTON));
         return s.getArrayListOptionMenuSegurity();
     }
 
@@ -141,7 +142,7 @@ public class ContainerBuilder {
             adapter.addCardItem(new ElementWallet().getCardyaganaste());
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
-        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS,false)){
+        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
             adapter.addCardItem(new ElementWallet().getCardStarbucks());
         }
         adapter.addCardItem(new ElementWallet().getCardSettings());

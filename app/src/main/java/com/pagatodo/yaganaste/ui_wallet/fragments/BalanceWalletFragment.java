@@ -160,6 +160,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         rcvElementsBalance.addItemDecoration(itemDecoration);
         rcvElementsBalance.setLayoutManager(llm);
         rcvElementsBalance.setHasFixedSize(true);
+        if (prefs.loadData(CARD_NUMBER).isEmpty()) {
+            Status = ESTATUS_CUENTA_BLOQUEADA;
+        }
         setBalanceCards();
     }
 
@@ -323,7 +326,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void onRefresh() {
         if (!UtilsNet.isOnline(getActivity())) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
-        } else {
+        } else if (!prefs.loadData(CARD_NUMBER).isEmpty()) {
             accountPresenter.updateBalance();
         }
     }
