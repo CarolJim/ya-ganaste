@@ -170,7 +170,13 @@ public enum WebService {
     LOGINSTARBUCKS,
     /* Login para starbucks */
     PREREGISTRO,
+    /* Login para starbucks */
+    REGISTROCOMPLETE,
+    /* Datos persona para registro starbucks */
+    DATOSPERSONAREGISTROSTAR,
     /* Obtener Sucursales Starbucks */
     GET_STARBUCKS_STORES
+
+
 }
 

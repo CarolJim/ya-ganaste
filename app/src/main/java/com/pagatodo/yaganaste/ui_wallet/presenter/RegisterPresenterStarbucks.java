@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.RegisterUserStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksRequest;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -47,7 +48,7 @@ public class RegisterPresenterStarbucks implements IregisterStarbukss {
 
     @Override
     public void onError(WebService ws, Object error) {
-
+        registerview.registerfail(error.toString());
     }
 
     @Override
@@ -63,6 +64,12 @@ public class RegisterPresenterStarbucks implements IregisterStarbukss {
         registerStarbucksRequest.setCodigoVerificador(pin);
         registerStarbucksRequest.setUdid(Utils.getUdid(App.getContext()));
         registerIteractorStarbucks.register(registerStarbucksRequest);
+
+        RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
+        registerUser.setNumeroTarjeta(tarjeta);
+        registerUser.setCodigoVerificador(pin);
+
+
     }
 
 }

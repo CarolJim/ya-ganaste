@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.appsee.Appsee;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -49,18 +50,21 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
-        Countly.sharedInstance().init(this, "https://us-try.count.ly", "259c70ac81a56803f995636b2268caa9ecaec27a", null, DeviceId.Type.OPEN_UDID);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Countly.sharedInstance().onStart(this);
+        if (App.getInstance().getCountly() != null) {
+            App.getInstance().onStartCountly();
+        }
     }
 
     @Override
     protected void onStop() {
-        Countly.sharedInstance().onStop();
+        if (App.getInstance().getCountly() != null) {
+            App.getInstance().onStopCountly();
+        }
         super.onStop();
     }
 

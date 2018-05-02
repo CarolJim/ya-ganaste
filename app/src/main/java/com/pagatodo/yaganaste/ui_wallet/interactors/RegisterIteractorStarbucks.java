@@ -52,21 +52,21 @@ public class RegisterIteractorStarbucks implements IregisterIteractorStarbucks,I
 
         PreRegisterStarbucksRespónse data = (PreRegisterStarbucksRespónse) dataSourceResult.getData();
 
-        if (data.getCodigo()==0){
-            RegisterUserStarbucks registerUserStarbucks = RegisterUserStarbucks.getInstance();
-            registerUserStarbucks.setId_PreRegistroMovil(Integer.parseInt(data.getIdPreregistro()));
+        if (data.getCodigo()==16){
+            RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
+            registerUser.setId_PreRegistroMovil(Integer.parseInt("280246"));
             iregisterStarbukss.onSucces(PREREGISTRO,dataSourceResult);
 
         }else{
             RegisterUserStarbucks registerUserStarbucks = RegisterUserStarbucks.getInstance();
             registerUserStarbucks.resetRegisterUserstarbucks();
+            iregisterStarbukss.onError(PREREGISTRO,data.getDescripcion().toString());
         }
-
-
     }
 
     @Override
     public void onFailed(DataSourceResult error) {
+        iregisterStarbukss.onError(PREREGISTRO,error.toString());
 
     }
 }

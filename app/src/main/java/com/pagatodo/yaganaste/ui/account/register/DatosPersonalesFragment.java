@@ -95,8 +95,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
     CustomValidationEditText editNamesold;
     @BindView(R.id.edit_nombre)
     EditText editNames;
-
-
     @BindView(R.id.text_nombre)
     TextInputLayout text_nombre;
     @BindView(R.id.text_apater)
@@ -751,13 +749,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editFirstLastName.setText(registerUser.getApellidoPaterno());
         editSecoundLastName.setText(registerUser.getApellidoMaterno());
         editBirthDay.setText(registerUser.getFechaNacimientoToShow());
-        fechaNacimiento = registerUser.getFechaNacimiento();
+
 
         if (registerUser.getPaisNacimiento() != null) {
             country = registerUser.getPaisNacimiento();
         }
         spinnerBirthPlace.setSelection(States.getItemByName(registerUser.getLugarNacimiento()).getId());
-
+        fechaNacimiento = registerUser.getFechaNacimiento();
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
             newDate = Calendar.getInstance(new Locale("es"));

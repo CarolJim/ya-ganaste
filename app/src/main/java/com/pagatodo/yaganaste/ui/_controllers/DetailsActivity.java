@@ -19,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
-/*import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ShareEvent;*/
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;

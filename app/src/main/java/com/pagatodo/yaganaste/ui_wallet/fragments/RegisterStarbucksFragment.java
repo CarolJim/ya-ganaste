@@ -30,6 +30,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
@@ -80,6 +82,8 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_starbucks_register, container, false);
         registerPresenterStarbucks = new RegisterPresenterStarbucks(getContext());
+        registerPresenterStarbucks.setIView(this);
+
         initViews();
         return rootView;
     }
@@ -104,7 +108,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
     @Override
     public void onClick(View view) {
 
-        if (view.getId()==R.id.btnNext){
+        if (view.getId()==R.id.btnNextStarbucks){
             validateForm();
         }
         if (view.getId()==R.id.txtbottom){
@@ -188,6 +192,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
     public void getDataForm() {
 
         numerotarjeta= editnumero_tarjeta.getText().toString().trim();
+        numerotarjeta= numerotarjeta.replaceAll(" ", "");
         codigo= editcodigo.getText().toString().trim();
 
     }
@@ -204,12 +209,12 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
@@ -224,6 +229,6 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void registerfail(String mensaje) {
-
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 }

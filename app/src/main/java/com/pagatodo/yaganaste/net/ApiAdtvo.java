@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActiv
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.ActualizarReferenciasCupoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
@@ -48,6 +49,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContra
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultaDatosPersonaStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
@@ -113,6 +115,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DATOSPERSONAREGISTROSTAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DELETE_FAVORITE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.EDIT_FAVORITES;
@@ -429,6 +432,7 @@ public class ApiAdtvo extends Api {
     }
 
 
+
     /**
      * Método que se invoca para obtener las Colonias a partir de un Código Postal.
      *
@@ -440,6 +444,7 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getNeighborhoodByZipUrl),
                 getHeadersYaGanaste(), request, ObtenerColoniasPorCPResponse.class, result);
     }
+
 
     /**
      * Método que se invoca para Consultar el estatus de los DocumentosFragment de los Comercios.
@@ -775,6 +780,20 @@ public class ApiAdtvo extends Api {
                 URL_SERVER_ADTVO + App.getContext().getString(R.string.consultarFavorito),
                 headers, null, ConsultarFavoritosResponse.class, result);
     }
+
+    /**
+     * Método que se emplea para consultar los datos favoritos para realizar un pago
+     *
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void consultarDatosPersonaRegistroStarbucks(IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(DATOSPERSONAREGISTROSTAR, METHOD_GET,
+                URL_SERVER_ADTVO + App.getContext().getString(R.string.consultarDatosPersonaStar),
+                headers, null, ConsultaDatosPersonaStarbucks.class, result);
+    }
+
 
     /**
      * Armamos la peticion final para el servicio, para dar de alta un favorito en el servicio

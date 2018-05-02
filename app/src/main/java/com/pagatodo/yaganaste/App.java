@@ -17,7 +17,6 @@ import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
-//import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,10 +50,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-//import io.fabric.sdk.android.Fabric;
-
 import ly.count.android.sdk.Countly;
+import ly.count.android.sdk.DeviceId;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -74,7 +71,7 @@ public class App extends Application {
     private static AppDatabase m_database;
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
-
+    private Countly countly;
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -120,8 +117,6 @@ public class App extends Application {
         MultiDex.install(this);
         if (DEBUG) {
             Stetho.initializeWithDefaults(this);
-        } else {
-            //Fabric.with(this, new Crashlytics());
         }
 
         this.prefs = new Preferencias(this);
@@ -159,7 +154,7 @@ public class App extends Application {
         firebaseRemoteConfig();
 
         //Contly
-        //Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key));
+        this. countly = Countly.sharedInstance().init(this,URL_COUNTLY, getResources().getString(R.string.countly_key, null, DeviceId.Type.OPEN_UDID));
 
     }
 
@@ -394,5 +389,20 @@ public class App extends Application {
 
     public void setCurrentSaldo(String currentSaldo) {
         this.currentSaldo = currentSaldo;
+    }
+
+    public Countly getCountly(){
+        return this.countly;
+    }
+
+    public void onStartCountly(){
+        Countly.sharedInstance().onStart(currentActivity);
+        Log.d(currentActivity.getClass().getName(),"Countly OnStar");
+    }
+
+    public void onStopCountly(){
+        Countly.sharedInstance().onStop();
+        Log.d(currentActivity.getClass().getName(),"Countly onStop");
+
     }
 }

@@ -18,9 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-/*import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
-import com.crashlytics.android.answers.ShareEvent;*/
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -174,10 +171,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         }
 
         if (pago instanceof Recarga) {
-            if (!DEBUG) {
-                /*Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_tae)));*/
-            }
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
@@ -200,10 +193,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Servicios) {
-            if (!DEBUG) {
-                /*Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_pds)));*/
-            }
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
             //layoutComision.setVisibility(View.VISIBLE);
@@ -217,15 +206,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Envios) {
-            if (!DEBUG) {
-                /*if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
-                    Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                            .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_1)));
-                } else {
-                    Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                            .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_2)));
-                }*/
-            }
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
                 title.setText(R.string.title_envio_success);
@@ -431,9 +411,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             }
 
         } else if (v.getId() == R.id.imgShare) {
-            if (!DEBUG) {
-                //Answers.getInstance().logShare(new ShareEvent());
-            }
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == -1) {
                 ValidatePermissions.checkPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_STORAGE);

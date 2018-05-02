@@ -49,7 +49,17 @@ public class ValidateForm {
            )			# End of group
    * */
     //private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
+    /**
+     * public static boolean isEmailValid(String email) {
+     String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+     Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+     Matcher matcher = pattern.matcher(email);
+     return matcher.matches();
+     }
+     */
+
     private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d).{6})");
+    private final static Pattern passwprdPatternstarbucks =Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})");
     private final static Pattern emailPattern = Patterns.EMAIL_ADDRESS; //Pattern.compile(
     List<String> listOfPattern = new ArrayList<String>();
     //"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
@@ -77,6 +87,9 @@ public class ValidateForm {
 
     public static boolean isValidPassword(String pass) {
         return passwprdPattern.matcher(pass).matches();
+    }
+    public static boolean isValidPasswordsatrbucks(String pass) {
+        return passwprdPatternstarbucks.matcher(pass).matches();
     }
 
     public static boolean isValidPhone(String phone) {
