@@ -67,7 +67,7 @@
                 app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/hint_color"
+                app:passwordToggleTint="@color/colorAccent"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -105,7 +105,7 @@
                 app:counterMaxLength="1"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/hint_color"
+                app:passwordToggleTint="@color/colorAccent"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
