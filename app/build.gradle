@@ -162,5 +162,8 @@ dependencies {
     annotationProcessor 'android.arch.lifecycle:compiler:' + rootProject.archLifecycleVersion
     annotationProcessor 'android.arch.persistence.room:compiler:' + rootProject.archRoomVersion
 
+    // Countly
+    implementation 'ly.count.android:sdk:' + rootProject.countlyVersion
+
 }
 apply plugin: 'com.google.gms.google-services'

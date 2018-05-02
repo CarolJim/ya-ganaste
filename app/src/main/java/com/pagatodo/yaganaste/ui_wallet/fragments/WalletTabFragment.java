@@ -52,6 +52,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
@@ -59,6 +60,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_COUNTLY;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
@@ -114,6 +116,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         super.onCreate(savedInstanceState);
         pageCurrent = 0;
         walletPresenter = new WalletPresenterImpl(this);
+
     }
 
 

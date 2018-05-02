@@ -54,11 +54,14 @@ import java.util.Set;
 
 //import io.fabric.sdk.android.Fabric;
 
+import ly.count.android.sdk.Countly;
+
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_COUNTLY;
 import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 
 /**
@@ -154,6 +157,9 @@ public class App extends Application {
         statusId = "-1";
         datoHuellaC = "";
         firebaseRemoteConfig();
+
+        //Contly
+        //Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key));
 
     }
 

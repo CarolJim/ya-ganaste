@@ -7,6 +7,8 @@
     <string name="apsee_key" templateMerge="preserve" translatable="false">
         206f8ddbd5a1451293a02227af120a2a
     </string>
+    <string name="countly_key" templateMergeStrategy="preserve" translatable="false">
+        7130293c5075cda4d03fa941116a40192095ab0a</string>
 
     <!--Métodos de WS YaGanaste-->
     <string name="consultaInformacionAgente">/ConsultarInformacionAgente</string>

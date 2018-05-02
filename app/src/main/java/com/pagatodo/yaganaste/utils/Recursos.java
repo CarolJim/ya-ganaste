@@ -10,6 +10,7 @@ public class Recursos {
     public static final String URL_SERVER_ADQ;
     public static final String URL_SERVER_FB;
     public static final String URL_STARBUCKS;
+    public static final String URL_COUNTLY;
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 1;
@@ -45,6 +46,7 @@ public class Recursos {
             URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
             URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
             URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
+            URL_COUNTLY = "https://try.count.ly";
 
             PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
@@ -61,6 +63,7 @@ public class Recursos {
                 URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
                 URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
                 URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
+                URL_COUNTLY = "https://try.count.ly";
 
                 PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
                 PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";

@@ -25,6 +25,9 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import ly.count.android.sdk.Countly;
+import ly.count.android.sdk.DeviceId;
+
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
@@ -46,6 +49,19 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
+        Countly.sharedInstance().init(this, "https://us-try.count.ly", "259c70ac81a56803f995636b2268caa9ecaec27a", null, DeviceId.Type.OPEN_UDID);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Countly.sharedInstance().onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        Countly.sharedInstance().onStop();
+        super.onStop();
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment) {
