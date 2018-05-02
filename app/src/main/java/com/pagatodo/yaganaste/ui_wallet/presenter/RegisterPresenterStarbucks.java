@@ -64,8 +64,8 @@ public class RegisterPresenterStarbucks implements IregisterStarbukss {
         registerStarbucksRequest.setCodigoVerificador(pin);
         registerStarbucksRequest.setUdid(Utils.getUdid(App.getContext()));
         RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
-        registerUser.setNumeroTarjeta(tarjeta);
-        registerUser.setCodigoVerificador(pin);
+        registerUser.setNumeroTarjeta("");
+        registerUser.setCodigoVerificador("");
         //registerUser.setNumeroTarjeta(tarjeta);
         //registerUser.setCodigoVerificador(pin);
         registerIteractorStarbucks.register(registerStarbucksRequest);
