@@ -127,7 +127,7 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
         txtbottom.setOnClickListener(this);
         SpannableString ss;
         ss = new SpannableString(getString(R.string.terminos_aviso_starbucks));
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 51, 77, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 51, 74, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new UnderlineSpan(), 0, 0, 0);
         txtbottom.setText(ss);
 
