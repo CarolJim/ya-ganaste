@@ -55,23 +55,26 @@ public class RegisterCompletePresenterStarbucks implements IregisterCompleteStar
 
         switch (ws) {
             case DATOSPERSONAREGISTROSTAR:
+                registerCompleteStarbucksview.hideLoader();
                 registerCompleteStarbucksview.llenardatospersona();
                 break;
             case OBTENER_COLONIAS_CP:
-
+                registerCompleteStarbucksview.hideLoader();
                 registerCompleteStarbucksview.llenarcolonias(OBTENER_COLONIAS_CP,(List<ColoniasResponse>) msgSuccess);
 
                 break;
-
-
-
+            case REGISTROCOMPLETE:
+                registerCompleteStarbucksview.hideLoader();
+                registerCompleteStarbucksview.registerstarsucced();
+                break;
         }
 
     }
 
     @Override
     public void onError(WebService ws, Object error) {
-
+        registerCompleteStarbucksview.hideLoader();
+        registerCompleteStarbucksview.showError(error);
     }
 
     @Override
@@ -107,7 +110,6 @@ public class RegisterCompletePresenterStarbucks implements IregisterCompleteStar
 
     @Override
     public void getNeighborhoods(String zipCode) {
-
         registerCompleteStarbucksview.showLoader(App.getInstance().getString(R.string.obteniendo_colonias));
         iregisterCompleteIteractorStarbucks.getNeighborhoodByZipCode(zipCode);
 
@@ -115,6 +117,7 @@ public class RegisterCompletePresenterStarbucks implements IregisterCompleteStar
 
     @Override
     public void datosregisterStarbucks() {
+        registerCompleteStarbucksview.showLoader("");
         iregisterCompleteIteractorStarbucks.consultaInfoPersona();
     }
 }

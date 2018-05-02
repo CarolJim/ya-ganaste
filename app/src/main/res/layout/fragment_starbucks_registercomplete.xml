@@ -31,7 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21.5dp"
+                android:layout_marginTop="17.5dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
@@ -77,7 +77,6 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/edit_nombre"
                     android:layout_marginBottom="8dp"
-
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/correo_electronico"
@@ -88,7 +87,9 @@
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:hintTextAppearance="@style/HintText"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute">
+                    tools:ignore="UnusedAttribute"
+
+                    >
 
                     <EditText
                         android:id="@+id/edit_email"
@@ -121,7 +122,11 @@
                     app:hintTextAppearance="@style/HintText"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/colorAccent"
-                    tools:ignore="UnusedAttribute">
+                    tools:ignore="UnusedAttribute"
+
+
+
+                    >
 
                     <EditText
                         android:id="@+id/edit_password"
@@ -141,6 +146,16 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4.5dp"
+                    android:text="Tu contraseña debe tener al menos 8 caracteres, una\nmayúscula, una minuscula y un número"
+                    android:textAlignment="center"
+                    android:textColor="@color/colortexto"
+                    android:textSize="11sp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_passwordconfirm"
@@ -179,24 +194,13 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-<com.pagatodo.yaganaste.utils.customviews.StyleTextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="11sp"
-    android:layout_marginTop="17.5dp"
-    android:textColor="@color/colortexto"
-    android:layout_gravity="center_horizontal"
-    android:textAlignment="center"
-    android:text="Tu contraseña debe tener al menos 8 caracteres, una\nmayúscula, una minuscula y un número"
-    />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="9dp"
-                    android:layout_marginTop="15.5dp"
+                    android:layout_marginTop="11.5dp"
                     android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -250,21 +254,29 @@
 
             </LinearLayout>
 
-
-
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtbottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12.5dp"
+                android:text="@string/terminos_aviso_starbucks"
+                android:textAlignment="center"
+                android:textColor="@color/colortexto"
+                android:textSize="11sp" />
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/txtbottom2"
                 android:textSize="11sp"
-                android:layout_marginTop="17.5dp"
+                android:layout_marginBottom="3dp"
                 android:textColor="@color/colortexto"
                 android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
-                android:text="Al dar clic en registrar, estoy de acuerdo con los\nTerminos y Condiciones y el Aviso de Privacidad"
+                android:text="@string/aviso_de_privacidad_starbucks"
                 />
-
-
-
 
         </LinearLayout>
     </ScrollView>
@@ -273,7 +285,7 @@
                 android:id="@+id/layoutBottom"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight=".8"
                 android:layout_marginBottom="0dp"
                 android:layout_marginTop="0dp"
                 android:gravity="bottom"

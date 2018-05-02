@@ -185,6 +185,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void onValidationSuccess() {
+        showLoader("Verificando Datos");
         registerPresenterStarbucks.registerStarbucks(numerotarjeta,codigo);
     }
 
@@ -219,11 +220,13 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void showError(Object error) {
-
+        hideLoader();
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void registerstarsucced() {
+        hideLoader();
         nextScreen(EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS, null);
     }
 

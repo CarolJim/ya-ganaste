@@ -192,6 +192,10 @@ public class Recursos {
     public static final String URL_LEGALES_TERMINOS = "http://dev.yaganaste.com/terminos-y-condiciones.html";
     public static final String URL_LEGALES_PRIVACIDAD = "http://dev.yaganaste.com/aviso-de-privacidad.html";
 
+    /*Url Legales Starbucks*/
+    public static final String URL_LEGALES_TERMINOS_STARBUCKS = "https://rewards.starbucks.mx/LoyaltyWeb/TermsCards";
+    public static final String URL_LEGALES_PRIVACIDAD_STARBUKS = "http://www.starbucks.com.mx/about-us/company-information/online-policies/privacy-statement";
+
     public static final String URL_LEGALES_TERMINOS_LINEAC = "http://dev.yaganaste.com/terminos-y-condiciones-lc.html";
     public static final String URL_LEGALES_PRIVACIDAD_LINEAC = "http://dev.yaganaste.com/aviso-de-privacidad-lc.html";
 

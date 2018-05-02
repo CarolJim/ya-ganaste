@@ -52,9 +52,9 @@ public class RegisterIteractorStarbucks implements IregisterIteractorStarbucks,I
 
         PreRegisterStarbucksRespónse data = (PreRegisterStarbucksRespónse) dataSourceResult.getData();
 
-        if (data.getCodigo()==16){
+        if (data.getCodigo()==0){
             RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
-            registerUser.setId_PreRegistroMovil(Integer.parseInt("280246"));
+            registerUser.setId_PreRegistroMovil(Integer.parseInt(data.getIdPreregistro()));
             iregisterStarbukss.onSucces(PREREGISTRO,dataSourceResult);
 
         }else{
