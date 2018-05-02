@@ -36,6 +36,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
@@ -101,14 +102,23 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
     private void bind(ElementWallet item, View view, final int position) {
         FlipView flipView = (FlipView) view.findViewById(R.id.cardflip_element);
         flipView.setFrontImage(item.getResourceCard());
-        if (position == 0) {
-            Bitmap qrCode = getQrCode();
-            flipView.setRearImageBitmap(qrCode);
-        } else if (position != 0 && RequestHeaders.getTokenAdq().isEmpty()) {
-            Bitmap starbucksCode = getStarbucksCode();
-            flipView.setRearImageBitmap(starbucksCode);
-        } else {
-            flipView.setRearImage(item.getResourceBack());
+        switch (position) {
+            case 0:
+                Bitmap qrCode = getQrCode();
+                flipView.setRearImageBitmap(qrCode);
+                break;
+            case 1:
+                if (!RequestHeaders.getTokenAdq().isEmpty()) {
+                    flipView.setRearImage(item.getResourceBack());
+                } else if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+                    Bitmap starbucksCode = getStarbucksCode();
+                    flipView.setRearImageBitmap(starbucksCode);
+                }
+                break;
+            case 2:
+                Bitmap starbucksCode = getStarbucksCode();
+                flipView.setRearImageBitmap(starbucksCode);
+                break;
         }
         flipView.setOnClickListener(new View.OnClickListener() {
             @Override

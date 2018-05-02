@@ -112,7 +112,7 @@
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
     <string name="sbMovements">:17443/wsrewards/ConsultaMovimientosPorCuenta</string>
     <string name="sbSaldo">:17443/wsrewards/ConsultaSaldoMobile</string>
-    <string name="registrocomplete">:17443/wsrewards//RegistroMobile</string>
+    <string name="registrocomplete">:17443/wsrewards/RegistroMobile</string>
     <string name="preregisterstarbucks">:17443/wsrewards/ValidaTarjetaMovil</string>
 
     <string name="get_stores_starbucks">:16443/CatalogosStarbucks.svc/getStores</string>

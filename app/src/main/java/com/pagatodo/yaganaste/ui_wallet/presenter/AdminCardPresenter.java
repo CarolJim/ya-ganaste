@@ -19,6 +19,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCK
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 
 public class AdminCardPresenter implements IAdminCardsPresenter {
 
@@ -39,7 +40,7 @@ public class AdminCardPresenter implements IAdminCardsPresenter {
                 context.getString(R.string.lector_yg), App.getInstance().getPrefs().loadData(COMPANY_NAME)));
         if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
             cards.add(new DtoAdminCards(TYPE_STARBUCKS, R.drawable.card_sbux, 3, 1, TYPE_ITEM,
-                    context.getString(R.string.starbucks_card), ""));
+                    context.getString(R.string.starbucks_card), StringUtils.getCreditCardFormat(App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS))));
         } else {
             cards.add(new DtoAdminCards(-1, 0, 0, 0, TYPE_HEADER, context.getString(R.string.admin_cards_available),
                     null));

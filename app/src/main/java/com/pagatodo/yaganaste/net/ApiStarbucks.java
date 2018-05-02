@@ -79,7 +79,7 @@ public class ApiStarbucks extends Api {
         Map<String, String> headers = getHeadersSb();
         headers.put("Content-type", "application/json");
         NetFacade.consumeWS(CONSULTAR_SALDO_SB,
-                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.registrocomplete),
+                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.sbSaldo),
                 headers, request, SaldoSBRespons.class, result);
     }
     /**
