@@ -232,6 +232,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void registerfail(String mensaje) {
+        hideLoader();
         UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 }
