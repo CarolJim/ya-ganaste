@@ -349,6 +349,7 @@
     <string name="datos_usuario_correo_confirma">Debes confirmar el correo</string>
     <string name="datos_usuario_correo_no_coinciden">El correo no coincide</string>
     <string name="datos_usuario_pass">Introduce la contraseña</string>
+    <string name="datos_usuario_pin">Introduce el PIN</string>
     <string name="cambiar_pass_actual">Introduce la contraseña actual</string>
     <string name="datos_usuario_pass_c">Debes confirmar la nueva contraseña</string>
     <string name="datos_usuario_pass_new">Introduce la nueva contraseña</string>

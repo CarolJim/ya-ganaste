@@ -157,7 +157,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
             text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (codigo.isEmpty()){
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pin), Snackbar.LENGTH_SHORT);
             text_codigo.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }else if  (codigo.length()<8){

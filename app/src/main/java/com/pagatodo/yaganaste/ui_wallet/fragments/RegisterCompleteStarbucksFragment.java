@@ -286,7 +286,6 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
           suscribe=true;
       }
       if (isvalid){
-          UI.showSuccessSnackBar(getActivity(), "Todo correcto enviar a servicio yaaa", Snackbar.LENGTH_SHORT);
           App.getInstance().getPrefs().saveData(SHA_256_STARBUCKS, Utils.cipherRSA(password, PUBLIC_STARBUCKS_KEY_RSA));//Contraseña Starbucks
           password=Utils.cipherRSA(password, PUBLIC_STARBUCKS_KEY_RSA);
           RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
