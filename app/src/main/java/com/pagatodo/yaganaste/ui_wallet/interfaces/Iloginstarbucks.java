@@ -7,6 +7,5 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
  */
 
 public interface Iloginstarbucks extends INavigationView {
-    void loginstarsucced();
-    void loginfail(String mensaje);
+
 }

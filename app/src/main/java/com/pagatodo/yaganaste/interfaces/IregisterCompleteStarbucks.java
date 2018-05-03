@@ -14,5 +14,7 @@ public interface IregisterCompleteStarbucks extends INavigationView {
     void llenardatospersona();
     void registerfail(String mensaje);
     void llenarcolonias(WebService ws, List<ColoniasResponse> list);
+    void loginstarsucced();
+    void loginfail(String mensaje);
 
 }

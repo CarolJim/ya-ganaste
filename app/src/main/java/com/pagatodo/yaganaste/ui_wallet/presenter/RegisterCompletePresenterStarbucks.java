@@ -5,7 +5,10 @@ import android.content.Context;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUserStarbucks;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.DispositivoStartBucks;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
@@ -17,12 +20,16 @@ import com.pagatodo.yaganaste.ui_wallet.interactors.RegisterCompleteIteractorSta
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IregisterCompleteIteractorStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IregisterCompleteStarbuckss;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.Iregisterstarbucks;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DATOSPERSONAREGISTROSTAR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
 
 /**
  * Created by asandovals on 26/04/2018.
@@ -30,6 +37,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 public class RegisterCompletePresenterStarbucks implements IregisterCompleteStarbuckss {
     private Context context;
+
+    private Preferencias prefs = App.getInstance().getPrefs();
     IregisterCompleteStarbucks registerCompleteStarbucksview;
     IregisterCompleteIteractorStarbucks iregisterCompleteIteractorStarbucks;
 
@@ -67,14 +76,26 @@ public class RegisterCompletePresenterStarbucks implements IregisterCompleteStar
                 registerCompleteStarbucksview.hideLoader();
                 registerCompleteStarbucksview.registerstarsucced();
                 break;
+
+            case LOGINSTARBUCKS:
+                registerCompleteStarbucksview.hideLoader();
+                registerCompleteStarbucksview.loginstarsucced();
+                break;
         }
 
     }
 
     @Override
     public void onError(WebService ws, Object error) {
-        registerCompleteStarbucksview.hideLoader();
-        registerCompleteStarbucksview.showError(error);
+
+        if (ws==LOGINSTARBUCKS){
+            registerCompleteStarbucksview.hideLoader();
+            registerCompleteStarbucksview.showError(error);
+            registerCompleteStarbucksview.loginfail("");
+        }else {
+            registerCompleteStarbucksview.hideLoader();
+            registerCompleteStarbucksview.showError(error);
+        }
     }
 
     @Override
@@ -119,5 +140,23 @@ public class RegisterCompletePresenterStarbucks implements IregisterCompleteStar
     public void datosregisterStarbucks() {
         registerCompleteStarbucksview.showLoader("");
         iregisterCompleteIteractorStarbucks.consultaInfoPersona();
+    }
+
+    @Override
+    public void login(String usuario, String password) {
+
+        registerCompleteStarbucksview.showLoader("Iniciando sesion");
+        LoginStarbucksRequest request = new LoginStarbucksRequest();
+        request.setEmail(usuario);
+        request.setContrasenia(prefs.loadData(SHA_256_STARBUCKS));
+        DispositivoStartBucks datadispositivo = new DispositivoStartBucks();
+        datadispositivo.setUdid(Utils.getUdid(App.getContext()));
+        datadispositivo.setIdTokenNotificacion("");
+        datadispositivo.setLatitud("0.0");
+        datadispositivo.setLongitud("0.0");
+        request.setDispositivoStartBucks(datadispositivo);
+        request.setFuente("Movil");
+        iregisterCompleteIteractorStarbucks.login(request);
+
     }
 }

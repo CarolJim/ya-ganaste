@@ -36,6 +36,7 @@ import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
 import com.pagatodo.yaganaste.ui_wallet.presenter.RegisterCompletePresenterStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.presenter.RegisterPresenterStarbucks;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -62,6 +63,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.AVISOSTARBUCKS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSSRABUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
@@ -155,8 +157,6 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
                 LegalsDialog legalsDialog2 = LegalsDialog.newInstance(AVISOSTARBUCKS);
                 legalsDialog2.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
                 break;
-
-
         }
     }
 
@@ -346,7 +346,7 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
     @Override
     public void registerstarsucced() {
         hideLoader();
-        getActivity().finish();
+        registerCompletePresenterStarbucks.login(email,password);
 
     }
 
@@ -391,5 +391,15 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
     public void showError(Object error) {
         UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
 
+    }
+
+    @Override
+    public void loginstarsucced() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void loginfail(String mensaje) {
+        nextScreen(EVENT_GO_TO_LOGIN_STARBUCKS, null);
     }
 }

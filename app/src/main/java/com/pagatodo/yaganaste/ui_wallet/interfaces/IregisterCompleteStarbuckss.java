@@ -21,5 +21,7 @@ public interface IregisterCompleteStarbuckss<T> {
 
     void datosregisterStarbucks();
 
+    void login(String usuario, String password);
+
 
 }

@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterUserStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -96,6 +97,9 @@ public class RegisterCompleteIteractorStarbucks implements IregisterCompleteIter
                 case REGISTROCOMPLETE:
                     saveDataUsuStarBucks(dataSourceResult);
                     break;
+            case LOGINSTARBUCKS:
+                saveDataUsuStarBuckslogin(dataSourceResult);
+                break;
         }
     }
 
@@ -155,6 +159,63 @@ public class RegisterCompleteIteractorStarbucks implements IregisterCompleteIter
     }
 
 
+    private void saveDataUsuStarBuckslogin(DataSourceResult dataSourceResult) {
+        LoginStarbucksResponse data = (LoginStarbucksResponse) dataSourceResult.getData();
+
+        if (data.getData().getCodigoRespuesta() != 0) {
+            iregisterCompleteStarbuckss.onError(LOGINSTARBUCKS, data.getData().getMensaje());
+        } else if (data.getData().getCodigoRespuesta() == 0) {
+            if (!data.getBeneficiosRewards().isEmpty()) {
+                List<Rewards> lista = data.getBeneficiosRewards();
+                Gson gson = new Gson();
+                String json = gson.toJson(lista);
+                App.getInstance().getPrefs().saveData(REWARDS, json);
+                /**
+                 * para obtener el valor
+                 * SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                 Gson gson = new Gson(); //Instancia Gson.
+                 String json = prefs.getString("myObjeto", "");
+                 myObject myobjeto = gson.fromJson(json, myObject.class);
+                 *
+                 */
+            }
+            if (data.getDatosMiembro().getBebidaFavorita() == null) {
+                App.getInstance().getPrefs().saveData(FAVORITE_DRINK, "Sin Bebida Favorita");
+            } else {
+                App.getInstance().getPrefs().saveData(FAVORITE_DRINK, data.getDatosMiembro().getBebidaFavorita());
+            }
+            App.getInstance().getPrefs().saveData(EMAIL_STARBUCKS, data.getDatosMiembro().getEmail());
+            App.getInstance().getPrefs().saveData(MEMBER_SINCE, data.getDatosMiembro().getMiembroDesde());
+            App.getInstance().getPrefs().saveDataInt(STATUS_GOLD, data.getDatosMiembro().getStatusGold());
+            App.getInstance().getPrefs().saveData(ID_MIEMBRO_STARBUCKS, data.getId_Miembro());
+            App.getInstance().getPrefs().saveData(ACTUAL_LEVEL_STARBUCKS, data.getInfoRewardsStarbucks().getNivelActual());
+            App.getInstance().getPrefs().saveDataInt(STARS_NUMBER, data.getInfoRewardsStarbucks().getNumEstrellas());
+            App.getInstance().getPrefs().saveDataInt(MISSING_STARS_NUMBER, data.getInfoRewardsStarbucks().getNumEstrellasFaltantes());
+            App.getInstance().getPrefs().saveData(NEXT_LEVEL_STARBUCKS, data.getInfoRewardsStarbucks().getSiguienteNivel());
+            App.getInstance().getPrefs().saveData(MEMBER_NUMBER_STARBUCKS, data.getNumeroMiembro());
+            App.getInstance().getPrefs().saveData(SECURITY_TOKEN_STARBUCKS, data.getTokenSeguridad());
+            App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, true);
+            if (!data.getTarjetas().isEmpty()) {
+                List<CardStarbucks> listadetarjetas = data.getTarjetas();
+                Gson gson = new Gson();
+                String json = gson.toJson(listadetarjetas);
+                App.getInstance().getPrefs().saveData(STARBUCKS_CARDS, json);
+                /**
+                 * para obtener el valor
+                 * SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                 Gson gson = new Gson(); //Instancia Gson.
+                 String json = prefs.getString("myObjeto", "");
+                 myObject myobjeto = gson.fromJson(json, myObject.class);
+                 *
+                 */
+            }
+
+            iregisterCompleteStarbuckss.onSucces(LOGINSTARBUCKS, data.getData());
+        }
+    }
+
+
+
     /**
      * Método para procesar la respuesta con la lista de colonias en el código postal.
      *
@@ -179,6 +240,9 @@ public class RegisterCompleteIteractorStarbucks implements IregisterCompleteIter
 
     @Override
     public void onFailed(DataSourceResult error) {
+        if (error != null && error.getWebService() == LOGINSTARBUCKS) {
+            iregisterCompleteStarbuckss.onError(LOGINSTARBUCKS, error.getData().toString());
+        }
 
     }
 
@@ -208,6 +272,16 @@ public class RegisterCompleteIteractorStarbucks implements IregisterCompleteIter
             iregisterCompleteStarbuckss.onError(DATOSPERSONAREGISTROSTAR, e.toString());
         }
 
+    }
+
+    @Override
+    public void login(LoginStarbucksRequest request) {
+        try {
+            ApiStarbucks.loginStarbucks(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            iregisterCompleteStarbuckss.onError(LOGINSTARBUCKS, e.toString());
+        }
     }
 
     @Override

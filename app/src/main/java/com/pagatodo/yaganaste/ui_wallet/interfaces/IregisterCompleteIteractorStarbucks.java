@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
@@ -16,6 +17,8 @@ public interface IregisterCompleteIteractorStarbucks<T> {
     void hideLoader();
 
     void consultaInfoPersona();
+
+    void login(LoginStarbucksRequest request);
 
     void registerStarBucks(RegisterStarbucksCompleteRequest request);
 
