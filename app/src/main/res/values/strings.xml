@@ -83,6 +83,7 @@
     <string name="obtenerOrigenRecursos">/ObtenerCatalogoOrigenRecursosPLD</string>
     <string name="obtenerDestinoRecursos">/ObtenerCatalogoDestinoRecursosPLD</string>
     <string name="obtenerVersionAplicacion">/ObtenerVersionAplicacion</string>
+    <string name="cancelarCuenta">/CancelarCuenta</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>

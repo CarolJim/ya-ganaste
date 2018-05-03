@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
@@ -21,7 +22,7 @@ public class CreateDatailBuilder {
                 if (response.getIdComercio() == 7){
                     builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(response.getComision())));
                     builder.createLeaf(new TextData(R.string.details_iva,StringUtils.getCurrencyValue(response.getIVA())));
-                    builder.createLeaf(new TextData(R.string.txt_tag, response.getReferencia()));
+                    builder.createLeaf(new TextData(R.string.details_iave_pase, response.getReferencia()));
                 } else {
                     builder.createLeaf(new TextData(R.string.txt_phone, response.getReferencia()));
                 }
@@ -79,6 +80,18 @@ public class CreateDatailBuilder {
             case DEVOLUCION:
                 builder.createLeaf(new TextData(R.string.details_concepto,response.getConcepto()));
                 break;
+            case SIETE://7
+
+                break;
+            case COMPRA:
+
+                break;
+            case CONSULTA_ATM://10
+
+                break;
+            case COBRO_CON_TARJETA_DISPERSION_ADQ://13
+
+                break;
         }
 
         if (TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != DEVOLUCION){
@@ -87,6 +100,11 @@ public class CreateDatailBuilder {
             builder.createLeaf(new TextData(R.string.details_autorizacion,response.getNumAutorizacion().trim()));
         }
 
+    }
+
+    public static void creatHeaderMovDetail(Context context, ViewGroup container, ItemMovements item){
+        DetailBulder bulder = new DetailBulder(context, container);
+        bulder.createDetailMov(item);
     }
 
     private static int getReferencuaTitleType(String ref) {
