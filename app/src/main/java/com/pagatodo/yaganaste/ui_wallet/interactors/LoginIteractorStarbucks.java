@@ -79,7 +79,7 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
             App.getInstance().getPrefs().saveData(EMAIL_STARBUCKS, data.getDatosMiembro().getEmail());
             App.getInstance().getPrefs().saveData(MEMBER_SINCE, data.getDatosMiembro().getMiembroDesde());
             App.getInstance().getPrefs().saveDataInt(STATUS_GOLD, data.getDatosMiembro().getStatusGold());
-            App.getInstance().getPrefs().saveData(ID_MIEMBRO_STARBUCKS, data.getId_Miembro());
+            App.getInstance().getPrefs().saveDataInt(ID_MIEMBRO_STARBUCKS, data.getId_Miembro());
             App.getInstance().getPrefs().saveData(ACTUAL_LEVEL_STARBUCKS, data.getInfoRewardsStarbucks().getNivelActual());
             App.getInstance().getPrefs().saveDataInt(STARS_NUMBER, data.getInfoRewardsStarbucks().getNumEstrellas());
             App.getInstance().getPrefs().saveDataInt(MISSING_STARS_NUMBER, data.getInfoRewardsStarbucks().getNumEstrellasFaltantes());

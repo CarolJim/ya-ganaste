@@ -112,7 +112,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:' + rootProject.firebaseVersion
     implementation 'com.android.support.constraint:constraint-layout:' + rootProject.constraintLayoutVersion
     // Analytics
-    implementation 'com.appsee:appsee-android:' + rootProject.appSeeVersion
     implementation 'ly.count.android:sdk:' + rootProject.countlyVersion
     // Onboarding
     implementation 'com.matthew-tamlin:sliding-intro-screen:' + rootProject.onboardingVersion

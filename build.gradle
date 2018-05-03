@@ -35,7 +35,6 @@ ext {
     playServicesVersion = "11.0.4"
     firebaseVersion = "10.0.1"
     constraintLayoutVersion = "1.0.2"
-    appSeeVersion = "2.4.1"
     countlyVersion = "17.09"
     onboardingVersion = "3.2.0"
     swipyVersion = "1.2.3"

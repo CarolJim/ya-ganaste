@@ -400,6 +400,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        clearContent();
         //paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
@@ -525,7 +526,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onTextChanged() {
         isCuentaValida = false;
-        //   receiverName.setText("");
     }
 
     @Override
@@ -681,16 +681,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 intent.putExtra("pagoItem", payment);
                 intent.putExtra("favoritoItem", favoriteItem);
                 startActivity(intent);
-                comercioItem = null;
-                favoriteItem = null;
-                tipoEnvio.setSelection(0);
-                editListServ.setText("");
-                editListServ.clearFocus();
-                referencia = "";
-                receiverName.setText("");
-                receiverName.clearFocus();
-                concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-                numberReference.setText("123456");
+                clearContent();
             }
         }
     }
@@ -1387,4 +1378,16 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
+    private void clearContent() {
+        comercioItem = null;
+        favoriteItem = null;
+        tipoEnvio.setSelection(0);
+        editListServ.setText("");
+        editListServ.clearFocus();
+        referencia = "";
+        receiverName.setText("");
+        receiverName.clearFocus();
+        concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        numberReference.setText("123456");
+    }
 }

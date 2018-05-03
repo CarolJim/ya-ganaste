@@ -52,10 +52,7 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
     @Override
     public void onError(WebService ws, Object error) {
         loginview.loginfail(error.toString());
-
         loginview.hideLoader();
-
-
     }
 
     @Override

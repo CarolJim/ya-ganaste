@@ -16,10 +16,23 @@ import static com.pagatodo.yaganaste.ui_wallet.adapters.AdminCardsAdapter.TYPE_I
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
+import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.NEXT_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.REWARDS;
+import static com.pagatodo.yaganaste.utils.Recursos.SECURITY_TOKEN_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_CARDS;
+import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
 
 public class AdminCardPresenter implements IAdminCardsPresenter {
 
@@ -49,5 +62,24 @@ public class AdminCardPresenter implements IAdminCardsPresenter {
         }
 
         return cards;
+    }
+
+    @Override
+    public void deleteStarbucksInfo() {
+        App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
+        App.getInstance().getPrefs().clearPreference(STARBUCKS_CARDS);
+        App.getInstance().getPrefs().clearPreference(REWARDS);
+        App.getInstance().getPrefs().clearPreference(FAVORITE_DRINK);
+        App.getInstance().getPrefs().clearPreference(EMAIL_STARBUCKS);
+        App.getInstance().getPrefs().clearPreference(MEMBER_SINCE);
+        App.getInstance().getPrefs().clearPreference(STATUS_GOLD);
+        App.getInstance().getPrefs().clearPreference(ID_MIEMBRO_STARBUCKS);
+        App.getInstance().getPrefs().clearPreference(ACTUAL_LEVEL_STARBUCKS);
+        App.getInstance().getPrefs().clearPreference(STARS_NUMBER);
+        App.getInstance().getPrefs().clearPreference(MISSING_STARS_NUMBER);
+        App.getInstance().getPrefs().clearPreference(NEXT_LEVEL_STARBUCKS);
+        App.getInstance().getPrefs().clearPreference(MEMBER_NUMBER_STARBUCKS);
+        App.getInstance().getPrefs().clearPreference(SECURITY_TOKEN_STARBUCKS);
+        App.getInstance().getPrefs().clearPreference(NUMBER_CARD_STARBUCKS);
     }
 }
