@@ -5,12 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -24,12 +22,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
-import static com.pagatodo.yaganaste.ui_wallet.adapters.AdminCardsAdapter.TYPE_HEADER;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.AdminCardsAdapter.TYPE_ITEM;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 
 public class AdminCardsFragment extends GenericFragment implements OnRecyclerItemClickListener {
 
@@ -80,7 +76,7 @@ public class AdminCardsFragment extends GenericFragment implements OnRecyclerIte
                     break;
                 case TYPE_STARBUCKS:
                     if (cardsList.get(position).getStatus() == 1) {
-                        App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
+                        presenter.deleteStarbucksInfo();
                         updateCards();
                         // TODO: Cerrar sesión Starbucks
                     } else {

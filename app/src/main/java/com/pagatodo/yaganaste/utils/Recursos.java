@@ -312,7 +312,7 @@ public class Recursos {
     public static final String EMAIL_STARBUCKS = "EMAIL_STARBUCKS";
     public static final String MEMBER_SINCE = "MEMBER_SINCE";
     public static final String STATUS_GOLD = "STATUS_GOLD";
-    public static final int ID_MIEMBRO_STARBUCKS = 0;
+    public static final String ID_MIEMBRO_STARBUCKS = "ID_MIEMBRO_STARBUCKS";
     public static final String ACTUAL_LEVEL_STARBUCKS = "ACTUAL_LEVEL_STARBUCKS";
     public static final String STARS_NUMBER = "STARS_NUMBER";
     public static final String MISSING_STARS_NUMBER = "MISSING_STARS_NUMBER";

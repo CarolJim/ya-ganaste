@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IAdminCardsPresenter {
     List<DtoAdminCards> getCardsList();
+    void deleteStarbucksInfo();
 }
