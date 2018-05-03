@@ -157,7 +157,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
             text_numero_tarjeta.setBackgroundResource(R.drawable.inputtext_normal);
         }
         if (codigo.isEmpty()){
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pin), Snackbar.LENGTH_SHORT);
             text_codigo.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }else if  (codigo.length()<8){
@@ -185,6 +185,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void onValidationSuccess() {
+        showLoader("Verificando Datos");
         registerPresenterStarbucks.registerStarbucks(numerotarjeta,codigo);
     }
 
@@ -219,16 +220,19 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
 
     @Override
     public void showError(Object error) {
-
+        hideLoader();
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void registerstarsucced() {
+        hideLoader();
         nextScreen(EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS, null);
     }
 
     @Override
     public void registerfail(String mensaje) {
+        hideLoader();
         UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 }

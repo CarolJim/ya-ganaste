@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +34,16 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.Iloginstarbucks;
 import com.pagatodo.yaganaste.ui_wallet.presenter.RegisterCompletePresenterStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.presenter.RegisterPresenterStarbucks;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -50,6 +58,12 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.AVISOSTARBUCKS;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSSRABUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_LOGIN_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
@@ -59,7 +73,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
  * Created by asandovals on 25/04/2018.
  */
 
-public class RegisterCompleteStarbucksFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IregisterCompleteStarbucks,IOnSpinnerClick {
+public class RegisterCompleteStarbucksFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IregisterCompleteStarbucks {
     private View rootView;
     @BindView(R.id.text_email)
     TextInputLayout text_email;
@@ -81,6 +95,15 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
     EditText editPassword;
     @BindView(R.id.edit_passwordconfirm)
     EditText editPasswordConfirm;
+
+    @BindView(R.id.txtbottom)
+    StyleTextView txtbottom;
+
+    @BindView(R.id.txtbottom2)
+    StyleTextView txtbottom2;
+
+
+
     boolean suscribe=false;
     RegisterCompletePresenterStarbucks registerCompletePresenterStarbucks;
     public static RegisterCompleteStarbucksFragment newInstance() {
@@ -102,6 +125,22 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
         registerCompletePresenterStarbucks= new RegisterCompletePresenterStarbucks(getContext());
         registerCompletePresenterStarbucks.setIView(this);
         registerCompletePresenterStarbucks.datosregisterStarbucks();
+
+        txtbottom.setOnClickListener(this);
+        SpannableString ss;
+        ss = new SpannableString(getString(R.string.terminos_aviso_starbucks));
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 51, 74, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new UnderlineSpan(), 0, 0, 0);
+        txtbottom.setText(ss);
+
+
+        txtbottom2.setOnClickListener(this);
+        SpannableString s;
+        s = new SpannableString(getString(R.string.aviso_de_privacidad_starbucks));
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 5, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new UnderlineSpan(), 0, 0, 0);
+        txtbottom2.setText(s);
+
         return rootView;
     }
     @Override
@@ -109,6 +148,14 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
         switch (view.getId()) {
             case R.id.btnNextStarbucks:
                 validateForm();
+                break;
+            case R.id.txtbottom:
+                LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOSSRABUCKS);
+                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                break;
+            case R.id.txtbottom2:
+                LegalsDialog legalsDialog2 = LegalsDialog.newInstance(AVISOSTARBUCKS);
+                legalsDialog2.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
                 break;
         }
     }
@@ -167,7 +214,7 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
                         text_password.setBackgroundResource(R.drawable.inputtext_error);
-                    }  else if (isPasswordStarbucksValid(editPassword.getText().toString().trim())) {
+                    }  else if (!ValidateForm.isValidPasswordsatrbucks(editPassword.getText().toString())) {
                         // hideValidationError(editPassword.getId());
                         // editPassword.setIsValid();
                         text_password.setBackgroundResource(R.drawable.inputtext_normal);
@@ -232,20 +279,21 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
           editMail.setBackgroundResource(R.drawable.inputtext_error);
       }
       if (!radioBtnYes.isChecked()&&!radioBtnNo.isChecked()){
-          UI.showErrorSnackBar(getActivity(), getString(R.string.txt_mail_requerid), Snackbar.LENGTH_SHORT);
+          UI.showErrorSnackBar(getActivity(), getString(R.string.suscribirte_starbucks), Snackbar.LENGTH_SHORT);
           isvalid=false;
       }
       if (radioBtnYes.isChecked()){
           suscribe=true;
       }
       if (isvalid){
-          UI.showSuccessSnackBar(getActivity(), "Todo correcto enviar a servicio yaaa", Snackbar.LENGTH_SHORT);
           App.getInstance().getPrefs().saveData(SHA_256_STARBUCKS, Utils.cipherRSA(password, PUBLIC_STARBUCKS_KEY_RSA));//Contraseña Starbucks
           password=Utils.cipherRSA(password, PUBLIC_STARBUCKS_KEY_RSA);
           RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
           registerUser.setContrasenia(password);
           registerUser.setEmail(email);
           registerUser.setSuscripcion(suscribe);
+          registerCompletePresenterStarbucks.registerStarbucks(registerUser);
+          showLoader("");
       }
     }
 
@@ -277,6 +325,12 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnNextStarbucks.setOnClickListener(this);
+        SpannableString ss;
+        ss = new SpannableString(getString(R.string.terminos_aviso_starbucks));
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 20, 32, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 45, 50, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new UnderlineSpan(), 0, 0, 0);
+        txtbottom.setText(ss);
     }
 
     @Override
@@ -291,14 +345,14 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
 
     @Override
     public void registerstarsucced() {
-
-
+        hideLoader();
+        registerCompletePresenterStarbucks.login(email,password);
 
     }
 
     @Override
     public void llenardatospersona() {
-
+        hideLoader();
         RegisterUserStarbucks registerUser = RegisterUserStarbucks.getInstance();
         nombre=(registerUser.getNombre().toString());
         appaterno=(registerUser.getPrimerApellido().toString());
@@ -310,65 +364,42 @@ public class RegisterCompleteStarbucksFragment extends GenericFragment implement
         colonia=registerUser.getColonia();
         calleynumero=registerUser.getCalleNumero();
         telefono= App.getInstance().getPrefs().loadData(PHONE_NUMBER);
-
-
-
     }
-
-
-    public static boolean isPasswordStarbucksValid(String email) {
-        String expression = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-    //private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
-    /**
-     * public static boolean isEmailValid(String email) {
-     String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-     Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-     Matcher matcher = pattern.matcher(email);
-     return matcher.matches();
-     }
-     */
 
 
     @Override
     public void registerfail(String mensaje) {
-
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void llenarcolonias(WebService ws, List<ColoniasResponse> list) {
         hideLoader();
-
-
     }
 
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
     @Override
     public void showError(Object error) {
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
 
     }
-    @Override
-    public void onSpinnerClick() {
 
+    @Override
+    public void loginstarsucced() {
+        getActivity().finish();
     }
-    @Override
-    public void onSubSpinnerClick() {
 
-    }
     @Override
-    public void hideKeyBoard() {
-
+    public void loginfail(String mensaje) {
+        nextScreen(EVENT_GO_TO_LOGIN_STARBUCKS, null);
     }
 }

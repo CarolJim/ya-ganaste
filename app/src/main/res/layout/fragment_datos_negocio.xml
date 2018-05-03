@@ -147,6 +147,7 @@
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_gravity="center_vertical"
+                    android:tint="@color/colorAccent"
                     android:layout_marginRight="11dp"
                     android:src="@drawable/ico_select" />
             </LinearLayout>
@@ -200,9 +201,10 @@
 
                 <ImageView
                     android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="11dp"
+                    android:tint="@color/colorAccent"
                     android:src="@drawable/ico_select" />
             </LinearLayout>
 
@@ -220,7 +222,7 @@
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
-                    android:hint="@string/txt_home_phone"
+                    android:hint="@string/txt_phone"
                     android:maxLines="1"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
@@ -254,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:formato="celphone"
-                    app:hintText="@string/txt_home_phone"
+                    app:hintText="@string/txt_phone"
                     app:imageIsGone="true"
                     app:isSingleLine="true" />
 

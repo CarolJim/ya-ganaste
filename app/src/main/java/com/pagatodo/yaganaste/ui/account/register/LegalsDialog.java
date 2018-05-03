@@ -27,8 +27,10 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD_LINEAC;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD_STARBUKS;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_LINEAC;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_STARBUCKS;
 
 /**
  * Created by flima on 24/04/2017.
@@ -125,6 +127,15 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
 
                 return URL_LEGALES_TERMINOS;
 
+            case TERMINOSSRABUCKS:
+
+                return URL_LEGALES_TERMINOS_STARBUCKS;
+
+            case AVISOSTARBUCKS:
+
+                return URL_LEGALES_PRIVACIDAD_STARBUKS;
+
+
             case PRIVACIDAD:
 
                 return URL_LEGALES_PRIVACIDAD;
@@ -177,7 +188,9 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
         TERMINOS,
         PRIVACIDAD,
         TERMINOSLC,
-        PRIVACIDADLC
+        PRIVACIDADLC,
+        TERMINOSSRABUCKS,
+        AVISOSTARBUCKS
 
     }
 

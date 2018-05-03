@@ -42,6 +42,7 @@
     <string name="getCatalogsUrl">/ObtenerCatalogos</string>
     <string name="getBancoBin">/ObtenerDatosBancarios</string>
     <string name="getNeighborhoodByZipUrl">/ObtenerColoniasPorCP</string>
+
     <string name="getDocuments">/ObtenerDocumentos</string>
     <string name="getSMSNumberUrl">/ObtenerNumeroSMS</string>
     <string name="recoverPasswordUrl">/RecuperarContrasena</string>
@@ -114,7 +115,7 @@
     <string name="sbSaldo">:17443/wsrewards/ConsultaSaldoMobile</string>
     <string name="registrocomplete">:17443/wsrewards/RegistroMobile</string>
     <string name="preregisterstarbucks">:17443/wsrewards/ValidaTarjetaMovil</string>
-
+    <string name="registerCompleteStarbucks">:17443/wsrewards/RegistroMobile</string>
     <string name="get_stores_starbucks">:16443/CatalogosStarbucks.svc/getStores</string>
 
 
@@ -240,13 +241,12 @@
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
     <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
-    <string name="txt_mail">Correo electrónico</string>
+    <string name="txt_mail">Correo Electrónico</string>
     <string name="txt_mail_requerid">Ingresa el correo electrónico</string>
+    <string name="suscribirte_starbucks">Quieres suscribirte?</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu correo electrónico</string>
-    <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono</string>
-    <string name="txt_home_phone">Teléfono</string>
 
     <string name="txt_referencia_envio">Referencia de Envío</string>
     <string name="txt_referencia_servicio">Referencia</string>
@@ -347,6 +347,7 @@
     <string name="datos_usuario_correo_confirma">Debes confirmar el correo</string>
     <string name="datos_usuario_correo_no_coinciden">El correo no coincide</string>
     <string name="datos_usuario_pass">Introduce la contraseña</string>
+    <string name="datos_usuario_pin">Introduce el PIN</string>
     <string name="cambiar_pass_actual">Introduce la contraseña actual</string>
     <string name="datos_usuario_pass_c">Debes confirmar la nueva contraseña</string>
     <string name="datos_usuario_pass_new">Introduce la nueva contraseña</string>
@@ -1321,8 +1322,8 @@
     <string name="title_main">Todas tus tarjetas en un solo lugar</string>
     <string name="title_second">Suscribete o inicia sesión en tus programas\nde lealtad favoritos y obten beneficios exclusivos</string>
     <string name="title_button_card">Configurar Tarjetas</string>
-    <string name="title_wallet_main_settings">Mis Tarjetas</string>
-    <string name="title_wallet_second_settings">Tarjetas disponibles: 1</string>
+    <string name="title_wallet_main_settings">Tarjetas Disponibles: </string>
+    <string name="title_wallet_second_settings">Mis programas de lealtad</string>
 
     <!-- Hint's -->
     <string name="hint_referencia_numerica">Referencia numérica (6 dígitos)</string>
@@ -1429,13 +1430,13 @@
     <!-- Starbucks seccion de registro y login -->
     <string name="starbucks_card">My Starbucks Rewards</string>
     <string name="starbucks_available">Inicia sesión o Regístrate</string>
-    <string name="texto_resgister_starbucks">Regístarte, acumula Stars\n y obtén beneficios exclusivos</string>
+    <string name="texto_resgister_starbucks">Regístrate, acumula Stars\n y obtén beneficios exclusivos</string>
     <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
     <string name="codigo_8_digitos">Código de 8 digitos</string>
     <string name="registrarme">Registrarme</string>
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
-    <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
+    <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Regístrate</string>
     <string name="pin_valido">Por favor, ingresa un PIN válido</string>
     <string name="tarjeta_valido">Por favor, ingresa un número de tarjeta válido</string>
 
@@ -1453,6 +1454,8 @@
     >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
     <string name="suscribirse">Suscribirse</string>
     <string name="calle_y_numero">Calle y numero</string>
+    <string name="terminos_aviso_starbucks">Al dar clic en registrar, estoy de acuerdo con los \nTerminos y Condiciones</string>
+    <string name="aviso_de_privacidad_starbucks">y el Aviso de Privacidad</string>
     >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
 
 </resources>

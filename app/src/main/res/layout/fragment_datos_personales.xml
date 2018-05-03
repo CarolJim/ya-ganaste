@@ -350,6 +350,7 @@
                                 android:layout_height="17dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="11dp"
+                                android:tint="@color/colorAccent"
                                 android:src="@drawable/calendar" />
 
                         </LinearLayout>
@@ -397,10 +398,11 @@
                             </LinearLayout>
 
                             <ImageView
-                                android:layout_width="17dp"
-                                android:layout_height="17dp"
+                                android:layout_width="14.1dp"
+                                android:layout_height="17.5dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="11dp"
+                                android:tint="@color/colorAccent"
                                 android:src="@drawable/pin_canvas_gray" />
                         </LinearLayout>
 

@@ -134,8 +134,6 @@
                 android:layout_below="@+id/layoutContent"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_big"
-                android:layout_marginRight="@dimen/margin_big"
                 android:gravity="bottom|center_horizontal"
                 android:orientation="horizontal">
 

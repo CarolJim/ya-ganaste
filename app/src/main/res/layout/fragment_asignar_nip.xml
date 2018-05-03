@@ -67,7 +67,7 @@
                 app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/hint_color"
+                app:passwordToggleTint="@color/colorAccent"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -105,7 +105,7 @@
                 app:counterMaxLength="1"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/hint_color"
+                app:passwordToggleTint="@color/colorAccent"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -163,6 +163,9 @@
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:visibility="gone" />
 
 </RelativeLayout>

@@ -125,12 +125,13 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/imageViewCustomSpinner"
-                        android:layout_width="10.5dp"
-                        android:layout_height="5.8dp"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:layout_marginRight="21dp"
                         android:adjustViewBounds="true"
+                        android:tint="@color/colorAccent"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ico_select" />
 
@@ -191,6 +192,7 @@
                             android:id="@+id/imgMakePaymentContact"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
+                            android:tint="@color/colorAccent"
                             android:layout_centerInParent="true"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
@@ -206,6 +208,7 @@
                             android:id="@+id/imgMakePaymentRef"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
+                            android:tint="@color/colorAccent"
                             android:layout_centerInParent="true"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
@@ -221,6 +224,7 @@
                             android:id="@+id/imgScanCard"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
+                            android:tint="@color/colorAccent"
                             android:layout_centerInParent="true"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>

@@ -6,9 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlActivated">@android:color/white</item>o
+        <item name="colorControlActivated">@android:color/white</item>
         <item name="colorControlHighlight">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>
+
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>

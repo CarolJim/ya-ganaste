@@ -78,6 +78,7 @@ public class Recursos {
                 URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
                 URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
                 URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
+                URL_COUNTLY = "https://us-try.count.ly";
 
                 PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
                 PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
@@ -191,6 +192,10 @@ public class Recursos {
     /*Url Legales*/
     public static final String URL_LEGALES_TERMINOS = "http://dev.yaganaste.com/terminos-y-condiciones.html";
     public static final String URL_LEGALES_PRIVACIDAD = "http://dev.yaganaste.com/aviso-de-privacidad.html";
+
+    /*Url Legales Starbucks*/
+    public static final String URL_LEGALES_TERMINOS_STARBUCKS = "https://rewards.starbucks.mx/LoyaltyWeb/TermsCards";
+    public static final String URL_LEGALES_PRIVACIDAD_STARBUKS = "http://www.starbucks.com.mx/about-us/company-information/online-policies/privacy-statement";
 
     public static final String URL_LEGALES_TERMINOS_LINEAC = "http://dev.yaganaste.com/terminos-y-condiciones-lc.html";
     public static final String URL_LEGALES_PRIVACIDAD_LINEAC = "http://dev.yaganaste.com/aviso-de-privacidad-lc.html";

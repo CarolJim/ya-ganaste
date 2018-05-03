@@ -89,8 +89,16 @@ public class ApiStarbucks extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void registroCompleteStarbucks(RegisterStarbucksCompleteRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersSb();
+        headers.put("Content-type", "application/json");
+        headers.put("tokenSeguridad", "");
+        headers.put("fuente", "2");
+        headers.put("numeroMiembro", "");
+        headers.put("idUsuario", "0");
+        headers.put("idMiembro", "0");
+
         NetFacade.consumeWS(REGISTROCOMPLETE,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getNeighborhoodByZipUrl),
-                getHeadersYaGanaste(), request, ObtenerColoniasPorCPResponse.class, result);
+                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.registerCompleteStarbucks),
+                headers, request, LoginStarbucksResponse.class, result);
     }
 }
