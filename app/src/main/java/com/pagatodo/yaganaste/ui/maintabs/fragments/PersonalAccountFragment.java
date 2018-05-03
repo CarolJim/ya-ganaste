@@ -153,116 +153,103 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     protected void performClickOnRecycler(ItemMovements<MovimientosResponse> itemClicked, int pos) {
-        //startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
-        //DetailsEmisorFragment simpleFragmentB = DetailsEmisorFragment.newInstance(itemClicked.getMovement());
-        /*View v = recyclerMovements.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.card_view);
-        getFragmentManager()
-                .beginTransaction()
-                .addSharedElement(v, ViewCompat.getTransitionName(v))
-                .replace(R.id.fragment_container, simpleFragmentB)
-                .commit();*/
         onEventListener.onEvent(EVENT_GO_DETAIL_EMISOR,itemClicked.getMovement());
-        //loadFragment(DetailsEmisorFragment.newInstance(itemClicked.getMovement()), R.id.fragment_container);
-
     }
 
     private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getListenerItemTouchLeft() {
-        return new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int index) {
-                if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
-                    int position = viewHolder.getAdapterPosition();
-                    RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
-                    MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
-                    if (direction == ItemTouchHelper.LEFT) {
+        return (viewHolder, direction, index) -> {
+            if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
+                int position = viewHolder.getAdapterPosition();
+                RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
+                MovimientosResponse movResponse = (MovimientosResponse) adapter.getItem(position);
+                if (direction == ItemTouchHelper.LEFT) {
 
-                        String referService = StringUtils.formatCardToService(movResponse.getReferencia());
-                        int idComercio = movResponse.getIdComercio();
+                    String referService = StringUtils.formatCardToService(movResponse.getReferencia());
+                    int idComercio = movResponse.getIdComercio();
 
-                        adapter.updateChange();
+                    adapter.updateChange();
 
-                        int tipoEnvio = 0;
-                        int tab = 0;
-                        boolean isValidMov = true;
-                        switch (movResponse.getIdTipoTransaccion()) {
-                            case 1:
-                                tab = 1;
-                                break;
-                            case 2:
-                                tab = 2;
-                                break;
-                            case 3:
-                            case 4:
-                            case 5:
-                            case 6:
-                                tab = 3;
-                                switch (referService.length()) {
-                                    case 10:
-                                        tipoEnvio = 1;
-                                        break;
-                                    case 16:
-                                        tipoEnvio = 2;
-                                        break;
-                                    case 18:
-                                        tipoEnvio = 3;
-                                        break;
-                                    default:
-                                        tipoEnvio = 0;
-                                        break;
-                                }
-
-                                break;
-
-                            default:
-                                isValidMov = false;
-                                break;
-
-                        }
-                        if (isValidMov && idComercio != 0) {
-                            Comercio comercioResponse = paymentPresenter.getComercioById(idComercio);
-                            if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
-
-                                Intent intent = new Intent(getContext(), FavoritesActivity.class);
-                                intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_OPERATION);
-                                intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
-                                intent.putExtra(ID_COMERCIO, idComercio);
-                                intent.putExtra(ID_TIPO_COMERCIO, comercioResponse.getIdTipoComercio());
-                                intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
-                                intent.putExtra(REFERENCIA, referService);
-                                intent.putExtra(CURRENT_TAB_ID, tab);
-                                intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
-                                getActivity().startActivityForResult(intent, REQUEST_CODE_FAVORITES);
-                            } else {
-                                UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                    }
-                                });
+                    int tipoEnvio = 0;
+                    int tab = 0;
+                    boolean isValidMov = true;
+                    switch (movResponse.getIdTipoTransaccion()) {
+                        case 1:
+                            tab = 1;
+                            break;
+                        case 2:
+                            tab = 2;
+                            break;
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                            tab = 3;
+                            switch (referService.length()) {
+                                case 10:
+                                    tipoEnvio = 1;
+                                    break;
+                                case 16:
+                                    tipoEnvio = 2;
+                                    break;
+                                case 18:
+                                    tipoEnvio = 3;
+                                    break;
+                                default:
+                                    tipoEnvio = 0;
+                                    break;
                             }
+
+                            break;
+
+                        default:
+                            isValidMov = false;
+                            break;
+
+                    }
+                    if (isValidMov && idComercio != 0) {
+                        Comercio comercioResponse = paymentPresenter.getComercioById(idComercio);
+                        if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+
+                            Intent intent = new Intent(getContext(), FavoritesActivity.class);
+                            intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_OPERATION);
+                            intent.putExtra(NOMBRE_COMERCIO, comercioResponse.getNombreComercio());
+                            intent.putExtra(ID_COMERCIO, idComercio);
+                            intent.putExtra(ID_TIPO_COMERCIO, comercioResponse.getIdTipoComercio());
+                            intent.putExtra(ID_TIPO_ENVIO, tipoEnvio);
+                            intent.putExtra(REFERENCIA, referService);
+                            intent.putExtra(CURRENT_TAB_ID, tab);
+                            intent.putExtra(DESTINATARIO, adapter.getMovItem(position).getSubtituloDetalle());
+                            getActivity().startActivityForResult(intent, REQUEST_CODE_FAVORITES);
                         } else {
-                            UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
+                            UI.showAlertDialog(getContext(), "Este movimiento ya es favorito", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
                                 }
                             });
                         }
+                    } else {
+                        UI.showAlertDialog(getContext(), "Este movimiento no puede ser agregado a favoritos", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
                     }
-                    if (direction == ItemTouchHelper.RIGHT) {
-                        //share
+                }
+                if (direction == ItemTouchHelper.RIGHT) {
+                    //share
 
-                        adapter.updateChange();
-                        //ItemMovements item = adapter.getMovItem(position);
-                        MovimientosResponse movlResponse = (MovimientosResponse) adapter.getItem(position);
-                        TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movlResponse.getIdTipoTransaccion());
-                        String message = "¡Hola!\n" + "Estos son los datos del movimiento de tu cuenta ya ganaste\n\n" +
-                                "Concepto: " + tipoTransaccion.getName() + "\n" +
-                                "Fecha: " + movlResponse.getFechaMovimiento() + "\n" +
-                                "Hora:" + movlResponse.getHoraMovimiento() + "\n" +
-                                "Autorización: " + movlResponse.getNumAutorizacion();
-                        UtilsIntents.IntentShare(getContext(), message);
-                    }
+                    adapter.updateChange();
+                    //ItemMovements item = adapter.getMovItem(position);
+                    MovimientosResponse movlResponse = (MovimientosResponse) adapter.getItem(position);
+                    TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movlResponse.getIdTipoTransaccion());
+                    String message = "¡Hola!\n" + "Estos son los datos del movimiento de tu cuenta ya ganaste\n\n" +
+                            "Concepto: " + tipoTransaccion.getName() + "\n" +
+                            "Fecha: " + movlResponse.getFechaMovimiento() + "\n" +
+                            "Hora:" + movlResponse.getHoraMovimiento() + "\n" +
+                            "Autorización: " + movlResponse.getNumAutorizacion();
+                    UtilsIntents.IntentShare(getContext(), message);
                 }
             }
         };

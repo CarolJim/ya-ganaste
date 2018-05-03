@@ -1,12 +1,9 @@
 package com.pagatodo.yaganaste.ui_wallet.presenter;
 
-import android.content.SharedPreferences;
-
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
@@ -15,7 +12,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosRe
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;

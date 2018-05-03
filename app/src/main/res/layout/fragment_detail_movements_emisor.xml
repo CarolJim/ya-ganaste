@@ -171,6 +171,7 @@
     </RelativeLayout>
 
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -181,55 +182,16 @@
         android:paddingLeft="@dimen/margin_doble"
         android:paddingRight="@dimen/margin_doble"
         android:paddingStart="@dimen/margin_doble"
-        android:paddingTop="34dp">
+        android:paddingTop="34dp"
+        android:visibility="gone">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
-
-            <LinearLayout
-                android:id="@+id/layoutMontoCompra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_movements_row_height"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        style="@style/generic_text_style_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:text="@string/details_monto_compra"
-                        android:textColor="@color/texthint" />
-
-                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
-                        android:id="@+id/txtMontoCompra"
-                        style="@style/generic_text_style_3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:textColor="@color/colorAccent"
-                        app:decimalLenght="2"
-                        app:dotBottom="false"
-                        app:symbolSmaller="true" />
-                </LinearLayout>
-
-                <View
-
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5px"
-                    android:background="@color/margin_lines" />
-            </LinearLayout>
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/layoutMontoTotal"
@@ -702,14 +664,22 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/content_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:visibility="gone">
-    </LinearLayout>
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/border_card"
+            android:paddingBottom="23dp"
+            android:paddingLeft="@dimen/margin_doble"
+            android:paddingRight="@dimen/margin_doble"
+            android:paddingStart="@dimen/margin_doble"
+            android:paddingTop="34dp"
+            >
+
+        </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/containerSlideButon"

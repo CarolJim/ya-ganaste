@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.builder;
+package com.pagatodo.yaganaste.ui_wallet.patterns;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.StatusZoneViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
@@ -37,7 +38,6 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
-import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 
 
@@ -188,6 +188,11 @@ public class ContainerBuilder {
         }
 
         return op;
+    }
+
+    public static TextDataViewHolder getViewHolder(ViewGroup parent){
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new TextDataViewHolder(inflater.inflate(R.layout.item_detail_mov,parent,false));
     }
 
 }

@@ -1,33 +1,16 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.ui_wallet.builder.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.holders.StatusZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 /**
  * Created by ozuniga on 14/02/2017.

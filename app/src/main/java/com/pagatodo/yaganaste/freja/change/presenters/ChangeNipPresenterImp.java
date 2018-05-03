@@ -171,10 +171,10 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
             }
         };
 
-        ErrorObject.Builder builder = new ErrorObject.Builder().setMessage(error.getMessage())
+        ErrorObject.Builder Builder = new ErrorObject.Builder().setMessage(error.getMessage())
                 .setHasCancel(error.allowsReintent()).setActions(actions);
 
-        mIChangeNipView.showErrorNip(builder.build());*/
+        mIChangeNipView.showErrorNip(Builder.build());*/
     }
 
 }

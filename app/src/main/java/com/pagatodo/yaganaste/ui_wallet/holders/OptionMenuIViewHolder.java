@@ -1,9 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.holders;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -36,12 +33,7 @@ public class OptionMenuIViewHolder extends GenericHolder {
     public void bind(final Object item, final OnClickItemHolderListener listener) {
         final OptionMenuItem itemOption = (OptionMenuItem) item;
 
-        this.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onClick(item);
-            }
-        });
+        this.relativeLayout.setOnClickListener(view -> listener.onClick(item));
 
         if (itemOption.getResourceItem() != -1){
             this.imageView.setBackgroundResource(itemOption.getResourceItem());

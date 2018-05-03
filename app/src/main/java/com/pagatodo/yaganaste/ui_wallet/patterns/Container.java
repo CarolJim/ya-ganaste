@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.builder;
+package com.pagatodo.yaganaste.ui_wallet.patterns;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionMenuIViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.ViewHolderMenuSegurity;
+import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
@@ -26,6 +27,9 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.R
  */
 
 public class Container {
+
+    public static final String CONTAINER_TEXTDATA = "CONTAINER_TEXTDATA";
+    public static final String CONTAINER_OPTIONMENU = "CONTAINER_OPTIONMENU";
 
     private Context context;
     //private OptionMenuItem.OnMenuItemClickListener listener;
@@ -74,6 +78,15 @@ public class Container {
         listItems.add(holder);
     }
 
+    public void addItemTextData(int resource){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(resource, this.parent, false);
+        GenericHolder holder = new TextDataViewHolder(layout);
+        this.parent.addView(layout);
+        this.listItems.add(holder);
+
+    }
+
     public void addItemViewHolderMenuSegurity(Object item){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         OptionMenuItem optionMenuItem = (OptionMenuItem) item;
@@ -110,37 +123,16 @@ public class Container {
     private ArrayList<OptionMenuIViewHolder> arrayListOptionMenu = new ArrayList<>();
     private ArrayList<OptionMenuItem.ViewHolderMenuSegurity> arrayListOptionMenuSegurity = new ArrayList<>();
     private ArrayList<PaletteViewHolder> holdersList = new ArrayList<>();
+    private ArrayList<TextDataViewHolder> holderDataList = new ArrayList<>();
 
     void addOption(OptionMenuItem options){
         this.options.add(options);
-    }
-
-    public void addTextDataA(TextData textData){
-        this.textDataList.add(textData);
-    }
-
-    public void addTextData(TextData textData){
-        LayoutInflater inflater = LayoutInflater.from(this.context);
-        View layout = inflater.inflate(R.layout.item_detallet_mov, this.parent, false);
-        TextData.ViewHolderTextData viewHolder = new TextData.ViewHolderTextData();
-        viewHolder.leftText = layout.findViewById(R.id.txt_left);
-        viewHolder.rightText = layout.findViewById(R.id.txt_right);
-        this.parent.addView(layout);
-        this.textDataList.add(textData);
     }
 
     public void addInputText(InputText inputText){
         this.inputTextList.add(inputText);
     }
 
-    /*public void addOptionMenu(ViewGroup parent, final OptionMenuItem optionMenuItem) {
-        LayoutInflater inflater = LayoutInflater.from(this.context);
-        View view = inflater.inflate(R.layout.option_menu_tem_view, parent, false);
-        OptionMenuIViewHolder viewHolder = new OptionMenuIViewHolder(view);
-        viewHolder.bind(optionMenuItem,listener);
-        parent.addView(view);
-        this.arrayListOptionMenu.add(viewHolder);
-    }*/
 
     ArrayList<OptionMenuItem> getOptions() {
         return this.options;
@@ -181,12 +173,7 @@ public class Container {
     public void addSimpleHolder(final Favoritos favorito, final PaletteViewHolder.OnClickListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onClick(favorito);
-            }
-        });
+        layout.setOnClickListener(view -> listener.onClick(favorito));
         this.parent.addView(layout);
     }
 
@@ -244,5 +231,18 @@ public class Container {
 
     public ArrayList<PaletteViewHolder>  getHoldersList(){
         return this.holdersList;
+    }
+
+    public void addTextDataA(TextData textData){
+        this.textDataList.add(textData);
+    }
+
+    public void addTextDataHolder(ViewGroup parent, TextData textData){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.item_detail_mov, parent, false);
+        TextDataViewHolder holder = new TextDataViewHolder(layout);
+        holder.bind(textData,null);
+        parent.addView(layout);
+        this.holderDataList.add(holder);
     }
 }

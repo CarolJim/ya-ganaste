@@ -32,8 +32,4 @@ public class TextData {
         this.titleRight = titleRight;
     }
 
-    public static class ViewHolderTextData {
-        public StyleTextView leftText;
-        public StyleTextView rightText;
-    }
 }

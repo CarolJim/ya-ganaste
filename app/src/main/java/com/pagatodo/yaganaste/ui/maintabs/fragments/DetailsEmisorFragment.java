@@ -19,7 +19,11 @@ import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.builder.Container;
+import com.pagatodo.yaganaste.ui_wallet.patterns.Builder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.Container;
+import com.pagatodo.yaganaste.ui_wallet.patterns.CreateDatailBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.DetailBulder;
+import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -35,6 +39,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMB
 
 public class DetailsEmisorFragment extends GenericFragment implements View.OnClickListener {
 
+    @BindView(R.id.container)
+    LinearLayout container;
 
     @BindView(R.id.layoutMontoTotal)
     LinearLayout layoutMontoTotal;
@@ -45,8 +51,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     StyleTextView titleMontoTotal;
 
 
-    @BindView(R.id.txtMontoCompra)
-    MontoTextView txtMontoCompra;
+    //@BindView(R.id.txtMontoCompra)
+    //MontoTextView txtMontoCompra;
 
     @BindView(R.id.layoutVentasTotales)
     LinearLayout layoutVentasTotales;
@@ -128,9 +134,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     Button btnCancel;
     @BindView(R.id.btn_volver)
     Button btnVolver;
-///////
-    //@BindView(R.id.content_linearlayout)
-    //LinearLayout mLinearLayout;
 
     private View rootView;
     private MovimientosResponse movimientosResponse;
@@ -152,14 +155,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         setHasOptionsMenu(true);
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
-
-
         } else {
             throw new IllegalCallException(DetailsEmisorFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(2000));
-        }*/
     }
 
     @Override
@@ -177,8 +175,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        //builderView = new Container(getContext(),mLinearLayout);
-
+        //builderView = new Container(getContext());
         initFieldsViews();
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
         //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
@@ -251,9 +248,11 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         layoutAutorizacon.setVisibility(VISIBLE);
         txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim());
 
+        CreateDatailBuilder.createByType(getContext(),container,movimientosResponse);
+
         switch (TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion())) {
             case RECARGA://1
-                layoutReferencia.setVisibility(VISIBLE);
+                /*layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
                 txtRefernciaDescripcion.setSelected(true);
 
@@ -266,28 +265,28 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                     txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 } else {
                     txtReferenciaTitle.setText(getString(R.string.txt_phone));
-                }
+                }*/
                 break;
             case PAGO_DE_SERVICIO://2
-                layoutComision.setVisibility(VISIBLE);
+                /*layoutComision.setVisibility(VISIBLE);
                 titleComisionDescripcion.setText(getString(R.string.details_cargo_servicio));
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
-                txtRefernciaDescripcion.setSelected(true);
+                txtRefernciaDescripcion.setSelected(true);*/
                 break;
             case TRASPASO_MISMO_BANCO_CARGO://3
-                layoutReferencia.setVisibility(VISIBLE);
+                /*layoutReferencia.setVisibility(VISIBLE);
                 txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
                 txtRefernciaDescripcion.setSelected(true);
                 layoutConcepto.setVisibility(VISIBLE);
-                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());*/
                 break;
             case SPEI_CARGO://4
-                layoutComision.setVisibility(VISIBLE);
+                /*layoutComision.setVisibility(VISIBLE);
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
@@ -306,19 +305,19 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 if (!movimientosResponse.getReferenciaNum().trim().equals("")) {
                     layoutNumeroReferencia.setVisibility(VISIBLE);
                     txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
-                }
+                }*/
                 break;
             case TRASPASO_MISMO_BANCO_ABONO://5
-                layoutConcepto.setVisibility(VISIBLE);
-                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                /*layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());*/
                 break;
             case SPEI_ABONO://6
-                layoutConcepto.setVisibility(VISIBLE);
+                /*layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 layoutClaveRastreo.setVisibility(VISIBLE);
                 txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
                 layoutNumeroReferencia.setVisibility(VISIBLE);
-                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());*/
                 break;
 
             case SIETE://7
@@ -328,52 +327,49 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
                 break;
             case RETIRO_DE_DINERO_ATM://9
-                layoutMontoTotal.setVisibility(VISIBLE);
+                /*layoutMontoTotal.setVisibility(VISIBLE);
                 titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutComision.setVisibility(VISIBLE);
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
-                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));*/
                 break;
             case CONSULTA_ATM://10
 
                 break;
             case CASH_BACK://11
-                //layoutMontoCompra.setVisibility(VISIBLE);
-                txtMontoCompra.setText(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
-                layoutMontoTotal.setVisibility(VISIBLE);
+
+                //txtMontoCompra.setText(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
+                /*layoutMontoTotal.setVisibility(VISIBLE);
                 titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
-
+*/
                // builderView.addTextData(new TextData(R.string.details_monto_compra,StringUtils.getCurrencyValue(movimientosResponse.getImporte())));
 
                 break;
             case COMISION://12
-                layoutComision.setVisibility(VISIBLE);
+                /*layoutComision.setVisibility(VISIBLE);
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
-                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));*/
                 break;
             case COBRO_CON_TARJETA_DISPERSION_ADQ://13
 
                 break;
             case REEMBOLSO_ADQUIRIENTE:
-                layoutVentasTotales.setVisibility(VISIBLE);
-                Double total = movimientosResponse.getTotal() + movimientosResponse.getComision() + movimientosResponse.getIVA();
-                txtVentasTotalesDescription.setText(StringUtils.getCurrencyValue(total));
-                layoutComision.setVisibility(VISIBLE);
-                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
-                layoutIVA.setVisibility(VISIBLE);
-                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
-
+                /*Double total = movimientosResponse.getTotal() + movimientosResponse.getComision() + movimientosResponse.getIVA();
+                DetailBulder builder = new DetailBulder(getContext(),container);
+                builder.createLeaf(new TextData(R.string.details_ventas_totales,StringUtils.getCurrencyValue(total)));
+                builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(movimientosResponse.getComision())));
+                builder.createLeaf(new TextData(R.string.details_iva,StringUtils.getCurrencyValue(movimientosResponse.getIVA())));*/
                 break;
             case DEVOLUCION:
-                layoutConcepto.setVisibility(VISIBLE);
+                /*layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 layoutAutorizacon.setVisibility(GONE);
                 layoutNumeroReferencia.setVisibility(GONE);
-                layoutClaveRastreo.setVisibility(GONE);
+                layoutClaveRastreo.setVisibility(GONE);*/
                 break;
             default:
 
@@ -382,7 +378,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
     }
 
-    private String getReferencuaTitleType(String ref) {
+    /*private String getReferencuaTitleType(String ref) {
         String referencia = ref.replaceAll(" ", "").trim();
         int longitud = referencia.length();
 
@@ -397,7 +393,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         } else {
             return getString(R.string.details_ferencia);
         }
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
