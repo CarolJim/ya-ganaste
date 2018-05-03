@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
@@ -133,9 +134,13 @@ public class ElementWallet {
     }
 
     public ElementWallet getCardSettings() {
+        int cardsAvailable = 0;
+        if (!App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
+            cardsAvailable++;
+        }
         return new ElementWallet(TYPE_SETTINGS, R.drawable.config_card,
-                "Mis Tarjetas", new ElementView().getListConfigCard(),
-                R.string.title_wallet_second_settings, false);
+                App.getContext().getString(R.string.title_wallet_main_settings) + cardsAvailable,
+                new ElementView().getListConfigCard(), R.string.title_wallet_second_settings, false);
     }
 
     public ElementWallet getCardLectorAdq() {
@@ -145,10 +150,10 @@ public class ElementWallet {
             boolean isReload = true;
             if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()) {
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
-                descripcion = R.string.mejor_precio;
+                descripcion = R.string.saldo_reembolso;
             } else {
                 leyenda = "Cobra con tarjeta";
-                descripcion = R.string.saldo_reembolso;
+                descripcion = R.string.mejor_precio;
                 isReload = false;
             }
             return new ElementWallet(TYPE_ADQ, R.mipmap.lector_front, leyenda,

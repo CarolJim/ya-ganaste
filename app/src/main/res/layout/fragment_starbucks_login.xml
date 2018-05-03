@@ -51,7 +51,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center_vertical"
-            android:hint="@string/correo_electronico"
+            android:hint="@string/txt_mail"
             android:maxLines="1"
             android:textColorHint="@color/texthint"
             app:counterEnabled="true"

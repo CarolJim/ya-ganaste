@@ -241,14 +241,12 @@
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
     <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
-    <string name="txt_mail">Correo electrónico</string>
+    <string name="txt_mail">Correo Electrónico</string>
     <string name="txt_mail_requerid">Ingresa el correo electrónico</string>
     <string name="suscribirte_starbucks">Quieres suscribirte?</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu correo electrónico</string>
-    <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono</string>
-    <string name="txt_home_phone">Teléfono</string>
 
     <string name="txt_referencia_envio">Referencia de Envío</string>
     <string name="txt_referencia_servicio">Referencia</string>
@@ -1324,8 +1322,8 @@
     <string name="title_main">Todas tus tarjetas en un solo lugar</string>
     <string name="title_second">Suscribete o inicia sesión en tus programas\nde lealtad favoritos y obten beneficios exclusivos</string>
     <string name="title_button_card">Configurar Tarjetas</string>
-    <string name="title_wallet_main_settings">Mis Tarjetas</string>
-    <string name="title_wallet_second_settings">Tarjetas disponibles: 1</string>
+    <string name="title_wallet_main_settings">Tarjetas Disponibles: </string>
+    <string name="title_wallet_second_settings">Mis programas de lealtad</string>
 
     <!-- Hint's -->
     <string name="hint_referencia_numerica">Referencia numérica (6 dígitos)</string>
@@ -1438,7 +1436,7 @@
     <string name="registrarme">Registrarme</string>
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
-    <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Registrate</string>
+    <string name="no_tienes_cuenta_registrate">¿No tienes cuenta? Regístrate</string>
     <string name="pin_valido">Por favor, ingresa un PIN válido</string>
     <string name="tarjeta_valido">Por favor, ingresa un número de tarjeta válido</string>
 
@@ -1451,7 +1449,7 @@
     <!-- Sucursales Starbucks -->
     <string name="searching_stores">Obteniendo sucursales</string>
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>
-    <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? inicia Sesión</string>
+    <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? Inicia Sesión</string>
 
     >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
     <string name="suscribirse">Suscribirse</string>

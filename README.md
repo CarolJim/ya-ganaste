@@ -12,6 +12,31 @@ Las intrucciones de uso son las siguientes:
     4. Descripciones breves:  Una vez que el código de un branch ya sea autorizado para subirse a master se deberá crear una descripción breve de los cambios que se realizaron en el código.
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
+    
+**_VERSION 4.0.5 - 30 de Abril al 5 de Mayo del 2018 (ID:?)_**
+
+Descripción al desarrollador:
+
+    * Implementación de API Appsee para medición de KPI's de producto.
+    * Implementación de API Countly para medición de KPI's técnicos.
+    * Integración de tarjeta Starbucks con los siguientes módulos:
+        + Registro
+        + LogIn
+        + Movimientos
+        + Sucursales
+        + Rewards
+        + Seleccion de tarjeta principal
+    * Generador de código de barras para pagar con tarjeta Starbucks.
+    * Nueva arquitectura semi-basada en petición y guardado de datos en WS.
+    * Corrección incidencia Tarjeta Reportada.
+    * Corrección incidencia Consulta de Saldos.
+    
+Funcionalidad:
+
+    * Implementación de tarjetas de lealtad.
+    * Correcciones de diseño.
+    * Correcciones de funcionalidad.
+        
 
 **_VERSION 4.0.4 - 6 de Abril al 27 de Abril del 2018 (ID:4594)_**
 
