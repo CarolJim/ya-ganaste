@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.appsee.Appsee;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -25,9 +24,6 @@ import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
-
-import ly.count.android.sdk.Countly;
-import ly.count.android.sdk.DeviceId;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 

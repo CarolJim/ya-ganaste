@@ -4,9 +4,6 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyBJY6xouGAtwh5F9brJlXn1u8juF7P4VBs
     </string>
-    <string name="apsee_key" templateMerge="preserve" translatable="false">
-        f5d29ec35b07442fba48f479cce313a6
-    </string>
     <string name="countly_key" templateMergeStrategy="preserve" translatable="false">
         7130293c5075cda4d03fa941116a40192095ab0a</string>
 
