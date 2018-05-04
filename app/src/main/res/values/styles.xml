@@ -109,7 +109,7 @@
 
     <style name="textDescInputs">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textColor">@color/texthint</item>
+        <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>

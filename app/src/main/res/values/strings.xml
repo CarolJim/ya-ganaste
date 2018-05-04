@@ -232,7 +232,7 @@
     <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste está preparada para que comiences una nueva experiencia y disfrutes de todos los beneficios</string>
     <string name="txt_comenzar">¡Comenzar!</string>
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
-    <string name="txt_escribe_tu_pass">Contraseña</string>
+    <string name="txt_escribe_tu_pass">Contraseña (6 dígitos)</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
@@ -605,7 +605,7 @@
     <string name="no_camera_permission">Esta acción no se puede ejecutar porque no tiene el permiso de cámara</string>
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
-    <string name="no_tiene_tarjeta">No te preocupes, te asignaremos una tarjeta\ndigital y podrás solicitar una física en el futuro</string>
+    <string name="no_tiene_tarjeta">Te asignaremos una tarjeta digital\ny podras solicitar una física en el futuro</string>
     <string name="si_tiene_tarjeta">Ingresa tu los últimos 10 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu tarjeta esta lista</string>
     <string name="tarjeta_cancelada">Tu tarjeta esta cancelada</string>
@@ -1291,7 +1291,7 @@
 
     <!-- Solicitar Pago-->
 
-    <string name="mensaje_enviado">Mensaje Enviado</string>
+    <string name="mensaje_enviado">SMS Enviado</string>
     <string name="head_message">Solicitud de Pago</string>
     <string name="foot_message">Descarga la app y realiza envios mas rapido con Ya Ganaste</string>
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
@@ -1346,8 +1346,8 @@
     <string name="contrasena">Contraseña</string>
     <string name="contrasena_confirma">Confirma contraseña</string>
 
-    <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
+    <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión</string>
+    <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>
     <string name="sub_titulo_domicilio">¿Cuál es la dirección de tu negocio?\nPor defecto, asignamos tu dirección personal</string>
     <string name="sub_titulo_info_adic">Casi estamos listos, necesitamos hacerte algunas\npreguntas más para completar tu registro</string>
 
@@ -1365,10 +1365,10 @@
     <string name="reintentar">Reintentar</string>
 
 
-    <string name="sub_titulo_domicilio_personal">¿Donde vives? es muy importante tener tus datos\ncompletos para continuar con tu registro</string>
+    <string name="sub_titulo_domicilio_personal">Ingresa los datos de tu domicilio\nactualpara terminar tu registro</string>
 
     <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
-    <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
+    <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\ascendentes o descendentes</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
     <string name="introduce_nip_valido">Introduce NIP</string>
