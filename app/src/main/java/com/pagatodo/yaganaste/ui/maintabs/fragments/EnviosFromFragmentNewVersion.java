@@ -403,7 +403,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        clearContent();
         //paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
@@ -1160,6 +1159,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESUL_FAVORITES || resultCode == INTENT_FAVORITE) {
+            clearContent();
             paymentsCarouselPresenter.getCarouselItems();
             paymentsCarouselPresenter.getFavoriteCarouselItems();
         }
