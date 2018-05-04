@@ -64,7 +64,7 @@
                     android:id="@+id/add_favorites_foto_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center_horizontal"
                     android:text="@string/addFoto"
                     android:textColor="@color/colorAccent"
@@ -98,16 +98,16 @@
                     android:gravity="center_vertical"
                     android:hint="@string/favorte_name"
                     android:maxLines="1"
+                    android:paddingLeft="6dp"
                     android:textColorHint="@color/texthint"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute"
-                    android:textColor="@color/grayColor"
-                    android:theme="@style/NewEdittextwalletfavo"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:hintTextAppearance="@style/HintText"
-                    >
+
+
+                    tools:ignore="UnusedAttribute">
 
                     <EditText
                         android:id="@+id/add_favorites_alias"
@@ -117,6 +117,7 @@
                         android:background="@android:color/transparent"
                         android:digits="@string/input_alphanumeric_space_reference"
                         android:imeOptions="actionDone"
+                        android:layout_marginLeft="5.5dp"
                         android:inputType="textCapSentences"
                         android:longClickable="false"
                         android:maxLength="30"
@@ -140,16 +141,11 @@
                     android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute"
-                    android:textColor="@color/grayColor"
-                    android:theme="@style/NewEdittextwalletfavo"
+
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                    app:hintTextAppearance="@style/HintText"
-
-
-                    >
+                    app:hintTextAppearance="@style/HintText">
 
                     <EditText
                         android:id="@+id/add_favorites_list_serv"
@@ -161,7 +157,9 @@
                         android:focusableInTouchMode="false"
                         android:imeOptions="actionNext"
                         android:inputType="text"
+                        android:layout_marginLeft="2.5dp"
                         android:maxLength="37"
+                        android:textSize="14sp"
                         android:textColor="@color/texthint"
                         android:windowSoftInputMode="stateHidden" />
 
@@ -179,13 +177,11 @@
                     android:longClickable="false"
                     android:maxLines="1"
                     android:paddingLeft="8dp"
+                    android:layout_marginLeft="5.5dp"
                     android:textColorHint="@color/texthint"
-
                     android:visibility="gone"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute"
-                    android:textColor="@color/grayColor"
-                    android:theme="@style/NewEdittextwalletfavo"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
@@ -199,6 +195,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginBottom="9dp"
+                        android:layout_marginLeft="5.5dp"
                         android:background="@android:color/transparent"
                         android:focusableInTouchMode="false"
                         android:imeOptions="actionNext"
@@ -257,11 +254,10 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingLeft="6dp"
+                        android:textColor="@color/blue_text_wallet"
+
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute"
-
-                        android:textColor="@color/grayColor"
-                        android:theme="@style/NewEdittextwalletfavo"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
@@ -276,6 +272,7 @@
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionDone"
+                            android:layout_marginLeft="5.5dp"
                             android:inputType="text"
                             android:longClickable="false"
                             android:maxLength="15"
@@ -315,22 +312,16 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:id="@+id/referencianumber"
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_reference"
                         android:maxLines="1"
                         android:paddingLeft="6dp"
-
+                        android:textColor="@color/blue_text_wallet"
+                        android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute"
-
-                        android:textColor="@color/grayColor"
-                        android:theme="@style/NewEdittextwalletfavo"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="1"
-                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                        app:hintTextAppearance="@style/HintText"
-                        >
+                        tools:ignore="UnusedAttribute">
 
                         <EditText
                             android:id="@+id/referenceNumber"
@@ -406,12 +397,8 @@
                         android:maxLines="1"
                         android:paddingLeft="6dp"
                         android:textColorHint="@color/texthint"
-
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute"
-
-                        android:textColor="@color/grayColor"
-                        android:theme="@style/NewEdittextwalletfavo"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"

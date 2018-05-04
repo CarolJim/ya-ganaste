@@ -381,6 +381,8 @@
 
     <style name="FragmentElementWithValidation" parent="FragmentElement">
         <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
+        <item name="android:layout_marginLeft">@dimen/margin_small</item>
+
 
     </style>
 

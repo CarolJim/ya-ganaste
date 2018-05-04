@@ -201,6 +201,21 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_name_favorite;
 
+    @BindView(R.id.referencianumber)
+    TextInputLayout referencianumber;
+
+    @BindView(R.id.add_favorites_tae_ll)
+    LinearLayout add_favorites_tae_ll;
+
+
+
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -590,14 +605,17 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 if (hasFocus) {
                     hideValidationError(editAlias.getId());
                     //   editAlias.imageViewIsGone(true);
+
+                    til_name_favorite.setBackgroundResource(R.drawable.inputtext_active);
                 } else {
                     if (editAlias.getText().toString().isEmpty()) {
                         //showValidationError(editAlias.getId(), getString(R.string.addFavoritesErrorAlias));
                         //editAlias.setIsInvalid();
-
+                        til_name_favorite.setBackgroundResource(R.drawable.inputtext_error);
                         UI.showErrorSnackBar(FavoritesActivity.this, getString(R.string.addFavoritesErrorAlias), Snackbar.LENGTH_SHORT);
                     } else {
                         hideValidationError(editAlias.getId());
+                        til_name_favorite.setBackgroundResource(R.drawable.inputtext_normal);
                         // editAlias.setIsValid();
                     }
                 }
@@ -616,12 +634,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     if (hasFocus) {
                         hideValidationError(editRefer.getId());
                         editRefer.imageViewIsGone(true);
+                        helpLinearTaeRef.setBackgroundResource(R.drawable.inputtext_active);
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            helpLinearTaeRef.setBackgroundResource(R.drawable.inputtext_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
+                            helpLinearTaeRef.setBackgroundResource(R.drawable.inputtext_normal);
                             editRefer.setIsValid();
                         }
                     }
@@ -636,12 +657,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     if (hasFocus) {
                         hideValidationError(editRefer.getId());
                         editRefer.imageViewIsGone(true);
+                        referencianumber.setBackgroundResource(R.drawable.inputtext_active);
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            referencianumber.setBackgroundResource(R.drawable.inputtext_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
+                            referencianumber.setBackgroundResource(R.drawable.inputtext_normal);
                             editRefer.setIsValid();
                         }
                     }
@@ -655,13 +679,16 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     editRefer.setText(cardNumber.getText().toString());
                     if (hasFocus) {
                         hideValidationError(editRefer.getId());
+                        layout_cardNumber.setBackgroundResource(R.drawable.inputtext_active);
                         editRefer.imageViewIsGone(true);
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
+                            layout_cardNumber.setBackgroundResource(R.drawable.inputtext_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
+                            layout_cardNumber.setBackgroundResource(R.drawable.inputtext_normal);
                             editRefer.setIsValid();
                         }
                     }
