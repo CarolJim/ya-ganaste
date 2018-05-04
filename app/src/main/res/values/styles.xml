@@ -399,6 +399,15 @@
 
     </style>
 
+    <style name="NewEdittextwalletfavo" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:paddingLeft">5.5dp</item>
+        <item name="android:layout_marginBottom">9dp</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/texthint</item>
+
+    </style>
+
     <style name="NewEdittextwalletdos">
         <item name="android:paddingLeft">15sp</item>
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>

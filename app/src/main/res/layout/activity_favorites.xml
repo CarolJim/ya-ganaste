@@ -64,7 +64,7 @@
                     android:id="@+id/add_favorites_foto_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_horizontal"
                     android:text="@string/addFoto"
                     android:textColor="@color/colorAccent"
@@ -98,11 +98,16 @@
                     android:gravity="center_vertical"
                     android:hint="@string/favorte_name"
                     android:maxLines="1"
-                    android:paddingLeft="6dp"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute">
+                    tools:ignore="UnusedAttribute"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwalletfavo"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+                    >
 
                     <EditText
                         android:id="@+id/add_favorites_alias"
@@ -134,9 +139,17 @@
                     android:maxLines="1"
                     android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute">
+                    tools:ignore="UnusedAttribute"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwalletfavo"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+
+
+                    >
 
                     <EditText
                         android:id="@+id/add_favorites_list_serv"
@@ -167,10 +180,18 @@
                     android:maxLines="1"
                     android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
-                    android:theme="@style/TextLabel"
+
                     android:visibility="gone"
                     app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute">
+                    tools:ignore="UnusedAttribute"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwalletfavo"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+
+                    >
 
                     <EditText
                         android:id="@+id/add_favorites_tipo"
@@ -236,10 +257,16 @@
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingLeft="6dp"
-                        android:textColor="@color/blue_text_wallet"
-                        android:theme="@style/TextLabel"
                         app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute">
+                        tools:ignore="UnusedAttribute"
+
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwalletfavo"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        >
 
                         <EditText
                             android:id="@+id/recargaNumber"
@@ -269,6 +296,7 @@
                             android:id="@+id/imgMakePaymentContact"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:tint="@color/colorAccent"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -292,10 +320,17 @@
                         android:hint="@string/hint_reference"
                         android:maxLines="1"
                         android:paddingLeft="6dp"
-                        android:textColor="@color/blue_text_wallet"
-                        android:theme="@style/TextLabel"
+
                         app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute">
+                        tools:ignore="UnusedAttribute"
+
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwalletfavo"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        >
 
                         <EditText
                             android:id="@+id/referenceNumber"
@@ -325,6 +360,7 @@
                             android:id="@+id/imgMakePaymentRef"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
+                            android:tint="@color/colorAccent"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -370,9 +406,17 @@
                         android:maxLines="1"
                         android:paddingLeft="6dp"
                         android:textColorHint="@color/texthint"
-                        android:theme="@style/TextLabel"
+
                         app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute">
+                        tools:ignore="UnusedAttribute"
+
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwalletfavo"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        >
 
                         <EditText
                             android:id="@+id/cardNumber"
@@ -403,6 +447,7 @@
                             android:id="@+id/imgMakePaymentContact2"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:tint="@color/colorAccent"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
 
@@ -418,6 +463,7 @@
                             android:id="@+id/imgScanQr"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:tint="@color/colorAccent"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
                 </LinearLayout>
