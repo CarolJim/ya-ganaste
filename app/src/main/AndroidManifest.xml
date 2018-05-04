@@ -186,7 +186,7 @@
         <activity android:name=".ui_wallet.SearchCarrierActivity" />
         <activity
             android:name=".ui._controllers.manager.FavoritesActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 
