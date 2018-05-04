@@ -397,8 +397,8 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para vincular tu cuenta a este\ndispositivo, debemos enviar un SMS</string>
-    <string name="activacion_sms_mes_2">Pulsa el siguiente botón para realizar\neste proceso</string>
+    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociartu número telefónico con tu\cuenta Ya Ganaste</string>
+    <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando activación de dispositivo</string>
     <!--tienes_tarjeta-->
