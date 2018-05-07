@@ -45,11 +45,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
 
     public static final String ITEM_OPERATION = "ITEM_OPERATION";
+    public static final int ERROR_STATUS = 12;
 
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
@@ -292,7 +295,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         selectDots(previous_pos, position);
         pageCurrent = position;
         updateOperations(position);
-
     }
 
     @Override
@@ -303,7 +305,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private void checkDataCard() {
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            //Verificamos el estado de bloqueo de la Card
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
                 UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
@@ -322,16 +323,22 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void setErrorSaldo(String errorSaldo) {
-        //upDateSaldo(saldoDefault);
         UI.showErrorSnackBar(getActivity(),errorSaldo,Snackbar.LENGTH_SHORT);
     }
 
     @Override
-    public void sendErrorInfoAgente() {
-        /*UI.showAlertDialog(getContext(),"No se pudo obtenr la informacion", (dialogInterface, i) -> {
-            getActivity().finish();
-        });*/
-        onEventListener.onEvent(EVENT_LOGOUT,null);
+    public void sendError(int codeError) {
+        switch (codeError){
+            case CODE_OFFLINE:
+                showDialogMesage(getResources().getString(R.string.no_internet_access));
+                break;
+            case ERROR_STATUS:
+                walletPresenter.getWalletsCards(false);
+                break;
+            case CODE_ERROR_INFO_AGENTE:
+                onEventListener.onEvent(EVENT_LOGOUT,null);
+                break;
+        }
     }
 }
 

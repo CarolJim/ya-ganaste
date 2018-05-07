@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.interactors;
 
 
-import android.os.Handler;
-
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -11,13 +9,11 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaR
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
@@ -26,14 +22,13 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.utils.Recursos;
 
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ERROR_STATUS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
-import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -90,12 +85,14 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void getStatusAccount(EstatusCuentaRequest request) {
-        try {
+        this.listener.onFailed(ERROR_STATUS, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
+
+        /*try {
             ApiTrans.estatusCuenta(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-        }
+        }*/
     }
 
     @Override
@@ -104,7 +101,7 @@ public class WalletInteractorImpl implements WalletInteractor {
             ApiAdtvo.getInformacionAgente(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            listener.onFailed(Recursos.CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
+            listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -129,7 +126,6 @@ public class WalletInteractorImpl implements WalletInteractor {
                 this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
                 break;
             case CONSULTAR_SALDO_ADQ:
-                //validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
                 break;
             case CONSULTAR_SALDO_SB:
@@ -158,8 +154,8 @@ public class WalletInteractorImpl implements WalletInteractor {
             case CONSULTAR_MOVIMIENTOS_MES:
                 this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
                 break;
-            case CONSULTAR_SALDO_SB:
-                this.listener.onFailedSaldo(error.getData().toString());
+            case ESTATUS_CUENTA:
+                this.listener.onFailed(ERROR_STATUS,Recursos.NO_ACTION,error.getData().toString());
                 break;
         }
 
@@ -168,7 +164,6 @@ public class WalletInteractorImpl implements WalletInteractor {
     private void validateResponse(ConsultarMovimientosMesResponse response) {
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             listener.onSuccesMovements(response);
-            //onSuccesResponse(response);
         } else {
             listener.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
         }

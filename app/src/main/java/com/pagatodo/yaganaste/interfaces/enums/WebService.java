@@ -175,7 +175,9 @@ public enum WebService {
     /* Datos persona para registro starbucks */
     DATOSPERSONAREGISTROSTAR,
     /* Obtener Sucursales Starbucks */
-    GET_STARBUCKS_STORES
+    GET_STARBUCKS_STORES,
+    /*cancelar cuenta*/
+    CANCELACCOUNT
 
 
 }

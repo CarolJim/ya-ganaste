@@ -25,11 +25,13 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ERROR_STATUS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
@@ -50,7 +52,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 public class WalletPresenterImpl implements WalletPresenter, WalletNotification {
 
     private IWalletView walletView;
-    private IMovementsEmisorView movementsEmisorView;
+    //private IMovementsEmisorView movementsEmisorView;
     private WalletInteractor walletInteractor;
 
     public WalletPresenterImpl(IWalletView walletView) {
@@ -98,20 +100,12 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         if (walletView != null) {
             walletView.hideProgress();
             walletView.getPagerAdapter(ContainerBuilder.getCardWalletAdapter(error));
-
         }
     }
 
-    /*@Override
-    public void onSuccessEmisor(String responds) {
-        App.getInstance().getPrefs().saveData(USER_BALANCE, responds);
-        walletView.getSaldo();
-    }*/
-
-
     @Override
     public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
-        if (movementsEmisorView != null) {
+        /*if (movementsEmisorView != null) {
 
             List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
             String[] date;
@@ -132,7 +126,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             }
             movementsEmisorView.loadMovementsResult(movementsList);
             movementsEmisorView.hideProgress();
-        }
+        }*/
     }
 
 
@@ -165,17 +159,27 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onFailed(int errorCode, int action, String error) {
         walletView.hideProgress();
-        if (errorCode != CODE_ERROR_INFO_AGENTE) {
+        walletView.sendError(errorCode);
+        /*switch (errorCode){
+            case CODE_OFFLINE:
+
+                break;
+        }*/
+
+        /*if (errorCode != CODE_ERROR_INFO_AGENTE) {
             if (walletView != null) {
                 walletView.setError(error);
             } else if (this.movementsEmisorView != null) {
                 movementsEmisorView.setError(error);
                 movementsEmisorView.hideProgress();
             }
+        } else if (errorCode == ERROR_STATUS){
+            walletView.sendErrorStatus();
         } else {
             walletView.sendErrorInfoAgente();
             walletView.hideProgress();
-        }
+        }*/
+
     }
 
     @Override

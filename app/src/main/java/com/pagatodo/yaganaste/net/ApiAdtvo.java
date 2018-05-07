@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CancelRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
@@ -106,6 +107,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FOTO_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELACCOUNT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
@@ -930,5 +932,19 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(GET_NEXT_DATA_NOTIFICATION,
                 METHOD_POST, URL_SERVER_FB + App.getContext().getString(R.string.queryNotifUser),
                 headers, request, ListaNotificationResponse.class, result);
+    }
+
+    public static void cancelAccount(CancelRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put("Content-type", "application/json");
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put("TokenAdquirente",RequestHeaders.getTokensesion());
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        NetFacade.consumeWS(CANCELACCOUNT,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.cancelarCuenta),
+                headers, request, GenericResponse.class, result);
+
     }
 }

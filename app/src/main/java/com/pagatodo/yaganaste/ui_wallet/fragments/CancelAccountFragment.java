@@ -16,10 +16,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CancelRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.IRequestResult;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
@@ -46,11 +57,17 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELACCOUNT;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_CANCEL_RESULT;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_USUARIO_ADQUIRIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
-public class CancelAccountFragment extends SupportFragment implements View.OnClickListener {
+public class CancelAccountFragment extends SupportFragment implements View.OnClickListener, IRequestResult {
 
     private View rootView;
     public static final String TITLE = "TITLE";
@@ -66,6 +83,8 @@ public class CancelAccountFragment extends SupportFragment implements View.OnCli
     StyleTextView titleTextView;
     @BindView(R.id.description)
     StyleTextView descTextView;
+    @BindView(R.id.edt_block_password)
+    EditText editTextPass;
     @BindView(R.id.btnEntendido)
     StyleButton btn;
 
@@ -209,7 +228,7 @@ public class CancelAccountFragment extends SupportFragment implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
             if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
 
                 // Show the fingerprint dialog. The user has the option to use the fingerprint with
@@ -242,20 +261,102 @@ public class CancelAccountFragment extends SupportFragment implements View.OnCli
                 fragment.setFragmentInstance(this);
                 fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
             }
+        }*/
+        boolean isValid = true;
+        String errorMsg = null;
+        if (editTextPass.getText().toString().isEmpty()) {
+            errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
+            //edtPin.setIsInvalid();
+            isValid = false;
         }
+        if (editTextPass.getText().toString().length() < 6) {
+            errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required_seis) : errorMsg;
+            //edtPin.setIsInvalid();
+            isValid = false;
+        }
+        if (isValid){
+            boolean isOnline = Utils.isDeviceOnline();
+            if (isOnline) {
+                onValidationSuccess();
+            } else {
+                UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+            }
+        } else {
+            UI.showErrorSnackBar(getActivity(), errorMsg, Snackbar.LENGTH_SHORT);
+        }
+    }
+
+    private void onValidationSuccess() {
+        SingletonUser singletonUser = SingletonUser.getInstance();
+        DataIniciarSesion data = singletonUser.getDataUser();
+        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        int idafiliacion = 2;
+
+        if (Idestatus == IdEstatus.I5.getId()){
+            idafiliacion = 1;
+        }
+
+        if (Idestatus == IdEstatus.ADQUIRENTE.getId()){
+            idafiliacion = 3;
+        }
+        String IdUsuarioAdquirente = App.getInstance().getPrefs().loadData(ID_USUARIO_ADQUIRIENTE);
+        if (IdUsuarioAdquirente.isEmpty()){
+            IdUsuarioAdquirente = "0";
+        }
+        CancelRequest request = new CancelRequest(RequestHeaders.getIdCuenta(),idafiliacion,IdUsuarioAdquirente);
+        cancelAccount(request);
     }
 
     public void loadOtpHuella() {
         //// Succes de la validación de huella digital
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            /*Preferencias preferencias = App.getInstance().getPrefs();
-            String[] pass = Utils.cipherAES(preferencias.loadData(PSW_CPR), false).split("-");
-            accountPresenter.login(RequestHeaders.getUsername(), pass[0]);
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
-            */
+            SingletonUser singletonUser = SingletonUser.getInstance();
+            DataIniciarSesion data = singletonUser.getDataUser();
+            int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+            int idafiliacion = 2;
+
+            if (Idestatus == IdEstatus.I5.getId()){
+                idafiliacion = 1;
+            }
+
+            if (Idestatus == IdEstatus.ADQUIRENTE.getId()){
+                idafiliacion = 3;
+            }
+            CancelRequest request = new CancelRequest(RequestHeaders.getIdCuenta(),idafiliacion,App.getInstance().getPrefs().loadData(ID_USUARIO_ADQUIRIENTE));
+            cancelAccount(request);
         } else {
             UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         }
+    }
+
+
+
+    /**
+     * Service Cancel
+     */
+    public void cancelAccount(CancelRequest request) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER,getString(R.string.load_cancel));
+        try {
+            ApiAdtvo.cancelAccount(request, this);
+        } catch (OfflineException e) {
+            UI.showErrorSnackBar(getActivity(),App.getContext().getString(R.string.no_internet_access),Snackbar.LENGTH_SHORT);
+        }
+    }
+
+    @Override
+    public void onSuccess(DataSourceResult dataSourceResult) {
+        if (((GenericResponse)dataSourceResult.getData()).getCodigoRespuesta() == CODE_OK)
+            onEventListener.onEvent(PREFER_CANCEL_RESULT,null);
+        else {
+            onEventListener.onEvent(EVENT_HIDE_LOADER,null);
+            UI.showErrorSnackBar(getActivity(),((GenericResponse)dataSourceResult.getData()).getMensaje(),Snackbar.LENGTH_SHORT);
+        }
+    }
+
+    @Override
+    public void onFailed(DataSourceResult error) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER,null);
+        UI.showErrorSnackBar(getActivity(),((GenericResponse)error.getData()).getMensaje(),Snackbar.LENGTH_SHORT);
     }
 }

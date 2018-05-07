@@ -62,6 +62,49 @@
         app:layout_constraintTop_toBottomOf="@+id/cancelTitle"
         app:layout_constraintVertical_bias="0.003" />
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/hint_password"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:hintTextAppearance="@style/HintText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/edt_block_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="9dp"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:paddingLeft="15dp"
+            android:password="true"
+            android:singleLine="true"
+            android:textColor="@color/grayColor"
+            android:theme="@style/NewEdittextwallet" />
+
+    </android.support.design.widget.TextInputLayout>
+
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btnEntendido"
         style="@style/buttonSquareRoundedBlue"

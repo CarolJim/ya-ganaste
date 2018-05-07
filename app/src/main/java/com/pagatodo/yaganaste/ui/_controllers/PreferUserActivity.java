@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.CancelResultFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
@@ -100,6 +101,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_NOTIFICACIONES_BACK = "PREFER_NOTIFICACIONES_BACK";
     public static String PREFER_DESVINCULAR = "PREFER_DESVINCULAR";
     public static String PREFER_SECURITY_SUCCESS_PASS = "PREFER_SECURITY_SUCCESS_PASS";
+
+    public static String PREFER_CANCEL = "PREFER_CANCEL";
+    public static String PREFER_CANCEL_RESULT = "PREFER_CANCEL_RESULT";
     /**
      * Acciones para dialogo de confirmacion en cerrar session
      */
@@ -443,6 +447,17 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_CANCELACION":
                 loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title),getResources().getString(R.string.cacncel_desc)),Direction.FORDWARD, false);
                 break;
+            case "PREFER_CANCEL_RESULT":
+                loadFragment(CancelResultFragment.newInstance(),Direction.FORDWARD, false);
+                break;
+                case "PREFER_CANCEL":
+                finish();
+                Intent intent = new Intent(this,SplashActivity.class);
+                startActivity(intent);
+                break;
+
+
+
 
         }
     }

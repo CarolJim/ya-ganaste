@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 
 import java.security.KeyStore;
 
@@ -266,37 +267,22 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
             case FINGERPRINT:
                 if (fragmentInstance instanceof BlockCardFragment) {
                     fingerprint_titulo.setText("Bloquear Tarjeta ");
-                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            dismiss();
-                        }
-                    });
+                    mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
 
                     fingerprint_titulo.setText(R.string.generar_codigo_seguridad);
-                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            dismiss();
-                        }
-                    });
+                    mSecondDialogButton.setOnClickListener(view -> dismiss());
 
                 } else if (fragmentInstance instanceof PaymentAuthorizeFragment) {
 
                     fingerprint_titulo.setText(R.string.authorize_payment_title);
-                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
+                    mSecondDialogButton.setOnClickListener(view -> dismiss());
+                } else if (fragmentInstance instanceof CancelAccountFragment) {
 
-                        @Override
-                        public void onClick(View view) {
-                            dismiss();
-
-                        }
-                    });
-
+                    fingerprint_titulo.setText("Autoriza esta operación");
+                    mSecondDialogButton.setOnClickListener(view -> dismiss());
                 }
+
                 mCancelButton.setText(R.string.cancel);
                 mSecondDialogButton.setText(R.string.use_password);
 
@@ -312,13 +298,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
                 mSecondDialogButton.setVisibility(View.GONE);
-                mCancelButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        dismiss();
-                    }
-                });
+                mCancelButton.setOnClickListener(view -> dismiss());
                 break;
             case PASSWORD:
                 mCancelButton.setText(R.string.cancel);
@@ -326,12 +306,9 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
                 mPasswordDescriptionTextView.setText("No existe una huella digital registrada, por favor \ningrese a configuración");
-                mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                        startActivity(intent);
-                    }
+                mSecondDialogButton.setOnClickListener(view -> {
+                    Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                    startActivity(intent);
                 });
                 if (mStage == Stage.NEW_FINGERPRINT_ENROLLED) {
                     mPasswordDescriptionTextView.setVisibility(View.GONE);

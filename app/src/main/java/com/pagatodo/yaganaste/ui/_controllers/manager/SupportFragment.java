@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -7,13 +8,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.List;
+
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
 public abstract class SupportFragment extends GenericFragment {
 
@@ -89,6 +97,12 @@ public abstract class SupportFragment extends GenericFragment {
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        SingletonSession.getInstance().setFinish(true);//Terminamos CupoStatusFragment si va a background
+                        new App().cerrarAppsms();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra(SELECTION, MAIN_SCREEN);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
 
                     @Override
