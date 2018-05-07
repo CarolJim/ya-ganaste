@@ -398,7 +398,7 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu\cuenta Ya Ganaste</string>
+    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando activación de dispositivo</string>
@@ -519,7 +519,7 @@
     <string name="transfer_card_unavailable">No disponible</string>
     <string name="saldo_pendiente">Saldo por\nreembolsar</string>
     <string name="saldo_reembolso">Saldo a reembolsar</string>
-    <string name="saldo_disponible">Saldo disponible</string>
+    <string name="saldo_disponible">Saldo Disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>
     <string name="mejor_precio">¡Al mejor precio!</string>
@@ -1182,7 +1182,7 @@
 
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
-    <string name="saldo_disponible_enviar">Saldo disponible: </string>
+    <string name="saldo_disponible_enviar">Saldo Disponible: </string>
     <string name="monto_a_enviar">Monto a Enviar: </string>
     <string name="solicitar_pago_text">Solicitar Pago Por: </string>
     <string name="ingresa_monto">Ingresa el monto</string>
