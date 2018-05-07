@@ -864,6 +864,8 @@
 
     <style name="CustomProgressBar" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/whiteColor</item>
+        <item name="android:thicknessRatio">224</item>
+
     </style>
 
     <!-- Wallet Style Guide by Zeplin -->

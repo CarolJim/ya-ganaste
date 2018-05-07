@@ -73,6 +73,7 @@
             android:id="@+id/edtCorreoRegistrado"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:theme ="@style/NewEdittextwallet"
             android:layout_marginBottom="9dp"
             android:background="@android:color/transparent"
             android:cursorVisible="false"

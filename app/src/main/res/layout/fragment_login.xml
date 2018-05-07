@@ -82,21 +82,20 @@
                 app:counterMaxLength="1"
                 app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute">
+                app:passwordToggleTint="@color/colorAccent"
+                >
 
                 <EditText
                     android:id="@+id/editUserName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:theme ="@style/NewEdittextwallet"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
-                    android:cursorVisible="false"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:paddingLeft="15dp"
                     android:singleLine="true"
-                    android:theme ="@style/NewEdittextwallet"
                     android:textColor="@color/grayColor"
                     android:textColorHint="@color/texthint" />
 
@@ -125,8 +124,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
-                    android:cursorVisible="false"
                     android:imeOptions="actionDone"
+                    android:theme ="@style/NewEdittextwallet"
                     android:inputType="textPassword"
                     android:paddingLeft="15dp"
                     android:password="true"

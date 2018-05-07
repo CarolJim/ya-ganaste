@@ -23,16 +23,6 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <!--<pl.droidsonroids.gif.GifImageView
-                android:id="@+id/imgloader"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/load_reloj"
-                tools:ignore="ContentDescription" />-->
-
             <ProgressBar
                 android:id="@+id/pgbLoader"
                 style="@style/Widget.AppCompat.ProgressBar"
@@ -40,7 +30,7 @@
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_margin="30dp"
-                android:indeterminate="true"
+
                 android:theme="@style/CustomProgressBar"
                 android:visibility="visible" />
 

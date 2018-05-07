@@ -640,7 +640,7 @@
 
     <string name="recupera_contrasenia_title">Restablece tu contraseña</string>
     <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
-    <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes generar una\nnueva, te enviaremos las instrucciones.\n\nSe enviará un correo a:</string>
+    <string name="enviaremos_enlace_restablecer">Ingresa el correo electrónico que\nregistraste para recuperar tu contraseña</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico con el que te\nregistraste para enviarte las instrucciones</string>
     <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
@@ -1202,7 +1202,7 @@
     <string name="send_sms">Enviar SMS</string>
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">¡Bloquea tu tarjeta!</string>
-    <string name="block_your_card_subtitle">Si tienes algún problema con tu tarjeta bloquéala\ntemporalmente ingresando tu contraseña</string>
+    <string name="block_your_card_subtitle">Si tienes algún problema con tu tarjeta bloquéala\ntemporalmente ingresando tu contraseña.</string>
     <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
