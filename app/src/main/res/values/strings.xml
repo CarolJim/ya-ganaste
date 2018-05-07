@@ -639,7 +639,7 @@
 
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Reestablece tu contraseña</string>
+    <string name="recupera_contrasenia_title">Reestablece tu Contraseña</string>
     <string name="recupera_contrasenia_title2">Reestablece aquí tu contraseña</string>
     <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contrseña</string>
@@ -1207,7 +1207,7 @@
     <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
-    <string name="generate_code_subtitle">Con él podrás autorizar movimientos desde la\nweb. Ingresa tu contraseña para generarlo.</string>
+    <string name="generate_code_subtitle">Para autorizar movimientos desde la web.\nIngresa tu contraseña para generarlo.</string>
     <string name="title_configure_dongle">Configurar lector de tarjetas</string>
     <string name="dongle_battery">Batería del lector</string>
     <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
