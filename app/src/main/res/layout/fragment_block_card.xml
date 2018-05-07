@@ -119,6 +119,7 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="20dp"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/txt_iniciar_sesion" />
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

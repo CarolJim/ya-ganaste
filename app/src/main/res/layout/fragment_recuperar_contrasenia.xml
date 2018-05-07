@@ -23,7 +23,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="130dp"
         app:srcCompat="@drawable/ic_recover_pass_blue" />
 
     <LinearLayout
@@ -123,6 +123,7 @@
                 android:id="@+id/btnNextRecuperar"
                 style="@style/buttonSquareRoundedBlue"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:text="@string/send_email" />
         </LinearLayout>
     </LinearLayout>

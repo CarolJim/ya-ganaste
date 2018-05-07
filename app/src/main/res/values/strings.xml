@@ -639,8 +639,8 @@
 
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Restablece tu contraseña</string>
-    <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
+    <string name="recupera_contrasenia_title">Reestablece tu contraseña</string>
+    <string name="recupera_contrasenia_title2">Reestablece aquí tu contraseña</string>
     <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contrseña</string>
     <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
@@ -887,8 +887,8 @@
     <string name="solicitacredito">Solicita tu línea de crédito *</string>
     <string name="notifications">Notificaciones</string>
     <string name="datos_nombre_titular">Titular</string>
-    <string name="my_card_change_nip">Cambia NIP</string>
-    <string name="my_card_report">Reporta tu tarjeta</string>
+    <string name="my_card_change_nip">Cambiar NIP</string>
+    <string name="my_card_report">Reportar Tarjeta</string>
 
     <!--start Cupo Strings-->
     <string name="txt_contacto">¿Tienes dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
@@ -1188,9 +1188,9 @@
     <string name="ingresa_monto">Ingresa el monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
-    <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
+    <string name="subtitle_bloquear_tarjeta">Deshabilitar tu tarjeta temporalmente</string>
     <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
-    <string name="bloquear_tarjeta_admin">Bloquear tarjeta</string>
+    <string name="bloquear_tarjeta_admin">Bloquear Tarjeta</string>
     <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
@@ -1203,7 +1203,7 @@
     <string name="send_sms">Enviar SMS</string>
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">¡Bloquea tu tarjeta!</string>
-    <string name="block_your_card_subtitle">Si tienes algún problema con tu tarjeta bloquéala\ntemporalmente ingresando tu contraseña.</string>
+    <string name="block_your_card_subtitle">Si tienes algún problema con tu\ntarjeta bloquéala temporalmente\ningresando tu contraseña.</string>
     <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
@@ -1298,8 +1298,8 @@
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
     <string name="link_message">https://goo.gl/eiCgN6</string>
 
-    <string name="administracion">Administrar tarjeta</string>
-    <string name="title_fragment_nip">Cambia tu NIP</string>
+    <string name="administracion">Administrar Tarjeta</string>
+    <string name="title_fragment_nip">Cambiar tu NIP</string>
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>
