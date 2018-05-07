@@ -16,7 +16,8 @@
         android:layout_marginBottom="40dp"
         android:layout_marginTop="56dp"
         android:gravity="center"
-        android:text="@string/tu_codigo" />
+        android:text="@string/tu_codigo"
+        android:textColor="@color/colorAccent" />
 
     <FrameLayout
         android:layout_width="212dp"

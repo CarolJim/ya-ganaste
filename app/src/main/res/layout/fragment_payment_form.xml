@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="#fbfbfb"
     android:orientation="vertical"
-    tools:background="#000"
     tools:context="com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment">
 
 
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@color/whiteColor"
+                android:background="@drawable/inputtext_normal"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -59,10 +58,10 @@
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/anim_onboarding"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        app:lottie_autoPlay="true"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        app:lottie_autoPlay="true"
                         app:lottie_loop="true"
                         app:lottie_rawRes="@raw/transaccion_payment" />
 
@@ -189,9 +188,9 @@
                     android:id="@+id/txtgiro"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="horizontal">
 
@@ -199,10 +198,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-
                         android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/textmontorecarga"
@@ -225,39 +222,34 @@
                             android:visibility="visible" />
 
                     </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="11dp"
-                        android:src="@drawable/ico_select" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:id="@+id/txt_num_telefono"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/inputtext_normal"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_num_telefono"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:hint="@string/numero_telefono"
+                        android:longClickable="false"
                         android:maxLines="1"
-                        android:textColor="@color/blue_text_wallet"
+                        android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        android:textColorHint="@color/hint_color"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -269,16 +261,11 @@
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionDone"
-                            android:inputType="text"
-                            android:longClickable="false"
-                            android:textColorHint="@color/hint_color"
+                            android:inputType="number"
                             android:maxLength="12"
-                            android:maxLines="1"
-                            android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
                             android:textColor="@color/grayColor"
-                            android:textSize="14sp" />
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -293,7 +280,8 @@
                             android:id="@+id/imgMakePaymentContact"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/icono_agenda" />
+                            android:src="@drawable/icono_agenda"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -307,7 +295,8 @@
                             android:id="@+id/imgMakePaymentRefIAVE"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -332,24 +321,26 @@
                 <LinearLayout
                     android:id="@+id/txt_monotserv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/inputtext_normal"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_num_telefono2"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:hint="@string/details_monto"
+                        android:longClickable="false"
                         android:maxLines="1"
-                        android:textColor="@color/blue_text_wallet"
+                        android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        android:textColorHint="@color/hint_color"
                         app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
@@ -366,38 +357,38 @@
                             android:inputType="numberDecimal"
                             android:longClickable="false"
                             android:maxLength="10"
-                            android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:textColorHint="@color/hint_color"
-                            android:theme ="@style/NewEdittextwallet"
                             android:textColor="@color/grayColor"
-                            android:textSize="14sp" />
+                            android:textColorHint="@color/hint_color"
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="8dp"
                     android:id="@+id/txt_referenciaserv"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/inputtext_normal"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_num_telefono3"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_weight="2"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:hint="@string/txt_numero_referencia"
+                        android:longClickable="false"
                         android:maxLines="1"
-                        android:textColor="@color/blue_text_wallet"
+                        android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        android:textColorHint="@color/hint_color"
                         app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:passwordToggleTint="@color/hint_color"
@@ -409,18 +400,12 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
-                            android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:longClickable="false"
-                            android:textColorHint="@color/hint_color"
                             android:maxLength="12"
-                            android:maxLines="1"
-                            android:paddingLeft="15dp"
                             android:singleLine="true"
                             android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor"
-                            android:textSize="14sp" />
+                            android:textColor="@color/grayColor" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -437,29 +422,32 @@
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_margin="5dp"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:id="@+id/txtconcepto"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/inputtext_normal"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_num_telefono9"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_concepto"
-                        android:textColorHint="@color/hint_color"
+                        android:longClickable="false"
                         android:maxLines="1"
-                        android:textColor="@color/blue_text_wallet"
+                        android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
                         app:hintTextAppearance="@style/HintText"
@@ -478,13 +466,10 @@
                             android:imeOptions="actionDone"
                             android:inputType="textCapSentences"
                             android:longClickable="false"
-                            android:textColorHint="@color/hint_color"
                             android:maxLength="40"
-                            android:paddingLeft="15dp"
                             android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
                             android:textColor="@color/grayColor"
-                            android:textSize="14sp" />
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

@@ -339,6 +339,7 @@
     <string name="confirma_nip">Confirma tu NIP</string>
     <string name="new_password">Nueva Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
+    <string name="passworddigitos">Contraseña (6 dígitos)</string>
     <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
     <string name="datos_usuario_correo">El correo no es correcto, revísalo y vuelve a intentar.</string>
     <string name="datos_usuario_correo_formato">El correo no es válido</string>
@@ -398,8 +399,8 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para vincular tu cuenta a este\ndispositivo, debemos enviar un SMS</string>
-    <string name="activacion_sms_mes_2">Pulsa el siguiente botón para realizar\neste proceso</string>
+    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu cuenta Ya Ganaste</string>
+    <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando activación de dispositivo</string>
     <!--tienes_tarjeta-->
@@ -519,7 +520,7 @@
     <string name="transfer_card_unavailable">No disponible</string>
     <string name="saldo_pendiente">Saldo por\nreembolsar</string>
     <string name="saldo_reembolso">Saldo a reembolsar</string>
-    <string name="saldo_disponible">Saldo disponible</string>
+    <string name="saldo_disponible">Saldo Disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>
     <string name="mejor_precio">¡Al mejor precio!</string>
@@ -606,7 +607,7 @@
     <string name="no_camera_permission">Esta acción no se puede ejecutar porque no tiene el permiso de cámara</string>
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
-    <string name="no_tiene_tarjeta">No te preocupes, te asignaremos una tarjeta\ndigital y podrás solicitar una física en el futuro</string>
+    <string name="no_tiene_tarjeta">Te asignaremos una tarjeta digital\ny podras solicitar una física en el futuro</string>
     <string name="si_tiene_tarjeta">Ingresa tu los últimos 10 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu tarjeta esta lista</string>
     <string name="tarjeta_cancelada">Tu tarjeta esta cancelada</string>
@@ -639,10 +640,10 @@
 
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Restablece tu contraseña</string>
-    <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
-    <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes generar una\nnueva, te enviaremos las instrucciones.\n\nSe enviará un correo a:</string>
-    <string name="ingresa_correo_registrado">Ingresa el correo electrónico con el que te\nregistraste para enviarte las instrucciones</string>
+    <string name="recupera_contrasenia_title">Reestablece tu contraseña</string>
+    <string name="recupera_contrasenia_title2">Reestablece aquí tu contraseña</string>
+    <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
+    <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contrseña</string>
     <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
     <string name="carrouse_title_1">Cobra con tarjeta\nal mejor precio</string>
@@ -887,8 +888,8 @@
     <string name="solicitacredito">Solicita tu línea de crédito *</string>
     <string name="notifications">Notificaciones</string>
     <string name="datos_nombre_titular">Titular</string>
-    <string name="my_card_change_nip">Cambia NIP</string>
-    <string name="my_card_report">Reporta tu tarjeta</string>
+    <string name="my_card_change_nip">Cambiar NIP</string>
+    <string name="my_card_report">Reportar Tarjeta</string>
 
     <!--start Cupo Strings-->
     <string name="txt_contacto">¿Tienes dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
@@ -1182,15 +1183,15 @@
 
     <!-- Wallet -->
     <string name="opciones">Operaciones</string>
-    <string name="saldo_disponible_enviar">Saldo disponible: </string>
+    <string name="saldo_disponible_enviar">Saldo Disponible: </string>
     <string name="monto_a_enviar">Monto a Enviar: </string>
     <string name="solicitar_pago_text">Solicitar Pago Por: </string>
     <string name="ingresa_monto">Ingresa el monto</string>
     <string name="enviar_dinero">Enviar Dinero</string>
     <string name="solicitar_pago">Solicitar Pago</string>
-    <string name="subtitle_bloquear_tarjeta">Deshabilita tu tarjeta temporalmente</string>
+    <string name="subtitle_bloquear_tarjeta">Deshabilitar tu tarjeta temporalmente</string>
     <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
-    <string name="bloquear_tarjeta_admin">Bloquear tarjeta</string>
+    <string name="bloquear_tarjeta_admin">Bloquear Tarjeta</string>
     <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
@@ -1199,11 +1200,11 @@
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="lector_yg">Lector de Tarjetas Ya Ganaste</string>
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
-    <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
+    <string name="set_credentials_login_2">Ingresa tu contraseña para\niniciar sesión</string>
     <string name="send_sms">Enviar SMS</string>
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">¡Bloquea tu tarjeta!</string>
-    <string name="block_your_card_subtitle">Si tienes algún problema con tu tarjeta bloquéala\ntemporalmente ingresando tu contraseña</string>
+    <string name="block_your_card_subtitle">Si tienes algún problema con tu\ntarjeta bloquéala temporalmente\ningresando tu contraseña.</string>
     <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
@@ -1292,14 +1293,14 @@
 
     <!-- Solicitar Pago-->
 
-    <string name="mensaje_enviado">Mensaje Enviado</string>
+    <string name="mensaje_enviado">SMS Enviado</string>
     <string name="head_message">Solicitud de Pago</string>
     <string name="foot_message">Descarga la app y realiza envios mas rapido con Ya Ganaste</string>
     <string name="solicitud_enviada">Solicitud Enviada Correctamente</string>
     <string name="link_message">https://goo.gl/eiCgN6</string>
 
-    <string name="administracion">Administrar tarjeta</string>
-    <string name="title_fragment_nip">Cambia tu NIP</string>
+    <string name="administracion">Administrar Tarjeta</string>
+    <string name="title_fragment_nip">Cambiar tu NIP</string>
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>
@@ -1347,8 +1348,8 @@
     <string name="contrasena">Contraseña</string>
     <string name="contrasena_confirma">Confirma contraseña</string>
 
-    <string name="titulo_datos_usuario">Comencemos con tus datos de usuario, éstos\nson necesarios para que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">A continuación, necesitamos tus datos\npersonales para confirmar tu identidad</string>
+    <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión</string>
+    <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>
     <string name="sub_titulo_domicilio">¿Cuál es la dirección de tu negocio?\nPor defecto, asignamos tu dirección personal</string>
     <string name="sub_titulo_info_adic">Casi estamos listos, necesitamos hacerte algunas\npreguntas más para completar tu registro</string>
 
@@ -1366,10 +1367,10 @@
     <string name="reintentar">Reintentar</string>
 
 
-    <string name="sub_titulo_domicilio_personal">¿Donde vives? es muy importante tener tus datos\ncompletos para continuar con tu registro</string>
+    <string name="sub_titulo_domicilio_personal">Ingresa los datos de tu domicilio\nactualpara terminar tu registro</string>
 
     <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
-    <string name="sub_titulo_nip_personal">El NIP no puede contener tres números\nconsecutivos ascendentes o descendentes</string>
+    <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\ascendentes o descendentes</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
     <string name="introduce_nip_valido">Introduce NIP</string>

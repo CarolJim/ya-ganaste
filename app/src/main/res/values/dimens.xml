@@ -188,7 +188,7 @@
 
 
     <dimen name="size_text_style_1_value">24sp</dimen>
-    <dimen name="size_text_style_2_value">17sp</dimen>
+    <dimen name="size_text_style_2_value">18sp</dimen>
     <dimen name="size_text_style_2_valuesignature">18sp</dimen>
     <dimen name="size_text_style_3_value">14sp</dimen>
     <dimen name="size_text_style_3_half_value">7sp</dimen>

@@ -109,7 +109,7 @@
 
     <style name="textDescInputs">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textColor">@color/texthint</item>
+        <item name="android:textColor">@color/textColorAlternative</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
         <item name="tipo">Text</item>
     </style>
@@ -173,6 +173,16 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <style name="buttonSquareRoundedBluecorreo" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns_big</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="buttonSquareRoundedBluewallet" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns_big</item>
@@ -381,6 +391,8 @@
 
     <style name="FragmentElementWithValidation" parent="FragmentElement">
         <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
+        <item name="android:layout_marginLeft">@dimen/margin_small</item>
+
 
     </style>
 
@@ -392,6 +404,15 @@
 
     <style name="NewEdittextwallet" parent="Base.Widget.AppCompat.EditText">
         <item name="android:paddingLeft">15sp</item>
+        <item name="android:layout_marginBottom">9dp</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/texthint</item>
+
+    </style>
+
+    <style name="NewEdittextwalletfavo" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:paddingLeft">5.5dp</item>
         <item name="android:layout_marginBottom">9dp</item>
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>
         <item name="android:textSize">14sp</item>
@@ -853,6 +874,8 @@
 
     <style name="CustomProgressBar" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/whiteColor</item>
+        <item name="android:thicknessRatio">224</item>
+
     </style>
 
     <!-- Wallet Style Guide by Zeplin -->

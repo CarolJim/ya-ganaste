@@ -51,8 +51,6 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
     EditText editcorreo;
     @BindView(R.id.editpassword)
     EditText editpassword;
-
-
     @BindView(R.id.txtbottom)
     StyleTextView txtbottom;
     @BindView(R.id.btnNextStarbucks)

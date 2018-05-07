@@ -23,7 +23,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="130dp"
         app:srcCompat="@drawable/ic_recover_pass_blue" />
 
     <LinearLayout
@@ -73,6 +73,7 @@
             android:id="@+id/edtCorreoRegistrado"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:theme ="@style/NewEdittextwallet"
             android:layout_marginBottom="9dp"
             android:background="@android:color/transparent"
             android:cursorVisible="false"
@@ -122,6 +123,7 @@
                 android:id="@+id/btnNextRecuperar"
                 style="@style/buttonSquareRoundedBlue"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:text="@string/send_email" />
         </LinearLayout>
     </LinearLayout>

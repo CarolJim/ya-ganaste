@@ -342,6 +342,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                  */
                 SingletonUser user = SingletonUser.getInstance();
                 DataIniciarSesion dataUser = user.getDataUser();
+
                 String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
 
                 Preferencias prefs = App.getInstance().getPrefs();

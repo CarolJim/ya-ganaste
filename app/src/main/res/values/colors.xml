@@ -42,13 +42,13 @@
 
 
     <!-- Color alternativo para textos-->
-    <color name="textColorAlternative">#adadad</color>
+    <color name="textColorAlternative">#8a8a8a</color>
     <color name="textColorsignatureframentname">#888888</color>
 
     <!-- Colores oficiales 12-07-17 -->
     <color name="colorAccent">#00A1E1</color>
-    <color name="colortexto">#8A8A8A</color>
-    <color name="colorAccentTransparent">#df00a1e1</color>
+    <color name="colortexto">#adadad</color>
+    <color name="colorAccentTransparent">#b400a1e1</color>
     <color name="greenColorPositiveMovements">#00E000</color>
     <color name="redColorNegativeMovements">#FF2A5B</color>
     <color name="redColorNegativeMovementsCancel">#FF2A5B</color>

@@ -20,22 +20,18 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17.5dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
-
-
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_subtitul"
                     style="@style/subtitulo_starbucks_acent"
@@ -88,9 +84,7 @@
                     app:hintTextAppearance="@style/HintText"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute"
-
                     >
-
                     <EditText
                         android:id="@+id/edit_email"
                         android:layout_width="match_parent"
@@ -101,12 +95,9 @@
                         android:singleLine="true"
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
-
                 </android.support.design.widget.TextInputLayout>
-
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_password"
-
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/edit_nombre"
@@ -123,11 +114,7 @@
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/colorAccent"
                     tools:ignore="UnusedAttribute"
-
-
-
                     >
-
                     <EditText
                         android:id="@+id/edit_password"
                         android:layout_width="match_parent"
@@ -137,13 +124,11 @@
                         android:cursorVisible="false"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"
-
                         android:paddingLeft="15dp"
                         android:password="true"
                         android:singleLine="true"
                         android:textColor="@color/grayColor"
                         android:theme="@style/NewEdittextwallet" />
-
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -193,8 +178,6 @@
                         android:theme="@style/NewEdittextwallet" />
 
                 </android.support.design.widget.TextInputLayout>
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -202,7 +185,6 @@
                     android:layout_marginBottom="9dp"
                     android:layout_marginTop="11.5dp"
                     android:orientation="horizontal">
-
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -212,7 +194,6 @@
                         android:text="@string/suscribirse"
                         android:textColor="@color/colorAccent"
                         android:textSize="11sp" />
-
                     <RadioGroup
                         android:id="@+id/radioHasCard"
                         android:layout_width="match_parent"
@@ -224,15 +205,12 @@
                         android:gravity="right"
                         android:orientation="horizontal"
                         android:visibility="visible">
-
                         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
                             android:id="@+id/radioBtnNo"
                             style="@style/RadioButtonMenu"
                             android:layout_width="45dp"
                             android:layout_height="25dp"
                             android:text="No" />
-
-
                         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
                             android:id="@+id/radioBtnYes"
                             style="@style/RadioButtonMenu"
@@ -242,7 +220,6 @@
                             android:text="Si" />
                     </RadioGroup>
                 </LinearLayout>
-
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="match_parent"
                     android:layout_marginTop="-17dp"
@@ -251,9 +228,7 @@
                     android:textSize="12dp"
                     android:text="Deseo recibir noticias y promociones"
                     />
-
             </LinearLayout>
-
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtbottom"
                 android:layout_width="match_parent"
