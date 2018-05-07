@@ -164,7 +164,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             textNameUser.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
-            btnLogin.setText(getString(R.string.txt_iniciar_sesion));
+            btnLogin.setText(getString(R.string.nextButton));
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
@@ -175,6 +175,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             lyImgUser.setVisibility(GONE);
             imgLoginExistProfile.setVisibility(GONE);
             txtSetCredentials.setVisibility(GONE);
+            //edtUserPass.setHint(getString(R.string.passworddigitos));
+            text_password.setHint(getString(R.string.passworddigitos));
             textNameUser.setText(getString(R.string.set_credentials_login));
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(VISIBLE);

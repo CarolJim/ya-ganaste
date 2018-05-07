@@ -23,7 +23,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         app:srcCompat="@drawable/ic_recover_pass_blue" />
 
     <LinearLayout

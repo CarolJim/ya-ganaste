@@ -30,18 +30,19 @@
 
             <LinearLayout
                 android:id="@+id/lyt_img_user"
-                android:layout_width="61dp"
-                android:layout_height="61dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/ic_circle_border_shadow">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgLoginExistProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     android:src="@mipmap/icon_user" />
             </LinearLayout>
 
@@ -49,7 +50,7 @@
                 android:id="@+id/textNameUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="26dp"
+                android:layout_marginBottom="0dp"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
@@ -62,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="26dp"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/set_credentials_login_2"
                 android:textAlignment="center" />
 
@@ -139,7 +140,7 @@
                 style="@style/textDescInputs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="32dp"
                 android:padding="@dimen/margin_medium"
                 android:text="@string/recover_pass"
                 android:textAlignment="center" />

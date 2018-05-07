@@ -232,7 +232,7 @@
     <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste está preparada para que comiences una nueva experiencia y disfrutes de todos los beneficios</string>
     <string name="txt_comenzar">¡Comenzar!</string>
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
-    <string name="txt_escribe_tu_pass">Contraseña (6 dígitos)</string>
+    <string name="txt_escribe_tu_pass">Contraseña</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
@@ -338,6 +338,7 @@
     <string name="confirma_nip">Confirma tu NIP</string>
     <string name="new_password">Nueva Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
+    <string name="passworddigitos">Contraseña (6 dígitos)</string>
     <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
     <string name="datos_usuario_correo">El correo no es correcto, revísalo y vuelve a intentar.</string>
     <string name="datos_usuario_correo_formato">El correo no es válido</string>
@@ -397,7 +398,7 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociartu número telefónico con tu\cuenta Ya Ganaste</string>
+    <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu\cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando activación de dispositivo</string>
@@ -640,8 +641,8 @@
 
     <string name="recupera_contrasenia_title">Restablece tu contraseña</string>
     <string name="recupera_contrasenia_title2">Restablece aquí tu contraseña</string>
-    <string name="enviaremos_enlace_restablecer">Ingresa el correo electrónico que\nregistraste para recuperar tu contraseña</string>
-    <string name="ingresa_correo_registrado">Ingresa el correo electrónico con el que te\nregistraste para enviarte las instrucciones</string>
+    <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
+    <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contrseña</string>
     <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
     <string name="carrouse_title_1">Cobra con tarjeta\nal mejor precio</string>
@@ -1198,7 +1199,7 @@
     <string name="tarjeta_yg">Tarjeta Ya Ganaste</string>
     <string name="lector_yg">Lector de Tarjetas Ya Ganaste</string>
     <string name="set_credentials_login">¡Hola!\nIngresa tus datos para iniciar sesión</string>
-    <string name="set_credentials_login_2">Ingresa tu contraseña para iniciar sesión</string>
+    <string name="set_credentials_login_2">Ingresa tu contraseña para\niniciar sesión</string>
     <string name="send_sms">Enviar SMS</string>
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">¡Bloquea tu tarjeta!</string>
