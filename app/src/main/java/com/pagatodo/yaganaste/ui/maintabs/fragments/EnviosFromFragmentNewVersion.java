@@ -362,6 +362,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     tipoEnvio.setSelection(CLABE.getId());
                     break;
             }
+
         }
         concept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

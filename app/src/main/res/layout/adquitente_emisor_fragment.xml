@@ -37,7 +37,7 @@
         android:paddingLeft="18dp"
         android:gravity="center_vertical"
         android:background = "@color/tab_movement_undselected"
-        android:text="Movimientos recientes"
+        android:text="Movimientos Recientes"
         android:layout_below="@id/tab_months"
         android:paddingStart="18dp"
         android:visibility="visible"

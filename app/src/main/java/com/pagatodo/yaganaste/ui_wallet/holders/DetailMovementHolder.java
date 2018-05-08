@@ -12,6 +12,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 public class DetailMovementHolder extends GenericHolder {
 
+    private StyleTextView day;
+    private StyleTextView month;
     private StyleTextView title;
     private StyleTextView subtitle;
     private MontoTextView monto;
@@ -24,6 +26,8 @@ public class DetailMovementHolder extends GenericHolder {
 
     @Override
     public void init() {
+        this.day = this.itemView.findViewById(R.id.txt_item_mov_date);
+        this.month = this.itemView.findViewById(R.id.txt_item_mov_month);
         this.title = this.itemView.findViewById(R.id.txtTituloDescripcion);
         this.subtitle = this.itemView.findViewById(R.id.txtSubTituloDetalle);
         this.monto = this.itemView.findViewById(R.id.txt_monto);
@@ -33,6 +37,8 @@ public class DetailMovementHolder extends GenericHolder {
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {
         ItemMovements response = (ItemMovements) item;
+        this.day.setText(response.getDate());
+        this.month.setText(response.getMonth());
         this.title.setText(response.getTituloDescripcion());
         this.subtitle.setText(response.getSubtituloDetalle());
         this.monto.setText(StringUtils.getCurrencyValue(response.getMonto()));

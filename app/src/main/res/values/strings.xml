@@ -363,7 +363,7 @@
     <string name="exito_nip">"Tu NIP ha sido cambiado correctamente"</string>
 
     <!--datos_personales-->
-    <string name="personalInfoTitle">Datos Personales</string>
+    <string name="personalInfoTitle">Datos personales</string>
     <string name="female">Mujer</string>
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
@@ -640,7 +640,7 @@
 
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Reestablece tu contraseña</string>
+    <string name="recupera_contrasenia_title">Reestablece tu Contraseña</string>
     <string name="recupera_contrasenia_title2">Reestablece aquí tu contraseña</string>
     <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
     <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contrseña</string>
@@ -796,7 +796,7 @@
     <string name="password_required_seis">La contraseña no es correcta, revísala y vuelve a intentar.</string>
 
     <!-- Depositos -->
-    <string name="datos_deposito">Tus datos de depósito</string>
+    <string name="datos_deposito">Mi Cuenta</string>
     <string name="datos_depsito_numero_celular">Teléfono</string>
     <string name="datos_deposito_titular">Titular</string>
     <string name="datos_deposito_num_card">Tarjeta</string>
@@ -859,7 +859,7 @@
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando mensaje</string>
-    <string name="reporta_tu_tarjeta">Reporta tu tarjeta</string>
+    <string name="reporta_tu_tarjeta">Reportar Tarjeta</string>
     <string name="email_report_succes_text">Su reporte se ha mandando</string>
     <string name="email_report_error_text">Ha ocurrido un error, vuelva a intentarlo más tarde</string>
     <string name="email_report_succes_title">Reportar tarjeta</string>
@@ -1208,7 +1208,7 @@
     <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
-    <string name="generate_code_subtitle">Con él podrás autorizar movimientos desde la\nweb. Ingresa tu contraseña para generarlo.</string>
+    <string name="generate_code_subtitle">Para autorizar movimientos desde la web.\nIngresa tu contraseña para generarlo.</string>
     <string name="title_configure_dongle">Configurar lector de tarjetas</string>
     <string name="dongle_battery">Batería del lector</string>
     <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
@@ -1217,8 +1217,8 @@
     <string name="time_repayment_desc">Selecciona en cuánto tiempo deseas recibir\nlos reembolsos de tus cobros</string>
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
-    <string name="olvidaste_nip">¿Olvidaste tu NIP?\nLlámanos, podemos ayudarte</string>
-    <string name="numero"><u>01800-500-1000</u></string>
+    <string name="olvidaste_nip">¿Olvidaste tu NIP?\nPonte en contacto con nosotros</string>
+    <string name="numero">01800-500-1000</string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
@@ -1300,7 +1300,7 @@
     <string name="link_message">https://goo.gl/eiCgN6</string>
 
     <string name="administracion">Administrar Tarjeta</string>
-    <string name="title_fragment_nip">Cambiar tu NIP</string>
+    <string name="title_fragment_nip">Cambiar NIP</string>
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>
@@ -1310,9 +1310,9 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consultar\nmovimientos</string>
-    <string name="operation_deposito">Ver datos\ndepósito</string>
-    <string name="operation_administracion">Administrar\ntarjeta</string>
+    <string name="operation_movimientos">Movimientos</string>
+    <string name="operation_deposito">Mi Cuenta</string>
+    <string name="operation_administracion">Administrar\nTarjeta</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
     <string name="operation_registrar">Registrar</string>
@@ -1347,6 +1347,9 @@
     <string name="correo_electronico_confirm">Confirma correo</string>
     <string name="contrasena">Contraseña</string>
     <string name="contrasena_confirma">Confirma contraseña</string>
+
+    <string name="contrasena_usuario">Contraseña (6 dígitos)</string>
+    <string name="contrasena_confirma_usuario">Confirma contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión</string>
     <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>
@@ -1392,9 +1395,9 @@
     <string name="sub_titulo_ine">Primero una identificación oficial vigente, puede ser tu\ncredencial de elector (INE) o tu pasaporte</string>
 
     <!-- Cambio de nip-->
-    <string name="nip_actual">NIP actual</string>
-    <string name="nip_nuevo">Nuevo NIP</string>
-    <string name="nip_confima">Confirma nuevo NIP</string>
+    <string name="nip_actual">NIP Actual</string>
+    <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
+    <string name="nip_confima">Confirma nuevo NIP (4 dígitos)</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
@@ -1451,18 +1454,15 @@
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>
     <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? Inicia Sesión</string>
 
-
     <string name="suscribirse">Suscribirse</string>
     <string name="calle_y_numero">Calle y numero</string>
     <string name="terminos_aviso_starbucks">Al dar clic en registrar, estoy de acuerdo con los \nTerminos y Condiciones</string>
     <string name="aviso_de_privacidad_starbucks">y el Aviso de Privacidad</string>
 
+
     <!-- Cancelar -->
     <string name="title_cancel">Tu cuenta ha sido cancelada\n\n¡Te vámos a extrañar!</string>
     <string name="title_btn_cancel">Salir</string>
     <string name="load_cancel">Cancelando cuenta</string>
-    <!-- Al cancelar, no podrás utilizar ninguno de los servicios Ya Ganaste. Esta acción es definitiva e irreversible.
-Para poder cancelar, es necesario que no exista ningun tipo de fondos asociados a tu cuenta, ni saldo por reembolsar derivado de tus cobros con tarjeta.-->
-
 
 </resources>

@@ -137,7 +137,7 @@
                 android:layout_marginStart="17dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_item_mov_date"

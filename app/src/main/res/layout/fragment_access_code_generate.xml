@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
+    android:layout_gravity="center_horizontal|center_vertical"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment">
@@ -13,7 +14,7 @@
         android:id="@+id/txtTitleRecovery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="159dp"
         android:gravity="center"
         android:text="@string/generate_code_title"
         android:textColor="@color/colorAccent"
@@ -71,16 +72,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnGenerateCode"
             style="@style/buttonSquareRoundedBlue"
             android:layout_alignParentBottom="true"
+            android:visibility="gone"
             android:layout_marginBottom="40dp"
             android:gravity="center"
             android:text="@string/generate" />

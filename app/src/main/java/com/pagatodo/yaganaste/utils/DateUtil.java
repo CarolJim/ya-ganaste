@@ -224,7 +224,7 @@ public class DateUtil {
         // Calendar calendar = Calendar.getInstance(new Locale("MX"));
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
 
-        for (int subs = 0; subs >= -4; subs--) {
+        for (int subs = 0; subs >= -5; subs--) {
             Calendar calendar = Calendar.getInstance(new Locale("MX"));
             calendar.add(Calendar.MONTH, subs);
             names.addFirst(new MonthsMovementsTab(getMonthShortName(calendar), calendar.get(Calendar.MONTH),

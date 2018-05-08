@@ -281,6 +281,7 @@ public class Recursos {
     public static final String CATALOG_VERSION = "CATALOG_VERSION";
     public static final String SIMPLE_NAME = "SIMPLE_NAME";
     public static final String PSW_CPR = "PSW_CPR";
+    public static final String SHOW_LOYALTY = "SHOW_LOYALTY";
 
     public static final String HAS_PROVISIONING = "HAS_PROVISIONING";
     public static final String USER_PROVISIONED = "USER_PROVISIONED";

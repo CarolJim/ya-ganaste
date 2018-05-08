@@ -23,11 +23,6 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Juan Guerra
- *         Jordan Rosas 09/08/2017
- */
-
 public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<ItemMovements<T>> itemMovementses;

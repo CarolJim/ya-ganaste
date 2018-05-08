@@ -3,7 +3,7 @@
 
 
         <item android:state_checked="true" android:color="#FFF"/>
-        <item android:color="#d0d0d0"/>
+        <item android:color="@color/gray_text_wallet_2"/>
 
 
 </selector>
