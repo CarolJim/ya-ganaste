@@ -795,7 +795,7 @@
     <string name="password_required_seis">La contraseña no es correcta, revísala y vuelve a intentar.</string>
 
     <!-- Depositos -->
-    <string name="datos_deposito">Tus datos de depósito</string>
+    <string name="datos_deposito">Mi Cuenta</string>
     <string name="datos_depsito_numero_celular">Teléfono</string>
     <string name="datos_deposito_titular">Titular</string>
     <string name="datos_deposito_num_card">Tarjeta</string>
@@ -858,7 +858,7 @@
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando mensaje</string>
-    <string name="reporta_tu_tarjeta">Reporta tu tarjeta</string>
+    <string name="reporta_tu_tarjeta">Reportar Tarjeta</string>
     <string name="email_report_succes_text">Su reporte se ha mandando</string>
     <string name="email_report_error_text">Ha ocurrido un error, vuelva a intentarlo más tarde</string>
     <string name="email_report_succes_title">Reportar tarjeta</string>
@@ -1216,8 +1216,8 @@
     <string name="time_repayment_desc">Selecciona en cuánto tiempo deseas recibir\nlos reembolsos de tus cobros</string>
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
-    <string name="olvidaste_nip">¿Olvidaste tu NIP?\nLlámanos, podemos ayudarte</string>
-    <string name="numero"><u>01800-500-1000</u></string>
+    <string name="olvidaste_nip">¿Olvidaste tu NIP?\nPonte en contacto con nosotros</string>
+    <string name="numero">01800-500-1000</string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
@@ -1299,7 +1299,7 @@
     <string name="link_message">https://goo.gl/eiCgN6</string>
 
     <string name="administracion">Administrar Tarjeta</string>
-    <string name="title_fragment_nip">Cambiar tu NIP</string>
+    <string name="title_fragment_nip">Cambiar NIP</string>
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>
@@ -1394,9 +1394,9 @@
     <string name="sub_titulo_ine">Primero una identificación oficial vigente, puede ser tu\ncredencial de elector (INE) o tu pasaporte</string>
 
     <!-- Cambio de nip-->
-    <string name="nip_actual">NIP actual</string>
-    <string name="nip_nuevo">Nuevo NIP</string>
-    <string name="nip_confima">Confirma nuevo NIP</string>
+    <string name="nip_actual">NIP Actual</string>
+    <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
+    <string name="nip_confima">Confirma nuevo NIP (4 dígitos)</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>

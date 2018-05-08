@@ -14,7 +14,7 @@
         android:textColorHint="@color/texthint"
         android:theme="@style/TextLabel"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/hint_color">
+        app:passwordToggleTint="@color/colorAccent">
 
         <EditText
             android:id="@+id/editTextpass"
