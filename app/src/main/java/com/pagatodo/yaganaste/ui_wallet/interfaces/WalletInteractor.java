@@ -13,7 +13,6 @@ public interface WalletInteractor extends IRequestResult<DataSourceResult> {
 
     void getWalletsCards(boolean error, WalletNotification listener);
     void getBalance(int typeWallet);
-    void getMovements(ConsultarMovimientosRequest request);
     void getStatusAccount(EstatusCuentaRequest request);
     void getInfoAgente();
 }

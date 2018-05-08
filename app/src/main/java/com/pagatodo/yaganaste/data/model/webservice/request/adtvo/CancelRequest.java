@@ -6,26 +6,17 @@ import java.io.Serializable;
 
 public class CancelRequest implements Serializable {
 
-    @SerializedName("Cuenta")
-    private String Cuenta;
+
     @SerializedName("EstatusAfiliacion")
     private int EstatusAfiliacion;
     @SerializedName("IdUsuarioAdquirente")
     private String IdUsuarioAdquirente;
 
-    public CancelRequest(String cuneta, int estatusAfiliacion, String idAgente) {
-        Cuenta = cuneta;
+    public CancelRequest(int estatusAfiliacion, String idAgente) {
         EstatusAfiliacion = estatusAfiliacion;
         IdUsuarioAdquirente = idAgente;
     }
 
-    public String getCuneta() {
-        return Cuenta;
-    }
-
-    public void setCuneta(String cuneta) {
-        Cuenta = cuneta;
-    }
 
     public int getEstatusAfiliacion() {
         return EstatusAfiliacion;

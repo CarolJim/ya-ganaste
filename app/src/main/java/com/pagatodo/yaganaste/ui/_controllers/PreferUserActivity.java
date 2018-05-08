@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -57,6 +58,8 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_A
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
+import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener{
@@ -104,7 +107,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
     public static String PREFER_CANCEL = "PREFER_CANCEL";
     public static String PREFER_CANCEL_RESULT = "PREFER_CANCEL_RESULT";
-    /**
+     /**
      * Acciones para dialogo de confirmacion en cerrar session
      */
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
@@ -445,7 +448,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 }
                 break;
             case "PREFER_USER_CANCELACION":
-                loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title),getResources().getString(R.string.cacncel_desc)),Direction.FORDWARD, false);
+                String desc = getResources().getString(R.string.cacncel_desc);
+                if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) &&
+                        App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()){
+                    desc = getResources().getString(R.string.cacncel_desc_adq);
+                }
+                loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title),desc),Direction.FORDWARD, false);
                 break;
             case "PREFER_CANCEL_RESULT":
                 loadFragment(CancelResultFragment.newInstance(),Direction.FORDWARD, false);
@@ -455,10 +463,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 Intent intent = new Intent(this,SplashActivity.class);
                 startActivity(intent);
                 break;
-
-
-
-
         }
     }
 

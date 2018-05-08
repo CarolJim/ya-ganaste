@@ -10,16 +10,16 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
  */
 
 public interface IWalletView extends IMainWalletView {
-    //void completed(boolean error);
     void getPagerAdapter(PagerAdapter pagerAdapter);
     void getSaldo(String saldo);
     void sendCardReported();
     void sendSuccessStatusAccount(EstatusCuentaResponse response);
     void sendSuccessInfoAgente();
     void setErrorSaldo(String saldoDefault);
-    //void sendErrorInfoAgente();
-    //void sendErrorStatus();
     void sendError(int codeError);
+
+    //void sendSuccess(GenericResponse response);
+    //void sendSuccess();
 
 
 }

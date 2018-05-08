@@ -416,17 +416,14 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
             }
         });
-        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    //edtPin.imageViewIsGone(true);
+        edtPin.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                //edtPin.imageViewIsGone(true);
+            } else {
+                if (edtPin.getText().toString().isEmpty()) {
+
                 } else {
-                    if (edtPin.getText().toString().isEmpty()) {
 
-                    } else {
-
-                    }
                 }
             }
         });

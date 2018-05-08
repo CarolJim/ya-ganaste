@@ -1420,7 +1420,8 @@
     <string name="mis_recompensas">Mis Recompensas</string>
 
     <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
-    <string name="cacncel_desc">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>
+    <string name="cacncel_desc">Al cancelar, no podras usar ninguno de los servicios\nYa Ganaste, esta acción es definitiva e irreversible\n\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta.</string>
+    <string name="cacncel_desc_adq">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\n\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>
 
     <!-- Administración tarjetas YG -->
     <string name="admin_cards_active">Tarjetas Activas</string>

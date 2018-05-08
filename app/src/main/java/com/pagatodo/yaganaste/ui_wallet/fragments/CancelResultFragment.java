@@ -47,7 +47,7 @@ public class CancelResultFragment extends SupportFragment implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        App.getInstance().getPrefs().clearPreferences();
+
         onEventListener.onEvent(PREFER_CANCEL,null);
     }
 }

@@ -73,26 +73,17 @@ public class WalletInteractorImpl implements WalletInteractor {
         }
     }
 
-    @Override
-    public void getMovements(ConsultarMovimientosRequest request) {
-        try {
-            ApiAdtvo.consultarMovimientosMes(request, this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-            this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-        }
-    }
 
     @Override
     public void getStatusAccount(EstatusCuentaRequest request) {
         this.listener.onFailed(ERROR_STATUS, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
 
-        /*try {
+        try {
             ApiTrans.estatusCuenta(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-        }*/
+        }
     }
 
     @Override
@@ -113,17 +104,15 @@ public class WalletInteractorImpl implements WalletInteractor {
                 if (result.getData() instanceof InformacionAgenteResponse) {
                     InformacionAgenteResponse response = (InformacionAgenteResponse) result.getData();
                     if (response.getCodigoRespuesta() == CODE_OK) {
-                        listener.onSuccessInfoAgente(response.getData());
+                        this.listener.onSuccess(null, response.getData());
                     } else {
                         this.listener.onFailed(Recursos.CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, response.getMensaje());
                     }
                 }
                 break;
-            case CONSULTAR_MOVIMIENTOS_MES:
-                validateResponse((ConsultarMovimientosMesResponse) result.getData());
-                break;
             case CONSULTAR_SALDO:
-                this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
+                //this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
+                this.listener.onSuccess(TYPE_EMISOR, result.getData());
                 break;
             case CONSULTAR_SALDO_ADQ:
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
@@ -137,7 +126,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
                         this.listener.onSuccessResponse(response);
                     } else {
-                        this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, response.getMensaje());
+                        this.listener.onFailed(ERROR_STATUS, Recursos.NO_ACTION, response.getMensaje());
                     }
                 }
                 break;
@@ -159,14 +148,6 @@ public class WalletInteractorImpl implements WalletInteractor {
                 break;
         }
 
-    }
-
-    private void validateResponse(ConsultarMovimientosMesResponse response) {
-        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-            listener.onSuccesMovements(response);
-        } else {
-            listener.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
-        }
     }
 
     private void validateResponse(SaldoSBRespons response) {

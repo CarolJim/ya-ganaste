@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.presenter;
 
+import android.support.annotation.Nullable;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -8,8 +10,10 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaR
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
@@ -52,7 +56,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 public class WalletPresenterImpl implements WalletPresenter, WalletNotification {
 
     private IWalletView walletView;
-    //private IMovementsEmisorView movementsEmisorView;
     private WalletInteractor walletInteractor;
 
     public WalletPresenterImpl(IWalletView walletView) {
@@ -93,6 +96,41 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         walletInteractor.getInfoAgente();
     }
 
+    @Override
+    public void onSuccess(@Nullable Integer typeWallet, @Nullable Object result) {
+        if (result instanceof DataInfoAgente){
+            DataInfoAgente response = (DataInfoAgente) result;
+            Preferencias sp = App.getInstance().getPrefs();
+            sp.saveDataBool(ES_AGENTE, response.isEsAgente());
+            sp.saveDataBool(ES_AGENTE_RECHAZADO, response.isEsAgenteRechazado());
+            sp.saveDataInt(ESTATUS_AGENTE, response.getEstatusAgente());
+            sp.saveDataInt(ESTATUS_DOCUMENTACION, response.getEstatusDocumentacion());
+            if (response.getIdEstatus() > 0)
+                sp.saveDataInt(ID_ESTATUS, response.getIdEstatus());
+            sp.saveData(ID_USUARIO_ADQUIRIENTE, response.getIdUsuarioAdquirente());
+            sp.saveData(COMPANY_NAME, response.getNombreNegocio());
+            sp.saveData(TIPO_AGENTE, response.getTipoAgente());
+            RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
+            RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
+            walletView.sendSuccessInfoAgente();
+        } else if (result instanceof ConsultarSaldoResponse){
+            String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
+            switch (typeWallet) {
+                case TYPE_STARBUCKS:
+                    App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
+                    break;
+                case TYPE_EMISOR:
+                    App.getInstance().getPrefs().saveData(USER_BALANCE, saldo);
+                    break;
+                case TYPE_ADQ:
+                    App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, saldo);
+                    App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                    break;
+            }
+            walletView.getSaldo(saldo);
+        }
+        walletView.hideProgress();
+    }
 
     @Override
     public void onSuccess(boolean error) {
@@ -104,40 +142,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
     @Override
-    public void onSuccesMovements(ConsultarMovimientosMesResponse response) {
-        /*if (movementsEmisorView != null) {
-
-            List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
-            String[] date;
-            for (MovimientosResponse movimientosResponse : response.getData()) {
-                date = movimientosResponse.getFechaMovimiento().split(" ");
-
-                if (movimientosResponse.getIdTipoTransaccion() != 14) {
-                    movementsList.add(new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
-                            movimientosResponse.getTotal(), date[0], date[1],
-                            MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
-                            movimientosResponse));
-                } else {
-                    movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getConcepto(),
-                            movimientosResponse.getTotal(), date[0], date[1],
-                            MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
-                            movimientosResponse));
-                }
-            }
-            movementsEmisorView.loadMovementsResult(movementsList);
-            movementsEmisorView.hideProgress();
-        }*/
-    }
-
-
-    @Override
     public void onSuccessResponse(GenericResponse response) {
         walletView.hideProgress();
         if (response instanceof EstatusCuentaResponse) {
             walletView.sendSuccessStatusAccount((EstatusCuentaResponse) response);
         }
     }
-
+/*
     @Override
     public void onSuccessInfoAgente(DataInfoAgente response) {
         walletView.hideProgress();
@@ -155,7 +166,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
         walletView.sendSuccessInfoAgente();
     }
-
+*/
     @Override
     public void onFailed(int errorCode, int action, String error) {
         walletView.hideProgress();
