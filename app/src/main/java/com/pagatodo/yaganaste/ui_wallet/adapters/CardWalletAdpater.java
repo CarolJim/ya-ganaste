@@ -90,7 +90,6 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
             imageViewCard.setVisibility(View.VISIBLE);
             imageViewCard.setImageResource(item.getResourceCard());
         }
-
     }
 
     public ElementWallet getElemenWallet(int position) {

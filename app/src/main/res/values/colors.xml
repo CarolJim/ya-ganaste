@@ -114,7 +114,7 @@
     <color name="blue_text_wallet">#00a1e1</color>
     <color name="white_text_wallet">#ffffff</color>
     <color name="gray_text_wallet">#adadad</color>
-    <color name="gray_text_wallet_2">#888888</color>
+    <color name="gray_text_wallet_2">#8a8a8a</color>
     <color name="gray_text_wallet_3">#7a7c7d</color>
 
     <color name="dark_icon">#99000000</color>
