@@ -1309,9 +1309,9 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consultar\nmovimientos</string>
-    <string name="operation_deposito">Ver datos\ndepósito</string>
-    <string name="operation_administracion">Administrar\ntarjeta</string>
+    <string name="operation_movimientos">Movimientos</string>
+    <string name="operation_deposito">Mi Cuenta</string>
+    <string name="operation_administracion">Administrar\nTarjeta</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
     <string name="operation_registrar">Registrar</string>
@@ -1449,11 +1449,9 @@
     <string name="searching_stores_empty">No se ha encontrado sucursales</string>
     <string name="ya_tienes_cuenta_inicia_sesi">¿Ya tienes cuenta? Inicia Sesión</string>
 
-    >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
     <string name="suscribirse">Suscribirse</string>
     <string name="calle_y_numero">Calle y numero</string>
     <string name="terminos_aviso_starbucks">Al dar clic en registrar, estoy de acuerdo con los \nTerminos y Condiciones</string>
     <string name="aviso_de_privacidad_starbucks">y el Aviso de Privacidad</string>
-    >>>>>>> 4024067789a4909ba1a6171eda4033ab10f01fb9
 
 </resources>

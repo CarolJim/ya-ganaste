@@ -7,6 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.pagatodo.yaganaste.App;
+
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 
 public class ForcedUpdateChecker {
 
@@ -15,6 +19,7 @@ public class ForcedUpdateChecker {
     public static final String KEY_UPDATE_REQUIRED = "forced_update_required";
     public static final String KEY_CURRENT_VERSION = "forced_update_current_version";
     public static final String KEY_UPDATE_URL = "forced_update_store_url";
+    public static final String SHOW_LOYALTY_CARDS = "show_loyalty_cards";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
@@ -28,14 +33,18 @@ public class ForcedUpdateChecker {
     }
 
     public ForcedUpdateChecker(@NonNull Context context,
-                              OnUpdateNeededListener onUpdateNeededListener) {
+                               OnUpdateNeededListener onUpdateNeededListener) {
         this.context = context;
         this.onUpdateNeededListener = onUpdateNeededListener;
     }
 
     public void check() {
         final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
-
+        boolean showLoyalty = remoteConfig.getBoolean(SHOW_LOYALTY_CARDS);
+        App.getInstance().getPrefs().saveDataBool(SHOW_LOYALTY, showLoyalty);
+        if (!showLoyalty) {
+            App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
+        }
         if (remoteConfig.getBoolean(KEY_UPDATE_REQUIRED)) {
             String currentVersion = remoteConfig.getString(KEY_CURRENT_VERSION);
             String appVersion = getAppVersion(context);

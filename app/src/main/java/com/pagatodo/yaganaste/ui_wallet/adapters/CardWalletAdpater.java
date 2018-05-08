@@ -8,19 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
+import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
+
 /**
  * Created by icruz on 11/12/2017.
  */
 
-public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
+public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
 
 
     private ArrayList<ElementWallet> elementViewList;
@@ -37,7 +44,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
         elementViewList.add(item);
     }
 
-    public ArrayList<ElementView> getElementWallet(int position){
+    public ArrayList<ElementView> getElementWallet(int position) {
         return this.elementViewList.get(position).getElementViews();
     }
 
@@ -70,7 +77,19 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
 
     private void bind(ElementWallet item, View view) {
         ImageView imageViewCard = view.findViewById(R.id.imageview_card);
-        imageViewCard.setImageResource(item.getResourceCard());
+        YaGanasteCard yaGanasteCard = view.findViewById(R.id.yg_card_tab_wallet);
+        if (item.getResourceCard() == R.drawable.tarjeta_yg || item.getResourceCard() == R.mipmap.main_card_zoom_gray) {
+            yaGanasteCard.setVisibility(View.VISIBLE);
+            imageViewCard.setVisibility(View.GONE);
+            String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
+            yaGanasteCard.setCardNumber(getCreditCardFormat(cardNumber));
+            yaGanasteCard.setImageResource(item.getResourceCard());
+            yaGanasteCard.setCardName(App.getInstance().getPrefs().loadData(FULL_NAME_USER));
+        } else {
+            yaGanasteCard.setVisibility(View.GONE);
+            imageViewCard.setVisibility(View.VISIBLE);
+            imageViewCard.setImageResource(item.getResourceCard());
+        }
 
     }
 
@@ -94,7 +113,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter{
         return mViews.get(position);
     }
 
-    public void updateSaldo(int position, String saldo){
+    public void updateSaldo(int position, String saldo) {
         elementViewList.get(position).setSaldo(saldo);
     }
 

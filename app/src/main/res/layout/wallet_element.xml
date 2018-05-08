@@ -25,6 +25,12 @@
             android:layout_height="126.1dp"
             android:contentDescription="@string/app_name"
             android:visibility="visible"/>
+
+        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
+            android:id="@+id/yg_card_tab_wallet"
+            android:layout_width="201dp"
+            android:layout_height="126.1dp"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

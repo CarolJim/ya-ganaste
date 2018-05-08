@@ -166,9 +166,10 @@ public class App extends Application {
         remoteConfigDefaults.put(ForcedUpdateChecker.KEY_CURRENT_VERSION, BuildConfig.VERSION_NAME);
         remoteConfigDefaults.put(ForcedUpdateChecker.KEY_UPDATE_URL,
                 "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste");
+        remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOYALTY_CARDS, false);
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
-        firebaseRemoteConfig.fetch(60)
+        firebaseRemoteConfig.fetch(0)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

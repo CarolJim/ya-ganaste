@@ -37,8 +37,10 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SHOW_LOYALTY_CARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 
 
 /**
@@ -145,7 +147,9 @@ public class ContainerBuilder {
         if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
             adapter.addCardItem(new ElementWallet().getCardStarbucks());
         }
-        adapter.addCardItem(new ElementWallet().getCardSettings());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOYALTY, false)) {
+            adapter.addCardItem(new ElementWallet().getCardSettings());
+        }
 
         return adapter;
     }
