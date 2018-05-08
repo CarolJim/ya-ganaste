@@ -129,7 +129,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
-                    android:hint="@string/contrasena"
+                    android:hint="@string/contrasena_usuario"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
                     app:counterEnabled="true"
@@ -171,7 +171,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
-                    android:hint="@string/contrasena_confirma"
+                    android:hint="@string/contrasena_confirma_usuario"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
 

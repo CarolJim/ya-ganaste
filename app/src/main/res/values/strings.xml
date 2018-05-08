@@ -362,7 +362,7 @@
     <string name="exito_nip">"Tu NIP ha sido cambiado correctamente"</string>
 
     <!--datos_personales-->
-    <string name="personalInfoTitle">Datos Personales</string>
+    <string name="personalInfoTitle">Datos personales</string>
     <string name="female">Mujer</string>
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
@@ -1346,6 +1346,9 @@
     <string name="correo_electronico_confirm">Confirma correo</string>
     <string name="contrasena">Contraseña</string>
     <string name="contrasena_confirma">Confirma contraseña</string>
+
+    <string name="contrasena_usuario">Contraseña (6 dígitos)</string>
+    <string name="contrasena_confirma_usuario">Confirma contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión</string>
     <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>
