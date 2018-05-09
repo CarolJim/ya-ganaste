@@ -16,18 +16,6 @@
         app:popupTheme="@style/PopupTheme"
         app:theme="@style/ToolBarTheme.ToolBarStyle" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:scaleType="center"
-        android:tint="@color/whiteColor"
-        android:visibility="gone"
-        app:srcCompat="@drawable/back_canvas" />
-
-
     <ImageView
         android:id="@+id/imgToolbar"
         android:layout_width="wrap_content"

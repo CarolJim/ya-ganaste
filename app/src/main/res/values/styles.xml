@@ -9,7 +9,6 @@
         <item name="colorControlActivated">@android:color/white</item>
         <item name="colorControlHighlight">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>
-
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
@@ -184,6 +183,7 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="buttonSquareRoundedBluewallet" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
@@ -195,7 +195,6 @@
     </style>
 
 
-
     <style name="buttonSquareRoundedBluedd" parent="AppButton">
         <item name="android:layout_width">167dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
@@ -205,6 +204,7 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
+
     <style name="buttonSquareRoundedBlueNewWallet" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
@@ -427,17 +427,20 @@
         <item name="android:textColorHint">@color/texthint</item>
 
     </style>
+
     <style name="CounterOverFlow" parent="TextAppearance.Design.Counter.Overflow">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
+
     <style name="HintText" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent</item>
 
     </style>
+
     <style name="CounterText" parent="TextAppearance.Design.Counter">
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
@@ -472,6 +475,7 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="BorderTitleStylewallet">
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:textColor">@color/whiteColor</item>
@@ -578,7 +582,7 @@
 
 
     <!-- Estilos revisados 10-07-17 -->
-       <style name="generic_text_style_1">
+    <style name="generic_text_style_1">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_1_value</item>
         <item name="tipo">Subtitulo</item>
@@ -589,7 +593,6 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Titulo</item>
     </style>
-
 
 
     <style name="generic_text_style_bubtitulo">
@@ -603,7 +606,6 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Text</item>
     </style>
-
 
 
     <style name="generic_text_style_1_cobro">
@@ -652,10 +654,10 @@
     </style>
 
     <style name="generic_text_style_3">
-    <item name="android:textColor">@color/textColorAlternative</item>
-    <item name="android:textSize">@dimen/size_text_style_3_value</item>
-    <item name="tipo">Text</item>
-</style>
+        <item name="android:textColor">@color/textColorAlternative</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Text</item>
+    </style>
 
     <style name="generic_text_style_3wallet">
         <item name="android:textColor">@color/textColorAlternative</item>
@@ -686,6 +688,7 @@
         <item name="android:textSize">@dimen/size_text_style_4_value</item>
         <item name="tipo">Text</item>
     </style>
+
     <style name="generic_text_style_4.1.1">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">14sp</item>
@@ -722,6 +725,7 @@
         <item name="android:textSize">55sp</item>
         <item name="tipo">Descripcion</item>
     </style>
+
     <style name="generic_calculator_integer_style_cobro">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">70sp</item>
@@ -863,6 +867,7 @@
         <item name="android:textColorPrimary">@color/whiteColor</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorPrimaryInverse">@color/black</item>
+        <item name="android:homeAsUpIndicator">@drawable/back_canvas</item>
 
     </style>
 

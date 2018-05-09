@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_menu"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="59.5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/title"
-        android:layout_gravity="center_vertical"
-        android:text="@string/navigation_drawer_menu_seguridad"
+        style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/generic_text_style_3"
-        android:textColor="@color/texthint"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_centerVertical="true"/>
+        android:text="@string/navigation_drawer_menu_seguridad"
+        android:textColor="@color/texthint" />
 
     <ImageView
         android:id="@+id/raw_item"
         android:layout_width="14dp"
         android:layout_height="14dp"
-        android:layout_marginRight="14dp"
-        app:srcCompat="@drawable/arrow_canvas_blue"
-        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:visibility="visible"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="14dp"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginRight="14dp"
+        android:visibility="visible"
+        app:srcCompat="@drawable/arrow_canvas_blue" />
 
 
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:visibility="gone"
-            android:layout_alignParentEnd="true">
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-                android:id="@+id/radiobutton_no"
-                style="@style/RadioButtonMenu"
-                android:layout_width="40dp"
-                android:layout_height="20dp"
-                android:checked="true"
-                android:text="No"/>
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-                android:id="@+id/radiobutton_si"
-                style="@style/RadioButtonMenu"
-                android:layout_width="40dp"
-                android:layout_height="20dp"
-                android:checked="false"
-                android:text="Si"/>
-        </RadioGroup>
+        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+            android:id="@+id/radiobutton_si"
+            style="@style/RadioButtonMenu"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:checked="false"
+            android:text="Si" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+            android:id="@+id/radiobutton_no"
+            style="@style/RadioButtonMenu"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:checked="true"
+            android:text="No" />
+    </RadioGroup>
 
     <View
         android:id="@+id/dividerList"
-        android:background="@color/decoration_item_color"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/decoration_item_color" />
 
 </RelativeLayout>
