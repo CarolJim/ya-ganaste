@@ -13,11 +13,10 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
-**_VERSION 4.0.5 - 30 de Abril al 5 de Mayo del 2018 (ID:?)_**
+**_VERSION 4.0.5 - 30 de Abril al 8 de Mayo del 2018 (ID:4630)_**
 
 Descripción al desarrollador:
 
-    * Implementación de API Appsee para medición de KPI's de producto.
     * Implementación de API Countly para medición de KPI's técnicos.
     * Integración de tarjeta Starbucks con los siguientes módulos:
         + Registro
@@ -30,6 +29,7 @@ Descripción al desarrollador:
     * Nueva arquitectura semi-basada en petición y guardado de datos en WS.
     * Corrección incidencia Tarjeta Reportada.
     * Corrección incidencia Consulta de Saldos.
+    * Corrección de diseños en pantallas.
     
 Funcionalidad:
 

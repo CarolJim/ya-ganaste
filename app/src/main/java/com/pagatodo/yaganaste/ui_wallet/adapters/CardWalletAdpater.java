@@ -21,6 +21,7 @@ import java.util.List;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
+import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumber;
 import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 /**
@@ -82,7 +83,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
             yaGanasteCard.setVisibility(View.VISIBLE);
             imageViewCard.setVisibility(View.GONE);
             String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
-            yaGanasteCard.setCardNumber(getCreditCardFormat(cardNumber));
+            yaGanasteCard.setCardNumber(ocultarCardNumber(cardNumber));
             yaGanasteCard.setImageResource(item.getResourceCard());
             yaGanasteCard.setCardName(App.getInstance().getPrefs().loadData(FULL_NAME_USER));
         } else {

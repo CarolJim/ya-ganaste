@@ -137,6 +137,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
             menu.getItem(ACTION_SHARE).setVisible(true);
+        } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment){
+            menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
         }
@@ -294,6 +296,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_DETAIL_EMISOR:
                 loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data), R.id.fragment_container, Direction.FORDWARD, true);
+                menu.getItem(ACTION_SHARE).setVisible(true);
                 break;
             case EVENT_GO_DETAIL_ADQ:
                 loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
