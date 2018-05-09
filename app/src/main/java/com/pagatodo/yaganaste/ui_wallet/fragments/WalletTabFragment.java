@@ -175,7 +175,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
-
     private void selectDots(int lastPosition, int nextposition) {
         dots[lastPosition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
         dots[nextposition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));

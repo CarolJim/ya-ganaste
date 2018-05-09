@@ -98,6 +98,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onSuccess(@Nullable Integer typeWallet, @Nullable Object result) {
+        walletView.hideProgress();
         if (result instanceof DataInfoAgente){
             DataInfoAgente response = (DataInfoAgente) result;
             Preferencias sp = App.getInstance().getPrefs();
@@ -129,14 +130,11 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             }
             walletView.getSaldo(saldo);
         }
-        walletView.hideProgress();
     }
 
     @Override
     public void onSuccess(boolean error) {
-        walletView.hideProgress();
         if (walletView != null) {
-            walletView.hideProgress();
             walletView.getPagerAdapter(ContainerBuilder.getCardWalletAdapter(error));
         }
     }
