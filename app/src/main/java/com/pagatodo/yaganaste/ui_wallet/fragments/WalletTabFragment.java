@@ -45,6 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
+import static com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater.LOOPS_COUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 
@@ -100,9 +101,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageCurrent = 0;
+        pageCurrent = LOOPS_COUNT / 2 + 1;
         walletPresenter = new WalletPresenterImpl(this);
-
     }
 
 
@@ -150,6 +150,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void getPagerAdapter(PagerAdapter pagerAdapter) {
         cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
         viewPagerWallet.setAdapter(pagerAdapter);
+
         viewPagerWallet.setCurrentItem(pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.addOnPageChangeListener(this);
@@ -159,7 +160,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void setUiPageViewController() {
-        dotsCount = cardWalletAdpater.getCount();
+        //dotsCount = (pageCurrent - 1 )%cardWalletAdpater.getCount();
+        dotsCount = cardWalletAdpater.getSize();
         dots = new ImageView[dotsCount];
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getContext());
@@ -172,7 +174,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             params.setMargins(22, 0, 22, 0);
             pager_indicator.addView(dots[i], params);
         }
-        dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
+        dots[(pageCurrent - 1 ) %cardWalletAdpater.getSize()].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
     private void selectDots(int lastPosition, int nextposition) {

@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -10,10 +11,8 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
-import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 /**
  * Created by icruz on 11/12/2017.
@@ -29,7 +27,7 @@ import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
 
-
+    public static int LOOPS_COUNT = 100;
     private ArrayList<ElementWallet> elementViewList;
     private float mBaseElevation;
     private List<CardView> mViews;
@@ -44,33 +42,40 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
         elementViewList.add(item);
     }
 
-    public ArrayList<ElementView> getElementWallet(int position) {
+    /*public ArrayList<ElementView> getElementWallet(int position) {
         return this.elementViewList.get(position).getElementViews();
+    }*/
+
+    public int getSize(){
+        return mViews.size();
     }
 
     @Override
     public int getCount() {
-        return this.elementViewList.size();
+        //return this.elementViewList.size();
+        return LOOPS_COUNT;
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.wallet_element, container, false);
         container.addView(view);
-        bind(elementViewList.get(position), view);
+        int index = position%mViews.size();
+        bind(elementViewList.get(index), view);
         CardView cardView = view.findViewById(R.id.cardView);
         if (mBaseElevation == 0) {
             mBaseElevation = cardView.getCardElevation();
         }
         cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
         cardView.setPreventCornerOverlap(false);
-        mViews.set(position, cardView);
+        mViews.set(index, cardView);
         return view;
 
     }
@@ -93,13 +98,16 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
     }
 
     public ElementWallet getElemenWallet(int position) {
-        return this.elementViewList.get(position);
+        return this.elementViewList.get(position%mViews.size());
     }
 
 
+
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        //container.removeView((LinearLayout) object);
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        //super.destroyItem(container, position, object);
+        container.removeView((View) object);
+
     }
 
     @Override
@@ -109,11 +117,11 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
 
     @Override
     public CardView getCardViewAt(int position) {
-        return mViews.get(position);
+        return mViews.get(position%mViews.size());
     }
 
     public void updateSaldo(int position, String saldo) {
-        elementViewList.get(position).setSaldo(saldo);
+        elementViewList.get(position%mViews.size()).setSaldo(saldo);
     }
 
 

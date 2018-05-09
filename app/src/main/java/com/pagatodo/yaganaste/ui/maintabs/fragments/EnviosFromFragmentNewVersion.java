@@ -60,6 +60,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
@@ -117,7 +118,7 @@ import static com.pagatodo.yaganaste.utils.UtilsIntents.favoriteIntents;
 public class EnviosFromFragmentNewVersion extends GenericFragment implements
         EnviosManager, TextView.OnEditorActionListener, View.OnClickListener,
         PaymentsCarrouselManager, OnListServiceListener, AdapterView.OnItemSelectedListener,
-        PaletteViewHolder.OnClickListener {
+        OnClickItemHolderListener {
 
     private View rootview;
     @BindView(R.id.spnTypeSend)
@@ -792,12 +793,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         for (CarouselItem carouselItem : mResponse) {
             backUpResponsefavo.add(carouselItem);
         }
-        Collections.sort(backUpResponsefavo, new Comparator<CarouselItem>() {
-            @Override
-            public int compare(CarouselItem o1, CarouselItem o2) {
-                return o1.getFavoritos().getNombre().compareToIgnoreCase(o2.getFavoritos().getNombre());
-            }
-        });
+        Collections.sort(backUpResponsefavo, (o1, o2) -> o1.getFavoritos().getNombre().compareToIgnoreCase(o2.getFavoritos().getNombre()));
 
     }
 
@@ -1289,12 +1285,98 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
-    @Override
+    /*@Override
     public void onClick(Favoritos favorito) {
+
+        if (isEditable) {
+            if (favorito.getIdComercio() != 0) {
+                Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(100);
+                favoriteIntents(getActivity(), favorito);
+
+            }
+        } else {
+            if (favorito.getIdComercio() == 0) { // Click en item Agregar
+                //Intent intentAddFavorite = new Intent(getActivity(), AddToFavoritesActivity.class);
+                Intent intentAddFavorite = new Intent(getContext(), FavoritesActivity.class);
+                intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+                intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
+                startActivityForResult(intentAddFavorite, RESUL_FAVORITES);
+            } else {
+                // Toast.makeText(getActivity(), "Favorito: " + backUpResponseFavoritos.get(position).getNombre(), Toast.LENGTH_SHORT).show();
+
+                idComercio = 0;
+                isfavo = true;
+                bancoselected = true;
+                bancoselected = true;
+                favoriteItem = favorito;
+                long myIdComercio = favorito.getIdComercio();
+                String myName = favorito.getNombre();
+
+                myReferencia = favorito.getReferencia();
+
+                switch (favorito.getReferencia().length()) {
+                    case 10:
+                        myReferencia = favorito.getReferencia();
+                        tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
+                        receiverName.setText(myName);
+                        cardNumber.setText("");
+                        cardNumber.setText(myReferencia);
+                        break;
+                    case 16:
+                        myReferencia = favorito.getReferencia();
+                        tipoEnvio.setSelection(NUMERO_TARJETA.getId());
+                        receiverName.setText(myName);
+                        cardNumber.setText("");
+                        cardNumber.setText(myReferencia);
+                        break;
+                    case 18:
+                        myReferencia = favorito.getReferencia();
+                        tipoEnvio.setSelection(CLABE.getId());
+                        receiverName.setText(myName);
+                        cardNumber.setText("");
+                        cardNumber.setText(myReferencia);
+                        break;
+                }
+
+                for (int x = 0; x < finalList.size(); x++) {
+                    if (finalList.get(x).getComercio().getIdComercio() == myIdComercio) {
+                        comercioItem = finalList.get(x).getComercio();
+                        editListServ.setText(finalList.get(x).getComercio().getNombreComercio());
+                        idTipoComercio = finalList.get(x).getComercio().getIdTipoComercio();
+                        idComercio = finalList.get(x).getComercio().getIdComercio();
+                        if (idComercio == IDCOMERCIO_YA_GANASTE) {
+                            referenciaLayout.setVisibility(GONE);
+                            concept.setImeOptions(IME_ACTION_DONE);
+                            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                        } else {
+                            referenciaLayout.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }
+        }
+    }*/
+
+    private void clearContent() {
+        comercioItem = null;
+        favoriteItem = null;
+        tipoEnvio.setSelection(0);
+        editListServ.setText("");
+        editListServ.clearFocus();
+        referencia = "";
+        receiverName.setText("");
+        receiverName.clearFocus();
+        concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+        numberReference.setText("123456");
+    }
+
+    @Override
+    public void onClick(Object item) {
         /**
          * Si es editable mandamos a Edittar, si no a proceso normal
          */
-
+        Favoritos favorito = (Favoritos) item;
         if (isEditable) {
             if (favorito.getIdComercio() != 0) {
                 Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -1377,18 +1459,5 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 }
             }
         }
-    }
-
-    private void clearContent() {
-        comercioItem = null;
-        favoriteItem = null;
-        tipoEnvio.setSelection(0);
-        editListServ.setText("");
-        editListServ.clearFocus();
-        referencia = "";
-        receiverName.setText("");
-        receiverName.clearFocus();
-        concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-        numberReference.setText("123456");
     }
 }

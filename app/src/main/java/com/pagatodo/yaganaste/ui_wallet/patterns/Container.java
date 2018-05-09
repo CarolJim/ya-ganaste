@@ -161,7 +161,7 @@ public class Container {
         this.arrayListInput.add(viewHolderInputText);
     }
 
-    public void addHolder(Favoritos favorito, PaletteViewHolder.OnClickListener listener){
+    public void addHolder(Favoritos favorito, OnClickItemHolderListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
         PaletteViewHolder holder =  new PaletteViewHolder(layout);
@@ -170,7 +170,7 @@ public class Container {
         this.holdersList.add(holder);
     }
 
-    public void addSimpleHolder(final Favoritos favorito, final PaletteViewHolder.OnClickListener listener){
+    public void addSimpleHolder(final Favoritos favorito, final OnClickItemHolderListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
         layout.setOnClickListener(view -> listener.onClick(favorito));
@@ -201,12 +201,7 @@ public class Container {
             viewHolder.raw = layout.findViewById(R.id.raw_item);
             viewHolder.relativeLayout = layout.findViewById(R.id.item_menu);
             viewHolder.title.setText(optionMenuItem.getResourceTitle());
-            viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listenerHolder.onClick(optionMenuItem);
-                }
-            });
+            viewHolder.relativeLayout.setOnClickListener(view -> listenerHolder.onClick(optionMenuItem));
             parent.addView(layout);
         }
         if (optionMenuItem.getIndication() != null && optionMenuItem.getIndication() == RADIOBUTTON) {

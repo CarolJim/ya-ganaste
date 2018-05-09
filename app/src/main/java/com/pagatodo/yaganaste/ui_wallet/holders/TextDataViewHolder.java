@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.holders;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
@@ -33,5 +34,10 @@ public class TextDataViewHolder extends GenericHolder{
     @Override
     public View getView() {
         return this.itemView;
+    }
+
+    @Override
+    public void inflate(ViewGroup layout) {
+
     }
 }

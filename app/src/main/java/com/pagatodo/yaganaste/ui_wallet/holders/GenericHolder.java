@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 public abstract class GenericHolder extends RecyclerView.ViewHolder implements LauncherHolder{
 
@@ -18,5 +19,11 @@ public abstract class GenericHolder extends RecyclerView.ViewHolder implements L
     @Override
     public abstract void bind(Object item, OnClickItemHolderListener listener);
 
+    @Override
+    public abstract void inflate(ViewGroup layout);
+
     public abstract View getView();
+
+
+
 }
