@@ -148,12 +148,9 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_balance_login"
-        style="@style/buttonRoundedBlue"
-        android:layout_width="@dimen/width_btns_big"
-        android:layout_height="0dp"
+        style="@style/buttonSquareRoundedBlue"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:layout_weight="1"
         android:text="@string/txt_ingresar"
         android:textAllCaps="false" />
 
