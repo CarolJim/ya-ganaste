@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.holders;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
@@ -62,5 +63,10 @@ public class DetailMovementHolder extends GenericHolder {
     @Override
     public View getView() {
         return this.itemView;
+    }
+
+    @Override
+    public void inflate(ViewGroup layout) {
+
     }
 }

@@ -4,6 +4,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,43 +17,16 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PaletteViewHolder extends RecyclerView.ViewHolder {
+public class PaletteViewHolder extends GenericHolder {
 
     private CircleImageView crlImageFavorite;
     private CircleImageView crlImageStatus;
     private ImageView imgAddFavorite;
     private TextView txtInicialesFav, txtNameFav;
-    private View itemView;
 
     public PaletteViewHolder(View itemView) {
         super(itemView);
-        this.itemView = itemView;
-        crlImageFavorite = itemView.findViewById(R.id.crlImageFavorite);
-        crlImageStatus = itemView.findViewById(R.id.imgItemGalleryStatus);
-        imgAddFavorite = itemView.findViewById(R.id.imgAddFavorite);
-        txtInicialesFav = itemView.findViewById(R.id.txtInicialesFav);
-        txtNameFav = itemView.findViewById(R.id.txtNameFav);
-    }
-
-    public void bind(final Favoritos favorito, final OnClickListener listener){
-
-        imgAddFavorite.setVisibility(View.GONE);
-        txtNameFav.setText(noSpaces(favorito.getNombre()));
-        if (!favorito.getImagenURL().isEmpty()) {
-            setImagePicasoFav(crlImageFavorite, favorito.getImagenURL());
-        } else {
-            GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(favorito.getColorMarca()),
-                        android.graphics.Color.parseColor(favorito.getColorMarca()));
-            crlImageFavorite.setBackground(gd);
-            txtInicialesFav.setVisibility(View.VISIBLE);
-            txtInicialesFav.setText(StringUtils.getIniciales(favorito.getNombre()));
-        }
-        this.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onClick(favorito);
-            }
-        });
+        init();
     }
 
     public void edition(boolean editable){
@@ -95,7 +69,39 @@ public class PaletteViewHolder extends RecyclerView.ViewHolder {
         return names;
     }
 
-    public interface OnClickListener {
-        void onClick(Favoritos favorito);
+    @Override
+    public void init() {
+        this.crlImageFavorite = itemView.findViewById(R.id.crlImageFavorite);
+        this.crlImageStatus = itemView.findViewById(R.id.imgItemGalleryStatus);
+        this.imgAddFavorite = itemView.findViewById(R.id.imgAddFavorite);
+        this.txtInicialesFav = itemView.findViewById(R.id.txtInicialesFav);
+        this.txtNameFav = itemView.findViewById(R.id.txtNameFav);
+    }
+
+    @Override
+    public void bind(Object item, OnClickItemHolderListener listener) {
+        Favoritos favorito = (Favoritos) item;
+        imgAddFavorite.setVisibility(View.GONE);
+        txtNameFav.setText(noSpaces(favorito.getNombre()));
+        if (!favorito.getImagenURL().isEmpty()) {
+            setImagePicasoFav(crlImageFavorite, favorito.getImagenURL());
+        } else {
+            GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(favorito.getColorMarca()),
+                    android.graphics.Color.parseColor(favorito.getColorMarca()));
+            crlImageFavorite.setBackground(gd);
+            txtInicialesFav.setVisibility(View.VISIBLE);
+            txtInicialesFav.setText(StringUtils.getIniciales(favorito.getNombre()));
+        }
+        this.itemView.setOnClickListener(view -> listener.onClick(favorito));
+    }
+
+    @Override
+    public void inflate(ViewGroup layout) {
+
+    }
+
+    @Override
+    public View getView() {
+        return null;
     }
 }

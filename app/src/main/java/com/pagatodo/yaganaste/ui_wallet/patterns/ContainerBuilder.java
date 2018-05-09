@@ -159,7 +159,7 @@ public class ContainerBuilder {
 
     private static ArrayList<PaletteViewHolder> list;
 
-    public static void FAVORITOS(Context context, ViewGroup parent, List<Favoritos> listF, PaletteViewHolder.OnClickListener listener) {
+    public static void FAVORITOS(Context context, ViewGroup parent, List<Favoritos> listF, OnClickItemHolderListener listener) {
         Container builder = new Container(context, parent);
         Favoritos itemAdd = new Favoritos(0);
         itemAdd.setNombre("Agregar");

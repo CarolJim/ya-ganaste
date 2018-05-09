@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
@@ -23,7 +24,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -32,6 +32,8 @@ import com.pagatodo.yaganaste.net.VolleySingleton;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
+import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.interfaces.Component;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.FileDownload;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
@@ -40,10 +42,7 @@ import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -405,5 +404,30 @@ public class App extends Application {
         Countly.sharedInstance().onStop();
         Log.d(currentActivity.getClass().getName(),"Countly onStop");
 
+    }
+
+    public static class TextLeaf implements Component {
+
+        public TextDataViewHolder holder;
+
+        public TextLeaf(TextDataViewHolder holder, Object item) {
+            this.holder = holder;
+            setContent(item);
+        }
+
+        @Override
+        public void add(Component component) {
+
+        }
+
+        @Override
+        public void setContent(Object item) {
+            this.holder.bind(item,null);
+        }
+
+        @Override
+        public void inflate(ViewGroup layout) {
+            layout.addView(this.holder.getView());
+        }
     }
 }
