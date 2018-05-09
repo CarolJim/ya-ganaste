@@ -585,7 +585,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             case RECUPERAR_CONTRASENIA:
                 proccesDataRecuperarContrasenia(dataSourceResult);
                 break;
-
             case CONSULTAR_SALDO:
                 validateBalanceResponse((ConsultarSaldoResponse) dataSourceResult.getData());
                 break;
