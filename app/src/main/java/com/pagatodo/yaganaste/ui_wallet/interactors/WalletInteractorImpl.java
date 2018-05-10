@@ -76,8 +76,6 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void getStatusAccount(EstatusCuentaRequest request) {
-        this.listener.onFailed(ERROR_STATUS, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-
         try {
             ApiTrans.estatusCuenta(request, this);
         } catch (OfflineException e) {

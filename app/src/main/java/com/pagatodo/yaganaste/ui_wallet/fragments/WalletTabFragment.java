@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
-import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
 import com.pagatodo.yaganaste.ui_wallet.views.CustomDots;
+import com.pagatodo.yaganaste.ui_wallet.views.CutomWalletViewPage;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -56,8 +56,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
-    @BindView(R.id.viewpager_wallet)
-    ViewPager viewPagerWallet;
+    @BindView(R.id.pager_container)
+    CutomWalletViewPage pageContainer;
     @BindView(R.id.rcv_elements)
     RecyclerView rcvOpciones;
     @BindView(R.id.txt_monto)
@@ -68,21 +68,15 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     StyleTextView tipoSaldo;
     @BindView(R.id.img_reload)
     ImageView imgReload;
-    @BindView(R.id.downloading)
-    ImageView downloading;
 
 
     private WalletPresenter walletPresenter;
     private CardWalletAdpater cardWalletAdpater;
     private ElementsWalletAdapter elementsWalletAdapter;
     protected OnEventListener onEventListener;
-
+    private ViewPager viewPagerWallet;
     private int pageCurrent;
     private GridLayoutManager llm;
-
-
-
-
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -115,6 +109,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void initViews() {
+        viewPagerWallet = pageContainer.getViewPager();
         elementsWalletAdapter = new ElementsWalletAdapter(getActivity(),this);
         llm = new GridLayoutManager(getContext(), 3);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
@@ -147,10 +142,11 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void getPagerAdapter(PagerAdapter pagerAdapter) {
         cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
-
+        pageCurrent = (LOOPS_COUNT / 2) - ((LOOPS_COUNT / 2) % cardWalletAdpater.getSize()) ;
         viewPagerWallet.setAdapter(pagerAdapter);
         viewPagerWallet.setCurrentItem(pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
+        viewPagerWallet.setPageMargin(15);
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
         updateOperations(pageCurrent);

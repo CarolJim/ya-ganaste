@@ -1,10 +1,15 @@
 package com.pagatodo.yaganaste.ui_wallet.pojos;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.UtilsGraphics;
 
 import java.util.ArrayList;
 
@@ -28,6 +33,7 @@ public class ElementWallet {
 
     private int typeWallet;
     private int resourceCard, resourceBack;
+    private Bitmap bitmap;
     private String saldo;
     private ArrayList<ElementView> elementViews;
     private int tipoSaldo;
@@ -50,6 +56,16 @@ public class ElementWallet {
         this.typeWallet = typeWallet;
         this.resourceCard = resourceCard;
         this.resourceBack = resourceBack;
+        this.saldo = saldo;
+        this.elementViews = elementViews;
+        this.tipoSaldo = tipoSaldo;
+        this.isUpdate = isUpdate;
+    }
+
+    public ElementWallet(int typeWallet, int resourceCard, Bitmap bitmap, String saldo, ArrayList<ElementView> elementViews, int tipoSaldo, boolean isUpdate) {
+        this.typeWallet = typeWallet;
+        this.resourceCard = resourceCard;
+        this.bitmap = bitmap;
         this.saldo = saldo;
         this.elementViews = elementViews;
         this.tipoSaldo = tipoSaldo;
@@ -112,24 +128,46 @@ public class ElementWallet {
         this.tipoSaldo = tipoSaldo;
     }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
     //Datos seteado de prueb
     public ElementWallet getCardyaganaste() {
-        return new ElementWallet(TYPE_EMISOR, R.drawable.tarjeta_yg,
+
+        Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.back_yg_card_white);
+        Bitmap qrCode = UtilsGraphics.getQrCode(backView);
+        Bitmap resultBitmat = UtilsGraphics.createSingleImageFromMultipleImages(backView, qrCode);
+
+        return new ElementWallet(TYPE_EMISOR, R.drawable.tarjeta_yg, resultBitmat,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 R.string.saldo_disponible, true);
     }
 
     public ElementWallet getCardyaganasteBloqueda() {
-        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_gray,
+        Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.back_yg_card_white);
+        Bitmap qrCode = UtilsGraphics.getQrCode(backView);
+        Bitmap resultBitmat = UtilsGraphics.createSingleImageFromMultipleImages(backView, qrCode);
+
+        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_gray, resultBitmat,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 R.string.saldo_disponible, true);
     }
 
     public ElementWallet getCardStarbucks() {
-        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux,
-                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)), new ElementView().getListStarbucks(),
+
+        Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(),R.mipmap.back_yg_card_white);
+        Bitmap starbucksCode = UtilsGraphics.getStarbucksCode(backView);
+        Bitmap resultBitmat = UtilsGraphics.createSingleImageFromMultipleImages(backView, starbucksCode);
+        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux,resultBitmat,
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
+                new ElementView().getListStarbucks(),
                 (R.string.saldo_disponible), true);
     }
 
@@ -138,7 +176,7 @@ public class ElementWallet {
         if (!App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
             cardsAvailable++;
         }
-        return new ElementWallet(TYPE_SETTINGS, R.drawable.config_card,
+        return new ElementWallet(TYPE_SETTINGS, R.drawable.config_card, null,
                 App.getContext().getString(R.string.title_wallet_main_settings) + cardsAvailable,
                 new ElementView().getListConfigCard(), R.string.title_wallet_second_settings, false);
     }
@@ -156,7 +194,7 @@ public class ElementWallet {
                 descripcion = R.string.mejor_precio;
                 isReload = false;
             }
-            return new ElementWallet(TYPE_ADQ, R.mipmap.lector_front, leyenda,
+            return new ElementWallet(TYPE_ADQ, R.mipmap.lector_front, null, leyenda,
                     new ElementView().getListLectorAdq(), descripcion, isReload);
         } else {
             return getCardLectorEmi();

@@ -1397,7 +1397,7 @@
     <!-- Cambio de nip-->
     <string name="nip_actual">NIP Actual</string>
     <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
-    <string name="nip_confima">Confirma nuevo NIP (4 dígitos)</string>
+    <string name="nip_confima">Confirmar nuevo NIP (4 dígitos)</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
 
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>

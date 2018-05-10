@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui_wallet.holders.WalletViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
@@ -26,34 +28,26 @@ import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumber;
  * Created by icruz on 11/12/2017.
  */
 
-public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
+public class CardWalletAdpater extends PagerAdapter  {
 
     public static int LOOPS_COUNT = 100;
     private ArrayList<ElementWallet> elementViewList;
-    private float mBaseElevation;
-    private List<CardView> mViews;
 
     public CardWalletAdpater() {
-        elementViewList = new ArrayList<>();
-        mViews = new ArrayList<>();
+        this.elementViewList = new ArrayList<>();
+
     }
 
     public void addCardItem(ElementWallet item) {
-        mViews.add(null);
         elementViewList.add(item);
     }
 
-    /*public ArrayList<ElementView> getElementWallet(int position) {
-        return this.elementViewList.get(position).getElementViews();
-    }*/
-
     public int getSize(){
-        return mViews.size();
+        return elementViewList.size();
     }
 
     @Override
     public int getCount() {
-        //return this.elementViewList.size();
         return LOOPS_COUNT;
     }
 
@@ -67,21 +61,15 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.wallet_element, container, false);
+
+        WalletViewHolder holder = new WalletViewHolder(view);
+        holder.bind(elementViewList.get(position % elementViewList.size()),null);
         container.addView(view);
-        int index = position%mViews.size();
-        bind(elementViewList.get(index), view);
-        CardView cardView = view.findViewById(R.id.cardView);
-        if (mBaseElevation == 0) {
-            mBaseElevation = cardView.getCardElevation();
-        }
-        cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
-        cardView.setPreventCornerOverlap(false);
-        mViews.set(index, cardView);
         return view;
 
     }
 
-    private void bind(ElementWallet item, View view) {
+    /*private void bind(ElementWallet item, View view) {
         ImageView imageViewCard = view.findViewById(R.id.imageview_card);
         YaGanasteCard yaGanasteCard = view.findViewById(R.id.yg_card_tab_wallet);
         if (item.getResourceCard() == R.drawable.tarjeta_yg || item.getResourceCard() == R.mipmap.main_card_zoom_gray) {
@@ -96,10 +84,10 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
             imageViewCard.setVisibility(View.VISIBLE);
             imageViewCard.setImageResource(item.getResourceCard());
         }
-    }
+    }*/
 
     public ElementWallet getElemenWallet(int position) {
-        return this.elementViewList.get(position%mViews.size());
+        return this.elementViewList.get(position%elementViewList.size());
     }
 
 
@@ -110,7 +98,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
         container.removeView((View) object);
 
     }
-
+/*
     @Override
     public float getBaseElevation() {
         return mBaseElevation;
@@ -120,9 +108,9 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
     public CardView getCardViewAt(int position) {
         return mViews.get(position%mViews.size());
     }
-
+*/
     public void updateSaldo(int position, String saldo) {
-        elementViewList.get(position%mViews.size()).setSaldo(saldo);
+        elementViewList.get(position%elementViewList.size()).setSaldo(saldo);
     }
 
 
