@@ -17,7 +17,7 @@ public class CardStarbucks implements Serializable {
     boolean esPrincipal;
     String fechaActivacion = "";
     String numeroTarjeta = "";
-    float saldo;
+    double saldo;
     String statusTarjeta = "";
     String tipoTarjeta = "";
     DtoImageCardStrabucks imagenes;
@@ -58,7 +58,7 @@ public class CardStarbucks implements Serializable {
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public float getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 

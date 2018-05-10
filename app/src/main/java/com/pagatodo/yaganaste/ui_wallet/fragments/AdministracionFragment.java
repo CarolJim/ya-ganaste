@@ -122,7 +122,7 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
         switch (state) {
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //mycard_switch.setChecked(false);
-                card.setImageResource(R.drawable.tarjeta_yg);
+                card.setImageResource(R.mipmap.main_card_zoom_blue);
                 ico.setVisibility(GONE);
                 radioButtonNo.setChecked(true);
                 break;

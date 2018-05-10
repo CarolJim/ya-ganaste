@@ -114,7 +114,7 @@ public class ElementWallet {
 
     //Datos seteado de prueb
     public ElementWallet getCardyaganaste() {
-        return new ElementWallet(TYPE_EMISOR, R.drawable.tarjeta_yg,
+        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_blue,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisor(),
                 R.string.saldo_disponible, true);
@@ -172,14 +172,14 @@ public class ElementWallet {
     }
 
     public ElementWallet getCardBalanceEmi() {
-        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_blue, R.mipmap.back_yg_card_white,
+        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_blue, R.mipmap.main_card_zoom_blue_back,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisorBalance(),
                 R.string.saldo_disponible, true);
     }
 
     public ElementWallet getCardBalanceEmiBloqueda() {
-        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_gray, R.mipmap.card_back_backmara_2,
+        return new ElementWallet(TYPE_EMISOR, R.mipmap.main_card_zoom_gray, R.mipmap.main_card_zoom_gray_back,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 new ElementView().getListEmisorBalance(),
                 R.string.saldo_disponible, true);
@@ -193,7 +193,7 @@ public class ElementWallet {
     }
 
     public ElementWallet getCardBalanceStarbucks() {
-        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux, R.mipmap.back_yg_card_white,
+        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux, R.mipmap.main_card_zoom_blue_back,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
                 new ElementView().getListStarbucksBalance(), R.string.saldo_disponible, false);
     }

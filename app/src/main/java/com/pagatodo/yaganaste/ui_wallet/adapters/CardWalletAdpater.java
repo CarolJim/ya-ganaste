@@ -79,7 +79,7 @@ public class CardWalletAdpater extends PagerAdapter implements CardAdapter {
     private void bind(ElementWallet item, View view) {
         ImageView imageViewCard = view.findViewById(R.id.imageview_card);
         YaGanasteCard yaGanasteCard = view.findViewById(R.id.yg_card_tab_wallet);
-        if (item.getResourceCard() == R.drawable.tarjeta_yg || item.getResourceCard() == R.mipmap.main_card_zoom_gray) {
+        if (item.getResourceCard() == R.mipmap.main_card_zoom_blue || item.getResourceCard() == R.mipmap.main_card_zoom_gray) {
             yaGanasteCard.setVisibility(View.VISIBLE);
             imageViewCard.setVisibility(View.GONE);
             String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);

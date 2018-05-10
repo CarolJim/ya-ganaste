@@ -167,7 +167,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
         QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, phone, cardNumber, clabe);
         String gson = new Gson().toJson(myQr);
         QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(),
-                /*smallerDimension*/parentBitmap.getHeight() - 15);
+                /*smallerDimension*/parentBitmap.getHeight() - 40);
         try {
             return qrCodeEncoder.encodeAsBitmap();
         } catch (WriterException e) {
@@ -181,7 +181,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
         String finaldata = Uri.encode(prefs.loadData(NUMBER_CARD_STARBUCKS), null);
         BitMatrix bm = null;
         try {
-            bm = writer.encode(finaldata, BarcodeFormat.PDF_417, parentBitmap.getWidth() - 15, parentBitmap.getHeight() - 15);
+            bm = writer.encode(finaldata, BarcodeFormat.PDF_417, parentBitmap.getWidth() - 40, parentBitmap.getHeight());
         } catch (WriterException e) {
             e.printStackTrace();
         }
