@@ -465,7 +465,7 @@
     <string name="main_tab_depositos">Enviar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
-    <string name="main_tab_movimientos">Movimientos</string>
+    <string name="main_tab_movimientos">Consulta Movimientos</string>
     <string name="no_movimientos">Sin movimientos</string>
     <string name="error_respuesta">Ocurrió un error de conexión</string>
 
@@ -1310,7 +1310,7 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Movimientos</string>
+    <string name="operation_movimientos">Consulta\nMovimientos</string>
     <string name="operation_deposito">Mi Cuenta</string>
     <string name="operation_administracion">Administrar\nTarjeta</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
