@@ -38,13 +38,11 @@ public class WalletViewHolder extends GenericHolder {
             this.flipView.setRearImageBitmap(item.getBitmap());
             this.flipView.setOnClickListener(view -> {
 
-
-
-                /*if (!this.flipView.isFlipped()) {
+                if (!this.flipView.isFlipped()) {
                     this.flipView.flip(true);
                 } else {
                     this.flipView.flip(false);
-                }*/
+                }
 
             });
 
