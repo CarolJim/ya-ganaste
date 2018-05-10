@@ -113,7 +113,7 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <com.pagatodo.yaganaste.ui_wallet.views.CustomDots
             android:id="@+id/viewPagerCountDots"
             android:layout_width="match_parent"
             android:layout_height="9dp"

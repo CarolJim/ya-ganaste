@@ -13,6 +13,7 @@
     app:contentPaddingRight="10dp">
 
     <LinearLayout
+        android:id="@+id/flip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -20,11 +21,31 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/card_front"
+            android:layout_width="201dp"
+            android:layout_height="126.1dp"
+            android:tint="@color/adadad"
+            android:padding="16dp"
+            android:src="@drawable/rectangle"
+            android:visibility="gone"/>
+
+
+        <ImageView
+            android:id="@+id/card_back"
+            android:layout_width="201dp"
+            android:layout_height="126.1dp"
+            android:tint="@color/whiteColor"
+            android:padding="16dp"
+            android:src="@drawable/rectangle"
+            android:visibility="gone"/>
+
+
+        <ImageView
             android:id="@+id/imageview_card"
             android:layout_width="201dp"
             android:layout_height="126.1dp"
             android:contentDescription="@string/app_name"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
             android:id="@+id/yg_card_tab_wallet"
@@ -32,6 +53,8 @@
             android:layout_height="126.1dp"
             android:visibility="gone"/>
     </LinearLayout>
+
+
 
 </android.support.v7.widget.CardView>
 
