@@ -258,19 +258,19 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
                         R.id.fragment_container, Direction.FORDWARD, false);
-                showBack(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case AdqActivity.EVENT_GO_REMOVE_CARD:
                 loadFragment(RemoveCardFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
-                showBack(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case EVENT_GO_GET_SIGNATURE:
                 loadFragment(GetSignatureFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
-                showBack(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case EVENT_GO_DETAIL_TRANSACTION:
                 loadFragment(DetailTransactionFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
-                showBack(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case EVENT_GO_MAINTAB:
                 finish();
@@ -322,7 +322,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_ADMIN_STARBUCKS:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
-                showBack(false);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
         }
     }

@@ -75,6 +75,8 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         if (item.isUpdate()) {
             walletView.showProgress();
             walletInteractor.getBalance(item.getTypeWallet());
+        } else {
+            onSuccesSaldo(item.getTypeWallet(), "");
         }
     }
 
@@ -99,7 +101,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccess(@Nullable Integer typeWallet, @Nullable Object result) {
         walletView.hideProgress();
-        if (result instanceof DataInfoAgente){
+        if (result instanceof DataInfoAgente) {
             DataInfoAgente response = (DataInfoAgente) result;
             Preferencias sp = App.getInstance().getPrefs();
             sp.saveDataBool(ES_AGENTE, response.isEsAgente());
@@ -114,7 +116,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
             RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
             walletView.sendSuccessInfoAgente();
-        } else if (result instanceof ConsultarSaldoResponse){
+        } else if (result instanceof ConsultarSaldoResponse) {
             String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
             switch (typeWallet) {
                 case TYPE_STARBUCKS:
@@ -146,25 +148,26 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             walletView.sendSuccessStatusAccount((EstatusCuentaResponse) response);
         }
     }
-/*
-    @Override
-    public void onSuccessInfoAgente(DataInfoAgente response) {
-        walletView.hideProgress();
-        Preferencias sp = App.getInstance().getPrefs();
-        sp.saveDataBool(ES_AGENTE, response.isEsAgente());
-        sp.saveDataBool(ES_AGENTE_RECHAZADO, response.isEsAgenteRechazado());
-        sp.saveDataInt(ESTATUS_AGENTE, response.getEstatusAgente());
-        sp.saveDataInt(ESTATUS_DOCUMENTACION, response.getEstatusDocumentacion());
-        if (response.getIdEstatus() > 0)
-            sp.saveDataInt(ID_ESTATUS, response.getIdEstatus());
-        sp.saveData(ID_USUARIO_ADQUIRIENTE, response.getIdUsuarioAdquirente());
-        sp.saveData(COMPANY_NAME, response.getNombreNegocio());
-        sp.saveData(TIPO_AGENTE, response.getTipoAgente());
-        RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
-        RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
-        walletView.sendSuccessInfoAgente();
-    }
-*/
+
+    /*
+        @Override
+        public void onSuccessInfoAgente(DataInfoAgente response) {
+            walletView.hideProgress();
+            Preferencias sp = App.getInstance().getPrefs();
+            sp.saveDataBool(ES_AGENTE, response.isEsAgente());
+            sp.saveDataBool(ES_AGENTE_RECHAZADO, response.isEsAgenteRechazado());
+            sp.saveDataInt(ESTATUS_AGENTE, response.getEstatusAgente());
+            sp.saveDataInt(ESTATUS_DOCUMENTACION, response.getEstatusDocumentacion());
+            if (response.getIdEstatus() > 0)
+                sp.saveDataInt(ID_ESTATUS, response.getIdEstatus());
+            sp.saveData(ID_USUARIO_ADQUIRIENTE, response.getIdUsuarioAdquirente());
+            sp.saveData(COMPANY_NAME, response.getNombreNegocio());
+            sp.saveData(TIPO_AGENTE, response.getTipoAgente());
+            RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
+            RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
+            walletView.sendSuccessInfoAgente();
+        }
+    */
     @Override
     public void onFailed(int errorCode, int action, String error) {
         walletView.hideProgress();
@@ -200,20 +203,21 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void onSuccesSaldo(int typeWallet, String saldo) {
-        switch (typeWallet) {
-            case TYPE_STARBUCKS:
-                App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
-                break;
-            case TYPE_EMISOR:
-                App.getInstance().getPrefs().saveData(USER_BALANCE, saldo);
-                break;
-            case TYPE_ADQ:
-                App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, saldo);
-                App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-                break;
-        }
         walletView.hideProgress();
-        //walletView.finishProgressSaldo();
-        walletView.getSaldo(saldo);
+        if (!saldo.equals("")) {
+            switch (typeWallet) {
+                case TYPE_STARBUCKS:
+                    App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
+                    break;
+                case TYPE_EMISOR:
+                    App.getInstance().getPrefs().saveData(USER_BALANCE, saldo);
+                    break;
+                case TYPE_ADQ:
+                    App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, saldo);
+                    App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                    break;
+            }
+            walletView.getSaldo(saldo);
+        }
     }
 }
