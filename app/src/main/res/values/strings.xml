@@ -465,7 +465,7 @@
     <string name="main_tab_depositos">Enviar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
-    <string name="main_tab_movimientos">Movimientos</string>
+    <string name="main_tab_movimientos">Consulta Movimientos</string>
     <string name="no_movimientos">Sin movimientos</string>
     <string name="error_respuesta">Ocurrió un error de conexión</string>
 
@@ -1218,7 +1218,7 @@
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nPonte en contacto con nosotros</string>
-    <string name="numero">01800-500-1000</string>
+    <string name="numero">01800 500 1000</string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
@@ -1310,7 +1310,7 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Movimientos</string>
+    <string name="operation_movimientos">Consulta\nMovimientos</string>
     <string name="operation_deposito">Mi Cuenta</string>
     <string name="operation_administracion">Administrar\nTarjeta</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
