@@ -13,13 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/whiteColor"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:id="@+id/view_element"
-            android:layout_width="113dp"
-            android:layout_height="113dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -34,10 +34,11 @@
                 style="@style/generic_text_style_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Estado de Cuenta"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/size_text_style_3_value" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

@@ -42,6 +42,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import eu.davidea.flipview.FlipView;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater.LOOPS_COUNT;
@@ -265,6 +266,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         //previous_pos = pageCurrent;
         pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
         pageCurrent = position;
+        cardWalletAdpater.resetFlip();
         updateOperations(position);
     }
 

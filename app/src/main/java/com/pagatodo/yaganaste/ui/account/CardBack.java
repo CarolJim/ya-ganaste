@@ -80,10 +80,10 @@ public class CardBack extends Fragment {
 
         switch (status) {
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
-                cardSaldo.setImageResource(R.mipmap.card_back_backmara_2);
+                cardSaldo.setImageResource(R.mipmap.main_card_zoom_gray_back);
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
-                cardSaldo.setImageResource(R.mipmap.card_back_backmara);
+                cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue_back);
                 break;
 
         }

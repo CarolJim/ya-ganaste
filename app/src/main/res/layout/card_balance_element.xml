@@ -12,8 +12,8 @@
     app:contentPaddingRight="10dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="vertical">
@@ -21,7 +21,7 @@
         <eu.davidea.flipview.FlipView
             android:id="@+id/cardflip_element"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:enableInitialAnimation="false"
             app:frontBackgroundColor="@color/transparent"
             app:rearBackgroundColor="@color/transparent"

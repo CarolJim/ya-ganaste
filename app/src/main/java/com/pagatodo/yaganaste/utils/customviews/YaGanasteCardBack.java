@@ -49,7 +49,7 @@ public class YaGanasteCardBack extends AppCompatImageView {
             setCardDate(typedArray.getString(R.styleable.YaGanasteCard_expirationDate));
             setMasked(typedArray.getBoolean(R.styleable.YaGanasteCard_isMasked, false));
         }
-        setImageResource(R.mipmap.card_back_backmara);
+        setImageResource(R.mipmap.main_card_zoom_blue_back);
         setAdjustViewBounds(true);
     }
 

@@ -67,7 +67,7 @@ public class ContainerBuilder {
 
     private static void mainMenu(Container s) {
         int res = R.layout.option_menu_tem_view;
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
+        //s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
         s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
         s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
         s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));

@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 
 import eu.davidea.flipview.FlipView;
@@ -14,9 +16,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 public class WalletViewHolder extends GenericHolder {
 
     private FlipView flipView;
+    private ICardBalance listener;
 
-    public WalletViewHolder(View itemView) {
+    public WalletViewHolder(View itemView,ICardBalance listener) {
         super(itemView);
+        this.listener = listener;
         init();
     }
 
@@ -34,16 +38,23 @@ public class WalletViewHolder extends GenericHolder {
             this.flipView.setRearImageBitmap(item.getBitmap());
             this.flipView.setOnClickListener(view -> {
 
-                if (!this.flipView.isFlipped()) {
+
+
+                /*if (!this.flipView.isFlipped()) {
                     this.flipView.flip(true);
                 } else {
                     this.flipView.flip(false);
-                }
+                }*/
 
             });
+
         }
         this.flipView.flip(false);
 
+    }
+
+    public void resetFlip(){
+        this.flipView.flip(false);
     }
 
     @Override
