@@ -640,7 +640,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void validatePersonDataResponse(GenericResponse data) {
         if (data.getCodigoRespuesta() == 0) {
             accountManager.onSuccessDataPerson();
-        } else if (data.getCodigoRespuesta() == 231) { // 325 Caso Homonímia
+        } else if (data.getCodigoRespuesta() == 352) {
             accountManager.onHomonimiaDataPerson();
         } else {
             accountManager.onError(VALIDAR_DATOS_PERSONA, data.getMensaje());

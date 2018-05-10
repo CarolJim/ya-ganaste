@@ -32,6 +32,7 @@ import java.util.List;
 
 import eu.davidea.flipview.FlipView;
 
+import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLACK;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
@@ -192,7 +193,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
         for (int y = 0; y < height; y++) {
             int offset = y * width;
             for (int x = 0; x < width; x++) {
-                pixels[offset + x] = bm.get(x, y) ? BLUE : WHITE;
+                pixels[offset + x] = bm.get(x, y) ? BLACK : WHITE;
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);

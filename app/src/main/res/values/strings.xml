@@ -1218,7 +1218,7 @@
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nPonte en contacto con nosotros</string>
-    <string name="numero">01800-500-1000</string>
+    <string name="numero">01800 500 1000</string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>

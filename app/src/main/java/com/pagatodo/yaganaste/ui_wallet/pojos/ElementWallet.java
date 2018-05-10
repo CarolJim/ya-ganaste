@@ -193,7 +193,7 @@ public class ElementWallet {
     }
 
     public ElementWallet getCardBalanceStarbucks() {
-        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux, R.mipmap.main_card_zoom_blue_back,
+        return new ElementWallet(TYPE_STARBUCKS, R.drawable.card_sbux, R.drawable.card_sbux_back,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
                 new ElementView().getListStarbucksBalance(), R.string.saldo_disponible, false);
     }
