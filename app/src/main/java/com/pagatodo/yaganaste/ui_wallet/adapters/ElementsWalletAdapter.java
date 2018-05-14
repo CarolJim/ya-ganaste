@@ -28,8 +28,6 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
         this.listener = listener;
     }
 
-
-
     @Override
     public OptionsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         return ContainerBuilder.getViewHolder(context,parent,elementViews.get(position).getTypeOptions());
@@ -54,30 +52,4 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
         this.elementViews = elementViews;
     }
 
-
-    /*public class DataWallet {
-        int columnas;
-        int texResource;
-
-        public DataWallet(int columnas, int texResource) {
-            this.columnas = columnas;
-            this.texResource = texResource;
-        }
-
-        public int getColumnas() {
-            return columnas;
-        }
-
-        public void setColumnas(int columnas) {
-            this.columnas = columnas;
-        }
-
-        public int getTexResource() {
-            return texResource;
-        }
-
-        public void setTexResource(int texResource) {
-            this.texResource = texResource;
-        }
-    }*/
 }

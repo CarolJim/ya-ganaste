@@ -18,6 +18,6 @@
         android:right="9.3dp"
         android:top="@dimen/seekbbar_thumb_arrow_margin_top_bottom">
 
-        <!--bitmap android:src="@drawable/arrow_icon"/-->
+        <!--rearBitmap android:src="@drawable/arrow_icon"/-->
     </item>
 </layer-list>

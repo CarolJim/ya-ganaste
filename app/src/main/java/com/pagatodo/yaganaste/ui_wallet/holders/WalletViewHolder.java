@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 
@@ -26,33 +25,29 @@ public class WalletViewHolder extends GenericHolder {
 
     @Override
     public void init() {
-        this.flipView = itemView.findViewById(R.id.cardflip_element);
+        flipView = itemView.findViewById(R.id.cardflip_element);
         FlipView.enableLogs(DEBUG);
     }
 
     @Override
     public void bind(Object elementWallet, @Nullable OnClickItemHolderListener listener) {
         ElementWallet item = (ElementWallet) elementWallet;
-        this.flipView.setFrontImage(item.getResourceCard());
-        if (item.getBitmap() != null) {
-            this.flipView.setRearImageBitmap(item.getBitmap());
-            this.flipView.setOnClickListener(view -> {
-
-                if (!this.flipView.isFlipped()) {
-                    this.flipView.flip(true);
+        flipView.setFrontImageBitmap(item.getFrontBitmap());
+        if (item.getRearBitmap() != null) {
+            flipView.setRearImageBitmap(item.getRearBitmap());
+            flipView.setOnClickListener(view -> {
+                if (!flipView.isFlipped()) {
+                    flipView.flip(true);
                 } else {
-                    this.flipView.flip(false);
+                    flipView.flip(false);
                 }
-
             });
-
         }
-        this.flipView.flip(false);
-
+        flipView.flip(false);
     }
 
     public void resetFlip(){
-        this.flipView.flip(false);
+        flipView.flip(false);
     }
 
     @Override

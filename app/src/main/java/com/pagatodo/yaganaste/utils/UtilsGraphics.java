@@ -12,6 +12,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
 
+import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLACK;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
@@ -39,7 +40,7 @@ public class UtilsGraphics  {
         }
     }
 
-    public static Bitmap createSingleImageFromMultipleImages(Bitmap firstImage, Bitmap secondImage) {
+    public static Bitmap overlayImages(Bitmap firstImage, Bitmap secondImage) {
         Bitmap result = Bitmap.createBitmap(firstImage.getWidth(), firstImage.getHeight(), firstImage.getConfig());
         Canvas canvas = new Canvas(result);
         canvas.drawBitmap(firstImage, 0f, 0f, null);
@@ -64,7 +65,7 @@ public class UtilsGraphics  {
         for (int y = 0; y < height; y++) {
             int offset = y * width;
             for (int x = 0; x < width; x++) {
-                pixels[offset + x] = bm.get(x, y) ? BLUE : WHITE;
+                pixels[offset + x] = bm.get(x, y) ? BLACK : WHITE;
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);

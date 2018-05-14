@@ -104,26 +104,8 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
 
     private void bind(ElementWallet item, View view, final int position) {
         FlipView flipView = (FlipView) view.findViewById(R.id.cardflip_element);
-        flipView.setFrontImage(item.getResourceCard());
-        Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), item.getResourceBack());
-        switch (position) {
-            case 0:
-                Bitmap qrCode = getQrCode(backView);
-                flipView.setRearImageBitmap(createSingleImageFromMultipleImages(backView, qrCode));
-                break;
-            case 1:
-                if (!RequestHeaders.getTokenAdq().isEmpty()) {
-                    flipView.setRearImage(item.getResourceBack());
-                } else if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
-                    Bitmap starbucksCode = getStarbucksCode(backView);
-                    flipView.setRearImageBitmap(createSingleImageFromMultipleImages(backView, starbucksCode));
-                }
-                break;
-            case 2:
-                Bitmap starbucksCode = getStarbucksCode(backView);
-                flipView.setRearImageBitmap(createSingleImageFromMultipleImages(backView, starbucksCode));
-                break;
-        }
+        flipView.setFrontImageBitmap(item.getFrontBitmap());
+        flipView.setRearImageBitmap(item.getRearBitmap());
         flipView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

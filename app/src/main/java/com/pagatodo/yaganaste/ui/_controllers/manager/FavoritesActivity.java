@@ -1055,7 +1055,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     .load(cameraManager.getUriImage())
                     .into(imageViewCamera.getCircleImageView());
             Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
-            //cameraManager.setBitmap(bitmapAux);
+            //cameraManager.setRearBitmap(bitmapAux);
             // Procesamos el Bitmap a Base64
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmapAux.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
