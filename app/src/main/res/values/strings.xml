@@ -1310,9 +1310,10 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consulta\nMovimientos</string>
+    <string name="operation_movimientos">Consultar\nMovimientos</string>
     <string name="operation_deposito">Mi Cuenta</string>
     <string name="operation_administracion">Administrar\nTarjeta</string>
+    <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
     <string name="operation_registrar">Registrar</string>
