@@ -2,6 +2,11 @@ package com.pagatodo.yaganaste.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Typeface;
 import android.net.Uri;
 
 import com.google.gson.Gson;
@@ -12,16 +17,21 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
 
+import static android.graphics.Paint.ANTI_ALIAS_FLAG;
+import static com.pagatodo.yaganaste.App.getContext;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLACK;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.LAST_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
+import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
-public class UtilsGraphics  {
+public class UtilsGraphics {
 
     public static Bitmap getQrCode(Bitmap parentBitmap) {
         String name = App.getInstance().getPrefs().loadData(FULL_NAME_USER);
@@ -40,12 +50,13 @@ public class UtilsGraphics  {
         }
     }
 
-    public static Bitmap overlayImages(Bitmap firstImage, Bitmap secondImage) {
+    public static Bitmap overlayImages(Bitmap firstImage, Bitmap secondImage, float left, float top) {
         Bitmap result = Bitmap.createBitmap(firstImage.getWidth(), firstImage.getHeight(), firstImage.getConfig());
         Canvas canvas = new Canvas(result);
         canvas.drawBitmap(firstImage, 0f, 0f, null);
-        canvas.drawBitmap(secondImage, (firstImage.getWidth() / 2) - (secondImage.getWidth() / 2),
-                (firstImage.getHeight() / 2) - (secondImage.getHeight() / 2), null);
+        canvas.drawBitmap(secondImage, left, top, null);
+       /* canvas.drawBitmap(secondImage, (firstImage.getWidth() / 2) - (secondImage.getWidth() / 2),
+                (firstImage.getHeight() / 2) - (secondImage.getHeight() / 2), null);*/
         return result;
     }
 
@@ -71,5 +82,33 @@ public class UtilsGraphics  {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
+    }
+
+    public static Bitmap getTextInBitmap(String text, int textSize) {
+        Paint paint = new Paint(ANTI_ALIAS_FLAG);
+        paint.setTextSize(textSize);
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.LEFT);
+        Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", getContext());
+        paint.setTypeface(typeface);
+        float baseline = -paint.ascent(); // ascent() is negative
+        int width = (int) (paint.measureText(text) + 0.5f); // round
+        int height = (int) (baseline + paint.descent() + 0.5f);
+        Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(image);
+        canvas.drawText(text, 0, baseline, paint);
+        return image;
+    }
+
+    public static Bitmap frontCardYg(Bitmap cardYG) {
+        /* Obtener numero de tarjeta en Bitmap */
+        Bitmap cardNumber = getTextInBitmap(ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)), 70);
+        /* Obtener nombre del cliente en Bitmap */
+        Bitmap nameUser = getTextInBitmap(App.getInstance().getPrefs().loadData(NAME_USER)+" "+
+                App.getInstance().getPrefs().loadData(LAST_NAME), 60);
+        /* Pegar numero de tarjeta en diseño tarjeta */
+        Bitmap faceView = overlayImages(cardYG, cardNumber, 40, cardYG.getHeight() / 2);
+        /* Pegar nombre del cliente en diseño tarjeta */
+        return overlayImages(faceView, nameUser, 40, (faceView.getHeight() / 2) + (cardNumber.getHeight() * 1.2F));
     }
 }
