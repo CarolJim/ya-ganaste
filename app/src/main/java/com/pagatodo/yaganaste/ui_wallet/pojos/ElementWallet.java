@@ -114,7 +114,6 @@ public class ElementWallet {
         this.rearBitmap = rearBitmap;
     }
 
-    //Datos seteado de prueb
     public ElementWallet getCardyaganaste() {
         Bitmap frontView = frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue));
         Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue_back);

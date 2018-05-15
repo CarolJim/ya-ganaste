@@ -63,8 +63,8 @@
                 android:textColorHint="@color/texthint"
                 app:counterEnabled="true"
                 app:counterMaxLength="1"
-                app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
                 app:passwordToggleTint="@color/hint_color"
 
                 tools:ignore="UnusedAttribute">
@@ -77,10 +77,10 @@
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
                     android:paddingLeft="15dp"
-                    android:singleLine="true"
                     android:paddingTop="4dp"
-                    android:theme ="@style/NewEdittextwallet"
-                    android:textColor="@color/grayColor" />
+                    android:singleLine="true"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -106,10 +106,10 @@
                     android:hint="@string/outside_number"
                     android:maxLines="1"
                     android:textColorHint="@color/texthint"
-                    app:hintTextAppearance="@style/HintText"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
@@ -118,13 +118,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
+                        android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-,QWERTYUIOPASDFGHJKLÑZXCVBNM"
                         android:imeOptions="actionNext"
-                        android:paddingTop="4dp"
                         android:paddingLeft="15dp"
-                        android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-"
+                        android:paddingTop="4dp"
                         android:singleLine="true"
-                        android:theme ="@style/NewEdittextwallet"
-                        android:textColor="@color/grayColor" />
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -143,8 +143,8 @@
                     android:textColorHint="@color/texthint"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
-                    app:hintTextAppearance="@style/HintText"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
@@ -153,13 +153,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
+                        android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-,QWERTYUIOPASDFGHJKLÑZXCVBNM"
                         android:imeOptions="actionNext"
-                        android:paddingTop="4dp"
+                        android:maxLength="10"
                         android:paddingLeft="15dp"
-                        android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-"
+                        android:paddingTop="4dp"
                         android:singleLine="true"
-                        android:theme ="@style/NewEdittextwallet"
-                        android:textColor="@color/grayColor" />
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -180,11 +181,11 @@
                 android:hint="@string/zipCodeHint"
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
-                app:hintTextAppearance="@style/HintText"
-                app:passwordToggleTint="@color/hint_color"
-                app:counterEnabled="true"
+                app:counterEnabled="false"
                 app:counterMaxLength="1"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleTint="@color/hint_color"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -193,15 +194,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
+                    android:digits="1,2,3,4,5,6,7,8,9,0"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:maxLength="5"
 
+                    android:maxLength="5"
                     android:paddingLeft="15dp"
                     android:singleLine="true"
-                    android:digits="1,2,3,4,5,6,7,8,9,0"
-                    android:theme ="@style/NewEdittextwallet"
-                    android:textColor="@color/grayColor" />
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -211,6 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
+
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                 android:id="@+id/errorColoniaMessage"
                 style="@style/generic_text_style_2"
@@ -405,9 +407,9 @@
                 android:id="@+id/txtLegales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginBottom="14dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="14dp"
+                android:gravity="center"
                 android:text="@string/terms_and_conditions"
                 android:textColor="@color/texthint"
                 android:textSize="@dimen/wallet_text_size_2"
@@ -416,10 +418,10 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextDomicilioActual"
                 style="@style/buttonSquareRoundedBlue"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="@dimen/btn_navigation_bottom"
                 android:text="@string/nextButton" />
         </LinearLayout>
     </ScrollView>
