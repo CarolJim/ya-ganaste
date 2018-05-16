@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.ForgetPassRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
@@ -16,6 +17,7 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.IloginStarbucksss;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.FORGETPASSWORD;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
@@ -48,6 +50,9 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
         switch (dataSourceResult.getWebService()) {
             case LOGINSTARBUCKS:
                 saveDataUsuStarBucks(dataSourceResult);
+                break;
+            case FORGETPASSWORD:
+
                 break;
         }
     }
@@ -125,6 +130,16 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
         }
 
 
+    }
+
+    @Override
+    public void forgetpass(ForgetPassRequest request) {
+        try {
+            ApiStarbucks.forgetpasswordStarbucks(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            iloginStarbucksss.onError(FORGETPASSWORD, e.toString());
+        }
     }
 }
 

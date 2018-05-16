@@ -121,6 +121,10 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         OnClickItemHolderListener {
 
     private View rootview;
+
+    @BindView(R.id.tipo_envio)
+    StyleTextView text_tipo_envio;
+
     @BindView(R.id.spnTypeSend)
     Spinner tipoEnvio;
 
@@ -351,6 +355,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         tipoEnvio.setOnItemSelectedListener(this);
         receiverName.setSingleLine();
         if (favoriteItem != null) {
+
             receiverName.setText(favoriteItem.getNombre());
             switch (favoriteItem.getReferencia().length()) {
                 case 10:
@@ -932,6 +937,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
+            text_tipo_envio.setVisibility(View.VISIBLE);
             referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
@@ -971,6 +977,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             textchange();
 
         } else if (position == NUMERO_TELEFONO.getId()) {
+            text_tipo_envio.setVisibility(View.VISIBLE);
             referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
@@ -1001,6 +1008,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 isfavo = false;
             }
         } else if (position == CLABE.getId() && keyIdComercio != IDCOMERCIO_YA_GANASTE) {
+            text_tipo_envio.setVisibility(View.VISIBLE);
             referenceFavorite = null;
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
@@ -1037,6 +1045,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 isfavo = false;
             }
         } else if (position == QR_CODE.getId()) {
+            text_tipo_envio.setVisibility(View.VISIBLE);
             referenceFavorite = null;
             cardNumber.setText("");
             maxLength = 22;

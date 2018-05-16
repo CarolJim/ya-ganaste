@@ -107,6 +107,7 @@
 
     <!-- Metodos para operaciones con FB -->
     <string name="loginstarbucks">:17443/wsrewards/LoginMobile</string>
+    <string name="forgetpasswordstarbucks">:17443/wsrewards/RecuperarContraseniaMobile</string>
     <!-- Métodos de WS Starbucks -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
     <string name="sbMovements">:17443/wsrewards/ConsultaMovimientosPorCuenta</string>
@@ -465,7 +466,7 @@
     <string name="main_tab_depositos">Enviar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
-    <string name="main_tab_movimientos">Consulta Movimientos</string>
+    <string name="main_tab_movimientos">Consultar Movimientos</string>
     <string name="no_movimientos">Sin movimientos</string>
     <string name="error_respuesta">Ocurrió un error de conexión</string>
 
@@ -1218,7 +1219,7 @@
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
     <string name="olvidaste_nip">¿Olvidaste tu NIP?\nPonte en contacto con nosotros</string>
-    <string name="numero">01800 500 1000</string>
+    <string name="numero">01 800 500 1000</string>
     <string name="comenzar_registro">Comenzar registro</string>
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
@@ -1310,9 +1311,10 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consulta\nMovimientos</string>
+    <string name="operation_movimientos">Consultar\nMovimientos</string>
     <string name="operation_deposito">Mi Cuenta</string>
     <string name="operation_administracion">Administrar\nTarjeta</string>
+    <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
     <string name="operation_registrar">Registrar</string>
@@ -1435,7 +1437,7 @@
     <string name="starbucks_available">Inicia sesión o Regístrate</string>
     <string name="texto_resgister_starbucks">Regístrate, acumula Stars\n y obtén beneficios exclusivos</string>
     <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
-    <string name="codigo_8_digitos">Código de 8 digitos</string>
+    <string name="codigo_8_digitos">Código de 8 dígitos</string>
     <string name="registrarme">Registrarme</string>
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
@@ -1464,5 +1466,6 @@
     <string name="title_cancel">Tu cuenta ha sido cancelada\n\n¡Te vámos a extrañar!</string>
     <string name="title_btn_cancel">Salir</string>
     <string name="load_cancel">Cancelando cuenta</string>
+    <string name="tipo_de_envio">Tipo de envío</string>
 
 </resources>

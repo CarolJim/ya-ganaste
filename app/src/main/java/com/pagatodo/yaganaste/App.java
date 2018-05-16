@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
 import ly.count.android.sdk.Countly;
 import ly.count.android.sdk.DeviceId;
 
@@ -71,6 +72,7 @@ public class App extends Application {
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
     private Countly countly;
+
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -122,7 +124,7 @@ public class App extends Application {
         System.loadLibrary("a01jni");
         initEMVListener();
         RequestHeaders.initHeaders(this);
-            Log.e(getString(R.string.app_name), "BuildConfig.VERSION_NAME: " + BuildConfig.VERSION_NAME + " prefs.loadData(VERSION_APP):" + prefs.loadData(VERSION_APP));
+        Log.e(getString(R.string.app_name), "BuildConfig.VERSION_NAME: " + BuildConfig.VERSION_NAME + " prefs.loadData(VERSION_APP):" + prefs.loadData(VERSION_APP));
         /*if (!BuildConfig.VERSION_NAME.equals(prefs.loadData(VERSION_APP))) {
             clearCache();
             prefs.clearPreferences();
@@ -153,8 +155,10 @@ public class App extends Application {
         firebaseRemoteConfig();
 
         //Contly
-        this. countly = Countly.sharedInstance().init(this,URL_COUNTLY, getResources().getString(R.string.countly_key, null, DeviceId.Type.OPEN_UDID));
-
+        if (!DEBUG) {
+            countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key, null, DeviceId.Type.OPEN_UDID));
+            countly.enableCrashReporting();
+        }
     }
 
     /* Firebase Remote Configuration */
@@ -292,7 +296,7 @@ public class App extends Application {
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+        Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         if (lifecycleHandler.isInBackground()) {
             NotificationBuilder.createCloseSessionNotification(this, intent, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo));
@@ -328,6 +332,7 @@ public class App extends Application {
             countDownTimer.cancel();
         }
     }
+
     private void startCounter() {
         countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
             @Override
@@ -391,18 +396,18 @@ public class App extends Application {
         this.currentSaldo = currentSaldo;
     }
 
-    public Countly getCountly(){
+    public Countly getCountly() {
         return this.countly;
     }
 
-    public void onStartCountly(){
+    public void onStartCountly() {
         Countly.sharedInstance().onStart(currentActivity);
-        Log.d(currentActivity.getClass().getName(),"Countly OnStar");
+        Log.d(currentActivity.getClass().getName(), "Countly OnStar");
     }
 
-    public void onStopCountly(){
+    public void onStopCountly() {
         Countly.sharedInstance().onStop();
-        Log.d(currentActivity.getClass().getName(),"Countly onStop");
+        Log.d(currentActivity.getClass().getName(), "Countly onStop");
 
     }
 
@@ -422,7 +427,7 @@ public class App extends Application {
 
         @Override
         public void setContent(Object item) {
-            this.holder.bind(item,null);
+            this.holder.bind(item, null);
         }
 
         @Override

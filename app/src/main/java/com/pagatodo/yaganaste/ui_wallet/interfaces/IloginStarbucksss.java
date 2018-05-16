@@ -16,5 +16,7 @@ public interface IloginStarbucksss<T> {
 
     void login(String usuario, String password);
 
+    void forgotpassword(String usuario);
+
 
 }

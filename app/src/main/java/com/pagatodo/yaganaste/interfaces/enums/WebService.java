@@ -171,6 +171,8 @@ public enum WebService {
     /* Login para starbucks */
     PREREGISTRO,
     /* Login para starbucks */
+    FORGETPASSWORD,
+    /* Login para starbucks */
     REGISTROCOMPLETE,
     /* Datos persona para registro starbucks */
     DATOSPERSONAREGISTROSTAR,

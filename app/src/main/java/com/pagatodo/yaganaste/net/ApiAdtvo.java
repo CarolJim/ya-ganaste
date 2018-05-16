@@ -818,7 +818,6 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
                 headers, request, FavoritosDatosResponse.class, result);
     }
-
     public static void addNewFavorites(AddFavoritesRequest request, IRequestResult result)
             throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();

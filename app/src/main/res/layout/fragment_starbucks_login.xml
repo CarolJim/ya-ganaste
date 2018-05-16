@@ -117,13 +117,24 @@
     </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtbottom"
+    android:id="@+id/txtbottom"
+    style="@style/textDescInputs"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:padding="@dimen/margin_medium"
+    android:text="@string/no_tienes_cuenta_registrate"
+    android:textAlignment="center" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtbottomcontrasena"
         style="@style/textDescInputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:padding="@dimen/margin_medium"
-        android:text="@string/no_tienes_cuenta_registrate"
+        android:text="jajajaja se te olvido tu contraseña ?? "
         android:textAlignment="center" />
 
     <LinearLayout

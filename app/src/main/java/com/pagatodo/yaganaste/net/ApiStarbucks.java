@@ -4,12 +4,14 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.ForgetPassRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.StarbucksStoresRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.ConsultaMovimientosSBResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.CustomResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.PreRegisterStarbucksRespónse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
@@ -23,6 +25,7 @@ import java.util.Map;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOV_SB;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_SB;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.FORGETPASSWORD;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_STARBUCKS_STORES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -42,6 +45,16 @@ public class ApiStarbucks extends Api {
         NetFacade.consumeWS(LOGINSTARBUCKS,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.loginstarbucks),
                 headers, request, LoginStarbucksResponse.class, result);
+    }
+
+    public static void forgetpasswordStarbucks(ForgetPassRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersStarbucks();
+        headers.put("fuente", "Movil");
+        headers.put("idusuario", "");
+        headers.put("token", "");
+        NetFacade.consumeWSnotag(FORGETPASSWORD,
+                METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.forgetpasswordstarbucks),
+                headers, request, CustomResult.class, result);
     }
 
     public static void preregistroStarbucks(RegisterStarbucksRequest request, IRequestResult result) throws OfflineException {

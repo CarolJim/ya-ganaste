@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.ForgetPassRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 
 /**
@@ -10,4 +11,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarb
 public interface IloginIteractorStarbucks<T>{
 
     void login(LoginStarbucksRequest request);
+
+    void forgetpass(ForgetPassRequest request);
 }
