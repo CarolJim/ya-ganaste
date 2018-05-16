@@ -99,7 +99,7 @@ public class RegisterStarbucksFragment  extends GenericFragment implements   Vie
         editnumero_tarjeta.addTextChangedListener(new TarjetaStarbucksTextWatcher(editnumero_tarjeta));
         SpannableString ss;
         ss = new SpannableString(getString(R.string.ya_tienes_cuenta_inicia_sesi));
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 20, 32, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 19, 32, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new UnderlineSpan(), 0, 0, 0);
         txtbottom.setText(ss);
 

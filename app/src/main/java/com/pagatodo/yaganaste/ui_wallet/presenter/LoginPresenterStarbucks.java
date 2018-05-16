@@ -5,6 +5,7 @@ import android.content.Context;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.DispositivoStartBucks;
+import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.ForgetPassRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -75,5 +76,12 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
         request.setDispositivoStartBucks(datadispositivo);
         request.setFuente("Movil");
         loginIteractorStarbucks.login(request);
+    }
+
+    @Override
+    public void forgotpassword(String usuario) {
+        ForgetPassRequest request= new ForgetPassRequest();
+        request.email=usuario;
+        loginIteractorStarbucks.forgetpass(request);
     }
 }

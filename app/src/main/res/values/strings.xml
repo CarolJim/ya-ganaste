@@ -107,6 +107,7 @@
 
     <!-- Metodos para operaciones con FB -->
     <string name="loginstarbucks">:17443/wsrewards/LoginMobile</string>
+    <string name="forgetpasswordstarbucks">:17443/wsrewards/RecuperarContraseniaMobile</string>
     <!-- Métodos de WS Starbucks -->
     <string name="fbRegisterToken">/RegistrarTokenFireBase</string>
     <string name="sbMovements">:17443/wsrewards/ConsultaMovimientosPorCuenta</string>
@@ -1436,7 +1437,7 @@
     <string name="starbucks_available">Inicia sesión o Regístrate</string>
     <string name="texto_resgister_starbucks">Regístrate, acumula Stars\n y obtén beneficios exclusivos</string>
     <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
-    <string name="codigo_8_digitos">Código de 8 digitos</string>
+    <string name="codigo_8_digitos">Código de 8 dígitos</string>
     <string name="registrarme">Registrarme</string>
     <string name="subtitulo_login_starbucks">Inicia sesión en\nMy Starbucks Rewards</string>
     <string name="numero_tarjeta_necesario">El número de la tarjeta es necesario</string>
@@ -1465,5 +1466,6 @@
     <string name="title_cancel">Tu cuenta ha sido cancelada\n\n¡Te vámos a extrañar!</string>
     <string name="title_btn_cancel">Salir</string>
     <string name="load_cancel">Cancelando cuenta</string>
+    <string name="tipo_de_envio">Tipo de envío</string>
 
 </resources>

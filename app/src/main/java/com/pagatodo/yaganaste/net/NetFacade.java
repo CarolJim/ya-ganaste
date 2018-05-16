@@ -50,6 +50,18 @@ public class NetFacade {
         }
     }
 
+
+    public static void consumeWSnotag(WebService method_name, HttpMethods method, String urlService, Map<String, String> headers, Object oRequest, Type responseType, IRequestResult requestResult) throws OfflineException {
+
+        if (UtilsNet.isOnline(App.getContext())) {
+            WsCaller wsCaller = new WsCaller();
+            wsCaller.sendJsonPost(createRequestnorequesttag(method_name, method, urlService, oRequest,
+                    getMethodType(method) == POST, headers, responseType, requestResult));
+        } else {
+            throw new OfflineException();
+        }
+    }
+
     public static void consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String, String> headers, Object oRequest, boolean envolve, Type responseType, IRequestResult requestResult) throws OfflineException {
 
         if (UtilsNet.isOnline(App.getContext())) {
@@ -85,6 +97,20 @@ public class NetFacade {
         return request;
     }
 
+    public static WsRequest createRequestnorequesttag(WebService method_name, HttpMethods method, String urlService, Object oRequest, boolean envolve, Map<String, String> headers, Type responseType, IRequestResult requestResult) {
+
+        WsRequest request = new WsRequest();
+        request.setMethod_name(method_name);
+        request.setHeaders(headers);
+        request.setMethod(getMethodType(method));
+        request.set_url_request(urlService);
+        request.setBody(createParamsnotag(envolve, oRequest));
+        request.setRequestResult(requestResult);
+        request.setTypeResponse(responseType);
+        request.setTimeOut(TIMEOUT);
+        return request;
+    }
+
     /**
      * Método para mapear los parámetros como json
      *
@@ -104,6 +130,18 @@ public class NetFacade {
                 }
             } else {
                 return tmp;
+            }
+        }
+        return null;
+    }
+
+
+    private static JSONObject createParamsnotag(boolean envolve, Object oRequest) {
+
+        if (oRequest != null) {
+            JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
+            if (envolve) {
+                return (tmp);
             }
         }
         return null;

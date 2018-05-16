@@ -53,6 +53,9 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
     EditText editpassword;
     @BindView(R.id.txtbottom)
     StyleTextView txtbottom;
+
+    @BindView(R.id.txtbottomcontrasena)
+    StyleTextView txtbottomcontrasena;
     @BindView(R.id.btnNextStarbucks)
     StyleButton btnNextStarbucks;
 
@@ -91,6 +94,7 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
         ButterKnife.bind(this, rootView);
         btnNextStarbucks.setOnClickListener(this);
         txtbottom.setOnClickListener(this);
+        txtbottomcontrasena.setOnClickListener(this);
         SpannableString ss;
         ss = new SpannableString(getString(R.string.no_tienes_cuenta_registrate));
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 19, 29, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -107,6 +111,13 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
         if (view.getId()==R.id.txtbottom){
             nextScreen(EVENT_GO_TO_REGISTER_STARBUCKS, null);
         }
+        if (view.getId()==R.id.txtbottomcontrasena){
+            getDataForm();
+            loginPresenterStarbucks.forgotpassword(correo);
+        }
+
+
+
 
     }
 
