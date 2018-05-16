@@ -31,7 +31,9 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
     private Preferencias prefs = App.getInstance().getPrefs();
 
     public void setIView(View accountView) {
+
         this.loginview = (Iloginstarbucks) accountView;
+
     }
 
     public LoginPresenterStarbucks(Context context) {
@@ -45,6 +47,10 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
         switch (ws) {
             case LOGINSTARBUCKS:
                 loginview.loginstarsucced();
+                loginview.hideLoader();
+                break;
+            case FORGETPASSWORD:
+                loginview.forgetpasswordsucced();
                 loginview.hideLoader();
                 break;
         }
@@ -80,6 +86,7 @@ public class LoginPresenterStarbucks implements IloginStarbucksss {
 
     @Override
     public void forgotpassword(String usuario) {
+        loginview.showLoader("");
         ForgetPassRequest request= new ForgetPassRequest();
         request.email=usuario;
         loginIteractorStarbucks.forgetpass(request);

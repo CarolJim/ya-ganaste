@@ -1467,5 +1467,7 @@
     <string name="title_btn_cancel">Salir</string>
     <string name="load_cancel">Cancelando cuenta</string>
     <string name="tipo_de_envio">Tipo de envío</string>
+    <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
+    <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
 
 </resources>

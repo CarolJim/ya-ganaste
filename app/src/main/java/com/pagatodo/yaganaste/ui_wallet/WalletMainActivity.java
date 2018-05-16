@@ -38,6 +38,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
@@ -87,6 +88,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_LOGIN_STARBUCKS = "EVENT_GO_TO_LOGIN_STARBUCKS";
     public final static String EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS = "EVENT_GO_TO_REGISTER_COMPLETE_STARBUCKS";
     public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
+    public final static String EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS = "EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS";
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
@@ -186,6 +188,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_PAYMENT_ADQ:
                 loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
                 break;
+
+
+
+
             case 7:
                 startActivity(BussinesActivity.createIntent(this));
                 finish();
@@ -319,6 +325,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_REGISTER_STARBUCKS:
                 loadFragment(RegisterStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                break;
+            case EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS:
+                loadFragment(FrogetPasswordStarbucks.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 break;
             case EVENT_GO_TO_ADMIN_STARBUCKS:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);

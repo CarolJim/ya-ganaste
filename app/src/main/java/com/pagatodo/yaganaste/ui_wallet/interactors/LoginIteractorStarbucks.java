@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.ForgetPassRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.CustomResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -52,10 +53,22 @@ public class LoginIteractorStarbucks implements IloginIteractorStarbucks, IReque
                 saveDataUsuStarBucks(dataSourceResult);
                 break;
             case FORGETPASSWORD:
-
+                forgetpassmensage(dataSourceResult);
                 break;
         }
     }
+
+    private void forgetpassmensage(DataSourceResult dataSourceResult) {
+
+        CustomResult data = (CustomResult) dataSourceResult.getData();
+        if (data.responseCode != 0) {
+            iloginStarbucksss.onError(FORGETPASSWORD, data.mesagge);
+        } else if (data.responseCode  == 0) {
+            iloginStarbucksss.onSucces(FORGETPASSWORD, data);
+        }
+    }
+
+
     private void saveDataUsuStarBucks(DataSourceResult dataSourceResult) {
         LoginStarbucksResponse data = (LoginStarbucksResponse) dataSourceResult.getData();
 
