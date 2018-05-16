@@ -8,6 +8,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
  * la app al teenr un codigo 16, que indica que la session se ha terminado
  */
 
-public interface ISessionExpired {
+public interface ISessionExpired{
     void errorSessionExpired(DataSourceResult response);
 }

@@ -43,9 +43,6 @@ public class RegisterCompletePresenterStarbucks implements IregisterCompleteStar
     IregisterCompleteIteractorStarbucks iregisterCompleteIteractorStarbucks;
 
 
-
-
-
     public RegisterCompletePresenterStarbucks(Context context){
         this.context= context;
         iregisterCompleteIteractorStarbucks= new RegisterCompleteIteractorStarbucks(this);

@@ -129,20 +129,6 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @BindView(R.id.textoprentesco)
     StyleTextView textoprentesco;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
     private boolean isExtranjero;

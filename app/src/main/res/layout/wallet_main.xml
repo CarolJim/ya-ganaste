@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,6 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
-
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressGIF"
@@ -58,61 +57,24 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="71.5dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:visibility="visible">
 
-            <RelativeLayout
-                android:id="@+id/titles"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true">
+            <com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView
+                android:id="@+id/board_indication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
-                    android:id="@+id/txt_monto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="17sp"
-                    android:visibility="visible"
-                    app:dotBottom="false"
-                    app:symbolSmaller="true" />
-
-            </RelativeLayout>
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/tipo_saldo"
-                style="@style/generic_text_style_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/titles"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:text="@string/saldo_disponible"
-                android:textColor="@color/text_item_color" />
-
-            <ImageView
-                android:id="@+id/img_reload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/titles"
-                android:layout_toRightOf="@id/titles"
-                android:src="@drawable/ic_reload"
-                android:visibility="visible" />
-
-
+            </com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView>
         </RelativeLayout>
+
 
         <com.pagatodo.yaganaste.ui_wallet.views.CustomDots
             android:id="@+id/viewPagerCountDots"
             android:layout_width="match_parent"
             android:layout_height="9dp"
-            android:layout_marginTop="12.5dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="horizontal" />
 

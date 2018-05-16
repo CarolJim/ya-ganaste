@@ -40,7 +40,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         this.movementsIteractor = new AccountMovementsIteractorImp(this);
     }
 
-
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
         movementsView.showLoader("Cargando movimientos");

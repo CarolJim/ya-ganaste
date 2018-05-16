@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -29,8 +27,9 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
+import com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.ui_wallet.presenter.WalletPresenterImpl;
+import com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView;
 import com.pagatodo.yaganaste.ui_wallet.views.CustomDots;
 import com.pagatodo.yaganaste.ui_wallet.views.CutomWalletViewPage;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
@@ -38,14 +37,15 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import eu.davidea.flipview.FlipView;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater.LOOPS_COUNT;
+import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 
@@ -61,15 +61,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     CutomWalletViewPage pageContainer;
     @BindView(R.id.rcv_elements)
     RecyclerView rcvOpciones;
-    @BindView(R.id.txt_monto)
-    StyleTextView txtSaldo;
     @BindView(R.id.viewPagerCountDots)
     CustomDots pager_indicator;
-    @BindView(R.id.tipo_saldo)
-    StyleTextView tipoSaldo;
-    @BindView(R.id.img_reload)
-    ImageView imgReload;
-
+    @BindView(R.id.board_indication)
+    BoardIndicationsView board;
 
     private WalletPresenter walletPresenter;
     private CardWalletAdpater cardWalletAdpater;
@@ -78,6 +73,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private ViewPager viewPagerWallet;
     private int pageCurrent;
     private GridLayoutManager llm;
+
+    //private WalletSystems walletSystems;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -95,14 +92,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageCurrent = LOOPS_COUNT / 2 + 1;
-        walletPresenter = new WalletPresenterImpl(this);
+        walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
     }
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wallet_main, container, false);
+        View view = inflater.inflate(R.layout.wallet_layout, container, false);
         ButterKnife.bind(this, view);
         initViews();
         return view;
@@ -118,21 +115,27 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
-        imgReload.setOnClickListener(view -> {
+        board.setreloadOnclicklistener(view -> {
             if (elementsWalletAdapter.getItemCount() > 0) {
                 walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent));
             }
         });
+        /*walletSystems = new WalletSystems(progressLayout);
+        walletSystems.getInformacionAgente();*/
     }
 
     @Override
     public void showProgress() {
-        progressLayout.setVisibility(View.VISIBLE);
+        board.setVisibility(View.INVISIBLE);
+        //progressLayout.setVisibility(View.VISIBLE);
+        onEventListener.onEvent(EVENT_SHOW_LOADER,"");
     }
 
     @Override
     public void hideProgress() {
-        progressLayout.setVisibility(View.GONE);
+        board.setVisibility(View.VISIBLE);
+        //progressLayout.setVisibility(View.GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER,null);
     }
 
     @Override
@@ -172,23 +175,21 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         upDateSaldo(position);
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
-        tipoSaldo.setText(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
-
+        board.setTextSaldo(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
         if (cardWalletAdpater.getElemenWallet(position).isUpdate()){
-            imgReload.setVisibility(View.VISIBLE);
+            board.setReloadVisibility(View.VISIBLE);
         } else {
-            imgReload.setVisibility(View.INVISIBLE);
-
+            board.setReloadVisibility(View.INVISIBLE);
         }
     }
 
     private void upDateSaldo(int position){
-        txtSaldo.setText(cardWalletAdpater.getElemenWallet(position).getSaldo());
+        board.setTextMonto(cardWalletAdpater.getElemenWallet(position).getSaldo());
     }
 
     private void upDateSaldo(String saldo){
         cardWalletAdpater.updateSaldo(pageCurrent, saldo);
-        txtSaldo.setText(saldo);
+        board.setTextMonto(saldo);
     }
 
     @Override
@@ -263,7 +264,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onPageSelected(int position) {
-        //previous_pos = pageCurrent;
         pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
         pageCurrent = position;
         cardWalletAdpater.resetFlip();

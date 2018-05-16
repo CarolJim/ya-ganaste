@@ -3,28 +3,16 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.ui_wallet.holders.WalletViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
-import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import eu.davidea.flipview.FlipView;
-
-import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
-import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
-import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumber;
 
 
 /**
@@ -49,13 +37,16 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void addCardItem(ElementWallet item) {
-        //this.listHolder.add(null);
+        this.listHolder.add(null);
         this.elementViewList.add(item);
 
     }
 
     public int getSize() {
         return elementViewList.size();
+    }
+    public int getSizeHolder() {
+        return this.listHolder.size();
     }
 
     @Override
@@ -82,11 +73,37 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void resetFlip() {
-        for (WalletViewHolder holder : this.listHolder) {
-            holder.resetFlip();
+        for (int i = 0; i < this.listHolder.size(); i++) {
+            if (this.listHolder.get(i) != null) {
+                this.listHolder.get(i).resetFlip();
+            }
         }
         this.notifyDataSetChanged();
     }
+
+    public void disableOnlcik() {
+        for (WalletViewHolder holder : this.listHolder) {
+            if (holder != null) {
+                holder.setEneable(false);
+            }
+        }
+
+        this.notifyDataSetChanged();
+    }
+
+    public void eneableOnclick(int position){
+        //if (this.listHolder.get(position) != null) {
+            this.listHolder.get(position % elementViewList.size()).setEneable(true);
+        //}
+    }
+
+    /*public void enenable(int position){
+        for (int i = 0; i < this.listHolder.size(); i++) {
+            if (i != position) {
+                this.listHolder.get(i).setEneable(true);
+            }
+        }
+    }*/
 
     public ElementWallet getElemenWallet(int position) {
         return this.elementViewList.get(position % elementViewList.size());

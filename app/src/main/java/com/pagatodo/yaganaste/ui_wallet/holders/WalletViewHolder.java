@@ -41,14 +41,31 @@ public class WalletViewHolder extends GenericHolder {
                 } else {
                     flipView.flip(false);
                 }
+                /*if (!flipView.isEnabled()){
+                    flipView.setEnabled(true);
+                } else {
+                    flipView.setEnabled(false);
+                }*/
+                /*if (!flipView.isClickable()){
+                    flipView.setClickable(true);
+                } else {
+                    flipView.setClickable(false);
+                }*/
             });
         }
         flipView.flip(false);
+
     }
 
     public void resetFlip(){
         flipView.flip(false);
     }
+
+    public void setEneable(boolean check){
+        flipView.setEnabled(check);
+    }
+
+
 
     @Override
     public void inflate(ViewGroup layout) {
