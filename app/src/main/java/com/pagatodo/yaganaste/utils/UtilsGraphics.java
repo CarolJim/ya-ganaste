@@ -84,7 +84,7 @@ public class UtilsGraphics {
         return bitmap;
     }
 
-    public static Bitmap getTextInBitmap(String text, int textSize) {
+    public static Bitmap getTextInBitmap(String text, float textSize) {
         Paint paint = new Paint(ANTI_ALIAS_FLAG);
         paint.setTextSize(textSize);
         paint.setColor(Color.WHITE);
@@ -102,10 +102,11 @@ public class UtilsGraphics {
 
     public static Bitmap frontCardYg(Bitmap cardYG) {
         /* Obtener numero de tarjeta en Bitmap */
-        Bitmap cardNumber = getTextInBitmap(ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)), 70);
+        Bitmap cardNumber = getTextInBitmap(ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)),
+                20 * App.getContext().getResources().getDisplayMetrics().density);
         /* Obtener nombre del cliente en Bitmap */
-        Bitmap nameUser = getTextInBitmap(App.getInstance().getPrefs().loadData(NAME_USER)+" "+
-                App.getInstance().getPrefs().loadData(LAST_NAME), 60);
+        Bitmap nameUser = getTextInBitmap(App.getInstance().getPrefs().loadData(NAME_USER) + " " +
+                App.getInstance().getPrefs().loadData(LAST_NAME), 16 * App.getContext().getResources().getDisplayMetrics().density);
         /* Pegar numero de tarjeta en diseño tarjeta */
         Bitmap faceView = overlayImages(cardYG, cardNumber, 40, cardYG.getHeight() / 2);
         /* Pegar nombre del cliente en diseño tarjeta */
