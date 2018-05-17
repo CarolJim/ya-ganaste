@@ -188,10 +188,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_PAYMENT_ADQ:
                 loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
                 break;
-
-
-
-
             case 7:
                 startActivity(BussinesActivity.createIntent(this));
                 finish();

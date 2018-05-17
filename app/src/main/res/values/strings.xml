@@ -142,7 +142,7 @@
     <string name="ce_cobro_cancelado">CANCELADO</string>
 
     <string name="desasociarDispositivoTittle">Desvincula tu dispositivo</string>
-    <string name="desvincula_dispositivo_texto">Al desvincular tu dispositivo, ya no estará ligado\na tu cuenta Ya Ganaste y se cerrará tu sesión\n\nPuedes iniciar sesión en cualquier dispositivo\npara volver a vincular tu cuenta</string>
+    <string name="desvincula_dispositivo_texto">Al desvincular tu dispositivo, ya no estará ligado\na tu cuenta Ya Ganaste y se cerrará tu sesión.\n\nPuedes iniciar sesión en cualquier dispositivo\npara volver a vincular tu cuenta.</string>
     <string name="deseaDesasociarDispositivo">¿Desea desvincular el dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea llamar ahora?</string>
     <string name="sel_fotografia">Seleccionar fotografía</string>
@@ -856,11 +856,11 @@
     <string name="enviar_email">Enviar mail</string>
     <string name="como_ayudarte">¿Cómo podemos ayudarte?</string>
     <string name="comunicate_con_nosotros">Comunícate con nosotros\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
-    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue robada o la\nextraviaste, repórtala para desactivarla y\nbrindarte una nueva\n\nPonte en contacto con nosotros</string>
+    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue\n robada o la extraviaste, repórtala para\n desactivarla y brindarte una nueva\n\nPonte en contacto con nosotros.</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando mensaje</string>
-    <string name="reporta_tu_tarjeta">Reportar Tarjeta</string>
+    <string name="reporta_tu_tarjeta">Reportar tarjeta</string>
     <string name="email_report_succes_text">Su reporte se ha mandando</string>
     <string name="email_report_error_text">Ha ocurrido un error, vuelva a intentarlo más tarde</string>
     <string name="email_report_succes_title">Reportar tarjeta</string>
@@ -881,7 +881,7 @@
     <string name="cuentaterminos">Cuenta Ya Ganaste</string>
     <string name="contratosterminos">Contratos</string>
     <string name="aviso_privacidad_linea_credito">Línea de crédito </string>
-    <string name="aviso_privacidad">Aviso de Privacidad</string>
+    <string name="aviso_privacidad">Aviso de privacidad</string>
     <string name="aviso_privacidad_cuenta_ganaste">Cuenta Ya Ganaste</string>
 
     <string name="micuenta">Mi Cuenta</string>
@@ -1226,15 +1226,15 @@
     <string name="reload_session"><u>Recargar</u></string>
 
     <!-- Wallet StarBucks-->
-    <string name="opt_recompensas">Mis\nRecompensas</string>
+    <string name="opt_recompensas">Mis\nrecompensas</string>
     <string name="opt_consulta">Consultar\nmovimientos</string>
-    <string name="opt_sucursales">Sucursales\nCercanas</string>
+    <string name="opt_sucursales">Sucursales\ncercanas</string>
     <string name="title_fragment_movimientos">Movimientos recientes</string>
 
     <!--Cambio de contraeña  -->
-    <string name="asignar_nueva_contraseña">Contraseña actual</string>
-    <string name="confirma_nueva_contrasena">Nueva contraseña</string>
-    <string name="confirma_nueva_contraseña">Confirma nueva contraseña</string>
+    <string name="asignar_nueva_contraseña">Contraseña actual (6 dígitos)</string>
+    <string name="confirma_nueva_contrasena">Nueva contraseña (6 dígitos)</string>
+    <string name="confirma_nueva_contraseña">Confirma nueva contraseña (6 dígitos)</string>
     <string name="confirmar_contrase">La contraseña no coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el formato para que\naccedas más rápido</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Dígitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
@@ -1313,7 +1313,7 @@
     <!--Tittle Operaciones-->
     <string name="operation_movimientos">Consultar\nMovimientos</string>
     <string name="operation_deposito">Mi Cuenta</string>
-    <string name="operation_administracion">Administrar\nTarjeta</string>
+    <string name="operation_administracion">Administrar\ntarjeta</string>
     <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
@@ -1425,7 +1425,7 @@
     <string name="mis_recompensas">Mis Recompensas</string>
 
     <string name="cancel_title">¿Seguro que quieres cancelar tu cuenta?</string>
-    <string name="cacncel_desc">Al cancelar, no podras usar ninguno de los servicios\nYa Ganaste, esta acción es definitiva e irreversible\n\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta.</string>
+    <string name="cacncel_desc">Al cancelar, no podrás usar ninguno de los servicios\nYa Ganaste, esta acción es definitiva e irreversible.\n\nPara cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta.</string>
     <string name="cacncel_desc_adq">Al cancelar, no podrás utilizar ninguno de los servicios\nYa Ganaste. Esta acción es definitiva e irreversible.\n\nPara poder cancelar, es necesario que no exista\nningun tipo de fondos asociados a tu cuenta, ni saldo\npor reembolsar derivado de tus cobros con tarjeta.</string>
 
     <!-- Administración tarjetas YG -->
@@ -1434,7 +1434,7 @@
 
     <!-- Starbucks seccion de registro y login -->
     <string name="starbucks_card">My Starbucks Rewards</string>
-    <string name="starbucks_available">Inicia sesión o Regístrate</string>
+    <string name="starbucks_available">Inicia sesión o regístrate</string>
     <string name="texto_resgister_starbucks">Regístrate, acumula Stars\n y obtén beneficios exclusivos</string>
     <string name="numero_de_tarjeta_starbucks">Número de tarjeta Starbucks</string>
     <string name="codigo_8_digitos">Código de 8 dígitos</string>
