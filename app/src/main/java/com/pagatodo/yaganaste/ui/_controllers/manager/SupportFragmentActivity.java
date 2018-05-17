@@ -112,7 +112,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     }
 
     protected void checkPermissions() {
-
         if (!ValidatePermissions.isAllPermissionsActives(this, ValidatePermissions.getPermissionsCheck())) {
             ValidatePermissions.checkPermissions(this, ValidatePermissions.getPermissionsCheck(), PERMISSION_GENERAL);
         }

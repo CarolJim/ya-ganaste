@@ -106,7 +106,7 @@ public class UtilsGraphics {
                 20 * App.getContext().getResources().getDisplayMetrics().density);
         /* Obtener nombre del cliente en Bitmap */
         Bitmap nameUser = getTextInBitmap(App.getInstance().getPrefs().loadData(NAME_USER) + " " +
-                App.getInstance().getPrefs().loadData(LAST_NAME), 16 * App.getContext().getResources().getDisplayMetrics().density);
+                App.getInstance().getPrefs().loadData(LAST_NAME), 14 * App.getContext().getResources().getDisplayMetrics().density);
         /* Pegar numero de tarjeta en diseño tarjeta */
         Bitmap faceView = overlayImages(cardYG, cardNumber, 40, cardYG.getHeight() / 2);
         /* Pegar nombre del cliente en diseño tarjeta */
