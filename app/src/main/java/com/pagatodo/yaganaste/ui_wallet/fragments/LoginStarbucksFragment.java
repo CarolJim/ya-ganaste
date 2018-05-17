@@ -30,7 +30,9 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_ADMIN_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_REGISTER_STARBUCKS;
+
 
 /**
  * Created by asandovals on 16/04/2018.
@@ -58,6 +60,12 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
     StyleTextView txtbottomcontrasena;
     @BindView(R.id.btnNextStarbucks)
     StyleButton btnNextStarbucks;
+
+    @BindView(R.id.btnNextRegistrate)
+    StyleButton btnNextRegistrate;
+
+
+
 
     @BindView(R.id.block_iniciar_sesion)
     LinearLayout block_iniciar_sesion;
@@ -95,10 +103,9 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
         btnNextStarbucks.setOnClickListener(this);
         txtbottom.setOnClickListener(this);
         txtbottomcontrasena.setOnClickListener(this);
+        btnNextRegistrate.setOnClickListener(this);
         SpannableString ss;
-        ss = new SpannableString(getString(R.string.no_tienes_cuenta_registrate));
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 19, 29, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new UnderlineSpan(), 0, 0, 0);
+        ss = new SpannableString(getString(R.string.olvidaste_tu_contrasena_starbucks));
         txtbottom.setText(ss);
 
     }
@@ -108,13 +115,18 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
         if (view.getId() == R.id.btnNextStarbucks) {
             validateForm();
         }
-        if (view.getId()==R.id.txtbottom){
+        if (view.getId()==R.id.btnNextRegistrate){
             nextScreen(EVENT_GO_TO_REGISTER_STARBUCKS, null);
         }
         if (view.getId()==R.id.txtbottomcontrasena){
             getDataForm();
             loginPresenterStarbucks.forgotpassword(correo);
         }
+        if (view.getId()==R.id.txtbottom){
+            nextScreen(EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS, null);
+        }
+
+
 
 
 
@@ -201,6 +213,16 @@ public class LoginStarbucksFragment extends GenericFragment implements View.OnCl
     @Override
     public void loginfail(String mensaje) {
         UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void forgetpasswordsucced() {
+
+    }
+
+    @Override
+    public void forgetpasswordfail(String mensaje) {
+
     }
 
 
