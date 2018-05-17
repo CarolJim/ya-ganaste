@@ -70,6 +70,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     }
 
     @Override
+
     public void updateBalance(ElementWallet item) {
         if (item.isUpdate()) {
             walletView.showProgress();

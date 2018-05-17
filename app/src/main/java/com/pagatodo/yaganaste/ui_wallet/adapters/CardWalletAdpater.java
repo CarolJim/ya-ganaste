@@ -21,7 +21,8 @@ import java.util.ArrayList;
 
 public class CardWalletAdpater extends PagerAdapter {
 
-    public static int LOOPS_COUNT = 100;
+    public static int LOOPS_COUNT = 20;
+
     private ArrayList<ElementWallet> elementViewList;
     private ArrayList<WalletViewHolder> listHolder;
     private ICardBalance listener;
@@ -51,7 +52,7 @@ public class CardWalletAdpater extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return LOOPS_COUNT;
+        return this.elementViewList.size() * LOOPS_COUNT;
     }
 
     @Override

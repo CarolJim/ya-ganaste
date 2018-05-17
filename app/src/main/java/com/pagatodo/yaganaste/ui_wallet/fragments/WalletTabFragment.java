@@ -42,9 +42,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater.LOOPS_COUNT;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
@@ -74,8 +71,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private int pageCurrent;
     private GridLayoutManager llm;
 
-    //private WalletSystems walletSystems;
-
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
     }
@@ -91,7 +86,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageCurrent = LOOPS_COUNT / 2 + 1;
+        this.pageCurrent = 0;
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
     }
 
@@ -117,25 +112,22 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         board.setreloadOnclicklistener(view -> {
             if (elementsWalletAdapter.getItemCount() > 0) {
-                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent));
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             }
         });
-        /*walletSystems = new WalletSystems(progressLayout);
-        walletSystems.getInformacionAgente();*/
     }
 
     @Override
     public void showProgress() {
         board.setVisibility(View.INVISIBLE);
-        //progressLayout.setVisibility(View.VISIBLE);
-        onEventListener.onEvent(EVENT_SHOW_LOADER,"");
+        progressLayout.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void hideProgress() {
         board.setVisibility(View.VISIBLE);
-        //progressLayout.setVisibility(View.GONE);
-        onEventListener.onEvent(EVENT_HIDE_LOADER,null);
+        progressLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -146,28 +138,25 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void getPagerAdapter(PagerAdapter pagerAdapter) {
         cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
-        pageCurrent = (LOOPS_COUNT / 2) - ((LOOPS_COUNT / 2) % cardWalletAdpater.getSize()) ;
         viewPagerWallet.setAdapter(pagerAdapter);
         viewPagerWallet.setCurrentItem(pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.setPageMargin(15);
         viewPagerWallet.addOnPageChangeListener(this);
         setUiPageViewController();
-        updateOperations(pageCurrent);
-        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent));
+        updateOperations(this.pageCurrent);
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
     }
 
     private void setUiPageViewController() {
-        pager_indicator.setView(pageCurrent,cardWalletAdpater.getSize());
+        pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(),cardWalletAdpater.getSize());
     }
 
     private void updateOperations(final int position) {
         int colums = 3;
-        pageCurrent = position;
         if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
             colums = 1;
         }
-
         elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
         elementsWalletAdapter.notifyDataSetChanged();
         llm.setSpanCount(colums);
@@ -188,7 +177,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void upDateSaldo(String saldo){
-        cardWalletAdpater.updateSaldo(pageCurrent, saldo);
+        cardWalletAdpater.updateSaldo(this.pageCurrent, saldo);
         board.setTextMonto(saldo);
     }
 
@@ -265,7 +254,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onPageSelected(int position) {
         pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
-        pageCurrent = position;
+        this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
         updateOperations(position);
     }
