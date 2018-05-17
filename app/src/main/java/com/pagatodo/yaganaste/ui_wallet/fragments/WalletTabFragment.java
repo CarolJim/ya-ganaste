@@ -139,7 +139,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void getPagerAdapter(PagerAdapter pagerAdapter) {
         cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
         viewPagerWallet.setAdapter(pagerAdapter);
-        viewPagerWallet.setCurrentItem(pageCurrent);
+        viewPagerWallet.setCurrentItem(this.pageCurrent == 0 ? cardWalletAdpater.getCount() / 2 : this.pageCurrent );
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.setPageMargin(15);
         viewPagerWallet.addOnPageChangeListener(this);

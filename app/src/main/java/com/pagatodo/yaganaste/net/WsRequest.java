@@ -17,19 +17,12 @@ import java.util.Map;
 public class WsRequest {
 
     private int method;
-
     private Map<String, String> headers;
-
     private String _url_request;
-
     private JSONObject body;
-
     private IRequestResult requestResult;
-
     private int timeOut;
-
     private Type typeResponse;
-
     private WebService method_name;
 
 
@@ -73,7 +66,6 @@ public class WsRequest {
         this.timeOut = timeOut;
     }
 
-
     public Map<String, String> getHeaders() {
         return headers;
     }
@@ -81,7 +73,6 @@ public class WsRequest {
     public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
     }
-
 
     public Type getTypeResponse() {
         return typeResponse;
@@ -98,4 +89,5 @@ public class WsRequest {
     public void setMethod_name(WebService method_name) {
         this.method_name = method_name;
     }
+
 }
