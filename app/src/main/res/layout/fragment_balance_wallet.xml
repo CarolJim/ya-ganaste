@@ -122,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
                 android:text="@string/saldo_disponible"
                 android:textColor="@color/hint_color" />
 
