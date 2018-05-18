@@ -19,6 +19,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
@@ -159,8 +160,10 @@ public class ElementWallet {
     public ElementWallet getCardSettings() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.config_card);
         int cardsAvailable = 0;
-        if (!App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
-            cardsAvailable++;
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOYALTY, false)) {
+            if (!App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
+                cardsAvailable++;
+            }
         }
         return new ElementWallet(TYPE_SETTINGS, frontView, null,
                 App.getContext().getString(R.string.title_wallet_main_settings) + cardsAvailable,

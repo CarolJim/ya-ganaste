@@ -30,6 +30,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.NEXT_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.REWARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.SECURITY_TOKEN_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_CARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
@@ -51,16 +52,17 @@ public class AdminCardPresenter implements IAdminCardsPresenter {
                 context.getString(R.string.tarjeta_yg), StringUtils.getCreditCardFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER))));
         cards.add(new DtoAdminCards(TYPE_ADQ, R.mipmap.lector_front, 1, 1, TYPE_ITEM,
                 context.getString(R.string.lector_yg), App.getInstance().getPrefs().loadData(COMPANY_NAME)));
-        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
-            cards.add(new DtoAdminCards(TYPE_STARBUCKS, R.drawable.card_sbux, 3, 1, TYPE_ITEM,
-                    context.getString(R.string.starbucks_card), StringUtils.getCreditCardFormat(App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS))));
-        } else {
-            cards.add(new DtoAdminCards(-1, 0, 0, 0, TYPE_HEADER, context.getString(R.string.admin_cards_available),
-                    null));
-            cards.add(new DtoAdminCards(TYPE_STARBUCKS, R.drawable.card_sbux, 3, 0, TYPE_ITEM,
-                    context.getString(R.string.starbucks_card), context.getString(R.string.starbucks_available)));
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOYALTY, false)) {
+            if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
+                cards.add(new DtoAdminCards(TYPE_STARBUCKS, R.drawable.card_sbux, 3, 1, TYPE_ITEM,
+                        context.getString(R.string.starbucks_card), StringUtils.getCreditCardFormat(App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS))));
+            } else {
+                cards.add(new DtoAdminCards(-1, 0, 0, 0, TYPE_HEADER, context.getString(R.string.admin_cards_available),
+                        null));
+                cards.add(new DtoAdminCards(TYPE_STARBUCKS, R.drawable.card_sbux, 3, 0, TYPE_ITEM,
+                        context.getString(R.string.starbucks_card), context.getString(R.string.starbucks_available)));
+            }
         }
-
         return cards;
     }
 

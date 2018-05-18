@@ -223,7 +223,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             isValid = true;
             setLocationSetting();
         }
-
     }
 
     private void setLocationSetting() {
@@ -284,27 +283,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     private void actionChargecobro() {
         //String valueAmount = et_amount.getText().toString().trim();
-
-        App.getInstance().setCurrentMount(et_amount.getText().toString().trim());
-        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
-                Manifest.permission.RECORD_AUDIO);
-        int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        int permissionLocation = ContextCompat.checkSelfPermission(App.getContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
-            ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
-                    REQUEST_ID_MULTIPLE_PERMISSIONS);
-
-        } else {
-            isValid = true;
-            setLocationSetting();
-        }
-
-
         String valueAmount = App.getInstance().getCurrentMount();
-
         if (valueAmount.length() > 0 && !valueAmount.equals(getString(R.string.mount_cero))) {
             try {
 
@@ -421,16 +400,18 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         edtConcept.setText(null);
         mySeekBar.setProgress(0);
         et_amount.requestFocus();
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);
+        int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionLocation = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+        }
     }
-
-    public boolean isCustomKeyboardVisible() {
-        return keyboardView.getVisibility() == View.VISIBLE;
-    }
-
-    public void hideKeyboard() {
-        keyboardView.hideCustomKeyboard();
-    }
-
 
     @Override
     public void onImeBack() {
@@ -481,7 +462,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         if (view.getId() == R.id.btncobrar) {
             actionChargecobro();
         }
-
     }
 }
 
