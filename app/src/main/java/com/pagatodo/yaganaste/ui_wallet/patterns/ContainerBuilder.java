@@ -152,10 +152,7 @@ public class ContainerBuilder {
         if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
             adapter.addCardItem(new ElementWallet().getCardStarbucks());
         }
-        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOYALTY, false)) {
-            adapter.addCardItem(new ElementWallet().getCardSettings());
-        }
-
+        adapter.addCardItem(new ElementWallet().getCardSettings());
         return adapter;
     }
 
@@ -199,9 +196,9 @@ public class ContainerBuilder {
         return op;
     }
 
-    public static TextDataViewHolder getViewHolder(ViewGroup parent){
+    public static TextDataViewHolder getViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new TextDataViewHolder(inflater.inflate(R.layout.item_detail_mov,parent,false));
+        return new TextDataViewHolder(inflater.inflate(R.layout.item_detail_mov, parent, false));
     }
 
 }
