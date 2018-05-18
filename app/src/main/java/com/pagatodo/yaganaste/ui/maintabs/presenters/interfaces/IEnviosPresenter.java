@@ -8,7 +8,6 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 
 public interface IEnviosPresenter {
 
-
     void validateForms(TransferType type, String number, int typeCard, String importe, String name, String concept, String reference);
 
     void getTitularName(String cuenta);

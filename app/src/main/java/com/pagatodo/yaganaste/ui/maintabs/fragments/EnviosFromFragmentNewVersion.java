@@ -60,6 +60,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui_wallet.bookmarks.ui.BoardBookmarks;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
@@ -185,7 +186,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     Favoritos favoriteItem;
     Comercio comercioItem;
     ArrayList<CarouselItem> backUpResponse, finalList, backUpResponsefinal, backUpResponsefavo;
-    IEnviosPaymentPresenter newPaymentPresenter;
+    //IEnviosPaymentPresenter newPaymentPresenter;
     IEnviosPresenter enviosPresenter;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     Payments payment;
@@ -202,19 +203,21 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
+        //newPaymentPresenter = new EnviosPaymentPresenter(this, App.getContext());
         backUpResponse = new ArrayList<>();
         enviosPresenter = new EnviosPresenter(this);
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(Constants.PAYMENT_ENVIOS, this, getContext(), false);
 
+
+
         if (!UtilsNet.isOnline(getActivity())) {
-            // UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         } else {
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-            paymentsCarouselPresenter.getCarouselItems();
-            paymentsCarouselPresenter.getFavoriteCarouselItems();
+            //onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+           //paymentsCarouselPresenter.getCarouselItems();
+           // paymentsCarouselPresenter.getFavoriteCarouselItems();
         }
 
     }
@@ -231,7 +234,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void initViews() {
         ButterKnife.bind(this, rootview);
         builder = new Container(getContext(), mLinearLayout);
-
+        BoardBookmarks boardBookmarks = new BoardBookmarks(getContext(),mLinearLayout,this);
+        boardBookmarks.getLayout();
         //listView.setAdapter(adapterList);
 
         /**
@@ -693,11 +697,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     }
 
     @Override
-    public void setCarouselData(ArrayList<CarouselItem> response) {
-        setBackUpResponse(response);
-    }
-
-    @Override
     public void setDataBank(String idcomercioresponse, String nombrebank) {
         hideLoader();
         solicitabanco = true;
@@ -783,12 +782,18 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         setBackUpResponseFav(response);
     }
 
+
     @Override
     public void setFavolist(List<Favoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
         mLinearLayout.removeAllViews();
         ContainerBuilder.FAVORITOS(getContext(), mLinearLayout, lista, this);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+    }
+
+    @Override
+    public void setCarouselData(ArrayList<CarouselItem> response) {
+        setBackUpResponse(response);
     }
 
     private void setBackUpResponseFav(ArrayList<CarouselItem> mResponse) {
