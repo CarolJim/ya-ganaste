@@ -15,11 +15,11 @@
         android:orientation="vertical">
 
 
-
         <!-- Agregamos el layout que contiene el EditText de Calculadora -->
         <include layout="@layout/calculator_layout"
 
             />
+
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/titleAmount"
             style="@style/generic_text_style_2"
@@ -46,42 +46,42 @@
                 android:id="@+id/edtConcept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/back_edittext_gray"
-                android:focusable="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:background="@drawable/back_edittext_gray"
+                android:focusable="true"
                 android:gravity="center"
                 android:hint=""
                 android:inputType="text|textNoSuggestions|textCapSentences"
                 android:padding="8dp"
                 android:textColor="@color/cobrotexto"
                 android:textStyle="normal" />
+
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/titleConcepto"
                 style="@style/generic_text_style_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="27dp"
+                android:layout_marginTop="5dp"
                 android:text="Concepto (Opcional)"
                 android:textColor="@color/cobrotexto" />
         </LinearLayout>
-        
+
         <LinearLayout
+            android:id="@+id/btncobrar"
             android:layout_width="match_parent"
             android:layout_height="53.5dp"
-            android:id="@+id/btncobrar"
-            android:background="@color/colorAccent"
-            >
+            android:background="@color/colorAccent">
+
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Cobrar"
-                android:textSize="19sp"
                 android:textAlignment="center"
-                />
+                android:textSize="19sp" />
 
         </LinearLayout>
 
@@ -91,7 +91,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/seekbar_margin"
             android:layout_marginRight="@dimen/seekbar_margin"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/margin_doble"
             android:background="@drawable/seek_background"
             android:clickable="false"
@@ -99,6 +98,7 @@
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"
+            android:visibility="gone"
             app:text="Cobrar" />
 
     </LinearLayout>
@@ -109,14 +109,12 @@
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:keyTextColor="#bcbcbc"
         android:background="@android:color/darker_gray"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/material_key_drawable"
+        android:keyTextColor="#bcbcbc"
         android:visibility="gone"
-
-
 
 
         />
@@ -124,11 +122,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img_arrow_previous"

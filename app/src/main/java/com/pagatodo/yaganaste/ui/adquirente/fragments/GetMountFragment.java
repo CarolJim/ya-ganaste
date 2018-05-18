@@ -283,6 +283,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     private void actionChargecobro() {
         //String valueAmount = et_amount.getText().toString().trim();
+        App.getInstance().setCurrentMount(et_amount.getText().toString().trim());
         String valueAmount = App.getInstance().getCurrentMount();
         if (valueAmount.length() > 0 && !valueAmount.equals(getString(R.string.mount_cero))) {
             try {
