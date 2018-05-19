@@ -102,7 +102,8 @@ public class UtilsGraphics {
 
     public static Bitmap frontCardYg(Bitmap cardYG) {
         /* Obtener numero de tarjeta en Bitmap */
-        Bitmap cardNumber = getTextInBitmap(ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)),
+        Bitmap cardNumber = getTextInBitmap(!App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("") ? ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)) :
+                        "**** **** **** XXXX",
                 20 * App.getContext().getResources().getDisplayMetrics().density);
         /* Obtener nombre del cliente en Bitmap */
         Bitmap nameUser = getTextInBitmap(App.getInstance().getPrefs().loadData(NAME_USER) + " " +
