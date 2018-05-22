@@ -134,6 +134,7 @@ public class OptionMenuItem {
     final public static int ID_LOGOUT = 7;
     final public static int ID_CODE = 8;
     final public static int ID_CANCELACION = 9;
+    final public static int ID_CONTACTO = 10;
 
 
     /*public static class OptionMenuIViewHolder {

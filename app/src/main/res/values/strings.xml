@@ -240,7 +240,7 @@
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
     <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
-    <string name="txt_mail">Correo Electrónico</string>
+    <string name="txt_mail">Correo electrónico</string>
     <string name="txt_mail_requerid">Ingresa el correo electrónico</string>
     <string name="suscribirte_starbucks">Quieres suscribirte?</string>
     <string name="send">ENVIAR</string>
@@ -568,6 +568,9 @@
     <string name="este_movimiento">Este movimiento se está realizando\nen tu sitio web Ya Ganaste</string>
     <string name="monto">Importe:</string>
     <string name="a_la_cuenta">A la cuenta:</string>
+
+    <string name="cambia_contraseda">Es necesario que cambies\ntu contraseña</string>
+
     <string name="ingresa_tu_contrasenia">Ingresa tu contraseña para autorizarlo</string>
     <string name="ingresa_pass_block">Ingresa tu contraseña para \nbloquear temporalmente tu tarjeta</string>
     <string name="ingresa_pass_desblock">Ingresa tu contraseña para \ndesbloquear tu tarjeta</string>
@@ -1252,6 +1255,7 @@
     <string name="navigation_drawer_menu_chat">Chat</string>
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
     <string name="navigation_drawer_menu_acerca">Acerca de</string>
+    <string name="navigation_drawer_menu_contacto">Contacto</string>
     <string name="navigation_drawer_logout">Cerrar Sesión</string>
 
     <string name="security_huella_option">Huella Digital</string>
@@ -1371,7 +1375,7 @@
     <string name="reintentar">Reintentar</string>
 
 
-    <string name="sub_titulo_domicilio_personal">Ingresa los datos de tu domicilio\nactualpara terminar tu registro</string>
+    <string name="sub_titulo_domicilio_personal">Ingresa los datos de tu domicilio\nactual para terminar tu registro</string>
 
     <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
     <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\ascendentes o descendentes</string>
@@ -1446,7 +1450,7 @@
 
     <!-- Administración Starbucks -->
     <string name="admin_cards_starbucks">Selecciona tu tarjeta principal</string>
-    <string name="title_cards_starbucks">Tarjeta Starbucks Rewards</string>
+    <string name="title_cards_starbucks">My Starbucks Rewards</string>
     <string name="error_saving">Por favor seleccione una tarjeta principal</string>
     <string name="success_saving">Tarjeta guardada</string>
 

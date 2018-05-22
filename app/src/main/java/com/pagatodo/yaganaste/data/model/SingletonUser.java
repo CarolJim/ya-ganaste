@@ -70,6 +70,7 @@ public class SingletonUser {
             prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
                     .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
+            //prefs.saveDataBool(PASSWORD_CHANGE, false);
             prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
