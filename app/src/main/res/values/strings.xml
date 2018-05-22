@@ -1321,7 +1321,7 @@
     <!-- Wallet Settings Card -->
     <string name="title_main">Todas tus tarjetas en un solo lugar</string>
     <string name="title_second">Suscribete o inicia sesión en tus programas\nde lealtad favoritos y obten beneficios exclusivos</string>
-    <string name="title_button_card">Configurar Tarjetas</string>
+    <string name="title_button_card">Configurar tarjetas</string>
     <string name="title_wallet_main_settings">Tarjetas Disponibles: </string>
     <string name="title_wallet_second_settings">Mis programas de lealtad</string>
 
