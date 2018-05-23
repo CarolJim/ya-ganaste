@@ -617,7 +617,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
                         //  Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
                         Intent intent = new Intent(getContext(), FavoritesActivity.class);
                         intent.putExtra(CURRENT_TAB_ID, PAYMENT_RECARGAS);
-                        intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
+                            intent.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             getActivity().startActivityForResult(intent, NEW_FAVORITE_FROM_CERO, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                         } else {

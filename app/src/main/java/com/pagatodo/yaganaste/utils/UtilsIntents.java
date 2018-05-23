@@ -15,8 +15,10 @@ import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
@@ -54,12 +56,14 @@ public class UtilsIntents {
         intentEditFav.putExtra(activity.getString(R.string.favoritos_tag), favorito);
         intentEditFav.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
         intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //activity.startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-            //activity.startActivity(intentEditFav, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-        } else {*/
-            //activity.startActivity(intentEditFav);
-            activity.startActivityForResult(intentEditFav, INTENT_FAVORITE);
-        //}
+        activity.startActivityForResult(intentEditFav, INTENT_FAVORITE);
+    }
+
+    public static void favoriteNewIntent(Activity activity) {
+
+        Intent intentAddFavorite = new Intent(activity, FavoritesActivity.class);
+        intentAddFavorite.putExtra(CURRENT_TAB_ID, Constants.PAYMENT_ENVIOS);
+        intentAddFavorite.putExtra(FAVORITE_PROCESS, NEW_FAVORITE_FROM_CERO);
+        activity.startActivityForResult(intentAddFavorite, RESUL_FAVORITES);
     }
 }

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.ui_wallet.holders.DetailMovementHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.LauncherHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
 
 
@@ -25,12 +27,21 @@ public class DetailBulder extends Builder {
         this.parent.addView(layout);
     }
 
-    @Override
     public void createLeaf(Object item) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.item_detail_mov, parent, false);
         TextDataViewHolder holder = new TextDataViewHolder(layout);
         holder.bind(item,null);
         this.parent.addView(layout);
+    }
+
+    @Override
+    public void addView(LauncherHolder holder, Object object, OnClickItemHolderListener listener) {
+
+    }
+
+    @Override
+    public LauncherHolder getholder() {
+        return null;
     }
 }

@@ -215,9 +215,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         } else {
-            //onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-           //paymentsCarouselPresenter.getCarouselItems();
-           // paymentsCarouselPresenter.getFavoriteCarouselItems();
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+            paymentsCarouselPresenter.getCarouselItems();
+            paymentsCarouselPresenter.getFavoriteCarouselItems();
         }
 
     }
@@ -233,9 +233,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        builder = new Container(getContext(), mLinearLayout);
-        BoardBookmarks boardBookmarks = new BoardBookmarks(getContext(),mLinearLayout,this);
-        boardBookmarks.getLayout();
+        //builder = new Container(getContext(), mLinearLayout);
+        //BoardBookmarks boardBookmarks = new BoardBookmarks(getActivity(),mLinearLayout,this);
+        //boardBookmarks.getLayout();
         //listView.setAdapter(adapterList);
 
         /**

@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
@@ -38,6 +39,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.FavoritesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
@@ -46,6 +48,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
 import butterknife.BindView;
@@ -62,6 +65,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSA
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADDFAVORITE_PAYMENT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_STARBUCK;
@@ -90,6 +94,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
     public final static String EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS = "EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS";
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
+    //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
+
+
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
 
@@ -97,7 +104,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     Toolbar toolbar;
 
     private Menu menu;
-    private ElementView itemOperation;
+    private ElementGlobal itemOperation;
     private ShareActionProvider mShareActionProvider;
 
     @Override
@@ -110,8 +117,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 return;
             }
             if (getIntent().getExtras() != null) {
-                itemOperation = (ElementView) getIntent().getSerializableExtra(ITEM_OPERATION);
-                getLoadFragment(itemOperation.getIdOperacion());
+                    itemOperation = (ElementGlobal) getIntent().getSerializableExtra(ITEM_OPERATION);
+                    getLoadFragment(itemOperation.getIdOperacion());
+
+
             }
             //loadFragment(MovementsGenericFragment.newInstance(), R.id.fragment_container);
         }
@@ -171,7 +180,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_MVIMIENTOS_STARBUCKS:
                 loadFragment(MovementsSbFragment.newInstance(), R.id.fragment_container);
-
                 break;
             case OPTION_DEPOSITO:
                 loadFragment(DepositsDataFragment.newInstance(), R.id.fragment_container);
@@ -203,6 +211,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_SETTINGSCARD:
                 loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_ADDFAVORITE_PAYMENT:
+                loadFragment(FavoritesFragment.newInstance(OPTION_ADDFAVORITE_PAYMENT), R.id.fragment_container);
                 break;
             default:
                 finish();

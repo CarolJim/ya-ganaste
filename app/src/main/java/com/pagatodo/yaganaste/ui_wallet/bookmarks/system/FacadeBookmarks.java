@@ -76,7 +76,6 @@ public class FacadeBookmarks implements PaymentsCarrouselManager  {
 
     public interface ListenerFavorite{
         void setFavoList(List<Favoritos> lista);
-        //void setCarouselDataFavoritos(ArrayList<CarouselItem> response);
         void setCarouselData(ArrayList<CarouselItem> response);
     }
 

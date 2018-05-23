@@ -20,7 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
  */
 
 @SuppressWarnings("serial")
-public class ElementView implements Serializable {
+public class ElementView implements ElementGlobal {
 
     final public static int ID_ENVIAR = 8;
     final public static int ID_SOLICITAR = 9;
@@ -40,6 +40,7 @@ public class ElementView implements Serializable {
     static public final int OPTION_RECOMPENSAS = 6482;
     static public final int OPTION_SUCURSALES = 6453;
     static public final int OPTION_SETTINGSCARD = 2112;
+    static public final int OPTION_ADDFAVORITE_PAYMENT = 3001;
 
     public static final int OPTION_SIMPLE = 0;
     public static final int OPTION_ZONE = 1;
@@ -55,8 +56,7 @@ public class ElementView implements Serializable {
     private int textbutton;
     private int typeOptions;
 
-    public ElementView() {
-    }
+    public ElementView(){}
 
     public ElementView(int idOperacion, int resource, int title) {
         this.idOperacion = idOperacion;
@@ -114,14 +114,6 @@ public class ElementView implements Serializable {
 
     public void setDescription(int description) {
         this.description = description;
-    }
-
-    public int getIdOperacion() {
-        return idOperacion;
-    }
-
-    public void setIdOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
     }
 
     public int getResource() {
@@ -288,5 +280,10 @@ public class ElementView implements Serializable {
         elementViews.add(new ElementView(OPTION_RECOMPENSAS, R.drawable.icon_star, R.string.opt_recompensas));
         elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
         return elementViews;
+    }
+
+    @Override
+    public int getIdOperacion() {
+        return this.idOperacion;
     }
 }

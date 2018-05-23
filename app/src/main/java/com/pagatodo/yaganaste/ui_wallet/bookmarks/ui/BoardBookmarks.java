@@ -1,60 +1,47 @@
 package com.pagatodo.yaganaste.ui_wallet.bookmarks.ui;
 
-import android.content.Context;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.app.Activity;
+import android.content.Intent;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.interfaces.View;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.bookmarks.system.FacadeBookmarks;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementFavorite;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADDFAVORITE_PAYMENT;
 
-public class BoardBookmarks implements FacadeBookmarks.ListenerFavorite  {
+public class BoardBookmarks implements FacadeBookmarks.ListenerFavorite, OnClickItemHolderListener{
 
     private OnClickItemHolderListener listener;
     private FacadeBookmarks facade;
-    private Context context;
+    private Activity context;
     private ViewGroup viewGroup;
 
-    public BoardBookmarks(Context context, ViewGroup viewGroup, OnClickItemHolderListener listener) {
+    public BoardBookmarks(Activity context, ViewGroup viewGroup, OnClickItemHolderListener listener) {
         this.context = context;
         this.listener = listener;
         this.viewGroup = viewGroup;
         this.facade = new FacadeBookmarks(context,this);
-        //init();
-    }
-
-    private void init(){
-        LayoutInflater inflater = LayoutInflater.from(this.context);
-        /*this.layout = new LinearLayout(this.context);
-        this.layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));*/
-
     }
 
     public void getLayout(){
         this.facade.getFavorites();
-        //return viewGroup;
     }
 
     @Override
     public void setFavoList(List<Favoritos> lista) {
         viewGroup.removeAllViews();
-        ContainerBuilder.FAVORITOS(this.context, viewGroup, lista, this.listener);
+        ContainerBuilder.FAVORITOS(this.context, viewGroup, lista, this);
     }
 
     @Override
@@ -101,12 +88,20 @@ public class BoardBookmarks implements FacadeBookmarks.ListenerFavorite  {
     }
 
 
-    /*
-    backUpResponsefavo = new ArrayList<>();
-    backUpResponseFavoritos = new ArrayList<>();
-
-        for (CarouselItem carouselItem : mResponse) {
-        backUpResponsefavo.add(carouselItem);
+    private void intentNewFavorite(Activity activity, ElementFavorite itemOperation){
+        //UtilsIntents.favoriteNewIntent(activity);
+        Intent intent = new Intent(activity, WalletMainActivity.class);
+        intent.putExtra(ITEM_OPERATION, itemOperation);
+        activity.startActivity(intent);
     }
-        Collections.sort(backUpResponsefavo, (o1, o2) -> o1.getFavoritos().getNombre().compareToIgnoreCase(o2.getFavoritos().getNombre()));*/
+
+
+    @Override
+    public void onClick(Object item) {
+        Favoritos favorito = (Favoritos) item;
+        ElementFavorite itemOperation = new ElementFavorite(OPTION_ADDFAVORITE_PAYMENT,favorito);
+        if (favorito.getIdComercio() == 0) {
+            intentNewFavorite(context, itemOperation);
+        }
+    }
 }

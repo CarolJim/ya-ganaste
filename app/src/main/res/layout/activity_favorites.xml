@@ -105,8 +105,6 @@
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:hintTextAppearance="@style/HintText"
-
-
                     tools:ignore="UnusedAttribute">
 
                     <EditText
@@ -185,9 +183,7 @@
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                    app:hintTextAppearance="@style/HintText"
-
-                    >
+                    app:hintTextAppearance="@style/HintText">
 
                     <EditText
                         android:id="@+id/add_favorites_tipo"

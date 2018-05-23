@@ -1469,4 +1469,7 @@
     <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
     <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
