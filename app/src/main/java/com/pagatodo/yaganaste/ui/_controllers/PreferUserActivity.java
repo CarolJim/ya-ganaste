@@ -41,6 +41,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelResultFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.ContactoFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
@@ -56,6 +57,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
@@ -171,6 +173,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             onEvent(PREFER_USER_CLOSE, null);
         } else  if (getIntent().getIntExtra(MENU, 0) == MENU_CODE) {
             loadFragment(QRFragment.newInstance());
+        } else  if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
+            loadFragment(ContactoFragment.newInstance());
+
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0),""));
         }

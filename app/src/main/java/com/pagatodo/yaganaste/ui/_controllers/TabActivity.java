@@ -85,6 +85,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder.MAINMENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
@@ -614,7 +615,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 actionMenu(MENU_CODE);
                 break;
             case ID_CONTACTO:
-                loadFragment(QRFragment.newInstance());
+                actionMenu(MENU_CONTACTO);
                 break;
 
 
