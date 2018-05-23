@@ -1,20 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/backgraund_wallet">
+    android:background="@color/backgraund_wallet"
+    android:orientation="vertical">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDepositTitle"
         style="@style/title_fragment"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="27dp"
-        android:layout_marginBottom="47dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contacto"/>
+        android:layout_marginBottom="47dp"
+        android:layout_marginTop="27dp"
+        android:text="Contacto"
+        android:textColor="@color/colorAccent" />
 
 
     <ImageView
@@ -22,39 +22,40 @@
         android:layout_height="140dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/atencontact" />
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtsubtitulocontacto"
         style="@style/title_fragment"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="27dp"
-        android:layout_marginBottom="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¡Queremos escucharte!"/>
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="27dp"
+        android:text="¡Queremos escucharte!"
+        android:textColor="@color/colorAccent" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_description"
         style="@style/generic_text_style_3"
-        android:layout_below="@id/txtDepositTitle"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_below="@id/txtDepositTitle"
         android:layout_marginBottom="@dimen/dimen_20"
-        android:text="@string/subtituloatencon"
-        />
+        android:gravity="center_horizontal"
+        android:text="@string/subtituloatencon" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/view_element_correo"
             android:layout_width="130dp"
             android:layout_height="130dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <ImageView
