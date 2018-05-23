@@ -86,7 +86,7 @@ dependencies {
     // Freja Mass Compilation
     implementation files('libs/frejaMobileCore_486c0fb7a51.jar')
     // Dspread (Dongle) Compilation
-    implementation files('libs/dspread_android_sdk_2.4.3.jar')
+    implementation files('libs/dspread_android_sdk_2.7.8.jar')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:support-v4:26.1.0'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:' + rootProject.espressoCoreVersion, {

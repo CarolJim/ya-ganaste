@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente.readers;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -64,6 +65,61 @@ public class IposListener implements QPOSServiceListener {
             enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.input_invalid));
             Log.i("IposListener: ", "------Bad Swipe. Please swipe again and press check card.");
         }
+    }
+
+    @Override
+    public void onFinishMifareCardResult(boolean b) {
+
+    }
+
+    @Override
+    public void onVerifyMifareCardResult(boolean b) {
+
+    }
+
+    @Override
+    public void onReadMifareCardResult(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void onWriteMifareCardResult(boolean b) {
+
+    }
+
+    @Override
+    public void onOperateMifareCardResult(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void getMifareCardVersion(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void getMifareReadData(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void getMifareFastReadData(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void writeMifareULData(String s) {
+
+    }
+
+    @Override
+    public void verifyMifareULData(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void transferMifareData(String s) {
+
     }
 
 
@@ -182,6 +238,21 @@ public class IposListener implements QPOSServiceListener {
     }
 
     @Override
+    public void onQposKsnResult(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void onQposIsCardExist(boolean b) {
+
+    }
+
+    @Override
+    public void onRequestDeviceScanFinished() {
+
+    }
+
+    @Override
     public void onQposInfoResult(Hashtable<String, String> posInfoData) {
         Log.i("IposListener: ", "------ onQposInfoResult");
         int batteryLevel = 0;
@@ -201,12 +272,32 @@ public class IposListener implements QPOSServiceListener {
     }
 
     @Override
+    public void onQposGenerateSessionKeysResult(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
+    public void onQposDoSetRsaPublicKey(boolean b) {
+
+    }
+
+    @Override
+    public void onSearchMifareCardResult(Hashtable<String, String> hashtable) {
+
+    }
+
+    @Override
     public void onRequestCalculateMac(String arg0) {
     }
 
     @Override
     public void onRequestNoQposDetected() {
         //enviaMensaje(Recursos.DESCONECTADO);
+    }
+
+    @Override
+    public void onRequestNoQposDetectedUnbond() {
+
     }
 
     @Override
@@ -254,6 +345,46 @@ public class IposListener implements QPOSServiceListener {
     }
 
     @Override
+    public void onRequestUpdateKey(String s) {
+
+    }
+
+    @Override
+    public void onReturnUpdateIPEKResult(boolean b) {
+
+    }
+
+    @Override
+    public void onReturnRSAResult(String s) {
+
+    }
+
+    @Override
+    public void onReturnUpdateEMVResult(boolean b) {
+
+    }
+
+    @Override
+    public void onReturnGetQuickEmvResult(boolean b) {
+
+    }
+
+    @Override
+    public void onReturnGetEMVListResult(String s) {
+
+    }
+
+    @Override
+    public void onReturnUpdateEMVRIDResult(boolean b) {
+
+    }
+
+    @Override
+    public void onDeviceFound(BluetoothDevice bluetoothDevice) {
+
+    }
+
+    @Override
     public void onReturnBatchSendAPDUResult(
             LinkedHashMap<Integer, String> batchAPDUResult) {
     }
@@ -271,6 +402,11 @@ public class IposListener implements QPOSServiceListener {
     }
 
     @Override
+    public void onWaitingforData(String s) {
+
+    }
+
+    @Override
     public void onBluetoothBonding() {
     }
 
@@ -284,6 +420,11 @@ public class IposListener implements QPOSServiceListener {
 
     @Override
     public void onUpdatePosFirmwareResult(UpdateInformationResult arg0) {
+    }
+
+    @Override
+    public void onBluetoothBoardStateResult(boolean b) {
+
     }
 
     @Override
@@ -394,5 +535,70 @@ public class IposListener implements QPOSServiceListener {
     public void onWriteBusinessCardResult(boolean arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void onSetBuzzerResult(boolean arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void onSetBuzzerTimeResult(boolean b) {
+
+    }
+
+    @Override
+    public void onSetBuzzerStatusResult(boolean b) {
+
+    }
+
+    @Override
+    public void onGetBuzzerStatusResult(String s) {
+
+    }
+
+    @Override
+    public void onQposDoTradeLog(boolean b) {
+
+    }
+
+    @Override
+    public void onQposDoGetTradeLogNum(String s) {
+
+    }
+
+    @Override
+    public void onQposDoGetTradeLog(String s, String s1) {
+
+    }
+
+    @Override
+    public void onSetSleepModeTime(boolean arg0) {
+        // TODO
+    }
+
+    @Override
+    public void onGetSleepModeTime(String s) {
+
+    }
+
+    @Override
+    public void onGetShutDownTime(String s) {
+
+    }
+
+    @Override
+    public void onEncryptData(String s) {
+
+    }
+
+    @Override
+    public void onAddKey(boolean b) {
+
+    }
+
+    @Override
+    public void onSetManagementKey(boolean arg0) {
+        // TODO Auto-generated method stub
     }
 }

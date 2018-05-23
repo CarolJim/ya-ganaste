@@ -245,6 +245,7 @@ public class MyDongleFragment extends GenericFragment implements
     public void onResume() {
         super.onResume();
         App.getInstance().pos.openAudio();
+        App.getInstance().pos.getSdkVersion();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
         // imageView.setVisibility(View.GONE);
