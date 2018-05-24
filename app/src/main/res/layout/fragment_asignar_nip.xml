@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/titulo_datos_usuario"
-        app:title="@string/personalInfoTitle">
+        app:title="">
 
         <LinearLayout
             style="@style/BorderLayoutContent"

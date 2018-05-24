@@ -28,7 +28,7 @@
             style="@style/BorderTitleStylewallet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="@string/userDataTitle">
+            app:title="">
 
             <LinearLayout
 

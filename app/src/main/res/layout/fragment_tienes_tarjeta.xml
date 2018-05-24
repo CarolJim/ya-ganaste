@@ -31,7 +31,7 @@
                 style="@style/BorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/doYouHaveCardTitle">
+                app:title="">
 
                 <LinearLayout
                     style="@style/BorderLayoutContentCard"
@@ -79,13 +79,7 @@
                             android:orientation="horizontal"
                             android:visibility="visible">
 
-                            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-                                android:id="@+id/radioBtnNo"
-                                style="@style/RadioButtonMenu"
-                                android:layout_width="45dp"
-                                android:layout_height="25dp"
 
-                                android:text="No" />
 
 
                             <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
@@ -95,6 +89,13 @@
                                 android:layout_height="25dp"
                                 android:checked="false"
                                 android:text="Si" />
+                            <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                                android:id="@+id/radioBtnNo"
+                                style="@style/RadioButtonMenu"
+                                android:layout_width="45dp"
+                                android:layout_height="25dp"
+
+                                android:text="No" />
                         </RadioGroup>
                     </LinearLayout>
 
