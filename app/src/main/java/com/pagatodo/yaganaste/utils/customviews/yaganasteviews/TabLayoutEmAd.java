@@ -6,14 +6,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 

@@ -22,7 +22,6 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;

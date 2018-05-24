@@ -41,7 +41,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActiv
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.ActualizarReferenciasCupoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
@@ -65,7 +64,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewF
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionUYUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
@@ -131,7 +129,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_FIRST_DATA_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_INFORMACION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_NEXT_DATA_NOTIFICATION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE_UYU;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_BANCOSBIN;
@@ -383,23 +380,6 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void iniciarSesionSimple(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
-        if (!RequestHeaders.getTokenauth().isEmpty())//Si ya se almaceno el tokenAuth, se envia en el login
-            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
-
-        NetFacade.consumeWS(INICIAR_SESION_SIMPLE,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginSimpleUrl),
-                headers, request, IniciarSesionResponse.class, result);
-    }
-
-    /**
-     * Método inicio de sesion UYU.
-     *
-     * @param request {@link IniciarSesionRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void iniciarSesionSimpleUYU(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         if (!RequestHeaders.getTokenauth().isEmpty())//Si ya se almaceno el tokenAuth, se envia en el login

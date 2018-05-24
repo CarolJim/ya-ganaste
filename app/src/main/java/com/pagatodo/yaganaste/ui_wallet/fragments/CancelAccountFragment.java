@@ -1,10 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.app.KeyguardManager;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,7 +10,6 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -23,22 +20,17 @@ import android.widget.EditText;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CancelRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -62,15 +54,12 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELACCOUNT;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_CANCEL_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_USUARIO_ADQUIRIENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
-import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 public class CancelAccountFragment extends SupportFragment implements View.OnClickListener, IRequestResult, TextWatcher, INavigationView {
 

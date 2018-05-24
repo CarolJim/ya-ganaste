@@ -40,11 +40,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionUYUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
@@ -189,23 +187,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(ACTUALIZAR_AVATAR, App.getContext().getString(R.string.no_internet_access));
         }
     }
-/*
+
     @Override
     public void login(IniciarSesionRequest request) {
         try {
             new DatabaseManager().deleteFavorites();
             ApiAdtvo.iniciarSesionSimple(request, this);
-            SingletonUser.getInstance().setCardStatusId(null);
-        } catch (OfflineException e) {
-            accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
-        }
-    }
-*/
-    @Override
-    public void login(IniciarSesionRequest request) {
-        try {
-            new DatabaseManager().deleteFavorites();
-            ApiAdtvo.iniciarSesionSimpleUYU(request, this);
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));

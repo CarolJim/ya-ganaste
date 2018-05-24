@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.data.model;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -36,7 +35,6 @@ public class SingletonUser {
 
     public static SingletonUser user;
 
-    private DataIniciarSesion dataUser;
     private DataIniciarSesionUYU dataUserUyu;
     private ExtraInfoUser dataExtraUser;
     private String pathPictureTemp = "";
@@ -46,7 +44,6 @@ public class SingletonUser {
     private String UltimaTransaccion = "";
 
     private SingletonUser() {
-        dataUser = new DataIniciarSesion();
         dataExtraUser = new ExtraInfoUser();
         dataUserUyu = new DataIniciarSesionUYU();
     }
@@ -55,11 +52,6 @@ public class SingletonUser {
         if (user == null)
             user = new SingletonUser();
         return user;
-    }
-
-
-    public DataIniciarSesion getDataUser() {
-        return dataUser;
     }
 
     public DataIniciarSesionUYU getDataUserUyu() {
@@ -71,7 +63,7 @@ public class SingletonUser {
     }
 
     public void setDataUser(DataIniciarSesion dataUser) {
-        this.dataUser = dataUser;
+        //this.dataUser = dataUser;
 
         Preferencias prefs = App.getInstance().getPrefs();
 
