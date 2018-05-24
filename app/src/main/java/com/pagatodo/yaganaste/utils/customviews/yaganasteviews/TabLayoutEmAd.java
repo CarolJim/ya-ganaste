@@ -78,7 +78,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private void init() {
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
-        DataIniciarSesion dataUser = SingletonUser.getInstance().getDataUser();
+
         updateData();
 
 

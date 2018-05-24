@@ -940,7 +940,7 @@ public class ApiAdtvo extends Api {
         headers.put("Content-type", "application/json");
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("TokenAdquirente",RequestHeaders.getTokensesion());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUserUyu().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         NetFacade.consumeWS(CANCELACCOUNT,
