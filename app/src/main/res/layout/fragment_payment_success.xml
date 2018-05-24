@@ -747,6 +747,7 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"
+                android:visibility="gone"
                 app:intercepterOnclick="true" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
