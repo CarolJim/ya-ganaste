@@ -165,7 +165,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        isExtranjero = SingletonUser.getInstance().getDataUser().getUsuario().isExtranjero();
+        isExtranjero = SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero();
 
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);

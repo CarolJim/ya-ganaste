@@ -20,8 +20,8 @@ public class UtilsAdquirente {
     public static AccountDepositData getCurrentDatesAccountDepositData(String reference) {
         SingletonUser currentUser = SingletonUser.getInstance();
         AccountDepositData data = new AccountDepositData();
-        if (currentUser.getDataUser().getUsuario().getCuentas().size() > 0) {
-            data.setAccount(String.valueOf(currentUser.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta()));
+        if (currentUser.getDataUser().getEmisor().getCuentas().size() > 0) {
+            data.setAccount(String.valueOf(currentUser.getDataUser().getEmisor().getCuentas().get(0).getIdCuenta()));
         }
         data.setReference(reference);
         return data;

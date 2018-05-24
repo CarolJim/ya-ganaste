@@ -611,7 +611,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void documentsUploaded(String message) {
         dataDocumnets.clear();
         nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
-        SingletonUser.getInstance().getDataUser().setIdEstatus(7);
+        SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatus(7);
         App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, 7);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
 
@@ -625,7 +625,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void documentosActualizados(String s) {
         dataDocumnets.clear();
         refreshContent();
-        SingletonUser.getInstance().getDataUser().setIdEstatus(7);
+        SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatus(7);
         App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, 7);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
 
@@ -776,6 +776,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void hideLoader() {
         if ((getParentFragment() == null || getParentFragment().isMenuVisible()) && onEventListener != null) {
@@ -802,25 +803,23 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
 
-        UI.showAlertDialog(getContext(), mData.getMotivo() + "\n" + mData.getComentario(), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (mPosition) {
-                    case 0:
-                        selectImageSource(IFE_FRONT);
-                        break;
-                    case 1:
-                        selectImageSource(IFE_BACK);
-                        break;
-                    case 2:
-                        selectImageSource(COMPROBANTE_FRONT);
-                        break;
-                    case 3:
-                        selectImageSource(COMPROBANTE_BACK);
-                        break;
-                    default:
-                        break;
-                }
+        UI.showAlertDialog(getContext(), mData.getMotivo() + "\n" + mData.getComentario(),
+                (dialogInterface, i) -> {
+            switch (mPosition) {
+                case 0:
+                    selectImageSource(IFE_FRONT);
+                    break;
+                case 1:
+                    selectImageSource(IFE_BACK);
+                    break;
+                case 2:
+                    selectImageSource(COMPROBANTE_FRONT);
+                    break;
+                case 3:
+                    selectImageSource(COMPROBANTE_BACK);
+                    break;
+                default:
+                    break;
             }
         });
     }
@@ -894,6 +893,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         hideStatusPhoto();
     }
 
+    @SuppressLint("RestrictedApi")
     private void refreshContent() {
         if (getParentFragment() == null || getParentFragment().isMenuVisible()) {
             showLoader(getString(R.string.recuperando_docs_estatus));

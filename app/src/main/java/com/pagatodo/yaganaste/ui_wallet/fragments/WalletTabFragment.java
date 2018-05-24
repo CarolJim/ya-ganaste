@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -269,9 +270,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         if (isOnline) {
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
-                UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
+                EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
                 if (usuarioClienteResponse.getCuentas().size() != 0) {
-                    walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjeta());
+                    walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
                 }
             } else {
                 pager_indicator.removeAllViews();

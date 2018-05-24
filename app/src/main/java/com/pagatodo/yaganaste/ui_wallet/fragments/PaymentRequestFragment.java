@@ -142,7 +142,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(PAYMENT_ENVIOS, this, getContext(), false);
         requestAmout.setText(String.format("%s", StringUtils.getCurrencyValue(monto)));
         SingletonUser dataUser = SingletonUser.getInstance();
-        txtUsername.setText("" + dataUser.getDataUser().getUsuario().getNombre());
+        txtUsername.setText("" + dataUser.getDataUser().getCliente().getNombre());
         txtBalance.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         String imagenavatar = dataUser.getDataUser().getUsuario().getImagenAvatarURL();
         if (!imagenavatar.equals("")) {
@@ -276,7 +276,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                 if (calculateAmountPerPerson() >= 1) {
                     Favoritos fav = lstFavorites.get(position);
                     DtoRequestPayment dto = new DtoRequestPayment(fav.getIdFavorito(), fav.getNombre(), fav.getReferencia(), fav.getColorMarca(), fav.getImagenURL());
-                    String msj = "¡Hola! " + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
+                    String msj = "¡Hola! " + SingletonUser.getInstance().getDataUser().getCliente().getNombre() + " te solicita un pago por " + requestAmout.getText();
                     dto.setHeadMessage(msj);
                     dto.setFootMessage("");
                     if (!lstRequestPayment.contains(dto)) {
@@ -371,7 +371,7 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                 lstRequestPayment.remove(lstRequestPayment.size() - 1);
             }
             this.dtoRequestPayment = dtoRequestPayment;
-            String msj = "¡Hola! " + SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " te solicita un pago por " + requestAmout.getText();
+            String msj = "¡Hola! " + SingletonUser.getInstance().getDataUser().getCliente().getNombre() + " te solicita un pago por " + requestAmout.getText();
             this.dtoRequestPayment.setHeadMessage(msj);
             enviosPresenter.getTitularName(dtoRequestPayment.getReference().trim());
             //lstRequestPayment.add(dtoRequestPayment);

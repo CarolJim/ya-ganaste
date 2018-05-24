@@ -27,7 +27,10 @@ import com.google.zxing.WriterException;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -111,7 +114,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
-        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        ClienteResponse userData = SingletonUser.getInstance().getDataUser().getCliente();
 
         String nombreprimerUser;
         String apellidoMostrarUser;
@@ -125,7 +128,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             nombreprimerUser = userData.getNombre();
         }
 
-        UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
+        EmisorResponse usuario = SingletonUser.getInstance().getDataUser().getEmisor();
         //String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
 
         //txtNameTitular.setText(name);
@@ -136,9 +139,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         String clabe = "";
         cardNumber = "";
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {
-            CuentaResponse cuenta = usuario.getCuentas().get(0);
+            CuentaUyUResponse cuenta = usuario.getCuentas().get(0);
             celPhone = usuario.getCuentas().get(0).getTelefono();
-            cardNumber = getCreditCardFormat(cuenta.getTarjeta());
+            cardNumber = getCreditCardFormat(cuenta.getTarjetas().get(0).getNumero());
             clabe = cuenta.getCLABE();
         }
         showQRCode(name, celPhone, usuario.getCuentas().get(0));
@@ -195,7 +198,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
+        if (SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero().equals("")) {
             checkState("0");
         } else if (statusId != null && !statusId.isEmpty()) {
             // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
@@ -226,7 +229,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
     }
 
-    private void showQRCode(String name, String cellPhone, CuentaResponse usuario) {
+    private void showQRCode(String name, String cellPhone, CuentaUyUResponse usuario) {
         //Find screen size
         WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -236,7 +239,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         int height = point.y;
         int smallerDimension = width < height ? width : height;
         smallerDimension = smallerDimension * 3 / 4;
-        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjeta(), usuario.getCLABE());
+        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjetas().get(0).getNumero(), usuario.getCLABE());
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
         Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);

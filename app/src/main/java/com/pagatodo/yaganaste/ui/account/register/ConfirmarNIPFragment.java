@@ -269,7 +269,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+                if (SingletonUser.getInstance().getDataUser().getControl().getRequiereActivacionSMS()) {
                     onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
                 } else {
                     onEventListener.onEvent(EVENT_GO_MAINTAB, null);

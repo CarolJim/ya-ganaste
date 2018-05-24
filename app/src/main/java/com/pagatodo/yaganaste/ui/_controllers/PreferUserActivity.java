@@ -10,8 +10,10 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -143,23 +145,28 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prefer_user);
 
-        UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
 
-        mName = usuarioClienteResponse.getNombre() + " " +
-                usuarioClienteResponse.getPrimerApellido();
+        UsuarioResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
+        ClienteResponse ClienteResponse = SingletonUser.getInstance().getDataUser().getCliente();
+        mName = ClienteResponse.getNombre() + " " +
+                ClienteResponse.getPrimerApellido();
         mEmail = usuarioClienteResponse.getNombreUsuario();
         mUserImage = usuarioClienteResponse.getImagenAvatarURL();
 
         // Creamos la variables que tendran los datos de Tarjeta y Clabe
         //mTDC = "1234567890123456";
-        if (usuarioClienteResponse.getCuentas().get(0).getTarjeta() != null
-                && !usuarioClienteResponse.getCuentas().get(0).getTarjeta().isEmpty()) {
-            mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+        if (SingletonUser.getInstance().getDataUser().getEmisor()
+                .getCuentas().get(0).getTarjetas() != null
+                && !SingletonUser.getInstance().getDataUser().getEmisor()
+                .getCuentas().get(0).getTarjetas().isEmpty()) {
+            mTDC = SingletonUser.getInstance().getDataUser().getEmisor()
+                    .getCuentas().get(0).getTarjetas().get(0).getNumero();
         } else {
             mTDC = "Error Con Tarjeta";
         }
         //mClabe = "123456789012345678";
-        mClabe = usuarioClienteResponse.getCuentas().get(0).getCLABE();
+        mClabe = SingletonUser.getInstance().getDataUser().getEmisor()
+                .getCuentas().get(0).getCLABE();
         mLastTime = "";
 
         presenterAccount = new AccountPresenterNew(this);
@@ -184,7 +191,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
 
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        if (!SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals(""))
+        if (!SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().equals(""))
             checkDataCard();
 
         int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT);

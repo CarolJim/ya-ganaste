@@ -207,7 +207,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+                if (SingletonUser.getInstance().getDataUser().getControl().getRequiereActivacionSMS()) {
                     onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
                 } else {
                     onEventListener.onEvent(EVENT_GO_MAINTAB, null);
@@ -309,7 +309,7 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         // showDialogMesage(Recursos.MESSAGE_CHANGE_PASS);
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
-        if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+        if (SingletonUser.getInstance().getDataUser().getControl().getRequiereActivacionSMS()) {
             onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
         } else {
             onEventListener.onEvent(EVENT_GO_MAINTAB, null);

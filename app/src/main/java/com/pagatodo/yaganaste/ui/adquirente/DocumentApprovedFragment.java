@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -131,7 +132,7 @@ public class DocumentApprovedFragment extends GenericFragment implements
         hideLoader();
 
         SingletonUser user = SingletonUser.getInstance();
-        DataIniciarSesion dataUser = user.getDataUser();
+        DataIniciarSesionUYU dataUser = user.getDataUser();
         String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
 
         Preferencias prefs = App.getInstance().getPrefs();

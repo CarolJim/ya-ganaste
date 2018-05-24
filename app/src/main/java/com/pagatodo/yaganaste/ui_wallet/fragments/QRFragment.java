@@ -20,7 +20,10 @@ import com.google.zxing.WriterException;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.utils.QrcodeGenerator;
@@ -60,7 +63,7 @@ public class QRFragment extends SupportFragment {
 
     @Override
     public void initViews() {
-        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        ClienteResponse userData = SingletonUser.getInstance().getDataUser().getCliente();
 
         String nombreprimerUser;
         String apellidoMostrarUser;
@@ -74,7 +77,7 @@ public class QRFragment extends SupportFragment {
             nombreprimerUser = userData.getNombre();
         }
 
-        UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
+        EmisorResponse usuario = SingletonUser.getInstance().getDataUser().getEmisor();
         //String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
 
         //txtNameTitular.setText(name);
@@ -85,7 +88,7 @@ public class QRFragment extends SupportFragment {
         String clabe = "";
         //cardNumber = "";
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {
-            CuentaResponse cuenta = usuario.getCuentas().get(0);
+            CuentaUyUResponse cuenta = usuario.getCuentas().get(0);
             celPhone = usuario.getCuentas().get(0).getTelefono();
             //cardNumber = getCreditCardFormat(cuenta.getTarjeta());
             clabe = cuenta.getCLABE();
@@ -93,7 +96,7 @@ public class QRFragment extends SupportFragment {
         showQRCode(name, celPhone, usuario.getCuentas().get(0));
     }
 
-    private void showQRCode(String name, String cellPhone, CuentaResponse usuario) {
+    private void showQRCode(String name, String cellPhone, CuentaUyUResponse usuario) {
         //Find screen size
         WindowManager manager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -103,7 +106,7 @@ public class QRFragment extends SupportFragment {
         int height = point.y;
         int smallerDimension = width < height ? width : height;
         smallerDimension = smallerDimension * 3 / 4;
-        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjeta(), usuario.getCLABE());
+        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjetas().get(0).getNumero(), usuario.getCLABE());
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
         if (BuildConfig.DEBUG)

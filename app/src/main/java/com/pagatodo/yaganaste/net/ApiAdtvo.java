@@ -940,6 +940,7 @@ public class ApiAdtvo extends Api {
         headers.put("Content-type", "application/json");
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("TokenAdquirente",RequestHeaders.getTokensesion());
+
         int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
@@ -947,5 +948,5 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.cancelarCuenta),
                 headers, request, GenericResponse.class, result);
 
+        }
     }
-}

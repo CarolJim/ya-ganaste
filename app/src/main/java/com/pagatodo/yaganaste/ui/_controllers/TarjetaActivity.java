@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -67,7 +68,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         mPreferPresenter = new TarjetaUserPresenter(this);
         presenterAccount = new AccountPresenterNew(this);
         init();
-        if (!SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
+        if (!SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero().equals("")) {
             checkDataCard();
             //txtNameTitular.setText(nombre());
             //ultimaTransaccion();
@@ -188,7 +189,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     }
 
     public String nombre() {
-        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        ClienteResponse userData = SingletonUser.getInstance().getDataUser().getCliente();
 
         String nombreprimerUser;
 
@@ -223,8 +224,8 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
             // Verificamos el estado de bloqueo de la Card
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
-                UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
-                String mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+                ClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getCliente();
+                String mTDC = SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero();
                 mPreferPresenter.toPresenterEstatusCuenta(mTDC);
             }
 
@@ -310,7 +311,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         if (!isLoaderShow) {
             Fragment currentFragment = getCurrentFragment();
             if (currentFragment instanceof  MyCardReportaTarjetaFragment &&
-                    SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
+                    SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero().equals("")) {
                 super.onBackPressed();
             } else if (currentFragment instanceof MyChangeNip ||
                     currentFragment instanceof MyCardReportaTarjetaFragment) {

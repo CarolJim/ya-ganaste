@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -128,7 +129,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     public void initViews() {
         ButterKnife.bind(this, rootview);
         mName = getArguments().getString(M_NAME);
-        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        ClienteResponse userData = SingletonUser.getInstance().getDataUser().getCliente();
 
         String nombreprimerUser;
         String apellidoMostrarUser;

@@ -153,7 +153,7 @@ public class ApiTrans extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
 
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
@@ -169,7 +169,7 @@ public class ApiTrans extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
 
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
@@ -191,7 +191,7 @@ public class ApiTrans extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
 
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
@@ -211,9 +211,9 @@ public class ApiTrans extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         /* Si el usuario ya inicio sesión el tamaño del objeto Cuenta debe ser mayor a 0 porque
         se llena en el Singleton al iniciar sesión */
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().size() > 0) {
+        if (SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().size() > 0) {
             headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion()); // Si se inicia sesión mandar el Token Sesión
-            int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+            int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                     .getCuentas().get(0).getIdCuenta();
             headers.put(RequestHeaders.IdCuenta, "" + idCuenta);
         /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
@@ -239,9 +239,9 @@ public class ApiTrans extends Api {
 
         /* Si el usuario ya inicio sesión el tamaño del objeto Cuenta debe ser mayor a 0 porque
         se llena en el Singleton al iniciar sesión */
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().size() > 0) {
+            if (SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().size() > 0) {
             headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion()); // Si se inicia sesión mandar el Token Sesión
-            int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+            int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                     .getCuentas().get(0).getIdCuenta();
             headers.put(RequestHeaders.IdCuenta, "" + idCuenta);
         /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra

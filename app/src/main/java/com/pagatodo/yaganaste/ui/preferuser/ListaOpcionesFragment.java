@@ -20,7 +20,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -181,7 +183,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         // mName = "Mi Nombre";
         // mEmail = "mimail@micorreo.com";
 
-        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        ClienteResponse userData = SingletonUser.getInstance().getDataUser().getCliente();
 
         String nombreprimerUser;
         String apellidoMostrarUser;

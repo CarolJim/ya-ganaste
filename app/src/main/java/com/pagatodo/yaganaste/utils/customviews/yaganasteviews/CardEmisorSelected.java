@@ -13,7 +13,11 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -56,18 +60,24 @@ public class CardEmisorSelected extends TabViewElement {
 
     @Override
     public void updateData() {
-        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        UsuarioResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        ClienteResponse clienteData= SingletonUser.getInstance().getDataUser().getCliente();
+
+
+
+
 
         String nombreprimerUser;
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()) {
-            apellidoMostrarUser = userData.getSegundoApellido();
+        if (clienteData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = clienteData.getSegundoApellido();
         } else {
-            apellidoMostrarUser = userData.getPrimerApellido();
+            apellidoMostrarUser = clienteData.getPrimerApellido();
         }
-        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombreUsuario());
         if (nombreprimerUser.isEmpty()) {
-            nombreprimerUser = userData.getNombre();
+            nombreprimerUser = userData.getNombreUsuario();
         }
 
         txtNombre.setText(nombreprimerUser.concat(SPACE.concat(apellidoMostrarUser)));
@@ -94,7 +104,7 @@ public class CardEmisorSelected extends TabViewElement {
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
 
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
+        if (SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().equals("")) {
             checkState("0");
         } else if (statusId != null && !statusId.isEmpty()) {
             // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
