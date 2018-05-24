@@ -810,7 +810,7 @@ public class ApiAdtvo extends Api {
             throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         headers.put("IdCuenta", "" + idCuenta);
@@ -825,7 +825,7 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
@@ -840,7 +840,7 @@ public class ApiAdtvo extends Api {
                                            int idFavorito, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("IdFavorito", "" + idFavorito);
@@ -854,7 +854,7 @@ public class ApiAdtvo extends Api {
     public static void addEditFavorites(EditFavoritesRequest request, int idFavorito, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("IdFavorito", "" + idFavorito);
@@ -868,7 +868,7 @@ public class ApiAdtvo extends Api {
     public static void addDeleteFavorite(DeleteFavoriteRequest request, int idFavorito, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("IdFavorito", "" + idFavorito);
@@ -940,7 +940,7 @@ public class ApiAdtvo extends Api {
         headers.put("Content-type", "application/json");
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("TokenAdquirente",RequestHeaders.getTokensesion());
-        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+        int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         NetFacade.consumeWS(CANCELACCOUNT,

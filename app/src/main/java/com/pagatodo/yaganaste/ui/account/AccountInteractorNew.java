@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
@@ -48,6 +49,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoni
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
@@ -513,7 +515,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case INICIAR_SESION_SIMPLE:
-                processLoginUyu(dataSourceResult);
+                processLogin(dataSourceResult);
                 break;
             case LOGINSTARBUCKS:
                 saveDataUsuStarBucks(dataSourceResult);
@@ -762,7 +764,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             RequestHeaders.setTokenAdq(data.getToken());
             RequestHeaders.setIdCuentaAdq(data.getId_user());
 
-            UsuarioClienteResponse dataUser = SingletonUser.getInstance().getDataUser().getUsuario();
+            UsuarioResponse dataUser = SingletonUser.getInstance().getDataUser().getUsuario();
             dataUser.setTokenSesionAdquirente(data.getToken());
             dataUser.setIdUsuarioAdquirente(data.getId_user());
             checkAfterLogin();
@@ -776,25 +778,25 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void processLogin(DataSourceResult response) {
-        IniciarSesionResponse data = (IniciarSesionResponse) response.getData();
-        DataIniciarSesion dataUser = data.getData();
+        IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
+        DataIniciarSesionUYU dataUser = data.getData();
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
-            if (dataUser.isEsUsuario()) {
+            if (dataUser.getControl().getEsUsuario()) {
                 user.setDataUser(dataUser);// Si Usuario
-                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, dataUser.getIdEstatus());
+                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, dataUser.getUsuario().getIdEstatus());
                 String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
                 App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
 
-                if (dataUser.isConCuenta()) {// Si Cuenta
-                    RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
+                if (dataUser.getCliente().getConCuenta()) {// Si Cuenta
+                    RequestHeaders.setIdCuenta(String.format("%s", data.getData().getEmisor().getCuentas().get(0).getIdCuenta()));
                     if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                        if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()) { // NO necesita NIP
                             checkAfterLogin();
                             return;
                         } else {//Requiere setear el NIP
@@ -802,12 +804,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                         }
                     } else {
 
-                        if (!dataUser.isRequiereActivacionSMS()) {
+                        if (!dataUser.getControl().getRequiereActivacionSMS()) {
 
                             stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                         } else {
 
-                            if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                            if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()) { // NO necesita NIP
                                 checkAfterLogin();
                                 return;
                             } else {//Requiere setear el NIP
@@ -838,7 +840,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-    private void processLoginUyu(DataSourceResult response) {
+    /*private void processLogin(DataSourceResult response) {
         IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
         DataIniciarSesionUYU dataUserUyu = data.getData();
         SingletonUser.getInstance().setDataUserUyu(dataUserUyu);
@@ -933,33 +935,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
-
+*/
     private void checkAfterLogin() {
         String stepByUserStatus;
         SingletonUser user = SingletonUser.getInstance();
-        DataIniciarSesion dataUser = user.getDataUser();
-        if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
-            //if(true){// No Requiere Activacion de SMS
-            //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento
-
-
-            String old = prefs.loadData(OLD_NIP);
-            SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && (!old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
-            if (!SingletonUser.getInstance().needsReset()) {
-                prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
-            }
-
-            stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
-        } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
-            stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
-        }
-        accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
-    }
-
-    private void checkAfterLoginUyu() {
-        String stepByUserStatus;
-        SingletonUser user = SingletonUser.getInstance();
-        DataIniciarSesionUYU dataUser = user.getDataUserUyu();
+        DataIniciarSesionUYU dataUser = user.getDataUser();
         if (!dataUser.getControl().getRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
             //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento
@@ -1041,15 +1021,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion()); // Guardamos el Token de Sesión
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
-            DataIniciarSesion dataIniciarSesion = user.getDataUser();
-            dataIniciarSesion.setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
-            dataIniciarSesion.setSemilla(dataUser.getSemilla());
+            DataIniciarSesionUYU dataIniciarSesion = user.getDataUser();
+            dataIniciarSesion.getControl().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
+            dataIniciarSesion.getUsuario().setSemilla(dataUser.getSemilla());
             dataIniciarSesion.getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
 
             dataIniciarSesion.getUsuario().setNombreUsuario(dataUser.getUsuario().getNombreUsuario());
-            dataIniciarSesion.getUsuario().setNombre(dataUser.getUsuario().getNombreUsuario());
-            dataIniciarSesion.getUsuario().setPrimerApellido(dataUser.getUsuario().getPrimerApellido());
-            dataIniciarSesion.getUsuario().setSegundoApellido(dataUser.getUsuario().getSegundoApellido());
+            dataIniciarSesion.getCliente().setNombre(dataUser.getUsuario().getNombreUsuario());
+            dataIniciarSesion.getCliente().setPrimerApellido(dataUser.getUsuario().getPrimerApellido());
+            dataIniciarSesion.getCliente().setSegundoApellido(dataUser.getUsuario().getSegundoApellido());
 
             accountManager.onSucces(response.getWebService(), data.getMensaje());
         } else {
@@ -1092,14 +1072,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             //Obtenemos cuenta asiganada.
             CuentaResponse cuenta = cuentaAsiganadaData.getCuenta();
             SingletonUser user = SingletonUser.getInstance();
-            if (user.getDataUser().getUsuario().getCuentas() == null) {
-                user.getDataUser().getUsuario().setCuentas(new ArrayList<CuentaResponse>());
+            if (user.getDataUser().getEmisor().getCuentas() == null) {
+                user.getDataUser().getEmisor().setCuentas(new ArrayList<CuentaUyUResponse>());
             }
-            if (user.getDataUser().getUsuario().getCuentas().isEmpty()) {
-                user.getDataUser().getUsuario().getCuentas().add(new CuentaResponse());
+            if (user.getDataUser().getEmisor().getCuentas().isEmpty()) {
+                user.getDataUser().getEmisor().getCuentas().add(new CuentaUyUResponse());
             }
             // Asignamos la cuenta al usuario TODO el servicio maneja lista en login
-            user.getDataUser().getUsuario().getCuentas().get(0).setIdCuenta(cuenta.getIdCuenta());
+            user.getDataUser().getEmisor().getCuentas().get(0).setIdCuenta(cuenta.getIdCuenta());
             RequestHeaders.setIdCuenta(String.format("%s", cuenta.getIdCuenta()));
             Card.getInstance().setIdAccount(cuenta.getIdCuenta());
             accountManager.onSucces(response.getWebService(), data.getMensaje());
@@ -1153,13 +1133,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             SingletonUser user = SingletonUser.getInstance();
             String phone = data.getData().getNumeroTelefono();
-            String tokenValidation = user.getDataUser().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
+            String tokenValidation = user.getDataUser().getUsuario().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
             Log.d("WSC", "TokenValidation: " + tokenValidation);
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
             Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
-                    user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
+                    user.getDataUser().getEmisor().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
             Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
             if (FirebaseInstanceId.getInstance().getToken() != null) {
                 prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
@@ -1202,7 +1182,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void proccesDataSession(DataSourceResult response) {
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            DataIniciarSesion newSessionData = data.getData();
+            DataIniciarSesionUYU newSessionData = data.getData();
             SingletonUser userInfo = SingletonUser.getInstance();
             newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);

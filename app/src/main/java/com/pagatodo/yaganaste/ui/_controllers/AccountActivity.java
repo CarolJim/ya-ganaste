@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -340,13 +341,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                  * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
                  */
                 SingletonUser user = SingletonUser.getInstance();
-                DataIniciarSesion dataUser = user.getDataUser();
+                DataIniciarSesionUYU dataUser = user.getDataUser();
 
                 String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
 
                 Preferencias prefs = App.getInstance().getPrefs();
-                prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
-                prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getCLABE());
+                prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTelefono());
+                prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getCLABE());
                 boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
 
                 // Lineas de prueba, comentar al tener version lista para pruebas

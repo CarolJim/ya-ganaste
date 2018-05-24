@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CancelRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -259,7 +260,7 @@ public class CancelAccountFragment extends SupportFragment implements View.OnCli
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             SingletonUser singletonUser = SingletonUser.getInstance();
-            DataIniciarSesion data = singletonUser.getDataUser();
+            DataIniciarSesionUYU data = singletonUser.getDataUser();
             int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
             int idafiliacion = 2;
 

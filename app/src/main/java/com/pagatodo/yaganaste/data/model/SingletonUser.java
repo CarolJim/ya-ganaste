@@ -54,34 +54,27 @@ public class SingletonUser {
         return user;
     }
 
-    public DataIniciarSesionUYU getDataUserUyu() {
+    public DataIniciarSesionUYU getDataUser() {
         return dataUserUyu;
     }
 
-    public void setDataUserUyu(DataIniciarSesionUYU dataUserUyu) {
-        this.dataUserUyu = dataUserUyu;
-    }
-
-    public void setDataUser(DataIniciarSesion dataUser) {
-        //this.dataUser = dataUser;
-
+    public void setDataUser(DataIniciarSesionUYU dataUser) {
+        this.dataUserUyu = dataUser;
         Preferencias prefs = App.getInstance().getPrefs();
-
-        if (dataUser.isConCuenta()) {
+        if (dataUser.getCliente().getConCuenta()) {
             prefs.saveDataBool(HAS_SESSION, true);
-
-            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
-                    .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
+            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getCliente().getNombre())
+                    .concat(SPACE).concat(dataUser.getCliente().getPrimerApellido()));
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
             //prefs.saveDataBool(PASSWORD_CHANGE, false);
-            prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
-            prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
-                    concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
-                            concat(dataUser.getUsuario().getSegundoApellido())));
-            prefs.saveData(LAST_NAME, dataUser.getUsuario().getPrimerApellido().concat(SPACE));
-            dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ", ""));
-            prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
-            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
+            prefs.saveData(NAME_USER, dataUser.getCliente().getNombre());
+            prefs.saveData(FULL_NAME_USER, dataUser.getCliente().getNombre().concat(SPACE).
+                    concat(dataUser.getCliente().getPrimerApellido().concat(SPACE).
+                            concat(dataUser.getCliente().getSegundoApellido())));
+            prefs.saveData(LAST_NAME, dataUser.getCliente().getPrimerApellido().concat(SPACE));
+            dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).setNumero(dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero().replaceAll(" ", ""));
+            prefs.saveData(CARD_NUMBER, dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero());
+            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getEmisor().getCuentas().get(0).getIdCuenta()));
         }
 
         App.getInstance().getPrefs().saveDataInt(TIPO_AGENTE, 1);

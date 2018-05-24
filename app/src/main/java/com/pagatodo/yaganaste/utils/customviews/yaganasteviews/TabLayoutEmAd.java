@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
@@ -78,7 +79,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private void init() {
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
-        DataIniciarSesion dataUser = SingletonUser.getInstance().getDataUser();
+        DataIniciarSesionUYU dataUser = SingletonUser.getInstance().getDataUser();
         updateData();
 
 
