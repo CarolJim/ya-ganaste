@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgraund_wallet"
+    android:orientation="vertical">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtDepositTitle"
+        style="@style/title_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="47dp"
+        android:layout_marginTop="27dp"
+        android:text="Contacto"
+        android:textColor="@color/colorAccent" />
+
+
+    <ImageView
+        android:layout_width="112dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/atencontact" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtsubtitulocontacto"
+        style="@style/title_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="27dp"
+        android:text="¡Queremos escucharte!"
+        android:textColor="@color/colorAccent" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_description"
+        style="@style/generic_text_style_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDepositTitle"
+        android:layout_marginBottom="@dimen/dimen_20"
+        android:gravity="center_horizontal"
+        android:text="@string/subtituloatencon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/view_elementlllamar"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/button_itemcorreo"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
+                android:background="@drawable/ic_telefono" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/text_optioncorreo"
+                style="@style/generic_text_style_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Contactanos por \n correo electronico"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_element_correo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/button_itemllamar"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
+                android:background="@drawable/ico_correo" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/text_option"
+                style="@style/generic_text_style_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Contactanos por\nteléfono"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

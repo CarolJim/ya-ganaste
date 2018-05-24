@@ -41,9 +41,11 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioC
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionUYUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
@@ -187,12 +189,23 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(ACTUALIZAR_AVATAR, App.getContext().getString(R.string.no_internet_access));
         }
     }
-
+/*
     @Override
     public void login(IniciarSesionRequest request) {
         try {
             new DatabaseManager().deleteFavorites();
             ApiAdtvo.iniciarSesionSimple(request, this);
+            SingletonUser.getInstance().setCardStatusId(null);
+        } catch (OfflineException e) {
+            accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
+        }
+    }
+*/
+    @Override
+    public void login(IniciarSesionRequest request) {
+        try {
+            new DatabaseManager().deleteFavorites();
+            ApiAdtvo.iniciarSesionSimpleUYU(request, this);
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
@@ -513,7 +526,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case INICIAR_SESION_SIMPLE:
-                processLogin(dataSourceResult);
+                processLoginUyu(dataSourceResult);
                 break;
             case LOGINSTARBUCKS:
                 saveDataUsuStarBucks(dataSourceResult);
@@ -838,13 +851,131 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
+    private void processLoginUyu(DataSourceResult response) {
+        IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
+        DataIniciarSesionUYU dataUserUyu = data.getData();
+        SingletonUser.getInstance().setDataUserUyu(dataUserUyu);
+
+        DataIniciarSesion dataUser = new DataIniciarSesion();
+        dataUser.setEsUsuario(dataUserUyu.getControl().getEsUsuario());
+        dataUser.setConCuenta(dataUserUyu.getCliente().getConCuenta());
+        dataUser.setIdEstatus(dataUserUyu.getUsuario().getIdEstatus());
+        dataUser.setRequiereActivacionSMS(dataUserUyu.getControl().getRequiereActivacionSMS());
+        dataUser.setSemilla(dataUserUyu.getUsuario().getSemilla());
+
+        UsuarioClienteResponse usuario = new UsuarioClienteResponse();
+        usuario.setIdUsuario(dataUserUyu.getUsuario().getIdUsuario());
+        usuario.setIdUsuarioAdquirente(dataUserUyu.getUsuario().getIdUsuarioAdquirente());
+        usuario.setNombreUsuario("");
+        //usuario.setNombreUsuario("qa.pt.apple4@gmail.com");
+        usuario.setNombre(dataUserUyu.getCliente().getNombre());
+        usuario.setPrimerApellido(dataUserUyu.getCliente().getPrimerApellido());
+        usuario.setSegundoApellido(dataUserUyu.getCliente().getSegundoApellido());
+        usuario.setImagenAvatarURL(dataUserUyu.getUsuario().getImagenAvatarURL());
+        usuario.setTokenSesion(dataUserUyu.getUsuario().getTokenSesion());
+        usuario.setTokenSesionAdquirente(dataUserUyu.getUsuario().getTokenSesionAdquirente());
+        usuario.setPasswordAsignado(dataUserUyu.getUsuario().getPasswordAsignado());
+        usuario.setExtranjero(dataUserUyu.getUsuario().isEsExtranjero());
+        List<CuentaResponse> cuentas = new ArrayList<>();
+        CuentaResponse cuentaResponse = new CuentaResponse();
+        cuentaResponse.setIdCuenta(dataUserUyu.getEmisor().getCuentas().get(0).getIdCuenta());
+        cuentaResponse.setAsignoNip(dataUserUyu.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip());
+        cuentaResponse.setCuenta(dataUserUyu.getEmisor().getCuentas().get(0).getCuenta());
+        cuentaResponse.setCLABE(dataUserUyu.getEmisor().getCuentas().get(0).getCLABE());
+        cuentaResponse.setTarjeta(dataUserUyu.getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero());
+        cuentaResponse.setTelefono(dataUserUyu.getEmisor().getCuentas().get(0).getTelefono());
+        cuentas.add(cuentaResponse);
+        usuario.setCuentas(cuentas);
+        dataUser.setUsuario(usuario);
+        String stepByUserStatus = "";
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            //Seteamos los datos del usuario en el SingletonUser.
+            SingletonUser user = SingletonUser.getInstance();
+            if (dataUser.isEsUsuario()) {
+                user.setDataUser(dataUser);// Si Usuario
+                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, dataUser.getIdEstatus());
+                String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
+                App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
+                RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
+                RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
+                RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
+
+                if (dataUser.isConCuenta()) {// Si Cuenta
+                    RequestHeaders.setIdCuenta(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
+                    if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+                        if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                            checkAfterLogin();
+                            return;
+                        } else {//Requiere setear el NIP
+                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                        }
+                    } else {
+
+                        if (!dataUser.isRequiereActivacionSMS()) {
+
+                            stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
+                        } else {
+
+                            if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
+                                checkAfterLogin();
+                                return;
+                            } else {//Requiere setear el NIP
+                                stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                            }
+
+                        }
+                    }
+
+                } else { // No tiene cuenta asignada.
+
+                    stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
+
+                }
+
+                accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
+            } else { // No es usuario
+                if (RequestHeaders.getTokenauth().isEmpty()) {
+                    RequestHeaders.setUsername("");
+                }
+                accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
+            }
+        } else {
+            if (RequestHeaders.getTokenauth().isEmpty()) {
+                RequestHeaders.setUsername("");
+            }
+            accountManager.onError(response.getWebService(), data.getMensaje());
+        }
+    }
+
     private void checkAfterLogin() {
         String stepByUserStatus;
         SingletonUser user = SingletonUser.getInstance();
         DataIniciarSesion dataUser = user.getDataUser();
         if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
-            /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
+            //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento
+
+
+            String old = prefs.loadData(OLD_NIP);
+            SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && (!old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
+            if (!SingletonUser.getInstance().needsReset()) {
+                prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
+            }
+
+            stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
+        } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
+            stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
+        }
+        accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
+    }
+
+    private void checkAfterLoginUyu() {
+        String stepByUserStatus;
+        SingletonUser user = SingletonUser.getInstance();
+        DataIniciarSesionUYU dataUser = user.getDataUserUyu();
+        if (!dataUser.getControl().getRequiereActivacionSMS()) {// No Requiere Activacion de SMS
+            //if(true){// No Requiere Activacion de SMS
+            //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento
 
 
             String old = prefs.loadData(OLD_NIP);
@@ -863,7 +994,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public boolean needsProvisioning() {
         return (!prefs.containsData(HAS_PROVISIONING) || !prefs.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername()));
     }
-
 
     /**
      * Método para seleccionar la pantalla que se debe mostrar dependiendo de la validación de la tarjeta.

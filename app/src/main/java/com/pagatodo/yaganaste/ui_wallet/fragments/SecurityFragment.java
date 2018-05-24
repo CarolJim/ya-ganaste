@@ -58,6 +58,7 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
     public static int MENU_TERMINOS = 3;
     public static int MENU_LOGOUT = 4;
     public static int MENU_CODE = 5;
+    public static int MENU_CONTACTO = 6;
     final public static int MENU_NOTIFICACIONES = 3;
     private int TYPE_MENU;
 

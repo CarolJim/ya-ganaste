@@ -273,11 +273,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
                 break;
             case EVENT_GO_ASSIGN_NEW_CONTRASE:
-                /*back = false;
+                back = false;
                 setVisibilityBack(back);
-                loadFragment(NewPasswordLoginChange.newInstance(), Direction.FORDWARD, true);
+                loadFragment(NewConfirmPasswordLogin.newInstance(), Direction.FORDWARD, true);
 
-                break;*/
+                break;
             case EVENT_GO_CONFIRM_NEW_CONTRASE:
                 back = false;
                 setVisibilityBack(back);

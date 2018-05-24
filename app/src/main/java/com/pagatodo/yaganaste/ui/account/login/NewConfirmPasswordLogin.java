@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +63,19 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     ProgressLayout progressLayout;
     @BindView(R.id.btnNextAsignarPin)
     StyleButton btnNextAsignarPin;
+
+    @BindView(R.id.stt_1)
+    StyleTextView titulo;
+
+    @BindView(R.id.titulo_datos_usuario)
+    StyleTextView titulo_datos_usuario;
+
+
+
+
+
+
+
 
     private View rootview;
     private String nip = "";
@@ -112,6 +126,11 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setOnClickListener(this);
         setValidationRules();
+
+        if (!prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
+            titulo.setText(getResources().getString(R.string.cambia_contraseda));
+            titulo_datos_usuario.setVisibility(View.GONE);
+        }
     }
 
     @Override

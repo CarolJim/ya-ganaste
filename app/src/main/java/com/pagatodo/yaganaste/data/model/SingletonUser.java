@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
@@ -36,6 +37,7 @@ public class SingletonUser {
     public static SingletonUser user;
 
     private DataIniciarSesion dataUser;
+    private DataIniciarSesionUYU dataUserUyu;
     private ExtraInfoUser dataExtraUser;
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
@@ -46,6 +48,7 @@ public class SingletonUser {
     private SingletonUser() {
         dataUser = new DataIniciarSesion();
         dataExtraUser = new ExtraInfoUser();
+        dataUserUyu = new DataIniciarSesionUYU();
     }
 
     public static synchronized SingletonUser getInstance() {
@@ -59,6 +62,14 @@ public class SingletonUser {
         return dataUser;
     }
 
+    public DataIniciarSesionUYU getDataUserUyu() {
+        return dataUserUyu;
+    }
+
+    public void setDataUserUyu(DataIniciarSesionUYU dataUserUyu) {
+        this.dataUserUyu = dataUserUyu;
+    }
+
     public void setDataUser(DataIniciarSesion dataUser) {
         this.dataUser = dataUser;
 
@@ -70,6 +81,7 @@ public class SingletonUser {
             prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
                     .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
+            //prefs.saveDataBool(PASSWORD_CHANGE, false);
             prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
@@ -107,6 +119,54 @@ public class SingletonUser {
         }
     }
 
+    /*public void setDataUser(DataIniciarSesionUYU dataUser) {
+        this.dataUserUyu = dataUser;
+        Preferencias prefs = App.getInstance().getPrefs();
+
+        if (dataUser.getCliente().getConCuenta()) {
+            prefs.saveDataBool(HAS_SESSION, true);
+
+            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getCliente().getNombre())
+                    .concat(SPACE).concat(dataUser.getCliente().getPrimerApellido()));
+            prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
+            //prefs.saveDataBool(PASSWORD_CHANGE, false);
+            prefs.saveData(NAME_USER, dataUser.getUsuario().getNombreUsuario());
+            prefs.saveData(FULL_NAME_USER, dataUser.getCliente().getNombre().concat(SPACE).
+                    concat(dataUser.getCliente().getPrimerApellido().concat(SPACE).
+                            concat(dataUser.getCliente().getSegundoApellido())));
+            prefs.saveData(LAST_NAME, dataUser.getCliente().getPrimerApellido().concat(SPACE));
+            dataUser.getEmisor().getCuentas().get(0).setTarjeta(dataUser.getEmisor().getCuentas().get(0).getTarjeta().replaceAll(" ", ""));
+            prefs.saveData(CARD_NUMBER, dataUser.getEmisor().getCuentas().get(0).getTarjeta());
+            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getEmisor().getCuentas().get(0).getIdCuenta()));
+        }
+
+        App.getInstance().getPrefs().saveDataInt(TIPO_AGENTE, 1);
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) != CRM_DOCTO_APROBADO
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)!=STATUS_DOCTO_PENDIENTE) {
+            App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        }
+
+        if (dataUser.getUsuario() != null && dataUser.getUsuario().getImagenAvatarURL() != null) {
+            String mUserImage = dataUser.getUsuario().getImagenAvatarURL();
+            String[] urlSplit = mUserImage.split("_");
+            if (urlSplit.length > 1) {
+                dataUser.getUsuario().setImagenAvatarURL(urlSplit[0] + "_M.png");
+                prefs.saveData(URL_PHOTO_USER, dataUser.getUsuario().getImagenAvatarURL());
+            }
+
+        }
+
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I10.getId() ||
+                App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I13.getId()) {
+            prefs.saveDataBool(ESTADO_RECHAZADO, true);
+        }
+
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
+            prefs.saveDataBool(IS_CUPO, true);
+        }
+    }
+    */
     public ExtraInfoUser getDataExtraUser() {
         return dataExtraUser;
     }

@@ -47,12 +47,18 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActi
 public class NewPasswordLoginChange extends GenericFragment implements ValidationForms, IAccountCardNIPView {
 
     private static int PIN_LENGHT = 6;
+
+    /*
     @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
+*/
+    @BindView(R.id.edt_password)
+    EditText edt_password;
+
+
+
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
-    @BindView(R.id.keyboard_view)
-    CustomKeyboardView keyboardView;
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
     LinearLayout layout_control;
@@ -92,78 +98,24 @@ public class NewPasswordLoginChange extends GenericFragment implements Validatio
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setVisibility(View.GONE);
 
-        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-        keyboardView.setPreviewEnabled(false);
-
-        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
-        imageView.setVisibility(View.GONE);
-        tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
-        tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
-        tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
-        tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-        tv5Num = (TextView) rootview.findViewById(R.id.asignar_tv5);
-        tv6Num = (TextView) rootview.findViewById(R.id.asignar_tv6);
-
-        // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
-        // Se le asigna un TextWatcher personalizado para realizar las oepraciones
-        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
-        edtPin.setMaxLength(6); // Se asigna un maximo de 4 caracteres para no tener problrmas
-        edtPin.addCustomTextWatcher(new AsignarContraseñaTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num, tv5Num, tv6Num));
-        edtPin.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().length() == 6) {
-                    keyboardView.hideCustomKeyboard();
-                    btnNextAsignarPin.setVisibility(View.VISIBLE);
-                    //validateForm();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
 
-        //Si ocamos el area especial del Layout abrimos el Keyboard
-        layout_control.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtPin.requestFocus();
-                keyboardView.showCustomKeyboard(v);
-            }
-        });
 
-        edtPin.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                keyboardView.showCustomKeyboard(v);
-                edittext.setInputType(inType);              // Restore input type
-                return true; // Consume touch event
-            }
-        });
-        btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateForm();
-            }
-        });
-        setValidationRules();
-        keyboardView.showCustomKeyboard(rootview);
-        edtPin.requestEditFocus();
     }
 
+
+
+
+
+
     /*Implementación de ValidationForms*/
+
+
+
+
+    private void showValidationError(Object err) {
+        showValidationError(0, err);
+    }
 
     @Override
     public void setValidationRules() {
@@ -172,18 +124,7 @@ public class NewPasswordLoginChange extends GenericFragment implements Validatio
 
     @Override
     public void validateForm() {
-        getDataForm();
 
-        if (nip.length() < PIN_LENGHT) {
-            showValidationError(getString(R.string.asignar_pin));
-            return;
-        }
-
-        onValidationSuccess();
-    }
-
-    private void showValidationError(Object err) {
-        showValidationError(0, err);
     }
 
     @Override
@@ -216,7 +157,7 @@ public class NewPasswordLoginChange extends GenericFragment implements Validatio
 
     @Override
     public void getDataForm() {
-        nip = edtPin.getText().toString().trim();
+
     }
 
     @Override
