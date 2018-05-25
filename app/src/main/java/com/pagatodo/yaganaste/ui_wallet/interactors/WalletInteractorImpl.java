@@ -84,7 +84,7 @@ public class WalletInteractorImpl implements WalletInteractor {
         }
     }
 
-    @Override
+    /*@Override
     public void getInfoAgente() {
         try {
             ApiAdtvo.getInformacionAgente(this);
@@ -92,13 +92,13 @@ public class WalletInteractorImpl implements WalletInteractor {
             e.printStackTrace();
             listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
         }
-    }
+    }*/
 
     //REQUEST
     @Override
     public void onSuccess(DataSourceResult result) {
         switch (result.getWebService()) {
-            case GET_INFORMACION_AGENTE:
+            /*case GET_INFORMACION_AGENTE:
                 if (result.getData() instanceof InformacionAgenteResponse) {
                     InformacionAgenteResponse response = (InformacionAgenteResponse) result.getData();
                     if (response.getCodigoRespuesta() == CODE_OK) {
@@ -107,7 +107,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                         this.listener.onFailed(Recursos.CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, response.getMensaje());
                     }
                 }
-                break;
+                break;*/
             case CONSULTAR_SALDO:
                 //this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
                 this.listener.onSuccess(TYPE_EMISOR, result.getData());
@@ -135,9 +135,9 @@ public class WalletInteractorImpl implements WalletInteractor {
     @Override
     public void onFailed(DataSourceResult error) {
         switch (error.getWebService()) {
-            case GET_INFORMACION_AGENTE:
+           /* case GET_INFORMACION_AGENTE:
                 this.listener.onFailed(CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, error.getData().toString());
-                break;
+                break;*/
             case CONSULTAR_MOVIMIENTOS_MES:
                 this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
                 break;

@@ -84,24 +84,24 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     public void getStatusAccount(String mTDC) {
         walletView.showProgress();
         if (!mTDC.isEmpty()) {
-            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
+            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC.replace(" ",""));
             walletInteractor.getStatusAccount(estatusCuentaRequest);
         } else {
             SingletonUser.getInstance().setCardStatusId(ESTATUS_CUENTA_BLOQUEADA);
             walletView.sendCardReported();
         }
     }
-
+/*
     @Override
     public void getInformacionAgente() {
         walletView.showProgress();
         walletInteractor.getInfoAgente();
-    }
+    }*/
 
     @Override
     public void onSuccess(@Nullable Integer typeWallet, @Nullable Object result) {
         walletView.hideProgress();
-        if (result instanceof DataInfoAgente) {
+        /*if (result instanceof DataInfoAgente) {
             DataInfoAgente response = (DataInfoAgente) result;
             Preferencias sp = App.getInstance().getPrefs();
             sp.saveDataBool(ES_AGENTE, response.isEsAgente());
@@ -116,7 +116,8 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
             RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
             walletView.sendSuccessInfoAgente();
-        } else if (result instanceof ConsultarSaldoResponse) {
+        } else*/
+            if (result instanceof ConsultarSaldoResponse) {
             String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
             switch (typeWallet) {
                 case TYPE_STARBUCKS:

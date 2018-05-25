@@ -203,7 +203,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onResume() {
         super.onResume();
-        walletPresenter.getInformacionAgente();
+        checkDataCard();
+        //walletPresenter.getInformacionAgente();
     }
 
     @Override
@@ -224,10 +225,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         walletPresenter.getWalletsCards(false);
     }
 
-    @Override
+    /*@Override
     public void sendSuccessInfoAgente() {
         checkDataCard();
-    }
+    }*/
 
     @Override
     public void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response) {

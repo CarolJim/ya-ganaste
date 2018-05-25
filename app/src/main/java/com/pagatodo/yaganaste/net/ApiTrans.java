@@ -239,18 +239,20 @@ public class ApiTrans extends Api {
 
         /* Si el usuario ya inicio sesión el tamaño del objeto Cuenta debe ser mayor a 0 porque
         se llena en el Singleton al iniciar sesión */
-            if (SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().size() > 0) {
-            headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion()); // Si se inicia sesión mandar el Token Sesión
-            int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
-                    .getCuentas().get(0).getIdCuenta();
-            headers.put(RequestHeaders.IdCuenta, "" + idCuenta);
-        /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
-        * fuera de una Sesión */
-        } else {
-            //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());  // Traido del SharedPreference
-            headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta()); // Traido del SharedPreference
-            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth()); // Traido del SharedPreference
-        }
+        if (SingletonUser.getInstance().getDataUser().getEmisor()!= null) {
+            //if (SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().size() > 0) {
+                headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion()); // Si se inicia sesión mandar el Token Sesión
+                int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
+                        .getCuentas().get(0).getIdCuenta();
+                headers.put(RequestHeaders.IdCuenta, "" + idCuenta);
+            /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
+            * fuera de una Sesión */
+            } else {
+                //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());  // Traido del SharedPreference
+                headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta()); // Traido del SharedPreference
+                headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth()); // Traido del SharedPreference
+            }
+
         headers.put("Content-Type", "application/json");
 
         NetFacade.consumeWS(ESTATUS_CUENTA,

@@ -11,5 +11,5 @@ public interface WalletPresenter extends Presenter{
     void getWalletsCards(boolean error);
     void updateBalance(ElementWallet item);
     void getStatusAccount(String mTDC);
-    void getInformacionAgente();
+    //void getInformacionAgente();
 }
