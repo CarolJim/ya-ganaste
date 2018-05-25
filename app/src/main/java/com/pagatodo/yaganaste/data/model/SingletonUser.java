@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.data.model;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -104,31 +105,30 @@ public class SingletonUser {
         }
     }
 
-    /*public void setDataUser(DataIniciarSesionUYU dataUser) {
-        this.dataUserUyu = dataUser;
+    public void setDataUser(DataIniciarSesion dataUser) {
+        //this.dataUser = dataUser;
+
         Preferencias prefs = App.getInstance().getPrefs();
 
-        if (dataUser.getCliente().getConCuenta()) {
+        if (dataUser.isConCuenta()) {
             prefs.saveDataBool(HAS_SESSION, true);
 
-            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getCliente().getNombre())
-                    .concat(SPACE).concat(dataUser.getCliente().getPrimerApellido()));
+            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
+                    .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
-            //prefs.saveDataBool(PASSWORD_CHANGE, false);
-            prefs.saveData(NAME_USER, dataUser.getUsuario().getNombreUsuario());
-            prefs.saveData(FULL_NAME_USER, dataUser.getCliente().getNombre().concat(SPACE).
-                    concat(dataUser.getCliente().getPrimerApellido().concat(SPACE).
-                            concat(dataUser.getCliente().getSegundoApellido())));
-            prefs.saveData(LAST_NAME, dataUser.getCliente().getPrimerApellido().concat(SPACE));
-            dataUser.getEmisor().getCuentas().get(0).setTarjeta(dataUser.getEmisor().getCuentas().get(0).getTarjeta().replaceAll(" ", ""));
-            prefs.saveData(CARD_NUMBER, dataUser.getEmisor().getCuentas().get(0).getTarjeta());
-            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getEmisor().getCuentas().get(0).getIdCuenta()));
+            prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
+            prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
+                    concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
+                            concat(dataUser.getUsuario().getSegundoApellido())));
+            prefs.saveData(LAST_NAME, dataUser.getUsuario().getPrimerApellido().concat(SPACE));
+            dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ",""));
+            prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
+            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
         }
 
-        App.getInstance().getPrefs().saveDataInt(TIPO_AGENTE, 1);
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) != CRM_DOCTO_APROBADO
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)!=STATUS_DOCTO_PENDIENTE) {
+        //dataUser.getUsuario().setTipoAgente(1);
+        if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
+                && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         }
 
@@ -142,16 +142,15 @@ public class SingletonUser {
 
         }
 
-        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I10.getId() ||
-                App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I13.getId()) {
+        if (dataUser.getIdEstatus() == IdEstatus.I10.getId() ||dataUser.getIdEstatus() == IdEstatus.I13.getId()) {
             prefs.saveDataBool(ESTADO_RECHAZADO, true);
         }
 
-        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
+        if (dataUser.getIdEstatus() == IdEstatus.CUPO.getId()) {
             prefs.saveDataBool(IS_CUPO, true);
         }
     }
-    */
+
     public ExtraInfoUser getDataExtraUser() {
         return dataExtraUser;
     }

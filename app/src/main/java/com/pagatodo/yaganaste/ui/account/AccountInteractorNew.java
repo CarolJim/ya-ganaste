@@ -41,6 +41,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioC
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
@@ -1182,7 +1183,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void proccesDataSession(DataSourceResult response) {
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            DataIniciarSesionUYU newSessionData = data.getData();
+            DataIniciarSesion newSessionData = data.getData();
             SingletonUser userInfo = SingletonUser.getInstance();
             newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);

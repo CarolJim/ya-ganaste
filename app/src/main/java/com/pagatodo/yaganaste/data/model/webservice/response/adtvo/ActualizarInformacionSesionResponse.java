@@ -8,17 +8,17 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public class ActualizarInformacionSesionResponse extends GenericResponse {
 
-    private DataIniciarSesionUYU Data;
+    private DataIniciarSesion Data;
 
     public ActualizarInformacionSesionResponse() {
-        Data = new DataIniciarSesionUYU();
+        Data = new DataIniciarSesion();
     }
 
-    public DataIniciarSesionUYU getData() {
+    public DataIniciarSesion getData() {
         return Data;
     }
 
-    public void setData(DataIniciarSesionUYU data) {
+    public void setData(DataIniciarSesion data) {
         Data = data;
     }
 }
