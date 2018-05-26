@@ -110,21 +110,6 @@ public class MyDongleFragment extends GenericFragment implements
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        App.getInstance().pos.openAudio();
-        App.getInstance().pos.getSdkVersion();
-        maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-        // imageView.setVisibility(View.GONE);
-        txtNumberBattery.setGravity(Gravity.START);
-        txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
-        txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
-        iconBattery.setVisibility(View.GONE);
-        txtNumberBattery.setSelected(true);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
