@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
@@ -19,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
@@ -171,7 +173,8 @@ public class ElementWallet {
     }
 
     public ElementWallet getCardLectorAdq() {
-        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)) {
             String leyenda;
             int descripcion;

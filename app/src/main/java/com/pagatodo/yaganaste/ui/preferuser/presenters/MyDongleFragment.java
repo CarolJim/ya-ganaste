@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +41,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
+import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
+import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
@@ -63,6 +66,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
  */
 public class MyDongleFragment extends GenericFragment implements
         IAdqTransactionRegisterView, IPreferUserGeneric {
+
+    private static String MODE_COMMUNICACTION = "mode_communication";
     protected boolean isReaderConected = false;
     @BindView(R.id.txtCompanyName)
     StyleTextView txtCompanyName;
@@ -72,25 +77,238 @@ public class MyDongleFragment extends GenericFragment implements
     ImageView iconBattery;
     @BindView(R.id.lyt_config_repayment)
     LinearLayout lytConfigRepayment;
+    @BindView(R.id.lyt_config_dongle)
+    LinearLayout lytConfigDongle;
+    @BindView(R.id.imgYaGanasteCard)
+    ImageView imgYaGanasteCard;
+    @BindView(R.id.txtSerialNumber)
+    StyleTextView txtSerialNumber;
     private AudioManager audioManager;
     public Preferencias prefs;
 
     private IntentFilter broadcastEMVSwipe;
-    private int currentVolumenDevice;
-    private int maxVolumenDevice;
-    private String amount = "";
-    private String detailAmount = "";
+    private int currentVolumenDevice, maxVolumenDevice, communicationMode;
     private AdqPresenter adqPresenter;
-    private boolean isWaitingCard = false;
-    private boolean isCancelation = false;
-
-    private boolean mensajeuno = false;
+    private boolean isCancelation = false, mensajeuno = false;
 
     View rootview;
 
-    public MyDongleFragment() {
-        // Required empty public constructor
+    public static MyDongleFragment newInstance(int communicationMode) {
+        MyDongleFragment fragment = new MyDongleFragment();
+        Bundle args = new Bundle();
+        args.putInt(MODE_COMMUNICACTION, communicationMode);
+        fragment.setArguments(args);
+        return fragment;
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        communicationMode = getArguments().getInt(MODE_COMMUNICACTION);
+        prefs = App.getInstance().getPrefs();
+        audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
+        currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
+            App.getInstance().initEMVListener(QPOSService.CommunicationMode.AUDIO);
+            getActivity().registerReceiver(headPhonesReceiver, filter);
+        } else {
+            App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
+        }
+        adqPresenter = new AdqPresenter(this);
+        adqPresenter.setIView(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        rootview = inflater.inflate(R.layout.fragment_my_dongle, container, false);
+        initViews();
+        return rootview;
+    }
+
+    @Override
+    public void initViews() {
+        ButterKnife.bind(this, rootview);
+        if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
+            imgYaGanasteCard.setImageResource(R.mipmap.lector_front);
+            txtSerialNumber.setVisibility(GONE);
+        } else {
+            imgYaGanasteCard.setImageResource(R.drawable.lector_bt);
+            txtSerialNumber.setText("S/N: " + App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE));
+        }
+        txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
+
+        lytConfigRepayment.setOnClickListener(v -> {
+            if (!UtilsNet.isOnline(getActivity())) {
+                UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+            } else {
+                onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
+            }
+        });
+        lytConfigDongle.setOnClickListener(v -> {
+            BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+            if (!adapter.isEnabled()) {
+                Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivity(enabler);
+            } else {
+                onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT,null);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        App.getInstance().pos.openAudio();
+        App.getInstance().pos.getSdkVersion();
+        maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
+        // imageView.setVisibility(View.GONE);
+        txtNumberBattery.setGravity(Gravity.START);
+        txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
+        txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
+        iconBattery.setVisibility(GONE);
+        txtNumberBattery.setSelected(true);
+    }
+
+    private void setNumberBattery(int mPorcentaje) {
+        // Procesimiento para cambiar la imagen de manera dinamica, dependiendo del rango de carga
+        txtNumberBattery.setText(" " + mPorcentaje + "%");
+        mensajeuno = true;
+
+        txtNumberBattery.setGravity(Gravity.END);
+        txtNumberBattery.setTextColor(getResources().getColor(R.color.textColorAlternative));
+        if (mPorcentaje > 0 && mPorcentaje < 25) {
+            // Bateria Roja
+            iconBattery.setVisibility(View.VISIBLE);
+            iconBattery.setBackgroundResource(R.drawable.bateria25);
+        } else if (mPorcentaje > 25 && mPorcentaje <= 50) {
+            // Bateria Amarilla
+            iconBattery.setVisibility(View.VISIBLE);
+            iconBattery.setBackgroundResource(R.drawable.bateria50);
+        } else if (mPorcentaje > 50 && mPorcentaje <= 85) {
+            // Bateria Verde
+            iconBattery.setVisibility(View.VISIBLE);
+            iconBattery.setBackgroundResource(R.drawable.bateria75);
+        } else if (mPorcentaje > 85 && mPorcentaje <= 100) {
+            // Bateria Verde
+            iconBattery.setVisibility(View.VISIBLE);
+            iconBattery.setBackgroundResource(R.drawable.bateria100);
+        } else if (mPorcentaje <= 0) {
+            // Bateria 0 conectar
+            iconBattery.setVisibility(View.VISIBLE);
+            iconBattery.setBackgroundResource(R.drawable.bateria0);
+        }
+    }
+
+    @Override
+    public void showInsertDongle() {
+
+    }
+
+    @Override
+    public void showInsertCard() {
+
+    }
+
+    @Override
+    public void dongleValidated() {
+
+    }
+
+    @Override
+    public void verifyDongle(String ksn) {
+
+    }
+
+    @Override
+    public void transactionResult(String message) {
+
+    }
+
+    @Override
+    public void showSimpleDialogError(String message, DialogDoubleActions actions) {
+        /*UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
+                getFragmentManager(), actions);*/
+        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
+
+    }
+
+    private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
+                int state = intent.getIntExtra("state", -1);
+                switch (state) {
+                    case 0:
+                        isReaderConected = false;
+                        txtNumberBattery.setText(" ");
+                        //validatingDng = false; // Cancelar Validacion
+                        mensajeuno = false;
+                        try {
+                            txtNumberBattery.setGravity(Gravity.START);
+                            txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
+                            txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
+                            iconBattery.setVisibility(GONE);
+                            txtNumberBattery.setSelected(true);
+                            hideLoader();
+                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+                        } catch (Exception e) {
+
+                        }
+                        Log.i("IposListener: ", "isReaderConected  false");
+                        break;
+                    case 1:
+                        try {
+                            txtNumberBattery.setText("");
+                            isReaderConected = true;
+                            txtNumberBattery.setGravity(Gravity.START);
+                            txtNumberBattery.setText(getString(R.string.receiving_dongle_battery));
+                            txtNumberBattery.setTextColor(getResources().getColor(R.color.yellow));
+                            iconBattery.setVisibility(GONE);
+                            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
+                            maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
+                            Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
+                            App.getInstance().pos.getQposInfo();
+                        } catch (Exception e) {
+                            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    };
 
     private BroadcastReceiver emvSwipeBroadcastReceiver = new BroadcastReceiver() {
         @SuppressLint("SimpleDateFormat")
@@ -185,203 +403,4 @@ public class MyDongleFragment extends GenericFragment implements
             }
         }
     };
-
-    private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
-                int state = intent.getIntExtra("state", -1);
-                switch (state) {
-                    case 0:
-                        isReaderConected = false;
-                        txtNumberBattery.setText(" ");
-                        //validatingDng = false; // Cancelar Validacion
-                        mensajeuno = false;
-                        try {
-                            txtNumberBattery.setGravity(Gravity.START);
-                            txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
-                            txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
-                            iconBattery.setVisibility(View.GONE);
-                            txtNumberBattery.setSelected(true);
-                            hideLoader();
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
-                        } catch (Exception e) {
-
-                        }
-                        Log.i("IposListener: ", "isReaderConected  false");
-                        break;
-                    case 1:
-                        try {
-                            txtNumberBattery.setText("");
-                            isReaderConected = true;
-                            txtNumberBattery.setGravity(Gravity.START);
-                            txtNumberBattery.setText(getString(R.string.receiving_dongle_battery));
-                            txtNumberBattery.setTextColor(getResources().getColor(R.color.yellow));
-                            iconBattery.setVisibility(View.GONE);
-                            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
-                            maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-                            Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
-                            App.getInstance().pos.getQposInfo();
-                        } catch (Exception e) {
-                            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    };
-
-    public static MyDongleFragment newInstance() {
-        MyDongleFragment fragment = new MyDongleFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        App.getInstance().pos.openAudio();
-        App.getInstance().pos.getSdkVersion();
-        maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-        // imageView.setVisibility(View.GONE);
-        txtNumberBattery.setGravity(Gravity.START);
-        txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
-        txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
-        iconBattery.setVisibility(View.GONE);
-        txtNumberBattery.setSelected(true);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        prefs = App.getInstance().getPrefs();
-        audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
-        currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
-        IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        getActivity().registerReceiver(headPhonesReceiver, filter);
-        adqPresenter = new AdqPresenter(this);
-        adqPresenter.setIView(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //  return inflater.inflate(R.layout.fragment_my_dongle, container, false);
-        rootview = inflater.inflate(R.layout.fragment_my_dongle, container, false);
-        initViews();
-        return rootview;
-    }
-
-    @Override
-    public void initViews() {
-        ButterKnife.bind(this, rootview);
-
-        txtCompanyName.setText( prefs.loadData(COMPANY_NAME));
-
-        lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!UtilsNet.isOnline(getActivity())) {
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
-                } else {
-                    onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
-                }
-            }
-        });
-    }
-
-    private void setNumberBattery(int mPorcentaje) {
-        // Procesimiento para cambiar la imagen de manera dinamica, dependiendo del rango de carga
-        txtNumberBattery.setText(" " + mPorcentaje + "%");
-        mensajeuno = true;
-
-        txtNumberBattery.setGravity(Gravity.END);
-        txtNumberBattery.setTextColor(getResources().getColor(R.color.textColorAlternative));
-        if (mPorcentaje > 0 && mPorcentaje < 25) {
-            // Bateria Roja
-            iconBattery.setVisibility(View.VISIBLE);
-            iconBattery.setBackgroundResource(R.drawable.bateria25);
-        } else if (mPorcentaje > 25 && mPorcentaje <= 50) {
-            // Bateria Amarilla
-            iconBattery.setVisibility(View.VISIBLE);
-            iconBattery.setBackgroundResource(R.drawable.bateria50);
-        } else if (mPorcentaje > 50 && mPorcentaje <= 85) {
-            // Bateria Verde
-            iconBattery.setVisibility(View.VISIBLE);
-            iconBattery.setBackgroundResource(R.drawable.bateria75);
-        } else if (mPorcentaje > 85 && mPorcentaje <= 100) {
-            // Bateria Verde
-            iconBattery.setVisibility(View.VISIBLE);
-            iconBattery.setBackgroundResource(R.drawable.bateria100);
-        } else if (mPorcentaje <= 0) {
-            // Bateria 0 conectar
-            iconBattery.setVisibility(View.VISIBLE);
-            iconBattery.setBackgroundResource(R.drawable.bateria0);
-        }
-    }
-
-    @Override
-    public void showInsertDongle() {
-
-    }
-
-    @Override
-    public void showInsertCard() {
-
-    }
-
-    @Override
-    public void dongleValidated() {
-
-    }
-
-    @Override
-    public void verifyDongle(String ksn) {
-
-    }
-
-    @Override
-    public void transactionResult(String message) {
-
-    }
-
-    @Override
-    public void showSimpleDialogError(String message, DialogDoubleActions actions) {
-        /*UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
-                getFragmentManager(), actions);*/
-        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_SHORT);
-    }
-
-    @Override
-    public void nextScreen(String event, Object data) {
-
-    }
-
-    @Override
-    public void backScreen(String event, Object data) {
-
-    }
-
-    @Override
-    public void showLoader(String message) {
-
-    }
-
-    @Override
-    public void hideLoader() {
-
-    }
-
-    @Override
-    public void showError(Object error) {
-
-    }
 }

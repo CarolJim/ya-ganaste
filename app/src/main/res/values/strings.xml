@@ -786,7 +786,8 @@
     <string name="asigna_nip">Asigna tu NIP</string>
 
     <string name="vuelve_conectar_lector">Vuelve a conectar el lector</string>
-    <string name="inserta_lector_valido">Inserta un lector de tarjeta Válido</string>
+    <string name="vuelve_configurar_lector">Vuelve a configurar el lector</string>
+    <string name="inserta_lector_valido">Conecta un lector de tarjeta válido</string>
     <string name="verificando_email">Verificando correo electrónico</string>
     <string name="actualizando_saldo"> </string>
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
@@ -1217,6 +1218,7 @@
     <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
     <string name="receiving_dongle_battery">Obteniendo el nivel de batería</string>
     <string name="time_repayment">Tiempo de reembolso</string>
+    <string name="select_dongle">Seleccionar lector</string>
     <string name="time_repayment_desc">Selecciona en cuánto tiempo deseas recibir\nlos reembolsos de tus cobros</string>
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
     <string name="success_time_repayment_save">Tiempo de reembolso actualizado exitosamente</string>
@@ -1387,11 +1389,16 @@
     <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
     <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas</string>
     <string name="title_tipo_desc_dos">¿Tienes dudas? Contáctanos</string>
+    <string name="title_tipo_desc_tres">Indícanos el modelo de tu lector\nde tarjetas Ya Ganaste</string>
+    <string name="lector_plug">Lector de tarjetas\ncon plug</string>
+    <string name="lector_inalambrico">Lector de tarjetas\ninalámbrico</string>
+    <string name="sin_lector_aun">Aún no tengo\nlector de tarjetas</string>
     <string name="contacto">contacto@yaganaste.com</string>
     <string name="btn_reenviar">Reenviar</string>
     <string name="felicidades">¡Felicidades!</string>
     <string name="ya_se_puede">Ya puedes comenzar a recibir pagos con\ntarjeta ¡al mejor precio!</string>
     <string name="ocurrio_error_doc">Ocurrió un error con tu documentación</string>
+    <string name="error_seleccion_lector">Por favor seleccione una opción</string>
     <string name="tuvimos_problema">Tuvimos un problema con tus documentos, es necesario que los vuelvas a enviar</string>
     <string name="tu_solicitud_no">Tu solicitud no pudo ser completada</string>
     <string name="tuvimos_problema_solicitud">Tuvimos un problema con tu solicitud, comunícate con nosotros para conocer más detalles</string>
@@ -1404,9 +1411,7 @@
     <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
     <string name="nip_confima">Confirmar nuevo NIP (4 dígitos)</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
-
     <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
-
 
     <!-- Movimientos Reembolso-->
     <string name="title_dailog_reem">¿Estás seguro que deseas reembolsar el cobro?</string>
@@ -1464,7 +1469,6 @@
     <string name="terminos_aviso_starbucks">Al dar clic en registrar, estoy de acuerdo con los \nTerminos y Condiciones</string>
     <string name="aviso_de_privacidad_starbucks">y el Aviso de Privacidad</string>
 
-
     <!-- Cancelar -->
     <string name="title_cancel">Tu cuenta ha sido cancelada\n\n¡Te vámos a extrañar!</string>
     <string name="title_btn_cancel">Salir</string>
@@ -1473,5 +1477,17 @@
     <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
     <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
     <string name="subtituloatencon">Si teines alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+
+    <!-- Conectar Dongle Vía Bluetooth -->
+    <string name="title_pair_bluetooth">Enlaza tu lector</string>
+    <string name="bluetooth_on">Bluetooth activado</string>
+    <string name="bluetooth_instructions">Enciende tu lector de tarjetas Ya Ganaste presionando el botón:</string>
+    <string name="bluetooth_instructions2">Manténlo presionado hasta que leas\nen pantalla “Bienvenido”</string>
+    <string name="bluetooth_devices">Lectores Ya Ganaste encontrados:</string>
+    <string name="searching_devices">Buscando lectores</string>
+    <string name="searching_devices_error">No se han encontrado lectores</string>
+    <string name="pairing_device">Conectando con su lector</string>
+    <string name="pairing_device_success">Dispositivo conectado</string>
+    <string name="pairing_device_error">Ocurrió un error al conectar el lector</string>
 
 </resources>

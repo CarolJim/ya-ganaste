@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ShareActionProvider;
 
+import com.dspread.xpos.QPOSService;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -39,12 +41,13 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
-import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
@@ -65,6 +68,7 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_STARBUCK;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
@@ -74,12 +78,15 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPEN
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
 
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
     public final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
+    public final static String EVENT_GO_CONFIG_DONGLE = "EVENT_GO_CONFIG_DONGLE";
+    public final static String EVENT_GO_CONFIG_DONGLE_BACK = "EVENT_GO_CONFIG_DONGLE_BACK";
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     public final static String EVENT_GO_DETAIL_EMISOR = "EVENT_GO_DETAIL_EMISOR";
     public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
@@ -139,7 +146,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
             menu.getItem(ACTION_SHARE).setVisible(true);
-        } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment){
+        } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment) {
             menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
@@ -180,7 +187,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_ADMON_ADQ:
-                loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container);
+                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        R.id.fragment_container);
                 break;
             case OPTION_ADMON_STARBUCK:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container);
@@ -194,6 +202,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case 12:
                 loadFragment(DocumentosFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_CONFIG_DONGLE:
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+                } else {
+                    finish();
+                }
                 break;
             case OPTION_RECOMPENSAS:
                 loadFragment(RewardsStarbucksFragment.newInstance(), R.id.fragment_container);
@@ -251,10 +266,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
-                loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:
-                loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
+                loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data,
+                        App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)), R.id.fragment_container,
+                        Direction.FORDWARD, true);
                 menu.getItem(ACTION_CANCEL_CHARGE).setVisible(false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
@@ -282,7 +300,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 finish();
                 break;
             case EVENT_RETRY_PAYMENT:
-                loadFragment(InsertDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_NIP_CHANGE:
                 loadFragment(MyChangeNip.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
@@ -294,7 +313,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(TimeRepaymentFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIG_REPAYMENT_BACK:
-                loadFragment(MyDongleFragment.newInstance(), R.id.fragment_container, Direction.BACK, false);
+                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        R.id.fragment_container, Direction.BACK, false);
                 break;
             case EVENT_GO_DETAIL_EMISOR:
                 loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data), R.id.fragment_container, Direction.FORDWARD, true);

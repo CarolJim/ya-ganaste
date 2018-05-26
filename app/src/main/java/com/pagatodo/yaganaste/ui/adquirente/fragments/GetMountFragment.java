@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -411,6 +412,11 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             ValidatePermissions.checkPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
+        }
+        BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();
+        if(!adapter.isEnabled()){
+            Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(enabler);
         }
     }
 

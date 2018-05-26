@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.Window;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -23,6 +24,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 
 public class AdqActivity extends LoaderActivity implements OnEventListener {
@@ -44,8 +46,6 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_INSERT_DONGLE, null);
-        //App.getInstance().initEMVListener();
-
     }
 
     /**
@@ -66,11 +66,13 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
                 // AQUI
-                loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:
                 // AQUI
-                loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, false);
@@ -96,7 +98,8 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 finish();
                 break;
             case EVENT_RETRY_PAYMENT:
-                loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);
                 break;
         }
     }

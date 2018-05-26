@@ -62,9 +62,10 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_L
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener{
+public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_CLOSE = "PREFER_USER_CLOSE";
@@ -109,7 +110,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
     public static String PREFER_CANCEL = "PREFER_CANCEL";
     public static String PREFER_CANCEL_RESULT = "PREFER_CANCEL_RESULT";
-     /**
+    /**
      * Acciones para dialogo de confirmacion en cerrar session
      */
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
@@ -171,13 +172,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             loadFragment(ListaAyudaLegalesFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_LOGOUT) {
             onEvent(PREFER_USER_CLOSE, null);
-        } else  if (getIntent().getIntExtra(MENU, 0) == MENU_CODE) {
+        } else if (getIntent().getIntExtra(MENU, 0) == MENU_CODE) {
             loadFragment(QRFragment.newInstance());
-        } else  if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
+        } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
             loadFragment(ContactoFragment.newInstance());
 
         } else {
-            loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0),""));
+            loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
         }
 
         mContext = this;
@@ -263,7 +264,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         switch (event) {
 
             case "PREFER_USER_MY_DONGLE":
-                loadFragment(MyDongleFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_REPORTA_TARJETA":
                 loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.FORDWARD, false);
@@ -308,7 +310,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 //loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
-                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES,""), Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
                 break;
             case "PREFER_USER_MY_DONGLE_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
@@ -393,7 +395,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_MY_USER_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 //loadFragment(SecurityFragment.newInstance(MENU_SEGURIDAD), Direction.BACK, false);
-                loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0),""), Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""), Direction.BACK, false);
 
                 break;
 
@@ -435,7 +437,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
 
             case "PREFER_NOTIFICACIONES_BACK":
-                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES,""), Direction.BACK, false);
+                loadFragment(SecurityFragment.newInstance(MENU_AJUSTES, ""), Direction.BACK, false);
                 break;
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
@@ -455,17 +457,17 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_CANCELACION":
                 String desc = getResources().getString(R.string.cacncel_desc);
                 if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) &&
-                        App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()){
+                        App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()) {
                     desc = getResources().getString(R.string.cacncel_desc_adq);
                 }
-                loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title),desc),Direction.FORDWARD, false);
+                loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title), desc), Direction.FORDWARD, false);
                 break;
             case "PREFER_CANCEL_RESULT":
-                loadFragment(CancelResultFragment.newInstance(),Direction.FORDWARD, false);
+                loadFragment(CancelResultFragment.newInstance(), Direction.FORDWARD, false);
                 break;
-                case "PREFER_CANCEL":
+            case "PREFER_CANCEL":
                 finish();
-                Intent intent = new Intent(this,SplashActivity.class);
+                Intent intent = new Intent(this, SplashActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -488,7 +490,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyChangeNip) {
                 if (((MyChangeNip) currentFragment).isCustomKeyboardVisible()) {
-                   // ((MyChangeNip) currentFragment).hideKeyboard();
+                    // ((MyChangeNip) currentFragment).hideKeyboard();
                 } else {
                     onEvent(PREFER_USER_CHANGE_NIP_BACK, null);
                 }
