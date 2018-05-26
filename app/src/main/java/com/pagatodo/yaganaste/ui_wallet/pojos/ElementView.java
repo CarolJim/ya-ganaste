@@ -238,7 +238,7 @@ public class ElementView implements Serializable {
     //Proceso Aprobado
     public static ArrayList<ElementView> getListConfigCard() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_mycard, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_card, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
         return elementViews;
     }
 
@@ -284,8 +284,9 @@ public class ElementView implements Serializable {
     }
 
     public static ArrayList<ElementView> getListAdqBalance() {
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ic_cobrar, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }

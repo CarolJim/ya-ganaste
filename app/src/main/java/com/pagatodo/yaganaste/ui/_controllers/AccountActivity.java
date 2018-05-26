@@ -350,10 +350,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getCLABE());
                 boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
 
-                // Lineas de prueba, comentar al tener version lista para pruebas
-                if (!DEBUG) {
-                    //Answers.getInstance().logLogin(new LoginEvent());
-                }
                 Intent intent = new Intent(AccountActivity.this, TabActivity.class);
                 startActivity(intent);
                 finish();

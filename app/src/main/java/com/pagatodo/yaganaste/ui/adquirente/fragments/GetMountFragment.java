@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dspread.xpos.QPOSService;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationRequest;
@@ -69,6 +70,7 @@ import butterknife.BindView;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse>, View.OnClickListener {
 
@@ -413,10 +415,12 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
         }
-        BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();
-        if(!adapter.isEnabled()){
-            Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enabler);
+        if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+            if (!adapter.isEnabled()) {
+                Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivity(enabler);
+            }
         }
     }
 

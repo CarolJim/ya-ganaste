@@ -185,6 +185,9 @@ public class IposListener implements QPOSServiceListener {
     public void onRequestDisplay(Display displayMsg) {
         Log.i("IposListener: ", "------onRequestDisplay");
         Log.e("onRequestDisplay", displayMsg.name());
+        if(displayMsg.ordinal() == Display.INPUT_PIN_ING.ordinal()){
+            enviaMensaje(Recursos.REQUEST_PIN);
+        }
     }
 
 

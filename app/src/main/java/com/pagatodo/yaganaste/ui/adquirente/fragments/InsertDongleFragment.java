@@ -22,13 +22,17 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -47,6 +51,7 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -101,7 +106,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private IntentFilter broadcastEMVSwipe;
     private int currentVolumenDevice, maxVolumenDevice, communicationMode;
     private AdqPresenter adqPresenter;
-    private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false;
+    private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false;
     private AppCompatImageView btnBack;
     private static boolean banderaCacelachevron = false;
     public Preferencias prefs;
@@ -387,7 +392,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         DialogDoubleActions doubleActions = new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
-
+                if (error.toString().equals(getString(R.string.no_internet_access))) {
+                    getActivity().finish();
+                }
             }
 
             @Override
@@ -480,7 +487,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         if (isCancelation) {
                             adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
                         } else {
-                            adqPresenter.initTransaction(buildEMVRequest(requestTransaction));
+                            adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
                         }
                         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                             App.getInstance().pos.sendOnlineProcessResult("8A023030" + str);
@@ -530,8 +537,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
                     break;
                 case REQUEST_PIN:
-                    App.getInstance().pos.bypassPin();
                     Log.i("IposListener: ", "=====>>    REQUEST_PIN");
+                    signWithPin = true;
                     break;
                 case SW_TIMEOUT:
                     //initListenerDongle();
@@ -584,13 +591,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 case EMV_DETECTED:
                     Log.i("IposListener: ", "======>> Bluetooth Device ");
                     List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
-                    App.getInstance().pos.stopScanQPos2Mode();
                     for (BluetoothDevice device : devicesBT) {
                         if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
-                            break;
-                        } else if (device.getName().contains("MPOS")) {
-                            App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
+                            App.getInstance().pos.stopScanQPos2Mode();
                             break;
                         }
                     }
