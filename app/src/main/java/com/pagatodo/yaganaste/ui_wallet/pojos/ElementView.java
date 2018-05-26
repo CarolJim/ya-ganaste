@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.pojos;
 
 import android.content.Context;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -14,7 +15,9 @@ import java.util.ArrayList;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -42,11 +45,12 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_SUCURSALES = 6453;
     static public final int OPTION_SETTINGSCARD = 2112;
     static public final int OPTION_ADDFAVORITE_PAYMENT = 3001;
+    static public final int OPTION_CONFIG_DONGLE = 14;
 
     public static final int OPTION_SIMPLE = 0;
     public static final int OPTION_ZONE = 1;
     public static final int OPTION_ZONE_UNO = 2;
-
+    public static final int OPTION_ZONE_DOS = 3;
 
     private int idOperacion;
     private int resource;
@@ -154,9 +158,11 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
-            elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
-            elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.operation_cobro));
-            elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ico_admin, R.string.operation_configurar));
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
+
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro));
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
 
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
@@ -187,6 +193,10 @@ public class ElementView implements ElementGlobal {
             if (isAgente && Idestatus == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado();
             }
+            if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
+                elementViews = ElementView.getListSeleccionarLector();
+            }
         }
         return elementViews;
     }
@@ -211,10 +221,17 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }
 
+    // Seleccion de Lector
+    public static ArrayList<ElementView> getListSeleccionarLector() {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_CONFIG_DONGLE, R.drawable.ic_check_success, R.string.title_tipo_desc_tres, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_DOS));
+        return elementViews;
+    }
+
     //Proceso Aprobado
     public static ArrayList<ElementView> getListConfigCard() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_mycard, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_card, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
         return elementViews;
     }
 
@@ -260,8 +277,9 @@ public class ElementView implements ElementGlobal {
     }
 
     public static ArrayList<ElementView> getListAdqBalance() {
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ic_cobrar, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }

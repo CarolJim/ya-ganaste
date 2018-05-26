@@ -13,7 +13,7 @@ public interface IAdqIteractor {
 
     void registerDongle();
 
-    void initPayment(TransaccionEMVDepositRequest request);
+    void initPayment(TransaccionEMVDepositRequest request, boolean signWithPin);
 
     void initCancelPayment(CancelaTransaccionDepositoEmvRequest request);
 

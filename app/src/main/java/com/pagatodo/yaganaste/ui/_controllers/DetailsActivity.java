@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -51,6 +52,7 @@ import static android.R.attr.fragment;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
  * @author Juan Guerra on 11/04/2017.
@@ -189,7 +191,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     }
 
     public void loadInsertDongleFragment(DataMovimientoAdq dataMovimientoAdq) {
-        loadFragment(InsertDongleFragment.newInstance(true, dataMovimientoAdq), Direction.FORDWARD, true);
+        loadFragment(InsertDongleFragment.newInstance(true, dataMovimientoAdq,
+                App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)), Direction.FORDWARD, true);
     }
 
     @Override
@@ -204,7 +207,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         // Localizamos el tipo de fragmnto que tenemos cargado
         //fragment = getSupportFragmentManager().findFragmentById(R.id.container);
         if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
-            if(!DEBUG) {
+            if (!DEBUG) {
                 //Answers.getInstance().logShare(new ShareEvent());
             }
 
@@ -231,7 +234,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 isValid = false;
             }
 
-            if(isValid){
+            if (isValid) {
                 takeScreenshot();
             }
 

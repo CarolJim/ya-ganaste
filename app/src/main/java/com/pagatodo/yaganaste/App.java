@@ -122,15 +122,8 @@ public class App extends Application {
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
-        initEMVListener();
+        //initEMVListener(QPOSService.CommunicationMode.AUDIO);
         RequestHeaders.initHeaders(this);
-        Log.e(getString(R.string.app_name), "BuildConfig.VERSION_NAME: " + BuildConfig.VERSION_NAME + " prefs.loadData(VERSION_APP):" + prefs.loadData(VERSION_APP));
-        /*if (!BuildConfig.VERSION_NAME.equals(prefs.loadData(VERSION_APP))) {
-            clearCache();
-            prefs.clearPreferences();
-            prefs.saveData(VERSION_APP, BuildConfig.VERSION_NAME);
-        }*/
-
         lifecycleHandler = new ApplicationLifecycleHandler();
         registerActivityLifecycleCallbacks(lifecycleHandler);
         registerComponentCallbacks(lifecycleHandler);
@@ -261,13 +254,14 @@ public class App extends Application {
     }
 
     //Inicializa Lector Ipos
-    public void initEMVListener() {
+    public void initEMVListener(QPOSService.CommunicationMode mode) {
         emvListener = new IposListener(getApplicationContext());
-        pos = QPOSService.getInstance(QPOSService.CommunicationMode.AUDIO);
+        pos = QPOSService.getInstance(mode);
         pos.setConext(getApplicationContext());
         pos.setVolumeFlag(false);
         Handler handler = new Handler(Looper.myLooper());
         pos.initListener(handler, emvListener);
+        pos.getSdkVersion();
     }
 
 

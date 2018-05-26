@@ -189,6 +189,7 @@ public class Recursos {
     public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
     public static final String BATTERY_PORCENTAGE = "BATTERY_PORCENTAGE";
     public static final String KSN_LECTOR = "KSN_LECTOR";
+
     /*Url Legales*/
     public static final String URL_LEGALES_TERMINOS = "http://dev.yaganaste.com/terminos-y-condiciones.html";
     public static final String URL_LEGALES_PRIVACIDAD = "http://dev.yaganaste.com/aviso-de-privacidad.html";
@@ -303,6 +304,9 @@ public class Recursos {
     public static final String ID_USUARIO_ADQUIRIENTE = "ID_USUARIO_ADQUIRIENTE"; // string
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS = "ID_ESTATUS"; // int
+    public static final String HAS_CONFIG_DONGLE = "HAS_CONFIG_DONGLE"; // boolean
+    public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
+    public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
 
     // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean

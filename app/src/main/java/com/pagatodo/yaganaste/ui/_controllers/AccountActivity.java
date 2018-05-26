@@ -348,10 +348,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTelefono());
                 prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getCLABE());
 
-                // Lineas de prueba, comentar al tener version lista para pruebas
-                if (!DEBUG) {
-                    //Answers.getInstance().logLogin(new LoginEvent());
-                }
                 Intent intent = new Intent(AccountActivity.this, TabActivity.class);
                 startActivity(intent);
                 finish();

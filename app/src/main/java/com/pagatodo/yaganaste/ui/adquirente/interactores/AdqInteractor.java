@@ -45,6 +45,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_C
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
@@ -68,6 +69,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private int retryLogin = 0;
     private Context context = App.getInstance().getApplicationContext();
     private CancelaTransaccionDepositoEmvRequest cancelaTransaccionDepositoEmvRequest;
+    private boolean signWithPin;
 
     public AdqInteractor(IAccountManager accountManager, INavigationView iSessionExpired) {
         this.accountManager = accountManager;
@@ -100,9 +102,10 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     }
 
     @Override
-    public void initPayment(final TransaccionEMVDepositRequest request) {
+    public void initPayment(final TransaccionEMVDepositRequest request, boolean signWithPin) {
         try {
             ApiAdq.transaccionEMVDeposit(request, this);
+            this.signWithPin = signWithPin;
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
@@ -347,20 +350,16 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, null);
+                        if (!signWithPin) {
+                            viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, null);
+                        } else {
+                            viewInterface.nextScreen(EVENT_GO_DETAIL_TRANSACTION, null);
+                        }
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
                 pageResult.setDescription("");
                 result.setPageResult(pageResult);
-                if (!DEBUG) {
-                    /*Answers.getInstance().logPurchase(new PurchaseEvent()
-                            .putItemPrice(BigDecimal.valueOf(Double.parseDouble(TransactionAdqData.getCurrentTransaction().getAmount())))
-                            .putCurrency(Currency.getInstance("MXN"))
-                            .putItemName(App.getContext().getString(R.string.ce_cobro_aceptado))
-                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria)
-                            .putSuccess(true));*/
-                }
                 accountManager.onSucces(response.getWebService(), data.getError().getMessage());
                 break;
             /* Se realizo un cambio de EVENT_GO_REMOVE_CARD a EVENT_GO_GET_SIGNATURE para evitar
@@ -398,15 +397,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_ERROR);
                 pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
                 result.setPageResult(pageResultError);
-                if (!DEBUG) {
-                    /*Answers.getInstance().logPurchase(new PurchaseEvent()
-                            .putItemPrice(BigDecimal.valueOf(Double.parseDouble(TransactionAdqData.getCurrentTransaction().getAmount())))
-                            .putCurrency(Currency.getInstance("MXN"))
-                            .putItemName(App.getContext().getString(R.string.ce_cobro_rechazado))
-                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria)
-                            .putSuccess(false));*/
-                }
-                accountManager.onError(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
+                accountManager.onSucces(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
                 break;
         }
     }
@@ -445,7 +436,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         EnviarTicketCompraResponse data = (EnviarTicketCompraResponse) response.getData();
         if (data.getId().equals(ADQ_CODE_OK)) {
             TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-            PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.listo),
+            PageResult pageResult = new PageResult(R.drawable.ic_check_success, context.getString(R.string.listo),
                     context.getString(R.string.recibo_enviado_line), false);
             pageResult.setActionBtnPrimary(new Command() {
                 @Override
