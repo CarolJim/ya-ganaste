@@ -48,6 +48,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SelectionDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
@@ -85,6 +86,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_NIP_CHANGE = "EVENT_GO_NIP_CHANGE";
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
     public final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
+    public final static String EVENT_GO_SELECT_DONGLE = "EVENT_GO_SELECT_DONGLE";
+    public final static String EVENT_GO_SELECT_DONGLE_BACK = "EVENT_GO_SELECT_DONGLE_BACK";
     public final static String EVENT_GO_CONFIG_DONGLE = "EVENT_GO_CONFIG_DONGLE";
     public final static String EVENT_GO_CONFIG_DONGLE_BACK = "EVENT_GO_CONFIG_DONGLE_BACK";
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
@@ -348,6 +351,16 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case EVENT_GO_TO_ADMIN_STARBUCKS:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                break;
+            case EVENT_GO_SELECT_DONGLE:
+                loadFragment(SelectionDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                break;
+            case EVENT_GO_CONFIG_DONGLE:
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+                } else {
+                    finish();
+                }
                 break;
         }
     }

@@ -1216,6 +1216,7 @@
     <string name="title_configure_dongle">Configurar lector de tarjetas</string>
     <string name="dongle_battery">Batería del lector</string>
     <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
+    <string name="please_turn_on_dongle_battery">Por favor enciende tu lector para conocer su nivel de batería</string>
     <string name="receiving_dongle_battery">Obteniendo el nivel de batería</string>
     <string name="time_repayment">Tiempo de reembolso</string>
     <string name="select_dongle">Seleccionar lector</string>
@@ -1489,5 +1490,13 @@
     <string name="pairing_device">Conectando con su lector</string>
     <string name="pairing_device_success">Dispositivo conectado</string>
     <string name="pairing_device_error">Ocurrió un error al conectar el lector</string>
+
+    <!-- Seleccionar lector para cobros -->
+    <string name="select_dongle_title">Seleccionar lector</string>
+    <string name="select_dongle_desc">Elije el lector predeterminado con el que\nrealizarás tus cobros. Puedes hacer éste\ncambio en cualquier momento.</string>
+    <string name="bluetooth_dongle">Lector Inalámbrico</string>
+    <string name="bluetooth_dongle_desc">Bluetooth chip &amp; pin</string>
+    <string name="normal_dongle">Lector Plug</string>
+    <string name="normal_dongle_desc">Jack de audio (3.5'')</string>
 
 </resources>

@@ -82,7 +82,7 @@
                 android:layout_weight="1.5"
                 android:gravity="left"
                 android:text="@string/dongle_battery"
-                android:textColor="@color/edittext"
+                android:textColor="@color/gray_text_wallet_2"
                 android:textSize="@dimen/size_text_style_3_value" />
 
             <LinearLayout
@@ -142,7 +142,7 @@
                 android:layout_weight="1.5"
                 android:gravity="left"
                 android:text="@string/time_repayment"
-                android:textColor="@color/edittext"
+                android:textColor="@color/gray_text_wallet_2"
                 android:textSize="@dimen/size_text_style_3_value" />
 
 
@@ -176,7 +176,7 @@
                 android:layout_weight="1.5"
                 android:gravity="left"
                 android:text="@string/select_dongle"
-                android:textColor="@color/edittext"
+                android:textColor="@color/gray_text_wallet_2"
                 android:textSize="@dimen/size_text_style_3_value" />
 
 

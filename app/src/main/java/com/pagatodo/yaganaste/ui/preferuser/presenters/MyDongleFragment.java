@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,15 +37,19 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.EMV_DETECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -67,6 +72,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 public class MyDongleFragment extends GenericFragment implements
         IAdqTransactionRegisterView, IPreferUserGeneric {
 
+    private static final String TAG = MyDongleFragment.class.getSimpleName();
     private static String MODE_COMMUNICACTION = "mode_communication";
     protected boolean isReaderConected = false;
     @BindView(R.id.txtCompanyName)
@@ -116,6 +122,9 @@ public class MyDongleFragment extends GenericFragment implements
             getActivity().registerReceiver(headPhonesReceiver, filter);
         } else {
             App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
+            App.getInstance().pos.clearBluetoothBuffer();
+            App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
         }
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
@@ -155,7 +164,7 @@ public class MyDongleFragment extends GenericFragment implements
                 Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivity(enabler);
             } else {
-                onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT,null);
+                onEventListener.onEvent(EVENT_GO_SELECT_DONGLE, null);
             }
         });
     }
@@ -163,16 +172,30 @@ public class MyDongleFragment extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        App.getInstance().pos.openAudio();
+        if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
+            App.getInstance().pos.openAudio();
+        }
         App.getInstance().pos.getSdkVersion();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
         // imageView.setVisibility(View.GONE);
         txtNumberBattery.setGravity(Gravity.START);
-        txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
+        if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
+            txtNumberBattery.setText(getString(R.string.please_connect_dongle_battery));
+        } else {
+            txtNumberBattery.setText(getString(R.string.please_turn_on_dongle_battery));
+        }
         txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
         iconBattery.setVisibility(GONE);
         txtNumberBattery.setSelected(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiverDongle();
+        App.getInstance().pos.closeAudio();
+        App.getInstance().pos.disconnectBT();
+        super.onDestroy();
     }
 
     private void setNumberBattery(int mPorcentaje) {
@@ -262,6 +285,14 @@ public class MyDongleFragment extends GenericFragment implements
 
     }
 
+    public void unregisterReceiverDongle() {
+        try {
+            getActivity().unregisterReceiver(emvSwipeBroadcastReceiver); // Desregistramos receiver
+        } catch (IllegalArgumentException ex) {
+            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+        }
+    }
+
     private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -326,13 +357,17 @@ public class MyDongleFragment extends GenericFragment implements
                     break;
                 case READ_BATTERY_LEVEL:
                     int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
-                    Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
                     String batteryPorcentage = intent.getStringExtra(Recursos.BATTERY_PORCENTAGE);
-                    //Toast.makeText(context, "La bataca es: "+batteryLevel, Toast.LENGTH_LONG).show();
-                    int n = Integer.parseInt(batteryPorcentage.toString().trim(), 16);
-                    //Toast.makeText(context, "El porcentage de la bateria es: "+n, Toast.LENGTH_SHORT).show();
-                    //App.getInstance().pos.getQposId();
-                    setNumberBattery(n);
+                    if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
+                        Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
+                        //Toast.makeText(context, "La bataca es: "+batteryLevel, Toast.LENGTH_LONG).show();
+                        int n = Integer.parseInt(batteryPorcentage.toString().trim(), 16);
+                        //Toast.makeText(context, "El porcentage de la bateria es: "+n, Toast.LENGTH_SHORT).show();
+                        //App.getInstance().pos.getQposId();
+                        setNumberBattery(n);
+                    } else {
+                        setNumberBattery(Integer.parseInt(batteryPorcentage));
+                    }
                     break;
                 case ERROR_LECTOR:
                     Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
@@ -343,15 +378,6 @@ public class MyDongleFragment extends GenericFragment implements
                     Log.i("IposListener: ", "=====>>    LEYENDO");
                     App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
                     showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
-                    break;
-                case REQUEST_AMOUNT:
-                    Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
-
-                    String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".", "");
-                    if (isCancelation) {
-                        amountCard = "150";
-                    }
-                    App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);
                     break;
                 case REQUEST_TIME:
                     String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
@@ -371,7 +397,11 @@ public class MyDongleFragment extends GenericFragment implements
                     Log.i("IposListener: ", "=====>>    REQUEST_PIN");
                     break;
                 case SW_TIMEOUT:
-                    //initListenerDongle();
+                    if (!mensajeuno) {
+                        App.getInstance().pos.stopScanQPos2Mode();
+                        App.getInstance().pos.clearBluetoothBuffer();
+                        App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+                    }
                     break;
                 case SW_ERROR:
                     if (mensajeuno == false) {
@@ -396,6 +426,19 @@ public class MyDongleFragment extends GenericFragment implements
                 case ENCENDIDO:
                     Log.i("IposListener: ", "=====>>    ENCENDIDO");
                     App.getInstance().pos.getQposInfo();
+                    break;
+                case EMV_DETECTED:
+                    Log.i("IposListener: ", "======>> Bluetooth Device ");
+                    List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
+                    for (BluetoothDevice device : devicesBT) {
+                        if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
+                            App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
+                            break;
+                        } else if (device.getName().contains("MPOS")) {
+                            App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
+                            break;
+                        }
+                    }
                     break;
                 default:
                     Log.i("IposListener: ", "=====>>    DEFAULT:" + mensaje);
