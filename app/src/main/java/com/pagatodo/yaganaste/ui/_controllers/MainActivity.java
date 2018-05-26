@@ -28,6 +28,8 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker.OnUpdateNeededListener {
 
@@ -42,7 +44,8 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
 
         if (action.equals(MAIN_SCREEN)) {
             Preferencias prefs = App.getInstance().getPrefs();
-            if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+
+            if ((prefs.containsData(IS_OPERADOR))||(prefs.containsData(HAS_SESSION) || !RequestHeaders.getTokenauth().isEmpty())) {
                 Intent intent = new Intent(this, AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
                 intent.putExtra(IS_FROM_TIMER, getIntent().getExtras().getBoolean(IS_FROM_TIMER, false));

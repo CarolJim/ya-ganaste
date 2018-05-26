@@ -70,11 +70,20 @@ public class ContainerBuilder {
     private static void mainMenu(Container s) {
         int res = R.layout.option_menu_tem_view;
         //s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
+
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
+        }else {
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
+        }
+
     }
 
     private static void settingsMenu(Container s) {
@@ -141,21 +150,29 @@ public class ContainerBuilder {
 
     public static CardWalletAdpater getCardWalletAdapter(boolean error) {
         CardWalletAdpater adapter = new CardWalletAdpater();
-        if (!error) {
+        if (!error && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
             String statusCard = SingletonUser.getInstance().getCardStatusId();
-            if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-                adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
+            if (statusCard != null) {
+                if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+                    adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
+                } else {
+                    adapter.addCardItem(new ElementWallet().getCardyaganaste());
+                }
             } else {
                 adapter.addCardItem(new ElementWallet().getCardyaganaste());
             }
-        } else {
-            adapter.addCardItem(new ElementWallet().getCardyaganaste());
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
-        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
-            adapter.addCardItem(new ElementWallet().getCardStarbucks());
+
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
+                adapter.addCardItem(new ElementWallet().getCardStarbucks());
+            }
         }
-        adapter.addCardItem(new ElementWallet().getCardSettings());
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            adapter.addCardItem(new ElementWallet().getCardSettings());
+        }
+
         return adapter;
     }
 

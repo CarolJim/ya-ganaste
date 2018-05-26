@@ -21,6 +21,7 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -285,6 +286,11 @@ public class MyDongleFragment extends GenericFragment implements
         ButterKnife.bind(this, rootview);
 
         txtCompanyName.setText( prefs.loadData(COMPANY_NAME));
+
+
+       if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129)
+        lytConfigRepayment.setVisibility(View.GONE);
+
 
         lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
             @Override

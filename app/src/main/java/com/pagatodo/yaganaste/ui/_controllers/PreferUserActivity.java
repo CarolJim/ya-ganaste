@@ -240,7 +240,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             // Verificamos el estado de bloqueo de la Card
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
-                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+                if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+                    mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+                }
+
             }
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));

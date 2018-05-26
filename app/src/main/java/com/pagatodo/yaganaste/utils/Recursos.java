@@ -258,6 +258,7 @@ public class Recursos {
 
     public static final String SPACE = " ";
     public static final String HAS_SESSION = "HAS_SESSION";
+    public static final String IS_OPERADOR = "IS_OPERADOR";
     public static final String PASSWORD_CHANGE = "PASSWORD_CHANGE";
 
     public static final String IS_CUPO = "IS_CUPO";
@@ -295,6 +296,7 @@ public class Recursos {
     public static final String TOKEN_FIREBASE_FAIL = "TOKEN_FIREBASE_FAIL";
 
     public static final String ES_AGENTE = "ES_AGENTE"; // boolean
+    public static final String ID_ROL = "ID_ROL"; // boolean
     public static final String ES_AGENTE_RECHAZADO = "ES_AGENTE_RECHAZADO"; //boolean
     public static final String ESTATUS_AGENTE = "ESTATUS_AGENTE"; // int
     public static final String ESTATUS_DOCUMENTACION = "ESTATUS_DOCUMENTACION"; // int

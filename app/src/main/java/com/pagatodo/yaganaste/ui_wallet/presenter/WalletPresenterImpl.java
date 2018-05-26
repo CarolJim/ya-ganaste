@@ -132,6 +132,36 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
                     break;
             }
             walletView.getSaldo(saldo);
+        } else if (result instanceof ConsultarSaldoResponse) {
+
+
+
+
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129){
+
+                switch (typeWallet) {
+                    case TYPE_ADQ:
+                        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                        break;
+                }
+            }else if (SingletonUser.getInstance().getDataUser().getControl().getEsCliente()){
+                String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
+                switch (typeWallet) {
+                    case TYPE_STARBUCKS:
+                        App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
+                        break;
+                    case TYPE_EMISOR:
+                        App.getInstance().getPrefs().saveData(USER_BALANCE, saldo);
+                        break;
+                    case TYPE_ADQ:
+                        App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, saldo);
+                        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                        break;
+                }
+                walletView.getSaldo(saldo);
+            }
+
+
         }
     }
 

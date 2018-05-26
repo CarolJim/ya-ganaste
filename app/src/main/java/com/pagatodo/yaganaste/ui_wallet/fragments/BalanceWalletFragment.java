@@ -65,6 +65,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
@@ -347,17 +348,26 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
         balanceWalletAdpater = new BalanceWalletAdpater(this);
-        if (Status.equals(ESTATUS_CUENTA_BLOQUEADA)) {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
-        } else {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
+        if (prefs.containsData(IS_OPERADOR)){
+            if (!RequestHeaders.getTokenAdq().isEmpty()) {
+                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
+            }
+        }else{
+            if (Status.equals(ESTATUS_CUENTA_BLOQUEADA)) {
+                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
+            } else {
+                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
+            }
+            if (!RequestHeaders.getTokenAdq().isEmpty()) {
+                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
+            }
+            if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceStarbucks());
+            }
+
         }
-        if (!RequestHeaders.getTokenAdq().isEmpty()) {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
-        }
-        if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
-            balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceStarbucks());
-        }
+
+
         vpBalace.setAdapter(balanceWalletAdpater);
         vpBalace.setCurrentItem(pageCurrent);
         vpBalace.setOffscreenPageLimit(3);
@@ -385,32 +395,44 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     private void updateOperations(int position) {
         pageCurrent = position;
-        switch (position) {
-            case 0:
-                txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceEmisor));
-                txtCardDescBalance.setText(getString(R.string.tarjeta_yg));
-                txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
-                elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance());
-                break;
-            case 1:
-                if (!RequestHeaders.getTokenAdq().isEmpty()) {
+        if (prefs.containsData(IS_OPERADOR)){
+            switch (position) {
+                case 0:
                     txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceAdq));
                     txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
                     txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
                     elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
-                } else if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+                    break;
+            }
+        }else {
+
+            switch (position) {
+                case 0:
+                    txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceEmisor));
+                    txtCardDescBalance.setText(getString(R.string.tarjeta_yg));
+                    txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
+                    elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance());
+                    break;
+                case 1:
+                    if (!RequestHeaders.getTokenAdq().isEmpty()) {
+                        txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceAdq));
+                        txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
+                        txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
+                        elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
+                    } else if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
+                        txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
+                        txtCardDescBalance.setText(getString(R.string.starbucks_card));
+                        txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));
+                        elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
+                    }
+                    break;
+                case 2:
                     txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
                     txtCardDescBalance.setText(getString(R.string.starbucks_card));
                     txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));
                     elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
-                }
-                break;
-            case 2:
-                txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
-                txtCardDescBalance.setText(getString(R.string.starbucks_card));
-                txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));
-                elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
-                break;
+                    break;
+            }
         }
         rcvElementsBalance.setAdapter(elementsBalanceAdpater);
         rcvElementsBalance.scheduleLayoutAnimation();

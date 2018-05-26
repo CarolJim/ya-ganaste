@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 
 import java.io.Serializable;
@@ -153,10 +154,9 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
-
-        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.operation_cobro));
-        elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ico_admin, R.string.operation_configurar));
+            elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
+            elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.operation_cobro));
+            elementViews.add(new ElementView(OPTION_ADMON_ADQ, R.drawable.ico_admin, R.string.operation_configurar));
 
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
