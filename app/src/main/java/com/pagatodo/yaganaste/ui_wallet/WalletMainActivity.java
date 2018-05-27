@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.icu.text.MeasureFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -17,7 +18,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
-import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
@@ -50,10 +50,9 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.SelectionDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,8 +126,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 return;
             }
             if (getIntent().getExtras() != null) {
-                    itemOperation = (ElementGlobal) getIntent().getSerializableExtra(ITEM_OPERATION);
-                    getLoadFragment(itemOperation.getIdOperacion());
+                itemOperation = (ElementGlobal) getIntent().getSerializableExtra(ITEM_OPERATION);
+                getLoadFragment(itemOperation.getIdOperacion());
 
 
             }
@@ -364,11 +363,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case EVENT_GO_SELECT_DONGLE:
-                loadFragment(SelectionDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 break;
             case EVENT_GO_CONFIG_DONGLE:
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 } else {
                     finish();
                 }

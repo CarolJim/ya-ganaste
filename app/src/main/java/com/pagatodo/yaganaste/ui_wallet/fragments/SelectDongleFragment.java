@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
-import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,9 +17,10 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
-public class SelectionDongleFragment extends GenericFragment implements View.OnClickListener {
+public class SelectDongleFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootView;
     @BindView(R.id.lyt_bt_dongle)
@@ -32,11 +32,11 @@ public class SelectionDongleFragment extends GenericFragment implements View.OnC
     @BindView(R.id.img_type_normal)
     ImageView imgTypeNormal;
 
-    public static SelectionDongleFragment newInstance() {
-        SelectionDongleFragment selectionDongleFragment = new SelectionDongleFragment();
+    public static SelectDongleFragment newInstance() {
+        SelectDongleFragment selectDongleFragment = new SelectDongleFragment();
         Bundle args = new Bundle();
-        selectionDongleFragment.setArguments(args);
-        return selectionDongleFragment;
+        selectDongleFragment.setArguments(args);
+        return selectDongleFragment;
     }
 
     @Override
@@ -57,13 +57,13 @@ public class SelectionDongleFragment extends GenericFragment implements View.OnC
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)== QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+        /*if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             imgTypeBt.setImageResource(R.drawable.rdb_pressed);
             imgTypeNormal.setImageResource(R.drawable.rdb_not_pressed);
         } else {
             imgTypeBt.setImageResource(R.drawable.rdb_not_pressed);
             imgTypeNormal.setImageResource(R.drawable.rdb_pressed);
-        }
+        }*/
         lytBtDongle.setOnClickListener(this);
         lytNormalDongle.setOnClickListener(this);
     }
@@ -75,6 +75,7 @@ public class SelectionDongleFragment extends GenericFragment implements View.OnC
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
                 imgTypeBt.setImageResource(R.drawable.rdb_pressed);
                 imgTypeNormal.setImageResource(R.drawable.rdb_not_pressed);
+                onEventListener.onEvent(EVENT_GO_CONFIG_DONGLE, null);
                 break;
             case R.id.lyt_normal_dongle:
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.AUDIO.ordinal());

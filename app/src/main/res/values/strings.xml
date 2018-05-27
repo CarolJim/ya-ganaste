@@ -1491,6 +1491,7 @@
     <string name="pairing_device">Conectando con su lector</string>
     <string name="pairing_device_success">Dispositivo conectado</string>
     <string name="pairing_device_error">Ocurrió un error al conectar el lector</string>
+    <string name="configurate_device">Configurando lector</string>
 
     <!-- Seleccionar lector para cobros -->
     <string name="select_dongle_title">Seleccionar lector</string>
@@ -1498,6 +1499,6 @@
     <string name="bluetooth_dongle">Lector Inalámbrico</string>
     <string name="bluetooth_dongle_desc">Bluetooth chip &amp; pin</string>
     <string name="normal_dongle">Lector Plug</string>
-    <string name="normal_dongle_desc">Jack de audio (3.5'')</string>
+    <string name="normal_dongle_desc">Jack de audio (3.5\'\')</string>
 
 </resources>

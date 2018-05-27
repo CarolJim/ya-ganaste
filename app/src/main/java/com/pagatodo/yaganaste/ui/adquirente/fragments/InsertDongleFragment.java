@@ -107,7 +107,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private int currentVolumenDevice, maxVolumenDevice, communicationMode;
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false;
-    private AppCompatImageView btnBack;
     private static boolean banderaCacelachevron = false;
     public Preferencias prefs;
 
@@ -136,22 +135,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         return fragment;
     }
 
-    public void setVisibilityBack(boolean mBoolean) {
-        if (mBoolean) {
-            btnBack.setVisibility(View.VISIBLE);
-        } else {
-            btnBack.setVisibility(View.GONE);
-        }
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         communicationMode = getArguments().getInt(MODE_COMMUNICACTION);
-
-        btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
@@ -239,7 +228,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         if (banderaCacelachevron = true) {
-            setVisibilityBack(false);
+            setHasOptionsMenu(false);
         }
         if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
             App.getInstance().pos.openAudio();
@@ -340,6 +329,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     initListenerDongle();//Lectura de Tarjeta
                     isWaitingCard = true;
                 } else {
+                    showLoader(getString(R.string.configurate_device));
                     configurePos();
                 }
             }
@@ -607,6 +597,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     break;
                 case CONFIG_READER_OK_ERROR:
                     Log.i("IposListener: ", "=====>>    Configuration Error");
+                    hideLoader();
                     showSimpleDialogError(getString(R.string.vuelve_configurar_lector),
                             new DialogDoubleActions() {
                                 @Override
