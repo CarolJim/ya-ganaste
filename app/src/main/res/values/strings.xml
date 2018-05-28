@@ -1492,6 +1492,7 @@
     <string name="pairing_device_success">Dispositivo conectado</string>
     <string name="pairing_device_error">Ocurrió un error al conectar el lector</string>
     <string name="configurate_device">Configurando lector</string>
+    <string name="please_config_dongle">Selecciona tu lector principal</string>
 
     <!-- Seleccionar lector para cobros -->
     <string name="select_dongle_title">Seleccionar lector</string>

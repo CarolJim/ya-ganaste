@@ -118,7 +118,7 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
                 lstDevices.setVisibility(View.VISIBLE);
                 App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
                 App.getInstance().pos.clearBluetoothBuffer();
-                App.getInstance().pos.scanQPos2Mode(App.getContext(), 15);
+                App.getInstance().pos.scanQPos2Mode(App.getContext(), 20);
                 showLoader(getString(R.string.searching_devices));
             }
         });
@@ -153,7 +153,7 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
                 public void run() {
                     getActivity().onBackPressed();
                 }
-            }, 2000);
+            }, 1500);
         }
     }
 

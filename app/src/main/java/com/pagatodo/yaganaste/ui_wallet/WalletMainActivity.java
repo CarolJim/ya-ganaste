@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.icu.text.MeasureFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -53,6 +54,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +84,8 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPEN
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
+import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class WalletMainActivity extends LoaderActivity implements View.OnClickListener {
@@ -204,7 +208,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_PAYMENT_ADQ:
-                loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                        && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
+                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                    UI.showErrorSnackBar(this, getString(R.string.please_config_dongle), Snackbar.LENGTH_SHORT);
+                } else {
+                    loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
+                }
                 break;
             case 7:
                 startActivity(BussinesActivity.createIntent(this));

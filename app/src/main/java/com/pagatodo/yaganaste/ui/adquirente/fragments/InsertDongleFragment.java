@@ -202,7 +202,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
         request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
-        request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadData(TIPO_AGENTE)));
+        request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadDataInt(TIPO_AGENTE)));
         request.setTransactionDateTime(Utils.getTimeStamp());
         return request;
     }
@@ -249,7 +249,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         unregisterReceiverDongle();
         unregisterReceiverHeadPhone();
         App.getInstance().pos.closeAudio();
-        App.getInstance().pos.disconnectBT();
+        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            App.getInstance().pos.disconnectBT();
+        }
         super.onDestroy();
     }
 
@@ -579,9 +581,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     break;
                 case EMV_DETECTED:
-                    Log.i("IposListener: ", "======>> Bluetooth Device ");
+                    Log.i("IposListener: ", "======>> Bluetooth Device");
                     List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
                     for (BluetoothDevice device : devicesBT) {
+                        Log.i("IposListener: ", "======>> Bluetooth Address: " + device.getName() + " " + device.getAddress());
                         if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             App.getInstance().pos.stopScanQPos2Mode();
@@ -591,6 +594,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     break;
                 case CONFIG_READER_OK:
                     Log.i("IposListener: ", "=====>>    Configuration Success");
+                    hideLoader();
                     showInsertCard();
                     initListenerDongle();//Lectura de Tarjeta
                     isWaitingCard = true;

@@ -29,7 +29,7 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     /*Freja*/
     public static final String PT_CLIENT_CODE = null;
@@ -73,9 +73,12 @@ public class Recursos {
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
                 PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
             } else {
-                URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
-                URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-                URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
+                //URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
+                URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
+                //URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
+                URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
+                //URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
+                URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
                 URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
                 URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
                 URL_COUNTLY = "https://us-try.count.ly";
@@ -298,7 +301,6 @@ public class Recursos {
 
     public static final String ES_AGENTE = "ES_AGENTE"; // boolean
     public static final String ID_ROL = "ID_ROL"; // boolean
-    public static final String ES_AGENTE_RECHAZADO = "ES_AGENTE_RECHAZADO"; //boolean
     public static final String ESTATUS_AGENTE = "ESTATUS_AGENTE"; // int
     public static final String ESTATUS_DOCUMENTACION = "ESTATUS_DOCUMENTACION"; // int
     public static final String ID_USUARIO_ADQUIRIENTE = "ID_USUARIO_ADQUIRIENTE"; // string
