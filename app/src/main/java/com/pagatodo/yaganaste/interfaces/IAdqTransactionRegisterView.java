@@ -10,6 +10,8 @@ public interface IAdqTransactionRegisterView extends INavigationView {
 
     void showInsertCard();
 
+    void showInsertPin();
+
     void dongleValidated();
 
     void verifyDongle(String ksn);

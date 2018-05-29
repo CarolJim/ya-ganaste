@@ -707,9 +707,6 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void clientCreatedSuccess(String message) {
         showLoader("");
-        if (!DEBUG) {
-            //Answers.getInstance().logSignUp(new SignUpEvent());
-        }
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();

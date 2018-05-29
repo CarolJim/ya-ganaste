@@ -90,7 +90,7 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
             Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivity(enabler);
         }
-        getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
+        getActivity().registerReceiver(emvPairBluetoothReceiver, broadcastEMVSwipe);
     }
 
     @Override
@@ -118,7 +118,8 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
                 lstDevices.setVisibility(View.VISIBLE);
                 App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
                 App.getInstance().pos.clearBluetoothBuffer();
-                App.getInstance().pos.scanQPos2Mode(App.getContext(), 20);
+                //App.getInstance().pos.disconnectBT();
+                App.getInstance().pos.scanQPos2Mode(getActivity(), 20);
                 showLoader(getString(R.string.searching_devices));
             }
         });
@@ -164,6 +165,11 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
 
     @Override
     public void showInsertCard() {
+
+    }
+
+    @Override
+    public void showInsertPin() {
 
     }
 
@@ -254,7 +260,7 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
         for (BluetoothDevice device : devicesBT) {
             devicesFounded.add(device.getName());
         }
-        adapter = new BluetoothDeviceAdapter(getActivity(), devicesFounded);
+        adapter = new BluetoothDeviceAdapter(App.getContext(), devicesFounded);
         lstDevices.setAdapter(adapter);
     }
 
@@ -268,13 +274,13 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
 
     private void unregisterReceiverDongle() {
         try {
-            getActivity().unregisterReceiver(emvSwipeBroadcastReceiver); // Desregistramos receiver
+            getActivity().unregisterReceiver(emvPairBluetoothReceiver); // Desregistramos receiver
         } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            Log.e(TAG, "emvPairBluetoothReceiver no registrado. Ex- " + ex.toString());
         }
     }
 
-    private BroadcastReceiver emvSwipeBroadcastReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver emvPairBluetoothReceiver = new BroadcastReceiver() {
         @SuppressLint("SimpleDateFormat")
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -294,8 +300,8 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
                     break;
                 case SW_TIMEOUT:
                     Log.i("IposListener: ", "=====>>    Timeout");
+                    hideLoader();
                     if (lstDevices.getCount() == 0) {
-                        hideLoader();
                         lstDevices.setVisibility(View.GONE);
                         txtDeviceFounded.setVisibility(View.GONE);
                         btnSearch.setVisibility(View.VISIBLE);

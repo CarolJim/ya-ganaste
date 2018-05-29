@@ -8,37 +8,55 @@ import java.io.Serializable;
 
 public class DataUsuarioCliente implements Serializable {
 
-    private boolean RequiereActivacionSMS;
-    private String Semilla = "";
-    private UsuarioClienteResponse Usuario;
+    private AdquirienteResponse Adquirente;
+    private ClienteResponse Cliente;
+    private ControlResponse Control;
+    private EmisorResponse Emisor;
+    private UsuarioResponse Usuario;
 
-    public DataUsuarioCliente() {
-
-        Usuario = new UsuarioClienteResponse();
+    public AdquirienteResponse getAdquirente() {
+        return Adquirente;
     }
 
-
-    public boolean isRequiereActivacionSMS() {
-        return RequiereActivacionSMS;
+    public void setAdquirente(AdquirienteResponse adquirente) {
+        Adquirente = adquirente;
     }
 
-    public void setRequiereActivacionSMS(boolean requiereActivacionSMS) {
-        RequiereActivacionSMS = requiereActivacionSMS;
+    public ClienteResponse getCliente() {
+        return Cliente;
     }
 
-    public String getSemilla() {
-        return Semilla;
+    public void setCliente(ClienteResponse cliente) {
+        Cliente = cliente;
     }
 
-    public void setSemilla(String semilla) {
-        Semilla = semilla;
+    public ControlResponse getControl() {
+        return Control;
     }
 
-    public UsuarioClienteResponse getUsuario() {
+    public void setControl(ControlResponse control) {
+        Control = control;
+    }
+
+    public EmisorResponse getEmisor() {
+        return Emisor;
+    }
+
+    public void setEmisor(EmisorResponse emisor) {
+        Emisor = emisor;
+    }
+
+    public UsuarioResponse getUsuario() {
         return Usuario;
     }
 
-    public void setUsuario(UsuarioClienteResponse usuario) {
+    public void setUsuario(UsuarioResponse usuario) {
         Usuario = usuario;
     }
+
+    /*private boolean RequiereActivacionSMS;
+    private String Semilla = "";
+    private UsuarioClienteResponse Usuario;
+
+    public DataUsuarioCliente() {        Usuario = new UsuarioClienteResponse();    }*/
 }

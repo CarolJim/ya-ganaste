@@ -96,6 +96,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     LottieAnimationView imgInsertDongle;
     @BindView(R.id.imgInsertCard)
     LottieAnimationView imgInsertCard;
+    @BindView(R.id.searchBluetoothDevice)
+    LottieAnimationView imgSearchBt;
+    @BindView(R.id.imgInsertCardBt)
+    LottieAnimationView imgInsertCardBt;
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
 
@@ -222,6 +226,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        showInsertDongle();
     }
 
     @Override
@@ -283,20 +288,35 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertDongle() {
         try {
-            imgInsertDongle.setVisibility(VISIBLE);
-            imgInsertDongle.playAnimation();
-            imgInsertCard.setVisibility(View.INVISIBLE);
-            imgInsertCard.pauseAnimation();
+            if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                imgSearchBt.setVisibility(VISIBLE);
+                imgSearchBt.playAnimation();
+                imgInsertCardBt.setVisibility(View.INVISIBLE);
+                imgInsertCardBt.pauseAnimation();
+            } else {
+                imgInsertDongle.setVisibility(VISIBLE);
+                imgInsertDongle.playAnimation();
+                imgInsertCard.setVisibility(View.INVISIBLE);
+                imgInsertCard.pauseAnimation();
+            }
             tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
-            tv_lector.setVisibility(VISIBLE);
         } catch (Exception e) {
         }
     }
 
     @Override
     public void showInsertCard() {
-        imgInsertDongle.setVisibility(View.INVISIBLE);
-        imgInsertDongle.pauseAnimation();
+        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            imgSearchBt.setVisibility(View.INVISIBLE);
+            imgSearchBt.pauseAnimation();
+            imgInsertCardBt.setVisibility(VISIBLE);
+            imgInsertCardBt.playAnimation();
+        } else {
+            imgInsertDongle.setVisibility(View.INVISIBLE);
+            imgInsertDongle.pauseAnimation();
+            imgInsertCard.setVisibility(VISIBLE);
+            imgInsertCard.playAnimation();
+        }
         String message;
 
         if (isCancelation) {
@@ -314,11 +334,24 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             message = getString(R.string.text_insert_or_slide);
 
         }
-        imgInsertCard.setVisibility(VISIBLE);
-        imgInsertCard.playAnimation();
 
         tv_lector.setText(message);
-        tv_lector.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showInsertPin() {
+        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            imgSearchBt.setVisibility(View.INVISIBLE);
+            imgSearchBt.pauseAnimation();
+            imgInsertCardBt.setVisibility(VISIBLE);
+            imgInsertCardBt.playAnimation();
+        } else {
+            imgInsertDongle.setVisibility(View.INVISIBLE);
+            imgInsertDongle.pauseAnimation();
+            imgInsertCard.setVisibility(VISIBLE);
+            imgInsertCard.playAnimation();
+        }
+        tv_lector.setText(getString(R.string.please_insert_pin));
     }
 
     @Override
@@ -410,6 +443,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         configuration.add(EmvAppTag.ICS + "F4F0F0FAAFFE8000");
         configuration.add(EmvAppTag.Terminal_type + "22");
         configuration.add(EmvAppTag.Terminal_Capabilities + "60B8C8");
+        Log.i("IposListener:", "Lista de configuracion: " + configuration.toString());
         App.getInstance().pos.updateEmvAPP(QPOSService.EMVDataOperation.update, configuration);
     }
 
@@ -453,9 +487,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             if (isReaderConected) {
                 Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
-//                checkDongleStatus("1234");
                 getKSN();
-                //App.getInstance().pos.getQposId();
                 showLoader(getResources().getString(R.string.validatelector));
             }
         }
@@ -499,6 +531,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 case ERROR_LECTOR:
                     Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
                     hideLoader();
+                    if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                        App.getInstance().pos.disconnectBT();
+                    }
                     //closeProgress();
                     break;
                 case LEYENDO:
@@ -530,7 +565,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     break;
                 case REQUEST_PIN:
                     Log.i("IposListener: ", "=====>>    REQUEST_PIN");
-                    signWithPin = true;
+                    if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                        signWithPin = true;
+                        showInsertPin();
+                    }
                     break;
                 case SW_TIMEOUT:
                     //initListenerDongle();
@@ -541,6 +579,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                 public void actionConfirm(Object... params) {
                                     showInsertDongle();
                                     if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                                        App.getInstance().pos.disconnectBT();
                                         App.getInstance().pos.clearBluetoothBuffer();
                                         App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
                                     }
@@ -551,7 +590,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
                                 }
                             });
-                    //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
                     Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
                     break;
                 case SW_ERROR:
@@ -564,6 +602,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                             @Override
                             public void actionConfirm(Object... params) {
                                 showInsertDongle();
+                                if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                                    App.getInstance().pos.disconnectBT();
+                                    App.getInstance().pos.clearBluetoothBuffer();
+                                    App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+                                }
                             }
 
                             @Override
@@ -586,8 +629,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     for (BluetoothDevice device : devicesBT) {
                         Log.i("IposListener: ", "======>> Bluetooth Address: " + device.getName() + " " + device.getAddress());
                         if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
-                            App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             App.getInstance().pos.stopScanQPos2Mode();
+                            App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             break;
                         }
                     }
@@ -620,8 +663,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     hideLoader();
                     break;
             }
-
-            // }
         }
     };
 }

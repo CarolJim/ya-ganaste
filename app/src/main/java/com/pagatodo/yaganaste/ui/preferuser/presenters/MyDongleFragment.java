@@ -249,6 +249,11 @@ public class MyDongleFragment extends GenericFragment implements
     }
 
     @Override
+    public void showInsertPin() {
+
+    }
+
+    @Override
     public void dongleValidated() {
 
     }
@@ -444,10 +449,10 @@ public class MyDongleFragment extends GenericFragment implements
                         if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             break;
-                        } else if (device.getName().contains("MPOS")) {
+                        } /*else if (device.getName().contains("MPOS")) {
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             break;
-                        }
+                        }*/
                     }
                     break;
                 default:

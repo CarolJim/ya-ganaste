@@ -40,6 +40,8 @@ import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -143,13 +145,14 @@ public class App extends Application {
         if (!f.exists()) {
             f.mkdir();
         }
+        Log.i(getString(R.string.app_name), "Android Device Id: " + Utils.getUdid(getContext()));
         statusId = "-1";
         datoHuellaC = "";
         firebaseRemoteConfig();
 
         //Contly
         if (!DEBUG) {
-            countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key, null, DeviceId.Type.OPEN_UDID));
+            countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key), null, DeviceId.Type.OPEN_UDID);
             countly.enableCrashReporting();
         }
     }
