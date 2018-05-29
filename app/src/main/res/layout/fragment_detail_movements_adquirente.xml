@@ -7,8 +7,6 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <include layout="@layout/item_movement" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -31,6 +29,8 @@
             android:src="@mipmap/logo_yaganaste_hw"
             android:visibility="gone" />
     </RelativeLayout>
+
+    <include layout="@layout/item_movement" />
 
     <ScrollView
         android:layout_width="match_parent"

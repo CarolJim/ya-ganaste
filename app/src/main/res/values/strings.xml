@@ -1318,8 +1318,8 @@
     <string name="item_menu_anadir_mov">Añadir</string>
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consultar\nMovimientos</string>
-    <string name="operation_deposito">Mi Cuenta</string>
+    <string name="operation_movimientos">Consultar\nmovimientos</string>
+    <string name="operation_deposito">Mi cuenta</string>
     <string name="operation_administracion">Administrar\ntarjeta</string>
     <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
@@ -1478,7 +1478,7 @@
     <string name="tipo_de_envio">Tipo de envío</string>
     <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
     <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
-    <string name="subtituloatencon">Si teines alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+    <string name="subtituloatencon">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
 
     <!-- Conectar Dongle Vía Bluetooth -->
     <string name="title_pair_bluetooth">Enlaza tu lector</string>
