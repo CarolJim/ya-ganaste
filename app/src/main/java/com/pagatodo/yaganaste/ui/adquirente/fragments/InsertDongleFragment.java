@@ -202,7 +202,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
         request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
-        request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadData(TIPO_AGENTE)));
+        request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadDataInt(TIPO_AGENTE)));
         request.setTransactionDateTime(Utils.getTimeStamp());
         return request;
     }

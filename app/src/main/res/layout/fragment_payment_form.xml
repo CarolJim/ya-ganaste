@@ -4,9 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fbfbfb"
+    android:isScrollContainer="true"
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollViewpagos"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_title_payment"
@@ -21,14 +32,7 @@
         android:text="Recarga"
         android:textColor="@color/colorAccent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -181,7 +185,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
 
                 <LinearLayout
@@ -259,10 +263,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
-                            android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionDone"
-                            android:inputType="number"
-                            android:maxLength="12"
                             android:singleLine="true"
                             android:textColor="@color/grayColor"
                             android:theme="@style/NewEdittextwallet" />
@@ -354,7 +355,7 @@
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
+
                             android:longClickable="false"
                             android:maxLength="10"
                             android:singleLine="true"
@@ -401,7 +402,7 @@
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionNext"
-                            android:inputType="number"
+
                             android:maxLength="12"
                             android:singleLine="true"
                             android:theme ="@style/NewEdittextwallet"
@@ -532,9 +533,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
 
-    </ScrollView>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_continue_payment"
@@ -549,5 +548,7 @@
         android:textSize="@dimen/size_text_style_2_value"
         app:cornerRadius="@dimen/btn_corner_radius"
         app:intercepterOnclick="true" />
+        </LinearLayout>
 
+    </ScrollView>
 </LinearLayout>

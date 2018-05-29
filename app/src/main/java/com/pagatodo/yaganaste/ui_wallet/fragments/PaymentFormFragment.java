@@ -14,10 +14,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -25,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -161,6 +164,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_num_telefono2;
 
+    @BindView(R.id.scrollViewpagos)
+    ScrollView scrollViewpagos;
 
     boolean isRecarga = false;
     boolean isIAVE;
@@ -238,6 +243,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_payment_form, container, false);
 
+
+
     }
 
     @Override
@@ -257,8 +264,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     txt_num_telefono.setBackgroundResource(R.drawable.inputtext_active);
+
                 } else {
                     txt_num_telefono.setBackgroundResource(R.drawable.inputtext_normal);
+
                 }
             }
         });
@@ -328,7 +337,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 if (isIAVE) {
                     til_num_telefono.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
                     edtPhoneNumber.addTextChangedListener(new NumberTagPase(edtPhoneNumber, maxLength));
-                    //edtPhoneNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
                     layoutImageContact.setVisibility(View.GONE);
                     layoutImageReferenceIAVE.setVisibility(View.VISIBLE);
                     layoutImageReferenceIAVE.setOnClickListener(this);
@@ -473,9 +481,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                         }
                     }
                 });
-                //edtServiceImport.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
                 edtServiceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
@@ -518,6 +524,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     .placeholder(R.mipmap.icon_user)
                     .into(imgUserPhoto);
         }
+
+
 
 
     }
