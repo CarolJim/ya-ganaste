@@ -634,15 +634,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     if (hasFocus) {
                         hideValidationError(editRefer.getId());
                         editRefer.imageViewIsGone(true);
-                        helpLinearTaeRef.setBackgroundResource(R.drawable.inputtext_active);
+                        add_favorites_tae_ll.setBackgroundResource(R.drawable.inputtext_active);
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             // showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                            helpLinearTaeRef.setBackgroundResource(R.drawable.inputtext_error);
+                            add_favorites_tae_ll.setBackgroundResource(R.drawable.inputtext_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
-                            helpLinearTaeRef.setBackgroundResource(R.drawable.inputtext_normal);
+                            add_favorites_tae_ll.setBackgroundResource(R.drawable.inputtext_normal);
                             editRefer.setIsValid();
                         }
                     }

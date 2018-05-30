@@ -41,6 +41,19 @@ public class Constants {
 
     //region Comercios Id
     public static final int IAVE_ID = 7;
+    public static final int IECISA = 5;
+    public static final int AVON = 2;
+    public static final int CABLEV = 25;
+    public static final int SKY = 17;
+    public static final int TELMEXSR = 21;
+    public static final int MAFER = 9;
+
+
+
+
+
+
+
     //endregion
 
     public static final String TIPO_TRANSACCION_CHIP = "1";
