@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,17 +21,13 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
-import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -51,7 +46,6 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -100,6 +94,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     LottieAnimationView imgSearchBt;
     @BindView(R.id.imgInsertCardBt)
     LottieAnimationView imgInsertCardBt;
+    @BindView(R.id.imgInsertNip)
+    LottieAnimationView imgInsertNip;
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
 
@@ -293,13 +289,16 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 imgSearchBt.playAnimation();
                 imgInsertCardBt.setVisibility(View.INVISIBLE);
                 imgInsertCardBt.pauseAnimation();
+                imgInsertNip.setVisibility(View.INVISIBLE);
+                imgInsertNip.pauseAnimation();
+                tv_lector.setText(getString(R.string.enciende_el_lector_bt_para_continuar));
             } else {
                 imgInsertDongle.setVisibility(VISIBLE);
                 imgInsertDongle.playAnimation();
                 imgInsertCard.setVisibility(View.INVISIBLE);
                 imgInsertCard.pauseAnimation();
+                tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
             }
-            tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         } catch (Exception e) {
         }
     }
@@ -311,6 +310,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             imgSearchBt.pauseAnimation();
             imgInsertCardBt.setVisibility(VISIBLE);
             imgInsertCardBt.playAnimation();
+            imgInsertNip.setVisibility(View.INVISIBLE);
+            imgInsertNip.pauseAnimation();
         } else {
             imgInsertDongle.setVisibility(View.INVISIBLE);
             imgInsertDongle.pauseAnimation();
@@ -341,10 +342,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertPin() {
         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            imgInsertNip.setVisibility(View.VISIBLE);
+            imgInsertNip.playAnimation();
             imgSearchBt.setVisibility(View.INVISIBLE);
             imgSearchBt.pauseAnimation();
-            imgInsertCardBt.setVisibility(VISIBLE);
-            imgInsertCardBt.playAnimation();
+            imgInsertCardBt.setVisibility(View.INVISIBLE);
+            imgInsertCardBt.pauseAnimation();
         } else {
             imgInsertDongle.setVisibility(View.INVISIBLE);
             imgInsertDongle.pauseAnimation();

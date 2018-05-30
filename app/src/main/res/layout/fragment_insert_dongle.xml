@@ -58,6 +58,16 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/insert_bluetooth" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgInsertNip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                app:lottie_autoPlay="true"
+                app:lottie_imageAssetsFolder="images/insert_nip/"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/insert_nip" />
+
             <!--
              <pl.droidsonroids.gif.GifImageView
                  android:id="@+id/imgInsertDongle"
