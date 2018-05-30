@@ -437,6 +437,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
             App.getInstance().pos.doTradeNoPinpad(30);
         } else {
+            App.getInstance().pos.setFormatId("0000");
             App.getInstance().pos.doCheckCard(30);
         }
     }

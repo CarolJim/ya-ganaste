@@ -1179,10 +1179,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void proccesDataSession(DataSourceResult response) {
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            DataIniciarSesion newSessionData = data.getData();
+            DataIniciarSesionUYU newSessionData = data.getData();
             SingletonUser userInfo = SingletonUser.getInstance();
             newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);
+            App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, newSessionData.getUsuario().getIdEstatus());
             /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
             accountManager.onSucces(response.getWebService(), "Información Actualizada.");
         } else {
