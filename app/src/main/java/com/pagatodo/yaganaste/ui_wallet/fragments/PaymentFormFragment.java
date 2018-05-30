@@ -71,11 +71,17 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
+import static com.pagatodo.yaganaste.utils.Constants.AVON;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.CABLEV;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
+import static com.pagatodo.yaganaste.utils.Constants.IECISA;
+import static com.pagatodo.yaganaste.utils.Constants.MAFER;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
+import static com.pagatodo.yaganaste.utils.Constants.SKY;
+import static com.pagatodo.yaganaste.utils.Constants.TELMEXSR;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
@@ -169,6 +175,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
     boolean isRecarga = false;
     boolean isIAVE;
+    boolean noCamara;
     private int maxLength;
     Double monto;
     String errorText;
@@ -286,6 +293,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
         // Procesos para Recargas, sin importar si es carrier o favorito
         if (comercioResponse != null) {
+
+
+            noCamara =( comercioResponse.getIdComercio() == IECISA||comercioResponse.getIdComercio() == AVON || comercioResponse.getIdComercio() == CABLEV || comercioResponse.getIdComercio() == SKY || comercioResponse.getIdComercio() == TELMEXSR || comercioResponse.getIdComercio() == MAFER);
             if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
                 btnContinue.setText(getResources().getString(R.string.btn_recharge_txt));
 
@@ -312,6 +322,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 txtData.setText(nameRefer);
 
                 isIAVE = comercioResponse.getIdComercio() == IAVE_ID;
+
+
                 recargasPresenter = new RecargasPresenter(this, isIAVE);
 
                 List<Double> montos = comercioResponse.getListaMontos();
@@ -400,6 +412,10 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 edtReferenceNumber.setLongClickable(true);
                 edtReferenceNumber.setSingleLine();
+
+                if (noCamara){
+                    imgReferencePayment.setVisibility(View.GONE);
+                }
 
                 int tipoPhoto;
                 String nameRefer;

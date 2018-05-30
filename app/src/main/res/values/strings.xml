@@ -601,7 +601,7 @@
     <string name="generando_token">Generando código</string>
 
     <string name="tu_codigo">Tu código de seguridad es:</string>
-    <string name="caduca_en_2">Tu código caducará en</string>
+    <string name="caduca_en_2">Tu código caducará en:</string>
     <string name="caduca_en"><![CDATA[<b><font color="#10B2E6">%1$s segundos</font></b>]]></string>
 
     <string name="codigo_expirado">Tú código de acceso ha expirado, puedes volver a generar otro</string>
@@ -613,7 +613,7 @@
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
     <string name="no_tiene_tarjeta">Te asignaremos una tarjeta digital\ny podras solicitar una física en el futuro</string>
-    <string name="si_tiene_tarjeta">Ingresa tu los últimos 10 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
+    <string name="si_tiene_tarjeta">Ingresa los últimos 10 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu tarjeta esta lista</string>
     <string name="tarjeta_cancelada">Tu tarjeta esta cancelada</string>
     <string name="title_aceptar">Aceptar</string>
@@ -1261,7 +1261,7 @@
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
     <string name="navigation_drawer_menu_acerca">Acerca de</string>
     <string name="navigation_drawer_menu_contacto">Contacto</string>
-    <string name="navigation_drawer_logout">Cerrar Sesión</string>
+    <string name="navigation_drawer_logout">Cerrar sesión</string>
 
     <string name="security_huella_option">Huella Digital</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
@@ -1372,18 +1372,19 @@
     <string name="favorte_name">Nombre de favorito</string>
     <string name="service_txt">Servicio</string>
 
-    <string name="tituloselfie">Sube una foto para añadirla a tu perfil</string>
+    <string name="tituloselfie">Añade una foto a tu perfil</string>
     <string name="tituloselfietegusta">Esta es tu foto de perfil ¿Te gusta?</string>
     <string name="tomar_foto">Tomar foto</string>
-    <string name="selecttiona_foto">Seleccionar de la galeria</string>
+    <string name="selecttiona_foto">Seleccionar de la galería</string>
     <string name="confirm">Confirmar</string>
     <string name="reintentar">Reintentar</string>
+    <string name="continuarfoto">Continuar</string>
 
 
     <string name="sub_titulo_domicilio_personal">Ingresa los datos de tu domicilio\nactual para terminar tu registro</string>
 
-    <string name="titulo_nip">Asigna el Nip de tu tarjeta Ya Ganaste</string>
-    <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\ascendentes o descendentes</string>
+    <string name="titulo_nip">Nip de tu tarjeta Ya Ganaste</string>
+    <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\nascendentes o descendentes</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
     <string name="introduce_nip_valido">Introduce NIP</string>

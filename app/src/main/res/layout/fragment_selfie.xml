@@ -161,7 +161,7 @@
                 style="@style/buttonSquareRoundedBlue"
                 android:background="@drawable/tomarselfie"
                 android:gravity="center"
-                android:text="@string/confirm" />
+                android:text="Continuar" />
         </LinearLayout>
 
         <LinearLayout
@@ -187,7 +187,7 @@
                 style="@style/buttonSquareRoundedBlue"
                 android:background="@drawable/tomarselfie"
                 android:gravity="center"
-                android:text="@string/reintentar" />
+                android:text="Reintentar" />
         </LinearLayout>
 
     </LinearLayout>
