@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lyt_favorite_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/row_padding"
-    android:orientation="vertical">
+    android:layout_marginRight="3dp"
+    android:orientation="vertical"
+    android:layout_marginEnd="3dp">
 
     <RelativeLayout
         android:id="@+id/itemGallery"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/crlImageFavorite"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="450dp"
+            android:layout_height="45dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@drawable/circle"
@@ -58,9 +58,9 @@
 
     <TextView
         android:id="@+id/txtNameFav"
-        android:layout_width="50dp"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:gravity="center"
         android:textColor="@color/gray_text_wallet"
         android:textSize="11sp"

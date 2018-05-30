@@ -161,7 +161,7 @@
         <activity
             android:name=".ui_wallet.WalletMainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".ui._controllers.EnvioFormularioWallet"
             android:screenOrientation="portrait"
@@ -178,7 +178,7 @@
         <activity android:name=".ui_wallet.SearchCarrierActivity" />
         <activity
             android:name=".ui._controllers.manager.FavoritesActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
 
     </application>
 

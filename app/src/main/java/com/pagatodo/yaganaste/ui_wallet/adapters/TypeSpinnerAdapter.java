@@ -50,14 +50,10 @@ public class TypeSpinnerAdapter extends ArrayAdapter<Integer> implements Spinner
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         convertView = inflater.inflate(R.layout.spinner_layout, parent, false);
         StyleTextView styleTextView = convertView.findViewById(R.id.textView_spinner);
-
-        if (position != 0){
-            styleTextView.setHint(listTitles.get(position));
-
-        }
+        styleTextView.setHint(listTitles.get(position));
         styleTextView.setHintTextColor(parent.getContext().getResources().getColor(R.color.texthint));
         styleTextView.setTextSize(14f);
-        //styleTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_select, 0);
+
         return convertView;
     }
 
@@ -65,15 +61,9 @@ public class TypeSpinnerAdapter extends ArrayAdapter<Integer> implements Spinner
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
         convertView = inflater.inflate(R.layout.spinner_layout, parent, false);
         StyleTextView styleTextView = convertView.findViewById(R.id.textView_spinner);
-
-        if (position != 0){
-            styleTextView.setHint(listTitles.get(position));
-
-        }
+        styleTextView.setHint(listTitles.get(position));
         styleTextView.setHintTextColor(parent.getContext().getResources().getColor(R.color.colorAccent));
         styleTextView.setPadding(14,0,0,0);
-
-
         return  convertView;
     }
 

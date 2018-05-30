@@ -150,6 +150,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void setUiPageViewController() {
+        pager_indicator.removeDots();
         pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(),cardWalletAdpater.getSize());
     }
 
@@ -268,6 +269,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     private void checkDataCard() {
         boolean isOnline = Utils.isDeviceOnline();
+        this.pageCurrent = 0;
         if (isOnline) {
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {

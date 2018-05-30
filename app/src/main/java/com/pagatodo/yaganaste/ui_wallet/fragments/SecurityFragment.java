@@ -170,22 +170,16 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
                         radioButtonNo = view.radioButtonNo;
                         radioButtonSi = view.radioButtonSi;
                         setStates();
-                        radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                if (b){
-                                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
-                                }
+                        radioButtonSi.setOnCheckedChangeListener((compoundButton, b) -> {
+                            if (b){
+                                App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
                             }
                         });
-                                radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                if (b){
-                                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
-                                }
-                            }
-                        });
+                                radioButtonNo.setOnCheckedChangeListener((compoundButton, b) -> {
+                                    if (b){
+                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
+                                    }
+                                });
                     }
                 }
                 break;

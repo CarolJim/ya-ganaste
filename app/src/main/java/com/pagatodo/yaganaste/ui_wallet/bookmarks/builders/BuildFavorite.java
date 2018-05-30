@@ -14,7 +14,6 @@ import com.pagatodo.yaganaste.ui_wallet.bookmarks.compositions.TextNode;
 import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.LauncherHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
-import com.pagatodo.yaganaste.ui_wallet.holders.SpinnerHolder;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 public class BuildFavorite {

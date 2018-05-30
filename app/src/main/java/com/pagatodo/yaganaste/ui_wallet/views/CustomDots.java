@@ -52,6 +52,10 @@ public class CustomDots extends LinearLayout {
         dots[nextposition].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
     }
 
+    public void removeDots(){
+        this.removeAllViews();
+    }
+
     /*private void setUiPageViewController() {
         //dotsCount = (pageCurrent - 1 )%cardWalletAdpater.getCount();
         dotsCount = cardWalletAdpater.getSize();

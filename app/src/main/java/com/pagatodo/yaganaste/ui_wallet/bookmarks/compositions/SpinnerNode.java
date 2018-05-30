@@ -1,6 +1,9 @@
 package com.pagatodo.yaganaste.ui_wallet.bookmarks.compositions;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TypeSpinnerAdapter;
 import com.pagatodo.yaganaste.ui_wallet.bookmarks.builders.Component;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
+import com.pagatodo.yaganaste.utils.customviews.AutoCompleteDropDown;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
@@ -28,8 +32,9 @@ public class SpinnerNode implements Component{
 
     private LinearLayout container;
     private Context context;
-    private Spinner spinner;
-    private StyleTextView title;
+        private AppCompatSpinner spinner;
+    private TextInputLayout inputLayout;
+
     private List<Integer> tipoPago = new ArrayList<>();
     private TypeSpinnerAdapter adapter;
 
@@ -54,8 +59,9 @@ public class SpinnerNode implements Component{
         this.container.setOrientation(LinearLayout.VERTICAL);
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(R.layout.spinner_holder, container, false);
-        title = itemView.findViewById(R.id.hitn_text);
-        spinner = itemView.findViewById(R.id.spinner);
+        this.spinner = itemView.findViewById(R.id.spinner);
+        this.inputLayout = itemView.findViewById(R.id.text_input);
+        this.inputLayout.setHint("Tipo Envio");
         adapter = getDataAdapter();
         spinner.setAdapter(adapter);
         this.container.addView(itemView);
@@ -67,7 +73,7 @@ public class SpinnerNode implements Component{
         layout.addView(this.container);
     }
 
-    public Spinner getSpinner() {
+    public AppCompatSpinner getSpinner() {
         return this.spinner;
     }
 
@@ -76,7 +82,6 @@ public class SpinnerNode implements Component{
     }
 
     private TypeSpinnerAdapter getDataAdapter() {
-        tipoPago.add(null);
         tipoPago.add(R.string.transfer_phone_cellphone);
         tipoPago.add(R.string.debit_card_number);
         tipoPago.add(R.string.transfer_cable);

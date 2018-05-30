@@ -1,60 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.TextInputLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/inputtext_normal"
+    android:id="@+id/text_input"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_input_field"
-    android:paddingLeft="6dp"
-    android:paddingStart="6dp"
+    android:maxLines="1"
+    android:background="@drawable/input_data_selector"
+    app:counterEnabled="true"
+    app:hintTextAppearance="@style/HintText"
+    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+    app:passwordToggleTint="@color/colorAccent"
+    app:counterMaxLength="1"
+    android:paddingLeft="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="2dp"
+    android:textColorHint="@color/texthint_edittext"
+    android:hint="@string/tipo_de_envio"
     tools:ignore="RtlSymmetry">
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/hitn_text"
-        style="@style/HintText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/tipo_de_envio"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
+    <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/spinner"
-        style="@style/CustomSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/transparent"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewCustomSpinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hitn_text"
-        tools:ignore="RtlSymmetry,UnusedAttribute" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/imageViewCustomSpinner"
-        android:layout_width="17dp"
-        android:layout_height="17dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:tint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/hitn_text"
-        app:srcCompat="@drawable/ico_select" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:spinnerMode="dropdown"
+        />
 
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.TextInputLayout>

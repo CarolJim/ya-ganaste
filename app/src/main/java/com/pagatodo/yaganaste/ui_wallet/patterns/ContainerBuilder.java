@@ -143,11 +143,16 @@ public class ContainerBuilder {
         CardWalletAdpater adapter = new CardWalletAdpater();
         if (!error) {
             String statusCard = SingletonUser.getInstance().getCardStatusId();
-            if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-                adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
+            if (statusCard != null) {
+                if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+                    adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
+                } else {
+                    adapter.addCardItem(new ElementWallet().getCardyaganaste());
+                }
             } else {
                 adapter.addCardItem(new ElementWallet().getCardyaganaste());
             }
+
         } else {
             adapter.addCardItem(new ElementWallet().getCardyaganaste());
         }

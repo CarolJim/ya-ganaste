@@ -30,7 +30,7 @@ public class SpinnerHolder extends GenericHolder {
 
     @Override
     public void init() {
-        this.spinner = this.itemView.findViewById(R.id.spinner);
+        //this.spinner = this.itemView.findViewById(R.id.spinner);
     }
 
     @Override
