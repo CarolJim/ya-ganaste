@@ -3,49 +3,26 @@ package com.pagatodo.yaganaste.ui_wallet.presenter;
 import android.support.annotation.Nullable;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataInfoAgente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
-import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.IMovementsEmisorView;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
+import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ERROR_STATUS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
-import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
-import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE_RECHAZADO;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_USUARIO_ADQUIRIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
-import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
@@ -84,7 +61,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     public void getStatusAccount(String mTDC) {
         walletView.showProgress();
         if (!mTDC.isEmpty()) {
-            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC.replace(" ",""));
+            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC.replace(" ", ""));
             walletInteractor.getStatusAccount(estatusCuentaRequest);
         } else {
             SingletonUser.getInstance().setCardStatusId(ESTATUS_CUENTA_BLOQUEADA);
@@ -117,7 +94,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
             walletView.sendSuccessInfoAgente();
         } else*/
-            if (result instanceof ConsultarSaldoResponse) {
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
+            switch (typeWallet) {
+                case TYPE_ADQ:
+                    App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                    break;
+            }
+        } else if (SingletonUser.getInstance().getDataUser().getControl().getEsCliente()) {
             String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
             switch (typeWallet) {
                 case TYPE_STARBUCKS:

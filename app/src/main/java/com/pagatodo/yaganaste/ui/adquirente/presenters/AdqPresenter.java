@@ -100,10 +100,10 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
-    public void initTransaction(TransaccionEMVDepositRequest request) {
+    public void initTransaction(TransaccionEMVDepositRequest request, boolean signWithPin) {
         String msg = App.getContext().getString(R.string.procesando_cobro);
         iAdqView.showLoader(msg);
-        adqInteractor.initPayment(request);
+        adqInteractor.initPayment(request, signWithPin);
     }
 
     @Override
@@ -143,7 +143,8 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 iAdqView.showError(error);
                 break;
             case TRANSACCIONES_EMV_DEPOSIT:
-                ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
+                iAdqView.showError(error.toString());
+                //((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.showError(error);

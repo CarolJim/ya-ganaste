@@ -12,9 +12,12 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 
-public class DongleBatteryHome extends LoaderActivity implements OnEventListener{
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
+
+public class DongleBatteryHome extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_INSERT_DONGLE = "EVENT_GO_INSERT_DONGLE";
     private Preferencias pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,8 @@ public class DongleBatteryHome extends LoaderActivity implements OnEventListener
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
-                loadFragment(MyDongleFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);
                 break;
         }
     }

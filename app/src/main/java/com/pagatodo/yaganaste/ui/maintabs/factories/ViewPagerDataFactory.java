@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
+import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
@@ -50,19 +51,16 @@ public class ViewPagerDataFactory {
                 return new ViewPagerData<>(fragmentList, VoidTab.values());
 
             case MAIN_TABS:
-                addMainFragments(fragmentList);
-                return new ViewPagerData<>(fragmentList, MainTab.values());
+                    addMainFragments(fragmentList);
+                if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+                    return new ViewPagerData<>(fragmentList, MainTab.values());
+                }else {
+                    return new ViewPagerData<>(fragmentList, MainTabOperador.values());
+                }
             case MAIN_ELECTION:
                 addMainFragmentsselection(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
-            /*case MAIN_ELECTION_ACTUALIZACIONDOCS:
-                addMainFragmentsselection(fragmentList);
-                return new ViewPagerData<>(fragmentList, MainTab.values());
-*/
-            /*case HOME_FRAGMENT:
-                addHomeFragments(fragmentList);
-                return new ViewPagerData<>(fragmentList, AdqEmTab.values());
-*/
+
             case PERSONAL_ACCOUNT:
                 return new ViewPagerData<>(null, DateUtil.getLastMovementstMonths().toArray(new MonthsMovementsTab[0]));
 
@@ -94,47 +92,12 @@ public class ViewPagerDataFactory {
 
     private static void addMainFragments(List<Fragment> fragmentList) {
         int Idestatus;
-        fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
+        }
         fragmentList.add(WalletTabFragment.newInstance());
         fragmentList.add(NewPaymentFragment.newInstance());
 
-/*
-        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-            fragmentList.add(GetMountFragment.newInstance());
-        }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I6.getId() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
-           // fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(InviteAdquirenteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I6.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-         //   fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-            fragmentList.add(InviteAdquirenteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I7.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && Idestatus == IdEstatus.I8.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                   Idestatus == IdEstatus.I9.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                Idestatus == IdEstatus.I11.getId()) {
-            //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
-        } else {
-            fragmentList.add(InviteAdquirenteFragment.newInstance());
-        }
-        */
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

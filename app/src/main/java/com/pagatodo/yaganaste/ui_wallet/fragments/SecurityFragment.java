@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui_wallet.patterns.Container;
@@ -160,11 +161,13 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
             case 1:
                 useFingerprint = App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true);
                 Container s = new Container(getContext(),this);
-                s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
+                s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass, 0, RAW));
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
 
                     if (fingerprintManager.isHardwareDetected()) {
+<<<<<<< HEAD
                         s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
                         OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
                         radioButtonNo = view.radioButtonNo;
@@ -180,6 +183,34 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
                                         App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
                                     }
                                 });
+=======
+
+                        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
+
+
+                            s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
+                            OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
+                            radioButtonNo = view.radioButtonNo;
+                            radioButtonSi = view.radioButtonSi;
+                            setStates();
+                            radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                    if (b) {
+                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
+                                    }
+                                }
+                            });
+                            radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                    if (b) {
+                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
+                                    }
+                                }
+                            });
+                        }
+>>>>>>> edf300750d070b252b4688198c4f57d85f3791df
                     }
                 }
                 break;

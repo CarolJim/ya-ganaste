@@ -343,17 +343,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 SingletonUser user = SingletonUser.getInstance();
                 DataIniciarSesionUYU dataUser = user.getDataUser();
 
-                String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
 
                 Preferencias prefs = App.getInstance().getPrefs();
                 prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTelefono());
                 prefs.saveData(CLABE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getCLABE());
-                boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
 
-                // Lineas de prueba, comentar al tener version lista para pruebas
-                if (!DEBUG) {
-                    //Answers.getInstance().logLogin(new LoginEvent());
-                }
                 Intent intent = new Intent(AccountActivity.this, TabActivity.class);
                 startActivity(intent);
                 finish();

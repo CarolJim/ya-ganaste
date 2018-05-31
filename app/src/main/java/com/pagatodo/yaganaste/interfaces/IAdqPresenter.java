@@ -11,7 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoA
 public interface IAdqPresenter {
     void validateDongle(String serial);
 
-    void initTransaction(TransaccionEMVDepositRequest request);
+    void initTransaction(TransaccionEMVDepositRequest request, boolean signWithPin);
 
     void initCancelation(TransaccionEMVDepositRequest request, DataMovimientoAdq dataMovimientoAdq);
 

@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.SelectOptionZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.StatusZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_DOS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
@@ -70,11 +72,20 @@ public class ContainerBuilder {
     private static void mainMenu(Container s) {
         int res = R.layout.option_menu_tem_view;
         //s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
-        s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
+
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_AJUSTES, R.mipmap.ic_ajustes, R.string.navigation_drawer_menu_ajustes));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
+        }else {
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_ACERCA_DE, R.mipmap.ic_acerca, R.string.navigation_drawer_menu_acerca));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
+            s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
+        }
+
     }
 
     private static void settingsMenu(Container s) {
@@ -141,7 +152,7 @@ public class ContainerBuilder {
 
     public static CardWalletAdpater getCardWalletAdapter(boolean error) {
         CardWalletAdpater adapter = new CardWalletAdpater();
-        if (!error) {
+        if (!error && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
             String statusCard = SingletonUser.getInstance().getCardStatusId();
             if (statusCard != null) {
                 if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
@@ -152,15 +163,24 @@ public class ContainerBuilder {
             } else {
                 adapter.addCardItem(new ElementWallet().getCardyaganaste());
             }
+<<<<<<< HEAD
 
         } else {
             adapter.addCardItem(new ElementWallet().getCardyaganaste());
+=======
+>>>>>>> edf300750d070b252b4688198c4f57d85f3791df
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
-        if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
-            adapter.addCardItem(new ElementWallet().getCardStarbucks());
+
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
+                adapter.addCardItem(new ElementWallet().getCardStarbucks());
+            }
         }
-        adapter.addCardItem(new ElementWallet().getCardSettings());
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            adapter.addCardItem(new ElementWallet().getCardSettings());
+        }
+
         return adapter;
     }
 
@@ -195,6 +215,9 @@ public class ContainerBuilder {
                 break;
             case OPTION_ZONE_UNO:
                 op = new StatusZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
+                break;
+            case OPTION_ZONE_DOS:
+                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
                 break;
             default:
                 op = new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));

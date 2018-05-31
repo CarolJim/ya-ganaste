@@ -53,6 +53,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -162,7 +164,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ss.setSpan(new UnderlineSpan(), 26, 47, 0);
         txtLoginExistUserRecoverPass.setText(ss);
 
-        if (!RequestHeaders.getTokenauth().isEmpty()) {
+        if ((prefs.containsData(IS_OPERADOR))||!RequestHeaders.getTokenauth().isEmpty()) {
             textNameUser.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
             btnLogin.setText(getString(R.string.nextButton));
             edtUserName.setText(RequestHeaders.getUsername());

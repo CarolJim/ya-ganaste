@@ -52,6 +52,9 @@ public class CardWalletAdpater extends PagerAdapter {
 
     @Override
     public int getCount() {
+        if (this.elementViewList.size()==1)
+            return this.elementViewList.size();
+        else
         return this.elementViewList.size() * LOOPS_COUNT;
     }
 

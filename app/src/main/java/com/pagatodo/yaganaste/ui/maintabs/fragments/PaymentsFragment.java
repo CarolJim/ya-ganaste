@@ -12,6 +12,7 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
@@ -67,17 +68,16 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         this.currentAdapter = createAdapter(movements);
         updateRecyclerData(this.currentAdapter, movements);
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(),LEFT_AD);
-        new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
 
-
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT_AD);
+            new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
+        }
     }
-
     @Override
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<DataMovimientoAdq>> movementsList) {
         return new RecyclerMovementsAdapter<>(movementsList, this);
     }
-
     @Override
     protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked, int pos) {
         this.itemClicked = itemClicked;

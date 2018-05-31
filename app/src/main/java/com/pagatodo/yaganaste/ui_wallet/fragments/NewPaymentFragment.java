@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
@@ -66,6 +69,11 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
  * Nuevo fragmento que contiene la nueva vista de pagos
  */
 public class NewPaymentFragment extends GenericFragment implements IPaymentFragment, IPaymentAdapter {
+
+
+    @BindView(R.id.favoritosContenedor)
+    LinearLayout favoritosContenedor;
+
 
     @BindView(R.id.gvRecargas)
     GridView gvRecargas;
@@ -149,6 +157,10 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129) {
+            favoritosContenedor.setVisibility(View.GONE);
+        }
 
         // Array Auxiliar para operaciones de GridView
         mRecargarGrid = new ArrayList();
@@ -569,6 +581,7 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
         return finalList;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void sendData(int position, int mType, int typePosition) {
         Intent intentPayment = new Intent(getActivity(), PaymentActivity.class);

@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import java.io.Serializable;
 
-class RolesResponse implements Serializable {
+public  class RolesResponse implements Serializable {
     private int IdRol;
     private String NombreRol = "";
 

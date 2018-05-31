@@ -40,6 +40,8 @@ import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -122,15 +124,8 @@ public class App extends Application {
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
-        initEMVListener();
+        //initEMVListener(QPOSService.CommunicationMode.AUDIO);
         RequestHeaders.initHeaders(this);
-        Log.e(getString(R.string.app_name), "BuildConfig.VERSION_NAME: " + BuildConfig.VERSION_NAME + " prefs.loadData(VERSION_APP):" + prefs.loadData(VERSION_APP));
-        /*if (!BuildConfig.VERSION_NAME.equals(prefs.loadData(VERSION_APP))) {
-            clearCache();
-            prefs.clearPreferences();
-            prefs.saveData(VERSION_APP, BuildConfig.VERSION_NAME);
-        }*/
-
         lifecycleHandler = new ApplicationLifecycleHandler();
         registerActivityLifecycleCallbacks(lifecycleHandler);
         registerComponentCallbacks(lifecycleHandler);
@@ -150,13 +145,14 @@ public class App extends Application {
         if (!f.exists()) {
             f.mkdir();
         }
+        Log.i(getString(R.string.app_name), "Android Device Id: " + Utils.getUdid(getContext()));
         statusId = "-1";
         datoHuellaC = "";
         firebaseRemoteConfig();
 
         //Contly
         if (!DEBUG) {
-            countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key, null, DeviceId.Type.OPEN_UDID));
+            countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key), null, DeviceId.Type.OPEN_UDID);
             countly.enableCrashReporting();
         }
     }
@@ -261,13 +257,14 @@ public class App extends Application {
     }
 
     //Inicializa Lector Ipos
-    public void initEMVListener() {
+    public void initEMVListener(QPOSService.CommunicationMode mode) {
         emvListener = new IposListener(getApplicationContext());
-        pos = QPOSService.getInstance(QPOSService.CommunicationMode.AUDIO);
+        pos = QPOSService.getInstance(mode);
         pos.setConext(getApplicationContext());
         pos.setVolumeFlag(false);
         Handler handler = new Handler(Looper.myLooper());
         pos.initListener(handler, emvListener);
+        pos.getSdkVersion();
     }
 
 

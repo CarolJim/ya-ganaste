@@ -109,7 +109,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
             txtMessageResult.setText(!pageResultData.getMessage().isEmpty() ? pageResultData.getMessage() : "");
 
             txtDescriptionResult.setText(!pageResultData.getDescription().isEmpty() ? pageResultData.getDescription() : "");
-            if(pageResultData.getIdResurceIcon() == R.drawable.ic_check_success){
+            if (pageResultData.getIdResurceIcon() == R.drawable.ic_check_success) {
                 check.setAnimation(R.raw.check);
             } else {
                 check.setAnimation(R.raw.alert);
@@ -167,8 +167,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     private void setAndConfigureBtns(LinearLayout llContentBtns) {
 
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.width_btns)
-                - (pageResultData.isHasSecondaryAction() ? Utils.convertDpToPixels(5) : 0),
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.width_btns) - (pageResultData.isHasSecondaryAction() ? Utils.convertDpToPixels(5) : 0),
                 getResources().getDimensionPixelSize(R.dimen.height_btns));
 
         LinearLayout.LayoutParams spaceParams = new LinearLayout.LayoutParams(0,

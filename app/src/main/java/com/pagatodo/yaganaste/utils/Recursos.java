@@ -73,9 +73,12 @@ public class Recursos {
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
                 PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
             } else {
-                URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
-                URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-                URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
+                //URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
+                URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
+                //URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
+                URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
+                //URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
+                URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
                 URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
                 URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
                 URL_COUNTLY = "https://us-try.count.ly";
@@ -189,6 +192,7 @@ public class Recursos {
     public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
     public static final String BATTERY_PORCENTAGE = "BATTERY_PORCENTAGE";
     public static final String KSN_LECTOR = "KSN_LECTOR";
+
     /*Url Legales*/
     public static final String URL_LEGALES_TERMINOS = "http://dev.yaganaste.com/terminos-y-condiciones.html";
     public static final String URL_LEGALES_PRIVACIDAD = "http://dev.yaganaste.com/aviso-de-privacidad.html";
@@ -258,6 +262,7 @@ public class Recursos {
 
     public static final String SPACE = " ";
     public static final String HAS_SESSION = "HAS_SESSION";
+    public static final String IS_OPERADOR = "IS_OPERADOR";
     public static final String PASSWORD_CHANGE = "PASSWORD_CHANGE";
 
     public static final String IS_CUPO = "IS_CUPO";
@@ -295,12 +300,15 @@ public class Recursos {
     public static final String TOKEN_FIREBASE_FAIL = "TOKEN_FIREBASE_FAIL";
 
     public static final String ES_AGENTE = "ES_AGENTE"; // boolean
-    public static final String ES_AGENTE_RECHAZADO = "ES_AGENTE_RECHAZADO"; //boolean
+    public static final String ID_ROL = "ID_ROL"; // boolean
     public static final String ESTATUS_AGENTE = "ESTATUS_AGENTE"; // int
     public static final String ESTATUS_DOCUMENTACION = "ESTATUS_DOCUMENTACION"; // int
     public static final String ID_USUARIO_ADQUIRIENTE = "ID_USUARIO_ADQUIRIENTE"; // string
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS = "ID_ESTATUS"; // int
+    public static final String HAS_CONFIG_DONGLE = "HAS_CONFIG_DONGLE"; // boolean
+    public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
+    public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
 
     // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean

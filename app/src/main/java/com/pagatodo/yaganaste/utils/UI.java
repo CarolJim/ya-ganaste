@@ -343,6 +343,7 @@ public class UI {
                 .create();
         builder.show();
     }
+
     public static void showAlertDialog(Context context, String title, String message, int textPsitive,DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(title)

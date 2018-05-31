@@ -1023,15 +1023,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             DataIniciarSesionUYU dataIniciarSesion = user.getDataUser();
-            dataIniciarSesion.getControl().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
-            dataIniciarSesion.getUsuario().setSemilla(dataUser.getSemilla());
-            dataIniciarSesion.getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
-
-            dataIniciarSesion.getUsuario().setNombreUsuario(dataUser.getUsuario().getNombreUsuario());
-            dataIniciarSesion.getCliente().setNombre(dataUser.getUsuario().getNombreUsuario());
-            dataIniciarSesion.getCliente().setPrimerApellido(dataUser.getUsuario().getPrimerApellido());
-            dataIniciarSesion.getCliente().setSegundoApellido(dataUser.getUsuario().getSegundoApellido());
-
+            dataIniciarSesion.setAdquirente(dataUser.getAdquirente());
+            dataIniciarSesion.setCliente(dataUser.getCliente());
+            dataIniciarSesion.setControl(dataUser.getControl());
+            dataIniciarSesion.setEmisor(dataUser.getEmisor());
+            dataIniciarSesion.setUsuario(dataUser.getUsuario());
             accountManager.onSucces(response.getWebService(), data.getMensaje());
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
@@ -1183,10 +1179,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void proccesDataSession(DataSourceResult response) {
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            DataIniciarSesion newSessionData = data.getData();
+            DataIniciarSesionUYU newSessionData = data.getData();
             SingletonUser userInfo = SingletonUser.getInstance();
             newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);
+            App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, newSessionData.getUsuario().getIdEstatus());
             /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
             accountManager.onSucces(response.getWebService(), "Información Actualizada.");
         } else {

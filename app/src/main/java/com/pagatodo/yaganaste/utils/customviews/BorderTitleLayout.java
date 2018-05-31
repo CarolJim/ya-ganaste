@@ -68,7 +68,7 @@ public class BorderTitleLayout extends RelativeLayout {
 
 
         Rect bounds = new Rect();
-        paint.getTextBounds("", 0, title.length(), bounds);
+        paint.getTextBounds(title, 0, title.length(), bounds);
 
         float singleLetterWidth = paint.measureText("A");
 

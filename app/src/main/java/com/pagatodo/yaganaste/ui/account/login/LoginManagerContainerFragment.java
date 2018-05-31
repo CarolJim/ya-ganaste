@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 /**
  * Created by Jordan on 06/07/2017.
@@ -67,7 +68,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+        if ((prefs.containsData(IS_OPERADOR))||(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
             //loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
             loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);
             showBack(false);
@@ -142,7 +143,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
             showBack(true);
             loadFragment(LoginFragment.newInstance(), Direction.BACK, false);
         } else if (currentFragment instanceof LoginFragment) {
-            if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            if ((prefs.containsData(IS_OPERADOR))||(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
                 showBack(false);
                 loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
             } else {

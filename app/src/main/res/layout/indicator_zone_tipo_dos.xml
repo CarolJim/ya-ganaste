@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/txt_title"
+        style="@style/generic_text_style_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="@string/title_tipo_desc"
+        android:textColor="@color/texthint" />
+
+    <LinearLayout
+        android:id="@+id/container_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_title"
+        android:layout_marginTop="6dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/btn_1"
+            android:layout_width="105dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/button_1_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/button_1_text"
+                style="@style/generic_text_style_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="Estado Cuenta"
+                android:textColor="@color/gray_text_wallet" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_2"
+            android:layout_width="105dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/button_2_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/button_2_text"
+                style="@style/generic_text_style_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="Estado Cuenta"
+                android:textColor="@color/gray_text_wallet" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_3"
+            android:layout_width="105dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/gray_border_rectangle"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/button_3_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/button_3_text"
+                style="@style/generic_text_style_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="Estado Cuenta"
+                android:textColor="@color/gray_text_wallet" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_continue"
+        style="@style/buttonSquareRoundedBlue"
+        android:layout_below="@id/container_buttons"
+        android:layout_marginBottom="@dimen/margin_error"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_rounded_blue"
+        android:text="@string/next" />
+
+</RelativeLayout>
