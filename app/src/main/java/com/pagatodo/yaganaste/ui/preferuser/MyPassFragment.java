@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -79,8 +80,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
     }
 
     public static MyPassFragment newInstance() {
-        MyPassFragment fragment = new MyPassFragment();
-        return fragment;
+        return new MyPassFragment();
     }
 
     @Override
@@ -97,7 +97,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_my_pass, container, false);
@@ -148,55 +148,46 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
 
     @Override
     public void setValidationRules() {
-        editActual.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (editActual.editText.getText().toString().isEmpty()) {
-                        showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
-                        editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {
-                        editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
-                    }
+        editActual.editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                if (editActual.editText.getText().toString().isEmpty()) {
+                    showSnakBar(getResources().getString(R.string.cambiar_pass_actual));
+                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                 } else {
-                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
+                    editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                 }
+            } else {
+                editActual.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
             }
         });
 
-        editNueva.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (editNueva.editText.getText().toString().isEmpty()) {
-                        showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
-                        editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {
-                        editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
-                    }
+        editNueva.editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                if (editNueva.editText.getText().toString().isEmpty()) {
+                    showSnakBar(getResources().getString(R.string.datos_usuario_pass_new));
+                    editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                 } else {
-                    editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
+                    editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
                 }
+            } else {
+                editNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
             }
         });
 
-        editConfir.editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (editConfir.editText.getText().toString().isEmpty()) {
-                        showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
+        editConfir.editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                if (editConfir.editText.getText().toString().isEmpty()) {
+                    showSnakBar(getResources().getString(R.string.datos_usuario_pass_c));
+                    editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
+                } else {
+                    if (editConfir.editText.getText().toString().equalsIgnoreCase(editNueva.editText.getText().toString())) {
+                        editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
+                    } else {
                         editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {
-                        if (editConfir.editText.getText().toString().equalsIgnoreCase(editNueva.editText.getText().toString())) {
-                            editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
-                        } else {
-                            editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
-                        }
                     }
-                } else {
-                    editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
                 }
+            } else {
+                editConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_active);
             }
         });
     }

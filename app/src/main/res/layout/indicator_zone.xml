@@ -15,7 +15,7 @@
         android:id="@+id/btn_begin_register"
         style="@style/buttonSquareRoundedBlue"
         android:layout_below="@id/letrero_imageview"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/button_rounded_blue"
         android:text="@string/comenzar_registro" />
 
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_begin_register"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:text="@string/mas_info" />
 

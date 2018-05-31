@@ -80,7 +80,7 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
         SecurityFragment securityFragment = new SecurityFragment();
         Bundle args = new Bundle();
         args.putInt(MENU, menu);
-        args.putString(MENSAJE,msj);
+        args.putString(MENSAJE, msj);
         securityFragment.setArguments(args);
         return securityFragment;
     }
@@ -111,9 +111,9 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
     public void initViews() {
         if (getArguments() != null) {
             TYPE_MENU = getArguments().getInt(MENU);
-            if (!getArguments().getString(MENSAJE).isEmpty()){
+            if (!getArguments().getString(MENSAJE).isEmpty()) {
                 msj = getArguments().getString(MENSAJE);
-                UI.showSuccessSnackBar(getActivity(),msj,Snackbar.LENGTH_SHORT);
+                UI.showSuccessSnackBar(getActivity(), msj, Snackbar.LENGTH_SHORT);
             }
         }
 
@@ -124,7 +124,7 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
             case 2:
                 //listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
-                ContainerBuilder.builder(getContext(),mLinearLayout,this,SETTINGS_MENU);
+                ContainerBuilder.builder(getContext(), mLinearLayout, this, SETTINGS_MENU);
                 break;
             case 3:
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_acerca));
@@ -149,58 +149,48 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
                 onEventListener.onEvent(PREFER_USER_DESASOCIAR, null);
                 break;
             case ID_CANCELACION:
-                onEventListener.onEvent(PREFER_USER_CANCELACION,null);
+                onEventListener.onEvent(PREFER_USER_CANCELACION, null);
                 break;
             default:
                 break;
         }
     }
 
-    private void initComponents(int type){
+    private void initComponents(int type) {
         switch (type) {
             case 1:
                 useFingerprint = App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true);
-                Container s = new Container(getContext(),this);
+                Container s = new Container(getContext(), this);
                 s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass, 0, RAW));
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
 
-                    if (fingerprintManager.isHardwareDetected()) {
-
-                        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
-
-
-                            s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
-                            OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
-                            radioButtonNo = view.radioButtonNo;
-                            radioButtonSi = view.radioButtonSi;
-                            setStates();
-                            radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                    if (b) {
-                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
-                                    }
-                                }
-                            });
-                            radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                    if (b) {
-                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
-                                    }
-                                }
-                            });
-                        }
+                    if (fingerprintManager.isHardwareDetected() &&
+                            SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
+                        s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
+                        OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
+                        radioButtonNo = view.radioButtonNo;
+                        radioButtonSi = view.radioButtonSi;
+                        setStates();
+                        radioButtonSi.setOnCheckedChangeListener((compoundButton, b) -> {
+                            if (b) {
+                                App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
+                            }
+                        });
+                        radioButtonNo.setOnCheckedChangeListener((compoundButton, b) -> {
+                            if (b) {
+                                App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
+                            }
+                        });
                     }
                 }
                 break;
         }
     }
 
-    private void setStates(){
-        if (useFingerprint){
+    private void setStates() {
+        if (useFingerprint) {
             radioButtonSi.setChecked(true);
         } else {
             radioButtonNo.setChecked(true);

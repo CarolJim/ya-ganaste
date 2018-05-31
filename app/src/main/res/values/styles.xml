@@ -12,6 +12,7 @@
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -19,6 +20,8 @@
         <item name="android:buttonBarStyle">@style/Alert.Button.Text</item>
         <item name="android:borderlessButtonStyle">@style/Alert.Button.Text</item>
     </style>
+
+
 
     <style name="Alert.Title" parent="@android:style/TextAppearance.Holo.DialogWindowTitle">
         <item name="android:textColor">@color/black</item>
@@ -76,8 +79,29 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+    <!--<style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@android:color/white</item>
+    </style>-->
+
+    <style name="Widget.Design.TextInputLayout" parent="AppTheme">
+        <item name="hintTextAppearance">@style/AppTheme.TextFloatLabelAppearance</item>
+        <item name="errorTextAppearance">@style/AppTheme.TextErrorAppearance</item>
+        <item name="counterTextAppearance">@style/TextAppearance.Design.Counter</item>
+        <item name="counterOverflowTextAppearance">@style/CounterOverFlow</item>
+    </style>
+
+    <style name="AppTheme.TextFloatLabelAppearance" parent="TextAppearance.Design.Hint">
+        <!-- Floating label appearance here -->
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">12sp</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.TextErrorAppearance" parent="TextAppearance.Design.Error">
+        <!-- Error message appearance here -->
+        <item name="android:textColor">#ff0000</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="ButtonBarBottom" parent="Base.Widget.AppCompat.Button">

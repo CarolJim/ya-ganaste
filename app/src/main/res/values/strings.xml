@@ -521,8 +521,8 @@
     <string name="transfer_qr_invalid">Código QR inválido</string>
     <string name="transfer_card_unavailable">No disponible</string>
     <string name="saldo_pendiente">Saldo por\nreembolsar</string>
-    <string name="saldo_reembolso">Saldo a reembolsar</string>
-    <string name="saldo_disponible">Saldo Disponible</string>
+    <string name="saldo_reembolso">Saldo por reembolsar</string>
+    <string name="saldo_disponible">Saldo disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>
     <string name="mejor_precio">¡Al mejor precio!</string>
@@ -648,7 +648,7 @@
     <string name="recupera_contrasenia_title">Reestablece tu contraseña</string>
     <string name="recupera_contrasenia_title2">Reestablece aquí tu contraseña</string>
     <string name="enviaremos_enlace_restablecer">Si olvidaste tu contraseña, puedes\ngenerar una nueva, te enviaremos las\ninstrucciones al correo:</string>
-    <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contrseña</string>
+    <string name="ingresa_correo_registrado">Ingresa el correo electrónico que\nregistraste para recuperar tu contraseña</string>
     <string name="ingresa_correo_registrado_requerido">El correo electrónico es requerido. Verifica tu información.</string>
 
     <string name="carrouse_title_1">Cobra con tarjeta\nal mejor precio</string>
@@ -1193,8 +1193,8 @@
     <string name="monto_a_enviar">Monto a Enviar: </string>
     <string name="solicitar_pago_text">Solicitar Pago Por: </string>
     <string name="ingresa_monto">Ingresa el monto</string>
-    <string name="enviar_dinero">Enviar Dinero</string>
-    <string name="solicitar_pago">Solicitar Pago</string>
+    <string name="enviar_dinero">Enviar dinero</string>
+    <string name="solicitar_pago">Solicitar pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilitar tu tarjeta temporalmente</string>
     <string name="bloquear_tarjeta">Bloqueo temporal\nde tarjeta</string>
     <string name="bloquear_tarjeta_admin">Bloquear Tarjeta</string>
@@ -1480,7 +1480,9 @@
     <string name="tipo_de_envio">Tipo de envío</string>
     <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
     <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
-    <string name="subtituloatencon">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+    <string name="subtituloatencon">Si teines alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+    <string name="edit_word">Editar</string>
+
 
     <!-- Conectar Dongle Vía Bluetooth -->
     <string name="title_pair_bluetooth">Enlaza tu lector</string>

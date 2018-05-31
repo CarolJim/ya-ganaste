@@ -70,11 +70,7 @@
                     app:tipo="Text" />
 
 
-                <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-                    android:id="@+id/first_cube"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="Identificación Oficial Vigente">
+
 
 
                     <LinearLayout
@@ -148,14 +144,9 @@
                     </LinearLayout>
 
 
-                </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-                <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-                    android:id="@+id/lyWeNeedSmFilesIFEAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:title="Comprobante de Domicilio Comercial">
+
+
 
 
                     <LinearLayout
@@ -259,7 +250,6 @@
                         android:gravity="center"
                         android:text="@string/nextButton" />
 
-                </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
                 <LinearLayout
                     android:id="@+id/lnr_help"

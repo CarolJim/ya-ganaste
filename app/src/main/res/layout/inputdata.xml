@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.TextInputLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/text_input"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_input_field"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/inputtext_normal"
-    android:gravity="center_vertical"
-    android:hint="@string/favorte_name"
     android:maxLines="1"
-    android:paddingLeft="6dp"
-    android:textColorHint="@color/texthint"
-    app:passwordToggleTint="@color/hint_color"
+    android:background="@drawable/input_data_selector"
     app:counterEnabled="true"
-    app:counterMaxLength="1"
-    app:counterOverflowTextAppearance="@style/CounterOverFlow"
     app:hintTextAppearance="@style/HintText"
-    android:paddingStart="6dp"
+    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+    app:passwordToggleTint="@color/colorAccent"
+    app:counterMaxLength="1"
+    android:paddingLeft="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="2dp"
+    android:textColorHint="@color/texthint_edittext"
+    android:hint="@string/favorte_name"
     tools:ignore="RtlSymmetry">
 
-    <EditText
+    <android.support.design.widget.TextInputEditText
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="9dp"
-        android:background="@android:color/transparent"
         android:digits="@string/input_alphanumeric_space_reference"
         android:imeOptions="actionDone"
-        android:layout_marginLeft="5.5dp"
         android:inputType="textCapSentences"
         android:longClickable="false"
         android:maxLength="30"
+        android:background="@android:color/transparent"
         android:singleLine="true"
         android:textColor="@color/texthint_edittext"
         android:textSize="14sp"
-        android:layout_marginStart="5.5dp"
-        tools:ignore="LabelFor"
-        />
+        android:textCursorDrawable="@drawable/color_cursor"/>
+
 </android.support.design.widget.TextInputLayout>

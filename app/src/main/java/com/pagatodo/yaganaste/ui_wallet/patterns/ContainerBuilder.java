@@ -163,6 +163,9 @@ public class ContainerBuilder {
             } else {
                 adapter.addCardItem(new ElementWallet().getCardyaganaste());
             }
+
+        } else {
+            adapter.addCardItem(new ElementWallet().getCardyaganaste());
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
 

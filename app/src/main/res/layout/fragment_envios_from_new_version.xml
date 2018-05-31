@@ -62,15 +62,12 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
                             android:layout_below="@+id/txtEditarFavoritor123"
-                            android:gravity="left"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
-                            android:paddingTop="5dp"
-                            android:text="Editar"
+                            android:text="@string/edit_word"
                             android:textColor="@color/texthint"
-                            android:textSize="9sp" />
+                            android:textSize="9sp"
+                            android:layout_marginEnd="10dp" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtEditarFavoritor123"
@@ -81,8 +78,10 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_marginRight="10.5dp"
-                            android:text="Editar"
-                            android:visibility="gone" />
+                            android:text="@string/edit_word"
+                            android:visibility="gone"
+                            android:layout_marginEnd="10.5dp"
+                            android:layout_alignParentEnd="true" />
                     </RelativeLayout>
                     <HorizontalScrollView
                         android:layout_width="wrap_content"
@@ -93,7 +92,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_margin="5dp"/>
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginStart="10.5dp" />
                     </HorizontalScrollView>
                 </LinearLayout>
 
@@ -108,7 +110,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
                     android:layout_marginRight="11dp"
                     android:layout_marginTop="6dp"
@@ -117,14 +119,14 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:layout_width="match_parent"
-                        android:layout_height="12dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:text="@string/tipo_de_envio"
                         android:id="@+id/tipo_envio"
                         style="@style/generic_text_style_4"
                         android:layout_gravity="start"
-                        android:visibility="invisible"
-                        />
+                        android:visibility="visible"
+                        android:layout_marginStart="15dp" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -132,11 +134,14 @@
                         >
                     <Spinner
                         android:id="@+id/spnTypeSend"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_gravity="bottom"
                         android:layout_height="30dp"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/transparent" />
+                        android:backgroundTint="@color/transparent"
+                        tools:ignore="UnusedAttribute"
+                        android:layout_marginStart="15dp" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/imageViewCustomSpinner"
@@ -149,7 +154,8 @@
                         android:adjustViewBounds="true"
                         android:tint="@color/colorAccent"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ico_select" />
+                        app:srcCompat="@drawable/ico_select"
+                        android:layout_marginEnd="21dp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -412,15 +418,13 @@
                     android:id="@+id/envio_from_slide_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="vertical">
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="22dp"
-                        android:layout_marginRight="22dp"
+
                         android:background="@color/whiteColor" />
 
                     <LinearLayout

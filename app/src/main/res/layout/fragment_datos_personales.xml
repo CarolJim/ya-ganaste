@@ -43,12 +43,7 @@
                 android:textSize="14sp"
                 app:tipo="Text" />
 
-            <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-                android:id="@+id/layoutContent"
-                style="@style/BorderTitleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:title="@string/personalInfoTitle">
+
 
                 <LinearLayout
                     style="@style/BorderLayoutContent"
@@ -474,7 +469,7 @@
 
                 </LinearLayout>
 
-            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
 
             <View
                 android:layout_width="match_parent"

@@ -36,10 +36,6 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 
 
-/**
- * Created by Dell on 25/07/2017.
- */
-
 public class StatusRegisterAdquirienteFragment extends GenericFragment implements View.OnClickListener {
 
     public static final int PASO_CUPO_DOCUMENTACION_INCOMPLETA = 1;

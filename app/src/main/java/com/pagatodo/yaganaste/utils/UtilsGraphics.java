@@ -16,6 +16,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static com.pagatodo.yaganaste.App.getContext;
@@ -106,8 +107,12 @@ public class UtilsGraphics {
                         "**** **** **** XXXX",
                 20 * App.getContext().getResources().getDisplayMetrics().density);
         /* Obtener nombre del cliente en Bitmap */
-        Bitmap nameUser = getTextInBitmap(App.getInstance().getPrefs().loadData(NAME_USER) + " " +
-                App.getInstance().getPrefs().loadData(LAST_NAME), 14 * App.getContext().getResources().getDisplayMetrics().density);
+        String splitName[] = App.getInstance().getPrefs().loadData(NAME_USER).split(" ");
+        //String usuarioName = App.getInstance().getPrefs().loadData(NAME_USER);
+        /*Bitmap nameUser = getTextInBitmap(splitName[0] + " " +
+                App.getInstance().getPrefs().loadData(LAST_NAME), 14 * App.getContext().getResources().getDisplayMetrics().density);*/
+        Bitmap nameUser = getTextInBitmap(splitName[0] + " " +
+                SingletonUser.getInstance().getDataUser().getCliente().getPrimerApellido(), 14 * App.getContext().getResources().getDisplayMetrics().density);
         /* Pegar numero de tarjeta en diseño tarjeta */
         Bitmap faceView = overlayImages(cardYG, cardNumber, 40, cardYG.getHeight() / 2);
         /* Pegar nombre del cliente en diseño tarjeta */
