@@ -136,6 +136,21 @@
             </android.support.design.widget.TextInputLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtLoginOperadorOtroUsuario"
+                style="@style/textDescInputs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:padding="@dimen/margin_medium"
+                android:text="@string/other_user"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone"
+                android:textAlignment="center" />
+
+
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLoginExistUserRecoverPass"
                 style="@style/textDescInputs"
                 android:layout_width="match_parent"

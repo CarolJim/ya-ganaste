@@ -70,6 +70,7 @@ public class SingletonUser {
             prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getCliente().getNombre())
                     .concat(SPACE).concat(dataUser.getCliente().getPrimerApellido()));
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
+            //prefs.saveDataBool(PASSWORD_CHANGE, false);
             prefs.saveDataBool(ES_AGENTE, dataUser.getControl().getEsAgente());
             prefs.saveDataInt(ID_ROL, dataUser.getUsuario().getRoles().get(0).getIdRol());
             if (dataUser.getUsuario().getRoles().get(0).getIdRol() == 129) {

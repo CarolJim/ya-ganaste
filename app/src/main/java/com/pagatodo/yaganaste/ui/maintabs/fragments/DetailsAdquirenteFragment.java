@@ -247,7 +247,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         }
 
         if (color == R.color.greenColorPositiveMovements) {
-            upDown.setBackgroundResource(R.drawable.up);
+            upDown.setBackgroundResource(R.drawable.upadq);
         }
 
         if (color == R.color.colorAccent) {

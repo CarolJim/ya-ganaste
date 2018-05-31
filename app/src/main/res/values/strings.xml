@@ -240,6 +240,7 @@
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar sesión</string>
     <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
+    <string name="other_user">Ingresar con otro usuario</string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
     <string name="txt_mail">Correo electrónico</string>
     <string name="txt_mail_requerid">Ingresa el correo electrónico</string>
