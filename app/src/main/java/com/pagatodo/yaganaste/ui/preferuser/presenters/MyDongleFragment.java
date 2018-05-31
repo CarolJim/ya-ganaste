@@ -154,8 +154,8 @@ public class MyDongleFragment extends GenericFragment implements
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
 
 
-       if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129)
-        lytConfigRepayment.setVisibility(View.GONE);
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129)
+            lytConfigRepayment.setVisibility(View.GONE);
 
 
         lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
@@ -373,16 +373,16 @@ public class MyDongleFragment extends GenericFragment implements
                 case READ_BATTERY_LEVEL:
                     int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
                     String batteryPorcentage = intent.getStringExtra(Recursos.BATTERY_PORCENTAGE);
-                    if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
+                   /* if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
                         Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
                         //Toast.makeText(context, "La bataca es: "+batteryLevel, Toast.LENGTH_LONG).show();
                         int n = Integer.parseInt(batteryPorcentage.toString().trim(), 16);
                         //Toast.makeText(context, "El porcentage de la bateria es: "+n, Toast.LENGTH_SHORT).show();
                         //App.getInstance().pos.getQposId();
                         setNumberBattery(n);
-                    } else {
-                        setNumberBattery(Integer.parseInt(batteryPorcentage));
-                    }
+                    } else {*/
+                    setNumberBattery(Integer.parseInt(batteryPorcentage));
+                    //}
                     break;
                 case ERROR_LECTOR:
                     Log.i("IposListener: ", "=====>>    ERROR_LECTOR");

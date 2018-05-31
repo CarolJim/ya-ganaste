@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -101,13 +102,13 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         if (isOnline) {
           /*  UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
                     doubleActions, true, true);*/
-           UI.showAlertDialog(getContext(), getResources().getString(R.string.deseaDesasociarDispositivo), new DialogInterface.OnClickListener() {
-               @Override
-               public void onClick(DialogInterface dialogInterface, int i) {
-                   onEventListener.onEvent("DISABLE_BACK", true);
-                   mPreferPresenter.DesasociarToPresenter();
-               }
-           });
+            UI.showAlertDialog(getContext(), getResources().getString(R.string.deseaDesasociarDispositivo), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    onEventListener.onEvent("DISABLE_BACK", true);
+                    mPreferPresenter.DesasociarToPresenter();
+                }
+            });
         } else {
             // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
             showDialogCustom(getResources().getString(R.string.no_internet_access));
@@ -125,7 +126,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     public void sendSuccessDesasociarToView(String mensaje) {
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null);
@@ -133,6 +134,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         });
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
+        new DatabaseManager().deleteFavorites();
         RequestHeaders.clearPreferences();
     }
 
@@ -172,7 +174,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      * @param mensaje
      */
     public void showDialogCustom(final String mensaje) {
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

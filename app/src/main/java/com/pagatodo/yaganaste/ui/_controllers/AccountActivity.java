@@ -431,15 +431,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     }
 
     private void showDialogOut() {
-
         UI.showAlertDialog(this, getString(R.string.desea_cacelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
             }
         });
-
-
     }
 
 
