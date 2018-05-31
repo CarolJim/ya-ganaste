@@ -267,7 +267,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
-                back = false;
+                back = true;
                 setVisibilityBack(back);
                 loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
 
