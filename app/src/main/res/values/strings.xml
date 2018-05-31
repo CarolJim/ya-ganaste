@@ -1480,12 +1480,9 @@
     <string name="tipo_de_envio">Tipo de envío</string>
     <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
     <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
-<<<<<<< HEAD
     <string name="subtituloatencon">Si teines alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
-
     <string name="edit_word">Editar</string>
-=======
-    <string name="subtituloatencon">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+
 
     <!-- Conectar Dongle Vía Bluetooth -->
     <string name="title_pair_bluetooth">Enlaza tu lector</string>
@@ -1509,6 +1506,5 @@
     <string name="bluetooth_dongle_desc">Bluetooth chip &amp; pin</string>
     <string name="normal_dongle">Lector Plug</string>
     <string name="normal_dongle_desc">Jack de audio (3.5\'\')</string>
->>>>>>> edf300750d070b252b4688198c4f57d85f3791df
 
 </resources>
