@@ -87,7 +87,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.pageCurrent = 0;
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
     }
 
@@ -104,7 +103,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void initViews() {
         viewPagerWallet = pageContainer.getViewPager();
-        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(),this);
+        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this);
         llm = new GridLayoutManager(getContext(), 3);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
@@ -140,24 +139,24 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void getPagerAdapter(PagerAdapter pagerAdapter) {
         cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
         viewPagerWallet.setAdapter(pagerAdapter);
-        viewPagerWallet.setCurrentItem(this.pageCurrent == 0 ? cardWalletAdpater.getCount() / 2 : this.pageCurrent );
+        viewPagerWallet.setCurrentItem(this.pageCurrent == 0 ? cardWalletAdpater.getCount() / 2 : this.pageCurrent);
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.setPageMargin(15);
         viewPagerWallet.addOnPageChangeListener(this);
+        pager_indicator.removeAllViews();
         setUiPageViewController();
         updateOperations(this.pageCurrent);
         walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
     }
 
     private void setUiPageViewController() {
-        pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(),cardWalletAdpater.getSize());
+        pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(), cardWalletAdpater.getSize());
     }
 
     private void updateOperations(final int position) {
         int colums = 3;
         if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
             colums = 1;
-            pager_indicator.setVisibility(View.GONE);
         }
         elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
         elementsWalletAdapter.notifyDataSetChanged();
@@ -167,18 +166,18 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
         board.setTextSaldo(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
-        if (cardWalletAdpater.getElemenWallet(position).isUpdate()){
+        if (cardWalletAdpater.getElemenWallet(position).isUpdate()) {
             board.setReloadVisibility(View.VISIBLE);
         } else {
             board.setReloadVisibility(View.INVISIBLE);
         }
     }
 
-    private void upDateSaldo(int position){
+    private void upDateSaldo(int position) {
         board.setTextMonto(cardWalletAdpater.getElemenWallet(position).getSaldo());
     }
 
-    private void upDateSaldo(String saldo){
+    private void upDateSaldo(String saldo) {
         cardWalletAdpater.updateSaldo(this.pageCurrent, saldo);
         board.setTextMonto(saldo);
     }
@@ -287,12 +286,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void setErrorSaldo(String errorSaldo) {
-        UI.showErrorSnackBar(getActivity(),errorSaldo,Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), errorSaldo, Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void sendError(int codeError) {
-        switch (codeError){
+        switch (codeError) {
             case CODE_OFFLINE:
                 showDialogMesage(getResources().getString(R.string.no_internet_access));
                 break;
@@ -300,7 +299,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 walletPresenter.getWalletsCards(false);
                 break;
             case CODE_ERROR_INFO_AGENTE:
-                onEventListener.onEvent(EVENT_LOGOUT,null);
+                onEventListener.onEvent(EVENT_LOGOUT, null);
                 break;
         }
     }

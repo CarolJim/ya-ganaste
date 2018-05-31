@@ -61,7 +61,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     public void getStatusAccount(String mTDC) {
         walletView.showProgress();
         if (!mTDC.isEmpty()) {
-            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC.replace(" ",""));
+            EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC.replace(" ", ""));
             walletInteractor.getStatusAccount(estatusCuentaRequest);
         } else {
             SingletonUser.getInstance().setCardStatusId(ESTATUS_CUENTA_BLOQUEADA);
@@ -94,7 +94,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
             walletView.sendSuccessInfoAgente();
         } else*/
-            if (result instanceof ConsultarSaldoResponse) {
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
+            switch (typeWallet) {
+                case TYPE_ADQ:
+                    App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+                    break;
+            }
+        } else if (SingletonUser.getInstance().getDataUser().getControl().getEsCliente()) {
             String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
             switch (typeWallet) {
                 case TYPE_STARBUCKS:
@@ -109,36 +115,6 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
                     break;
             }
             walletView.getSaldo(saldo);
-        } else if (result instanceof ConsultarSaldoResponse) {
-
-
-
-
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129){
-
-                switch (typeWallet) {
-                    case TYPE_ADQ:
-                        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-                        break;
-                }
-            }else if (SingletonUser.getInstance().getDataUser().getControl().getEsCliente()){
-                String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
-                switch (typeWallet) {
-                    case TYPE_STARBUCKS:
-                        App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
-                        break;
-                    case TYPE_EMISOR:
-                        App.getInstance().getPrefs().saveData(USER_BALANCE, saldo);
-                        break;
-                    case TYPE_ADQ:
-                        App.getInstance().getPrefs().saveData(ADQUIRENTE_BALANCE, saldo);
-                        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-                        break;
-                }
-                walletView.getSaldo(saldo);
-            }
-
-
         }
     }
 

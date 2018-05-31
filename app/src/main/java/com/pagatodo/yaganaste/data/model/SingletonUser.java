@@ -61,6 +61,7 @@ public class SingletonUser {
     public DataIniciarSesionUYU getDataUser() {
         return dataUserUyu;
     }
+
     public void setDataUser(DataIniciarSesionUYU dataUser) {
         this.dataUserUyu = dataUser;
         Preferencias prefs = App.getInstance().getPrefs();
@@ -71,9 +72,9 @@ public class SingletonUser {
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
             prefs.saveDataBool(ES_AGENTE, dataUser.getControl().getEsAgente());
             prefs.saveDataInt(ID_ROL, dataUser.getUsuario().getRoles().get(0).getIdRol());
-            if (dataUser.getUsuario().getRoles().get(0).getIdRol()==129) {
+            if (dataUser.getUsuario().getRoles().get(0).getIdRol() == 129) {
                 prefs.saveDataBool(IS_OPERADOR, true);
-            }else {
+            } else {
                 prefs.saveDataBool(IS_OPERADOR, false);
             }
             prefs.saveData(COMPANY_NAME, (dataUser.getAdquirente().getAgentes().get(0).getNombreNegocio()));
@@ -90,7 +91,7 @@ public class SingletonUser {
         App.getInstance().getPrefs().saveDataInt(TIPO_AGENTE, 1);
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
                 && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) != CRM_DOCTO_APROBADO
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION)!=STATUS_DOCTO_PENDIENTE) {
+                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) != STATUS_DOCTO_PENDIENTE) {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         }
         if (dataUser.getUsuario() != null && dataUser.getUsuario().getImagenAvatarURL() != null) {
@@ -107,46 +108,6 @@ public class SingletonUser {
         }
 
         if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
-            prefs.saveDataBool(IS_CUPO, true);
-        }
-    }
-    public void setDataUser(DataIniciarSesion dataUser) {
-        //this.dataUser = dataUser;
-        Preferencias prefs = App.getInstance().getPrefs();
-        if (dataUser.isConCuenta()) {
-            prefs.saveDataBool(HAS_SESSION, true);
-            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
-                    .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
-            prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
-            prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
-            prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
-                    concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
-                            concat(dataUser.getUsuario().getSegundoApellido())));
-            prefs.saveData(LAST_NAME, dataUser.getUsuario().getPrimerApellido().concat(SPACE));
-            dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ",""));
-            prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
-            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
-        }
-
-        //dataUser.getUsuario().setTipoAgente(1);
-        if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
-                && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
-            App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
-        }
-
-        if (dataUser.getUsuario() != null && dataUser.getUsuario().getImagenAvatarURL() != null) {
-            String mUserImage = dataUser.getUsuario().getImagenAvatarURL();
-            String[] urlSplit = mUserImage.split("_");
-            if (urlSplit.length > 1) {
-                dataUser.getUsuario().setImagenAvatarURL(urlSplit[0] + "_M.png");
-                prefs.saveData(URL_PHOTO_USER, dataUser.getUsuario().getImagenAvatarURL());
-            }
-        }
-        if (dataUser.getIdEstatus() == IdEstatus.I10.getId() ||dataUser.getIdEstatus() == IdEstatus.I13.getId()) {
-            prefs.saveDataBool(ESTADO_RECHAZADO, true);
-        }
-
-        if (dataUser.getIdEstatus() == IdEstatus.CUPO.getId()) {
             prefs.saveDataBool(IS_CUPO, true);
         }
     }

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -10,6 +11,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.BluetoothDeviceAdapter;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -40,6 +43,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
@@ -123,6 +127,23 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
                 showLoader(getString(R.string.searching_devices));
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);
+        int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        int permissionLocation = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+
+        }
     }
 
     @Override
