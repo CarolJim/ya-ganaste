@@ -150,7 +150,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void setUiPageViewController() {
-        pager_indicator.removeDots();
         pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(),cardWalletAdpater.getSize());
     }
 
