@@ -167,7 +167,6 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
                     FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
 
                     if (fingerprintManager.isHardwareDetected()) {
-<<<<<<< HEAD
                         s.addOptionMenuSegurity(mLinearLayout,new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
                         OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
                         radioButtonNo = view.radioButtonNo;
@@ -183,34 +182,26 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
                                         App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
                                     }
                                 });
-=======
 
                         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
 
 
                             s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
-                            OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
-                            radioButtonNo = view.radioButtonNo;
-                            radioButtonSi = view.radioButtonSi;
+                            OptionMenuItem.ViewHolderMenuSegurity view1 = s.getArrayListOptionMenuSegurity().get(1);
+                            radioButtonNo = view1.radioButtonNo;
+                            radioButtonSi = view1.radioButtonSi;
                             setStates();
-                            radioButtonSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                    if (b) {
-                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
-                                    }
+                            radioButtonSi.setOnCheckedChangeListener((compoundButton, b) -> {
+                                if (b) {
+                                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
                                 }
                             });
-                            radioButtonNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                    if (b) {
-                                        App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
-                                    }
+                            radioButtonNo.setOnCheckedChangeListener((compoundButton, b) -> {
+                                if (b) {
+                                    App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, false);
                                 }
                             });
                         }
->>>>>>> edf300750d070b252b4688198c4f57d85f3791df
                     }
                 }
                 break;
