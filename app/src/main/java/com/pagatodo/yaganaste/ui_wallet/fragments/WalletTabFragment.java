@@ -143,6 +143,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setOffscreenPageLimit(3);
         viewPagerWallet.setPageMargin(15);
         viewPagerWallet.addOnPageChangeListener(this);
+        pager_indicator.removeAllViews();
         setUiPageViewController();
         updateOperations(this.pageCurrent);
         walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
@@ -157,7 +158,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         int colums = 3;
         if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
             colums = 1;
-            pager_indicator.setVisibility(View.GONE);
         }
         elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
         elementsWalletAdapter.notifyDataSetChanged();
@@ -269,7 +269,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     private void checkDataCard() {
         boolean isOnline = Utils.isDeviceOnline();
-        this.pageCurrent = 0;
         if (isOnline) {
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
