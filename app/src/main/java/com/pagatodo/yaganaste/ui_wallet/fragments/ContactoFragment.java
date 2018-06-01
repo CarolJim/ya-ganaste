@@ -74,7 +74,8 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
                         new String[]{Manifest.permission.READ_PHONE_STATE},
                         MY_PERMISSIONS_REQUEST_SEND_SMS);
             } else {
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "018005001000")));
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0180050010000")));
+
             }
 
             }
