@@ -67,7 +67,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
         this.currentAdapter = createAdapter(movements);
         updateRecyclerData(this.currentAdapter, movements);
-
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
             ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT_AD);
             new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);

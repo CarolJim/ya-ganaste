@@ -10,26 +10,14 @@ import java.io.Serializable;
 
 public class DataMovimientoAdq implements Serializable {
 
-    private String compania;
-    private String descripcionRechazo;
-    private boolean esAprobada;
-    private boolean esCargo;
-    private boolean esPendiente;
     private String fecha;
     private String idTransaction;
-    private String lat;
-    private String lon;
     private String monto;
-    private String montoAdicional;
     private String noAutorizacion;
-    private String noSecUnicoPT;
     private String noTicket;
     private String nombre;
     private String operacion;
     private String referencia;
-    private String urlMapa;
-    @SerializedName("Afiliacion")
-    private String afiliacion;
     @SerializedName("BancoEmisor")
     private String bancoEmisor;
     @SerializedName("MarcaTarjetaBancaria")
@@ -38,12 +26,6 @@ public class DataMovimientoAdq implements Serializable {
     private String montoAdqComision;
     @SerializedName("MontoAdqComisionIva")
     private String montoAdqComisionIva;
-    @SerializedName("NoAgente")
-    private String noAgente;
-    @SerializedName("RazonSocialAgente")
-    private String razonSocialAgente;
-    @SerializedName("TipoTarjetaBancaria")
-    private String tipoTarjetaBancaria;
     private boolean esReversada;
     @SerializedName("TipoTrans")
     private String tipoTrans;
@@ -57,59 +39,12 @@ public class DataMovimientoAdq implements Serializable {
     private String idTipoRembolso;
     @SerializedName("isClosedLoop")
     private boolean isClosedLoop;
-    @SerializedName("transactionIdentity")
-    private String transactionIdentity;
-
 
     public DataMovimientoAdq() {
     }
 
     public String getFechaOriginalTransaction() {
         return fechaOriginalTransaction;
-    }
-
-    public void setFechaOriginalTransaction(String fechaOriginalTransaction) {
-        this.fechaOriginalTransaction = fechaOriginalTransaction;
-    }
-
-    public String getCompania() {
-        return compania;
-    }
-
-    public void setCompania(String compania) {
-        this.compania = compania;
-    }
-
-    public String getDescripcionRechazo() {
-        return descripcionRechazo;
-    }
-
-    public void setDescripcionRechazo(String descripcionRechazo) {
-        this.descripcionRechazo = descripcionRechazo;
-    }
-
-    public boolean isEsAprobada() {
-        return esAprobada;
-    }
-
-    public void setEsAprobada(boolean esAprobada) {
-        this.esAprobada = esAprobada;
-    }
-
-    public boolean isEsCargo() {
-        return esCargo;
-    }
-
-    public void setEsCargo(boolean esCargo) {
-        this.esCargo = esCargo;
-    }
-
-    public boolean isEsPendiente() {
-        return esPendiente;
-    }
-
-    public void setEsPendiente(boolean esPendiente) {
-        this.esPendiente = esPendiente;
     }
 
     public String getFecha() {
@@ -128,22 +63,6 @@ public class DataMovimientoAdq implements Serializable {
         this.idTransaction = idTransaction;
     }
 
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLon() {
-        return lon;
-    }
-
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
-
     public String getMonto() {
         return monto;
     }
@@ -152,28 +71,12 @@ public class DataMovimientoAdq implements Serializable {
         this.monto = monto;
     }
 
-    public String getMontoAdicional() {
-        return montoAdicional;
-    }
-
-    public void setMontoAdicional(String montoAdicional) {
-        this.montoAdicional = montoAdicional;
-    }
-
     public String getNoAutorizacion() {
         return noAutorizacion;
     }
 
     public void setNoAutorizacion(String noAutorizacion) {
         this.noAutorizacion = noAutorizacion;
-    }
-
-    public String getNoSecUnicoPT() {
-        return noSecUnicoPT;
-    }
-
-    public void setNoSecUnicoPT(String noSecUnicoPT) {
-        this.noSecUnicoPT = noSecUnicoPT;
     }
 
     public String getNoTicket() {
@@ -208,22 +111,6 @@ public class DataMovimientoAdq implements Serializable {
         this.referencia = referencia;
     }
 
-    public String getUrlMapa() {
-        return urlMapa;
-    }
-
-    public void setUrlMapa(String urlMapa) {
-        this.urlMapa = urlMapa;
-    }
-
-    public String getAfiliacion() {
-        return afiliacion;
-    }
-
-    public void setAfiliacion(String afiliacion) {
-        this.afiliacion = afiliacion;
-    }
-
     public String getBancoEmisor() {
         return bancoEmisor;
     }
@@ -254,30 +141,6 @@ public class DataMovimientoAdq implements Serializable {
 
     public void setMontoAdqComisionIva(String montoAdqComisionIva) {
         this.montoAdqComisionIva = montoAdqComisionIva;
-    }
-
-    public String getNoAgente() {
-        return noAgente;
-    }
-
-    public void setNoAgente(String noAgente) {
-        this.noAgente = noAgente;
-    }
-
-    public String getRazonSocialAgente() {
-        return razonSocialAgente;
-    }
-
-    public void setRazonSocialAgente(String razonSocialAgente) {
-        this.razonSocialAgente = razonSocialAgente;
-    }
-
-    public String getTipoTarjetaBancaria() {
-        return tipoTarjetaBancaria;
-    }
-
-    public void setTipoTarjetaBancaria(String tipoTarjetaBancaria) {
-        this.tipoTarjetaBancaria = tipoTarjetaBancaria;
     }
 
     public boolean isEsReversada() {
@@ -326,13 +189,5 @@ public class DataMovimientoAdq implements Serializable {
 
     public void setClosedLoop(boolean closedLoop) {
         isClosedLoop = closedLoop;
-    }
-
-    public String getTransactionIdentity() {
-        return transactionIdentity;
-    }
-
-    public void setTransactionIdentity(String transactionIdentity) {
-        this.transactionIdentity = transactionIdentity;
     }
 }
