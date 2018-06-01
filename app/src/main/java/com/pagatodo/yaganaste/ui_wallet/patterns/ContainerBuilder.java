@@ -165,7 +165,10 @@ public class ContainerBuilder {
             }
 
         } else {
-            adapter.addCardItem(new ElementWallet().getCardyaganaste());
+
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+                adapter.addCardItem(new ElementWallet().getCardyaganaste());
+            }
         }
         adapter.addCardItem(new ElementWallet().getCardLectorAdq());
 

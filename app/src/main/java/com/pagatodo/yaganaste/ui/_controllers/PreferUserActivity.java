@@ -190,11 +190,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         mContext = this;
 
-
-        // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        if (!SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().equals(""))
-            checkDataCard();
-
         int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT);
         /*if (notifPendents == 0) {
             App.setBadge(notifPendents);
@@ -228,27 +223,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     @Override
     public boolean requiresTimer() {
         return true;
-    }
-
-    private void checkDataCard() {
-        /**
-         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
-         * consulamos el estado de bloquero y la informacion de ultimo acceso
-         * else mostramos la unformacion que traemos desde sl Singleton
-         */
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            // Verificamos el estado de bloqueo de la Card
-            String f = SingletonUser.getInstance().getCardStatusId();
-            if (f == null || f.isEmpty() || f.equals("0")) {
-                if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
-                    mPreferPresenter.toPresenterEstatusCuenta(mTDC);
-                }
-
-            }
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
-        }
     }
 
     /**

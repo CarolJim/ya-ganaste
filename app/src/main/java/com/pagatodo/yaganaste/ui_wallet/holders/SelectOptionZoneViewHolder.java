@@ -57,6 +57,7 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
     @Override
     public void bind(final ElementView elementView, final OnItemClickListener listener) {
         this.title.setText(elementView.getTitle());
+
         if (elementView.isStatus()) {
             this.descBtn1.setText(activity.getString(R.string.lector_plug));
             this.descBtn2.setText(activity.getString(R.string.lector_inalambrico));
@@ -66,6 +67,7 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
             this.imgBtn3.setImageResource(R.drawable.ic_no_dongle);
             this.btnContinue.setText(activity.getString(R.string.continuar));
             this.btnContinue.setOnClickListener(v -> {
+
                 switch (idButton) {
                     case FIRST_OPTION:
                         App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
@@ -87,6 +89,10 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
                     default:
                         UI.showErrorSnackBar(activity, activity.getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
                         break;
+
+
+
+
                 }
             });
         }

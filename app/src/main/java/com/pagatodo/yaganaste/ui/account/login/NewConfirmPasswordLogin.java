@@ -311,8 +311,10 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
         onEventListener.onEvent("DISABLE_BACK", false);
         if (SingletonUser.getInstance().getDataUser().getControl().getRequiereActivacionSMS()) {
             onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+
         } else {
             onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+
         }
     }
 }

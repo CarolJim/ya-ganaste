@@ -106,6 +106,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.txtVersionApp)
     TextView txtVersionApp;
 
+
+    @BindView(R.id.txtLoginOperadorOtroUsuario)
+    StyleTextView txtLoginOperadorOtroUsuario;
+
+
+
+
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -163,6 +170,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorTituloDialog)), 26, 47, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new UnderlineSpan(), 26, 47, 0);
         txtLoginExistUserRecoverPass.setText(ss);
+        txtLoginOperadorOtroUsuario.setOnClickListener(this);
+
+
+        if (prefs.containsData(IS_OPERADOR)){
+            txtLoginOperadorOtroUsuario.setVisibility(VISIBLE);
+        }
 
         if ((prefs.containsData(IS_OPERADOR))||!RequestHeaders.getTokenauth().isEmpty()) {
             textNameUser.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
@@ -172,6 +185,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             imgHeaderLogin.setVisibility(GONE);
             edtUserPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             textNameUser.setOnClickListener(this);
+
+
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);
             lyImgUser.setVisibility(GONE);
@@ -202,6 +217,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     edtUserName.setText(RequestHeaders.getUsername());
                     text_email.setVisibility(VISIBLE);
                 }
+                break;
+            case R.id.txtLoginOperadorOtroUsuario:
+                text_email.setVisibility(VISIBLE);
+                edtUserName.setText("");
+                edtUserName.setFocusable(true);
                 break;
             default:
                 break;
