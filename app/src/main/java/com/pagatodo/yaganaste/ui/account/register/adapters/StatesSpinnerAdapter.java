@@ -64,7 +64,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         if (position == 0) {
             holder.txtTitle.setText("");
             holder.txtTitle.setHint(item.getName());
-            holder.txtTitle.setHintTextColor(Color.GRAY);
+            holder.txtTitle.setHintTextColor(mContext.getResources().getColor(R.color.grayColor));
         } else {
             holder.txtTitle.setText(item.getName());
         }

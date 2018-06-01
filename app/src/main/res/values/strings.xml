@@ -334,7 +334,7 @@
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este correo ya ha sido registrado</string>
     <string name="userDataTitle">Datos de Usuario</string>
-    <string name="confirmEmail">Confirma Correo</string>
+    <string name="confirmEmail">Confirmar Correo</string>
     <string name="password">Contraseña</string>
     <string name="password6d">Contraseña (6 Dígitos)</string>
     <string name="introduce_nip">NIP (4 Dígitos)</string>
@@ -369,28 +369,28 @@
     <string name="female">Mujer</string>
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
-    <string name="birthDay">Fecha de Nacimiento</string>
-    <string name="county">País de Nacimiento</string>
+    <string name="birthDay">Fecha de nacimiento</string>
+    <string name="county">País de nacimiento</string>
     <string name="country_nationality">Nacionalidad</string>
     <string name="curp">CURP</string>
     <!-- Datos Personales -->
-    <string name="datos_personal_nombre">Ingresa tu Nombre</string>
-    <string name="datos_personal_paterno">Primer Apellido</string>
-    <string name="datos_personal_materno">Segundo Apellido</string>
-    <string name="datos_personal_fecha">Ingresa tu Fecha de Nacimiento</string>
-    <string name="datos_personal_estado">Indica tu Lugar de Nacimiento</string>
+    <string name="datos_personal_nombre">Ingresa tu nombre</string>
+    <string name="datos_personal_paterno">Primer apellido</string>
+    <string name="datos_personal_materno">Segundo apellido</string>
+    <string name="datos_personal_fecha">Ingresa tu fecha de nacimiento</string>
+    <string name="datos_personal_estado">Indica tu lugar de nacimiento</string>
     <string name="datos_personal_nacionalidad">Nacionalidad requerida, verifique su información</string>
-    <string name="datos_personal_genero">Indica tu Género</string>
+    <string name="datos_personal_genero">Indica tu género</string>
     <string name="datos_personal_pais">País de nacimiento requerido, verifique su información</string>
     <string name="datos_personal_pais_nacionalidad">Nacionalidad requerida, verifique su información</string>
     <string name="datos_personal_mayor_edad">Debes ser mayor de edad para continuar</string>
-    <string name="buscar_pais">Busca tu País</string>
+    <string name="buscar_pais">Busca tu país</string>
     <!--datos_domicilio-->
-    <string name="currentAddressTitle">Domicilio Personal</string>
+    <string name="currentAddressTitle">Domicilio personal</string>
     <string name="streetHint">Calle</string>
     <string name="outdoorNumber">N° Ext</string>
     <string name="interiorNumber">N° Int</string>
-    <string name="zipCodeHint">Código Postal</string>
+    <string name="zipCodeHint">Código postal</string>
     <string name="stateHint">Estado</string>
     <string name="datos_domicilio_calle">Calle requerida, verifique su información</string>
     <string name="datos_domicilio_num_ext">Número exterior requerido, verifique su información</string>
@@ -1354,7 +1354,7 @@
 
     <!-- Registro Emisor  -->
     <string name="correo_electronico">Correo electrónico</string>
-    <string name="correo_electronico_confirm">Confirma correo</string>
+    <string name="correo_electronico_confirm">Confirmar correo</string>
     <string name="contrasena">Contraseña</string>
     <string name="contrasena_confirma">Confirma contraseña</string>
 

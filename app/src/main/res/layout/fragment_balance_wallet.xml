@@ -58,15 +58,16 @@
                 android:paddingRight="@dimen/card_padding"
                 android:paddingStart="@dimen/card_padding" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/monto_y_text"
+                    android:layout_centerHorizontal="true"
                     android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -98,12 +99,14 @@
                     android:id="@+id/img_refresh_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_centerInParent="true"
+                    android:layout_toRightOf="@id/monto_y_text"
                     android:layout_marginLeft="16dp"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/ic_reload" />
-
-            </LinearLayout>
+                    app:srcCompat="@drawable/ic_reload"
+                    android:layout_toEndOf="@id/monto_y_text" />
+0
+            </RelativeLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_balance_card_desc"
@@ -112,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="7dp"
+                android:visibility="gone"
                 android:text="@string/saldo_disponible"
                 android:textColor="@color/colorAccent" />
 
@@ -123,6 +127,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="3dp"
                 android:layout_marginLeft="10dp"
+                android:visibility="gone"
                 android:text="@string/saldo_disponible"
                 android:textColor="@color/hint_color" />
 

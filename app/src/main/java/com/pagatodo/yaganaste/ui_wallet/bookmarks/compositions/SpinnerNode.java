@@ -32,8 +32,9 @@ public class SpinnerNode implements Component{
 
     private LinearLayout container;
     private Context context;
-        private AppCompatSpinner spinner;
-    private TextInputLayout inputLayout;
+    private Spinner spinner;
+    private StyleTextView tipoEnvio;
+
 
     private List<Integer> tipoPago = new ArrayList<>();
     private TypeSpinnerAdapter adapter;
@@ -60,10 +61,9 @@ public class SpinnerNode implements Component{
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(R.layout.spinner_holder, container, false);
         this.spinner = itemView.findViewById(R.id.spinner);
-        this.inputLayout = itemView.findViewById(R.id.text_input);
-        this.inputLayout.setHint("Tipo Envio");
-        adapter = getDataAdapter();
-        spinner.setAdapter(adapter);
+        this.tipoEnvio = itemView.findViewById(R.id.tipo_envio);
+        this.adapter = getDataAdapter();
+        this.spinner.setAdapter(adapter);
         this.container.addView(itemView);
 
     }
@@ -73,7 +73,7 @@ public class SpinnerNode implements Component{
         layout.addView(this.container);
     }
 
-    public AppCompatSpinner getSpinner() {
+    public Spinner getSpinner() {
         return this.spinner;
     }
 

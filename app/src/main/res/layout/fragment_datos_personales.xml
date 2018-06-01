@@ -376,10 +376,10 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="start"
-                                    android:text="Lugar de Nacimiento"
+                                    android:text="Lugar de nacimiento"
                                     android:textSize="12dp"
                                     android:textColor="@color/hint_color"
-                                    android:visibility="gone" />
+                                    android:visibility="gone"/>
 
                                 <Spinner
                                     android:id="@+id/spinnerBirthPlace"

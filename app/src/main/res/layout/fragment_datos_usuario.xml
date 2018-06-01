@@ -79,6 +79,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
+                        android:layout_marginBottom="9dp"
                          />
 
                 </android.support.design.widget.TextInputLayout>
@@ -111,6 +112,7 @@
                         android:textColor="@color/grayColor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
