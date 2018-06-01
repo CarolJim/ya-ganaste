@@ -220,6 +220,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 break;
             case R.id.txtLoginOperadorOtroUsuario:
                 text_email.setVisibility(VISIBLE);
+                edtUserName.setText("");
+                edtUserName.setFocusable(true);
                 break;
             default:
                 break;
