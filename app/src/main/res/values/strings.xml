@@ -1221,7 +1221,7 @@
     <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
     <string name="please_turn_on_dongle_battery">Por favor enciende tu lector para conocer su nivel de batería</string>
     <string name="receiving_dongle_battery">Obteniendo el nivel de batería</string>
-    <string name="time_repayment">Tiempo de reembolso</string>
+    <string name="time_repayment">Configuración de reembolso</string>
     <string name="select_dongle">Seleccionar lector</string>
     <string name="time_repayment_desc">Selecciona en cuánto tiempo deseas recibir\nlos reembolsos de tus cobros</string>
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
@@ -1360,7 +1360,7 @@
     <string name="contrasena_confirma">Confirma contraseña</string>
 
     <string name="contrasena_usuario">Contraseña (6 dígitos)</string>
-    <string name="contrasena_confirma_usuario">Confirma contraseña (6 dígitos)</string>
+    <string name="contrasena_confirma_usuario">Confirmar contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión</string>
     <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>

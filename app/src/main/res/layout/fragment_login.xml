@@ -84,6 +84,7 @@
                 app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleTint="@color/colorAccent"
+                android:visibility="gone"
                 >
 
                 <EditText

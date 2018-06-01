@@ -67,7 +67,6 @@
                 app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/colorAccent"
                 tools:ignore="UnusedAttribute">
 
                 <EditText
@@ -105,8 +104,8 @@
                 app:counterMaxLength="1"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/colorAccent"
-                tools:ignore="UnusedAttribute">
+
+                >
 
                 <EditText
                     android:id="@+id/confim_nip"

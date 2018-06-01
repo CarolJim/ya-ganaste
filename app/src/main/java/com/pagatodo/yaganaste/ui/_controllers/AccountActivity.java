@@ -300,7 +300,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_GO_ASOCIATE_PHONE:
                 changeToolbarVisibility(true);
-                showBack(false);
+                showBack(true);
                 loadFragment(AsociatePhoneAccountFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
