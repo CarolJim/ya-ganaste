@@ -12,10 +12,6 @@ public class ResumenMovimientosAdqResponse implements Serializable {
 
     private List<DataMovimientoAdq> movimientos;
     private DataResultAdq result;
-    private String saldoActual = "";
-    private String saldoInicial = "";
-    private String totalAbonos = "";
-    private String totalCargos = "";
 
     public ResumenMovimientosAdqResponse() {
         movimientos = new ArrayList<DataMovimientoAdq>();
@@ -26,10 +22,6 @@ public class ResumenMovimientosAdqResponse implements Serializable {
                                          String saldoActual, String saldoInicial, String totalAbonos, String totalCargos) {
         this.movimientos = movimientos;
         this.result = result;
-        this.saldoActual = saldoActual;
-        this.saldoInicial = saldoInicial;
-        this.totalAbonos = totalAbonos;
-        this.totalCargos = totalCargos;
     }
 
     public List<DataMovimientoAdq> getMovimientos() {
@@ -38,21 +30,5 @@ public class ResumenMovimientosAdqResponse implements Serializable {
 
     public DataResultAdq getResult() {
         return result;
-    }
-
-    public String getSaldoActual() {
-        return saldoActual;
-    }
-
-    public String getSaldoInicial() {
-        return saldoInicial;
-    }
-
-    public String getTotalAbonos() {
-        return totalAbonos;
-    }
-
-    public String getTotalCargos() {
-        return totalCargos;
     }
 }

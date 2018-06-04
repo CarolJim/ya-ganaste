@@ -448,7 +448,7 @@ public class CameraManager {
                     }*/
                 }
 
-                if (path.equals(".jpg") || path.equals(".jpge")) {
+                if (path.equals(".jpg") || path.equals(".jpge")|| path.equals(".png")) {
                     this.listener.onCropper(selectedImage);
                 } else {
                     // Toast.makeText(getContext(), "No es jpg", Toast.LENGTH_SHORT).show();
