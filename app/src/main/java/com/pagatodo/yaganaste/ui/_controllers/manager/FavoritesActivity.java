@@ -209,13 +209,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
 
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,7 +217,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         favoritesPresenter = new FavoritesPresenter(this);
         favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
 
-        btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
 
         Intent intent = getIntent();

@@ -887,6 +887,10 @@
 
     </style>
 
+    <style name="BlueAccent" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">#F00</item>
+    </style>
+
     <!-- Wallet Style Guide by Zeplin -->
     <style name="H1Blanco">
         <item name="android:gravity">center_horizontal</item>

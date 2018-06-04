@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,7 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,13 +84,13 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_administracion_layout, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
 
@@ -106,7 +108,9 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
         radioButtonSi = viewHolder.radioButtonSi;
         radioButtonNo = viewHolder.radioButtonNo;
         card.setCardNumber(App.getInstance().getPrefs().loadData(CARD_NUMBER));
-        card.setCardName(App.getInstance().getPrefs().loadData(FULL_NAME_USER));
+        String splitName[] = App.getInstance().getPrefs().loadData(NAME_USER).split(" ");
+
+        card.setCardName(splitName[0] + " " + SingletonUser.getInstance().getDataUser().getCliente().getPrimerApellido());
         String statusId = SingletonUser.getInstance().getCardStatusId();
         if (statusId != null && !statusId.isEmpty()) {
             checkState(statusId);
