@@ -234,7 +234,11 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
         } else {
-            sIniciales = fullName.substring(0, 2).toUpperCase();
+            if (spliName.length == 1){
+                sIniciales = fullName.substring(0, 1).toUpperCase()+fullName.substring(0, 1).toUpperCase();
+            }else {
+                sIniciales = fullName.substring(0, 2).toUpperCase();
+            }
         }
         return sIniciales;
     }
