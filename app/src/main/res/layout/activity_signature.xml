@@ -10,21 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLy"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
             android:layout_below="@+id/toolbarLy"
-            android:orientation="horizontal">
+            android:background="@drawable/background_toolbar"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -33,15 +34,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/pago_por" />
+                    android:text="@string/pago_por"
+                    android:textColor="@color/white_text_wallet" />
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtAmount"
                     style="@style/generic_text_style_4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:text="780.23"
+                    android:textColor="@color/white_text_wallet"
                     app:decimalLenght="1"
                     app:dotBottom="false"
                     app:symbolSmaller="true" />
@@ -50,8 +53,9 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -61,7 +65,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_small"
-                    android:text="*************4565" />
+                    android:text="*************4565"
+                    android:textColor="@color/white_text_wallet" />
 
                 <ImageView
                     android:id="@+id/imgTypeCard"
@@ -83,7 +88,9 @@
                 android:id="@+id/layout_content_firma"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/signature_here"
@@ -100,10 +107,10 @@
                     android:id="@+id/txtSign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:text="X"
-                    android:textSize="16sp"
                     android:textColor="@color/grayColor"
-                    android:layout_gravity="bottom"/>
+                    android:textSize="16sp" />
             </FrameLayout>
 
             <LinearLayout
@@ -115,6 +122,8 @@
                 android:minHeight="60dp"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/margin_small"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/margin_small">
 
                 <LinearLayout
@@ -128,15 +137,15 @@
                         android:layout_height="1dp"
                         android:background="@color/grayColor"
                         android:paddingLeft="16dp"
-                        android:paddingRight="16dp"/>
+                        android:paddingRight="16dp" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtNameOwnerCard"
                         style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="NOMBRE"
                         android:layout_margin="10dp"
+                        android:text="NOMBRE"
                         android:textAlignment="center" />
                 </LinearLayout>
 

@@ -56,6 +56,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECUR
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_STORES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE_TOKEN;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
@@ -290,6 +291,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             case OPTION_PAYMENT_ADQ:
                 nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
+            case OPTION_ADMON_ADQ:
+                break;
             case OPTION_RECOMPENSAS:
                 nextScreen(EVENT_REWARDS, null);
                 break;
@@ -405,7 +408,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                     break;
             }
         }else {
-
             switch (position) {
                 case 0:
                     txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceEmisor));

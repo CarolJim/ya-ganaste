@@ -437,7 +437,7 @@
             android:layout_gravity="center"
             android:background="@drawable/button_rounded_blue"
             android:gravity="center"
-            android:text="@string/main_tab_depositos" />
+            android:text="@string/continuar" />
     </LinearLayout>
 
 

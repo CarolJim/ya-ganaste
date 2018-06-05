@@ -862,7 +862,7 @@
     <string name="enviar_email">Enviar mail</string>
     <string name="como_ayudarte">¿Cómo podemos ayudarte?</string>
     <string name="comunicate_con_nosotros">Comunícate con nosotros\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
-    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue\n robada o la extraviaste, repórtala para\n desactivarla y brindarte una nueva\n\nPonte en contacto con nosotros.</string>
+    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue\n robada o la extraviaste, repórtala para\n desactivarla y brindarte una nueva.\n\nPonte en contacto con nosotros</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando mensaje</string>
@@ -1416,7 +1416,7 @@
     <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
     <string name="nip_confima">Confirmar nuevo NIP (4 dígitos)</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
-    <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
+    <string name="correo_electronico_tiket">Correo electrónico del cliente (Opcional)</string>
 
     <!-- Movimientos Reembolso-->
     <string name="title_dailog_reem">¿Estás seguro que deseas reembolsar el cobro?</string>

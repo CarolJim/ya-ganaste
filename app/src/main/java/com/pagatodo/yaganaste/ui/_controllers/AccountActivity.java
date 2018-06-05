@@ -109,6 +109,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_SECURE_CODE_BACK = "EVENT_SECURE_CODE_BACK";
     public final static String EVENT_QUICK_PAYMENT = "EVENT_QUICK_PAYMENT";
     public final static String EVENT_QUICK_PAYMENT_BACK = "EVENT_QUICK_PAYMENT_BACK";
+    public final static String EVENT_CONFIG_DONGLE = "EVENT_CONFIG_DONGLE";
     public final static String EVENT_RETRY_PAYMENT = "EVENT_RETRY_PAYMENT";
     public final static String EVENT_REWARDS = "EVENT_REWARDS";
     public final static String EVENT_STORES = "EVENT_STORES";
@@ -325,6 +326,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_QUICK_PAYMENT:
                 loginContainerFragment.loadQuickPayment();
+                break;
+            case EVENT_CONFIG_DONGLE:
+                loginContainerFragment.loadConfigDongle();
                 break;
             case EVENT_REWARDS:
                 loginContainerFragment.loadRewards();

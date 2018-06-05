@@ -83,7 +83,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         //getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
         //UI.showToastShort(itemClicked.getMovement().getTransactionIdentity(),getContext());
         onEventListener.onEvent(EVENT_GO_DETAIL_ADQ,itemClicked.getMovement());
-
     }
 
     @Override
