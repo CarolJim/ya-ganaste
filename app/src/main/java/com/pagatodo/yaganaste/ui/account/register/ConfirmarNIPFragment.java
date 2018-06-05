@@ -65,8 +65,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
-    @BindView(R.id.borderLayout)
-    BorderTitleLayout borderTitleLayout;
     @BindView(R.id.nip)
     EditText edtPin;
     @BindView(R.id.confim_nip)
@@ -80,8 +78,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
-    @BindView(R.id.frag_lista_opciones_photo_item)
-    CircleImageView iv_photo_item;
+    /*@BindView(R.id.frag_lista_opciones_photo_item)
+    CircleImageView iv_photo_item;*/
 
     CameraManager cameraManager;
 
@@ -119,8 +117,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
 
         cameraManager = new CameraManager(this);
-        cameraManager.initCamera(getActivity(), iv_photo_item, this);
-
+        //cameraManager.initCamera(getActivity(), iv_photo_item, this);
 
     }
 
@@ -147,7 +144,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
         tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
         tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-        borderTitleLayout.setTitle(getString(R.string.confirma_pin));
         imageView.setVisibility(View.VISIBLE);
 
 

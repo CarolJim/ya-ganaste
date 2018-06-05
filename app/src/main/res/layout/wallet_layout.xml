@@ -9,8 +9,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <View
         android:id="@+id/view4"
         android:layout_width="0dp"
@@ -54,9 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pager_container">
-
-    </com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView>
+        app:layout_constraintTop_toBottomOf="@+id/pager_container"/>
 
     <com.pagatodo.yaganaste.ui_wallet.views.CustomDots
         android:id="@+id/viewPagerCountDots"
@@ -67,15 +63,12 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_indication">
-
-    </com.pagatodo.yaganaste.ui_wallet.views.CustomDots>
+        app:layout_constraintTop_toBottomOf="@+id/board_indication"/>
 
     <com.pagatodo.yaganaste.ui_wallet.views.GridRecyclerView
         android:id="@+id/rcv_elements"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="@dimen/margin_wallet"
         android:layout_marginRight="@dimen/margin_wallet"
@@ -87,9 +80,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPagerCountDots"
-        app:layout_constraintVertical_bias="1.0">
-
-    </com.pagatodo.yaganaste.ui_wallet.views.GridRecyclerView>
+        app:layout_constraintVertical_bias="1.0"/>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressGIF"

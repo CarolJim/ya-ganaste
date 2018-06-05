@@ -222,7 +222,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                         StringBuilder cardNumber = new StringBuilder(editNumber.getText().toString());
                         int lastSharpIndex = cardNumber.indexOf("X");
                         if (keyCode == KeyEvent.KEYCODE_DEL) {
-                            if (lastSharpIndex <= 7 && lastSharpIndex >= 0) {
+                            if (lastSharpIndex <= 10 && lastSharpIndex >= 0) {
                                 return false;
                             }
                             if (lastSharpIndex != -1) {
@@ -448,7 +448,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void resetCardNumberDefault() {
-        editNumber.setText(DEFAULT_CARD + "XX XXXX XXXX");
+        editNumber.setText(DEFAULT_CARD + "XXXX XXXX");
     }
 
     private void generateCardNumberRamdon() {

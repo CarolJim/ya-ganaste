@@ -204,7 +204,7 @@ public class Recursos {
     public static final String URL_LEGALES_TERMINOS_LINEAC = "http://dev.yaganaste.com/terminos-y-condiciones-lc.html";
     public static final String URL_LEGALES_PRIVACIDAD_LINEAC = "http://dev.yaganaste.com/aviso-de-privacidad-lc.html";
 
-    public static final String DEFAULT_CARD = "5389 84";
+    public static final String DEFAULT_CARD = "5389 8403 ";
 
     /*
     Var para controlar los mensajes de session del servicio, se tiene una variacion porque tenemos un error de ortografia

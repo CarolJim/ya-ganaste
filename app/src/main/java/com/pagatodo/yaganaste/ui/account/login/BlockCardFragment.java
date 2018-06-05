@@ -103,7 +103,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @BindView(R.id.text_password)
     TextInputLayout text_password;
 
-
     private String password;
     private View rootview;
     private AccountPresenterNew accountPresenter;
