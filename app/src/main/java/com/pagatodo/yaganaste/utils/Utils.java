@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.TextView;
 
@@ -73,6 +74,7 @@ import java.util.regex.Pattern;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.security.auth.login.LoginException;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -540,6 +542,95 @@ public class Utils {
         return hexStringToByteArray(src);
     }
 
+    /* Procedimientos a realizar con la cadena:
+     * 1.- Buscar el TAG Emv.
+     * 2.- Buscar la longitud del contenido del TAG (Convertir Hexadecimal a Decimal)
+     * 3.- Cortar la cadena hasta la longitud indicada
+     * 4.- Volver a ejecutar el ciclo. */
+    public static final String[] hexStringToArray(String s) {
+        String[] b = new String[s.length() / 2];
+        boolean searchTag = true, tagHas2Bytes = false, searchLength = false, searchContent = false;
+        int lengthBytesContent = 0, bytesRead = 1;
+        String hexToBin, hexToDecimal, TAG = "", LENGTH = "", CONTENT = "";
+        for (int i = 0; i < b.length; i++) {
+            /* Obtención de bytes hexadecimales del String */
+            int index = i * 2;
+            String v = s.substring(index, index + 2);
+            b[i] = v;
+            /* Conversión hexadecimal a binario */
+            hexToBin = new BigInteger(b[i], 16).toString(2);
+            /* Buscamos el TAG Emv */
+            if (searchTag) {
+                LENGTH = "";
+                CONTENT = "";
+                /* Si el tag contiene un byte hexadecimal entonces se le asigna a la variable TAG,
+                 * en caso de que contenga 2 bytes se deberá concatenar el segundo byte al TAG y se
+                 * procede a buscar la longitud del contenido del tag */
+                if (!tagHas2Bytes) {
+                    TAG = b[i];
+                } else {
+                    TAG += b[i];
+                    tagHas2Bytes = false;
+                    searchTag = false;
+                    searchLength = true;
+                    break;
+                }
+                /* Si los ultimos 5 bits del hexadecimal convertido en binario están prendidos entonces
+                 * significa que el tag contiene 2 bytes hexadecimales */
+                if (hexToBin.length() > 4 && hexToBin.substring(hexToBin.length() - 5, hexToBin.length()).equals("11111")) {
+                    tagHas2Bytes = true;
+                } else {
+                    tagHas2Bytes = false;
+                    searchTag = false;
+                    searchLength = true;
+                }
+                Log.e("EMV", "TAG: " + TAG);
+                /* Una vez encontrado el TAG procedemos a buscar la longitud del contenido del tag */
+            } else if (searchLength) {
+                /* Si el TAG es igual a 91 entonces necesitamos convertir el decimal que llega de
+                 * servicio a hexadecimal como parte de la longitud del contenido del tag */
+                if (TAG.equals("91")) {
+                    LENGTH = Integer.toHexString(Integer.parseInt(b[i])).toUpperCase();
+                    /* Si el hexadecimal contiene solo una letra o caracter, se le debe agregar un
+                     * 0 antes para que la longitud sea válida para el chip */
+                    if (LENGTH.length() == 1) {
+                        LENGTH = "0" + LENGTH;
+                    }
+                    /* Se guarda el tamaño convertido a decimal ya que se empleará para realizar el
+                     * corte de la cadena */
+                    lengthBytesContent = Integer.parseInt(b[i]);
+                } else {
+                    LENGTH = b[i];
+                    lengthBytesContent = Integer.parseInt(LENGTH, 16);
+                }
+                searchLength = false;
+                searchContent = true;
+                Log.e("EMV", "LENGTH: " + LENGTH);
+            } else if (searchContent) {
+                if (TAG.equals("91") && bytesRead == 16) {
+                    TAG = "";
+                    bytesRead = 1;
+                    lengthBytesContent = 0;
+                    searchContent = false;
+                    searchTag = true;
+                } else if (bytesRead < lengthBytesContent || (TAG.equals("91") && bytesRead == lengthBytesContent)) {
+                    CONTENT += b[i];
+                    bytesRead++;
+                } else if (TAG.equals("91") && bytesRead < 16 && bytesRead > 10) {
+                    bytesRead++;
+                } else {
+                    CONTENT += b[i];
+                    bytesRead = 1;
+                    lengthBytesContent = 0;
+                    searchContent = false;
+                    searchTag = true;
+                }
+                Log.e("EMV", "CONTENT: " + CONTENT);
+            }
+        }
+        return b;
+    }
+
     public static final byte[] hexStringToByteArray(String s, char delimiter) {
         char src[] = s.toCharArray();
         int srcLen = 0;
@@ -587,185 +678,6 @@ public class Utils {
         return timeStamp;
     }
 
-    public static String getCurrentDay() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss");
-        String timeStamp = sdf.format(date);
-        char[] chars = timeStamp.toCharArray();
-        chars[3] = Character.toUpperCase(chars[3]);
-        timeStamp = new String(chars);
-        return timeStamp;
-    }
-
-    public static String getDay() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String timeStamp = sdf.format(date);
-        return timeStamp;
-    }
-
-    public static String toHex(String arg) {
-        return String.format("%040x", new BigInteger(1, arg.getBytes(/*
-         * YOUR_CHARSET?
-         */)));
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String getHourPhone() {
-        Date dt = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        String formatteHour = df.format(dt.getTime());
-        return formatteHour;
-    }
-
-    public static String segmentofinal(String segmentofinal, String operacion) {
-        String cadena = "";
-        String res;
-        int tamanio = 0;
-        int segmentoCadena = 0;
-        if (operacion == "tae")
-            cadena = Utils.parseNumberToPhone(segmentofinal);
-        else
-            cadena = (segmentofinal);
-        tamanio = cadena.length();
-        if (tamanio <= 4)
-            res = segmentofinal;
-        else {
-            segmentoCadena = tamanio - 4;
-            res = cadena.substring(segmentoCadena);
-        }
-        return res;
-    }
-
-    public static String formatIave(String iave) {
-        String res = null;
-        String aux = null;
-        boolean espacio = false;
-        if (iave != null) {
-            aux = iave;
-            if (aux.length() > 8) {
-                for (int i = 8; i < aux.length(); i++) {
-                    if (i == 8) {
-                        res = new String(aux.substring(0, 8) + " ");
-                        espacio = true;
-                    }
-                    if (espacio) {
-                        if (i == 10)
-                            res = new String(aux.substring(0, 8) + " "
-                                    + aux.substring(8, 10));
-                        else
-                            res = res.concat(aux.charAt(i) + "");
-                    }
-                }
-            } else
-                res = new String(aux);
-        }
-        return res;
-    }
-
-    public static String formatCfe(String cfe) {
-        String res = null;
-        String aux = null;
-        boolean espacio = false;
-        if (cfe != null) {
-            aux = cfe;
-            if (aux.length() > 2) {
-                for (int i = 2; i < aux.length(); i++) {
-                    if (i == 2) {
-                        res = new String(aux.substring(0, 2) + " ");
-                        espacio = true;
-                    }
-                    if (espacio) {
-                        if (i == 13)
-                            res = new String(aux.substring(0, 2) + " "
-                                    + aux.substring(2, 14) + " ");
-                        else if (i == 19)
-                            res = new String(aux.substring(0, 2) + " "
-                                    + aux.substring(2, 14) + " "
-                                    + aux.substring(14, 20) + " ");
-                        else if (i == 28)
-                            res = new String(aux.substring(0, 2) + " "
-                                    + aux.substring(2, 14) + " "
-                                    + aux.substring(14, 20) + " "
-                                    + aux.substring(20, 29) + " ");
-                        else if (i == 29)
-                            res = new String(aux.substring(0, 2) + " "
-                                    + aux.substring(2, 14) + " "
-                                    + aux.substring(14, 20) + " "
-                                    + aux.substring(20, 29) + " "
-                                    + aux.substring(29, 30));
-                        else
-                            res = res.concat(aux.charAt(i) + "");
-
-                    }
-                }
-            } else
-                res = new String(aux);
-        }
-        return res;
-
-    }
-
-    public static String formatAvon(String avon) {
-        String res = null;
-        String aux = null;
-        boolean espacio = false;
-        if (avon != null) {
-            aux = avon;
-            if (aux.length() > 4) {
-                for (int i = 4; i < aux.length(); i++) {
-                    if (i == 4) {
-                        res = new String(aux.substring(0, 4) + " ");
-                        espacio = true;
-                    }
-                    if (espacio) {
-                        if (i == 7)
-                            res = new String(aux.substring(0, 4) + " "
-                                    + aux.substring(4, 8) + " ");
-                        else if (i == 11)
-                            res = new String(aux.substring(0, 4) + " "
-                                    + aux.substring(4, 8) + " "
-                                    + aux.substring(8, 12) + " ");
-                        else if (i == 13)
-                            res = new String(aux.substring(0, 4) + " "
-                                    + aux.substring(4, 8) + " "
-                                    + aux.substring(8, 12) + " "
-                                    + aux.substring(12, 14));
-                        else
-                            res = res.concat(aux.charAt(i) + "");
-
-                    }
-                }
-            } else
-                res = new String(aux);
-        }
-        return res;
-    }
-
-    public static String formatFecha(Activity context, String fecha) {
-        String[] meses = context.getResources().getStringArray(
-                R.array.meses_array);
-        String[] partes = TextUtils.split(fecha, Pattern.quote("/"));
-        String fechaFormateada = "";
-        if (partes.length == 3)
-            fechaFormateada = String.format(
-                    context.getString(R.string.fecha_formater), partes[0],
-                    meses[Integer.parseInt(partes[1]) - 1], partes[2]);
-        return fechaFormateada;
-    }
-
-    public static String getVersionName(Activity context) {
-        PackageInfo pInfo = null;
-        String versionName = null;
-        try {
-            pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            versionName = pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            versionName = "1.0.0";
-        }
-        return versionName;
-    }
-
     @SuppressLint("SimpleDateFormat")
     public static String cambiarFormatoFecha(String fecha) {
         DateFormatSymbols mesesFormato = cambioFormatoMeses();
@@ -786,27 +698,6 @@ public class Utils {
         return fechaFormateada;
     }
 
-    @SuppressLint("SimpleDateFormat")
-    public static Date cambiarFormatoFechaDate(String fecha) {
-        DateFormatSymbols mesesFormato = cambioFormatoMeses();
-        String input = "yyyy/MM/dd kk:mm:ss";
-        String output = "dd/MMM/yy kk:mm";
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat(input);
-        SimpleDateFormat formatoSalida = new SimpleDateFormat(output, mesesFormato);
-
-        Date date = null;
-        String fechaFormateada = null;
-
-        try {
-            date = formatoEntrada.parse(fecha);
-            fechaFormateada = formatoSalida.format(date);
-            return formatoSalida.parse(fechaFormateada);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static DateFormatSymbols cambioFormatoMeses() {
         DateFormatSymbols fechasActual = new DateFormatSymbols(new Locale("es", "ES"));
         String[] anteriorMeses = fechasActual.getShortMonths();
@@ -822,156 +713,12 @@ public class Utils {
         return fechasActual;
     }
 
-    public static String FormatAmount(String monto) {
-        String tmp = null;
-        DecimalFormat formatter = new DecimalFormat("#,##0.00");
-        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-        dfs.setDecimalSeparator('.');
-        dfs.setGroupingSeparator(',');
-        formatter.setDecimalFormatSymbols(dfs);
-        tmp = formatter.format(Double.parseDouble(monto));
-        return tmp;
-    }
-
-    public static boolean isValidMail(String email) {
-        int index = email.indexOf("@");
-        return (!email.isEmpty()) && (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                && (!email.substring(index - 1, index).equals("."));
-    }
-
-    public static boolean isValidFormatPassword(String password) {
-        Pattern pattern;
-        Matcher matcher;
-        String regex = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,})";
-        pattern = Pattern.compile(regex);
-        matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-
-    public static boolean isCadenaDeEspacios(String cadena) {
-        String cadenaValidacion = cadena.trim();
-        if (cadenaValidacion.length() == 0)
-            return true;
-        else
-            return false;
-    }
-
-    public static boolean fileExists(String resourceURL, Activity context) {
-        String cleanedResourceURL = resourceURL.replace("\\", "/");
-        String path = context.getFilesDir().toString();
-        String fileName = Uri.parse(cleanedResourceURL).getLastPathSegment();
-        path = path + "/" + cleanedResourceURL.replace(fileName, "");
-        File file = new File(path, fileName);
-
-        return file.exists();
-    }
-
-    public static boolean writeResourceToInternalStorage(Bitmap bitmap, String filedir, String filename, Activity context) {
-        if (bitmap == null) {
-            return false;
-        }
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File dir = new File(storageDir.getAbsolutePath() + filedir);
-        dir.mkdirs();
-        try {
-            File createdFile = new File(dir, filename);
-            FileOutputStream fileOutputStream = new FileOutputStream(createdFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fileOutputStream);
-
-            fileOutputStream.flush();
-            fileOutputStream.close();
-            //bitmap.recycle();
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static File createImage(Bitmap bitmap, String filedir, String filename, Activity context) throws FileNotFoundException, IOException {
-        File createdFile = null;
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File dir = new File(storageDir.getAbsolutePath() + filedir);
-        dir.mkdirs();
-        createdFile = new File(dir, filename);
-        FileOutputStream fileOutputStream = new FileOutputStream(createdFile);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fileOutputStream);
-
-        fileOutputStream.flush();
-        fileOutputStream.close();
-        bitmap.recycle();
-        return createdFile;
-    }
-
-
     public static int convertDpToPixels(int dp) {
         DisplayMetrics displayMetrics = App.getInstance().getResources().getDisplayMetrics();
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
     }
 
-    public static String getFechaActual() {
-        Calendar cal = Calendar.getInstance();
-        String fechayhora, fechahoranew;
-        fechayhora = DateFormat.format("yyyy/MM/dd kk:mm:ss", cal.getTime()).toString();
-        fechahoranew = Utils.cambiarFormatoFecha(fechayhora);
-        return fechahoranew;
-    }
-
-    public static String getLastWeek() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date()); // Configuramos la fecha que se recibe
-        calendar.add(Calendar.WEEK_OF_MONTH, -1);
-
-        DateFormatSymbols mesesFormato = cambioFormatoMeses();
-        String output = "dd/MMM/yy";
-        SimpleDateFormat formatoSalida = new SimpleDateFormat(output, mesesFormato);
-        try {
-            return formatoSalida.format(calendar.getTime());
-            //return formatoSalida.parse(fechaFormateada);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static String getCurrentWeekFormmated() {
-        DateFormatSymbols mesesFormato = cambioFormatoMeses();
-        String output = "dd/MMM/yy";
-        SimpleDateFormat formatoSalida = new SimpleDateFormat(output, mesesFormato);
-        try {
-            return formatoSalida.format(Calendar.getInstance().getTime());
-            //return formatoSalida.parse(fechaFormateada);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static Calendar getCalendarOfLastWeek() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date()); // Configuramos la fecha que se recibe
-        calendar.add(Calendar.WEEK_OF_MONTH, -1);
-        return calendar;
-    }
-
-    /**
-     * Formatear la fecha con la hora
-     *
-     * @param date dateFormat "dd/MMM/yy"
-     * @return date output "dd/MMM/yy kk:mm"
-     */
-    public static Date reFormmatingDate(String date) {
-        try {
-            date += " 23:59";
-            return new SimpleDateFormat("dd/MMM/yy kk:mm", cambioFormatoMeses()).parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
 
     public static String getCurrencyValue(double value) {
         Locale mx = Locale.getDefault();
@@ -1002,10 +749,6 @@ public class Utils {
         }
     }
 
-    public static double getDoubleValue(TextView textView) {
-        return getDoubleValue(textView.getText().toString());
-    }
-
     public static double getRoundValue(double value) {
         Locale mx = Locale.getDefault();
         Locale.setDefault(Locale.US);
@@ -1022,10 +765,6 @@ public class Utils {
     public static String getCurriencyValueNoDecimals(double value) {
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
         return defaultFormat.format(Math.round(getRoundValue(value)));
-    }
-
-    public static String getCurriencyValueNoDecimals(String value) {
-        return getCurriencyValueNoDecimals(getDoubleValue(value));
     }
 
     public static String getCleanValue(double value) {
@@ -1059,47 +798,6 @@ public class Utils {
         }
 
         return value;
-    }
-
-    public static String formatDatePickerDialog(int dayOfMonth, int monthOfYear, int year) {
-
-        String day = "";
-        String month = "";
-        int iMonth = ++monthOfYear;
-        if (dayOfMonth < 10) {
-            day = String.format("0%s", dayOfMonth);
-        } else {
-            day = String.format("%s", dayOfMonth);
-        }
-
-        if (iMonth < 10) {
-            month = String.format("0%s", iMonth);
-        } else {
-            month = String.format("%s", iMonth);
-        }
-
-        String date = String.format("%s/%s/%s", day, month, year);
-
-        return date;
-
-    }
-
-    public static String getJSONStringFromAssets(Context context, String uri) {
-        String response = "";
-        try {
-            InputStream inputStream = context.getAssets().open(uri);
-            int size = inputStream.available();
-
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-
-            response = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return response;
     }
 
     public static String getTokenDevice(Context context) {
@@ -1229,40 +927,6 @@ public class Utils {
         return rawLength += (rawLength - 1) / GROUP_FORMAT;
     }
 
-
-    public static String contactPicked(Intent data, Context context) {
-        Cursor cursor;
-        String phoneNo = null;
-        Uri uri = data.getData();
-        String returnString = "";
-        cursor = context.getContentResolver().query(uri, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            //get column index of the Phone Number
-            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            // column index of the contact name
-            //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-            phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
-            if (phoneNo.length() > 10) {
-                phoneNo = phoneNo.substring(phoneNo.length() - 10);
-            }
-
-            String number = phoneNo;
-            number = number.replaceAll(" ", "");
-            String response = "";
-            for (int i = 0; i < number.length(); i++) {
-                response = response + number.charAt(i);
-                if (i == 1 || i == 5) {
-                    response = response + " ";
-                }
-            }
-            returnString = response;
-        }
-
-        return returnString;
-    }
-
-
     public static void setDurationScale(float durationScale) {
         try {
             Field scale = ValueAnimator.class.getDeclaredField("sDurationScale");
@@ -1277,7 +941,6 @@ public class Utils {
 
     public static ArrayList<CarouselItem> removeNullCarouselItem(ArrayList<CarouselItem> originalList) {
         ArrayList<CarouselItem> items = originalList;
-
         // Funcion para eliminar los nuos de nuestra lista. A futuro se cambiara por ComercioResponse
         for (int x = 0; x < items.size(); x++) {
             if (items.get(x).getComercio() == null) {
