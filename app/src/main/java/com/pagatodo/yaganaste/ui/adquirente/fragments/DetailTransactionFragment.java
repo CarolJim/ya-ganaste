@@ -85,21 +85,14 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @BindView(R.id.text_email)
     TextInputLayout text_email;
 
-
-
     @BindView(R.id.edtEmailSendticketold)
     CustomValidationEditText edtEmailSendticketold;
     @BindView(R.id.layout_enviado)
     LinearLayout lyt_concept;
     ImageView imageshae;
 
-
-
     @BindView(R.id.btnNextEnviarticket)
     StyleButton btnNextEnviarticket;
-
-
-
 
     private TransaccionEMVDepositResponse emvDepositResponse;
     private String emailToSend = "";
@@ -190,13 +183,9 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     text_email.setBackgroundResource(R.drawable.inputtext_active);
-
                 }
-
             }
         });
-
-
     }
 
     @Override

@@ -144,7 +144,7 @@
 
     <string name="desasociarDispositivoTittle">Desvincula tu dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al desvincular tu dispositivo, ya no estará ligado\na tu cuenta Ya Ganaste y se cerrará tu sesión.\n\nPuedes iniciar sesión en cualquier dispositivo\npara volver a vincular tu cuenta.</string>
-    <string name="deseaDesasociarDispositivo">¿Desea desvincular el dispositivo?</string>
+    <string name="deseaDesasociarDispositivo">¿Estás seguro que deseas desvincular tu dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea llamar ahora?</string>
     <string name="sel_fotografia">Seleccionar fotografía</string>
     <string name="error_take_photo">Imagen duplicada, intenta con una diferente</string>
@@ -614,7 +614,7 @@
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
     <string name="no_tiene_tarjeta">Te asignaremos una tarjeta digital\ny podras solicitar una física en el futuro</string>
-    <string name="si_tiene_tarjeta">Ingresa los últimos 10 dígitos que se encuentran\nen la parte frontal de tu tarjeta</string>
+    <string name="si_tiene_tarjeta">Ingresa los últimos 8 dígitos que se\nencuentran en la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu tarjeta esta lista</string>
     <string name="tarjeta_cancelada">Tu tarjeta esta cancelada</string>
     <string name="title_aceptar">Aceptar</string>
@@ -672,8 +672,7 @@
     <string name="share_ticket_email">Compartir recibo</string>
     <string name="share_text">Compartir</string>
     <string name="share_ticket_email_text">Ingresa el correo electronico que \nrecibira el detalle del cobro</string>
-    <string name="recibo_enviado">El recibo fue enviado con éxito</string>
-    <string name="recibo_enviado_line">El recibo fue enviado \ncon éxito</string>
+    <string name="recibo_enviado_line">El ticket fue enviado con éxito</string>
 
     <!-- Mensajes de error para registro SMS -->
     <string name="fallo_envio">Falla al enviar el mensaje</string>
@@ -862,7 +861,7 @@
     <string name="enviar_email">Enviar mail</string>
     <string name="como_ayudarte">¿Cómo podemos ayudarte?</string>
     <string name="comunicate_con_nosotros">Comunícate con nosotros\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
-    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue\n robada o la extraviaste, repórtala para\n desactivarla y brindarte una nueva\n\nPonte en contacto con nosotros.</string>
+    <string name="comunicate_reporta">Si tu tarjeta presenta daños, fue\n robada o la extraviaste, repórtala para\n desactivarla y brindarte una nueva.\n\nPonte en contacto con nosotros</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando mensaje</string>
@@ -1384,7 +1383,7 @@
 
     <string name="sub_titulo_domicilio_personal">Ingresa los datos de tu domicilio\nactual para terminar tu registro</string>
 
-    <string name="titulo_nip">Nip de tu tarjeta Ya Ganaste</string>
+    <string name="titulo_nip">Nip de tu tarjeta</string>
     <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\nascendentes o descendentes</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
@@ -1416,7 +1415,7 @@
     <string name="nip_nuevo">Nuevo NIP (4 dígitos)</string>
     <string name="nip_confima">Confirmar nuevo NIP (4 dígitos)</string>
     <string name="success_nip">Tu NIP ha sido cambiado correctamente</string>
-    <string name="correo_electronico_tiket">¿A qué correo te enviaremos el ticket?</string>
+    <string name="correo_electronico_tiket">Correo electrónico del cliente (Opcional)</string>
 
     <!-- Movimientos Reembolso-->
     <string name="title_dailog_reem">¿Estás seguro que deseas reembolsar el cobro?</string>
@@ -1481,7 +1480,7 @@
     <string name="tipo_de_envio">Tipo de envío</string>
     <string name="olvidaste_tu_contrasena_starbucks">¿Olvidaste tu contraseña?</string>
     <string name="recupera_tu_contrase_a">Recupera tu Contraseña</string>
-    <string name="subtituloatencon">Si teines alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+    <string name="subtituloatencon">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
     <string name="edit_word">Editar</string>
 
 

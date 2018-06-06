@@ -79,9 +79,6 @@
                             android:orientation="horizontal"
                             android:visibility="visible">
 
-
-
-
                             <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
                                 android:id="@+id/radioBtnYes"
                                 style="@style/RadioButtonMenu"

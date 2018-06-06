@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
  * Created by Jordan on 06/07/2017.
@@ -68,7 +70,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        if ((prefs.containsData(IS_OPERADOR))||(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
+        if ((prefs.containsData(IS_OPERADOR)) || (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
             //loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
             loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);
             showBack(false);
@@ -108,6 +110,11 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         showBack(true);
     }
 
+    public void loadConfigDongle() {
+        loadFragment(MyDongleFragment.newInstance(prefs.loadDataInt(MODE_CONNECTION_DONGLE)), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
     public void loadRewards() {
         loadFragment(RewardsStarbucksFragment.newInstance(), Direction.FORDWARD, true);
         showBack(true);
@@ -143,7 +150,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
             showBack(true);
             loadFragment(LoginFragment.newInstance(), Direction.BACK, false);
         } else if (currentFragment instanceof LoginFragment) {
-            if ((prefs.containsData(IS_OPERADOR))||(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
+            if ((prefs.containsData(IS_OPERADOR)) || (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
                 showBack(false);
                 loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
             } else {

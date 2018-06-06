@@ -85,8 +85,10 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
             case EVENT_GO_GET_SIGNATURE:
                 loadFragment(GetSignatureFragment.newInstance(), Direction.FORDWARD, false);
                 showBack(false);
+                getSupportActionBar().hide();
                 break;
             case EVENT_GO_DETAIL_TRANSACTION:
+                getSupportActionBar().show();
                 loadFragment(DetailTransactionFragment.newInstance(), Direction.FORDWARD, false);
                 showBack(false);
                 break;

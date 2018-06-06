@@ -280,6 +280,7 @@ public class ElementView implements ElementGlobal {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }
