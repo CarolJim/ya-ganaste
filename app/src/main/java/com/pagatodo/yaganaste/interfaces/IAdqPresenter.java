@@ -18,4 +18,6 @@ public interface IAdqPresenter {
     void sendSignature(SignatureData signatureData);
 
     void sendTicket(String email, boolean applyAgent);
+
+    void sendTicket(String idTransicion, String name, String email, boolean applyAgente);
 }

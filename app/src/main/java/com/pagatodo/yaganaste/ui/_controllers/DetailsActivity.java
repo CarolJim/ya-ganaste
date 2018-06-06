@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -159,18 +160,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     }
 
 
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-
-    }*/
-
-
     protected void loadFragment(TYPES type, Serializable data) {
         if (type != null) {
             if (type.equals(TYPES.EMISOR)) {
@@ -183,7 +172,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                  * PROCESO Detenido hasta liveracion de Ticket
                  */
                 dataMovimentTmp = (DataMovimientoAdq) data;
-                loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data));
+                DetailsAdquirenteFragment.MovTab movTab = new DetailsAdquirenteFragment.MovTab();
+                movTab.setCurrentTab(-1);
+                movTab.setItemMov(dataMovimentTmp);
+                loadFragment(DetailsAdquirenteFragment.newInstance(movTab));
             }
         } else {
             throw new NullObjectExcepcion("Type is not recognized");
@@ -257,6 +249,9 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_mov_det_adq, menu);
+        return true;
         /*if (types != null) {
             if (types.equals(TYPES.EMISOR)) {
                 //Menu Emisor
@@ -273,7 +268,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             //throw new NullObjectExcepcion("Type is not recognized");
             return false;
         }*/
-        return true;
+        //return true;
     }
 
     @Override

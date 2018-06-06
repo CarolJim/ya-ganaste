@@ -1,9 +1,9 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,12 +21,15 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.patterns.facade.FacadeMovements;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
@@ -34,6 +37,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_SEND_TICKET;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
@@ -42,7 +47,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
  * @author Juan Guerra on 12/04/2017.
  */
 
-public class DetailsAdquirenteFragment extends GenericFragment implements View.OnClickListener {
+public class DetailsAdquirenteFragment extends GenericFragment implements View.OnClickListener,
+        FacadeMovements.listenerMovements {
 
     public static final String TRANS_STATUS_RED = "1";
 
@@ -52,29 +58,22 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtItemMovDate;
     @BindView(R.id.txt_item_mov_month)
     TextView txtItemMovMonth;
-
     @BindView(R.id.txtTituloDescripcion)
     TextView txtTituloDescripcion;
     @BindView(R.id.txtSubTituloDetalle)
     TextView txtSubTituloDetalle;
-
     @BindView(R.id.layoutComision)
     LinearLayout layoutComision;
     @BindView(R.id.txtComisionDescripcion)
     MontoTextView txtComisionDescripcion;
-
     @BindView(R.id.layoutIVA)
     LinearLayout layoutIVA;
-
     @BindView(R.id.txtIVADescripcion)
     MontoTextView txtIVADescripcion;
-
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
     @BindView(R.id.imageDetail)
     ImageView imageDetail;
-    /*@BindView(R.id.txtMontoDescripcion)
-    MontoTextView txtMontoDescripcion;*/
     @BindView(R.id.txtRefernciaDescripcion)
     TextView txtRefernciaDescripcion;
     @BindView(R.id.txtConceptoDescripcion)
@@ -87,25 +86,24 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtAutorizacionDescripcion;
     @BindView(R.id.txtEstatusDescripcion)
     TextView txtEstatusDescripcion;
-    //@BindView(R.id.txtReciboDescripcion)
-    //TextView txtReciboDescripcion;
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_volver)
     Button btnVolver;
-
     @BindView(R.id.up_down)
     ImageView upDown;
-    private View rootView;
-    private DataMovimientoAdq dataMovimientoAdq;
-    //ImageView imageView;
-    //ImageView imageViewshare;
-    //ImageView imageViewback;
+    @BindView(R.id.progress_details)
+    ProgressLayout progressLayout;
 
-    public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
+    private View rootView;
+    private MovTab movTab;
+    private DataMovimientoAdq dataMovimientoAdq;
+    FacadeMovements facadeMovements;
+
+    public static DetailsAdquirenteFragment newInstance(@NonNull MovTab movTab) {
         DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
         Bundle args = new Bundle();
-        args.putSerializable(DetailsActivity.DATA, dataMovimientoAdq);
+        args.putSerializable(DetailsActivity.DATA, movTab);
         fragment.setArguments(args);
         return fragment;
     }
@@ -119,15 +117,16 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         //imageViewback = (ImageView) getActivity().findViewById(R.id.btn_back);
         //imageView = (ImageView) getActivity().findViewById(R.id.imgNotifications);
         if (args != null) {
-            dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
+            movTab = (MovTab) args.getSerializable(DetailsActivity.DATA);
+            dataMovimientoAdq = movTab.getItemMov();
         } else {
             throw new IllegalCallException(DetailsAdquirenteFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
-
+        facadeMovements = new FacadeMovements(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_movements_adquirente, container, false);
     }
 
@@ -139,8 +138,9 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         //}
     }
 
+
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
     }
@@ -264,38 +264,93 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             /*case android.R.id.home:
-                onBackPressed();
+                this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ,this.movTab);
                 return true;*/
+
+            case R.id.action_rembolsar :
+
+                if (!dataMovimientoAdq.isClosedLoop() && (Integer.parseInt(dataMovimientoAdq.getIdTipoRembolso()) == 5 || Integer.parseInt(dataMovimientoAdq.getIdTipoRembolso()) == 4)
+                        && dataMovimientoAdq.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)){
+
+                        UI.showAlertDialog(getContext(),
+                                getResources().getString(R.string.title_dailog_reem),
+                                getResources().getString(R.string.message_dialog_reem),
+                                R.string.positive_btn_reem,
+                                (dialogInterface, i) -> facadeMovements.launchRefund(dataMovimientoAdq));
+
+                } else {
+                    UI.showAlertDialog(getContext(),
+                            getResources().getString(R.string.message_deseable_reembolso),
+                            (dialogInterface, i) -> dialogInterface.dismiss());
+                }
+                return true;
+
+            case R.id.action_reenviar_ticket :
+                this.onEventListener.onEvent(EVENT_GO_TO_SEND_TICKET,this.movTab);
+                return true;
+
             case R.id.action_cancelar_cobro:
 
-                UI.showAlertDialog(getContext(), getString(R.string.cancelacion_dialog_message), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq);
-                    }
-                });
-
-
+                UI.showAlertDialog(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
 
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
-
-
-
-
     }
 
 
     @Override
     public void onClick(View v) {
-        // TODO: 14/06/2017 Proceso para cancelar venta
         switch (v.getId()) {
             case R.id.btn_volver:
                 getActivity().onBackPressed();
                 break;
+        }
+    }
+
+    @Override
+    public void loadReembolso() {
+        UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.message_succes_reembolso), Snackbar.LENGTH_SHORT);
+        this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ,this.movTab);
+    }
+
+    @Override
+    public void showLoader(String message) {
+        progressLayout.setTextMessage(message);
+        progressLayout.setVisivilityImage(View.VISIBLE);
+        progressLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoader() {
+        progressLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(Object error) {
+        UI.showErrorSnackBar(getActivity(),"Hubo un error al reembolsar intentalo de nuevo", Snackbar.LENGTH_SHORT);
+    }
+
+    public static class MovTab implements Serializable{
+        private int currentTab;
+        private DataMovimientoAdq itemMov;
+
+        public int getCurrentTab() {
+            return currentTab;
+        }
+
+        public void setCurrentTab(int currentTab) {
+            this.currentTab = currentTab;
+        }
+
+        public DataMovimientoAdq getItemMov() {
+            return itemMov;
+        }
+
+        public void setItemMov(DataMovimientoAdq itemMov) {
+            this.itemMov = itemMov;
         }
     }
 }

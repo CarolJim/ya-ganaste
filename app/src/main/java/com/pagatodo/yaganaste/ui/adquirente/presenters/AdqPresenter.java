@@ -121,6 +121,12 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 email, applyAgent), applyAgent);
     }
 
+    @Override
+    public void sendTicket(String idTransicion, String name, String email, boolean applyAgent) {
+        if (!applyAgent) iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
+        adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(idTransicion,name,email,applyAgent),applyAgent);
+    }
+
     public void sendTicketShare(String emailToSend, String description, String idTransaction) {
         iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
         adqInteractor.enviarTicketCompraShare(UtilsAdquirente.buildTicketRequest(

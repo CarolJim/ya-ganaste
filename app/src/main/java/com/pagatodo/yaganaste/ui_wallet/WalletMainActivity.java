@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment.MovTab;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PersonalAccountFragment;
@@ -52,6 +53,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragm
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SendTicketFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.utils.UI;
@@ -107,6 +109,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_REGISTER_STARBUCKS = "EVENT_GO_TO_REGISTER_STARBUCKS";
     public final static String EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS = "EVENT_GO_TO_FORGET_PASSWORD_STARBUCKS";
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
+    public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
+    public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
 
 
@@ -116,7 +120,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     @BindView(R.id.toolbar_wallet)
     Toolbar toolbar;
 
-    private Menu menu;
+    //private Menu menu;
     private ElementGlobal itemOperation;
     private ShareActionProvider mShareActionProvider;
 
@@ -132,7 +136,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             if (getIntent().getExtras() != null) {
                 itemOperation = (ElementGlobal) getIntent().getSerializableExtra(ITEM_OPERATION);
                 getLoadFragment(itemOperation.getIdOperacion());
-
 
             }
             //loadFragment(MovementsGenericFragment.newInstance(), R.id.fragment_container);
@@ -157,14 +160,20 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
-        getMenuInflater().inflate(R.menu.menu_wallet, menu);
+        //this.menu = menu;
+        //getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
+            getMenuInflater().inflate(R.menu.menu_wallet, menu);
             menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment) {
-            menu.getItem(ACTION_SHARE).setVisible(true);
+            getMenuInflater().inflate(R.menu.menu_wallet, menu);
+                menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
-            menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
+            getMenuInflater().inflate(R.menu.menu_mov_det_adq, menu);
+            //menu.findItem(R.id.action_rembolsar).setVisible(true);
+            //menu.findItem(R.id.action_reenviar_ticket).setVisible(true);
+            //menu.findItem(R.id.action_cancelar_cobro).setVisible(true);
+
         }
         return true;
     }
@@ -296,7 +305,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data,
                         App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)), R.id.fragment_container,
                         Direction.FORDWARD, true);
-                menu.getItem(ACTION_CANCEL_CHARGE).setVisible(false);
+                //menu.getItem(ACTION_CANCEL_CHARGE).setVisible(false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
@@ -341,12 +350,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_DETAIL_EMISOR:
                 loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data), R.id.fragment_container, Direction.FORDWARD, true);
-                menu.getItem(ACTION_SHARE).setVisible(true);
+                //menu.getItem(ACTION_SHARE).setVisible(true);
                 break;
             case EVENT_GO_DETAIL_ADQ:
-                loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data), R.id.fragment_container, Direction.FORDWARD, true);
-                if (((DataMovimientoAdq) data).getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId()))
-                    menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
+                MovTab movTab = (MovTab) data;
+                loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.FORDWARD, true);
+                //if (movTab.getItemMov().getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId()))
+                  //  menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
                 break;
             case EVENT_GO_TO_FINALIZE_SUCCESS:
                 setResult(RESULT_CANCEL_OK);
@@ -381,6 +391,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 } else {
                     finish();
                 }
+                break;
+            case EVENT_GO_TO_MOV_ADQ:
+                loadFragment(PaymentsFragment.newInstance(((MovTab) data).getCurrentTab()), R.id.fragment_container);
+                break;
+            case EVENT_GO_TO_SEND_TICKET:
+                loadFragment(SendTicketFragment.newInstance((MovTab) data), R.id.fragment_container);
                 break;
         }
     }
