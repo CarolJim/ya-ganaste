@@ -28,8 +28,21 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
     private List<ItemMovements<T>> itemMovementses;
     private OnRecyclerItemClickListener listener;
     private boolean isEmpty = true;
+    private boolean adq;
 
     public RecyclerMovementsAdapter(@NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener) {
+        if (itemMovementses.size() > 0) {
+            this.itemMovementses = itemMovementses;
+            isEmpty = false;
+        } else {
+            this.itemMovementses = new ArrayList<>();
+            this.itemMovementses.add(new ItemMovements<T>(App.getContext().getString(R.string.no_movimientos), "", 0, "", "", R.color.transparent));
+        }
+
+        this.listener = listener;
+    }
+    public RecyclerMovementsAdapter(@NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener, boolean adq) {
+       this.adq=adq;
         if (itemMovementses.size() > 0) {
             this.itemMovementses = itemMovementses;
             isEmpty = false;
@@ -111,8 +124,16 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
                 upDown.setBackgroundResource(R.drawable.down_red);
             }
 
-            if (itemMovements.getColor() == R.color.greenColorPositiveMovements){
-                upDown.setBackgroundResource(R.drawable.up);
+
+            if (adq){
+
+                if (itemMovements.getColor() == R.color.greenColorPositiveMovements) {
+                    upDown.setBackgroundResource(R.drawable.upadq);
+                }
+            }else {
+                if (itemMovements.getColor() == R.color.greenColorPositiveMovements) {
+                    upDown.setBackgroundResource(R.drawable.up);
+                }
             }
 
             if (itemMovements.getColor() == R.color.colorAccent){

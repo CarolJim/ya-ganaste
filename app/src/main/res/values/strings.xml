@@ -546,7 +546,7 @@
     <string name="monto_cobrar">Monto</string>
     <string name="retirar_tarjeta">Retira la tarjeta</string>
     <string name="tu_firma">Tu firma</string>
-    <string name="pago_por">Pago por </string>
+    <string name="pago_por">Pago por:  </string>
     <string name="error_cuenta_no_valida">%1$s no valido,\npor favor verifica la información</string>
 
     <string name="cancelar_operacion">Cancelar cobro</string>
@@ -1241,7 +1241,7 @@
     <!--Cambio de contraeña  -->
     <string name="asignar_nueva_contraseña">Contraseña actual (6 dígitos)</string>
     <string name="confirma_nueva_contrasena">Nueva contraseña (6 dígitos)</string>
-    <string name="confirma_nueva_contraseña">Confirma nueva contraseña (6 dígitos)</string>
+    <string name="confirma_nueva_contraseña">Confirma nueva contraseña</string>
     <string name="confirmar_contrase">La contraseña no coincide</string>
     <string name="sub_titulo_cambio_contraseña">Cambiamos el formato para que\naccedas más rápido</string>
     <string name="your_password_need_to_have_change_login">Tu Nueva Contraseña Debe Tener 6 Dígitos,\nNo Puede Incluir 3 Números Iguales \nSeguidos, Ni Números Consecutivos</string>
@@ -1263,7 +1263,7 @@
     <string name="navigation_drawer_menu_contacto">Contacto</string>
     <string name="navigation_drawer_logout">Cerrar sesión</string>
 
-    <string name="security_huella_option">Huella Digital</string>
+    <string name="security_huella_option">Huella digital</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
     <string name="ajustes_notificar_suboption">Selecciona Las Notificaciones Que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>
@@ -1278,7 +1278,7 @@
     <string name="synch_carrier">Obteniendo Carriers</string>
     <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>
     <string name="error_add_numero">El Destinatario ya se Encuentra Agregado</string>
-    <string name="security_huella_option_subtitle">Usa tu huella para autorizar operaciones</string>
+    <string name="security_huella_option_subtitle">Autorizar operaciones con huella digital</string>
     <string name="legales">Legales</string>
     <string name="autorizar">Autorizar</string>
 
@@ -1510,7 +1510,7 @@
     <string name="normal_dongle_desc">Jack de audio (3.5\'\')</string>
     <string name="btncambiocontrasenauyu">Cambiar contraseña</string>
     <string name="subtitulocambiocontrauyu">Por seguridad genera una nueva contraseña diferente a la que te asignamos</string>
-
+    <string name="pago_por">Pago por:</string>
 
 
 </resources>
