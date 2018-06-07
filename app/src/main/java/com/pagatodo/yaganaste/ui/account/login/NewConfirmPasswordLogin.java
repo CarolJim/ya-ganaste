@@ -129,7 +129,8 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
 
         if (!prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
             titulo.setText(getResources().getString(R.string.cambia_contraseda));
-            titulo_datos_usuario.setVisibility(View.GONE);
+            titulo_datos_usuario.setText(R.string.subtitulocambiocontrauyu);
+            btnNextAsignarPin.setText(R.string.btncambiocontrasenauyu);
         }
     }
 

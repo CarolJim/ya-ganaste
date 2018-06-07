@@ -540,7 +540,7 @@
 
     <string name="correo_enviar_ticket">¿A qué correo electrónico\nenviamos tu recibo?</string>
     <string name="gracias_por_compra">¡Gracias por tu compra!</string>
-    <string name="mensaje_pagaste1">Pagaste:</string>
+    <string name="mensaje_pagaste1"> </string>
     <string name="mensaje_pagaste2">Con tu tarjeta:</string>
 
     <string name="monto_cobrar">Monto</string>
@@ -572,7 +572,7 @@
     <string name="monto">Importe:</string>
     <string name="a_la_cuenta">A la cuenta:</string>
 
-    <string name="cambia_contraseda">Es necesario que cambies\ntu contraseña</string>
+    <string name="cambia_contraseda">Genera una nueva contraseña</string>
 
     <string name="ingresa_tu_contrasenia">Ingresa tu contraseña para autorizarlo</string>
     <string name="ingresa_pass_block">Ingresa tu contraseña para \nbloquear temporalmente tu tarjeta</string>
@@ -1344,6 +1344,8 @@
     <string name="hint_card_number">Número de Tarjeta (16 Dígitos)</string>
     <string name="hint_password">Contraseña (6 dígitos)</string>
     <string name="hint_password_confirm">Confirma tu contraseña (6 dígitos)</string>
+    <string name="hint_password_change">Nueva contraseña (6 dígitos)</string>
+    <string name="hint_password_confirm_change">Confirma nueva contraseña (6 dígitos)</string>
     <string name="hint_cobros_mensual">Cobros mensuales</string>
     <string name="hint_monto_mensual_estimado">Monto mensual estimado</string>
     <string name="hint_origen_recursos">Origen de los Recursos</string>
@@ -1506,7 +1508,8 @@
     <string name="bluetooth_dongle_desc">Bluetooth chip &amp; pin</string>
     <string name="normal_dongle">Lector Plug</string>
     <string name="normal_dongle_desc">Jack de audio (3.5\'\')</string>
-
+    <string name="btncambiocontrasenauyu">Cambiar contraseña</string>
+    <string name="subtitulocambiocontrauyu">Por seguridad genera una nueva contraseña diferente a la que te asignamos</string>
 
 
 

@@ -96,7 +96,9 @@ public class ViewPagerDataFactory {
             fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
         }
         fragmentList.add(WalletTabFragment.newInstance());
-        fragmentList.add(NewPaymentFragment.newInstance());
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+            fragmentList.add(NewPaymentFragment.newInstance());
+        }
 
     }
 
