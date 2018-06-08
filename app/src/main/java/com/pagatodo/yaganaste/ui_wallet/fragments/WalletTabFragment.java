@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
@@ -48,6 +50,7 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
@@ -65,7 +68,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     CustomDots pager_indicator;
     @BindView(R.id.board_indication)
     BoardIndicationsView board;
-
+    private Preferencias prefs = App.getInstance().getPrefs();
     private WalletPresenter walletPresenter;
     private CardWalletAdpater cardWalletAdpater;
     private ElementsWalletAdapter elementsWalletAdapter;
@@ -128,7 +131,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void hideProgress() {
-        board.setVisibility(View.VISIBLE);
+        if (!prefs.containsData(IS_OPERADOR)) {
+            board.setVisibility(View.VISIBLE);
+        }else {
+            board.setVisibility(View.INVISIBLE);
+            pager_indicator.setVisibility(View.INVISIBLE);
+        }
         progressLayout.setVisibility(View.GONE);
     }
 
@@ -148,7 +156,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         pager_indicator.removeAllViews();
         setUiPageViewController();
         updateOperations(this.pageCurrent);
-        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+        if (!prefs.containsData(IS_OPERADOR)) {
+            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+            board.setVisibility(View.GONE);
+        }else {
+            hideLoader();
+        }
     }
 
     private void setUiPageViewController() {

@@ -206,6 +206,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @BindView(R.id.add_favorites_tae_ll)
     LinearLayout add_favorites_tae_ll;
+    @BindView(R.id.add_favorites_serv_ll)
+    LinearLayout add_favorites_serv_ll;
+
 
 
 
@@ -650,15 +653,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     if (hasFocus) {
                         hideValidationError(editRefer.getId());
                         editRefer.imageViewIsGone(true);
-                        referencianumber.setBackgroundResource(R.drawable.inputtext_active);
+                        add_favorites_serv_ll.setBackgroundResource(R.drawable.inputtext_active);
                     } else {
                         if (editRefer.getText().isEmpty()) {
                             //  showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
-                            referencianumber.setBackgroundResource(R.drawable.inputtext_error);
+                            add_favorites_serv_ll.setBackgroundResource(R.drawable.inputtext_error);
                             editRefer.setIsInvalid();
                         } else {
                             hideValidationError(editRefer.getId());
-                            referencianumber.setBackgroundResource(R.drawable.inputtext_normal);
+                            add_favorites_serv_ll.setBackgroundResource(R.drawable.inputtext_normal);
                             editRefer.setIsValid();
                         }
                     }

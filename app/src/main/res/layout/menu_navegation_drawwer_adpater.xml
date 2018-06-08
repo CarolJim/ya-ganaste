@@ -42,15 +42,6 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-            android:id="@+id/radiobutton_si"
-            style="@style/RadioButtonMenu"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:checked="false"
-            android:text="Si" />
-
         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
             android:id="@+id/radiobutton_no"
             style="@style/RadioButtonMenu"
@@ -58,6 +49,13 @@
             android:layout_height="20dp"
             android:checked="true"
             android:text="No" />
+        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+            android:id="@+id/radiobutton_si"
+            style="@style/RadioButtonMenu"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:checked="false"
+            android:text="Si" />
     </RadioGroup>
 
     <View

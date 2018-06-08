@@ -109,6 +109,16 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.btn_balance_login)
     StyleButton btnLoginBalance;
 
+    @BindView(R.id.chiandpin)
+    ImageView chiandpin;
+
+
+
+
+
+
+
+
     private ILoginContainerManager loginContainerManager;
     private AccountPresenterNew accountPresenter;
     private BalanceWalletAdpater balanceWalletAdpater;
@@ -191,10 +201,15 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void updateBalance() {
         balanceEmisor = prefs.loadData(USER_BALANCE);
         hideLoader();
-        if (!RequestHeaders.getTokenAdq().isEmpty()) {
+        if (!RequestHeaders.getTokenAdq().isEmpty() && !prefs.containsData(IS_OPERADOR)) {
             accountPresenter.updateBalanceAdq();
         } else {
-            checkStatusCard();
+
+            if (!prefs.containsData(IS_OPERADOR)) {
+                checkStatusCard();
+            }
+
+
         }
         if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
             accountPresenter.updateBalanceStarbucks();
@@ -279,8 +294,15 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void onItemClick(ElementView elementView) {
         balanceWalletAdpater.restartFlippers();
-        setVisibilityBackItems(GONE);
-        setVisibilityFrontItems(VISIBLE);
+        if (prefs.containsData(IS_OPERADOR)){
+
+        }else {
+            setVisibilityBackItems(GONE);
+            setVisibilityFrontItems(VISIBLE);
+
+
+        }
+
         switch (elementView.getIdOperacion()) {
             case OPTION_BLOCK_CARD:
                 nextScreen(EVENT_BLOCK_CARD, null);
@@ -333,6 +355,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         } else if (!prefs.loadData(CARD_NUMBER).isEmpty()) {
             accountPresenter.updateBalance();
         }
+
     }
 
     private void checkStatusCard() {
@@ -352,10 +375,15 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         balanceWalletAdpater = new BalanceWalletAdpater(this);
         if (prefs.containsData(IS_OPERADOR)){
+            txtCardDescBalance.setVisibility(GONE);
+            txtCardDescBalance2.setVisibility(GONE);
+            chiandpin.setVisibility(VISIBLE);
+            vpBalace.setVisibility(GONE);
+
+        }else{
             if (!RequestHeaders.getTokenAdq().isEmpty()) {
                 balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
             }
-        }else{
             if (Status.equals(ESTATUS_CUENTA_BLOQUEADA)) {
                 balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
             } else {
@@ -369,14 +397,18 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             }
 
         }
-
-
         vpBalace.setAdapter(balanceWalletAdpater);
         vpBalace.setCurrentItem(pageCurrent);
         vpBalace.setOffscreenPageLimit(3);
         vpBalace.addOnPageChangeListener(this);
-        setUiPageViewController();
+
+
         updateOperations(pageCurrent);
+
+        if (!prefs.containsData(IS_OPERADOR)){
+
+            setUiPageViewController();
+        }
     }
 
     private void setUiPageViewController() {
@@ -435,10 +467,11 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                     elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
                     break;
             }
+            txtTypePaymentBalance.setText(balanceWalletAdpater.getElemenWallet(position).getTipoSaldo());
         }
         rcvElementsBalance.setAdapter(elementsBalanceAdpater);
         rcvElementsBalance.scheduleLayoutAnimation();
-        txtTypePaymentBalance.setText(balanceWalletAdpater.getElemenWallet(position).getTipoSaldo());
+
     }
 
     private void updatePhoto() {

@@ -129,6 +129,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
 import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
@@ -678,6 +679,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             prefs.saveData(USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalance();
+
+
+
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
