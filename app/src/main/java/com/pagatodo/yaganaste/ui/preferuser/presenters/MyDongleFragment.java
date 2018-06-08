@@ -48,6 +48,7 @@ import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
@@ -153,19 +154,20 @@ public class MyDongleFragment extends GenericFragment implements
         }
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
 
-
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129)
+        if (SingletonUser.getInstance().getDataUser().getUsuario() != null) {
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129)
+                lytConfigRepayment.setVisibility(View.GONE);
+        } else {
+            if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol()==129);
             lytConfigRepayment.setVisibility(View.GONE);
+        }
 
 
-        lytConfigRepayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!UtilsNet.isOnline(getActivity())) {
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
-                } else {
-                    onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
-                }
+        lytConfigRepayment.setOnClickListener(v -> {
+            if (!UtilsNet.isOnline(getActivity())) {
+                UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+            } else {
+                onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
             }
         });
         lytConfigDongle.setOnClickListener(v -> {

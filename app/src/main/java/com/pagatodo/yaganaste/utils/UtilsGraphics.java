@@ -108,11 +108,15 @@ public class UtilsGraphics {
                 20 * App.getContext().getResources().getDisplayMetrics().density);
         /* Obtener nombre del cliente en Bitmap */
         String splitName[] = App.getInstance().getPrefs().loadData(NAME_USER).split(" ");
-        //String usuarioName = App.getInstance().getPrefs().loadData(NAME_USER);
-        /*Bitmap nameUser = getTextInBitmap(splitName[0] + " " +
-                App.getInstance().getPrefs().loadData(LAST_NAME), 14 * App.getContext().getResources().getDisplayMetrics().density);*/
-        Bitmap nameUser = getTextInBitmap(splitName[0] + " " +
-                SingletonUser.getInstance().getDataUser().getCliente().getPrimerApellido(), 14 * App.getContext().getResources().getDisplayMetrics().density);
+        Bitmap nameUser = null;
+        if (SingletonUser.getInstance().getDataUser().getCliente() == null){
+            nameUser = getTextInBitmap(splitName[0] + " " +
+                    App.getInstance().getPrefs().loadData(LAST_NAME), 14 * App.getContext().getResources().getDisplayMetrics().density);
+        } else {
+            nameUser = getTextInBitmap(splitName[0] + " " +
+                    SingletonUser.getInstance().getDataUser().getCliente().getPrimerApellido(), 14 * App.getContext().getResources().getDisplayMetrics().density);
+        }
+
         /* Pegar numero de tarjeta en diseño tarjeta */
         Bitmap faceView = overlayImages(cardYG, cardNumber, 40, cardYG.getHeight() / 2);
         /* Pegar nombre del cliente en diseño tarjeta */

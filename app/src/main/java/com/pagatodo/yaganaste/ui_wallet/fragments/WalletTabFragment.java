@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -117,7 +118,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         board.setreloadOnclicklistener(view -> {
             if (elementsWalletAdapter.getItemCount() > 0) {
-                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                if (cardWalletAdpater.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
+                    walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                }
             }
         });
     }
@@ -188,10 +191,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         }
     }
 
-    private void upDateSaldo(int position) {
-        board.setTextMonto(cardWalletAdpater.getElemenWallet(position).getSaldo());
-    }
-
     private void upDateSaldo(String saldo) {
         cardWalletAdpater.updateSaldo(this.pageCurrent, saldo);
         board.setTextMonto(saldo);
@@ -219,7 +218,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onResume() {
         super.onResume();
         checkDataCard();
-        //walletPresenter.getInformacionAgente();
     }
 
     @Override
@@ -239,11 +237,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards(false);
     }
-
-    /*@Override
-    public void sendSuccessInfoAgente() {
-        checkDataCard();
-    }*/
 
     @Override
     public void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response) {
@@ -273,7 +266,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
         this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
-        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
+        if(cardWalletAdpater.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
+            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
+        }
         updateOperations(position);
     }
 

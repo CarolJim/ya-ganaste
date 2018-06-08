@@ -20,12 +20,19 @@ public class WalletViewHolder extends GenericHolder {
     private FlipView flipView;
     private ICardBalance listener;
     private RelativeLayout cardLayout;
-
+    private int position;
     private StyleTextView nameBusiness;
 
     public WalletViewHolder(View itemView,ICardBalance listener) {
         super(itemView);
         this.listener = listener;
+        init();
+    }
+
+    public WalletViewHolder(View itemView,ICardBalance listener, int position) {
+        super(itemView);
+        this.listener = listener;
+        this.position = position;
         init();
     }
 
@@ -40,17 +47,31 @@ public class WalletViewHolder extends GenericHolder {
     @Override
     public void bind(Object elementWallet, @Nullable OnClickItemHolderListener listener) {
         ElementWallet item = (ElementWallet) elementWallet;
-        if (item.getFrontBitmap() != null) {
-            this.cardLayout.setVisibility(View.GONE);
-            flipView.setFrontImageBitmap(item.getFrontBitmap());
-            if (item.getRearBitmap() != null) {
-                flipView.setRearImageBitmap(item.getRearBitmap());
+        if (this.listener != null){
+            if (item.getFrontBitmap() != null) {
+                this.cardLayout.setVisibility(View.GONE);
+                flipView.setFrontImageBitmap(item.getFrontBitmap());
+                if (item.getRearBitmap() != null) {
+                    flipView.setRearImageBitmap(item.getRearBitmap());
+
+                }
                 flipView.setOnClickListener(view -> {
-                    if (!flipView.isFlipped()) {
-                        flipView.flip(true);
-                    } else {
-                        flipView.flip(false);
-                    }
+                    this.listener.onCardClick(view, this.position);
+                });
+            }
+
+        } else {
+            if (item.getFrontBitmap() != null) {
+                this.cardLayout.setVisibility(View.GONE);
+                flipView.setFrontImageBitmap(item.getFrontBitmap());
+                if (item.getRearBitmap() != null) {
+                    flipView.setRearImageBitmap(item.getRearBitmap());
+                    flipView.setOnClickListener(view -> {
+                        if (!flipView.isFlipped()) {
+                            flipView.flip(true);
+                        } else {
+                            flipView.flip(false);
+                        }
                 /*if (!flipView.isEnabled()){
                     flipView.setEnabled(true);
                 } else {
@@ -61,12 +82,13 @@ public class WalletViewHolder extends GenericHolder {
                 } else {
                     flipView.setClickable(false);
                 }*/
-                });
+                    });
+                }
+                flipView.flip(false);
+            } else {
+                this.cardLayout.setVisibility(View.VISIBLE);
+                this.nameBusiness.setText(item.getAgentesRespose().getNombreNegocio());
             }
-            flipView.flip(false);
-        } else {
-            this.cardLayout.setVisibility(View.VISIBLE);
-            this.nameBusiness.setText(item.getAgentesRespose().getNombreNegocio());
         }
 
     }

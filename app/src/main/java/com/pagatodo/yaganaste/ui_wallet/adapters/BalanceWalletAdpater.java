@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -59,7 +60,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
     public BalanceWalletAdpater(ICardBalance cardBalance) {
         FlipView.enableLogs(DEBUG);
         elementViewList = new ArrayList<>();
-        mViews = new ArrayList<CardView>();
+        mViews = new ArrayList<>();
         mFlippers = new ArrayList<>();
         this.cardBalance = cardBalance;
     }
@@ -81,7 +82,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, final int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.card_balance_element, container, false);
         container.addView(view);
@@ -92,12 +93,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
         }
         cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
         cardView.setPreventCornerOverlap(false);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cardBalance.onCardClick(v, position);
-            }
-        });
+        cardView.setOnClickListener(v -> cardBalance.onCardClick(v, position));
         mViews.set(position, cardView);
         return view;
     }

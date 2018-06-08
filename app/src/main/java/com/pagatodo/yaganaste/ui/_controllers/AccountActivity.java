@@ -113,6 +113,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_RETRY_PAYMENT = "EVENT_RETRY_PAYMENT";
     public final static String EVENT_REWARDS = "EVENT_REWARDS";
     public final static String EVENT_STORES = "EVENT_STORES";
+    public final static String EVENT_ADMIN_ADQ = "EVENT_ADMIN_ADQ";
     FrameLayout container;
     //private String TAG = getClass().getSimpleName();
     private Preferencias pref;
@@ -335,6 +336,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_STORES:
                 loginContainerFragment.loadStores();
+                break;
+            case EVENT_ADMIN_ADQ:
+                loginContainerFragment.loadConfigDongle();
                 break;
             case EVENT_SECURE_CODE_BACK:
                 loadFragment(loginContainerFragment, Direction.BACK, false);

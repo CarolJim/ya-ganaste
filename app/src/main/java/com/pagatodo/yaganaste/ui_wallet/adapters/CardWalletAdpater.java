@@ -26,10 +26,20 @@ public class CardWalletAdpater extends PagerAdapter {
     private ArrayList<ElementWallet> elementViewList;
     private ArrayList<WalletViewHolder> listHolder;
     private ICardBalance listener;
+    private boolean isLoop;
 
-    public CardWalletAdpater() {
+    public CardWalletAdpater(boolean isLoop) {
         this.elementViewList = new ArrayList<>();
         this.listHolder = new ArrayList<>();
+        this.isLoop = isLoop;
+
+    }
+
+    public CardWalletAdpater(boolean isLoop, ICardBalance listener) {
+        this.elementViewList = new ArrayList<>();
+        this.listHolder = new ArrayList<>();
+        this.isLoop = isLoop;
+        this.listener = listener;
 
     }
 
@@ -57,10 +67,16 @@ public class CardWalletAdpater extends PagerAdapter {
 
     @Override
     public int getCount() {
-        if (this.elementViewList.size()==1)
+        if (isLoop) {
+            if (this.elementViewList.size() == 1)
+                return this.elementViewList.size();
+            else {
+                return this.elementViewList.size() * LOOPS_COUNT;
+            }
+        } else {
             return this.elementViewList.size();
-        else
-        return this.elementViewList.size() * LOOPS_COUNT;
+        }
+
     }
 
     @Override
@@ -73,7 +89,12 @@ public class CardWalletAdpater extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.wallet_element, container, false);
-        WalletViewHolder holder = new WalletViewHolder(view, this.listener);
+
+        WalletViewHolder holder = new WalletViewHolder(view, null);
+
+        if (this.listener != null) {
+            holder = new WalletViewHolder(view, this.listener,position);
+        }
         holder.bind(elementViewList.get(position % elementViewList.size()), null);
         container.addView(view);
         this.listHolder.add(holder);

@@ -124,7 +124,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccess(boolean error) {
         if (walletView != null) {
-            CardWalletAdpater adapter = new CardWalletAdpater();
+            CardWalletAdpater adapter = new CardWalletAdpater(true);
             Wallet walletList = WalletBuilder.createWalletsEsencials(error);
             adapter.addAllList(walletList.getList());
             adapter.notifyDataSetChanged();

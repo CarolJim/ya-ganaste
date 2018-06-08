@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionR
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public interface IAccountIteractorNew<T> {
 
     void getBalance();
 
-    void getBalanceAdq();
+    void getBalanceAdq(ElementWallet elementWallet);
 
     void getBalanceStarbucks();
 

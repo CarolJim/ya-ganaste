@@ -56,6 +56,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
@@ -445,9 +446,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
-    public void updateBalanceAdq() {
+    public void updateBalanceAdq(ElementWallet elementWallet) {
         this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
-        accountIteractor.getBalanceAdq();
+        accountIteractor.getBalanceAdq(elementWallet);
     }
 
     @Override

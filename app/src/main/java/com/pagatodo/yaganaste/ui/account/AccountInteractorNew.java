@@ -79,6 +79,7 @@ import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -118,6 +119,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
@@ -471,9 +473,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void getBalanceAdq() {
+    public void getBalanceAdq(ElementWallet elementWallet) {
         try {
-            ApiAdq.consultaSaldoCupo(this,null);
+            ApiAdq.consultaSaldoCupo(this,elementWallet.getAgentesRespose());
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
@@ -786,8 +788,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void processLogin(DataSourceResult response) {
         IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
         DataIniciarSesionUYU dataUser = data.getData();
+
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
+            App.getInstance().getPrefs().saveDataAgentesRespons(ADQRESPONSE,dataUser);
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.getControl().getEsUsuario()) {

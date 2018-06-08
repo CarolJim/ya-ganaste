@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
@@ -51,7 +52,7 @@ public interface IAccountPresenterNew {
 
     void getEstatusCuenta(String numberCard);
 
-    void updateBalanceAdq();
+    void updateBalanceAdq(ElementWallet elementWallet);
 
     void updateBalanceStarbucks();
 

@@ -1,11 +1,13 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,11 +29,17 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.BalanceWalletAdpater;
+import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsBalanceAdapter;
+import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
+import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+import com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView;
+import com.pagatodo.yaganaste.ui_wallet.views.CustomDots;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -49,6 +57,7 @@ import eu.davidea.flipview.FlipView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADMIN_ADQ;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_QUICK_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_REWARDS;
@@ -62,6 +71,8 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
@@ -90,44 +101,41 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     CircleImageView crlProfileBalance;
     @BindView(R.id.txt_username_balance)
     StyleTextView txtUserNameBalance;
-    @BindView(R.id.lyt_dots_indicator_balance)
-    LinearLayout lytDotsIndicatorBalance;
     @BindView(R.id.vp_balance)
     ViewPager vpBalace;
-    @BindView(R.id.txt_balance_amount)
-    MontoTextView txtAmountBalance;
-    @BindView(R.id.txt_balance_type_payment)
-    StyleTextView txtTypePaymentBalance;
+    //@BindView(R.id.txt_balance_amount)
+    //MontoTextView txtAmountBalance;
+    //@BindView(R.id.txt_balance_type_payment)
+    //StyleTextView txtTypePaymentBalance;
     @BindView(R.id.txt_balance_card_desc)
     StyleTextView txtCardDescBalance;
     @BindView(R.id.txt_balance_card_desc2)
     StyleTextView txtCardDescBalance2;
-    @BindView(R.id.img_refresh_balance)
-    ImageView imgRefreshBalance;
+    //@BindView(R.id.img_refresh_balance)
+    //ImageView imgRefreshBalance;
     @BindView(R.id.rcv_balance_elements)
     RecyclerView rcvElementsBalance;
     @BindView(R.id.btn_balance_login)
     StyleButton btnLoginBalance;
 
+    @BindView(R.id.board_indication)
+    BoardIndicationsView board;
+    @BindView(R.id.viewPagerCountDots)
+    CustomDots pager_indicator;
+
     @BindView(R.id.chiandpin)
     ImageView chiandpin;
 
-
-
-
-
-
-
-
     private ILoginContainerManager loginContainerManager;
     private AccountPresenterNew accountPresenter;
-    private BalanceWalletAdpater balanceWalletAdpater;
-    private ElementsBalanceAdapter elementsBalanceAdpater;
-    private int dotsCount, previous_pos = 0, pageCurrent;
-    private ImageView[] dots;
+    private CardWalletAdpater adapterBalanceCard;
+    //private ElementsBalanceAdapter elementsBalanceAdpater;
+    private ElementsWalletAdapter elementsWalletAdapter;
+    private int pageCurrent;
+
     private String balanceEmisor, balanceAdq, balanceStarbucks, Status;
 
-    public static final BalanceWalletFragment newInstance() {
+    public static BalanceWalletFragment newInstance() {
         BalanceWalletFragment balanceWalletFragment = new BalanceWalletFragment();
         Bundle args = new Bundle();
         balanceWalletFragment.setArguments(args);
@@ -142,14 +150,14 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         if (accountPresenter != null) {
             accountPresenter.setIView(this);
         }
-        pageCurrent = 0;
+        this.pageCurrent = 0;
         prefs.saveDataBool(HUELLA_FAIL, false);
         Status = App.getInstance().getStatusId();
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_balance_wallet, container, false);
             initViews();
@@ -161,28 +169,35 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnLoginBalance.setOnClickListener(this);
-        imgRefreshBalance.setOnClickListener(this);
+        //imgRefreshBalance.setOnClickListener(this);
         txtUserNameBalance.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
         balanceEmisor = prefs.loadData(USER_BALANCE);
         balanceAdq = prefs.loadData(ADQUIRENTE_BALANCE);
         balanceStarbucks = prefs.loadData(STARBUCKS_BALANCE);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
+        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this);
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
+                R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);
-        rcvElementsBalance.setLayoutManager(llm);
+        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rcvElementsBalance.setHasFixedSize(true);
         if (prefs.loadData(CARD_NUMBER).isEmpty()) {
             Status = ESTATUS_CUENTA_BLOQUEADA;
         }
         setBalanceCards();
+        board.setreloadOnclicklistener(view -> {
+            if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
+                accountPresenter.updateBalance();
+            else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS){
+                accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updatePhoto();
-        onRefresh();
+        //onRefresh();
     }
 
     @Override
@@ -191,36 +206,29 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             case R.id.btn_balance_login:
                 loginContainerManager.loadLoginFragment();
                 break;
-            case R.id.img_refresh_balance:
-                onRefresh();
-                break;
         }
     }
+
+    private void upDateSaldo(String saldo) {
+        adapterBalanceCard.updateSaldo(this.pageCurrent, saldo);
+        board.setTextMonto(saldo);
+    }
+
 
     @Override
     public void updateBalance() {
         balanceEmisor = prefs.loadData(USER_BALANCE);
         hideLoader();
-        if (!RequestHeaders.getTokenAdq().isEmpty() && !prefs.containsData(IS_OPERADOR)) {
-            accountPresenter.updateBalanceAdq();
-        } else {
+        upDateSaldo(StringUtils.getCurrencyValue(balanceEmisor));
 
-            if (!prefs.containsData(IS_OPERADOR)) {
-                checkStatusCard();
-            }
-
-
-        }
-        if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
-            accountPresenter.updateBalanceStarbucks();
-        }
     }
 
     @Override
     public void updateBalanceAdq() {
         balanceAdq = prefs.loadData(ADQUIRENTE_BALANCE);
+        upDateSaldo(StringUtils.getCurrencyValue(balanceAdq));
         hideLoader();
-        checkStatusCard();
+        //checkStatusCard();
     }
 
     @Override
@@ -271,19 +279,21 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void onPageSelected(int position) {
-        for (int i = 0; i < dotsCount; i++) {
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
-        }
-        dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
-        int pos = position + 1;
-        if (pos == dotsCount && previous_pos == (dotsCount - 1)) {
-        } else if (pos == (dotsCount - 1) && previous_pos == dotsCount) {
-        }
-        previous_pos = pos;
-        balanceWalletAdpater.restartFlippers();
+        pager_indicator.selectDots(pageCurrent % adapterBalanceCard.getSize(), position % adapterBalanceCard.getSize());
+        this.pageCurrent = position;
+        adapterBalanceCard.resetFlip();
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
+        if(adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
+            if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
+                accountPresenter.updateBalance();
+            } else {
+                accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
+            }
+        }
+
         updateOperations(position);
+
     }
 
     @Override
@@ -293,14 +303,12 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void onItemClick(ElementView elementView) {
-        balanceWalletAdpater.restartFlippers();
+        adapterBalanceCard.resetFlip();
         if (prefs.containsData(IS_OPERADOR)){
 
         }else {
             setVisibilityBackItems(GONE);
             setVisibilityFrontItems(VISIBLE);
-
-
         }
 
         switch (elementView.getIdOperacion()) {
@@ -314,6 +322,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
             case OPTION_ADMON_ADQ:
+                nextScreen(EVENT_ADMIN_ADQ, null);
                 break;
             case OPTION_RECOMPENSAS:
                 nextScreen(EVENT_REWARDS, null);
@@ -321,6 +330,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             case OPTION_SUCURSALES:
                 nextScreen(EVENT_STORES, null);
                 break;
+
             default:
                 break;
         }
@@ -328,32 +338,22 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void onCardClick(View v, int position) {
-        if (v instanceof CardView) {
-            if (position != pageCurrent) {
-                vpBalace.setCurrentItem(position);
-            }
-        } else if (v instanceof FlipView) {
-            if (position == pageCurrent) {
-                if (!((FlipView) v).isFlipped()) {
-                    ((FlipView) v).flip(true);
-                    setVisibilityBackItems(VISIBLE);
-                    setVisibilityFrontItems(GONE);
-                } else {
-                    ((FlipView) v).flip(false);
-                    setVisibilityBackItems(GONE);
-                    setVisibilityFrontItems(VISIBLE);
-                }
+            if (!((FlipView) v).isFlipped()) {
+                ((FlipView) v).flip(true);
+                setVisibilityBackItems(VISIBLE);
+                setVisibilityFrontItems(GONE);
             } else {
-                vpBalace.setCurrentItem(position);
+                ((FlipView) v).flip(false);
+                setVisibilityBackItems(GONE);
+                setVisibilityFrontItems(VISIBLE);
             }
-        }
     }
 
-    public void onRefresh() {
+    public void onRefresh(ElementWallet elementWallet) {
         if (!UtilsNet.isOnline(getActivity())) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
         } else if (!prefs.loadData(CARD_NUMBER).isEmpty()) {
-            accountPresenter.updateBalance();
+            //accountPresenter.updateBalance(elementWallet);
         }
 
     }
@@ -373,7 +373,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     private void setBalanceCards() {
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
-        balanceWalletAdpater = new BalanceWalletAdpater(this);
+        adapterBalanceCard = new CardWalletAdpater(false,this);
         if (prefs.containsData(IS_OPERADOR)){
             txtCardDescBalance.setVisibility(GONE);
             txtCardDescBalance2.setVisibility(GONE);
@@ -381,30 +381,22 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             vpBalace.setVisibility(GONE);
 
         }else{
-            if (!RequestHeaders.getTokenAdq().isEmpty()) {
-                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
-            }
-            if (Status.equals(ESTATUS_CUENTA_BLOQUEADA)) {
-                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
-            } else {
-                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
-            }
-            if (!RequestHeaders.getTokenAdq().isEmpty()) {
-                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceAdq());
-            }
-            if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
-                balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceStarbucks());
-            }
-
+            Wallet walletList = WalletBuilder.createWalletsBalance();
+            adapterBalanceCard.addAllList(walletList.getList());
+            adapterBalanceCard.notifyDataSetChanged();
+            //adapterBalanceCard.setListener(this);
         }
-        vpBalace.setAdapter(balanceWalletAdpater);
-        vpBalace.setCurrentItem(pageCurrent);
-        vpBalace.setOffscreenPageLimit(3);
+
+
+        vpBalace.setAdapter(adapterBalanceCard);
+        vpBalace.setCurrentItem(this.pageCurrent);
+        vpBalace.setOffscreenPageLimit(2);
         vpBalace.addOnPageChangeListener(this);
+        pager_indicator.removeAllViews();
 
 
-        updateOperations(pageCurrent);
-
+        updateOperations(this.pageCurrent);
+        accountPresenter.updateBalance();
         if (!prefs.containsData(IS_OPERADOR)){
 
             setUiPageViewController();
@@ -412,94 +404,37 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     }
 
     private void setUiPageViewController() {
-        lytDotsIndicatorBalance.removeAllViews();
-        dotsCount = balanceWalletAdpater.getCount();
-        dots = new ImageView[dotsCount];
-        for (int i = 0; i < dotsCount; i++) {
-            dots[i] = new ImageView(getContext());
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_selected_dot_wallet));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(22, 0, 22, 0);
-            lytDotsIndicatorBalance.addView(dots[i], params);
-        }
-        dots[pageCurrent].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.selected_dot_wallet));
+        pager_indicator.setView(this.pageCurrent % adapterBalanceCard.getSize(),adapterBalanceCard.getSize());
     }
 
-    private void updateOperations(int position) {
-        pageCurrent = position;
-        if (prefs.containsData(IS_OPERADOR)){
-            switch (position) {
-                case 0:
-                    txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceAdq));
-                    txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
-                    txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
-                    elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
-                    break;
-            }
-        }else {
-            switch (position) {
-                case 0:
-                    txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceEmisor));
-                    txtCardDescBalance.setText(getString(R.string.tarjeta_yg));
-                    txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(CARD_NUMBER)));
-                    elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListEmisorBalance());
-                    break;
-                case 1:
-                    if (!RequestHeaders.getTokenAdq().isEmpty()) {
-                        txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceAdq));
-                        txtCardDescBalance.setText(prefs.loadData(COMPANY_NAME));
-                        txtCardDescBalance2.setText(getString(R.string.cobros_con_tarjeta));
-                        elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListAdqBalance());
-                    } else if (prefs.loadDataBoolean(HAS_STARBUCKS, false)) {
-                        txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
-                        txtCardDescBalance.setText(getString(R.string.starbucks_card));
-                        txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));
-                        elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
-                    }
-                    break;
-                case 2:
-                    txtAmountBalance.setText(StringUtils.getCurrencyValue(balanceStarbucks));
-                    txtCardDescBalance.setText(getString(R.string.starbucks_card));
-                    txtCardDescBalance2.setText(StringUtils.ocultarCardNumberFormat(prefs.loadData(NUMBER_CARD_STARBUCKS)));
-                    elementsBalanceAdpater = new ElementsBalanceAdapter(getContext(), this, ElementView.getListStarbucksBalance());
-                    break;
-            }
-            txtTypePaymentBalance.setText(balanceWalletAdpater.getElemenWallet(position).getTipoSaldo());
-        }
-        rcvElementsBalance.setAdapter(elementsBalanceAdpater);
+
+    private void updateOperations(final int position) {
+
+        elementsWalletAdapter.setListOptions(adapterBalanceCard.getElemenWallet(position).getElementViews());
+        elementsWalletAdapter.notifyDataSetChanged();
+
+        rcvElementsBalance.setAdapter(elementsWalletAdapter);
         rcvElementsBalance.scheduleLayoutAnimation();
 
+        board.setTextSaldo(adapterBalanceCard.getElemenWallet(position).getTipoSaldo());
+        if (adapterBalanceCard.getElemenWallet(position).isUpdate()) {
+            board.setReloadVisibility(View.VISIBLE);
+        } else {
+            board.setReloadVisibility(View.INVISIBLE);
+        }
+
+      txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
+      txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
     }
 
     private void updatePhoto() {
         String mUserImage = prefs.loadData(URL_PHOTO_USER);
-       /* Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .into(crlProfileBalance);
-        */
+
         Picasso.with(getContext())
                 .load(StringUtils.procesarURLString(mUserImage))
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .error(R.mipmap.icon_user)
                 .into(crlProfileBalance);
-       /*
-        if (prefs.loadData(GENERO)=="H"||prefs.loadData(GENERO)=="h") {
-            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .error(R.drawable.avatar_el)
-                    .into(crlProfileBalance);
-        }else if (prefs.loadData(GENERO)=="M"||prefs.loadData(GENERO)=="m"){
-            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .error(R.drawable.avatar_ella)
-                    .into(crlProfileBalance);
-        }else {
-            Picasso.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
-                    .error(R.mipmap.icon_user)
-                    .into(crlProfileBalance);
-        }
-        */
     }
 
     private void setVisibilityFrontItems(int visibility) {
@@ -508,8 +443,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     }
 
     private void setVisibilityBackItems(int visibility) {
-        txtTypePaymentBalance.setVisibility(visibility);
-        txtAmountBalance.setVisibility(visibility);
-        imgRefreshBalance.setVisibility(visibility);
+        board.setVisibility(visibility);
     }
+
 }
