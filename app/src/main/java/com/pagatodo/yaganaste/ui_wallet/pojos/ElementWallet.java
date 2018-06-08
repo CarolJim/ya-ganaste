@@ -65,6 +65,8 @@ public class ElementWallet {
     }
 
 
+
+
     public ElementWallet(int typeWallet, Bitmap frontBitmap, Bitmap rearBitmap, String saldo,
                          ArrayList<ElementView> elementViews, int tipoSaldo, boolean isUpdate,
                          AgentesRespose agentesRespose) {
@@ -223,10 +225,10 @@ public class ElementWallet {
             if (isBluetooth){
 
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
-                        ElementView.getListLectorAdq(), descripcion, isReload,agentesRespose);
+                        ElementView.getListLectorAdq(agentesRespose.getOperadores(),agentesRespose.getNombreNegocio()), descripcion, isReload,agentesRespose);
             } else {
                 return new ElementWallet(TYPE_ADQ,frontView, null, leyenda,
-                        ElementView.getListLectorAdq(), descripcion, isReload, agentesRespose);
+                        ElementView.getListLectorAdq(agentesRespose.getOperadores(),agentesRespose.getNombreNegocio()), descripcion, isReload, agentesRespose);
             }
 
         } else {

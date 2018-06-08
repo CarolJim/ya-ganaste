@@ -49,6 +49,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.OperadoresUYUFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
@@ -57,6 +58,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendTicketFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
@@ -82,6 +84,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_OPERADORES_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
@@ -122,7 +125,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     Toolbar toolbar;
 
     //private Menu menu;
-    private ElementGlobal itemOperation;
+    private ElementView itemOperation;
     private ShareActionProvider mShareActionProvider;
 
     @Override
@@ -135,7 +138,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 return;
             }
             if (getIntent().getExtras() != null) {
-                itemOperation = (ElementGlobal) getIntent().getSerializableExtra(ITEM_OPERATION);
+                itemOperation = (ElementView) getIntent().getSerializableExtra(ITEM_OPERATION);
                 getLoadFragment(itemOperation.getIdOperacion());
 
             }
@@ -202,6 +205,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_MVIMIENTOS_ADQ:
                 loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                break;
+            case OPTION_OPERADORES_ADQ:
+                loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_STARBUCKS:
                 loadFragment(MovementsSbFragment.newInstance(), R.id.fragment_container);
