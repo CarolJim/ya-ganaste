@@ -264,7 +264,7 @@ public class MyDongleFragment extends GenericFragment implements
     }
 
     @Override
-    public void transactionResult(String message) {
+    public void transactionResult(String message, String tlv) {
 
     }
 

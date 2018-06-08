@@ -132,15 +132,15 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
     @Override
     public void onResume() {
         super.onResume();
-        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
-                Manifest.permission.RECORD_AUDIO);
+        /*int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);*/
         int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionLocation = ContextCompat.checkSelfPermission(App.getContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (permissionLocation == -1 || permissionCall == -1 || permissionLocationFine == -1) {
+        if (permissionLocation == -1 /*|| permissionCall == -1*/ || permissionLocationFine == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION/*, Manifest.permission.RECORD_AUDIO*/},
                     REQUEST_ID_MULTIPLE_PERMISSIONS);
 
         }
@@ -229,7 +229,7 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
     }
 
     @Override
-    public void transactionResult(String message) {
+    public void transactionResult(String message, String tlv) {
     }
 
     @Override

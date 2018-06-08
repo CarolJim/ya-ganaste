@@ -16,7 +16,7 @@ public interface IAdqTransactionRegisterView extends INavigationView {
 
     void verifyDongle(String ksn);
 
-    void transactionResult(String message);
+    void transactionResult(String message, String tlv);
 
     void showSimpleDialogError(String message, DialogDoubleActions actions);
 

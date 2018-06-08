@@ -67,7 +67,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         //tabMonths.setVisibility(View.GONE);
         if (this.currentTab != -1){
             tabMonths.getTabAt(this.currentTab).select();
-
         } else {
             tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
         }
@@ -83,10 +82,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
         this.currentAdapter = createAdapter(movements);
         updateRecyclerData(this.currentAdapter, movements);
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
-            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT_AD);
-            new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
-        }
     }
 
     @Override
@@ -135,34 +130,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
             hideLoader();
 
         }
-    }
-
-    private RecyclerItemTouchHelper.RecyclerItemTouchHelperListener getListenerItemTouchLeft() {
-        return (viewHolder, direction, index) -> {
-            if (viewHolder instanceof RecyclerMovementsAdapter.RecyclerViewHolderMovements) {
-                int position = viewHolder.getAdapterPosition();
-                RecyclerMovementsAdapter adapter = (RecyclerMovementsAdapter) currentAdapter;
-                final DataMovimientoAdq movResponse = (DataMovimientoAdq) adapter.getItem(position);
-                adapter.updateChange();
-                if (!movResponse.isClosedLoop() && (Integer.parseInt(movResponse.getIdTipoRembolso()) == 5 || Integer.parseInt(movResponse.getIdTipoRembolso()) == 4)
-                        && movResponse.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)){
-                    if (direction == ItemTouchHelper.LEFT) {
-                        UI.showAlertDialog(getContext(),
-                                getResources().getString(R.string.title_dailog_reem),
-                                getResources().getString(R.string.message_dialog_reem),
-                                R.string.positive_btn_reem,
-                                (dialogInterface, i) -> movementsPresenter.sendReembolso(movResponse));
-                    }
-                } else {
-                    UI.showAlertDialog(getContext(),
-                            getResources().getString(R.string.message_deseable_reembolso),
-                            (dialogInterface, i) -> dialogInterface.dismiss());
-                }
-
-
-
-            }
-        };
     }
 
     @Override

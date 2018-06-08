@@ -6,7 +6,6 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -54,7 +53,8 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
     public void getRemoteMovementsData(AdquirentePaymentsTab data) {
         movementsView.showLoader("Cargando movimientos");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
-        resumenMovimientosMesRequest.setFecha(data.getDate());
+        resumenMovimientosMesRequest.setFechaInicial(data.getDateStart());
+        resumenMovimientosMesRequest.setFechaFinal(data.getDateEnd());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
     }
 

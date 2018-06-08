@@ -16,6 +16,7 @@ import android.widget.ShareActionProvider;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
@@ -170,7 +171,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             getMenuInflater().inflate(R.menu.menu_mov_det_adq, menu);
-            //menu.findItem(R.id.action_rembolsar).setVisible(true);
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129){
+                menu.findItem(R.id.action_rembolsar).setVisible(false);
+            }
             //menu.findItem(R.id.action_reenviar_ticket).setVisible(true);
             //menu.findItem(R.id.action_cancelar_cobro).setVisible(true);
 

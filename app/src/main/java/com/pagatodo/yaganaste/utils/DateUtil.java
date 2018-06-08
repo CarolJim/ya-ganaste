@@ -48,13 +48,14 @@ public class DateUtil {
 
     /**
      * Entrega un formato de tipo ddMMyy, por ejemplo 29 de Noviembre de 2017 = 291117
+     *
      * @return
      */
     public static String getDayMonthYear() {
         SimpleDateFormat sdf = new SimpleDateFormat(simpleDateDayMonthYear);
         String currentDateandTime = sdf.format(new Date());
 
-       // SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateDayMonthYear, new Locale("es", "mx"));
+        // SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateDayMonthYear, new Locale("es", "mx"));
         return currentDateandTime;
 
     }
@@ -239,17 +240,15 @@ public class DateUtil {
 
 
     public static List<AdquirentePaymentsTab> getTabsAdquirente() {
-
-
         LinkedList<AdquirentePaymentsTab> tabs = new LinkedList<>();
-
         for (int subs = 0; subs >= -4; subs--) {
             Calendar calendar = Calendar.getInstance(new Locale("MX"));
-            DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.US);
             calendar.add(Calendar.MONTH, subs);
-            tabs.addFirst(new AdquirentePaymentsTab(getMonthShortName(calendar), dateFormat.format(calendar.getTime())));
+            String minDay = dateFormat.format(calendar.getTime()) + "-01";
+            String maxDay = dateFormat.format(calendar.getTime()) + "-" + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            tabs.addFirst(new AdquirentePaymentsTab(getMonthShortName(calendar), minDay, maxDay));
         }
-
         return tabs;
 
     }

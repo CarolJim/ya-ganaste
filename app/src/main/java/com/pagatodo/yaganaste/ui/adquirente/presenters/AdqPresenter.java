@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancellationData
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
@@ -79,7 +80,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
         cancellationData.setNoauthorizationOriginalTransaction(dataMovimientoAdq.getNoAutorizacion());
         cancellationData.setTicketOriginalTransaction(dataMovimientoAdq.getNoTicket());
-        cancellationData.setFechaOriginalTransaction(dataMovimientoAdq.getFechaOriginalTransaction());
+        cancellationData.setFechaOriginalTransaction(dataMovimientoAdq.getFechaTransaccionOriginal());
         cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()).replace(":", ""));
 
         CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
@@ -124,7 +125,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     @Override
     public void sendTicket(String idTransicion, String name, String email, boolean applyAgent) {
         if (!applyAgent) iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
-        adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(idTransicion,name,email,applyAgent),applyAgent);
+        adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(idTransicion, name, email, applyAgent), applyAgent);
     }
 
     public void sendTicketShare(String emailToSend, String description, String idTransaction) {
@@ -169,7 +170,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 //                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
                 break;
             case CANCELA_TRANSACTION_EMV_DEPOSIT:
-                ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString(), "");
                 break;
             default:
                 iAdqView.showError(error);
@@ -225,7 +226,8 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 ((IAdqTransactionRegisterView) iAdqView).dongleValidated();
                 break;
             case TRANSACCIONES_EMV_DEPOSIT:
-                ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString());
+                TransaccionEMVDepositResponse response = (TransaccionEMVDepositResponse) data;
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(response.getError().toString(), response.getTlvResult());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();
@@ -244,7 +246,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT, data);
                 break;
             case CANCELA_TRANSACTION_EMV_DEPOSIT:
-                ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString());
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString(), "");
                 break;
         }
     }

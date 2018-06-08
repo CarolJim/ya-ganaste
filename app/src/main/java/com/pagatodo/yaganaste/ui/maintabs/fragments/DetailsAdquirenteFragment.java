@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,10 +19,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IDetailAdqView;
 import com.pagatodo.yaganaste.ui_wallet.patterns.facade.FacadeMovements;
+import com.pagatodo.yaganaste.ui_wallet.presenter.MovementDetailAdqPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -48,7 +52,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
  */
 
 public class DetailsAdquirenteFragment extends GenericFragment implements View.OnClickListener,
-        FacadeMovements.listenerMovements {
+        FacadeMovements.listenerMovements, IDetailAdqView {
 
     public static final String TRANS_STATUS_RED = "1";
 
@@ -98,6 +102,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     private View rootView;
     private MovTab movTab;
     private DataMovimientoAdq dataMovimientoAdq;
+    private MovementDetailAdqPresenter presenter;
     FacadeMovements facadeMovements;
 
     public static DetailsAdquirenteFragment newInstance(@NonNull MovTab movTab) {
@@ -119,6 +124,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         if (args != null) {
             movTab = (MovTab) args.getSerializable(DetailsActivity.DATA);
             dataMovimientoAdq = movTab.getItemMov();
+            presenter = new MovementDetailAdqPresenter(this, this, dataMovimientoAdq);
         } else {
             throw new IllegalCallException(DetailsAdquirenteFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
@@ -172,32 +178,101 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        int color = EstatusMovimientoAdquirente.getEstatusById(dataMovimientoAdq.getEstatus()).getColor();
+        presenter.getDetailMovement();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            /*case android.R.id.home:
+                this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ,this.movTab);
+                return true;*/
+            case R.id.action_rembolsar:
+                if (!dataMovimientoAdq.isEsClosedLoop() && (Integer.parseInt(dataMovimientoAdq.getTipoReembolso()) == 5 || Integer.parseInt(dataMovimientoAdq.getTipoReembolso()) == 4)
+                        && dataMovimientoAdq.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)) {
+
+                    UI.showAlertDialog(getContext(),
+                            getResources().getString(R.string.title_dailog_reem),
+                            getResources().getString(R.string.message_dialog_reem),
+                            R.string.positive_btn_reem,
+                            (dialogInterface, i) -> facadeMovements.launchRefund(dataMovimientoAdq));
+                } else {
+                    UI.showAlertDialog(getContext(),
+                            getResources().getString(R.string.message_deseable_reembolso),
+                            (dialogInterface, i) -> dialogInterface.dismiss());
+                }
+                return true;
+            case R.id.action_reenviar_ticket:
+                this.onEventListener.onEvent(EVENT_GO_TO_SEND_TICKET, this.movTab);
+                return true;
+            case R.id.action_cancelar_cobro:
+                UI.showAlertDialog(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_volver:
+                getActivity().onBackPressed();
+                break;
+        }
+    }
+
+    @Override
+    public void loadReembolso() {
+        UI.showSuccessSnackBar(getActivity(), getResources().getString(R.string.message_succes_reembolso), Snackbar.LENGTH_SHORT);
+        this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ, this.movTab);
+    }
+
+    @Override
+    public void showLoader(String message) {
+        progressLayout.setTextMessage(message);
+        progressLayout.setVisivilityImage(View.VISIBLE);
+        progressLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoader() {
+        progressLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(Object error) {
+        UI.showErrorSnackBar(getActivity(), "Hubo un error al reembolsar intentalo de nuevo", Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void printTicket(DataMovimientoAdq ticket) {
+        int color = EstatusMovimientoAdquirente.getEstatusById(ticket.getEstatus()).getColor();
         layoutMovementTypeColor.setBackgroundColor(ContextCompat.getColor(getContext(), color));
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
+        calendar.setTime(DateUtil.getAdquirenteMovementDate(ticket.getFecha()));
 
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
-        txtTituloDescripcion.setText(dataMovimientoAdq.getOperacion());
-        txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor());
+        txtTituloDescripcion.setText(ticket.getOperacion());
+        txtSubTituloDetalle.setText(ticket.getBancoEmisor());
 
 
-        txtMonto.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMonto()));
+        txtMonto.setText(StringUtils.getCurrencyValue(ticket.getMonto()));
 
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.adadad));
-        txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
-        txtConceptoDescripcion.setText(dataMovimientoAdq.getConcepto());
+        txtRefernciaDescripcion.setText(ticket.getReferencia());
+        txtConceptoDescripcion.setText(ticket.getConcepto());
         txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
         //DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
-        String[] fecha = dataMovimientoAdq.getFecha().split(" ");
+        String[] fecha = ticket.getFecha().split(" ");
         txtHoraDescripcion.setText(fecha[1] + " hrs");
 
-        txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim());
+        txtAutorizacionDescripcion.setText(ticket.getNoAutorizacion().trim());
 
-        if (dataMovimientoAdq.getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId())) {
-
+        if (ticket.getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId())) {
 
 
             btnCancel.setVisibility(View.VISIBLE);
@@ -205,14 +280,14 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             btnCancel.setOnClickListener(this);
         }
 
-        txtIVADescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComisionIva()).replace("$", "$ "));
-        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComision()).replace("$", "$ "));
+        txtIVADescripcion.setText(StringUtils.getCurrencyValue(ticket.getComisionIva()).replace("$", "$ "));
+        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(ticket.getComision()).replace("$", "$ "));
 
         btnVolver.setOnClickListener(this);
 
         String url = null;
         try {
-            url = new DatabaseManager().getUrlLogoComercio(dataMovimientoAdq.getBancoEmisor());
+            url = new DatabaseManager().getUrlLogoComercio(ticket.getBancoEmisor());
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -230,7 +305,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                     .into(imageDetail);
         }
 
-        switch (dataMovimientoAdq.getEstatus()) {
+        switch (ticket.getEstatus()) {
             case ESTATUS_CANCELADO:
                 txtEstatusDescripcion.setText(getString(R.string.status_cancelado));
                 break;
@@ -257,83 +332,24 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         if (color == R.color.redColorNegativeMovements) {
             upDown.setBackgroundResource(R.drawable.down);
         }
-
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            /*case android.R.id.home:
-                this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ,this.movTab);
-                return true;*/
+    public void onError(String message) {
+        UI.showAlertDialog2("Error", message, getString(R.string.title_aceptar), getActivity(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                DetailsAdquirenteFragment.this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ, DetailsAdquirenteFragment.this.movTab);
+            }
 
-            case R.id.action_rembolsar :
-
-                if (!dataMovimientoAdq.isClosedLoop() && (Integer.parseInt(dataMovimientoAdq.getIdTipoRembolso()) == 5 || Integer.parseInt(dataMovimientoAdq.getIdTipoRembolso()) == 4)
-                        && dataMovimientoAdq.getEstatus().equalsIgnoreCase(ESTATUS_POR_REMBOLSAR)){
-
-                        UI.showAlertDialog(getContext(),
-                                getResources().getString(R.string.title_dailog_reem),
-                                getResources().getString(R.string.message_dialog_reem),
-                                R.string.positive_btn_reem,
-                                (dialogInterface, i) -> facadeMovements.launchRefund(dataMovimientoAdq));
-
-                } else {
-                    UI.showAlertDialog(getContext(),
-                            getResources().getString(R.string.message_deseable_reembolso),
-                            (dialogInterface, i) -> dialogInterface.dismiss());
-                }
-                return true;
-
-            case R.id.action_reenviar_ticket :
-                this.onEventListener.onEvent(EVENT_GO_TO_SEND_TICKET,this.movTab);
-                return true;
-
-            case R.id.action_cancelar_cobro:
-
-                UI.showAlertDialog(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
+            @Override
+            public void actionCancel(Object... params) {
+                DetailsAdquirenteFragment.this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ, DetailsAdquirenteFragment.this.movTab);
+            }
+        });
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_volver:
-                getActivity().onBackPressed();
-                break;
-        }
-    }
-
-    @Override
-    public void loadReembolso() {
-        UI.showSuccessSnackBar(getActivity(),getResources().getString(R.string.message_succes_reembolso), Snackbar.LENGTH_SHORT);
-        this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ,this.movTab);
-    }
-
-    @Override
-    public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisivilityImage(View.VISIBLE);
-        progressLayout.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideLoader() {
-        progressLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showError(Object error) {
-        UI.showErrorSnackBar(getActivity(),"Hubo un error al reembolsar intentalo de nuevo", Snackbar.LENGTH_SHORT);
-    }
-
-    public static class MovTab implements Serializable{
+    public static class MovTab implements Serializable {
         private int currentTab;
         private DataMovimientoAdq itemMov;
 

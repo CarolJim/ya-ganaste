@@ -8,16 +8,24 @@ import java.io.Serializable;
 
 public class ResumenMovimientosMesRequest extends AdqRequest implements Serializable {
 
-    private String fecha = "";
+    private String FechaInicial, FechaFinal;
 
     public ResumenMovimientosMesRequest() {
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getFechaInicial() {
+        return FechaInicial;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechaInicial(String fechaInicial) {
+        FechaInicial = fechaInicial;
+    }
+
+    public String getFechaFinal() {
+        return FechaFinal;
+    }
+
+    public void setFechaFinal(String fechaFinal) {
+        FechaFinal = fechaFinal;
     }
 }

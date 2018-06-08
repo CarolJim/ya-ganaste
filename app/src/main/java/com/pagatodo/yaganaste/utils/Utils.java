@@ -542,95 +542,6 @@ public class Utils {
         return hexStringToByteArray(src);
     }
 
-    /* Procedimientos a realizar con la cadena:
-     * 1.- Buscar el TAG Emv.
-     * 2.- Buscar la longitud del contenido del TAG (Convertir Hexadecimal a Decimal)
-     * 3.- Cortar la cadena hasta la longitud indicada
-     * 4.- Volver a ejecutar el ciclo. */
-    public static final String[] hexStringToArray(String s) {
-        String[] b = new String[s.length() / 2];
-        boolean searchTag = true, tagHas2Bytes = false, searchLength = false, searchContent = false;
-        int lengthBytesContent = 0, bytesRead = 1;
-        String hexToBin, hexToDecimal, TAG = "", LENGTH = "", CONTENT = "";
-        for (int i = 0; i < b.length; i++) {
-            /* Obtención de bytes hexadecimales del String */
-            int index = i * 2;
-            String v = s.substring(index, index + 2);
-            b[i] = v;
-            /* Conversión hexadecimal a binario */
-            hexToBin = new BigInteger(b[i], 16).toString(2);
-            /* Buscamos el TAG Emv */
-            if (searchTag) {
-                LENGTH = "";
-                CONTENT = "";
-                /* Si el tag contiene un byte hexadecimal entonces se le asigna a la variable TAG,
-                 * en caso de que contenga 2 bytes se deberá concatenar el segundo byte al TAG y se
-                 * procede a buscar la longitud del contenido del tag */
-                if (!tagHas2Bytes) {
-                    TAG = b[i];
-                } else {
-                    TAG += b[i];
-                    tagHas2Bytes = false;
-                    searchTag = false;
-                    searchLength = true;
-                    break;
-                }
-                /* Si los ultimos 5 bits del hexadecimal convertido en binario están prendidos entonces
-                 * significa que el tag contiene 2 bytes hexadecimales */
-                if (hexToBin.length() > 4 && hexToBin.substring(hexToBin.length() - 5, hexToBin.length()).equals("11111")) {
-                    tagHas2Bytes = true;
-                } else {
-                    tagHas2Bytes = false;
-                    searchTag = false;
-                    searchLength = true;
-                }
-                Log.e("EMV", "TAG: " + TAG);
-                /* Una vez encontrado el TAG procedemos a buscar la longitud del contenido del tag */
-            } else if (searchLength) {
-                /* Si el TAG es igual a 91 entonces necesitamos convertir el decimal que llega de
-                 * servicio a hexadecimal como parte de la longitud del contenido del tag */
-                if (TAG.equals("91")) {
-                    LENGTH = Integer.toHexString(Integer.parseInt(b[i])).toUpperCase();
-                    /* Si el hexadecimal contiene solo una letra o caracter, se le debe agregar un
-                     * 0 antes para que la longitud sea válida para el chip */
-                    if (LENGTH.length() == 1) {
-                        LENGTH = "0" + LENGTH;
-                    }
-                    /* Se guarda el tamaño convertido a decimal ya que se empleará para realizar el
-                     * corte de la cadena */
-                    lengthBytesContent = Integer.parseInt(b[i]);
-                } else {
-                    LENGTH = b[i];
-                    lengthBytesContent = Integer.parseInt(LENGTH, 16);
-                }
-                searchLength = false;
-                searchContent = true;
-                Log.e("EMV", "LENGTH: " + LENGTH);
-            } else if (searchContent) {
-                if (TAG.equals("91") && bytesRead == 16) {
-                    TAG = "";
-                    bytesRead = 1;
-                    lengthBytesContent = 0;
-                    searchContent = false;
-                    searchTag = true;
-                } else if (bytesRead < lengthBytesContent || (TAG.equals("91") && bytesRead == lengthBytesContent)) {
-                    CONTENT += b[i];
-                    bytesRead++;
-                } else if (TAG.equals("91") && bytesRead < 16 && bytesRead > 10) {
-                    bytesRead++;
-                } else {
-                    CONTENT += b[i];
-                    bytesRead = 1;
-                    lengthBytesContent = 0;
-                    searchContent = false;
-                    searchTag = true;
-                }
-                Log.e("EMV", "CONTENT: " + CONTENT);
-            }
-        }
-        return b;
-    }
-
     public static final byte[] hexStringToByteArray(String s, char delimiter) {
         char src[] = s.toCharArray();
         int srcLen = 0;
@@ -948,5 +859,119 @@ public class Utils {
             }
         }
         return items;
+    }
+
+    /* Procedimientos a realizar con la cadena:
+     * 1.- Buscar el TAG Emv.
+     * 2.- Buscar la longitud del contenido del TAG (Convertir Hexadecimal a Decimal)
+     * 3.- Cortar la cadena hasta la longitud indicada
+     * 4.- Volver a ejecutar el ciclo. */
+    public static final String translateTlv(String tlv) {
+        String[] b = new String[tlv.length() / 2];
+        String translate = new String();
+        boolean searchTag = true, tagHas2Bytes = false, searchLength = false, searchContent = false;
+        int lengthBytesContent = 0, bytesRead = 1;
+        String hexToBin, hexToDecimal, TAG = "", LENGTH = "", CONTENT = "";
+        for (int i = 0; i < b.length; i++) {
+            /* Obtención de bytes hexadecimales del String */
+            int index = i * 2;
+            String v = tlv.substring(index, index + 2);
+            b[i] = v;
+            /* Conversión hexadecimal a binario */
+            hexToBin = new BigInteger(b[i], 16).toString(2);
+            /* Buscamos el TAG Emv */
+            if (searchTag) {
+                LENGTH = "";
+                CONTENT = "";
+                /* Si el tag contiene un byte hexadecimal entonces se le asigna a la variable TAG,
+                 * en caso de que contenga 2 bytes se deberá concatenar el segundo byte al TAG y se
+                 * procede a buscar la longitud del contenido del tag */
+                if (tagHas2Bytes) {
+                    TAG += b[i];
+                    translate += b[i];
+                    tagHas2Bytes = false;
+                    searchTag = false;
+                    searchLength = true;
+                } else {
+                    TAG = b[i];
+                    translate += TAG;
+                    /* Si los ultimos 5 bits del hexadecimal convertido en binario están prendidos entonces
+                     * significa que el tag contiene 2 bytes hexadecimales */
+                    if (hexToBin.length() > 4 && hexToBin.substring(hexToBin.length() - 5, hexToBin.length()).equals("11111")) {
+                        tagHas2Bytes = true;
+                    } else {
+                        tagHas2Bytes = false;
+                        searchTag = false;
+                        searchLength = true;
+                    }
+                }
+                //Log.i("EMV", "TAG: " + TAG);
+                /* Una vez encontrado el TAG procedemos a buscar la longitud del contenido del tag */
+            } else if (searchLength) {
+                /* Si el TAG es igual a 91 entonces necesitamos convertir el decimal que llega de
+                 * servicio a hexadecimal como parte de la longitud del contenido del tag */
+                if (TAG.equals("91")) {
+                    LENGTH = Integer.toHexString(Integer.parseInt(b[i])).toUpperCase();
+                    /* Si el hexadecimal contiene solo una letra o caracter, se le debe agregar un
+                     * 0 antes para que la longitud sea válida para el chip */
+                    if (LENGTH.length() == 1) {
+                        LENGTH = "0" + LENGTH;
+                    }
+                    translate += LENGTH;
+                    /* Se guarda el tamaño convertido a decimal ya que se empleará para realizar el
+                     * corte de la cadena */
+                    lengthBytesContent = Integer.parseInt(b[i]);
+                } else {
+                    LENGTH = b[i];
+                    translate += b[i];
+                    lengthBytesContent = Integer.parseInt(LENGTH, 16);
+                }
+                searchLength = false;
+                searchContent = true;
+                //Log.i("EMV", "LENGTH: " + LENGTH);
+                /* Una vez que ya se enontró la longitud, se debe empezar a buscar el contenido del
+                 * dependiendo la longitud indicada, así como la limpieza para el TAG 91 */
+            } else if (searchContent) {
+                /* Si el TAG es 91 y los bytes hexadecimales leídos son iguales al máximo de bytes
+                 * que le corresponde al TAG (16 bytes max) entonces se procede a buscar el siguiente
+                 * tag de la cadena original y se reinician las banderas para volver al primer paso
+                 * del ciclo */
+                if (TAG.equals("91") && bytesRead == 16) {
+                    TAG = "";
+                    bytesRead = 1;
+                    lengthBytesContent = 0;
+                    searchContent = false;
+                    searchTag = true;
+                    /* Si el numero de bytes leidos aún son menores a la longitud solicitada o el TAG
+                     * es 91 y bytes leidos son iguales a la longitud maxima del tag (16 bytes), se
+                     * procede a guardar el byte e incrementar el contador de bytes leidos */
+                } else if (bytesRead < lengthBytesContent || (TAG.equals("91") && bytesRead == lengthBytesContent)) {
+                    CONTENT += b[i];
+                    translate += b[i];
+                    bytesRead++;
+                    /* IMPORTANTE:  Si el Tag es 91 y los bytes leídos se encuentran en el intervalo
+                     * longitudIndicada < bytesLeidos > longitudMaximaDelTag (16), entonces
+                     * solamente se incrementa el contador de bytes y no se guarda nada, debido a que
+                     * lo demás que se encuentra como contenido se considera basura */
+                } else if (TAG.equals("91") && bytesRead < 16 && bytesRead > lengthBytesContent) {
+                    bytesRead++;
+                    /* En caso de que no se cumplan las validaciones anteriores, significa que el TAG
+                     * es diferente al 91 y que ya se encuentra leyendo el último byte por la longitud
+                     * indicada.  Se guarda ese byte y se reinician las banderas para que continue
+                     * leyendo TAG. */
+                } else {
+                    CONTENT += b[i];
+                    translate += b[i];
+                    bytesRead = 1;
+                    lengthBytesContent = 0;
+                    searchContent = false;
+                    searchTag = true;
+                }
+                //Log.i("EMV", "CONTENT: " + CONTENT);
+            }
+        }
+        Log.e("EMV", "ARPC ORIGINAL: " + tlv);
+        Log.e("EMV", "ARPC TRADUCIDO: " + translate);
+        return translate;
     }
 }

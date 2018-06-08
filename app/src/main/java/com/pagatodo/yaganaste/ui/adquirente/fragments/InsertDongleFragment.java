@@ -321,7 +321,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         String message;
 
         if (isCancelation) {
-            if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
+            if (dataMovimientoAdq.getTipoTransaccion().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
                 //imgInsertCard.setImageResource(R.mipmap.dongle_insert_card_cancelation);
             } else {
@@ -375,10 +375,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void transactionResult(final String message) {
+    public void transactionResult(final String message, String tlv) {
         /* Proceso para validar si se necesita realizar Reverso o no */
         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-            App.getInstance().pos.sendOnlineProcessResult("8A023030");
+            App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
         }
         new Handler().postDelayed(new Runnable() {
             public void run() {
