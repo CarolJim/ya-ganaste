@@ -51,7 +51,7 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
     @Override
     public void getBalance() {
         try {
-            ApiAdq.consultaSaldoCupo(this);
+            ApiAdq.consultaSaldoCupo(this, null);
         } catch (OfflineException e) {
             //No-op
         }

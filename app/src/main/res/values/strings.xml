@@ -469,6 +469,7 @@
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Consultar Movimientos</string>
+
     <string name="no_movimientos">Sin movimientos</string>
     <string name="error_respuesta">Ocurrió un error de conexión</string>
 
@@ -1231,6 +1232,7 @@
     <string name="continuar_registro">Continuar registro</string>
     <string name="mas_info"><u>Más información</u></string>
     <string name="reload_session"><u>Recargar</u></string>
+    <string name="mis_operadores">Mis operadores</string>
 
     <!-- Wallet StarBucks-->
     <string name="opt_recompensas">Mis\nrecompensas</string>

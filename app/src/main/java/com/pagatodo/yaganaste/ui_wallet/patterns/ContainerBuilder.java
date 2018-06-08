@@ -71,7 +71,6 @@ public class ContainerBuilder {
 
     private static void mainMenu(Container s) {
         int res = R.layout.option_menu_tem_view;
-        //s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CODE, R.drawable.ico_qr, R.string.navigation_drawer_menu_mi_qr));
 
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
@@ -92,21 +91,6 @@ public class ContainerBuilder {
         s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option, 0, RAW));
         //s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_CANCELACION, R.string.ajustes_cancelacion_option, 0, RAW));
     }
-
-    /*public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SECURITY_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
-        Container s = new Container(context,listener);
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass,0, RAW));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
-        return s.getArrayListOptionMenuSegurity();
-    }*/
-
-    /*public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_MENU(Context context, ViewGroup parent, OptionMenuItem.OnMenuItemClickListener listener){
-        Container s = new Container(context,listener);
-        //s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_NOTIFICACIONES, R.string.ajustes_notificar_option, 0,RAW));
-        s.addOptionMenuSegurity(parent,new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option,0, RAW));
-        return s.getArrayListOptionMenuSegurity();
-    }*/
-
 
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_NOTIFICACIONES(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
         Container s = new Container(context, listener);
@@ -147,41 +131,6 @@ public class ContainerBuilder {
         s.addInputText(new InputText(R.string.nip_nuevo));
         s.addInputText(new InputText(R.string.nip_confima));
         return new InputTexAdapter(context, s.getInputTextList());
-    }
-
-
-    public static CardWalletAdpater getCardWalletAdapter(boolean error) {
-        CardWalletAdpater adapter = new CardWalletAdpater();
-        if (!error && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
-            String statusCard = SingletonUser.getInstance().getCardStatusId();
-            if (statusCard != null) {
-                if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-                    adapter.addCardItem(new ElementWallet().getCardyaganasteBloqueda());
-                } else {
-                    adapter.addCardItem(new ElementWallet().getCardyaganaste());
-                }
-            } else {
-                adapter.addCardItem(new ElementWallet().getCardyaganaste());
-            }
-
-        } else {
-
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
-                adapter.addCardItem(new ElementWallet().getCardyaganaste());
-            }
-        }
-        adapter.addCardItem(new ElementWallet().getCardLectorAdq());
-
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
-            if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
-                adapter.addCardItem(new ElementWallet().getCardStarbucks());
-            }
-        }
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
-            adapter.addCardItem(new ElementWallet().getCardSettings());
-        }
-
-        return adapter;
     }
 
     private static ArrayList<PaletteViewHolder> list;

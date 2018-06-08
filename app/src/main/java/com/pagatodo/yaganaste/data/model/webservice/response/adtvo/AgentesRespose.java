@@ -1,23 +1,16 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class AgentesRespose implements Serializable{
-    private String ClaveAgente = "";
     private Boolean EsAgenteRechazado;
+    private Boolean EsComercioUYU;
     private int EstatusAgente;
+    private int EstatuDocumentacion;
     private String NombreNegocio = "";
     private String NumeroAgente = "";
-    private String PetroNumero = "";
-    private int TipoAgente;
-
-    public String getClaveAgente() {
-        return ClaveAgente;
-    }
-
-    public void setClaveAgente(String claveAgente) {
-        ClaveAgente = claveAgente;
-    }
+    private ArrayList<OperadoresResponse> Operadores = new ArrayList<>();
 
     public Boolean getEsAgenteRechazado() {
         return EsAgenteRechazado;
@@ -27,12 +20,28 @@ public class AgentesRespose implements Serializable{
         EsAgenteRechazado = esAgenteRechazado;
     }
 
+    public Boolean getEsComercioUYU() {
+        return EsComercioUYU;
+    }
+
+    public void setEsComercioUYU(Boolean esComercioUYU) {
+        EsComercioUYU = esComercioUYU;
+    }
+
     public int getEstatusAgente() {
         return EstatusAgente;
     }
 
     public void setEstatusAgente(int estatusAgente) {
         EstatusAgente = estatusAgente;
+    }
+
+    public int getEstatuDocumentacion() {
+        return EstatuDocumentacion;
+    }
+
+    public void setEstatuDocumentacion(int estatuDocumentacion) {
+        EstatuDocumentacion = estatuDocumentacion;
     }
 
     public String getNombreNegocio() {
@@ -51,30 +60,11 @@ public class AgentesRespose implements Serializable{
         NumeroAgente = numeroAgente;
     }
 
-    public String getPetroNumero() {
-        return PetroNumero;
+    public ArrayList<OperadoresResponse> getOperadores() {
+        return Operadores;
     }
 
-    public void setPetroNumero(String petroNumero) {
-        PetroNumero = petroNumero;
+    public void setOperadores(ArrayList<OperadoresResponse> operadores) {
+        Operadores = operadores;
     }
-
-    public int getTipoAgente() {
-        return TipoAgente;
-    }
-
-    public void setTipoAgente(int tipoAgente) {
-        TipoAgente = tipoAgente;
-    }
-
-    /*
-    "ClaveAgente": "",
-                    "EsAgenteRechazado": false,
-                    "EstatusAgente": 2,
-                    "EstatusDocumentacion": 2,
-                    "NombreNegocio": "",
-                    "NumeroAgente": "",
-                    "PetroNumero": "",
-                    "TipoAgente": 1
-     */
 }

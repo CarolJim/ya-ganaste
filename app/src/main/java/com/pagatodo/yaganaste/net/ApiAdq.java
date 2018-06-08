@@ -32,6 +32,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDeviceD
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.OperadoresResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
@@ -267,9 +269,20 @@ public class ApiAdq extends Api {
      *
      * @param result {@link IRequestResult} listener del resultado de la petición.
      */
-    public static void consultaSaldoCupo(IRequestResult result) throws OfflineException {
+    public static void consultaSaldoCupo(IRequestResult result, AgentesRespose agente) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        if (agente != null){
+            String idUsAdq = "";
+            for (OperadoresResponse operador : agente.getOperadores()){
+                if (operador.getAdmin()){
+                    idUsAdq = operador.getIdUsuarioAdquirente();
+                }
+            }
+            headers.put(RequestHeaders.IdCuentaAdq, idUsAdq);
+        } else {
+
+            headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        }
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),

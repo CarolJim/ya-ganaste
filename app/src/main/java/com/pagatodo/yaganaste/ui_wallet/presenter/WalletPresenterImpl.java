@@ -8,12 +8,15 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaR
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
+import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
+import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
@@ -51,7 +54,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     public void updateBalance(ElementWallet item) {
         if (item.isUpdate()) {
             walletView.showProgress();
-            walletInteractor.getBalance(item.getTypeWallet());
+            walletInteractor.getBalance(item.getTypeWallet(), item.getAgentesRespose());
         } else {
             onSuccesSaldo(item.getTypeWallet(), "");
         }
@@ -121,7 +124,11 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccess(boolean error) {
         if (walletView != null) {
-            walletView.getPagerAdapter(ContainerBuilder.getCardWalletAdapter(error));
+            CardWalletAdpater adapter = new CardWalletAdpater();
+            Wallet walletList = WalletBuilder.createWalletsEsencials(error);
+            adapter.addAllList(walletList.getList());
+            adapter.notifyDataSetChanged();
+            walletView.getPagerAdapter(adapter);
         }
     }
 

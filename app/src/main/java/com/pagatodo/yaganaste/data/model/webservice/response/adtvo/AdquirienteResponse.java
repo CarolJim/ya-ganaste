@@ -13,7 +13,6 @@ public class AdquirienteResponse implements Serializable{
     public ArrayList<AgentesRespose> getAgentes() {
         return Agentes;
     }
-
     public void setAgentes(ArrayList<AgentesRespose> agentes) {
         Agentes = agentes;
     }

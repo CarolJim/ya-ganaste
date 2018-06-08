@@ -7,6 +7,7 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 
 import java.io.Serializable;
@@ -32,6 +33,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_MVIMIENTOS_EMISOR = 101;
     static public final int OPTION_MVIMIENTOS_ADQ = 102;
     static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
+    //static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
 
     static public final int OPTION_ADMON_EMISOR = 301;
     static public final int OPTION_ADMON_ADQ = 302;
@@ -62,6 +64,10 @@ public class ElementView implements ElementGlobal {
     private int typeOptions;
 
     public ElementView(){}
+
+    public static ElementView newInstance(){
+        return new ElementView();
+    }
 
     public ElementView(int idOperacion, int resource, int title) {
         this.idOperacion = idOperacion;
@@ -154,6 +160,15 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }*/
 
+    /*public static ArrayList<ElementView> getListBusiness(){
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, R.drawable.ico_cobrar_in, R.string.realizar_cobro));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ,R.drawable.ico_operador, R.string.mis_operadores));
+
+        return elementViews;
+    }*/
+
     public static ArrayList<ElementView> getListLectorAdq() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
@@ -162,6 +177,7 @@ public class ElementView implements ElementGlobal {
 
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro));
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ,R.drawable.ico_operador, R.string.mis_operadores));
         elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
 
         if (!isAgente) {
@@ -300,6 +316,8 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
         return elementViews;
     }
+
+
 
     @Override
     public int getIdOperacion() {

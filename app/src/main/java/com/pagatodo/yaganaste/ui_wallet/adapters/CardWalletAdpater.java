@@ -43,9 +43,14 @@ public class CardWalletAdpater extends PagerAdapter {
 
     }
 
+    public void addAllList(ArrayList<ElementWallet> elementViewList){
+        this.elementViewList = elementViewList;
+    }
+
     public int getSize() {
         return elementViewList.size();
     }
+
     public int getSizeHolder() {
         return this.listHolder.size();
     }

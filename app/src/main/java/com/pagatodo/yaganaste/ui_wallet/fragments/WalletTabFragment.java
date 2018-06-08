@@ -28,6 +28,8 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
+import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
+import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView;
@@ -162,7 +164,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         elementsWalletAdapter.notifyDataSetChanged();
         llm.setSpanCount(colums);
         rcvOpciones.setLayoutManager(llm);
-        upDateSaldo(position);
+        //upDateSaldo(position);
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
         board.setTextSaldo(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
@@ -258,6 +260,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
         this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
         updateOperations(position);
     }
 

@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqRespons
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -471,7 +472,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalanceAdq() {
         try {
-            ApiAdq.consultaSaldoCupo(this);
+            ApiAdq.consultaSaldoCupo(this,null);
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
@@ -791,7 +792,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
                 App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
-                RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
+                RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesion());
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
 
                 if (dataUser.getCliente().getConCuenta()) {// Si Cuenta

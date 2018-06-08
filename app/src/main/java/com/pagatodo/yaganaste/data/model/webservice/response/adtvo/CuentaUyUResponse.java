@@ -8,9 +8,13 @@ import java.util.ArrayList;
 public class CuentaUyUResponse implements Serializable{
 
     private String CLABE = "";
-    private int IdCuenta = 0;
     private String Cuenta = "";
+    private int IdCuenta = 0;
+    private int IdUsuario;
+    private int NumeroCliente;
+
     private ArrayList<TarjetasUyu> Tarjetas = new ArrayList<>();
+
     @SerializedName("Telefono")
     private String telefono;
 
@@ -53,5 +57,21 @@ public class CuentaUyUResponse implements Serializable{
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public int getIdUsuario() {
+        return IdUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        IdUsuario = idUsuario;
+    }
+
+    public int getNumeroCliente() {
+        return NumeroCliente;
+    }
+
+    public void setNumeroCliente(int numeroCliente) {
+        NumeroCliente = numeroCliente;
     }
 }

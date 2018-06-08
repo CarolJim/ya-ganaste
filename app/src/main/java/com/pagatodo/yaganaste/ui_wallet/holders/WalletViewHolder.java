@@ -3,10 +3,13 @@ package com.pagatodo.yaganaste.ui_wallet.holders;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import eu.davidea.flipview.FlipView;
 
@@ -16,6 +19,9 @@ public class WalletViewHolder extends GenericHolder {
 
     private FlipView flipView;
     private ICardBalance listener;
+    private RelativeLayout cardLayout;
+
+    private StyleTextView nameBusiness;
 
     public WalletViewHolder(View itemView,ICardBalance listener) {
         super(itemView);
@@ -25,22 +31,26 @@ public class WalletViewHolder extends GenericHolder {
 
     @Override
     public void init() {
-        flipView = itemView.findViewById(R.id.cardflip_element);
+        this.flipView = itemView.findViewById(R.id.cardflip_element);
+        this.cardLayout = itemView.findViewById(R.id.card_layout);
+        this.nameBusiness = itemView.findViewById(R.id.title_negocio);
         FlipView.enableLogs(DEBUG);
     }
 
     @Override
     public void bind(Object elementWallet, @Nullable OnClickItemHolderListener listener) {
         ElementWallet item = (ElementWallet) elementWallet;
-        flipView.setFrontImageBitmap(item.getFrontBitmap());
-        if (item.getRearBitmap() != null) {
-            flipView.setRearImageBitmap(item.getRearBitmap());
-            flipView.setOnClickListener(view -> {
-                if (!flipView.isFlipped()) {
-                    flipView.flip(true);
-                } else {
-                    flipView.flip(false);
-                }
+        if (item.getFrontBitmap() != null) {
+            this.cardLayout.setVisibility(View.GONE);
+            flipView.setFrontImageBitmap(item.getFrontBitmap());
+            if (item.getRearBitmap() != null) {
+                flipView.setRearImageBitmap(item.getRearBitmap());
+                flipView.setOnClickListener(view -> {
+                    if (!flipView.isFlipped()) {
+                        flipView.flip(true);
+                    } else {
+                        flipView.flip(false);
+                    }
                 /*if (!flipView.isEnabled()){
                     flipView.setEnabled(true);
                 } else {
@@ -51,9 +61,13 @@ public class WalletViewHolder extends GenericHolder {
                 } else {
                     flipView.setClickable(false);
                 }*/
-            });
+                });
+            }
+            flipView.flip(false);
+        } else {
+            this.cardLayout.setVisibility(View.VISIBLE);
+            this.nameBusiness.setText(item.getAgentesRespose().getNombreNegocio());
         }
-        flipView.flip(false);
 
     }
 

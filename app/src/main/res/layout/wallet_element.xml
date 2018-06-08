@@ -19,6 +19,35 @@
         app:rearBackgroundColor="@color/transparent"
         app:rearImageAnimation="@anim/grow_from_start_x_axis" />
 
+    <RelativeLayout
+        android:id="@+id/card_layout"
+        android:layout_width="201dp"
+        android:layout_height="126.1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="201dp"
+            android:layout_height="126.1dp"
+            android:src="@drawable/chip_pin"/>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/title_negocio"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="15dp"
+            android:text="Travelling Gray"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp" />
+
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
 

@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovim
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
@@ -48,14 +49,14 @@ public class WalletInteractorImpl implements WalletInteractor {
     }
 
     @Override
-    public void getBalance(int typeWallet) {
+    public void getBalance(int typeWallet, AgentesRespose agente) {
         try {
             switch (typeWallet) {
                 case TYPE_EMISOR:
                     ApiTrans.consultarSaldo(this);
                     break;
                 case TYPE_ADQ:
-                    ApiAdq.consultaSaldoCupo(this);
+                    ApiAdq.consultaSaldoCupo(this, agente);
                     break;
                 case TYPE_STARBUCKS:
                     String numCard = App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS);
