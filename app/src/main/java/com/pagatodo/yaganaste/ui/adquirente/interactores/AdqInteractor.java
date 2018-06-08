@@ -360,7 +360,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
                 pageResult.setDescription("");
                 result.setPageResult(pageResult);
-                accountManager.onSucces(response.getWebService(), data.getError().getMessage());
+                accountManager.onSucces(response.getWebService(), data);
                 break;
             /* Se realizo un cambio de EVENT_GO_REMOVE_CARD a EVENT_GO_GET_SIGNATURE para evitar
              animacion de quitar al tarjeta e ir directo a la firma
@@ -397,7 +397,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_ERROR);
                 pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
                 result.setPageResult(pageResultError);
-                accountManager.onSucces(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
+                accountManager.onSucces(response.getWebService(), data);//Retornamos mensaje de error.
                 break;
         }
     }

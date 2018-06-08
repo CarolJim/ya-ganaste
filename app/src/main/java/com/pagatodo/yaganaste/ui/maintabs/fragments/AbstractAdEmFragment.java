@@ -83,25 +83,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     }
 
-   /*public static AbstractAdEmFragment newInstance(int type) {
-        /* AbstractAdEmFragment instance;
-        switch (type) {
-            case MOVEMENTS_EMISOR:
-                instance = PersonalAccountFragment.newInstance();
-                break;
-            case MOVEMENTS_ADQ:
-                instance = PaymentsFragment.newInstance();
-                break;
-            default:
-                throw new IllegalFactoryParameterException(String.valueOf(type));
-        }
-        Bundle args = new Bundle();
-        args.putInt(TYPE, type);
-
-        instance.setArguments(args);*
-
-    }*/
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.movementsList = new ArrayList<>();

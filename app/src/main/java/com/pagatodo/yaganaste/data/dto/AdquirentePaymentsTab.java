@@ -11,11 +11,12 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 public class AdquirentePaymentsTab implements IEnumTab {
 
     private String name;
-    private String date;
+    private String dateStart, dateEnd;
 
-    public AdquirentePaymentsTab(String name, String date) {
+    public AdquirentePaymentsTab(String name, String dateStart, String dateEnd) {
         this.name = name;
-        this.date = date;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
 
     @Override
@@ -28,7 +29,11 @@ public class AdquirentePaymentsTab implements IEnumTab {
         return NO_ICON;
     }
 
-    public String getDate() {
-        return this.date;
+    public String getDateStart() {
+        return this.dateStart;
+    }
+
+    public String getDateEnd() {
+        return dateEnd;
     }
 }

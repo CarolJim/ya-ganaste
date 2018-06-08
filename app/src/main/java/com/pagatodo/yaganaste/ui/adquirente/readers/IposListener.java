@@ -125,7 +125,7 @@ public class IposListener implements QPOSServiceListener {
 
     @Override
     public void onRequestTransactionResult(TransactionResult transactionResult) {
-        Log.i("IposListener: ", "------onRequestTransactionResult");
+        Log.i("IposListener: ", "------onRequestTransactionResult: " + transactionResult.name());
         if (transactionResult != TransactionResult.APPROVED) {
             enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.error_de_lectura));
         }
@@ -133,7 +133,7 @@ public class IposListener implements QPOSServiceListener {
 
     @Override
     public void onRequestBatchData(String tlv) {
-        Log.d("IposListener: ", "------onRequestBatchData");
+        Log.d("IposListener: ", "------onRequestBatchData\nTLV: " + tlv);
     }
 
     @Override

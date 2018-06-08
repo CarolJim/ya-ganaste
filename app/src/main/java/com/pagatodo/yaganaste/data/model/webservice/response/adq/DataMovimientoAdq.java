@@ -10,195 +10,188 @@ import java.io.Serializable;
 
 public class DataMovimientoAdq implements Serializable {
 
-    private String fecha;
-    private String idTransaction;
-    private String monto;
-    private String noAutorizacion;
-    private String noTicket;
-    private String nombre;
-    private String operacion;
-    private String referencia;
-    @SerializedName("BancoEmisor")
-    private String bancoEmisor;
-    @SerializedName("MarcaTarjetaBancaria")
-    private String marcaTarjetaBancaria;
-    @SerializedName("MontoAdqComision")
-    private String montoAdqComision;
-    @SerializedName("MontoAdqComisionIva")
-    private String montoAdqComisionIva;
-    private boolean esReversada;
-    @SerializedName("TipoTrans")
-    private String tipoTrans;
-    @SerializedName("Estatus")
-    private String estatus;
-    @SerializedName("Concepto")
-    private String concepto;
-    @SerializedName("FechaOriginalTransaction")
-    private String fechaOriginalTransaction;
-    @SerializedName("idTipoReembolso")
-    private String idTipoRembolso;
-    @SerializedName("isClosedLoop")
-    private boolean isClosedLoop;
-    @SerializedName("transactionIdentity")
-    private String transactionIdentity;
-
+    private String BancoEmisor, Comision, ComisionIva, Concepto, Estatus,
+            Fecha, FechaTransaccionOriginal, ID, IdTransaction, MarcaTarjetaBancaria, Monto,
+            NoAutorizacion, NoSecUnicoPT, NoTicket, Nombre, Operacion, Referencia, TipoReembolso,
+            TipoTransaccion, TransactionIdentity;
+    private boolean EsReversada, EsClosedLoop;
 
     public DataMovimientoAdq() {
     }
 
-    public String getFechaOriginalTransaction() {
-        return fechaOriginalTransaction;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getIdTransaction() {
-        return idTransaction;
-    }
-
-    public void setIdTransaction(String idTransaction) {
-        this.idTransaction = idTransaction;
-    }
-
-    public String getMonto() {
-        return monto;
-    }
-
-    public void setMonto(String monto) {
-        this.monto = monto;
-    }
-
-    public String getNoAutorizacion() {
-        return noAutorizacion;
-    }
-
-    public void setNoAutorizacion(String noAutorizacion) {
-        this.noAutorizacion = noAutorizacion;
-    }
-
-    public String getNoTicket() {
-        return noTicket;
-    }
-
-    public void setNoTicket(String noTicket) {
-        this.noTicket = noTicket;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getOperacion() {
-        return operacion;
-    }
-
-    public void setOperacion(String operacion) {
-        this.operacion = operacion;
-    }
-
-    public String getReferencia() {
-        return referencia;
-    }
-
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
-
-    public String getBancoEmisor() {
-        return bancoEmisor;
-    }
-
     public void setBancoEmisor(String bancoEmisor) {
-        this.bancoEmisor = bancoEmisor;
+        BancoEmisor = bancoEmisor;
     }
 
-    public String getMarcaTarjetaBancaria() {
-        return marcaTarjetaBancaria;
+    public void setComision(String comision) {
+        Comision = comision;
     }
 
-    public void setMarcaTarjetaBancaria(String marcaTarjetaBancaria) {
-        this.marcaTarjetaBancaria = marcaTarjetaBancaria;
-    }
-
-    public String getMontoAdqComision() {
-        return montoAdqComision;
-    }
-
-    public void setMontoAdqComision(String montoAdqComision) {
-        this.montoAdqComision = montoAdqComision;
-    }
-
-    public String getMontoAdqComisionIva() {
-        return montoAdqComisionIva;
-    }
-
-    public void setMontoAdqComisionIva(String montoAdqComisionIva) {
-        this.montoAdqComisionIva = montoAdqComisionIva;
-    }
-
-    public boolean isEsReversada() {
-        return esReversada;
-    }
-
-    public void setEsReversada(boolean esReversada) {
-        this.esReversada = esReversada;
-    }
-
-    public String getTipoTrans() {
-        return tipoTrans;
-    }
-
-    public void setTipoTrans(String tipoTrans) {
-        this.tipoTrans = tipoTrans;
-    }
-
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-
-    public String getConcepto() {
-        return concepto;
+    public void setComisionIva(String comisionIva) {
+        ComisionIva = comisionIva;
     }
 
     public void setConcepto(String concepto) {
-        this.concepto = concepto;
+        Concepto = concepto;
     }
 
-    public String getIdTipoRembolso() {
-        return idTipoRembolso;
+    public void setEstatus(String estatus) {
+        Estatus = estatus;
     }
 
-    public void setIdTipoRembolso(String idTipoRembolso) {
-        this.idTipoRembolso = idTipoRembolso;
+    public void setFecha(String fecha) {
+        Fecha = fecha;
     }
 
-    public boolean isClosedLoop() {
-        return isClosedLoop;
+    public void setFechaTransaccionOriginal(String fechaTransaccionOriginal) {
+        FechaTransaccionOriginal = fechaTransaccionOriginal;
     }
 
-    public void setClosedLoop(boolean closedLoop) {
-        isClosedLoop = closedLoop;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public String getTransactionIdentity() {
-        return transactionIdentity;
+    public void setIdTransaction(String idTransaction) {
+        IdTransaction = idTransaction;
+    }
+
+    public void setMarcaTarjetaBancaria(String marcaTarjetaBancaria) {
+        MarcaTarjetaBancaria = marcaTarjetaBancaria;
+    }
+
+    public void setMonto(String monto) {
+        Monto = monto;
+    }
+
+    public void setNoAutorizacion(String noAutorizacion) {
+        NoAutorizacion = noAutorizacion;
+    }
+
+    public void setNoSecUnicoPT(String noSecUnicoPT) {
+        NoSecUnicoPT = noSecUnicoPT;
+    }
+
+    public void setNoTicket(String noTicket) {
+        NoTicket = noTicket;
+    }
+
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
+
+    public void setOperacion(String operacion) {
+        Operacion = operacion;
+    }
+
+    public void setReferencia(String referencia) {
+        Referencia = referencia;
+    }
+
+    public void setTipoReembolso(String tipoReembolso) {
+        TipoReembolso = tipoReembolso;
+    }
+
+    public void setTipoTransaccion(String tipoTransaccion) {
+        TipoTransaccion = tipoTransaccion;
     }
 
     public void setTransactionIdentity(String transactionIdentity) {
-        this.transactionIdentity = transactionIdentity;
+        TransactionIdentity = transactionIdentity;
+    }
+
+    public void setEsClosedLoop(boolean esClosedLoop) {
+        EsClosedLoop = esClosedLoop;
+    }
+
+    public String getBancoEmisor() {
+        return BancoEmisor;
+    }
+
+    public void setEsReversada(boolean esReversada) {
+        EsReversada = esReversada;
+    }
+
+    public String getComision() {
+        return Comision;
+    }
+
+    public String getComisionIva() {
+        return ComisionIva;
+    }
+
+    public String getConcepto() {
+        return Concepto;
+    }
+
+    public boolean isEsClosedLoop() {
+        return EsClosedLoop;
+    }
+
+    public boolean isEsReversada() {
+        return EsReversada;
+    }
+
+    public String getEstatus() {
+        return Estatus;
+    }
+
+    public String getFecha() {
+        return Fecha;
+    }
+
+    public String getFechaTransaccionOriginal() {
+        return FechaTransaccionOriginal;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getIdTransaction() {
+        return IdTransaction;
+    }
+
+    public String getMarcaTarjetaBancaria() {
+        return MarcaTarjetaBancaria;
+    }
+
+    public String getMonto() {
+        return Monto;
+    }
+
+    public String getNoAutorizacion() {
+        return NoAutorizacion;
+    }
+
+    public String getNoSecUnicoPT() {
+        return NoSecUnicoPT;
+    }
+
+    public String getNoTicket() {
+        return NoTicket;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public String getOperacion() {
+        return Operacion;
+    }
+
+    public String getReferencia() {
+        return Referencia;
+    }
+
+    public String getTipoReembolso() {
+        return TipoReembolso;
+    }
+
+    public String getTipoTransaccion() {
+        return TipoTransaccion;
+    }
+
+    public String getTransactionIdentity() {
+        return TransactionIdentity;
     }
 }

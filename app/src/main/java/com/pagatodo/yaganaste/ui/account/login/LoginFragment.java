@@ -106,12 +106,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.txtVersionApp)
     TextView txtVersionApp;
 
-
     @BindView(R.id.txtLoginOperadorOtroUsuario)
     StyleTextView txtLoginOperadorOtroUsuario;
-
-
-
 
     private View rootview;
     private AccountPresenterNew accountPresenter;
@@ -173,11 +169,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         txtLoginOperadorOtroUsuario.setOnClickListener(this);
 
 
-        if (prefs.containsData(IS_OPERADOR)){
+        if (prefs.containsData(IS_OPERADOR)) {
             txtLoginOperadorOtroUsuario.setVisibility(VISIBLE);
+            txtLoginExistUserRecoverPass.setVisibility(View.INVISIBLE);
+        } else {
+            txtLoginOperadorOtroUsuario.setVisibility(GONE);
         }
-
-        if ((prefs.containsData(IS_OPERADOR))||!RequestHeaders.getTokenauth().isEmpty()) {
+        if ((prefs.containsData(IS_OPERADOR)) || !RequestHeaders.getTokenauth().isEmpty()) {
             textNameUser.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
             btnLogin.setText(getString(R.string.nextButton));
             edtUserName.setText(RequestHeaders.getUsername());
@@ -185,8 +183,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             imgHeaderLogin.setVisibility(GONE);
             edtUserPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             textNameUser.setOnClickListener(this);
-
-
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);
             lyImgUser.setVisibility(GONE);

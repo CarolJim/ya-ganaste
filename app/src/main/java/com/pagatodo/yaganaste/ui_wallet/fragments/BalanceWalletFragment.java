@@ -10,12 +10,14 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -78,6 +80,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
@@ -279,6 +282,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void onPageSelected(int position) {
+
         pager_indicator.selectDots(pageCurrent % adapterBalanceCard.getSize(), position % adapterBalanceCard.getSize());
         this.pageCurrent = position;
         adapterBalanceCard.resetFlip();
@@ -379,6 +383,13 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             txtCardDescBalance2.setVisibility(GONE);
             chiandpin.setVisibility(VISIBLE);
             vpBalace.setVisibility(GONE);
+            try {
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) != QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    chiandpin.setImageResource(R.mipmap.lector_front);
+                }
+            }catch (Exception e){
+                Log.d("Lector","Sin opc de lector seleccionada");
+            }
 
         }else{
             Wallet walletList = WalletBuilder.createWalletsBalance();

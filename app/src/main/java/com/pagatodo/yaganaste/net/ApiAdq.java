@@ -2,9 +2,11 @@ package com.pagatodo.yaganaste.net;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AutenticaNipRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancelaTransaccionDepositoEmvRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ConsultaSesionAgenteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.DetalleMovimientoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
@@ -46,6 +48,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSAC
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DETAIL_MOVEMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
@@ -192,7 +195,6 @@ public class ApiAdq extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void firmaDeVoucher(FirmaDeVoucherRequest request, IRequestResult result) throws OfflineException {
-
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -240,13 +242,19 @@ public class ApiAdq extends Api {
      */
     public static void resumenMovimientosMes(ResumenMovimientosMesRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
+            String idUserAdq = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().
+                    get(0).getOperadores().get(0).getIdUsuarioAdquirente();
+            RequestHeaders.setIdCuentaAdq(idUserAdq);
+        }
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
-        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
-
+        headers.put(RequestHeaders.TokenAdq, SingletonUser.getInstance().getDataUser().getUsuario().getTokenSesion());
+        // TODO: Cambiar idUsuarioAdquiriente por el correspondiente
         NetFacade.consumeWS(CONSULTA_MOVIMIENTOS_MES_ADQ,
-                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqResumeMonth) + request.getFecha(),
-                headers, null, ResumenMovimientosAdqResponse.class, result);
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqMovimientos),
+                headers, request, ResumenMovimientosAdqResponse.class, result);
     }
+
     /**
      * Resumen de movimientos por día.
      *
@@ -271,18 +279,16 @@ public class ApiAdq extends Api {
      */
     public static void consultaSaldoCupo(IRequestResult result, AgentesRespose agente) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        if (agente != null){
+        if (agente != null) {
             String idUsAdq = "";
-            for (OperadoresResponse operador : agente.getOperadores()){
-                if (operador.getAdmin()){
+            for (OperadoresResponse operador : agente.getOperadores()) {
+                if (operador.getAdmin()) {
                     idUsAdq = operador.getIdUsuarioAdquirente();
                 }
             }
-            headers.put(RequestHeaders.IdCuentaAdq, idUsAdq);
-        } else {
-
-            headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+            RequestHeaders.setIdCuentaAdq(idUsAdq);
         }
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),
@@ -341,5 +347,24 @@ public class ApiAdq extends Api {
         NetFacade.consumeWS(UPDATE_TYPE_REPAYMENT,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqUpdateTypeRepayment),
                 headers, request, DataResultAdq.class, result);
+    }
+
+    /**
+     * @param result
+     * @throws OfflineException
+     */
+    public static void obtenerDetalleMovimiento(DetalleMovimientoRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
+            String idUserAdq = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().
+                    get(0).getOperadores().get(0).getIdUsuarioAdquirente();
+            RequestHeaders.setIdCuentaAdq(idUserAdq);
+        }
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        NetFacade.consumeWS(DETAIL_MOVEMENT,
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqDetalleMovimiento) + "?"
+                        + request.getNoSecUnicoPT() + "&" + request.getIdTransaction(),
+                headers, null, ResumenMovimientosAdqResponse.class, result);
     }
 }

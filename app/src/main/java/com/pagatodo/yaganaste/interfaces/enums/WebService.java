@@ -180,8 +180,8 @@ public enum WebService {
     /* Obtener Sucursales Starbucks */
     GET_STARBUCKS_STORES,
     /*cancelar cuenta*/
-    CANCELACCOUNT
-
-
+    CANCELACCOUNT,
+    /* Detalle de movimiento */
+    DETAIL_MOVEMENT
 }
 

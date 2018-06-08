@@ -18,8 +18,7 @@ public class ResumenMovimientosAdqResponse implements Serializable {
         result = new DataResultAdq();
     }
 
-    public ResumenMovimientosAdqResponse(List<DataMovimientoAdq> movimientos, DataResultAdq result,
-                                         String saldoActual, String saldoInicial, String totalAbonos, String totalCargos) {
+    public ResumenMovimientosAdqResponse(List<DataMovimientoAdq> movimientos, DataResultAdq result) {
         this.movimientos = movimientos;
         this.result = result;
     }
