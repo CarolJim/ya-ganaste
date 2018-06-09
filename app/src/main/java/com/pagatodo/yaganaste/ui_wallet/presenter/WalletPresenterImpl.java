@@ -57,7 +57,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             walletView.showProgress();
             walletInteractor.getBalance(item.getTypeWallet(), item.getAgentesRespose());
         } else {
-            onSuccesSaldo(item.getTypeWallet(), item.getSaldo());
+            onSuccesSaldo(item.getTypeWallet(), "");
         }
     }
 

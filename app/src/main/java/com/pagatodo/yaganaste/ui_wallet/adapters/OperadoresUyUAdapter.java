@@ -14,15 +14,21 @@ import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadoresUYUFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdapter.ViewHolder> {
 
-
-    List<OperadoresResponse> operadores;
+    List<OperadoresResponse> operadoresService, operadores;
 
     public OperadoresUyUAdapter(List<OperadoresResponse> operadores) {
-        this.operadores = operadores;
+        this.operadoresService = operadores;
+        this.operadores = new ArrayList<>();
+        for (OperadoresResponse op : operadoresService) {
+            if (!op.getAdmin()) {
+                operadores.add(op);
+            }
+        }
     }
 
     @Override
@@ -33,14 +39,16 @@ public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdap
 
     @Override
     public void onBindViewHolder(OperadoresUyUAdapter.ViewHolder holder, int position) {
-        OperadoresResponse reward = operadores.get(position);
-        if (!reward.getAdmin()) {
+        if (operadores.size() > 0) {
+            OperadoresResponse reward = operadores.get(position);
             holder.txtTitle.setText(reward.getNombreUsuario());
             if (position % 2 != 0) {
                 holder.row.setBackgroundColor(Color.WHITE);
             } else {
                 holder.row.setBackgroundColor(App.getContext().getResources().getColor(R.color.backgraund_wallet));
             }
+        } else {
+            holder.txtTitle.setText(App.getContext().getString(R.string.sin_operadores));
         }
     }
 

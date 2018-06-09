@@ -1516,10 +1516,7 @@
     <string name="subtitulocambiocontrauyu">Por seguridad genera una nueva contraseña\ndiferente a la que te asignamos</string>
     <string name="pago_por">Pago por:</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="operadores">Operadores</string>
     <string name="papeleria_mi_lupita">Papelería  "Mi Lupita"</string>
-
-
+    <string name="sin_operadores">Sin Operadores</string>
 </resources>

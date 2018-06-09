@@ -118,9 +118,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         board.setreloadOnclicklistener(view -> {
             if (elementsWalletAdapter.getItemCount() > 0) {
-                if (cardWalletAdpater.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
-                    walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
-                }
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             }
         });
     }
@@ -180,7 +178,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         elementsWalletAdapter.notifyDataSetChanged();
         llm.setSpanCount(colums);
         rcvOpciones.setLayoutManager(llm);
-        //upDateSaldo(position);
+        upDateSaldo(position);
         rcvOpciones.setAdapter(elementsWalletAdapter);
         rcvOpciones.scheduleLayoutAnimation();
         board.setTextSaldo(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
@@ -189,6 +187,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         } else {
             board.setReloadVisibility(View.INVISIBLE);
         }
+    }
+
+    private void upDateSaldo(int position) {
+        board.setTextMonto(cardWalletAdpater.getElemenWallet(position).getSaldo());
     }
 
     private void upDateSaldo(String saldo) {
