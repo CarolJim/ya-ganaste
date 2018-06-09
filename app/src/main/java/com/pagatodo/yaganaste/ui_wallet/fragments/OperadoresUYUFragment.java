@@ -43,7 +43,8 @@ public class OperadoresUYUFragment extends GenericFragment {
 
 
     ElementView elementView;
-ArrayList<OperadoresResponse> operadoresUYUFragments;
+    ArrayList<OperadoresResponse> operadoresUYUFragments;
+
     public static OperadoresUYUFragment newInstance(ElementView elementView) {
         OperadoresUYUFragment fragment = new OperadoresUYUFragment();
         Bundle args = new Bundle();
@@ -54,22 +55,14 @@ ArrayList<OperadoresResponse> operadoresUYUFragments;
     }
 
     public static OperadoresUYUFragment newInstance() {
-        return  new OperadoresUYUFragment();
+        return new OperadoresUYUFragment();
     }
-
-
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        elementView= (ElementView) args.getSerializable(DetailsActivity.DATA);
-
-
-
-
+        elementView = (ElementView) args.getSerializable(DetailsActivity.DATA);
     }
 
     @Override
@@ -79,13 +72,10 @@ ArrayList<OperadoresResponse> operadoresUYUFragments;
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rcvRewards.setLayoutManager(llm);
         rcvRewards.setHasFixedSize(true);
-
-        operadoresUYUFragments =  elementView.getList();
-
-        String nombreN= elementView.getNombreNegocio();
+        operadoresUYUFragments = elementView.getList();
+        String nombreN = elementView.getNombreNegocio();
         titulo_nombre_negocio.setText(nombreN);
         rcvRewards.setAdapter(new OperadoresUyUAdapter(operadoresUYUFragments));
-
     }
 
     @Override

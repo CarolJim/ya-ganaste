@@ -181,7 +181,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         String name;
         String lastame;
         if (registerUser.getNombre().isEmpty() || registerUser.getApellidoPaterno().isEmpty()) {
-
             name = SingletonUser.getInstance().getDataUser().getCliente().getNombre();
             lastame = SingletonUser.getInstance().getDataUser().getCliente().getPrimerApellido();
         } else {

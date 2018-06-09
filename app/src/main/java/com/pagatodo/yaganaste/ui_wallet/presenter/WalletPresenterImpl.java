@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
@@ -56,7 +57,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             walletView.showProgress();
             walletInteractor.getBalance(item.getTypeWallet(), item.getAgentesRespose());
         } else {
-            onSuccesSaldo(item.getTypeWallet(), "");
+            onSuccesSaldo(item.getTypeWallet(), item.getSaldo());
         }
     }
 
@@ -195,7 +196,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccesSaldo(int typeWallet, String saldo) {
         walletView.hideProgress();
-        if (!saldo.equals("")) {
+        if (saldo!=null && !saldo.equals("")) {
             switch (typeWallet) {
                 case TYPE_STARBUCKS:
                     App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);

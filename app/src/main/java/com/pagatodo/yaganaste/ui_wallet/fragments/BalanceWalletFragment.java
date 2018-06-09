@@ -106,16 +106,16 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     StyleTextView txtUserNameBalance;
     @BindView(R.id.vp_balance)
     ViewPager vpBalace;
-    //@BindView(R.id.txt_balance_amount)
-    //MontoTextView txtAmountBalance;
-    //@BindView(R.id.txt_balance_type_payment)
-    //StyleTextView txtTypePaymentBalance;
+    @BindView(R.id.txt_balance_amount)
+    MontoTextView txtAmountBalance;
+    @BindView(R.id.txt_balance_type_payment)
+    StyleTextView txtTypePaymentBalance;
     @BindView(R.id.txt_balance_card_desc)
     StyleTextView txtCardDescBalance;
     @BindView(R.id.txt_balance_card_desc2)
     StyleTextView txtCardDescBalance2;
-    //@BindView(R.id.img_refresh_balance)
-    //ImageView imgRefreshBalance;
+    @BindView(R.id.img_refresh_balance)
+    ImageView imgRefreshBalance;
     @BindView(R.id.rcv_balance_elements)
     RecyclerView rcvElementsBalance;
     @BindView(R.id.btn_balance_login)
@@ -125,7 +125,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     BoardIndicationsView board;
     @BindView(R.id.viewPagerCountDots)
     CustomDots pager_indicator;
-
     @BindView(R.id.chiandpin)
     ImageView chiandpin;
 
@@ -172,7 +171,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnLoginBalance.setOnClickListener(this);
-        //imgRefreshBalance.setOnClickListener(this);
+        imgRefreshBalance.setOnClickListener(this);
         txtUserNameBalance.setText("¡Hola " + prefs.loadData(NAME_USER) + "!");
         balanceEmisor = prefs.loadData(USER_BALANCE);
         balanceAdq = prefs.loadData(ADQUIRENTE_BALANCE);
@@ -308,12 +307,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void onItemClick(ElementView elementView) {
         adapterBalanceCard.resetFlip();
-        if (prefs.containsData(IS_OPERADOR)) {
-
-        } else {
-            setVisibilityBackItems(GONE);
-            setVisibilityFrontItems(VISIBLE);
-        }
+        setVisibilityBackItems(GONE);
+        setVisibilityFrontItems(VISIBLE);
 
         switch (elementView.getIdOperacion()) {
             case OPTION_BLOCK_CARD:
@@ -428,7 +423,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         } else {
             board.setReloadVisibility(View.INVISIBLE);
         }
-
         txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
         txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
     }

@@ -16,12 +16,12 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.List;
 
-public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdapter.ViewHolder>{
+public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdapter.ViewHolder> {
 
 
     List<OperadoresResponse> operadores;
 
-    public OperadoresUyUAdapter (List<OperadoresResponse> operadores) {
+    public OperadoresUyUAdapter(List<OperadoresResponse> operadores) {
         this.operadores = operadores;
     }
 
@@ -33,16 +33,15 @@ public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdap
 
     @Override
     public void onBindViewHolder(OperadoresUyUAdapter.ViewHolder holder, int position) {
-
         OperadoresResponse reward = operadores.get(position);
-        holder.txtTitle.setText(reward.getNombreUsuario());
-
-        if(position%2!=0){
-            holder.row.setBackgroundColor(Color.WHITE);
-        } else {
-            holder.row.setBackgroundColor(App.getContext().getResources().getColor(R.color.backgraund_wallet));
+        if (!reward.getAdmin()) {
+            holder.txtTitle.setText(reward.getNombreUsuario());
+            if (position % 2 != 0) {
+                holder.row.setBackgroundColor(Color.WHITE);
+            } else {
+                holder.row.setBackgroundColor(App.getContext().getResources().getColor(R.color.backgraund_wallet));
+            }
         }
-
     }
 
     @Override

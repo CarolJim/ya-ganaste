@@ -136,7 +136,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void hideProgress() {
         if (!prefs.containsData(IS_OPERADOR)) {
             board.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             board.setVisibility(View.INVISIBLE);
             pager_indicator.setVisibility(View.INVISIBLE);
         }
@@ -162,13 +162,13 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         if (!prefs.containsData(IS_OPERADOR)) {
             walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             board.setVisibility(View.GONE);
-        }else {
+        } else {
             hideLoader();
         }
     }
 
     private void setUiPageViewController() {
-        pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(),cardWalletAdpater.getSize());
+        pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(), cardWalletAdpater.getSize());
     }
 
     private void updateOperations(final int position) {
@@ -266,9 +266,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
         this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
-        if(cardWalletAdpater.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
-            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
-        }
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
         updateOperations(position);
     }
 

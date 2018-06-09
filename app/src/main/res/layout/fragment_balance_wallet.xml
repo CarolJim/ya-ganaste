@@ -68,16 +68,64 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pager_container"/>
+                app:layout_constraintTop_toBottomOf="@+id/pager_container" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/monto_y_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+
+                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                        android:id="@+id/txt_balance_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="7dp"
+                        android:text="00"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="11sp"
+                        android:visibility="gone"
+                        app:dotBottom="false"
+                        app:symbolSmaller="true" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_balance_type_payment"
+                        style="@style/generic_text_style_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/saldo_disponible"
+                        android:textColor="@color/hint_color"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_refresh_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toEndOf="@id/monto_y_text"
+                    android:layout_toRightOf="@id/monto_y_text"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_reload" />
+            </RelativeLayout>
 
             <ImageView
-                android:layout_height="wrap_content"
-                android:src="@drawable/chip_pin"
                 android:id="@+id/chiandpin"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:visibility="gone"
-                android:contentDescription="@string/app_name"/>
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/chip_pin"
+                android:visibility="gone" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_balance_card_desc"
@@ -87,9 +135,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="7dp"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="@string/saldo_disponible"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:visibility="gone" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_balance_card_desc2"
@@ -98,9 +146,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:visibility="gone"
                 android:text="@string/saldo_disponible"
-                android:textColor="@color/hint_color" />
+                android:textColor="@color/hint_color"
+                android:visibility="gone" />
 
             <com.pagatodo.yaganaste.ui_wallet.views.CustomDots
                 android:id="@+id/viewPagerCountDots"
@@ -108,7 +156,7 @@
                 android:layout_height="9dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
 
             <com.pagatodo.yaganaste.ui_wallet.views.GridRecyclerView
