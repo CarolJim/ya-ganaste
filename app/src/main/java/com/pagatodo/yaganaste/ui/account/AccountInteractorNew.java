@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.content.Intent;
 import android.util.Log;
 
+import com.dspread.xpos.QPOSService;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
@@ -34,6 +35,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqRespons
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AdquirienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
@@ -88,6 +90,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static android.content.Context.BLUETOOTH_SERVICE;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
@@ -127,6 +130,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
@@ -135,6 +139,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
 import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NEXT_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.OLD_NIP;
@@ -683,7 +688,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onSuccesBalance();
 
 
-
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
@@ -802,7 +806,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesion());
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
-
+                AdquirienteResponse adquiriente = user.getDataUser().getAdquirente();
+                /* Para los comercios UyU ya no se necesita configurar el lector debido a que ya está configurado
+                 * que tiene un lector Bluetooth */
+                if (adquiriente.getAgentes() != null && adquiriente.getAgentes().size() > 0 &&
+                        adquiriente.getAgentes().get(0).getEsComercioUYU()) {
+                    App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
+                    App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
+                }
                 if (dataUser.getCliente().getConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getEmisor().getCuentas().get(0).getIdCuenta()));
                     if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
@@ -813,28 +824,20 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                             stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                         }
                     } else {
-
                         if (!dataUser.getControl().getRequiereActivacionSMS()) {
-
                             stepByUserStatus = EVENT_GO_ASSIGN_NEW_CONTRASE;
                         } else {
-
                             if (dataUser.getEmisor().getCuentas().get(0).getTarjetas().get(0).getAsignoNip()) { // NO necesita NIP
                                 checkAfterLogin();
                                 return;
                             } else {//Requiere setear el NIP
                                 stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                             }
-
                         }
                     }
-
                 } else { // No tiene cuenta asignada.
-
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
-
                 }
-
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
                 if (RequestHeaders.getTokenauth().isEmpty()) {

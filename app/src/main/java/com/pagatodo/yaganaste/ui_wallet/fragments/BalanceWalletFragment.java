@@ -190,7 +190,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         board.setreloadOnclicklistener(view -> {
             if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
                 accountPresenter.updateBalance();
-            else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS){
+            else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
                 accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
             }
         });
@@ -288,7 +288,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         adapterBalanceCard.resetFlip();
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
-        if(adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
+        if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
             if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
                 accountPresenter.updateBalance();
             } else {
@@ -308,9 +308,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void onItemClick(ElementView elementView) {
         adapterBalanceCard.resetFlip();
-        if (prefs.containsData(IS_OPERADOR)){
+        if (prefs.containsData(IS_OPERADOR)) {
 
-        }else {
+        } else {
             setVisibilityBackItems(GONE);
             setVisibilityFrontItems(VISIBLE);
         }
@@ -342,15 +342,15 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void onCardClick(View v, int position) {
-            if (!((FlipView) v).isFlipped()) {
-                ((FlipView) v).flip(true);
-                setVisibilityBackItems(VISIBLE);
-                setVisibilityFrontItems(GONE);
-            } else {
-                ((FlipView) v).flip(false);
-                setVisibilityBackItems(GONE);
-                setVisibilityFrontItems(VISIBLE);
-            }
+        if (!((FlipView) v).isFlipped()) {
+            ((FlipView) v).flip(true);
+            setVisibilityBackItems(VISIBLE);
+            setVisibilityFrontItems(GONE);
+        } else {
+            ((FlipView) v).flip(false);
+            setVisibilityBackItems(GONE);
+            setVisibilityFrontItems(VISIBLE);
+        }
     }
 
     public void onRefresh(ElementWallet elementWallet) {
@@ -377,8 +377,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     private void setBalanceCards() {
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
-        adapterBalanceCard = new CardWalletAdpater(false,this);
-        if (prefs.containsData(IS_OPERADOR)){
+        adapterBalanceCard = new CardWalletAdpater(false, this);
+        if (prefs.containsData(IS_OPERADOR)) {
             txtCardDescBalance.setVisibility(GONE);
             txtCardDescBalance2.setVisibility(GONE);
             chiandpin.setVisibility(VISIBLE);
@@ -387,35 +387,30 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) != QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     chiandpin.setImageResource(R.mipmap.lector_front);
                 }
-            }catch (Exception e){
-                Log.d("Lector","Sin opc de lector seleccionada");
+            } catch (Exception e) {
+                Log.d("Lector", "Sin opc de lector seleccionada");
             }
 
-        }else{
-            Wallet walletList = WalletBuilder.createWalletsBalance();
-            adapterBalanceCard.addAllList(walletList.getList());
-            adapterBalanceCard.notifyDataSetChanged();
-            //adapterBalanceCard.setListener(this);
         }
-
+        Wallet walletList = WalletBuilder.createWalletsBalance();
+        adapterBalanceCard.addAllList(walletList.getList());
+        adapterBalanceCard.notifyDataSetChanged();
+        //adapterBalanceCard.setListener(this);
 
         vpBalace.setAdapter(adapterBalanceCard);
         vpBalace.setCurrentItem(this.pageCurrent);
         vpBalace.setOffscreenPageLimit(2);
         vpBalace.addOnPageChangeListener(this);
         pager_indicator.removeAllViews();
-
-
         updateOperations(this.pageCurrent);
         accountPresenter.updateBalance();
-        if (!prefs.containsData(IS_OPERADOR)){
-
+        if (!prefs.containsData(IS_OPERADOR)) {
             setUiPageViewController();
         }
     }
 
     private void setUiPageViewController() {
-        pager_indicator.setView(this.pageCurrent % adapterBalanceCard.getSize(),adapterBalanceCard.getSize());
+        pager_indicator.setView(this.pageCurrent % adapterBalanceCard.getSize(), adapterBalanceCard.getSize());
     }
 
 
@@ -434,8 +429,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             board.setReloadVisibility(View.INVISIBLE);
         }
 
-      txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
-      txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
+        txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
+        txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
     }
 
     private void updatePhoto() {

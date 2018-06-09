@@ -171,15 +171,14 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment) {
             getMenuInflater().inflate(R.menu.menu_wallet, menu);
-                menu.getItem(ACTION_SHARE).setVisible(true);
+            menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             getMenuInflater().inflate(R.menu.menu_mov_det_adq, menu);
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()==129){
+            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getEsComercioUYU()) {
                 menu.findItem(R.id.action_rembolsar).setVisible(false);
             }
             //menu.findItem(R.id.action_reenviar_ticket).setVisible(true);
             //menu.findItem(R.id.action_cancelar_cobro).setVisible(true);
-
         }
         return true;
     }
@@ -365,7 +364,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 MovTab movTab = (MovTab) data;
                 loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.FORDWARD, true);
                 //if (movTab.getItemMov().getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId()))
-                  //  menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
+                //  menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
                 break;
             case EVENT_GO_TO_FINALIZE_SUCCESS:
                 setResult(RESULT_CANCEL_OK);

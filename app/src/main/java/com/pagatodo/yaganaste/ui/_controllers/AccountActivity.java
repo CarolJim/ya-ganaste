@@ -278,13 +278,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 back = false;
                 setVisibilityBack(back);
                 loadFragment(NewConfirmPasswordLogin.newInstance(), Direction.FORDWARD, true);
-
                 break;
             case EVENT_GO_CONFIRM_NEW_CONTRASE:
                 back = false;
                 setVisibilityBack(back);
                 loadFragment(NewConfirmPasswordLogin.newInstance(), Direction.FORDWARD, true);
-
                 break;
             case EVENT_GO_ASSIGN_PIN:
                 changeToolbarVisibility(true);
@@ -350,7 +348,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                  */
                 SingletonUser user = SingletonUser.getInstance();
                 DataIniciarSesionUYU dataUser = user.getDataUser();
-
 
                 Preferencias prefs = App.getInstance().getPrefs();
                 prefs.saveData(PHONE_NUMBER, SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTelefono());

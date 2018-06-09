@@ -67,9 +67,6 @@ public class ElementWallet {
         this.isUpdate = isUpdate;
     }
 
-
-
-
     public ElementWallet(int typeWallet, Bitmap frontBitmap, Bitmap rearBitmap, String saldo,
                          ArrayList<ElementView> elementViews, int tipoSaldo, boolean isUpdate,
                          AgentesRespose agentesRespose) {
@@ -96,18 +93,6 @@ public class ElementWallet {
         this.titleDesRes = titleDes;
         this.cardNumberRes = cardNumber;
     }
-
-    /*public ElementWallet(int typeWallet, Bitmap rearBitmap, String saldo,
-                         ArrayList<ElementView> elementViews, int tipoSaldo, boolean isUpdate,
-                         AgentesRespose agentesRespose) {
-        this.typeWallet = typeWallet;
-        this.rearBitmap = rearBitmap;
-        this.saldo = saldo;
-        this.elementViews = elementViews;
-        this.tipoSaldo = tipoSaldo;
-        this.isUpdate = isUpdate;
-        this.agentesRespose = agentesRespose;
-    }*/
 
     public boolean isUpdate() {
         return isUpdate;
@@ -192,7 +177,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_EMISOR, frontView, rearView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 ElementView.getListEmisor(),
-                R.string.saldo_disponible, true,null);
+                R.string.saldo_disponible, true, null);
     }
 
     public static ElementWallet getCardyaganasteBloqueda() {
@@ -219,7 +204,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_STARBUCKS, frontView, resultBitmat,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
                 ElementView.getListStarbucks(),
-                (R.string.saldo_disponible), true,null);
+                (R.string.saldo_disponible), true, null);
     }
 
     public static ElementWallet getCardSettings() {
@@ -232,13 +217,12 @@ public class ElementWallet {
         }
         return new ElementWallet(TYPE_SETTINGS, frontView, null,
                 App.getContext().getString(R.string.title_wallet_main_settings) + cardsAvailable,
-                ElementView.getListConfigCard(), R.string.title_wallet_second_settings, false,null);
+                ElementView.getListConfigCard(), R.string.title_wallet_second_settings, false, null);
     }
 
     public static ElementWallet getCardLectorAdq(AgentesRespose agentesRespose) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
-
         if (isBluetooth) {
             frontView = frontCardBusiness(frontView, agentesRespose.getNombreNegocio());
         }
@@ -255,8 +239,7 @@ public class ElementWallet {
                 descripcion = R.string.mejor_precio;
                 isReload = false;
             }
-            if (isBluetooth){
-
+            if (isBluetooth) {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
                         ElementView.getListLectorAdq(agentesRespose.getOperadores(),agentesRespose.getNombreNegocio()), descripcion, isReload,agentesRespose);
             } else {

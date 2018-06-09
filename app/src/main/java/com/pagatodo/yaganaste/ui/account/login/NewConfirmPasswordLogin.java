@@ -70,13 +70,6 @@ public class NewConfirmPasswordLogin extends GenericFragment implements View.OnC
     @BindView(R.id.titulo_datos_usuario)
     StyleTextView titulo_datos_usuario;
 
-
-
-
-
-
-
-
     private View rootview;
     private String nip = "";
     private String nipToConfirm = "";

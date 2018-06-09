@@ -149,7 +149,9 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
     @Override
     public void onStop() {
         super.onStop();
-        App.getInstance().pos.stopScanQPos2Mode();
+        if (App.getInstance().pos != null) {
+            App.getInstance().pos.stopScanQPos2Mode();
+        }
     }
 
     @Override

@@ -55,8 +55,6 @@ public class NewPasswordLoginChange extends GenericFragment implements Validatio
     @BindView(R.id.edt_password)
     EditText edt_password;
 
-
-
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
     @BindView(R.id.progressIndicator)

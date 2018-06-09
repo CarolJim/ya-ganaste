@@ -53,7 +53,7 @@ public class CardWalletAdpater extends PagerAdapter {
 
     }
 
-    public void addAllList(ArrayList<ElementWallet> elementViewList){
+    public void addAllList(ArrayList<ElementWallet> elementViewList) {
         this.elementViewList = elementViewList;
     }
 
@@ -93,7 +93,7 @@ public class CardWalletAdpater extends PagerAdapter {
         WalletViewHolder holder = new WalletViewHolder(view, null);
 
         if (this.listener != null) {
-            holder = new WalletViewHolder(view, this.listener,position);
+            holder = new WalletViewHolder(view, this.listener, position);
         }
         holder.bind(elementViewList.get(position % elementViewList.size()), null);
         container.addView(view);
@@ -121,9 +121,9 @@ public class CardWalletAdpater extends PagerAdapter {
         this.notifyDataSetChanged();
     }
 
-    public void eneableOnclick(int position){
+    public void eneableOnclick(int position) {
         //if (this.listHolder.get(position) != null) {
-            this.listHolder.get(position % elementViewList.size()).setEneable(true);
+        this.listHolder.get(position % elementViewList.size()).setEneable(true);
         //}
     }
 
@@ -136,7 +136,11 @@ public class CardWalletAdpater extends PagerAdapter {
     }*/
 
     public ElementWallet getElemenWallet(int position) {
-        return this.elementViewList.get(position % elementViewList.size());
+        if (elementViewList.size() > 0) {
+            return this.elementViewList.get(position % elementViewList.size());
+        } else {
+            return this.elementViewList.get(position);
+        }
     }
 
     @Override
