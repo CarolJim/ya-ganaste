@@ -242,10 +242,10 @@ public class ElementView implements ElementGlobal {
             if (isAgente && Idestatus == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado();
             }
-            if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
+            /*if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
                 elementViews = ElementView.getListSeleccionarLector();
-            }
+            }*/
         }
         return elementViews;
     }
