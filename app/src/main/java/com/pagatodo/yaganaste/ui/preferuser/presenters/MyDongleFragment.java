@@ -161,7 +161,6 @@ public class MyDongleFragment extends GenericFragment implements
         } else {
             if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129
                     || SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getEsComercioUYU())
-                ;
             lytConfigRepayment.setVisibility(View.GONE);
         }
 
