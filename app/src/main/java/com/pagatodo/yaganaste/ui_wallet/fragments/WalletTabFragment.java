@@ -109,7 +109,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void initViews() {
         viewPagerWallet = pageContainer.getViewPager();
-        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this);
+        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, false);
         llm = new GridLayoutManager(getContext(), 3);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
@@ -236,6 +236,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void sendSuccessStatusAccount(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
+        App.getInstance().setStatusId(statusId);
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards(false);
     }

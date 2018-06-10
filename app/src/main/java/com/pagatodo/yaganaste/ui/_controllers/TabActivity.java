@@ -163,9 +163,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
 
     private boolean disableBackButton = false;
-
     FBPresenter fbmPresenter;
-
     public boolean isDialogShowned = false;
 
     public static Intent createIntent(Context from) {

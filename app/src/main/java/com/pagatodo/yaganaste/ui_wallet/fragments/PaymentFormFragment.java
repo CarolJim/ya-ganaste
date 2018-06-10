@@ -251,7 +251,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         return inflater.inflate(R.layout.fragment_payment_form, container, false);
 
 
-
     }
 
     @Override
@@ -295,7 +294,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (comercioResponse != null) {
 
 
-            noCamara =( comercioResponse.getIdComercio() == IECISA||comercioResponse.getIdComercio() == AVON || comercioResponse.getIdComercio() == CABLEV || comercioResponse.getIdComercio() == SKY || comercioResponse.getIdComercio() == TELMEXSR || comercioResponse.getIdComercio() == MAFER);
+            noCamara = (comercioResponse.getIdComercio() == IECISA || comercioResponse.getIdComercio() == AVON || comercioResponse.getIdComercio() == CABLEV || comercioResponse.getIdComercio() == SKY || comercioResponse.getIdComercio() == TELMEXSR || comercioResponse.getIdComercio() == MAFER);
             if (comercioResponse.getIdTipoComercio() == PAYMENT_RECARGAS) {
                 btnContinue.setText(getResources().getString(R.string.btn_recharge_txt));
 
@@ -413,7 +412,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 edtReferenceNumber.setLongClickable(true);
                 edtReferenceNumber.setSingleLine();
 
-                if (noCamara){
+                if (noCamara) {
                     imgReferencePayment.setVisibility(View.GONE);
                 }
 
@@ -540,8 +539,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     .placeholder(R.mipmap.icon_user)
                     .into(imgUserPhoto);
         }
-
-
 
 
     }
@@ -724,6 +721,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 //  til_num_telefono.setBackgroundResource(R.drawable.inputtext_error);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
+            } else if (errorText.equals(App.getContext().getResources().getString(R.string.txt_referencia_empty))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_refer_error);
+                errorText = App.getContext().getResources().getString(R.string.txt_referencia_empty);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_referencia_empty), Snackbar.LENGTH_SHORT);
+            } else if (errorText.equals(App.getContext().getResources().getString(R.string.mount_valid))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_body_envios_importe_empty_error);
+                errorText = App.getContext().getResources().getString(R.string.mount_valid);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.mount_valid), Snackbar.LENGTH_SHORT);
             }
             //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
@@ -788,7 +793,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (importe > 0) {
             isValid = true;
         }
-
         if (!isValid) {
             showError();
         } else {

@@ -78,7 +78,7 @@ public class SingletonUser {
             } else {
                 prefs.saveDataBool(IS_OPERADOR, false);
             }
-            prefs.saveData(COMPANY_NAME, dataUser.getAdquirente() != null ? (dataUser.getAdquirente().getAgentes().get(0).getNombreNegocio()) : "");
+            prefs.saveData(COMPANY_NAME, dataUser.getAdquirente().getAgentes() != null ? (dataUser.getAdquirente().getAgentes().get(0).getNombreNegocio()) : "");
             //prefs.saveDataBool(PASSWORD_CHANGE, false);
             prefs.saveData(NAME_USER, dataUser.getCliente().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getCliente().getNombre().concat(SPACE).

@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,8 +156,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
             // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
             cardStatusId = App.getInstance().getStatusId();
-            // cardStatusId = "1"; // Linea de TEst, eliminamos cuando el anterior funcione en actualizar
-            if (cardStatusId == null) {
+            if (cardStatusId == null || cardStatusId.equals("-1")) {
                 cardStatusId = "1";
             }
 
@@ -167,6 +167,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
                 statusBloqueo = DESBLOQUEO;
             }
+            Log.e("YG", "cardStatusId: " + cardStatusId + " statusBloqueo: " + statusBloqueo);
         }
     }
 

@@ -153,7 +153,6 @@ public class ContainerBuilder {
 
     public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
         OptionsViewHolder op = null;
         //OPTION_ZONE
         switch (typeholder) {
@@ -170,8 +169,12 @@ public class ContainerBuilder {
                 op = new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));
                 break;
         }
-
         return op;
+    }
+
+    public static OptionsViewHolder getViewHolderBalance(Activity context, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new ButtonsViewHolder(context, inflater.inflate(R.layout.balance_element, parent, false));
     }
 
     public static TextDataViewHolder getViewHolder(ViewGroup parent) {

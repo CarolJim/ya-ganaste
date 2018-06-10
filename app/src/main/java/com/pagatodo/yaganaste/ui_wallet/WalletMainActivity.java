@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.icu.text.MeasureFormat;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,6 +62,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +76,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADDFAVORITE_PAYMENT;
@@ -218,8 +222,17 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_ADMON_ADQ:
-                loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        R.id.fragment_container);
+                int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                        Manifest.permission.RECORD_AUDIO);
+                if (permissionCall == -1) {
+                    ValidatePermissions.checkPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
+                            REQUEST_ID_MULTIPLE_PERMISSIONS);
+                    finish();
+                } else {
+                    loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                            R.id.fragment_container);
+                }
                 break;
             case OPTION_ADMON_STARBUCK:
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container);

@@ -61,7 +61,7 @@ public class PresenterPaymentFragment implements IPresenterPaymentFragment, ISer
 
     @Override
     public void onImporteEmpty() {
-        iView.onErrorValidateService(App.getContext().getResources().getString(R.string.txt_importe_empty));
+        iView.onErrorValidateService(App.getContext().getResources().getString(R.string.mount_valid));
     }
 
     @Override

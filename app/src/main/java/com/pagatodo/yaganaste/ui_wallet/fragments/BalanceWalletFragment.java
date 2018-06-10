@@ -176,7 +176,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         balanceEmisor = prefs.loadData(USER_BALANCE);
         balanceAdq = prefs.loadData(ADQUIRENTE_BALANCE);
         balanceStarbucks = prefs.loadData(STARBUCKS_BALANCE);
-        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this);
+        elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, true);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);

@@ -42,8 +42,9 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
 
 
     }
-    public  static  ContactoFragment newInstance(){
-        return  new ContactoFragment();
+
+    public static ContactoFragment newInstance() {
+        return new ContactoFragment();
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         rootView = inflater.inflate(R.layout.fragmentcontacto, container, false);
+        rootView = inflater.inflate(R.layout.fragmentcontacto, container, false);
         ButterKnife.bind(this, rootView);
         initViews();
         return rootView;
@@ -64,8 +65,7 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.view_elementlllamar){
-
+        if (view.getId() == R.id.view_elementlllamar) {
             int permissionCall = ContextCompat.checkSelfPermission(getContext(),
                     Manifest.permission.READ_PHONE_STATE);
             // Si no tenemos el permiso lo solicitamos, en cawso contrario entramos al proceso de envio del MSN
@@ -75,17 +75,14 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
                         MY_PERMISSIONS_REQUEST_SEND_SMS);
             } else {
                 startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0180050010000")));
-
             }
-
-            }
-
-        if(view.getId()==R.id.view_element_correo){
-
-            Intent email = new Intent(Intent.ACTION_SEND);
-            email.setType("text/html");
+        }
+        if (view.getId() == R.id.view_element_correo) {
+            Intent email = new Intent(Intent.ACTION_SENDTO);
+            //email.setType("text/html");
+            email.setData(Uri.parse("mailto:"));
             email.putExtra(Intent.EXTRA_EMAIL, new String[]{"contacto@yaganaste.com"});
-            startActivity(Intent.createChooser(email,"Send Email"));
+            startActivity(Intent.createChooser(email, "Send Email"));
         }
     }
 }

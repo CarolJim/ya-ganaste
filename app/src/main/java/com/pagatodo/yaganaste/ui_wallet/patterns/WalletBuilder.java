@@ -34,9 +34,12 @@ public class WalletBuilder {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
             }
         }
-
-        for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
-            walletList.addWallet(ElementWallet.getCardLectorAdq(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i)));
+        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null) {
+            for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
+                walletList.addWallet(ElementWallet.getCardLectorAdq(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i)));
+            }
+        } else {
+            walletList.addWallet(ElementWallet.getCardLectorAdq(new AgentesRespose()));
         }
 
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {

@@ -644,17 +644,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         IEnumSpinner itemSelected = adapterBirthPlace.getItem(position);
-
         txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_normal);
 
         if (itemSelected == States.S0) {
-
         } else {
             lugarnacimientomens.setVisibility(VISIBLE);
             lugarnacimientomens.setTextColor(getResources().getColor(R.color.colorAccent));
         }
-
-
         if (itemSelected == States.S33) {
             if (country != null) {
                 lytCountry.setVisibility(VISIBLE);

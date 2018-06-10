@@ -9,29 +9,27 @@
     tools:context="com.pagatodo.yaganaste.ui_wallet.fragments.PaymentFormFragment">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/scrollViewpagos"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txt_title_payment"
-        style="@style/generic_text_style_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:maxLines="2"
-        android:text="Recarga"
-        android:textColor="@color/colorAccent" />
-
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_title_payment"
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Recarga"
+                android:textColor="@color/colorAccent" />
 
 
             <LinearLayout
@@ -342,8 +340,8 @@
                         android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -353,9 +351,8 @@
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
-                            android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionNext"
-
+                            android:inputType="number"
                             android:longClickable="false"
                             android:maxLength="10"
                             android:singleLine="true"
@@ -390,8 +387,8 @@
                         android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -405,8 +402,8 @@
 
                             android:maxLength="12"
                             android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor" />
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -451,8 +448,8 @@
                         android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -535,19 +532,19 @@
             </LinearLayout>
 
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btn_continue_payment"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="@dimen/width_btns_big"
-        android:layout_height="@dimen/height_btns"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:background="@drawable/button_rounded_blue"
-        android:textAllCaps="false"
-        android:textColor="@color/whiteColor"
-        android:textSize="@dimen/size_text_style_2_value"
-        app:cornerRadius="@dimen/btn_corner_radius"
-        app:intercepterOnclick="true" />
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btn_continue_payment"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/width_btns_big"
+                android:layout_height="@dimen/height_btns"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_rounded_blue"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/size_text_style_2_value"
+                app:cornerRadius="@dimen/btn_corner_radius"
+                app:intercepterOnclick="true" />
         </LinearLayout>
 
     </ScrollView>

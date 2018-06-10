@@ -1242,7 +1242,7 @@
     <string name="title_fragment_movimientos">Movimientos recientes</string>
 
     <!--Cambio de contraeña  -->
-    <string name="asignar_nueva_contraseña">Contraseña actual (6 dígitos)</string>
+    <string name="asignar_nueva_contraseña">Contraseña actual</string>
     <string name="confirma_nueva_contrasena">Nueva contraseña (6 dígitos)</string>
     <string name="confirma_nueva_contraseña">Confirma nueva contraseña</string>
     <string name="confirmar_contrase">La contraseña no coincide</string>

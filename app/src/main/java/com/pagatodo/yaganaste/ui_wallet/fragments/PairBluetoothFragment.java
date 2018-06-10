@@ -157,7 +157,8 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
     @Override
     public void onDestroy() {
         unregisterReceiverDongle();
-        App.getInstance().pos.disconnectBT();
+        if (App.getInstance().pos != null)
+            App.getInstance().pos.disconnectBT();
         super.onDestroy();
     }
 

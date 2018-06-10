@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
@@ -58,13 +59,11 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         } else {
             holder = (StatesSpinnerAdapter.DropDownHolder) row.getTag();
         }
-
-
         IEnumSpinner item = mItems[position];
         if (position == 0) {
             holder.txtTitle.setText("");
             holder.txtTitle.setHint(item.getName());
-            holder.txtTitle.setHintTextColor(mContext.getResources().getColor(R.color.grayColor));
+            holder.txtTitle.setHintTextColor(mContext.getResources().getColor(R.color.hint_color));
         } else {
             holder.txtTitle.setText(item.getName());
         }
@@ -83,6 +82,11 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
 
             holder = new StatesSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
+            if (position == 0) {
+                holder.editText.setTextColor(App.getContext().getResources().getColor(R.color.hint_color));
+            } else {
+                holder.editText.setTextColor(App.getContext().getResources().getColor(R.color.grayColor));
+            }
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             holder.laySpinnerCustom = (LinearLayout) row.findViewById(R.id.laySpinnerCustom);
             row.setTag(holder);

@@ -21,16 +21,22 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
     private List<ElementView> elementViews;
     private Activity context;
     private OnItemClickListener listener;
+    private boolean isBalance = false;
 
-    public ElementsWalletAdapter(Activity context, OnItemClickListener listener) {
+    public ElementsWalletAdapter(Activity context, OnItemClickListener listener, boolean isBalance) {
         this.context = context;
         this.elementViews = new ArrayList<>();
         this.listener = listener;
+        this.isBalance = isBalance;
     }
 
     @Override
     public OptionsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        return ContainerBuilder.getViewHolder(context,parent,elementViews.get(position).getTypeOptions());
+        if (!isBalance) {
+            return ContainerBuilder.getViewHolder(context, parent, elementViews.get(position).getTypeOptions());
+        } else {
+            return ContainerBuilder.getViewHolderBalance(context, parent);
+        }
     }
 
     @Override
@@ -48,7 +54,7 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
         return this.elementViews.size();
     }
 
-    public void setListOptions(List<ElementView> elementViews){
+    public void setListOptions(List<ElementView> elementViews) {
         this.elementViews = elementViews;
     }
 

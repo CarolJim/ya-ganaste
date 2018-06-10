@@ -202,10 +202,9 @@ public class SelfieFragment extends GenericFragment implements View.OnClickListe
 
 
     private void updatePhoto() {
-
         // Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            Picasso.with(getContext())
+            Picasso.with(getActivity())
                     .load(mUserImage)
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                     .into(iv_photo_item);
