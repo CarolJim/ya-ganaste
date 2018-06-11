@@ -94,6 +94,11 @@ public class ApiAdq extends Api {
      */
     public static void registroDongle(RegistroDongleRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
+            String idUserAdq = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().
+                    get(0).getOperadores().get(0).getIdUsuarioAdquirente();
+            RequestHeaders.setIdCuentaAdq(idUserAdq);
+        }
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
 

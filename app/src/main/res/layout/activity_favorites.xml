@@ -361,6 +361,7 @@
                     android:background="@drawable/inputtext_normal"
                     android:visibility="gone">
 
+
                     <Spinner
                         android:id="@+id/tipoEnvio"
                         style="@style/CustomSpinner"

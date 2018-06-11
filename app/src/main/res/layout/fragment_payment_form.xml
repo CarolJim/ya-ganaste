@@ -399,7 +399,8 @@
                             android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:imeOptions="actionNext"
-
+                            android:inputType="number"
+                            android:longClickable="false"
                             android:maxLength="12"
                             android:singleLine="true"
                             android:textColor="@color/grayColor"

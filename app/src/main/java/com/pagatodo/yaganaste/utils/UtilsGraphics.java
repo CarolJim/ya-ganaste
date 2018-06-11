@@ -124,10 +124,8 @@ public class UtilsGraphics {
     }
 
     public static Bitmap frontCardBusiness(Bitmap cardBusiness, String name) {
-
         Bitmap nameBusiness = getTextInBitmap(name,
                 20 * App.getContext().getResources().getDisplayMetrics().density);
-
         return overlayImages(cardBusiness, nameBusiness, 40, cardBusiness.getHeight() / 2);
         /* Pegar nombre del cliente en diseño tarjeta */
         //return overlayImages(faceView, nameUser, 40, (faceView.getHeight() / 2) + (cardNumber.getHeight() * 1.2F));
