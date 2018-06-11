@@ -20,6 +20,7 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -91,6 +92,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
@@ -107,6 +110,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
@@ -170,6 +174,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     RelativeLayout layoutImageContact2;
     @BindView(R.id.layoutScanQr)
     RelativeLayout layoutScanQr;
+    @BindView(R.id.layoutScanCard)
+    RelativeLayout layoutScanCard;
     @BindView(R.id.add_favorites_list_serv)
     EditText editListServ;
     @BindView(R.id.recargaNumber)
@@ -208,8 +214,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     LinearLayout add_favorites_tae_ll;
     @BindView(R.id.add_favorites_serv_ll)
     LinearLayout add_favorites_serv_ll;
-
-
 
 
     @Override
@@ -318,6 +322,25 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 Intent intentQR = new Intent(this, ScannVisionActivity.class);
                 intentQR.putExtra(ScannVisionActivity.QRObject, true);
                 startActivityForResult(intentQR, BARCODE_READER_REQUEST_CODE);
+                break;
+            case R.id.layoutScanCard:
+                Intent scanIntent = new Intent(this, CardIOActivity.class);
+
+                // customize these values to suit your needs.
+                scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
+                scanIntent.putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
+                scanIntent.putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true);
+                scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, true);
+                //scanIntent.putExtra(CardIOActivity.EXTRA_UNBLUR_DIGITS, 8);
+
+                // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+                startActivityForResult(scanIntent, CREDITCARD_READER_REQUEST_CODE);
                 break;
             default:
                 break;
@@ -556,6 +579,18 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     // Borrar  editReferError.setVisibilityImageError(false);
                 }
             }
+        }
+
+        if (requestCode == CREDITCARD_READER_REQUEST_CODE) {
+            String resultDisplayStr;
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                resultDisplayStr = "Card Number: " + scanResult.getFormattedCardNumber();
+                cardNumber.setText(scanResult.getFormattedCardNumber().trim());
+            } else {
+                resultDisplayStr = "Scan was canceled.";
+            }
+            Log.e(getString(R.string.app_name), "@CreditCard Scanner: " + resultDisplayStr);
         }
     }
 
@@ -1167,6 +1202,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layoutImageContact2.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.VISIBLE);
+            layoutScanCard.setOnClickListener(this);
             selectedType = NUMERO_TARJETA;
             til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
         } else if (position == NUMERO_TELEFONO.getId()) {
@@ -1174,6 +1211,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
             layoutImageContact2.setVisibility(View.VISIBLE);
             layoutImageContact2.setOnClickListener(this);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
 
@@ -1212,6 +1251,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layoutImageContact2.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             selectedType = CLABE;
             til_num_telefono.setHint(CLABE.getName(this));
         } else if (position == QR_CODE.getId()) {
@@ -1230,6 +1271,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             cardNumber.setFocusable(false);
             layoutScanQr.setVisibility(View.VISIBLE);
             layoutScanQr.setOnClickListener(this);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             selectedType = CLABE;
             til_num_telefono.setHint(QR_CODE.getName(this));
         } else {
@@ -1238,6 +1281,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layout_cardNumber.setVisibility(GONE);
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
+            layoutScanCard.setVisibility(View.GONE);
+            layoutScanCard.setOnClickListener(null);
             selectedType = null;
         }
 

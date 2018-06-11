@@ -100,11 +100,11 @@
                     android:maxLines="1"
                     android:paddingLeft="6dp"
                     android:textColorHint="@color/texthint"
-                    app:passwordToggleTint="@color/hint_color"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
                     <EditText
@@ -112,10 +112,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="9dp"
+                        android:layout_marginLeft="5.5dp"
                         android:background="@android:color/transparent"
                         android:digits="@string/input_alphanumeric_space_reference"
                         android:imeOptions="actionDone"
-                        android:layout_marginLeft="5.5dp"
                         android:inputType="textCapSentences"
                         android:longClickable="false"
                         android:maxLength="30"
@@ -138,12 +138,12 @@
                     android:maxLines="1"
                     android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
-                    app:passwordToggleTint="@color/hint_color"
-
                     app:counterEnabled="true"
+
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                    app:hintTextAppearance="@style/HintText">
+                    app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color">
 
                     <EditText
                         android:id="@+id/add_favorites_list_serv"
@@ -151,14 +151,14 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginBottom="9dp"
+                        android:layout_marginLeft="2.5dp"
                         android:background="@android:color/transparent"
                         android:focusableInTouchMode="false"
                         android:imeOptions="actionNext"
                         android:inputType="text"
-                        android:layout_marginLeft="2.5dp"
                         android:maxLength="37"
-                        android:textSize="14sp"
                         android:textColor="@color/texthint"
+                        android:textSize="14sp"
                         android:windowSoftInputMode="stateHidden" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -169,21 +169,21 @@
                     android:id="@+id/add_favorites_linear_tipo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_marginLeft="5.5dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:longClickable="false"
                     android:maxLines="1"
                     android:paddingLeft="8dp"
-                    android:layout_marginLeft="5.5dp"
                     android:textColorHint="@color/texthint"
                     android:visibility="gone"
-                    app:passwordToggleTint="@color/hint_color"
-                    tools:ignore="UnusedAttribute"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                    app:hintTextAppearance="@style/HintText">
+                    app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color"
+                    tools:ignore="UnusedAttribute">
 
                     <EditText
                         android:id="@+id/add_favorites_tipo"
@@ -252,23 +252,22 @@
                         android:paddingLeft="6dp"
                         android:textColor="@color/blue_text_wallet"
                         android:textColorHint="@color/texthint"
-                        app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:hintTextAppearance="@style/HintText"
-                        >
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
 
                         <EditText
                             android:id="@+id/recargaNumber"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="9dp"
+                            android:layout_marginLeft="5.5dp"
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionDone"
-                            android:layout_marginLeft="5.5dp"
                             android:inputType="text"
                             android:longClickable="false"
                             android:maxLength="15"
@@ -289,8 +288,8 @@
                             android:id="@+id/imgMakePaymentContact"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/icono_agenda" />
+                            android:src="@drawable/icono_agenda"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -306,9 +305,9 @@
                     android:visibility="gone">
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/referencianumber"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:id="@+id/referencianumber"
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_reference"
@@ -347,8 +346,8 @@
                             android:id="@+id/imgMakePaymentRef"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -393,13 +392,12 @@
                         android:maxLines="1"
                         android:paddingLeft="6dp"
                         android:textColorHint="@color/texthint"
-                        app:passwordToggleTint="@color/hint_color"
-                        tools:ignore="UnusedAttribute"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:hintTextAppearance="@style/HintText"
-                        >
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
 
                         <EditText
                             android:id="@+id/cardNumber"
@@ -430,8 +428,8 @@
                             android:id="@+id/imgMakePaymentContact2"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/icono_agenda" />
+                            android:src="@drawable/icono_agenda"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -446,8 +444,25 @@
                             android:id="@+id/imgScanQr"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layoutScanCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imgScanCard"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="21dp"
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
