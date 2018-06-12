@@ -41,8 +41,9 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
 
         this.listener = listener;
     }
+
     public RecyclerMovementsAdapter(@NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener, boolean adq) {
-       this.adq=adq;
+        this.adq = adq;
         if (itemMovementses.size() > 0) {
             this.itemMovementses = itemMovementses;
             isEmpty = false;
@@ -120,34 +121,34 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         void bindData(ItemMovements itemMovements, int position, View.OnClickListener clickListener) {
             //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
 
-            if (itemMovements.getColor() == R.color.redColorNegativeMovements){
-                upDown.setBackgroundResource(R.drawable.down_red);
+            if (itemMovements.getColor() == R.color.redColorNegativeMovements) {
+                if (adq) {
+                    upDown.setBackgroundResource(R.drawable.down);
+                } else {
+                    upDown.setBackgroundResource(R.drawable.down_red);
+                }
             }
 
-
-            if (adq){
-
-                if (itemMovements.getColor() == R.color.greenColorPositiveMovements) {
+            if (itemMovements.getColor() == R.color.greenColorPositiveMovements) {
+                if (adq) {
                     upDown.setBackgroundResource(R.drawable.upadq);
-                }
-            }else {
-                if (itemMovements.getColor() == R.color.greenColorPositiveMovements) {
+                } else {
                     upDown.setBackgroundResource(R.drawable.up);
                 }
             }
 
-            if (itemMovements.getColor() == R.color.colorAccent){
+            if (itemMovements.getColor() == R.color.colorAccent) {
                 upDown.setBackgroundResource(R.drawable.ico_idle);
             }
 
-            if (itemMovements.getColor() == R.color.redColorNegativeMovementsCancel){
+            if (itemMovements.getColor() == R.color.redColorNegativeMovementsCancel) {
                 upDown.setBackgroundResource(R.drawable.down);
             }
 
             layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
             //txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
             //updown.se
-            if (position%2 == 0) {
+            if (position % 2 == 0) {
                 //System.out.println("El número es par");
                 viewForeground.setBackgroundResource(R.color.item_movement);
             } else {
@@ -178,19 +179,19 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         notifyDataSetChanged();
     }
 
-    public ItemMovements getMovItem(int position){
+    public ItemMovements getMovItem(int position) {
         return this.itemMovementses.get(position);
     }
 
-    public T getItem(int position){
+    public T getItem(int position) {
         return this.itemMovementses.get(position).getMovement();
     }
 
-    public void updateChange(){
+    public void updateChange() {
         notifyDataSetChanged();
     }
 
-    public void setVisibilityAddFav(int position){
+    public void setVisibilityAddFav(int position) {
 
     }
 }

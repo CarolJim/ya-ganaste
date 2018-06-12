@@ -75,7 +75,7 @@
             android:background="@android:color/transparent"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
-            android:maxLength="19"
+            android:maxLength="50"
             android:singleLine="true"
             android:textColor="@color/grayColor"
             android:theme="@style/NewEdittextwallet"

@@ -63,6 +63,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.SEND_REEMBOLSO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_TYPE_REPAYMENT;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
 /**
@@ -94,8 +95,8 @@ public class ApiAdq extends Api {
      */
     public static void registroDongle(RegistroDongleRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
-            String idUserAdq = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().
+        if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129) {
+            String idUserAdq = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getAdquirente().getAgentes().
                     get(0).getOperadores().get(0).getIdUsuarioAdquirente();
             RequestHeaders.setIdCuentaAdq(idUserAdq);
         }
@@ -247,8 +248,8 @@ public class ApiAdq extends Api {
      */
     public static void resumenMovimientosMes(ResumenMovimientosMesRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
-            String idUserAdq = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().
+        if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129) {
+            String idUserAdq = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getAdquirente().getAgentes().
                     get(0).getOperadores().get(0).getIdUsuarioAdquirente();
             RequestHeaders.setIdCuentaAdq(idUserAdq);
         }
@@ -360,8 +361,8 @@ public class ApiAdq extends Api {
      */
     public static void obtenerDetalleMovimiento(DetalleMovimientoRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
-            String idUserAdq = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().
+        if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129) {
+            String idUserAdq = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getAdquirente().getAgentes().
                     get(0).getOperadores().get(0).getIdUsuarioAdquirente();
             RequestHeaders.setIdCuentaAdq(idUserAdq);
         }

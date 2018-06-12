@@ -6,6 +6,7 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -15,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimien
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AdqPayMovementsIteractorImp;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
@@ -111,14 +113,16 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
             } else {
                 color = APROBADO.getColor();
             }*/
-            movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(),
-                    movimientoAdq.getBancoEmisor()
+            boolean isOperador = SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129;
+            if (!isOperador || (isOperador && movimientoAdq.getID().equals(RequestHeaders.getIdCuentaAdq()))) {
+                movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(),
+                        movimientoAdq.getBancoEmisor()
                     /*movimientoAdq.getBancoEmisor().concat(SPACE).concat(
                             movimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
                                     movimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE)*/,
-                    StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
-                    DateUtil.getMonthShortName(calendar), color, movimientoAdq));
-
+                        StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
+                        DateUtil.getMonthShortName(calendar), color, movimientoAdq));
+            }
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();

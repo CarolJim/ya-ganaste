@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.FrameLayout;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -44,6 +46,8 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
@@ -63,11 +67,12 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTE
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_APPROVED;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
 public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
@@ -244,7 +249,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
 
             case EVENT_PERSONAL_DATA_BACK:
-
                 loadFragment(SelfieFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_ADDRESS_DATA:
@@ -357,6 +361,16 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 startActivity(intent);
                 finish();
                 break;
+            case EVENT_GO_SELECT_DONGLE:
+                loadFragment(SelectDongleFragment.newInstance(), Direction.FORDWARD);
+                break;
+            case EVENT_GO_CONFIG_DONGLE:
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    loadFragment(PairBluetoothFragment.newInstance(), Direction.FORDWARD);
+                } else {
+                    onBackPressed();
+                }
+                break;
         }
     }
 
@@ -427,7 +441,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             } else if (currentFragment instanceof BlockCardFragment) {
                 //Toast.makeText(this, "Click Back. Main Responde", Toast.LENGTH_SHORT).show();
                 onEvent(EVENT_BLOCK_CARD_BACK, null);
-
+            } else if (currentFragment instanceof PairBluetoothFragment
+                    || currentFragment instanceof SelectDongleFragment) {
+                loadFragment(loginContainerFragment, Direction.BACK, false);
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 super.onBackPressed();

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +23,9 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,8 +114,14 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     }
 
     public void loadConfigDongle() {
-        loadFragment(MyDongleFragment.newInstance(prefs.loadDataInt(MODE_CONNECTION_DONGLE)), Direction.FORDWARD, true);
-        showBack(true);
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        if (!adapter.isEnabled()) {
+            Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(enabler);
+        } else {
+            loadFragment(MyDongleFragment.newInstance(prefs.loadDataInt(MODE_CONNECTION_DONGLE)), Direction.FORDWARD, true);
+            showBack(true);
+        }
     }
 
     public void loadRewards() {
@@ -143,7 +152,10 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
                 || currentFragment instanceof OtpContainerFratgment
                 || currentFragment instanceof BlockCardFragment
                 || currentFragment instanceof RewardsStarbucksFragment
-                || currentFragment instanceof MapStarbucksFragment) {
+                || currentFragment instanceof MapStarbucksFragment
+                || currentFragment instanceof MyDongleFragment
+                || currentFragment instanceof SelectDongleFragment
+                || currentFragment instanceof PairBluetoothFragment) {
             showBack(false);
             loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
         } else if (currentFragment instanceof RecoveryFragment) {

@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/chip_pin"
+                android:src="@drawable/lector_bt"
                 android:visibility="gone" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView

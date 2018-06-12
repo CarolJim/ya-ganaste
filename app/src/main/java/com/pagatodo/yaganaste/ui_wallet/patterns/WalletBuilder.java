@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AdquirienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -53,15 +54,18 @@ public class WalletBuilder {
 
     public static Wallet createWalletsBalance() {
         Wallet walletList = new Wallet();
-        if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
-            walletList.addWallet(ElementWallet.getCardBalanceEmiBloqueda());
-            //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
-        } else {
-            walletList.addWallet(ElementWallet.getCardBalanceEmi());
-            //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
+        DataIniciarSesionUYU dataUyu = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE);
+        if ((dataUyu != null && dataUyu.getUsuario().getRoles().get(0).getIdRol() != 129) || dataUyu == null) {
+            if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
+                walletList.addWallet(ElementWallet.getCardBalanceEmiBloqueda());
+                //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
+            } else {
+                walletList.addWallet(ElementWallet.getCardBalanceEmi());
+                //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
+            }
         }
-        if (!RequestHeaders.getTokenAdq().isEmpty() && App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE) != null) {
-            AdquirienteResponse response = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getAdquirente();
+        if (!RequestHeaders.getTokenAdq().isEmpty() && dataUyu != null) {
+            AdquirienteResponse response = dataUyu.getAdquirente();
             for (AgentesRespose agentesRespose : response.getAgentes()) {
                 walletList.addWallet(ElementWallet.getCardBalanceAdq(agentesRespose));
             }

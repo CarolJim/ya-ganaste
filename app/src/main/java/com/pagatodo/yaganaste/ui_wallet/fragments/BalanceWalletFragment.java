@@ -329,7 +329,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             case OPTION_SUCURSALES:
                 nextScreen(EVENT_STORES, null);
                 break;
-
             default:
                 break;
         }
@@ -374,8 +373,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         adapterBalanceCard = new CardWalletAdpater(false, this);
         if (prefs.containsData(IS_OPERADOR)) {
-            txtCardDescBalance.setVisibility(GONE);
-            txtCardDescBalance2.setVisibility(GONE);
             chiandpin.setVisibility(VISIBLE);
             vpBalace.setVisibility(GONE);
             try {

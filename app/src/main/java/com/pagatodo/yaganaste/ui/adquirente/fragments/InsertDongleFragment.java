@@ -241,7 +241,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onPause() {
         super.onPause();
-        App.getInstance().pos.closeAudio();
         App.getInstance().pos.stopScanQPos2Mode();
     }
 

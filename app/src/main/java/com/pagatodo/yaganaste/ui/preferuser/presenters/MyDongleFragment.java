@@ -159,9 +159,8 @@ public class MyDongleFragment extends GenericFragment implements
                     || SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getEsComercioUYU())
                 lytConfigRepayment.setVisibility(View.GONE);
         } else {
-            if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129
-                    )
-            lytConfigRepayment.setVisibility(View.GONE);
+            if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129)
+                lytConfigRepayment.setVisibility(View.GONE);
         }
 
 
@@ -206,9 +205,10 @@ public class MyDongleFragment extends GenericFragment implements
 
     @Override
     public void onDestroy() {
-        unregisterReceiverDongle();
         App.getInstance().pos.closeAudio();
+        App.getInstance().pos.stopScanQPos2Mode();
         App.getInstance().pos.disconnectBT();
+        unregisterReceiverDongle();
         super.onDestroy();
     }
 
@@ -416,10 +416,14 @@ public class MyDongleFragment extends GenericFragment implements
                     Log.i("IposListener: ", "=====>>    REQUEST_PIN");
                     break;
                 case SW_TIMEOUT:
-                    if (!mensajeuno) {
-                        App.getInstance().pos.stopScanQPos2Mode();
-                        App.getInstance().pos.clearBluetoothBuffer();
-                        App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+                    try {
+                        if (!mensajeuno) {
+                            App.getInstance().pos.stopScanQPos2Mode();
+                            App.getInstance().pos.clearBluetoothBuffer();
+                            App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     break;
                 case SW_ERROR:

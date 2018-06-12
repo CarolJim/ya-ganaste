@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IDetailAdqView;
 import com.pagatodo.yaganaste.ui_wallet.patterns.CreateDatailBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.facade.FacadeMovements;
@@ -175,6 +176,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     public void loadReembolso() {
         UI.showSuccessSnackBar(getActivity(), getResources().getString(R.string.message_succes_reembolso), Snackbar.LENGTH_SHORT);

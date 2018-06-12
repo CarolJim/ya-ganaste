@@ -125,11 +125,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
+    private MovTab movTab;
 
     @BindView(R.id.toolbar_wallet)
     Toolbar toolbar;
 
-    //private Menu menu;
+    private Menu menu;
     private ElementView itemOperation;
     private ShareActionProvider mShareActionProvider;
 
@@ -169,7 +170,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //this.menu = menu;
+        this.menu = menu;
         //getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
             getMenuInflater().inflate(R.menu.menu_wallet, menu);
@@ -181,6 +182,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             getMenuInflater().inflate(R.menu.menu_mov_det_adq, menu);
             if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getEsComercioUYU()) {
                 menu.findItem(R.id.action_rembolsar).setVisible(false);
+            }
+            if (!movTab.getItemMov().getEstatus().equals("2")) {
+                menu.findItem(R.id.action_rembolsar).setVisible(false);
+                menu.findItem(R.id.action_cancelar_cobro).setVisible(false);
             }
             //menu.findItem(R.id.action_reenviar_ticket).setVisible(true);
             //menu.findItem(R.id.action_cancelar_cobro).setVisible(true);
@@ -379,8 +384,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 //menu.getItem(ACTION_SHARE).setVisible(true);
                 break;
             case EVENT_GO_DETAIL_ADQ:
-                MovTab movTab = (MovTab) data;
-                loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.FORDWARD, true);
+                this.movTab = (MovTab) data;
+                loadFragment(DetailsAdquirenteFragment.newInstance(this.movTab), R.id.fragment_container, Direction.FORDWARD);
                 //if (movTab.getItemMov().getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId()))
                 //  menu.getItem(ACTION_CANCEL_CHARGE).setVisible(true);
                 break;
@@ -419,10 +424,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 break;
             case EVENT_GO_TO_MOV_ADQ:
-                loadFragment(PaymentsFragment.newInstance(((MovTab) data).getCurrentTab()), R.id.fragment_container);
+                this.movTab = (MovTab) data;
+                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab()), R.id.fragment_container);
                 break;
             case EVENT_GO_TO_SEND_TICKET:
-                loadFragment(SendTicketFragment.newInstance((MovTab) data), R.id.fragment_container);
+                this.movTab = (MovTab) data;
+                loadFragment(SendTicketFragment.newInstance(movTab), R.id.fragment_container);
                 break;
         }
     }
@@ -447,6 +454,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         Fragment fragment = getCurrentFragment();
         if (fragment instanceof LoginStarbucksFragment) {
             loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container, Direction.BACK);
+        } else if (fragment instanceof SendTicketFragment) {
+            loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.BACK);
+        } else if (fragment instanceof DetailsAdquirenteFragment) {
+            loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
         } else {
             super.onBackPressed();
         }

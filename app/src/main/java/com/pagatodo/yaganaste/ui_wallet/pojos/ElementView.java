@@ -86,18 +86,19 @@ public class ElementView implements ElementGlobal {
         this.list = list;
     }
 
-    public ElementView(){}
+    public ElementView() {
+    }
 
     public static ElementView newInstance() {
         return new ElementView();
     }
 
-    public ElementView(int idOperacion, int resource, int title, ArrayList<OperadoresResponse> list,String nombreNegocio) {
+    public ElementView(int idOperacion, int resource, int title, ArrayList<OperadoresResponse> list, String nombreNegocio) {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
         this.list = list;
-        this.nombreNegocio=nombreNegocio;
+        this.nombreNegocio = nombreNegocio;
 
     }
 
@@ -201,14 +202,14 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }*/
 
-    public static ArrayList<ElementView> getListLectorAdq(ArrayList<OperadoresResponse> list,String nombreN) {
+    public static ArrayList<ElementView> getListLectorAdq(ArrayList<OperadoresResponse> list, String nombreN, boolean isComercioUyu) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro));
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129 && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN));
         }
         elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
