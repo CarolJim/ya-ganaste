@@ -75,7 +75,6 @@ public class WalletBuilder {
             walletList.addWallet(ElementWallet.getCardBalanceStarbucks());
             //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceStarbucks());
         }
-
         return walletList;
     }
 

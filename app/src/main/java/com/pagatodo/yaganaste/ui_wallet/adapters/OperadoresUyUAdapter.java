@@ -26,7 +26,7 @@ public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdap
         this.operadores = new ArrayList<>();
         for (OperadoresResponse op : operadoresService) {
             if (!op.getAdmin()) {
-                operadores.add(op);
+                this.operadores.add(op);
             }
         }
     }

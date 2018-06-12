@@ -15,6 +15,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -174,6 +175,12 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
 
     @BindView(R.id.content_linearlayout)
     LinearLayout mLinearLayout;
+
+    @BindView(R.id.imageViewCustomSpinner)
+    AppCompatImageView imageViewCustomSpinner;
+
+
+
 
     TransferType selectedType;
     List<String> tipoPago = new ArrayList<>();
@@ -355,6 +362,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         numberReference.setText(DateUtil.getDayMonthYear());
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
+
+        
+
 
         tipoEnvio.setOnItemSelectedListener(this);
         receiverName.setSingleLine();

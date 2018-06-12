@@ -104,7 +104,7 @@
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
     <string name="adqGetTypeRepayment">/agMov/ObtieneTipoReembolso</string>
     <string name="adqUpdateTypeRepayment">/agMov/ActualizaTipoReembolso</string>
-    <string name="adqReembolso">/agMov/ReembolsoOnDemand</string>
+    <string name="adqReembolso">/agMov/ReembolsoOnDemandYG</string>
     <string name="adqDetalleMovimiento">/agMov/DetalleMovimiento</string>
 
     <!-- Metodos para operaciones con FB -->
@@ -1213,7 +1213,7 @@
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">Bloquea tu tarjeta</string>
     <string name="block_your_card_subtitle">Si tienes algún problema con tu\ntarjeta, bloquéala temporalmente\ningresando tu contraseña.</string>
-    <string name="unblock_your_card_title">¡Desbloquea tu tarjeta!</string>
+    <string name="unblock_your_card_title">Desbloquea tu tarjeta</string>
     <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
     <string name="generate_code_subtitle">Para autorizar movimientos desde la web.\nIngresa tu contraseña para generarlo.</string>
