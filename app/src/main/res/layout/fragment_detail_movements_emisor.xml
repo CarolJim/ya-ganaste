@@ -5,8 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:transitionName="@string/transition_name_mov"
     tools:ignore="UnusedAttribute">
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progress_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/header_mov"

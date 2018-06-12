@@ -5,12 +5,19 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
+import java.util.Calendar;
+
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.DEVOLUCION;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 
 public class CreateDatailBuilder {
 
@@ -98,6 +105,42 @@ public class CreateDatailBuilder {
             builder.createLeaf(new TextData(R.string.details_fecha,response.getFechaMovimiento()));
             builder.createLeaf(new TextData(R.string.details_hora,response.getHoraMovimiento().concat(" hrs")));
             builder.createLeaf(new TextData(R.string.details_autorizacion,response.getNumAutorizacion().trim()));
+        }
+
+    }
+
+    public static void createByTypeAdq(Context context, ViewGroup container, DataMovimientoAdq response){
+        DetailBulder builder = new DetailBulder(context,container);
+        //txtComisionDescripcion.setText(StringUtils.getCurrencyValue(ticket.getComision()).replace("$", "$ "));
+        builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(response.getComision())));
+        //txtIVADescripcion.setText(StringUtils.getCurrencyValue(ticket.getComisionIva()).replace("$", "$ "));
+        builder.createLeaf(new TextData(R.string.details_iva, StringUtils.getCurrencyValue(response.getComisionIva())));
+        //txtRefernciaDescripcion.setText(ticket.getReferencia());
+        builder.createLeaf(new TextData(R.string.details_tarjeta, response.getReferencia()));
+        //txtConceptoDescripcion.setText(ticket.getConcepto());
+        builder.createLeaf(new TextData(R.string.details_concepto, response.getConcepto()));
+        //txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.getAdquirenteMovementDate(response.getFecha()));
+        builder.createLeaf(new TextData(R.string.details_fecha, DateUtil.getBirthDateCustomString(calendar)));
+        ////txtHoraDescripcion.setText(fecha[1] + " hrs");
+        String[] fecha = response.getFecha().split(" ");
+        builder.createLeaf(new TextData(R.string.details_hora, fecha[1] + " hrs"));
+        //txtAutorizacionDescripcion.setText(ticket.getNoAutorizacion().trim());
+        builder.createLeaf(new TextData(R.string.details_autorizacion, response.getNoAutorizacion().trim()));
+
+        switch (response.getEstatus()) {
+            case ESTATUS_CANCELADO:
+                builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_cancelado)));
+                break;
+            case ESTATUS_POR_REMBOLSAR:
+                builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_por_rembolsar)));
+                //txtEstatusDescripcion.setText(context.getString(R.string.status_por_rembolsar));
+                break;
+            case ESTATUS_REMBOLSADO:
+                builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_rembolsado)));
+                //txtEstatusDescripcion.setText(context.getString(R.string.status_rembolsado));
+                break;
         }
 
     }

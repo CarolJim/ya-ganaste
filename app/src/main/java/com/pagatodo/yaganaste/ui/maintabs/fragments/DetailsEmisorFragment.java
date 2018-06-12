@@ -13,10 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -27,17 +24,8 @@ import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.patterns.Builder;
-import com.pagatodo.yaganaste.ui_wallet.patterns.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.CreateDatailBuilder;
-import com.pagatodo.yaganaste.ui_wallet.patterns.DetailBulder;
-import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
-import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,13 +33,9 @@ import java.io.FileOutputStream;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RECARGA;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 
 public class DetailsEmisorFragment extends GenericFragment {
@@ -85,12 +69,12 @@ public class DetailsEmisorFragment extends GenericFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_movements_emisor, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
     }
