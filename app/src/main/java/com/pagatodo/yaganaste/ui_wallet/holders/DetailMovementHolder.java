@@ -19,9 +19,11 @@ public class DetailMovementHolder extends GenericHolder {
     private StyleTextView subtitle;
     private MontoTextView monto;
     private ImageView upDown;
+    private boolean isAdq;
 
-    public DetailMovementHolder(View itemView) {
+    public DetailMovementHolder(View itemView, boolean isAdq) {
         super(itemView);
+        this.isAdq = isAdq;
         init();
     }
 
@@ -43,12 +45,21 @@ public class DetailMovementHolder extends GenericHolder {
         this.title.setText(response.getTituloDescripcion());
         this.subtitle.setText(response.getSubtituloDetalle());
         this.monto.setText(StringUtils.getCurrencyValue(response.getMonto()));
+
         if (response.getColor() == R.color.redColorNegativeMovements){
             upDown.setBackgroundResource(R.drawable.down_red);
         }
 
-        if (response.getColor() == R.color.greenColorPositiveMovements){
-            upDown.setBackgroundResource(R.drawable.up);
+
+        if (isAdq){
+
+            if (response.getColor() == R.color.greenColorPositiveMovements) {
+                upDown.setBackgroundResource(R.drawable.upadq);
+            }
+        }else {
+            if (response.getColor() == R.color.greenColorPositiveMovements) {
+                upDown.setBackgroundResource(R.drawable.up);
+            }
         }
 
         if (response.getColor() == R.color.colorAccent){
@@ -58,6 +69,7 @@ public class DetailMovementHolder extends GenericHolder {
         if (response.getColor() == R.color.redColorNegativeMovementsCancel){
             upDown.setBackgroundResource(R.drawable.down);
         }
+
     }
 
     @Override

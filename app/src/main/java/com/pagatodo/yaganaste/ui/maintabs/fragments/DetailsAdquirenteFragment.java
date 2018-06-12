@@ -206,9 +206,12 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
 
         ItemMovements<DataMovimientoAdq> movement = new ItemMovements<>(ticket.getOperacion(),
                 ticket.getBancoEmisor(), Double.parseDouble(ticket.getMonto()),
-                String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)), DateUtil.getMonthShortName(calendar), ContextCompat.getColor(getContext(), color), ticket);
+                String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
+                DateUtil.getMonthShortName(calendar),
+                color, ticket);
 
-        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, movement);
+
+        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, movement,true);
         CreateDatailBuilder.createByTypeAdq(getContext(), container, ticket);
     }
 

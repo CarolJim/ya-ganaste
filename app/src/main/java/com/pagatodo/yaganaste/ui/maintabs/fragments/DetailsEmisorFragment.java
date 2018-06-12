@@ -99,7 +99,7 @@ public class DetailsEmisorFragment extends GenericFragment {
                     movimientosResponse);
         }
 
-        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, item);
+        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, item,false);
         CreateDatailBuilder.createByType(getContext(), container, movimientosResponse);
 
     }

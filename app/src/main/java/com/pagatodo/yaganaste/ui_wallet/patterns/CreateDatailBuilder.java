@@ -145,9 +145,10 @@ public class CreateDatailBuilder {
 
     }
 
-    public static void creatHeaderMovDetail(Context context, ViewGroup container, ItemMovements item){
+    public static void creatHeaderMovDetail(Context context, ViewGroup container,
+                                            ItemMovements item, boolean isAdq){
         DetailBulder bulder = new DetailBulder(context, container);
-        bulder.createDetailMov(item);
+        bulder.createDetailMov(item,isAdq);
     }
 
     private static int getReferencuaTitleType(String ref) {
