@@ -41,6 +41,7 @@ public class MovementDetailAdqPresenter implements IMovementDetailAdq {
         data.setReferencia(response.getReferencia());
         data.setTipoReembolso(response.getTipoReembolso());
         data.setTipoTransaccion(response.getTipoTransaccion());
+        data.setFechaTransaccionOriginal(response.getFechaTransaccionOriginal());
         data.setTransactionIdentity(response.getTransactionIdentity());
         view.printTicket(data);
     }

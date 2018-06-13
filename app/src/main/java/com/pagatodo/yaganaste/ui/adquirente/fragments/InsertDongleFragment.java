@@ -241,16 +241,19 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onPause() {
         super.onPause();
-        App.getInstance().pos.stopScanQPos2Mode();
+        if (App.getInstance().pos != null)
+            App.getInstance().pos.stopScanQPos2Mode();
     }
 
     @Override
     public void onDestroy() {
         unregisterReceiverDongle();
         unregisterReceiverHeadPhone();
-        App.getInstance().pos.closeAudio();
-        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-            App.getInstance().pos.disconnectBT();
+        if (App.getInstance().pos != null) {
+            App.getInstance().pos.closeAudio();
+            if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                App.getInstance().pos.disconnectBT();
+            }
         }
         super.onDestroy();
     }

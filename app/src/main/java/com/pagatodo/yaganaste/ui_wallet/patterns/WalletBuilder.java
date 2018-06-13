@@ -40,9 +40,8 @@ public class WalletBuilder {
                 walletList.addWallet(ElementWallet.getCardLectorAdq(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i)));
             }
         } else {
-            walletList.addWallet(ElementWallet.getCardLectorAdq(new AgentesRespose()));
+            walletList.addWallet(ElementWallet.getCardLectorAdq(null));
         }
-
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
                 walletList.addWallet(ElementWallet.getCardStarbucks());

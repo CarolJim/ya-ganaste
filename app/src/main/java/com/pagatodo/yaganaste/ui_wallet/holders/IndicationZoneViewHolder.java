@@ -37,6 +37,7 @@ public class IndicationZoneViewHolder extends OptionsViewHolder {
 
         }
         this.button.setText(elementView.getTextbutton());
+        // TODO: HABILITAR BOTON DE REGISTRO
         this.button.setOnClickListener(view -> listener.onItemClick(elementView));
         this.mas_info.setOnClickListener(view -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
