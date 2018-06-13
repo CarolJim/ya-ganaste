@@ -47,7 +47,9 @@ public class WalletBuilder {
             if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
                 walletList.addWallet(ElementWallet.getCardStarbucks());
             }
-            walletList.addWallet(ElementWallet.getCardSettings());
+            if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
+                walletList.addWallet(ElementWallet.getCardSettings());
+            }
         }
         return walletList;
     }

@@ -13,6 +13,29 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
+**_VERSION 4.2.0 - 9 de Mayo al 12 de Junio del 2018 (ID:4811)_**
+
+Descripción al desarrollador:
+
+    * Reestructura de Log In.
+    * Implementación de Chip & Pin
+    * Implementación de roles por agente.
+    * Implementación de multi agentes.
+    * Adecuaciones a las vistas para comportamiento dependiendo de ADQ YG/ADQ UYU.
+    * Nuevas animaciones.
+    * Separación de cabecera movimiento adquiriente y detalle movimiento adquiriente.
+    * Implementación de firma electrónica.
+    * Selección de dispositivo para cobros.
+    * Correcciones de incidencias.
+    
+Funcionalidad:
+
+    * Implementación de nuevo lector Bluetooth.
+    * Cobrar con tarjetas Closed Loop.
+    * Mejoras visuales para flujos complejos.
+    * Nuevos diseños.
+    * Correcciones menores.
+
 **_VERSION 4.0.5 - 30 de Abril al 8 de Mayo del 2018 (ID:4630)_**
 
 Descripción al desarrollador:

@@ -142,7 +142,6 @@ public class CreateDatailBuilder {
                 //txtEstatusDescripcion.setText(context.getString(R.string.status_rembolsado));
                 break;
         }
-
     }
 
     public static void creatHeaderMovDetail(Context context, ViewGroup container,

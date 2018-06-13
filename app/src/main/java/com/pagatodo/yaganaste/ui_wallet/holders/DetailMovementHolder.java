@@ -47,12 +47,15 @@ public class DetailMovementHolder extends GenericHolder {
         this.monto.setText(StringUtils.getCurrencyValue(response.getMonto()));
 
         if (response.getColor() == R.color.redColorNegativeMovements){
-            upDown.setBackgroundResource(R.drawable.down_red);
+            if(!isAdq) {
+                upDown.setBackgroundResource(R.drawable.down_red);
+            } else {
+                upDown.setBackgroundResource(R.drawable.down);
+            }
         }
 
 
         if (isAdq){
-
             if (response.getColor() == R.color.greenColorPositiveMovements) {
                 upDown.setBackgroundResource(R.drawable.upadq);
             }
