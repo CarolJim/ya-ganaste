@@ -48,6 +48,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.App.getContext;
 import static com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment.checkDuplicate;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Francisco Manzo on 22/05/2017.
@@ -158,6 +159,7 @@ public class CameraManager {
 
         takeDocumentPicture(intIntent);
     }
+
     public void Picture(final int intIntent) {
 
         takeGallery(intIntent);
@@ -208,7 +210,6 @@ public class CameraManager {
     }
 
 
-
     private void takeGallery(int document) {
         documentProcessed = document;
         /*Intent intentGallery = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -257,7 +258,9 @@ public class CameraManager {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Log.e(TAG, "dispatchTakePictureIntent: " + photoFile);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.e(TAG, "dispatchTakePictureIntent: " + photoFile);
+                }
                 Uri photoURI = FileProvider.getUriForFile(mContext,
                         "com.pagatodo.yaganaste.fileprovider",
                         photoFile);
@@ -337,7 +340,6 @@ public class CameraManager {
     }
 
 
-
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
         Boolean validateDuplicado;
         contador.add(imgBase64);
@@ -371,20 +373,19 @@ public class CameraManager {
     }
 
 
-
     private void saveBmpImgUserdos(Bitmap bitmap, String imgBase64) {
         contador.add(imgBase64);
         DataDocuments dataDoc = new DataDocuments();
-                    dataDoc.setTipoDocumento(DOC_ID_FRONT);
-                    dataDoc.setImagenBase64(imgBase64);
-                    dataDoc.setExtension("jpg");
+        dataDoc.setTipoDocumento(DOC_ID_FRONT);
+        dataDoc.setImagenBase64(imgBase64);
+        dataDoc.setExtension("jpg");
 
-                    //mView.showProgress(getContext().getString(R.string.load_set_image));
-                    mView.setPhotoToService(bitmap);
-            dataDocumnets.add(dataDoc);
-            if (bitmap.isRecycled()) {
-                bitmap.recycle();
-            }
+        //mView.showProgress(getContext().getString(R.string.load_set_image));
+        mView.setPhotoToService(bitmap);
+        dataDocumnets.add(dataDoc);
+        if (bitmap.isRecycled()) {
+            bitmap.recycle();
+        }
     }
 
     /**
@@ -448,7 +449,7 @@ public class CameraManager {
                     }*/
                 }
 
-                if (path.equals(".jpg") || path.equals(".jpge")|| path.equals(".png")) {
+                if (path.equals(".jpg") || path.equals(".jpge") || path.equals(".png")) {
                     this.listener.onCropper(selectedImage);
                 } else {
                     // Toast.makeText(getContext(), "No es jpg", Toast.LENGTH_SHORT).show();

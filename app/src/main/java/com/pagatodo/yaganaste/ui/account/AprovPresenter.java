@@ -31,6 +31,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 /**
@@ -111,7 +112,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, currentMethod.getName());
+        }
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{};
         this.initMethodParams = new Object[]{};
@@ -135,7 +138,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, currentMethod.getName());
+        }
         this.currentMethodParams = new Object[]{codeActivation};
         VerificarActivacionAprovSofttokenRequest request = new VerificarActivacionAprovSofttokenRequest(codeActivation);
         aprovIteractor.verifyActivationAprov(request);
@@ -147,7 +152,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, currentMethod.getName());
+        }
         this.currentMethodParams = new Object[]{};
         super.getPinPolicy();
     }
@@ -165,7 +172,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, currentMethod.getName());
+        }
         this.currentMethodParams = new Object[]{pin};
         super.registerPin(pin);
     }
@@ -183,7 +192,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         individualReintent++;
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, currentMethod.getName());
+        }
         this.currentMethodParams = new Object[]{codeActivation};
         ActivacionAprovSofttokenRequest request = new ActivacionAprovSofttokenRequest(codeActivation);
         aprovIteractor.activationAprov(request);
@@ -191,7 +202,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, "onSucces: " + ws.toString());
+        }
         aprovView.showLoader("");
         if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
             individualReintent = 0;
@@ -205,7 +218,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onError(WebService ws, Object error) {
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, "onErrorValidateService: " + ws.toString());
+        }
         if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
             onError(Errors.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN);
         } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
@@ -226,7 +241,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showLoader("");
         this.currentMethod = new Object() {
         }.getClass().getEnclosingMethod();
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, currentMethod.getName());
+        }
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{tokenNotificationId, pin};
         initMethodParams = new Object[]{tokenNotificationId, pin};
@@ -243,7 +260,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onError(final Errors error) {
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e(TAG, "onErrorValidateService: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
+        }
         final INavigationView navigationView =
                 aprovView instanceof INavigationView ? (INavigationView) aprovView : null;
 

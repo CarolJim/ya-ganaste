@@ -138,10 +138,8 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }
@@ -153,10 +151,8 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             FavoritosNewFotoDatosResponse response = (FavoritosNewFotoDatosResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }
@@ -167,10 +163,8 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
         if (dataSourceResult.getData() instanceof FavoritosEditDatosResponse) {
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }
@@ -182,10 +176,8 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }
@@ -197,10 +189,8 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }

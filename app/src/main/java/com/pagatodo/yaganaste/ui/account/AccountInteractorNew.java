@@ -150,6 +150,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.REWARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.SECURITY_TOKEN_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_CARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
@@ -630,10 +631,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void cargarfotousuario(DataSourceResult dataSourceResult) {
         ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
             accountManager.onSucces(ACTUALIZAR_AVATAR, dataSourceResult);
         } else {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
             accountManager.onError(ACTUALIZAR_AVATAR, response.getMensaje());
         }
     }
@@ -641,10 +640,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void processchangepass6(DataSourceResult dataSourceResult) {
         CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
             accountManager.onSuccesChangePass6(dataSourceResult);
         } else {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
             accountManager.onError(CHANGE_PASS_6, response.getMensaje());
         }
 
@@ -992,7 +989,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 card.setAlias(dataCard.getAlias());
                 card.setUserName(dataCard.getNombreUsuario());
                 card.setIdAccount(dataCard.getIdCuenta());
-                Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
+                }
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
                 accountManager.onSucces(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card));
@@ -1144,13 +1143,19 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser user = SingletonUser.getInstance();
             String phone = data.getData().getNumeroTelefono();
             String tokenValidation = user.getDataUser().getUsuario().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
-            Log.d("WSC", "TokenValidation: " + tokenValidation);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d("WSC", "TokenValidation: " + tokenValidation);
+            }
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
-            Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
+            }
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
                     user.getDataUser().getEmisor().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
-            Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            }
             if (FirebaseInstanceId.getInstance().getToken() != null) {
                 prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
                 // prefs.saveData(TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);

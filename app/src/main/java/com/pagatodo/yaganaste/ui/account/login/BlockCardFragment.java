@@ -63,6 +63,7 @@ import butterknife.OnClick;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 
@@ -168,7 +169,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
                 statusBloqueo = DESBLOQUEO;
             }
-            Log.e("YG", "cardStatusId: " + cardStatusId + " statusBloqueo: " + statusBloqueo);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e("YG", "cardStatusId: " + cardStatusId + " statusBloqueo: " + statusBloqueo);
+            }
         }
     }
 

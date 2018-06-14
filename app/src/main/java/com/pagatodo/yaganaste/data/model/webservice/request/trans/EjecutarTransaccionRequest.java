@@ -2,10 +2,12 @@ package com.pagatodo.yaganaste.data.model.webservice.request.trans;
 
 import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 
 import java.io.Serializable;
 
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.StringUtils.createTicket;
 
 /**
@@ -32,8 +34,9 @@ public class EjecutarTransaccionRequest implements Serializable {
         super();
         this.IdTipoTransaccion = idTipoTransaccion;
         this.Ticket = createTicket();
-        if (BuildConfig.DEBUG)
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.d(getClass().getSimpleName(), "TICKET C1");
+        }
         this.Referencia = referencia;
         this.Monto = monto;
         this.IdComercioAfectado = idComercioAfectado;
@@ -47,8 +50,9 @@ public class EjecutarTransaccionRequest implements Serializable {
         super();
         this.IdTipoTransaccion = idTipoTransaccion;
         this.Ticket = createTicket();
-        if (BuildConfig.DEBUG)
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.d(getClass().getSimpleName(), "TICKET C2");
+        }
         this.Referencia = referencia;
         this.Monto = monto;
         this.IdComercioAfectado = idComercioAfectado;

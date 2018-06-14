@@ -110,6 +110,7 @@ import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.UtilsIntents.favoriteIntents;
 
@@ -1211,7 +1212,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             } else {
                 resultDisplayStr = "Scan was canceled.";
             }
-            Log.e(getActivity().getString(R.string.app_name), "@CreditCard Scanner: " + resultDisplayStr);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(getActivity().getString(R.string.app_name), "CreditCard Scanner: " + resultDisplayStr);
+            }
         }
     }
 

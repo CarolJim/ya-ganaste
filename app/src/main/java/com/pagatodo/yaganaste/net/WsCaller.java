@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 import static com.android.volley.Request.Method.POST;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created on 16/02/2017.
@@ -42,18 +43,26 @@ public class WsCaller implements IServiceConsumer {
     public void sendJsonPost(final WsRequest request) {
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.d(TAG, "Request : " + request.get_url_request());
+        }
         if (request.getHeaders() != null && request.getHeaders().size() > 0) {
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                 Log.d(TAG, "Headers : ");
+            }
             for (String name : request.getHeaders().keySet()) {
                 String key = name.toString();
                 String value = request.getHeaders().get(name).toString();
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                     Log.d(TAG, key + " : " + value);
+                }
             }
         }
 
         if (request.getBody() != null)
-            Log.d(TAG, "Body Request : " + request.getBody().toString());
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d(TAG, "Body Request : " + request.getBody().toString());
+            }
         CustomJsonObjectRequest jsonRequest = new CustomJsonObjectRequest(
                 request.getMethod(),
                 request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
@@ -61,7 +70,9 @@ public class WsCaller implements IServiceConsumer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                             Log.d(TAG, "Response Success : " + response.toString());
+                        }
                         if (request.getRequestResult() != null) {
                             request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse())));
                         }
@@ -70,11 +81,15 @@ public class WsCaller implements IServiceConsumer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                             Log.d(TAG, error.toString());
                             Log.d(TAG, "Request Failed : " + error.getMessage());
+                        }
                         if (request.getRequestResult() != null) {
                             if (error.networkResponse != null) {
-                                Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
+                                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                    Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
+                                }
                             }
 
                             request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));

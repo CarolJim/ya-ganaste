@@ -119,6 +119,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_ENVIOS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
@@ -590,7 +591,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             } else {
                 resultDisplayStr = "Scan was canceled.";
             }
-            Log.e(getString(R.string.app_name), "@CreditCard Scanner: " + resultDisplayStr);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(getString(R.string.app_name), "@CreditCard Scanner: " + resultDisplayStr);
+            }
         }
     }
 

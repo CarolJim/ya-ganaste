@@ -20,6 +20,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -36,7 +37,6 @@ import eu.davidea.flipview.FlipView;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLACK;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
 import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
@@ -58,7 +58,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
     private Preferencias prefs = App.getInstance().getPrefs();
 
     public BalanceWalletAdpater(ICardBalance cardBalance) {
-        FlipView.enableLogs(DEBUG);
+        FlipView.enableLogs(BuildConfig.DEBUG);
         elementViewList = new ArrayList<>();
         mViews = new ArrayList<>();
         mFlippers = new ArrayList<>();

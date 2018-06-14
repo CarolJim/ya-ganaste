@@ -10,6 +10,8 @@ import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -18,6 +20,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
@@ -162,7 +165,9 @@ public class StringUtils {
                 String parteTel3 = mFormatoPago.substring(6);
                 formatoPago = parteTel1 + comodin + parteTel2 + comodin + parteTel3;
             } catch (Exception e) {
-                Log.d("StringUtils", "Exception tipo" + e);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d("StringUtils", "Exception tipo" + e);
+                }
                 formatoPago = mFormatoPago;
             }
         } else if (mFormatoPago.length() == 16) {
@@ -179,7 +184,9 @@ public class StringUtils {
                  */
                 formatoPago = ocultarCardNumberFormat(mFormatoPago);
             } catch (Exception e) {
-                Log.d("StringUtils", "Exception tipo" + e);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d("StringUtils", "Exception tipo" + e);
+                }
                 formatoPago = ocultarCardNumberFormat(mFormatoPago);
             }
         } else if (mFormatoPago.length() == 18) {
@@ -192,7 +199,9 @@ public class StringUtils {
                 formatoPago = formatoClabe1 + comodin + formatoClabe2 + comodin + formatoClabe3
                         + comodin + formatoClabe4 + comodin + formatoClabe5;
             } catch (Exception e) {
-                Log.d("StringUtils", "Exception tipo" + e);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d("StringUtils", "Exception tipo" + e);
+                }
                 formatoPago = mFormatoPago;
             }
         }
@@ -213,7 +222,9 @@ public class StringUtils {
 
                 formatoPago = parteTel1 + comodin + parteTel2 + comodin + parteTel3 + comodin + parteTel4;
             } catch (Exception e) {
-                Log.d("StringUtils", "Exception tipo" + e);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d("StringUtils", "Exception tipo" + e);
+                }
                 formatoPago = mFormatoPago;
             }
         }
@@ -330,17 +341,17 @@ public class StringUtils {
     public static String procesarURLString(String mUserImage) {
         String[] urlSplit = mUserImage.split("_");
         String urlEdit;
-        String split=urlSplit[0];
-        if (split.isEmpty()){
-            urlEdit="_M.png";
+        String split = urlSplit[0];
+        if (split.isEmpty()) {
+            urlEdit = "_M.png";
 
-        }else {
-            if (urlSplit[1].contains("jpg")){
+        } else {
+            if (urlSplit[1].contains("jpg")) {
                 urlEdit = urlSplit[0] + "_M.jpg";
-            }else if (urlSplit[1].contains("png")){
+            } else if (urlSplit[1].contains("png")) {
                 urlEdit = urlSplit[0] + "_M.png";
-            }else {
-                urlEdit="_M.png";
+            } else {
+                urlEdit = "_M.png";
             }
 
         }

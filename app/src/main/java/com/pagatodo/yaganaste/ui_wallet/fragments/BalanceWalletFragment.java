@@ -84,6 +84,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
@@ -339,8 +340,10 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void onCardClick(View v, int position) {
         if (!((FlipView) v).isFlipped()) {
             ((FlipView) v).flip(true);
-            setVisibilityBackItems(VISIBLE);
-            setVisibilityFrontItems(GONE);
+            if (prefs.loadDataBoolean(SHOW_BALANCE, true)) {
+                setVisibilityBackItems(VISIBLE);
+                setVisibilityFrontItems(GONE);
+            }
         } else {
             ((FlipView) v).flip(false);
             setVisibilityBackItems(GONE);
@@ -379,7 +382,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             try {
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) != QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     chiandpin.setImageResource(R.mipmap.lector_front);
-                    chiandpin.getLayoutParams().width=400;
+                    chiandpin.getLayoutParams().width = 400;
 
                 }
             } catch (Exception e) {

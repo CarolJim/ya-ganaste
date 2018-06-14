@@ -183,7 +183,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             loadFragment(QRFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
             loadFragment(ContactoFragment.newInstance());
-
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
         }

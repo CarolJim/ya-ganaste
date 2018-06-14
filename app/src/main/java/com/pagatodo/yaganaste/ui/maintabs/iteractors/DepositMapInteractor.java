@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 import android.location.Location;
 import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.LocalizarSucursalesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
@@ -16,6 +17,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IDepositMapPrese
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Jordan on 23/05/2017.
@@ -58,7 +60,9 @@ public class DepositMapInteractor implements IDepositMapInteractor, IRequestResu
 
     @Override
     public void onFailed(DataSourceResult error) {
-        Log.i("DepositMapInteractor", error.getData().toString());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i("DepositMapInteractor", error.getData().toString());
+        }
         depositMapPresenter.onGetSucursalesFail(error);
     }
 }

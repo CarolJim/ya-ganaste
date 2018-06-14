@@ -29,8 +29,6 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
-    public static final boolean DEBUG = true;
-
     /*Freja*/
     public static final String PT_CLIENT_CODE = null;
 
@@ -55,42 +53,24 @@ public class Recursos {
             PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
-
         } else {
-            if (DEBUG) {
-                URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
-                URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-                URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
-                URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
-                URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
-                URL_COUNTLY = "https://us-try.count.ly";
+            URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
+            //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
+            URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
+            //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
+            URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
+            //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
+            URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
+            URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
+            URL_COUNTLY = "https://us-try.count.ly";
 
-                PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
-                PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
+            PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
+            PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
-                PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
-                PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
-                PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
-                PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
-            } else {
-                URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
-                //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
-                URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-                //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
-                URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
-                //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
-                URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
-                URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
-                URL_COUNTLY = "https://us-try.count.ly";
-
-                PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
-                PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
-
-                PIN_ADVO = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-                PIN_TRANS = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-                PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
-                PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
-            }
+            PIN_ADVO = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
+            PIN_TRANS = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
+            PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
+            PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
         }
     }
 
@@ -272,6 +252,7 @@ public class Recursos {
     public static final String LAST_NAME = "LAST_NAME";
     public static final String CARD_NUMBER = "CARD_NUMBER";
     public static final String CARD_STATUS = "CARD_STATUS";
+    public static final String SHOW_BALANCE = "SHOW_BALANCE";
     public static final String USER_BALANCE = "USER_BALANCE";
     public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
     public static final String STARBUCKS_BALANCE = "STABUCKS_BALANCE";
@@ -288,6 +269,7 @@ public class Recursos {
     public static final String SIMPLE_NAME = "SIMPLE_NAME";
     public static final String PSW_CPR = "PSW_CPR";
     public static final String SHOW_LOYALTY = "SHOW_LOYALTY";
+    public static final String SHOW_LOGS_PROD = "SHOW_LOGS_PROD";
 
     public static final String HAS_PROVISIONING = "HAS_PROVISIONING";
     public static final String USER_PROVISIONED = "USER_PROVISIONED";

@@ -48,6 +48,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
 
 
@@ -90,7 +91,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     private final Handler handler = new Handler();
     private final Runnable longPressed = new Runnable() {
         public void run() {
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                 Log.i(getTag(), "LongPress");
+            }
         }
     };
     private String cadenaHuella = null;

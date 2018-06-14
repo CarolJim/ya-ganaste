@@ -11,8 +11,11 @@ import android.view.SurfaceView;
 import android.view.ViewGroup;
 
 import com.google.android.gms.common.images.Size;
+import com.pagatodo.yaganaste.App;
 
 import java.io.IOException;
+
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Jordan on 19/04/2017.
@@ -127,9 +130,13 @@ public class CameraSourcePreview extends ViewGroup {
         try {
             startIfReady();
         } catch (IOException e) {
-            Log.e(TAG, "Could not start camera source.", e);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(TAG, "Could not start camera source.", e);
+            }
         } catch (SecurityException se) {
-            Log.e(TAG, "Does not have permission to start the camera.", se);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(TAG, "Does not have permission to start the camera.", se);
+            }
         }
     }
 
@@ -141,8 +148,9 @@ public class CameraSourcePreview extends ViewGroup {
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             return true;
         }
-
-        Log.d(TAG, "isPortraitMode returning false by default");
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.d(TAG, "isPortraitMode returning false by default");
+        }
         return false;
     }
 
@@ -153,9 +161,13 @@ public class CameraSourcePreview extends ViewGroup {
             try {
                 startIfReady();
             } catch (SecurityException se) {
-                Log.e(TAG, "Do not have permission to start the camera", se);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.e(TAG, "Do not have permission to start the camera", se);
+                }
             } catch (IOException e) {
-                Log.e(TAG, "Could not start camera source.", e);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.e(TAG, "Could not start camera source.", e);
+                }
             }
         }
 

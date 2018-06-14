@@ -43,6 +43,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCUL
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_NOTIFICACIONES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -54,12 +55,12 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
 
     public static String MENU = "MENU";
     public static String MENSAJE = "MENSAJE";
-    public static int MENU_SEGURIDAD = 1;
-    public static int MENU_AJUSTES = 2;
-    public static int MENU_TERMINOS = 3;
-    public static int MENU_LOGOUT = 4;
-    public static int MENU_CODE = 5;
-    public static int MENU_CONTACTO = 6;
+    public static final int MENU_SEGURIDAD = 1;
+    public static final int MENU_AJUSTES = 2;
+    public static final int MENU_TERMINOS = 3;
+    public static final int MENU_LOGOUT = 4;
+    public static final int MENU_CODE = 5;
+    public static final int MENU_CONTACTO = 6;
     final public static int MENU_NOTIFICACIONES = 3;
     private int TYPE_MENU;
 
@@ -69,7 +70,8 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
     StyleTextView titleMenu;
     @BindView(R.id.notific_discreption)
     StyleTextView notificDiscreption;
-    private boolean useFingerprint = true;
+    private boolean useFingerprint = true, showBalance = true;
+    private Container container;
     public CustomRadioButton radioButtonNo;
     public CustomRadioButton radioButtonSi;
     public String msj;
@@ -118,13 +120,14 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
         }
 
         switch (TYPE_MENU) {
-            case 1:
-                initComponents(1);
+            case MENU_SEGURIDAD:
+                initComponents(TYPE_MENU);
                 break;
-            case 2:
+            case MENU_AJUSTES:
                 //listView.setAdapter(ContainerBuilder.SETTINGS_MENU(getContext(),this));
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_ajustes));
-                ContainerBuilder.builder(getContext(), mLinearLayout, this, SETTINGS_MENU);
+                container = ContainerBuilder.builder(getContext(), mLinearLayout, this, SETTINGS_MENU);
+                initComponents(TYPE_MENU);
                 break;
             case 3:
                 titleMenu.setText(getContext().getResources().getString(R.string.navigation_drawer_menu_acerca));
@@ -158,21 +161,21 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
 
     private void initComponents(int type) {
         switch (type) {
-            case 1:
+            case MENU_SEGURIDAD:
                 useFingerprint = App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true);
-                Container s = new Container(getContext(), this);
-                s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass, 0, RAW));
+                container = new Container(getContext(), this);
+                container.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(ID_CCAMBIAR_PASS, R.string.change_your_pass, 0, RAW));
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FingerprintManager fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
 
                     if (fingerprintManager.isHardwareDetected() &&
                             SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
-                        s.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
-                        OptionMenuItem.ViewHolderMenuSegurity view = s.getArrayListOptionMenuSegurity().get(1);
+                        container.addOptionMenuSegurity(mLinearLayout, new OptionMenuItem(-1, R.string.security_huella_option, R.string.security_huella_option_subtitle, RADIOBUTTON));
+                        OptionMenuItem.ViewHolderMenuSegurity view = container.getArrayListOptionMenuSegurity().get(1);
                         radioButtonNo = view.radioButtonNo;
                         radioButtonSi = view.radioButtonSi;
-                        setStates();
+                        setStates(type);
                         radioButtonSi.setOnCheckedChangeListener((compoundButton, b) -> {
                             if (b) {
                                 App.getInstance().getPrefs().saveDataBool(USE_FINGERPRINT, true);
@@ -186,14 +189,42 @@ public class SecurityFragment extends SupportFragment implements OnClickItemHold
                     }
                 }
                 break;
+            case MENU_AJUSTES:
+                showBalance = App.getInstance().getPrefs().loadDataBoolean(SHOW_BALANCE, true);
+                OptionMenuItem.ViewHolderMenuSegurity view = container.getArrayListOptionMenuSegurity().get(1);
+                radioButtonNo = view.radioButtonNo;
+                radioButtonSi = view.radioButtonSi;
+                setStates(type);
+                radioButtonSi.setOnCheckedChangeListener((compoundButton, b) -> {
+                    if (b) {
+                        App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, true);
+                    }
+                });
+                radioButtonNo.setOnCheckedChangeListener((compoundButton, b) -> {
+                    if (b) {
+                        App.getInstance().getPrefs().saveDataBool(SHOW_BALANCE, false);
+                    }
+                });
+                break;
         }
     }
 
-    private void setStates() {
-        if (useFingerprint) {
-            radioButtonSi.setChecked(true);
-        } else {
-            radioButtonNo.setChecked(true);
+    private void setStates(int type) {
+        switch (type) {
+            case MENU_SEGURIDAD:
+                if (useFingerprint) {
+                    radioButtonSi.setChecked(true);
+                } else {
+                    radioButtonNo.setChecked(true);
+                }
+                break;
+            case MENU_AJUSTES:
+                if (showBalance) {
+                    radioButtonSi.setChecked(true);
+                } else {
+                    radioButtonNo.setChecked(true);
+                }
+                break;
         }
     }
 }
