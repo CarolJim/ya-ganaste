@@ -227,7 +227,7 @@ public class ElementWallet {
             frontView = frontCardBusiness(frontView, agentesRespose.getNombreNegocio());
         }
 
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)) {
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentesRespose != null) {
             String leyenda;
             int descripcion;
             boolean isReload = true;
