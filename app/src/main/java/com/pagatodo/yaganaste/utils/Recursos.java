@@ -271,6 +271,7 @@ public class Recursos {
     public static final String FULL_NAME_USER = "FULL_NAME_USER";
     public static final String LAST_NAME = "LAST_NAME";
     public static final String CARD_NUMBER = "CARD_NUMBER";
+    public static final String CARD_STATUS = "CARD_STATUS";
     public static final String USER_BALANCE = "USER_BALANCE";
     public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
     public static final String STARBUCKS_BALANCE = "STABUCKS_BALANCE";

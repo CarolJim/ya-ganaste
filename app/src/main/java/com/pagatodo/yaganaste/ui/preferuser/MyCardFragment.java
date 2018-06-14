@@ -49,6 +49,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_REPORTA_TARJETA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
@@ -172,7 +173,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
             checkState(statusId);
 
         } else {
-            checkState(App.getInstance().getStatusId());
+            checkState(App.getInstance().getPrefs().loadData(CARD_STATUS));
         }
 
         //Agregamos un Listener al Switch

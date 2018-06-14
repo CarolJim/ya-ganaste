@@ -124,6 +124,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
@@ -480,7 +481,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalanceAdq(ElementWallet elementWallet) {
         try {
-            ApiAdq.consultaSaldoCupo(this,elementWallet.getAgentesRespose());
+            ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentesRespose());
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
@@ -695,7 +696,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateStatusRespond(EstatusCuentaResponse dataSourceResult) {
         if (dataSourceResult.getCodigoRespuesta() == Recursos.CODE_OK) {
-            App.getInstance().setStatusId(dataSourceResult.getData().getStatusId());
+            App.getInstance().getPrefs().saveData(CARD_STATUS, dataSourceResult.getData().getStatusId());
             accountManager.onSuccesStateCuenta();
         } else {
             accountManager.onError(ESTATUS_CUENTA, null);
@@ -795,7 +796,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
-            App.getInstance().getPrefs().saveDataAgentesRespons(ADQRESPONSE,dataUser);
+            App.getInstance().getPrefs().saveDataAgentesRespons(ADQRESPONSE, dataUser);
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.getControl().getEsUsuario()) {

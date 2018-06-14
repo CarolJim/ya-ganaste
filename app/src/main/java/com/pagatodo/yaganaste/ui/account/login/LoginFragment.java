@@ -50,6 +50,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
@@ -181,7 +182,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
-            edtUserPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
             textNameUser.setOnClickListener(this);
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);
@@ -305,16 +305,14 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {
-                    if (charSequence.toString().length() == 6) {
-                        UI.hideKeyBoard(getActivity());
-                        if (!UtilsNet.isOnline(getActivity())) {
-                            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
-                        } else {
-                            //  Servicio para consumir usuario y contraseña
-                            validateForm();
-                            edtUserPass.setText("");
-                        }
+                if (charSequence.toString().length() == 6) {
+                    UI.hideKeyBoard(getActivity());
+                    if (!UtilsNet.isOnline(getActivity())) {
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+                    } else {
+                        //  Servicio para consumir usuario y contraseña
+                        validateForm();
+                        edtUserPass.setText("");
                     }
                 }
                 text_password.setBackgroundResource(R.drawable.inputtext_active);
@@ -407,7 +405,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
-        App.getInstance().getStatusId();
+        App.getInstance().getPrefs().loadData(CARD_STATUS);
         SingletonUser.getInstance().setCardStatusId(null);
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);
         startActivity(intentLogin);

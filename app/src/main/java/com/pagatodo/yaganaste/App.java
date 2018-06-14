@@ -84,8 +84,6 @@ public class App extends Application {
     private Preferencias prefs;
     //currentMount
     private String currentMount;
-    //variable de status de cuenta
-    private String statusId;
     private boolean cancel;
 
     private String datoHuellaC;
@@ -146,7 +144,6 @@ public class App extends Application {
             f.mkdir();
         }
         Log.i(getString(R.string.app_name), "Android Device Id: " + Utils.getUdid(getContext()));
-        statusId = "-1";
         datoHuellaC = "";
         firebaseRemoteConfig();
 
@@ -203,14 +200,6 @@ public class App extends Application {
         } else {
             return false;
         }
-    }
-
-    public String getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(String statusId) {
-        this.statusId = statusId;
     }
 
     //Curren Mount

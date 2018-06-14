@@ -75,6 +75,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPEN
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
@@ -154,7 +155,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         }
         this.pageCurrent = 0;
         prefs.saveDataBool(HUELLA_FAIL, false);
-        Status = App.getInstance().getStatusId();
+        Status = App.getInstance().getPrefs().loadData(CARD_STATUS);
     }
 
     @Nullable
@@ -242,7 +243,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void updateStatus() {
         hideLoader();
-        Status = App.getInstance().getStatusId();
+        Status = App.getInstance().getPrefs().loadData(CARD_STATUS);
         setBalanceCards();
     }
 
@@ -363,7 +364,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             accountPresenter.getEstatusCuenta(mTDC);
         } else {
             Status = f;
-            App.getInstance().setStatusId(f);
+            App.getInstance().getPrefs().saveData(CARD_STATUS, f);
             setBalanceCards();
         }
     }

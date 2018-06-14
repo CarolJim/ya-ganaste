@@ -49,6 +49,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -236,7 +237,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void sendSuccessStatusAccount(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
-        App.getInstance().setStatusId(statusId);
+        App.getInstance().getPrefs().saveData(CARD_STATUS, statusId);
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards(false);
     }
