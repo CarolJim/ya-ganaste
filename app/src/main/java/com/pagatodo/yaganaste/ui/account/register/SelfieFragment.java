@@ -16,7 +16,7 @@ import android.widget.ScrollView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.Manifest;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
