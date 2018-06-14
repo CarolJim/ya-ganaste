@@ -436,7 +436,7 @@
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
-    <string name="bussinesName">Nombre Del Negocio</string>
+    <string name="bussinesName">Nombre del negocio</string>
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
 
     <!--Informacion Adicional-->

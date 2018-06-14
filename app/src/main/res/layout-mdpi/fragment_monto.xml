@@ -1,0 +1,168 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dongle_ingres_amount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="-40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+
+        <!-- Agregamos el layout que contiene el EditText de Calculadora -->
+        <include layout="@layout/calculator_layout" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titleAmount"
+            style="@style/generic_text_style_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:text="@string/monto_cobrar"
+            android:textColor="@color/cobrotexto" />
+
+        <LinearLayout
+            android:id="@+id/conceptLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_amount_control"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                android:id="@+id/edtConcept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/back_edittext_gray"
+                android:focusable="true"
+                android:gravity="center"
+                android:hint=""
+                android:inputType="text|textNoSuggestions|textCapSentences"
+                android:padding="8dp"
+                android:textColor="@color/cobrotexto"
+                android:textStyle="normal" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/titleConcepto"
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="27dp"
+                android:layout_marginTop="5dp"
+                android:text="Concepto (Opcional)"
+                android:textColor="@color/cobrotexto" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btncobrar"
+            android:layout_width="match_parent"
+            android:layout_height="53.5dp"
+            android:background="@color/colorAccent">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Cobrar"
+                android:textAlignment="center"
+                android:textSize="19sp" />
+
+        </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/seekbar_margin"
+            android:layout_marginRight="@dimen/seekbar_margin"
+            android:layout_marginTop="@dimen/margin_doble"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp"
+            android:visibility="gone"
+            app:text="Cobrar" />
+
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/material_key_drawable"
+        android:keyTextColor="#bcbcbc"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_arrow_previous"
+            android:layout_width="@dimen/activity_horizontal_double_margin"
+            android:layout_height="32dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:rotationY="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/arrow_canvas_blue" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imgArrowNext"
+            android:layout_width="@dimen/activity_horizontal_double_margin"
+            android:layout_height="@dimen/activity_horizontal_double_margin"
+            android:foreground="?attr/selectableItemBackground"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/arrow_canvas_blue" />
+
+    </LinearLayout>
+
+
+    <!--  <LinearLayout
+          android:id="@+id/relativeAd"
+          android:layout_width="match_parent"
+          android:layout_height="10dp"
+          android:layout_alignParentBottom="true"
+          android:layout_centerHorizontal="true"
+          android:gravity="center"
+          android:keyBackground="@color/colorPrimary"
+          android:orientation="vertical"
+          android:visibility="visible" />-->
+</RelativeLayout>
+
+    <!--
+    Borrar este codigo, era usado para probar la funcionalidad de la calculadora
+    Puede eliminarse ya que se apruebe la calculadora
+
+    -->

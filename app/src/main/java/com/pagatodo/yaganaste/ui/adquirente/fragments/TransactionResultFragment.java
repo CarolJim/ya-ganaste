@@ -109,13 +109,28 @@ public class TransactionResultFragment extends GenericFragment implements View.O
             txtMessageResult.setText(!pageResultData.getMessage().isEmpty() ? pageResultData.getMessage() : "");
 
             txtDescriptionResult.setText(!pageResultData.getDescription().isEmpty() ? pageResultData.getDescription() : "");
-            if (pageResultData.getIdResurceIcon() == R.drawable.ic_check_success) {
-                check.setAnimation(R.raw.check);
-            } else {
-                check.setAnimation(R.raw.alert);
+
+          if(pageResultData.getMessage().equals("El ticket fue enviado con éxito")){
+              check.setAnimation(R.raw.asociate_phone);
+          }else {
+
+              if (pageResultData.getIdResurceIcon() == R.drawable.ic_check_success) {
+                  check.setAnimation(R.raw.check);
+              } else {
+                  check.setAnimation(R.raw.alert);
+              }
+
+          }
+            if(pageResultData.getMessage().equals("El ticket fue enviado con éxito")){
+
+              check.setProgress(0.5f);
+            }else {
+                check.playAnimation();
             }
-            check.playAnimation();
+
             imgResult.setImageResource(pageResultData.getIdResurceIcon());
+
+
         }
         setAndConfigureBtns(llContentBtns);
     }
