@@ -30,7 +30,6 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
-import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -38,7 +37,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -54,10 +52,6 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 

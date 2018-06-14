@@ -54,11 +54,6 @@ public class AsignarContraseñaTextWatcher  implements TextWatcher {
         this.tv5Num = tv5Num;
         this.tv6Num = tv6Num;
 
-        /*Log.d("ds","WNIP "+tv1Num.getWidth());
-        float textSize = tv1Num.getTextSize();
-        int textSizeInt = (int) textSize;
-         Log.d("ds","textSizeInt "+ textSizeInt);*/
-
         bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
                 R.drawable.base_bullet_blue);
         int medidaTextSize = 0;

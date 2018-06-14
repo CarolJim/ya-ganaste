@@ -12,14 +12,15 @@
 
     <LinearLayout
         android:id="@+id/view_element"
-        android:layout_width="100dp"
-        android:layout_height="95dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/button_item"
+            android:layout_marginTop="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/icon_tab_ya"></ImageView>

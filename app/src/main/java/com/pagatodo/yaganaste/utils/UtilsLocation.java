@@ -3,8 +3,11 @@ package com.pagatodo.yaganaste.utils;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.pagatodo.yaganaste.App;
 
 import java.text.DecimalFormat;
+
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Jordan on 24/05/2017.
@@ -44,9 +47,10 @@ public class UtilsLocation {
         int kmInDec = Integer.valueOf(newFormat.format(km));
         double meter = valueResult % 1000;
         int meterInDec = Integer.valueOf(newFormat.format(meter));
-        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
-                + " Meter   " + meterInDec);
-
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                    + " Meter   " + meterInDec);
+        }
         return Radius * c;
     }
 }

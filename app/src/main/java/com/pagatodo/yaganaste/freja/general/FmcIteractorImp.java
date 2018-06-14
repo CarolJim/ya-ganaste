@@ -3,11 +3,10 @@ package com.pagatodo.yaganaste.freja.general;
 import android.content.Context;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.verisec.freja.mobile.core.FmcLogManager;
 import com.verisec.freja.mobile.core.FmcManager;
 import com.verisec.freja.mobile.core.configuration.FmcConfiguration;
-
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 /**
  * @author Juan Guerra on 30/03/2017.
@@ -22,7 +21,7 @@ public abstract class FmcIteractorImp implements FmcIteractor {
     public void init(Context context) {
         try {
             if (fmcManager == null) {
-                FmcLogManager.enableLoggingAll(DEBUG);
+                FmcLogManager.enableLoggingAll(BuildConfig.DEBUG);
                 FmcManager.setContext(App.getInstance());
                 this.fmcManager = FmcManager.getFmcManager();
             }
@@ -35,7 +34,7 @@ public abstract class FmcIteractorImp implements FmcIteractor {
     public void init(Context context, long connectionTimeout, long readTimeout) {
         try {
             if (fmcManager == null) {
-                FmcLogManager.enableLoggingAll(DEBUG);
+                FmcLogManager.enableLoggingAll(BuildConfig.DEBUG);
                 FmcManager.setContext(App.getInstance());
                 this.fmcManager = FmcManager.getFmcManager();
             }

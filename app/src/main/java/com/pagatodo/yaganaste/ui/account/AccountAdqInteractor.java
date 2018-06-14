@@ -47,6 +47,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 /**
@@ -214,7 +215,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             App.getInstance().getPrefs().saveDataBool(ES_AGENTE, userStatus.isEsAgente());
             App.getInstance().getPrefs().saveDataInt(ESTATUS_AGENTE, CRM_PENDIENTE);
         } catch (Exception e) {
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                 Log.d("AccountAdqInteractor", "Exception " + e);
+            }
         }
 
     }

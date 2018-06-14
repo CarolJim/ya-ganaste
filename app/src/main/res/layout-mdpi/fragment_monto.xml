@@ -4,11 +4,12 @@
     android:id="@+id/activity_dongle_ingres_amount"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="-40dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

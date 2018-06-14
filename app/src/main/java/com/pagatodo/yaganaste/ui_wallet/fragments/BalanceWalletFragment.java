@@ -75,6 +75,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPEN
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
@@ -83,6 +84,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
@@ -154,7 +156,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         }
         this.pageCurrent = 0;
         prefs.saveDataBool(HUELLA_FAIL, false);
-        Status = App.getInstance().getStatusId();
+        Status = App.getInstance().getPrefs().loadData(CARD_STATUS);
     }
 
     @Nullable
@@ -242,7 +244,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void updateStatus() {
         hideLoader();
-        Status = App.getInstance().getStatusId();
+        Status = App.getInstance().getPrefs().loadData(CARD_STATUS);
         setBalanceCards();
     }
 
@@ -338,8 +340,10 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     public void onCardClick(View v, int position) {
         if (!((FlipView) v).isFlipped()) {
             ((FlipView) v).flip(true);
-            setVisibilityBackItems(VISIBLE);
-            setVisibilityFrontItems(GONE);
+            if (prefs.loadDataBoolean(SHOW_BALANCE, true)) {
+                setVisibilityBackItems(VISIBLE);
+                setVisibilityFrontItems(GONE);
+            }
         } else {
             ((FlipView) v).flip(false);
             setVisibilityBackItems(GONE);
@@ -363,7 +367,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             accountPresenter.getEstatusCuenta(mTDC);
         } else {
             Status = f;
-            App.getInstance().setStatusId(f);
+            App.getInstance().getPrefs().saveData(CARD_STATUS, f);
             setBalanceCards();
         }
     }
@@ -378,6 +382,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             try {
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) != QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     chiandpin.setImageResource(R.mipmap.lector_front);
+                    chiandpin.getLayoutParams().width = 400;
+
                 }
             } catch (Exception e) {
                 Log.d("Lector", "Sin opc de lector seleccionada");

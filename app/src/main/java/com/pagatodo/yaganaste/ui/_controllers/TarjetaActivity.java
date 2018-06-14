@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome,
@@ -83,9 +84,9 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         }
     }
 
-    void init(){
+    void init() {
         //menuAdapter = ContainerBuilder.ADMINISTRACION(this,this);
-        ContainerBuilder.ADMINISTRACION(this,mLinearLayout,this);
+        ContainerBuilder.ADMINISTRACION(this, mLinearLayout, this);
         //listView.setAdapter(menuAdapter);
         //intitCard();
         estadotarjeta();
@@ -102,7 +103,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         setVisibilityPrefer(false);
     }
 
-    void intitCard(){
+    void intitCard() {
         String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
         imgYaGanasteCard.setCardNumber(ocultarCardNumberFormat(cardNumber));
     }
@@ -112,7 +113,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         if (statusId != null && !statusId.isEmpty()) {
             checkState(statusId);
         } else {
-            checkState(App.getInstance().getStatusId());
+            checkState(App.getInstance().getPrefs().loadData(CARD_STATUS));
         }
 
         //Agregamos un Listener al Switch
@@ -256,7 +257,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         if (statusId != null && !statusId.isEmpty()) {
             checkState(statusId);
         } else {
-            checkState(App.getInstance().getStatusId());
+            checkState(App.getInstance().getPrefs().loadData(CARD_STATUS));
         }
     }
 
@@ -310,7 +311,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     public void onBackPressed() {
         if (!isLoaderShow) {
             Fragment currentFragment = getCurrentFragment();
-            if (currentFragment instanceof  MyCardReportaTarjetaFragment &&
+            if (currentFragment instanceof MyCardReportaTarjetaFragment &&
                     SingletonUser.getInstance().getDataUser().getEmisor().getCuentas().get(0).getTarjetas().get(0).getNumero().equals("")) {
                 super.onBackPressed();
             } else if (currentFragment instanceof MyChangeNip ||
@@ -329,7 +330,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     @Override
     public void onClick(Object optionMenuItem) {
         OptionMenuItem item = (OptionMenuItem) optionMenuItem;
-        switch (item.getIdItem()){
+        switch (item.getIdItem()) {
             case 3:
                 /**
                  * 1 - Validacion para operaciones con internet, en caso contrario regresamos los botones a

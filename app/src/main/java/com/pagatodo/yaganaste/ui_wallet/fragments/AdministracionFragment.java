@@ -43,6 +43,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CARD_REPORT;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_NIP_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
@@ -116,7 +117,7 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
             checkState(statusId);
 
         } else {
-            checkState(App.getInstance().getStatusId());
+            checkState(App.getInstance().getPrefs().loadData(CARD_STATUS));
         }
         setOnchangeListener();
 

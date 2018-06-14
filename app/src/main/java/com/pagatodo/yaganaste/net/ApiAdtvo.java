@@ -148,6 +148,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_FB;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_STARBUCKS;
@@ -223,8 +224,10 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokensesion());
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokenauth());
+        }
         NetFacade.consumeWS(CAMBIAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, CambiarContraseniaResponse.class, result);
@@ -239,8 +242,10 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokensesion());
             Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokenauth());
+        }
         NetFacade.consumeWS(CHANGE_PASS_6,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, CambiarContraseniaResponse.class, result);

@@ -40,7 +40,6 @@ import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.File;
@@ -58,10 +57,9 @@ import ly.count.android.sdk.DeviceId;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_COUNTLY;
-import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 
 /**
  * Created by flima on 17/03/17.
@@ -84,8 +82,6 @@ public class App extends Application {
     private Preferencias prefs;
     //currentMount
     private String currentMount;
-    //variable de status de cuenta
-    private String statusId;
     private boolean cancel;
 
     private String datoHuellaC;
@@ -118,9 +114,6 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         MultiDex.install(this);
-        if (DEBUG) {
-            Stetho.initializeWithDefaults(this);
-        }
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -145,15 +138,18 @@ public class App extends Application {
         if (!f.exists()) {
             f.mkdir();
         }
-        Log.i(getString(R.string.app_name), "Android Device Id: " + Utils.getUdid(getContext()));
-        statusId = "-1";
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i(getString(R.string.app_name), "Android Device Id: " + Utils.getUdid(getContext()));
+        }
         datoHuellaC = "";
         firebaseRemoteConfig();
 
         //Contly
-        if (!DEBUG) {
+        if (!BuildConfig.DEBUG) {
             countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key), null, DeviceId.Type.OPEN_UDID);
             countly.enableCrashReporting();
+        } else {
+            Stetho.initializeWithDefaults(this);
         }
     }
 
@@ -166,6 +162,7 @@ public class App extends Application {
         remoteConfigDefaults.put(ForcedUpdateChecker.KEY_UPDATE_URL,
                 "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste");
         remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOYALTY_CARDS, false);
+        remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOGS, false);
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
         firebaseRemoteConfig.fetch(0)
@@ -173,7 +170,9 @@ public class App extends Application {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d("YA GANASTE", "remote config is fetched.");
+                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                Log.d("YA GANASTE", "remote config is fetched.");
+                            }
                             firebaseRemoteConfig.activateFetched();
                         }
                     }
@@ -203,14 +202,6 @@ public class App extends Application {
         } else {
             return false;
         }
-    }
-
-    public String getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(String statusId) {
-        this.statusId = statusId;
     }
 
     //Curren Mount
@@ -292,8 +283,9 @@ public class App extends Application {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-        Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+        }
 
         if (lifecycleHandler.isInBackground()) {
             NotificationBuilder.createCloseSessionNotification(this, intent, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo));
@@ -379,7 +371,8 @@ public class App extends Application {
         return null;
     }
 
-    public void downloadFile(String urlData, String nameData, String typeData, FileDownloadListener fileDownloadListener) {
+    public void downloadFile(String urlData, String nameData, String
+            typeData, FileDownloadListener fileDownloadListener) {
         FileDownload fileDownload = new FileDownload(urlData,
                 nameData, typeData, fileDownloadListener);
         fileDownload.execute("");
@@ -399,13 +392,16 @@ public class App extends Application {
 
     public void onStartCountly() {
         Countly.sharedInstance().onStart(currentActivity);
-        Log.d(currentActivity.getClass().getName(), "Countly OnStar");
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.d(currentActivity.getClass().getName(), "Countly OnStar");
+        }
     }
 
     public void onStopCountly() {
         Countly.sharedInstance().onStop();
-        Log.d(currentActivity.getClass().getName(), "Countly onStop");
-
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.d(currentActivity.getClass().getName(), "Countly onStop");
+        }
     }
 
     public static class TextLeaf implements Component {

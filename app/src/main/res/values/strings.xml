@@ -436,7 +436,7 @@
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
-    <string name="bussinesName">Nombre Del Negocio</string>
+    <string name="bussinesName">Nombre del negocio</string>
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
 
     <!--Informacion Adicional-->
@@ -1267,6 +1267,7 @@
     <string name="navigation_drawer_logout">Cerrar sesión</string>
 
     <string name="security_huella_option">Huella digital</string>
+    <string name="shortcuts_option">Mostrar Saldos</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
     <string name="ajustes_notificar_suboption">Selecciona Las Notificaciones Que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>
@@ -1282,6 +1283,7 @@
     <string name="error_add_fav">El Favorito ya se Encuentra Agregado</string>
     <string name="error_add_numero">El Destinatario ya se Encuentra Agregado</string>
     <string name="security_huella_option_subtitle">Autorizar operaciones con huella digital</string>
+    <string name="shotcuts_option_subtitle">Mostrar saldos en accesos directos</string>
     <string name="legales">Legales</string>
     <string name="autorizar">Autorizar</string>
 

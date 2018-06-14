@@ -14,8 +14,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.interfase.ILocationChanged;
+
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Jordan on 19/05/2017.
@@ -82,7 +85,9 @@ public abstract class ToolBarPositionActivity extends LoaderActivity implements 
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.i(getLocalClassName().toString(), "onConnectionFailed: " + connectionResult);
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i(getLocalClassName().toString(), "onConnectionFailed: " + connectionResult);
+        }
     }
 
     @Override

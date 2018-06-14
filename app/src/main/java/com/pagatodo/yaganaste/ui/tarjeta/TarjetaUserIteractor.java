@@ -46,10 +46,8 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
             EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
                 tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
                 tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -57,10 +55,8 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
             EstatusCuentaResponse response = (EstatusCuentaResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -69,10 +65,8 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
             BloquearCuentaResponse response = (BloquearCuentaResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "BloquearCuentaResponse Sucess " + response.getMensaje());
                 tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "BloquearCuentaResponse Sucess with Error " + response.getMensaje());
                 tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -82,7 +76,6 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
     @Override
     public void onFailed(DataSourceResult error) {
         if (error.getWebService().equals(ESTATUS_CUENTA)) {
-            //Log.d("PreferUserIteractor", "EstatusCuentaResponse ErrorServer " + error.toString());
             tarjetaUserPresenter.sendErrorServerEstatusCuentaToPresenter(error.getData().toString());
         }
     }

@@ -49,14 +49,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
-
 
 /**
  * A simple {@link GenericFragment} subclass.

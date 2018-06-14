@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 
@@ -57,7 +58,7 @@ public class WalletBuilder {
         Wallet walletList = new Wallet();
         DataIniciarSesionUYU dataUyu = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE);
         if ((dataUyu != null && dataUyu.getUsuario().getRoles().get(0).getIdRol() != 129) || dataUyu == null) {
-            if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
+            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA)) {
                 walletList.addWallet(ElementWallet.getCardBalanceEmiBloqueda());
                 //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
             } else {

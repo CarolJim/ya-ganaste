@@ -97,6 +97,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 /**
@@ -551,7 +552,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((RecoveryPasswordView) accountView).recoveryPasswordSuccess(data.toString());
             }
         } else if (ws == CERRAR_SESION) {
-            Log.i(TAG, context.getString(R.string.sesion_close));
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.i(TAG, context.getString(R.string.sesion_close));
+            }
         } else if (accountView instanceof IDocumentApproved) {
             ((IDocumentApproved) accountView).dataUpdated(data.toString());
         }

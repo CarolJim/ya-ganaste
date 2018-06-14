@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
@@ -316,7 +317,7 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListEmisorBalance() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).isEmpty()) {
-            if (App.getInstance().getStatusId().equals(ESTATUS_CUENTA_BLOQUEADA)) {
+            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA)) {
                 elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
             } else {
                 elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));

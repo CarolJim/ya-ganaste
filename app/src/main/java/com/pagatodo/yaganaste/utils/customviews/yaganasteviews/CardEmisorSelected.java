@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
@@ -62,10 +63,7 @@ public class CardEmisorSelected extends TabViewElement {
     public void updateData() {
         UsuarioResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
 
-        ClienteResponse clienteData= SingletonUser.getInstance().getDataUser().getCliente();
-
-
-
+        ClienteResponse clienteData = SingletonUser.getInstance().getDataUser().getCliente();
 
 
         String nombreprimerUser;
@@ -111,7 +109,7 @@ public class CardEmisorSelected extends TabViewElement {
             checkState(statusId);
 
         } else {
-            checkState(App.getInstance().getStatusId());
+            checkState(App.getInstance().getPrefs().loadData(CARD_STATUS));
         }
     }
 

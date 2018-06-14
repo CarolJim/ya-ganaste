@@ -32,6 +32,7 @@ import java.util.List;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
 
@@ -89,7 +90,9 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void onSuccesResponse(ResumenMovimientosAdqResponse response) {
-        Log.e("AdqPaymentesPresenter", " response " + response.getMovimientos());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.e("AdqPaymentesPresenter", " response " + response.getMovimientos());
+        }
         if (response.getMovimientos() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<DataMovimientoAdq>>());
         }

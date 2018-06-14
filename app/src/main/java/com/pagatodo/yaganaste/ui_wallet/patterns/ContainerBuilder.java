@@ -36,6 +36,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CANCELACION;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
@@ -57,19 +58,19 @@ public class ContainerBuilder {
     public static final String MAINMENU = "MAINMENU";
     public static final String SETTINGS_MENU = "SETTINGS_MENU";
 
-    public static void builder(Context context, ViewGroup parent, OnClickItemHolderListener listener, String type) {
+    public static Container builder(Context context, ViewGroup parent, OnClickItemHolderListener listener, String type) {
         Container s = new Container(context, parent, listener);
         switch (type) {
             case MAINMENU:
-                mainMenu(s);
-                break;
+                return mainMenu(s);
             case SETTINGS_MENU:
-                settingsMenu(s);
-                break;
+                return settingsMenu(s, parent);
+            default:
+                return null;
         }
     }
 
-    private static void mainMenu(Container s) {
+    private static Container mainMenu(Container s) {
         int res = R.layout.option_menu_tem_view;
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_SEGURIDAD, R.mipmap.ic_seguridad, R.string.navigation_drawer_menu_seguridad));
@@ -82,12 +83,14 @@ public class ContainerBuilder {
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_CONTACTO, R.mipmap.contacto, R.string.navigation_drawer_menu_contacto));
             s.addItemOptionMenuIViewHolder(res, new OptionMenuItem(ID_LOGOUT, R.mipmap.ic_close_session, R.string.navigation_drawer_logout, false));
         }
-
+        return s;
     }
 
-    private static void settingsMenu(Container s) {
-        s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option, 0, RAW));
+    private static Container settingsMenu(Container s, ViewGroup parent) {
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option, 0, RAW));
         //s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_CANCELACION, R.string.ajustes_cancelacion_option, 0, RAW));
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(-1, R.string.shortcuts_option, R.string.shotcuts_option_subtitle, RADIOBUTTON));
+        return s;
     }
 
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> SETTINGS_NOTIFICACIONES(Context context, ViewGroup parent, OnClickItemHolderListener listener) {

@@ -47,6 +47,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 /**
@@ -60,7 +62,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @BindView(R.id.text_data_list)
     ListView listView;
     private View rootView;
-    String mensaje,cardNumber;
+    String mensaje, cardNumber;
     boolean onlineNetWork, onlineGPS;
 
 
@@ -85,12 +87,11 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 onBackPressed();
                 return true;*/
             case R.id.action_share:
-                UtilsIntents.IntentShare(getContext(),mensaje);
+                UtilsIntents.IntentShare(getContext(), mensaje);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
 
 
     }
@@ -101,7 +102,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
         return inflater.inflate(R.layout.fragment_deposito_datos, container, false);
     }
-
 
 
     private void getStatusGPS() {
@@ -149,11 +149,11 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
         Container list = new Container();
-        list.addTextDataA(new TextData(R.string.datos_deposito_titular,name));
+        list.addTextDataA(new TextData(R.string.datos_deposito_titular, name));
         list.addTextDataA(new TextData(R.string.datos_depsito_numero_celular, celPhone));
         list.addTextDataA(new TextData(R.string.datos_deposito_clabe, clabe));
         list.addTextDataA(new TextData(R.string.datos_deposito_num_card, cardNumber));
-        listView.setAdapter(ContainerBuilder.DEPOSITO(getContext(),list));
+        listView.setAdapter(ContainerBuilder.DEPOSITO(getContext(), list));
     }
 
     @Override
@@ -204,7 +204,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
             checkState(statusId);
         } else {
-            checkState(App.getInstance().getStatusId());
+            checkState(App.getInstance().getPrefs().loadData(CARD_NUMBER));
         }
     }
 
@@ -242,7 +242,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, cellPhone, usuario.getTarjetas().get(0).getNumero(), usuario.getCLABE());
         String gson = new Gson().toJson(myQr);
         //String gsonCipher = Utils.cipherAES(gson, true);
-        Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
+        }
         QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), smallerDimension);
         try {
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();

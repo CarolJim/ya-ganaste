@@ -1,13 +1,9 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -15,29 +11,24 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
+import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
-import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener {
     private Preferencias preferencias;

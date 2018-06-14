@@ -37,6 +37,7 @@ import android.view.WindowManager;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
+import com.pagatodo.yaganaste.App;
 
 import java.io.IOException;
 import java.lang.Thread.State;
@@ -47,6 +48,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 // Note: This requires Google Play Services 8.1 or higher, due to using indirect byte buffers for
 // storing images.
@@ -125,6 +128,7 @@ public class CameraSource {
      * native code later (avoids a potential copy).
      */
     private Map<byte[], ByteBuffer> mBytesToByteBuffer = new HashMap<>();
+
     /**
      * Only allow creation via the builder class.
      */
@@ -226,7 +230,9 @@ public class CameraSource {
         // of the preview sizes and hope that the camera can handle it.  Probably unlikely, but we
         // still account for it.
         if (validPreviewSizes.size() == 0) {
-            Log.w(TAG, "No preview sizes have a corresponding same-aspect-ratio picture size");
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.w(TAG, "No preview sizes have a corresponding same-aspect-ratio picture size");
+            }
             for (Camera.Size previewSize : supportedPreviewSizes) {
                 // The null picture size will let us know that we shouldn't set a picture size.
                 validPreviewSizes.add(new SizePair(previewSize, null));
@@ -327,7 +333,9 @@ public class CameraSource {
                     // quickly after stop).
                     mProcessingThread.join();
                 } catch (InterruptedException e) {
-                    Log.d(TAG, "Frame processing thread interrupted on release.");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d(TAG, "Frame processing thread interrupted on release.");
+                    }
                 }
                 mProcessingThread = null;
             }
@@ -351,7 +359,9 @@ public class CameraSource {
                         mCamera.setPreviewDisplay(null);
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, "Failed to clear camera preview: " + e);
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.e(TAG, "Failed to clear camera preview: " + e);
+                    }
                 }
                 mCamera.release();
                 mCamera = null;
@@ -383,7 +393,9 @@ public class CameraSource {
             int maxZoom;
             Camera.Parameters parameters = mCamera.getParameters();
             if (!parameters.isZoomSupported()) {
-                Log.w(TAG, "Zoom is not supported on this device");
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.w(TAG, "Zoom is not supported on this device");
+                }
                 return currentZoom;
             }
             maxZoom = parameters.getMaxZoom();
@@ -628,7 +640,9 @@ public class CameraSource {
                     mFocusMode)) {
                 parameters.setFocusMode(mFocusMode);
             } else {
-                Log.i(TAG, "Camera focus mode: " + mFocusMode + " is not supported on this device.");
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.i(TAG, "Camera focus mode: " + mFocusMode + " is not supported on this device.");
+                }
             }
         }
 
@@ -640,7 +654,9 @@ public class CameraSource {
                     mFlashMode)) {
                 parameters.setFlashMode(mFlashMode);
             } else {
-                Log.i(TAG, "Camera flash mode: " + mFlashMode + " is not supported on this device.");
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.i(TAG, "Camera flash mode: " + mFlashMode + " is not supported on this device.");
+                }
             }
         }
 
@@ -722,7 +738,9 @@ public class CameraSource {
                 degrees = 270;
                 break;
             default:
-                Log.e(TAG, "Bad rotation value: " + rotation);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.e(TAG, "Bad rotation value: " + rotation);
+                }
         }
 
         CameraInfo cameraInfo = new CameraInfo();
@@ -1111,9 +1129,10 @@ public class CameraSource {
                 }
 
                 if (!mBytesToByteBuffer.containsKey(data)) {
-                    Log.d(TAG,
-                            "Skipping frame.  Could not find ByteBuffer associated with the image " +
-                                    "data from the camera.");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d(TAG, "Skipping frame.  Could not find ByteBuffer associated with the image " +
+                                "data from the camera.");
+                    }
                     return;
                 }
 
@@ -1155,7 +1174,9 @@ public class CameraSource {
                             // don't have it yet.
                             mLock.wait();
                         } catch (InterruptedException e) {
-                            Log.d(TAG, "Frame processing loop terminated.", e);
+                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                Log.d(TAG, "Frame processing loop terminated.", e);
+                            }
                             return;
                         }
                     }
@@ -1190,7 +1211,9 @@ public class CameraSource {
                 try {
                     mDetector.receiveFrame(outputFrame);
                 } catch (Throwable t) {
-                    Log.e(TAG, "Exception thrown from receiver.", t);
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.e(TAG, "Exception thrown from receiver.", t);
+                    }
                 } finally {
                     mCamera.addCallbackBuffer(data.array());
                 }

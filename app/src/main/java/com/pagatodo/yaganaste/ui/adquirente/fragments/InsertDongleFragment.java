@@ -71,6 +71,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_FINAL_CONFIRM;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_IS_SERVER_CONNECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
@@ -164,9 +165,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void verifyDongle(String ksn) {
-        Log.i("IposListener: ", "=====>>  READ_KSN  " + ksn);
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i("IposListener: ", "=====>>  READ_KSN  " + ksn);
+        }
         if (ksn.length() > 10) {
-            Log.i("IposListener: ", "=====>>  saveData");
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.i("IposListener: ", "=====>>  saveData");
+            }
             checkDongleStatus(ksn);
         } else {
             hideLoader();
@@ -262,7 +267,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         try {
             getActivity().unregisterReceiver(emvSwipeBroadcastReceiver); // Desregistramos receiver
         } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            }
         }
     }
 
@@ -270,7 +277,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         try {
             getActivity().unregisterReceiver(headPhonesReceiver);
         } catch (IllegalArgumentException ex) {
-            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+            }
         }
     }
 
@@ -453,7 +462,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         configuration.add(EmvAppTag.ICS + "F4F0F0FAAFFE8000");
         configuration.add(EmvAppTag.Terminal_type + "22");
         configuration.add(EmvAppTag.Terminal_Capabilities + "60B8C8");
-        Log.i("IposListener:", "Lista de configuracion: " + configuration.toString());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i("IposListener:", "Lista de configuracion: " + configuration.toString());
+        }
         App.getInstance().pos.updateEmvAPP(QPOSService.EMVDataOperation.update, configuration);
     }
 
@@ -471,7 +482,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         hideLoader();
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
                         showInsertDongle();
-                        Log.i("IposListener: ", "isReaderConected  false");
+                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                            Log.i("IposListener: ", "isReaderConected  false");
+                        }
                         break;
                     case 1:
                         isReaderConected = true;
@@ -482,7 +495,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         //validatingDng = false; // Cancelar Validacion
                         //insertCard();
                         handlerSwipe.postDelayed(starReaderEmvSwipe, 500);
-                        Log.i("IposListener: ", "isReaderConected  true");
+                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                            Log.i("IposListener: ", "isReaderConected  true");
+                        }
                         break;
                     default:
                         break;
@@ -495,7 +510,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         @Override
         public void run() {
             if (isReaderConected) {
-                Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
+                }
                 App.getInstance().pos.openAudio();
                 getKSN();
                 showLoader(getResources().getString(R.string.validatelector));
@@ -513,9 +530,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             switch (mensaje) {
                 case LECTURA_OK:
                     showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
-                    Log.i("IposListener: ", "=====>>  LECTURA OK");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>  LECTURA OK");
+                    }
                     if (isWaitingCard) {
-                        Log.i("IposListener: ", "=====>>   LECTURA_OK ");
+                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                            Log.i("IposListener: ", "=====>>   LECTURA_OK ");
+                        }
                         TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
                         if (isCancelation) {
                             adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
@@ -530,12 +551,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     break;
                 case READ_BATTERY_LEVEL:
                     int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
-                    Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
+                    }
                     App.getInstance().pos.getQposId();
-                    Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
+                    }
                     break;
                 case ERROR_LECTOR:
-                    Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
+                    }
                     hideLoader();
                     if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                         App.getInstance().pos.disconnectBT();
@@ -543,12 +570,15 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     //closeProgress();
                     break;
                 case LEYENDO:
-                    Log.i("IposListener: ", "=====>>    LEYENDO");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    LEYENDO");
+                    }
                     App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
                     break;
                 case REQUEST_AMOUNT:
-                    Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
-
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
+                    }
                     String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".", "");
                     if (isCancelation) {
                         amountCard = dataMovimientoAdq.getMonto().replace(".", "");
@@ -559,18 +589,26 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 case REQUEST_TIME:
                     String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
                     App.getInstance().pos.sendTime(terminalTime);
-                    Log.i("IposListener: ", "=====>>    REQUEST_TIME");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    REQUEST_TIME");
+                    }
                     break;
                 case REQUEST_IS_SERVER_CONNECTED:
                     App.getInstance().pos.isServerConnected(true);
-                    Log.i("IposListener: ", "=====>>    REQUEST_IS_SERVER_CONNECTED");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    REQUEST_IS_SERVER_CONNECTED");
+                    }
                     break;
                 case REQUEST_FINAL_CONFIRM:
                     App.getInstance().pos.finalConfirm(true);
-                    Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
+                    }
                     break;
                 case REQUEST_PIN:
-                    Log.i("IposListener: ", "=====>>    REQUEST_PIN");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    REQUEST_PIN");
+                    }
                     if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                         signWithPin = true;
                         showInsertPin();
@@ -596,10 +634,14 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
                                 }
                             });
-                    Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
+                    }
                     break;
                 case SW_ERROR:
-                    Log.i("IposListener: ", "=====>>    SW_ERROR");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    SW_ERROR");
+                    }
                     hideLoader();
                     if (!isWaitingCard)
                         unregisterReceiverDongle();
@@ -624,16 +666,22 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     break;
                 case ENCENDIDO:
-                    Log.i("IposListener: ", "=====>>    ENCENDIDO");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    ENCENDIDO");
+                    }
                     if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                         getKSN();
                     }
                     break;
                 case EMV_DETECTED:
-                    Log.i("IposListener: ", "======>> Bluetooth Device");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "======>> Bluetooth Device");
+                    }
                     List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
                     for (BluetoothDevice device : devicesBT) {
-                        Log.i("IposListener: ", "======>> Bluetooth Address: " + device.getName() + " " + device.getAddress());
+                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                            Log.i("IposListener: ", "======>> Bluetooth Address: " + device.getName() + " " + device.getAddress());
+                        }
                         if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
                             App.getInstance().pos.stopScanQPos2Mode();
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
@@ -642,14 +690,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     break;
                 case CONFIG_READER_OK:
-                    Log.i("IposListener: ", "=====>>    Configuration Success");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    Configuration Success");
+                    }
                     hideLoader();
                     showInsertCard();
                     initListenerDongle();//Lectura de Tarjeta
                     isWaitingCard = true;
                     break;
                 case CONFIG_READER_OK_ERROR:
-                    Log.i("IposListener: ", "=====>>    Configuration Error");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    Configuration Error");
+                    }
                     hideLoader();
                     showSimpleDialogError(getString(R.string.vuelve_configurar_lector),
                             new DialogDoubleActions() {
@@ -665,7 +717,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                             });
                     break;
                 default:
-                    Log.i("IposListener: ", "=====>>    default");
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    default");
+                    }
                     hideLoader();
                     break;
             }

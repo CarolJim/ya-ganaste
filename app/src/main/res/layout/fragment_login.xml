@@ -24,6 +24,7 @@
                 android:id="@+id/img_header_yg_login"
                 android:layout_width="match_parent"
                 android:layout_height="172dp"
+                android:layout_marginBottom="16dp"
                 android:background="@color/colorAccent"
                 android:padding="31dp"
                 app:srcCompat="@drawable/ic_logo_header" />
@@ -79,19 +80,17 @@
                 android:hint="@string/correo_electronico"
                 android:maxLines="1"
                 android:textColorHint="@color/texthint"
+                android:visibility="gone"
                 app:counterEnabled="true"
                 app:counterMaxLength="1"
-                app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                app:passwordToggleTint="@color/colorAccent"
-                android:visibility="gone"
-                >
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleTint="@color/colorAccent">
 
                 <EditText
                     android:id="@+id/editUserName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:theme ="@style/NewEdittextwallet"
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
@@ -99,7 +98,8 @@
                     android:paddingLeft="15dp"
                     android:singleLine="true"
                     android:textColor="@color/grayColor"
-                    android:textColorHint="@color/texthint" />
+                    android:textColorHint="@color/texthint"
+                    android:theme="@style/NewEdittextwallet" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -107,7 +107,6 @@
                 android:id="@+id/text_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/inputtext_normal"
@@ -127,12 +126,13 @@
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionDone"
-                    android:theme ="@style/NewEdittextwallet"
-                    android:inputType="textPassword"
+                    android:inputType="numberPassword"
+                    android:maxLength="6"
                     android:paddingLeft="15dp"
                     android:password="true"
                     android:singleLine="true"
-                    android:textColor="@color/texthint" />
+                    android:textColor="@color/texthint"
+                    android:theme="@style/NewEdittextwallet" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -141,14 +141,12 @@
                 style="@style/textDescInputs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="8dp"
                 android:padding="@dimen/margin_medium"
                 android:text="@string/other_user"
+                android:textAlignment="center"
                 android:textColor="@color/colorAccent"
-                android:visibility="gone"
-                android:textAlignment="center" />
-
-
+                android:visibility="gone" />
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -156,7 +154,7 @@
                 style="@style/textDescInputs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:padding="@dimen/margin_medium"
                 android:text="@string/recover_pass"
                 android:textAlignment="center" />

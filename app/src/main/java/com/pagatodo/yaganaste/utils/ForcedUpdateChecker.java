@@ -8,8 +8,10 @@ import android.util.Log;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 
 public class ForcedUpdateChecker {
@@ -20,6 +22,7 @@ public class ForcedUpdateChecker {
     public static final String KEY_CURRENT_VERSION = "forced_update_current_version";
     public static final String KEY_UPDATE_URL = "forced_update_store_url";
     public static final String SHOW_LOYALTY_CARDS = "show_loyalty_cards";
+    public static final String SHOW_LOGS = "show_logs";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
@@ -41,7 +44,9 @@ public class ForcedUpdateChecker {
     public void check() {
         final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         boolean showLoyalty = remoteConfig.getBoolean(SHOW_LOYALTY_CARDS);
+        boolean showLogs = remoteConfig.getBoolean(SHOW_LOGS);
         App.getInstance().getPrefs().saveDataBool(SHOW_LOYALTY, showLoyalty);
+        App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
         if (!showLoyalty) {
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
         }

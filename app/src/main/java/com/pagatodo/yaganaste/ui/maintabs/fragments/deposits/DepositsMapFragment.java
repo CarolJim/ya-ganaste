@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
@@ -59,6 +60,8 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Jordan on 17/05/2017.
@@ -256,7 +259,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
             ((DepositsFragment) getParentFragment()).onBtnBackPress();
         } catch (Exception e) {
-            Log.d(TAG, "Exception de Fragment " + e);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d(TAG, "Exception de Fragment " + e);
+            }
         }
     }
 

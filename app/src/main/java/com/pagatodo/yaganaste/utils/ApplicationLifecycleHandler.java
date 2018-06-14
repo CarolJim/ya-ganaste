@@ -22,6 +22,7 @@ import io.card.payment.CardIOActivity;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * Created by Jordan on 18/07/2017.
@@ -40,13 +41,13 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     }
 
 
-
     @Override
     public void onActivityResumed(Activity activity) {
-
         if (!(activity instanceof CardIOActivity)) {
             App.getInstance().resetTimer((SupportFragmentActivity) activity);
-            Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
+            }
             isInBackground = false;
         }
     }
@@ -67,13 +68,10 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     }
 
 
-
     @Override
     public void onActivityStopped(Activity activity) {
 
     }
-
-
 
 
     @Override
@@ -82,22 +80,14 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     }
 
 
-
     @Override
     public void onTrimMemory(int level) {
         if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_MODERATE) {
             isInBackground = true;
             App.getInstance().resetTimer();
-            Log.e(TAG, "Reset From: " + "Back");
-         /*   if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)
-                    && !((SupportFragmentActivity) activity).isFromActivityForResult()) {
-                // Consumimos de manera directa el servicio de cerrar session
-                try {
-                    ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
-                } catch (OfflineException e) {
-                    e.printStackTrace();
-                }
-            }*/
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e(TAG, "Reset From: " + "Back");
+            }
         }
     }
 

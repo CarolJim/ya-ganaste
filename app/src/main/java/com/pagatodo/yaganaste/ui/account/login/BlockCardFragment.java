@@ -62,6 +62,8 @@ import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
 
@@ -155,7 +157,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             mPreferPresenter.setIView(this);
 
             // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
-            cardStatusId = App.getInstance().getStatusId();
+            cardStatusId = App.getInstance().getPrefs().loadData(CARD_STATUS);
             if (cardStatusId == null || cardStatusId.equals("-1")) {
                 cardStatusId = "1";
             }
@@ -167,7 +169,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
                 statusBloqueo = DESBLOQUEO;
             }
-            Log.e("YG", "cardStatusId: " + cardStatusId + " statusBloqueo: " + statusBloqueo);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.e("YG", "cardStatusId: " + cardStatusId + " statusBloqueo: " + statusBloqueo);
+            }
         }
     }
 
@@ -515,10 +519,10 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            App.getInstance().getPrefs().saveData(CARD_STATUS, Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            App.getInstance().getPrefs().saveData(CARD_STATUS, Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         }
 
         // Armamos
@@ -533,7 +537,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         }
 
         // update de datos de Card instantaneos
-        cardStatusId = App.getInstance().getStatusId();
+        cardStatusId = App.getInstance().getPrefs().loadData(CARD_STATUS);
         if (cardStatusId.equals("1")) {
             // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
             rlyUnblockCard.setVisibility(View.GONE);

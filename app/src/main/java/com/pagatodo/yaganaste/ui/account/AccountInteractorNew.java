@@ -124,6 +124,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
@@ -149,6 +150,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.REWARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.SECURITY_TOKEN_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_CARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
@@ -480,7 +482,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalanceAdq(ElementWallet elementWallet) {
         try {
-            ApiAdq.consultaSaldoCupo(this,elementWallet.getAgentesRespose());
+            ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentesRespose());
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
@@ -629,10 +631,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void cargarfotousuario(DataSourceResult dataSourceResult) {
         ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
             accountManager.onSucces(ACTUALIZAR_AVATAR, dataSourceResult);
         } else {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
             accountManager.onError(ACTUALIZAR_AVATAR, response.getMensaje());
         }
     }
@@ -640,10 +640,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void processchangepass6(DataSourceResult dataSourceResult) {
         CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
             accountManager.onSuccesChangePass6(dataSourceResult);
         } else {
-            //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
             accountManager.onError(CHANGE_PASS_6, response.getMensaje());
         }
 
@@ -695,7 +693,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateStatusRespond(EstatusCuentaResponse dataSourceResult) {
         if (dataSourceResult.getCodigoRespuesta() == Recursos.CODE_OK) {
-            App.getInstance().setStatusId(dataSourceResult.getData().getStatusId());
+            App.getInstance().getPrefs().saveData(CARD_STATUS, dataSourceResult.getData().getStatusId());
             accountManager.onSuccesStateCuenta();
         } else {
             accountManager.onError(ESTATUS_CUENTA, null);
@@ -795,7 +793,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
-            App.getInstance().getPrefs().saveDataAgentesRespons(ADQRESPONSE,dataUser);
+            App.getInstance().getPrefs().saveDataAgentesRespons(ADQRESPONSE, dataUser);
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.getControl().getEsUsuario()) {
@@ -991,7 +989,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 card.setAlias(dataCard.getAlias());
                 card.setUserName(dataCard.getNombreUsuario());
                 card.setIdAccount(dataCard.getIdCuenta());
-                Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
+                }
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
                 accountManager.onSucces(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card));
@@ -1143,13 +1143,19 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser user = SingletonUser.getInstance();
             String phone = data.getData().getNumeroTelefono();
             String tokenValidation = user.getDataUser().getUsuario().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
-            Log.d("WSC", "TokenValidation: " + tokenValidation);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d("WSC", "TokenValidation: " + tokenValidation);
+            }
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
-            Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
+            }
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
                     user.getDataUser().getEmisor().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
-            Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().getToken());
+            }
             if (FirebaseInstanceId.getInstance().getToken() != null) {
                 prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().getToken());
                 // prefs.saveData(TOKEN_FIREBASE_EXIST, TOKEN_FIREBASE_EXIST);
