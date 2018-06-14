@@ -110,6 +110,10 @@ public class ElementWallet {
         return frontBitmap;
     }
 
+    public void setFrontBitmap(Bitmap frontBitmap) {
+        this.frontBitmap = frontBitmap;
+    }
+
     public String getSaldo() {
         return saldo;
     }

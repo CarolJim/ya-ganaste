@@ -46,7 +46,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
 
     @Override
     public void getWalletsCards(boolean error) {
-        walletView.showProgress();
+        //walletView.showProgress();
         walletInteractor.getWalletsCards(error, this);
     }
 
@@ -125,11 +125,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccess(boolean error) {
         if (walletView != null) {
-            CardWalletAdpater adapter = new CardWalletAdpater(true);
+            //walletView.hideProgress();
+            //CardWalletAdpater adapter = new CardWalletAdpater(true);
             Wallet walletList = WalletBuilder.createWalletsEsencials(error);
-            adapter.addAllList(walletList.getList());
-            adapter.notifyDataSetChanged();
-            walletView.getPagerAdapter(adapter);
+            //adapter.addAllList(walletList.getList());
+            //adapter.notifyDataSetChanged();
+            walletView.getPagerAdapter(walletList.getList());
+
         }
     }
 

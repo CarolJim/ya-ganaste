@@ -1,18 +1,25 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui_wallet.holders.WalletViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+import com.pagatodo.yaganaste.utils.Recursos;
 
 import java.util.ArrayList;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
 
 
 /**
@@ -59,6 +66,26 @@ public class CardWalletAdpater extends PagerAdapter {
 
     public int getSize() {
         return elementViewList.size();
+    }
+
+    public void changeStatusCard(int position){
+        String statusCard = SingletonUser.getInstance().getCardStatusId();
+        if (statusCard != null) {
+            if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+                //walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
+                elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+            } else {
+                elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
+
+                //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
+                //walletList.addWallet(ElementWallet.getCardyaganaste());
+            }
+        } else {
+            elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
+            //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
+            //walletList.addWallet(ElementWallet.getCardyaganaste());
+        }
+
     }
 
     public int getSizeHolder() {

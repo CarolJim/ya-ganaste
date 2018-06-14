@@ -137,6 +137,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_LOGOUT = "EVENT_LOGOUT";
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
     public static final int TYPE_DETAILS = 3;
+    public static final int PICK_WALLET_TAB_REQUEST = 9630;  // The request code
 
 
     private AprovPresenter tabPresenter;
@@ -456,6 +457,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (resultCode == INTENT_FAVORITE){
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode,resultCode,data);
+        } else if (resultCode == PICK_WALLET_TAB_REQUEST){
+
+                Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
+                childFragment.onActivityResult(requestCode,resultCode,data);
+
         }
 
     }

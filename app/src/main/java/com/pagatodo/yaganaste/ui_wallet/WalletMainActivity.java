@@ -77,6 +77,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
@@ -120,6 +121,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
+
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
 
 
@@ -459,7 +461,14 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         } else if (fragment instanceof DetailsAdquirenteFragment) {
             loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
         } else {
+            setResult(PICK_WALLET_TAB_REQUEST);
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //setResult(PICK_WALLET_TAB_REQUEST);
     }
 }

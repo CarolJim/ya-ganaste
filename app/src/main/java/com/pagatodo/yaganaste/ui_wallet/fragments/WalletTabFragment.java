@@ -9,6 +9,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
 import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView;
 import com.pagatodo.yaganaste.ui_wallet.views.CustomDots;
 import com.pagatodo.yaganaste.ui_wallet.views.CutomWalletViewPage;
@@ -43,10 +45,14 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
@@ -54,7 +60,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
-        OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener {
+        OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener {
 
     public static final String ITEM_OPERATION = "ITEM_OPERATION";
     public static final int ERROR_STATUS = 12;
@@ -75,6 +81,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private ElementsWalletAdapter elementsWalletAdapter;
     protected OnEventListener onEventListener;
     private ViewPager viewPagerWallet;
+    private boolean isBegin;
     private int pageCurrent;
     private GridLayoutManager llm;
 
@@ -94,6 +101,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
+        cardWalletAdpater = new CardWalletAdpater(true);
+        isBegin = true;
+
     }
 
 
@@ -109,6 +119,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void initViews() {
         viewPagerWallet = pageContainer.getViewPager();
+        viewPagerWallet.setOffscreenPageLimit(3);
+        viewPagerWallet.setPageMargin(15);
+        viewPagerWallet.addOnPageChangeListener(this);
+        viewPagerWallet.setAdapter(cardWalletAdpater);
         elementsWalletAdapter = new ElementsWalletAdapter(getActivity(), this, false);
         llm = new GridLayoutManager(getContext(), 3);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
@@ -116,11 +130,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.addItemDecoration(itemDecoration);
         rcvOpciones.setLayoutManager(llm);
         rcvOpciones.setHasFixedSize(true);
-        board.setreloadOnclicklistener(view -> {
-            if (elementsWalletAdapter.getItemCount() > 0) {
-                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
-            }
-        });
+        board.setreloadOnclicklistener(this);
+        checkDataCard();
     }
 
     @Override
@@ -147,27 +158,29 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     @Override
-    public void getPagerAdapter(PagerAdapter pagerAdapter) {
-        cardWalletAdpater = (CardWalletAdpater) pagerAdapter;
-        viewPagerWallet.setAdapter(pagerAdapter);
-        viewPagerWallet.setCurrentItem(this.pageCurrent == 0 ? cardWalletAdpater.getCount() / 2 : this.pageCurrent);
-        viewPagerWallet.setOffscreenPageLimit(3);
-        viewPagerWallet.setPageMargin(15);
-        viewPagerWallet.addOnPageChangeListener(this);
-        pager_indicator.removeAllViews();
-        setUiPageViewController();
-        updateOperations(this.pageCurrent);
+    public void getPagerAdapter(ArrayList<ElementWallet> elementWallets) {
+        cardWalletAdpater.addAllList(elementWallets);
+        cardWalletAdpater.notifyDataSetChanged();
+        pager_indicator.setView(0, cardWalletAdpater.getSize());
+        updateOperations(0);
+        viewPagerWallet.setCurrentItem(cardWalletAdpater.getCount() / 2);
+        if (Utils.isDeviceOnline()) {
+            String f = SingletonUser.getInstance().getCardStatusId();
+            if (f == null || f.isEmpty() || f.equals("0")) {
+                EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
+                if (usuarioClienteResponse.getCuentas().size() != 0) {
+                    walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                }
+            }
+        }
+
         if (!prefs.containsData(IS_OPERADOR)) {
-            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+
             board.setVisibility(View.GONE);
-        } else {
-            hideLoader();
         }
     }
 
-    private void setUiPageViewController() {
-        pager_indicator.setView(this.pageCurrent % cardWalletAdpater.getSize(), cardWalletAdpater.getSize());
-    }
+
 
     private void updateOperations(final int position) {
         int colums = 3;
@@ -202,7 +215,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onItemClick(ElementView itemOperation) {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, itemOperation);
-        startActivity(intent);
+        startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
     }
 
     @Override
@@ -219,7 +232,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onResume() {
         super.onResume();
-        checkDataCard();
+        //checkDataCard();
     }
 
     @Override
@@ -237,8 +250,14 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
         App.getInstance().setStatusId(statusId);
-        pager_indicator.removeAllViews();
-        walletPresenter.getWalletsCards(false);
+        cardWalletAdpater.changeStatusCard(cardWalletAdpater.getCount() / 2);
+        cardWalletAdpater.notifyDataSetChanged();
+        if (!isBegin){
+            if (!prefs.containsData(IS_OPERADOR)) {
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+            }
+        }
+
     }
 
     @Override
@@ -266,11 +285,13 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void onPageSelected(int position) {
-        pager_indicator.selectDots(pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
+        pager_indicator.selectDots(this.pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
         this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
-        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
         updateOperations(position);
+        if (!prefs.containsData(IS_OPERADOR)) {
+            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
+        }
     }
 
     @Override
@@ -281,16 +302,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private void checkDataCard() {
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            String f = SingletonUser.getInstance().getCardStatusId();
-            if (f == null || f.isEmpty() || f.equals("0")) {
-                EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
-                if (usuarioClienteResponse.getCuentas().size() != 0) {
-                    walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
-                }
-            } else {
-                pager_indicator.removeAllViews();
-                walletPresenter.getWalletsCards(false);
-            }
+            walletPresenter.getWalletsCards(false);
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
@@ -308,12 +320,49 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 showDialogMesage(getResources().getString(R.string.no_internet_access));
                 break;
             case ERROR_STATUS:
-                walletPresenter.getWalletsCards(false);
+                //walletPresenter.getWalletsCards(false);
+                if (Utils.isDeviceOnline()) {
+                    if (!isBegin) {
+                        if (!prefs.containsData(IS_OPERADOR)) {
+                            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                        }
+                    }
+                }
                 break;
             case CODE_ERROR_INFO_AGENTE:
                 onEventListener.onEvent(EVENT_LOGOUT, null);
                 break;
         }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        if (!prefs.containsData(IS_OPERADOR)) {
+            if (elementsWalletAdapter.getItemCount() > 0) {
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == PICK_WALLET_TAB_REQUEST) {
+            isBegin = false;
+            boolean isOnline = Utils.isDeviceOnline();
+            if (isOnline) {
+                //String f = SingletonUser.getInstance().getCardStatusId();
+                //if (f == null || f.isEmpty() || f.equals("0")) {
+                    EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
+                    if (usuarioClienteResponse.getCuentas().size() != 0) {
+                        walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                    }
+
+                //}
+            }
+        }
+
     }
 }
 
