@@ -177,7 +177,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
         if (!prefs.containsData(IS_OPERADOR)) {
 
-            board.setVisibility(View.GONE);
+            board.setVisibility(View.VISIBLE);
         }
     }
 
@@ -250,7 +250,8 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void sendSuccessStatusAccount(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
-        cardWalletAdpater.changeStatusCard(cardWalletAdpater.getCount() / 2);
+        App.getInstance().getPrefs().saveData(CARD_STATUS,statusId);
+        cardWalletAdpater.changeStatusCard(this.pageCurrent);
         cardWalletAdpater.notifyDataSetChanged();
         if (!isBegin){
             if (!prefs.containsData(IS_OPERADOR)) {

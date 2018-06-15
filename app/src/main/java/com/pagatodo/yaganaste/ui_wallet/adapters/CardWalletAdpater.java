@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -19,6 +20,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import java.util.ArrayList;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
 
 
@@ -28,7 +30,7 @@ import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
 
 public class CardWalletAdpater extends PagerAdapter {
 
-    public static int LOOPS_COUNT = 20;
+    private static int LOOPS_COUNT = 20;
 
     private ArrayList<ElementWallet> elementViewList;
     private ArrayList<WalletViewHolder> listHolder;
@@ -69,22 +71,25 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void changeStatusCard(int position){
-        String statusCard = SingletonUser.getInstance().getCardStatusId();
-        if (statusCard != null) {
-            if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+        //String statusCard = SingletonUser.getInstance().getCardStatusId();
+        //if (statusCard != null) {
+            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
                 //walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
-                elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
-            } else {
-                elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
+                //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+                //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+                this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
 
+            } else {
+                //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
+                this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
                 //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
                 //walletList.addWallet(ElementWallet.getCardyaganaste());
             }
-        } else {
+        /*} else {
             elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
             //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
             //walletList.addWallet(ElementWallet.getCardyaganaste());
-        }
+        }*/
 
     }
 
@@ -153,14 +158,6 @@ public class CardWalletAdpater extends PagerAdapter {
         this.listHolder.get(position % elementViewList.size()).setEneable(true);
         //}
     }
-
-    /*public void enenable(int position){
-        for (int i = 0; i < this.listHolder.size(); i++) {
-            if (i != position) {
-                this.listHolder.get(i).setEneable(true);
-            }
-        }
-    }*/
 
     public ElementWallet getElemenWallet(int position) {
         if (elementViewList.size() > 0) {

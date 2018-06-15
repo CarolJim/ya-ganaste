@@ -21,15 +21,15 @@ public class WalletBuilder {
         Wallet walletList = new Wallet();
         if (!error && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             String statusCard = SingletonUser.getInstance().getCardStatusId();
-            if (statusCard != null) {
-                if (statusCard.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+            //if (statusCard != null) {
+                if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
                     walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
                 } else {
                     walletList.addWallet(ElementWallet.getCardyaganaste());
                 }
-            } else {
+            /*} else {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
-            }
+            }*/
 
         } else {
             if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {

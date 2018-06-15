@@ -203,12 +203,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         ContainerBuilder.builder(this,mLinearLayout,this,MAINMENU);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
-        imgLoginExistProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setAvatar();
-            }
-        });
+        imgLoginExistProfile.setOnClickListener(v -> setAvatar());
 
     }
 
