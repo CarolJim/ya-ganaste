@@ -14,8 +14,17 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtNameComerce"
+            style="@style/generic_text_style_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/gray_text_wallet_2" />
 
-        <!-- Agregamos el layout que contiene el EditText de Calculadora -->
         <include layout="@layout/calculator_layout" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -26,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="1dp"
             android:text="@string/monto_cobrar"
-            android:textColor="@color/cobrotexto" />
+            android:textColor="@color/gray_text_wallet_2" />
 
         <LinearLayout
             android:id="@+id/conceptLayout"

@@ -75,7 +75,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse>, View.OnClickListener {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 900;
+    private static final String NAME_COMERCE = "NAME_COMERCE";
 
+    @BindView(R.id.txtNameComerce)
+    StyleTextView txtNameComerce;
     @BindView(R.id.et_amount)
     public EditText et_amount;
     @BindView(R.id.edtConcept)
@@ -88,6 +91,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     LinearLayout btncobrar;
 
     LinearLayout layout_amount;
+    private String nameComerce = "";
     private float MIN_AMOUNT = 1.0f;
     boolean isValid;
     private int[] perrmisionArray = {1, 1};
@@ -97,8 +101,12 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         // Required empty public constructor
     }
 
-    public static GetMountFragment newInstance() {
-        return new GetMountFragment();
+    public static GetMountFragment newInstance(String nameComerce) {
+        GetMountFragment getMountFragment = new GetMountFragment();
+        Bundle args = new Bundle();
+        args.putString(NAME_COMERCE, nameComerce);
+        getMountFragment.setArguments(args);
+        return getMountFragment;
     }
 
     @Override
@@ -112,7 +120,9 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        if(getArguments()!=null){
+            nameComerce = getArguments().getString(NAME_COMERCE);
+        }
         isValid = true;
         setHasOptionsMenu(true);
     }
@@ -135,6 +145,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
          * et_amount EditText oculto que captura los elementos que procesaremos, pero que no se
          * muestra en pantalla
          */
+        txtNameComerce = (StyleTextView) rootview.findViewById(R.id.txtNameComerce);
         layout_amount = (LinearLayout) rootview.findViewById(R.id.layout_amount_control);
         tvMontoEntero = (StyleTextView) rootview.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (StyleTextView) rootview.findViewById(R.id.tv_monto_decimal);
@@ -143,7 +154,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         btncobrar.setOnClickListener(this);
-
+        txtNameComerce.setText(nameComerce);
 /*      Se comenta este codigo para quitar el Shebron y la funcionalidad, se deja por si se retoma el disenio
         if (getActivity() instanceof AccountActivity) {
             imgArrowPrev.setVisibility(View.VISIBLE);

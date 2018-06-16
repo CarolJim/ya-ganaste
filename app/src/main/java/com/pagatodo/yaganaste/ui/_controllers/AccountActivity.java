@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -112,7 +111,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
     public final static String EVENT_SECURE_CODE = "EVENT_SECURE_CODE";
     public final static String EVENT_SECURE_CODE_BACK = "EVENT_SECURE_CODE_BACK";
-    public final static String EVENT_QUICK_PAYMENT = "EVENT_QUICK_PAYMENT";
+    public final static String EVENT_PAYMENT = "EVENT_PAYMENT";
     public final static String EVENT_QUICK_PAYMENT_BACK = "EVENT_QUICK_PAYMENT_BACK";
     public final static String EVENT_CONFIG_DONGLE = "EVENT_CONFIG_DONGLE";
     public final static String EVENT_RETRY_PAYMENT = "EVENT_RETRY_PAYMENT";
@@ -327,7 +326,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_SECURE_CODE:
                 loginContainerFragment.loadSecureCodeContainer();
                 break;
-            case EVENT_QUICK_PAYMENT:
+            case EVENT_PAYMENT:
                 loginContainerFragment.loadQuickPayment();
                 break;
             case EVENT_CONFIG_DONGLE:

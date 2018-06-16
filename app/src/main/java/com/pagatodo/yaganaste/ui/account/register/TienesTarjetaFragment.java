@@ -228,7 +228,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                                 return false;
                             }
                             if (lastSharpIndex != -1) {
-                                if (lastSharpIndex == 10 || lastSharpIndex == 15) {
+                                if (lastSharpIndex == 7 || lastSharpIndex == 15) {
                                     cardNumber.setCharAt(lastSharpIndex - 2, mask_number_card);
                                 } else {
                                     cardNumber.setCharAt(lastSharpIndex - 1, mask_number_card);
@@ -450,7 +450,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void resetCardNumberDefault() {
-        editNumber.setText(DEFAULT_CARD + "XXXX XXXX");
+        editNumber.setText(DEFAULT_CARD + "XX XXXX XXXX");
     }
 
     private void generateCardNumberRamdon() {

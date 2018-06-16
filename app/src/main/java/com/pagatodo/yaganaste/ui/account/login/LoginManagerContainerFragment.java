@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -109,7 +110,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     }
 
     public void loadQuickPayment() {
-        loadFragment(GetMountFragment.newInstance(), Direction.FORDWARD, true);
+        loadFragment(GetMountFragment.newInstance(App.getInstance().getPrefs().loadData(COMPANY_NAME)), Direction.FORDWARD, true);
         showBack(true);
     }
 

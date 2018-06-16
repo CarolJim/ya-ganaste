@@ -16,7 +16,7 @@ public class Recursos {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "ya_ganaste.db";
 
-    public static final int TIMEOUT = 60000;
+    public static final int TIMEOUT = 20000;
 
     public static final String PUBLIC_KEY_RSA;
     public static final String PUBLIC_STARBUCKS_KEY_RSA;
@@ -184,7 +184,7 @@ public class Recursos {
     public static final String URL_LEGALES_TERMINOS_LINEAC = "http://dev.yaganaste.com/terminos-y-condiciones-lc.html";
     public static final String URL_LEGALES_PRIVACIDAD_LINEAC = "http://dev.yaganaste.com/aviso-de-privacidad-lc.html";
 
-    public static final String DEFAULT_CARD = "5389 8403 ";
+    public static final String DEFAULT_CARD = "5389 84";
 
     /*
     Var para controlar los mensajes de session del servicio, se tiene una variacion porque tenemos un error de ortografia

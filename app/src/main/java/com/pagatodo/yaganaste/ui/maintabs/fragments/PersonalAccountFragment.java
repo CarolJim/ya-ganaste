@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -45,7 +46,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     public static final String TAG = PersonalAccountFragment.class.getSimpleName();
     RecyclerView.Adapter currentAdapter;
-
 
     public static PersonalAccountFragment newInstance() {
         PersonalAccountFragment personalAccountFragment = new PersonalAccountFragment();
@@ -103,8 +103,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
-
-
         List<ItemMovements<MovimientosResponse>> actualList = null;
         int tabPosition = tabMonths.getSelectedTabPosition();
         try {

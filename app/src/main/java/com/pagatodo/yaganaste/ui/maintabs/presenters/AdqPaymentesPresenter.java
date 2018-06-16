@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
@@ -63,7 +64,6 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void getRemoteMovementsData(AdquirentePaymentsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
-
     }
 
     @Override

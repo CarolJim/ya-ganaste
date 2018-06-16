@@ -69,6 +69,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
@@ -255,7 +256,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                     UI.showErrorSnackBar(this, getString(R.string.please_config_dongle), Snackbar.LENGTH_SHORT);
                 } else {
-                    loadFragment(GetMountFragment.newInstance(), R.id.fragment_container);
+                    loadFragment(GetMountFragment.newInstance(itemOperation.getNombreNegocio()), R.id.fragment_container);
                 }
                 break;
             case 7:
@@ -330,6 +331,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
         switch (event) {
+            case EVENT_PAYMENT:
+                loadFragment(GetMountFragment.newInstance(itemOperation.getNombreNegocio()), R.id.fragment_container, Direction.BACK);
+                break;
             case EVENT_GO_INSERT_DONGLE:
                 loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                         R.id.fragment_container, Direction.FORDWARD, false);

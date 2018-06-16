@@ -40,6 +40,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
@@ -367,7 +368,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResultError.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
-
                         INavigationView viewInterface = (INavigationView) params[0];
                         viewInterface.nextScreen(EVENT_GO_MAINTAB, "");
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
@@ -378,8 +378,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_RETRY_PAYMENT, "");
-                        TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
+                        viewInterface.nextScreen(EVENT_PAYMENT, "");
+                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                     }
                 });
                 pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_ERROR);

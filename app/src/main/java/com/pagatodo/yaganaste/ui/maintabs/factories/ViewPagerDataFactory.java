@@ -71,7 +71,7 @@ public class ViewPagerDataFactory {
             case SESSION_EXIST:
                 fragmentList.add(OtpGeneratorFragment.newInstance());
                 fragmentList.add(BalanceFragment.newInstance());
-                fragmentList.add(GetMountFragment.newInstance());
+                //fragmentList.add(GetMountFragment.newInstance());
                 return new ViewPagerData<>(fragmentList, SessionExistTab.values());
 
             case DEPOSITS:

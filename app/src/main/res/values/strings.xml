@@ -616,7 +616,7 @@
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
     <string name="no_tiene_tarjeta">Te asignaremos una tarjeta digital\ny podras solicitar una física en el futuro</string>
-    <string name="si_tiene_tarjeta">Ingresa los últimos 8 dígitos que se\nencuentran en la parte frontal de tu tarjeta</string>
+    <string name="si_tiene_tarjeta">Ingresa los últimos 10 dígitos que se\nencuentran en la parte frontal de tu tarjeta</string>
     <string name="tarjeta_lista">Tu tarjeta esta lista</string>
     <string name="tarjeta_cancelada">Tu tarjeta esta cancelada</string>
     <string name="title_aceptar">Aceptar</string>
