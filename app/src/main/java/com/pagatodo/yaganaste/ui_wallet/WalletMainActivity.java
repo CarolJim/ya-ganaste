@@ -242,6 +242,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 } else if (!adapter.isEnabled()) {
                     Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivity(enabler);
+                    finish();
                 } else {
                     loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                             R.id.fragment_container);
