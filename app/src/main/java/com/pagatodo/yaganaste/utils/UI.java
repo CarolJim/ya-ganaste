@@ -178,7 +178,6 @@ public class UI {
     }
 
 
-
     public static void createCustomDialogSMS(String title, String message, FragmentManager fragmentManager, String tag,
                                              DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_message,
@@ -206,10 +205,9 @@ public class UI {
 
 
     public static void createCustomDialogCURP(String title, String message, FragmentManager fragmentManager, String tag,
-                                                    DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+                                              DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_error_message,
                 title, message, true, false);
-
 
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
@@ -251,8 +249,8 @@ public class UI {
     }
 
     public static void createSimpleCustomDialogCURP(String title, String message,
-                                                FragmentManager fragmentManager, final DialogDoubleActions actions,
-                                                boolean hasConfirmBtn, boolean hasCancelBtn) {
+                                                    FragmentManager fragmentManager, final DialogDoubleActions actions,
+                                                    boolean hasConfirmBtn, boolean hasCancelBtn) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_curp_error_message, title, message, hasConfirmBtn, hasCancelBtn);
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
@@ -260,7 +258,7 @@ public class UI {
                 customErrorDialog.dismiss();
                 if (actions != null) {
                     RegisterUser registerUser = RegisterUser.getInstance();
-                    String curp=customErrorDialog.getcurpedittext();
+                    String curp = customErrorDialog.getcurpedittext();
                     registerUser.setCURP(curp);
                     actions.actionConfirm(params);
                 }
@@ -277,7 +275,6 @@ public class UI {
         customErrorDialog.setCancelable(false);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
-
 
 
     public static void showErrorSnackBar(Activity rootView, String message, int length) {
@@ -333,6 +330,7 @@ public class UI {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(titulo)
                 .setMessage(message)
+                .setCancelable(false)
                 .setPositiveButton(R.string.title_aceptar, positive)
                 .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
                     @Override
@@ -344,7 +342,7 @@ public class UI {
         builder.show();
     }
 
-    public static void showAlertDialogLlamar(Context context, String titulo,String message, DialogInterface.OnClickListener positive) {
+    public static void showAlertDialogLlamar(Context context, String titulo, String message, DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(titulo)
                 .setMessage(message)
@@ -359,7 +357,7 @@ public class UI {
         builder.show();
     }
 
-    public static void showAlertDialog(Context context, String title, String message, int textPsitive,DialogInterface.OnClickListener positive) {
+    public static void showAlertDialog(Context context, String title, String message, int textPsitive, DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(title)
                 .setMessage(message)
@@ -374,7 +372,7 @@ public class UI {
         builder.show();
     }
 
-    public static AlertDialog showAlertDialog(Context context, int title, String message){
+    public static AlertDialog showAlertDialog(Context context, int title, String message) {
         return new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(title)
                 .setMessage(message).create();

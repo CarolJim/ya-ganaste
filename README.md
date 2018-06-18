@@ -13,6 +13,15 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
+**_VERSION_4.2.2 - 13 de Junio al ... (ID:?)_**
+
+Descripción al desarrollador:
+
+    * Configuración de logs productivos con Firebase
+    * Configuración de visibiildad de saldos en accesos directos
+    * Parche para cuando los agentes son nulos desde el WS
+    * Corrección diseños
+
 **_VERSION 4.2.0 - 9 de Mayo al 12 de Junio del 2018 (ID:4811)_**
 
 Descripción al desarrollador:

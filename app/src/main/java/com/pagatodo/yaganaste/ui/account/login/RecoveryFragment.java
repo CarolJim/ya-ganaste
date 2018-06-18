@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -145,7 +146,6 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
             txtHeaderRecovery.setText(mTextEnlace);
 
             // Mostramos el correo con formato
-
             userEmail = RequestHeaders.getUsername();
             String userEmailCifrado = StringUtils.cifrarPass(userEmail);
             tvCorreoRegistrado.setVisibility(View.VISIBLE);
@@ -281,6 +281,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     @Override
     public void recoveryPasswordSuccess(String message) {
         UI.showSuccessSnackBar(getActivity(), message, Snackbar.LENGTH_LONG);
+        getActivity().onBackPressed();
     }
 
     @Override

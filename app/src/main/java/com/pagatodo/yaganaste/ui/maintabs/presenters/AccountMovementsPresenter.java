@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
@@ -22,10 +23,17 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteract
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import ly.count.android.sdk.Countly;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
@@ -43,6 +51,9 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_MOVS_EMISOR);
+        }
         movementsView.showLoader("Cargando movimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
@@ -60,6 +71,9 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_MOVS_EMISOR);
+        }
         movementsView.showLoader("Cargando movimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
@@ -91,6 +105,11 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_MOVS_EMISOR, segmentation, 1, 0);
+        }
         if (response.getData() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
         }

@@ -835,7 +835,7 @@
     <string name="aprobada_cobro">El cobro fue realizado con éxito,\nya puedes retirar la tarjeta del lector</string>
     <string name="pago_success">El pago fue completado\ncorrectamente</string>
     <string name="cancelation_success">Cancelación exitosa</string>
-    <string name="cancelation_success_message">El cobro fue cancelado\ncorrectamente</string>
+    <string name="cancelation_success_message">El cobro fue cancelado con éxito.\nYa puedes retirar la tarjeta del lector</string>
     <string name="mount_be_higer">El monto tiene que ser mayor</string>
     <string name="mount_valid">Ingresa un monto válido</string>
     <string name="enter_mount">Por favor ingrese un monto</string>
@@ -1267,7 +1267,7 @@
     <string name="navigation_drawer_logout">Cerrar sesión</string>
 
     <string name="security_huella_option">Huella digital</string>
-    <string name="shortcuts_option">Mostrar Saldos</string>
+    <string name="shortcuts_option">Mostrar saldos</string>
     <string name="ajustes_notificar_option">Notificaciones</string>
     <string name="ajustes_notificar_suboption">Selecciona Las Notificaciones Que\nte Gustaría Recibir en tu Teléfono</string>
     <string name="ajustes_desvincular_option">Desvincular Dispositivo</string>

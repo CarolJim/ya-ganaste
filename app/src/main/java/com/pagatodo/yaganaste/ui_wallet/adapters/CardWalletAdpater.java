@@ -70,21 +70,21 @@ public class CardWalletAdpater extends PagerAdapter {
         return elementViewList.size();
     }
 
-    public void changeStatusCard(int position){
+    public void changeStatusCard(int position) {
         //String statusCard = SingletonUser.getInstance().getCardStatusId();
         //if (statusCard != null) {
-            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-                //walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
-                //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
-                //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
-                this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+        if (App.getInstance().getPrefs().loadData(CARD_STATUS).equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+            //walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
+            //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+            //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+            this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
 
-            } else {
-                //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
-                this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
-                //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
-                //walletList.addWallet(ElementWallet.getCardyaganaste());
-            }
+        } else {
+            //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
+            this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
+            //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
+            //walletList.addWallet(ElementWallet.getCardyaganaste());
+        }
         /*} else {
             elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
             //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
@@ -100,7 +100,7 @@ public class CardWalletAdpater extends PagerAdapter {
     @Override
     public int getCount() {
         if (isLoop) {
-            if (this.elementViewList.size() == 1)
+            if (this.elementViewList.size() < 3)
                 return this.elementViewList.size();
             else {
                 return this.elementViewList.size() * LOOPS_COUNT;

@@ -213,6 +213,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
     private void getKSN() {
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.i("IposListener: ", "=====>>    getKsn");
+        }
         App.getInstance().pos.getQposId();
     }
 

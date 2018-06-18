@@ -2,33 +2,36 @@ package com.pagatodo.yaganaste.ui_wallet.interactors;
 
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdq;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ERROR_STATUS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 
 /**
@@ -53,9 +56,15 @@ public class WalletInteractorImpl implements WalletInteractor {
         try {
             switch (typeWallet) {
                 case TYPE_EMISOR:
+                    if (!BuildConfig.DEBUG) {
+                        Countly.sharedInstance().startEvent(EVENT_BALANCE_EMISOR);
+                    }
                     ApiTrans.consultarSaldo(this);
                     break;
                 case TYPE_ADQ:
+                    if (!BuildConfig.DEBUG) {
+                        Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
+                    }
                     ApiAdq.consultaSaldoCupo(this, agente);
                     break;
                 case TYPE_STARBUCKS:
@@ -64,7 +73,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     ApiStarbucks.saldoSb(cardRequest, this);
                     break;
                 default:
-                    this.listener.onSuccesSaldo(typeWallet,"");
+                    this.listener.onSuccesSaldo(typeWallet, "");
                     break;
             }
 
@@ -111,9 +120,19 @@ public class WalletInteractorImpl implements WalletInteractor {
                 break;*/
             case CONSULTAR_SALDO:
                 //this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
+                if (!BuildConfig.DEBUG) {
+                    Map<String, String> segmentation = new HashMap<>();
+                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    Countly.sharedInstance().endEvent(EVENT_BALANCE_EMISOR, segmentation, 1, 0);
+                }
                 this.listener.onSuccess(TYPE_EMISOR, result.getData());
                 break;
             case CONSULTAR_SALDO_ADQ:
+                if (!BuildConfig.DEBUG) {
+                    Map<String, String> segmentation = new HashMap<>();
+                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    Countly.sharedInstance().endEvent(EVENT_BALANCE_ADQ, segmentation, 1, 0);
+                }
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
                 break;
             case CONSULTAR_SALDO_SB:
@@ -143,7 +162,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                 this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
                 break;
             case ESTATUS_CUENTA:
-                this.listener.onFailed(ERROR_STATUS,Recursos.NO_ACTION,error.getData().toString());
+                this.listener.onFailed(ERROR_STATUS, Recursos.NO_ACTION, error.getData().toString());
                 break;
         }
 

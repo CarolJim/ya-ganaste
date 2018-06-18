@@ -16,8 +16,6 @@ public class Recursos {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "ya_ganaste.db";
 
-    public static final int TIMEOUT = 20000;
-
     public static final String PUBLIC_KEY_RSA;
     public static final String PUBLIC_STARBUCKS_KEY_RSA;
 
@@ -29,11 +27,11 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
+    public static final int WS_TIMEOUT = 60000;
+    public static final long SESSION_TIMEOUT = 120000;
+
     /*Freja*/
     public static final String PT_CLIENT_CODE = null;
-
-    public static final long DISCONNECT_TIMEOUT = 120000;
-    public static final long FLIP_TIMER = 5000;
 
     //URL DE WS
     static {
@@ -296,9 +294,8 @@ public class Recursos {
 
     // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean
-    /*
-     * Datos de usuario al realizar login de starbucks
-     */
+
+    /* Datos de usuario al realizar login de starbucks */
     public static final String STARBUCKS_CARDS = "STARBUCKS_CARDS";
     public static final String REWARDS = "REWARDS";
     public static final String FAVORITE_DRINK = "FAVORITE_DRINK";
@@ -313,4 +310,16 @@ public class Recursos {
     public static final String MEMBER_NUMBER_STARBUCKS = "MEMBER_NUMBER_STARBUCKS";
     public static final String SECURITY_TOKEN_STARBUCKS = "SECURITY_TOKEN_STARBUCKS";
     public static final String NUMBER_CARD_STARBUCKS = "NUMBER_CARD_STARBUCKS";
+
+    /* Eventos de Countly */
+    public static final String EVENT_SPLASH = "EVENT_SPLASH";
+    public static final String EVENT_LOG_IN = "EVENT_LOG_IN";
+    public static final String EVENT_MOVS_EMISOR = "EVENT_MOVS_EMISOR";
+    public static final String EVENT_MOVS_ADQ = "EVENT_MOVS_ADQ";
+    public static final String EVENT_APROV = "EVENT_APROV";
+    public static final String EVENT_BALANCE_EMISOR = "EVENT_BALANCE_EMISOR";
+    public static final String EVENT_BALANCE_ADQ = "EVENT_BALANCE_ADQ";
+
+    /* Segmentaciones eventos County */
+    public static final String CONNECTION_TYPE = "CONNECTION_TYPE";
 }

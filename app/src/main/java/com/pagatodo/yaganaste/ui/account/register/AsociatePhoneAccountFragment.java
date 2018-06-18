@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -39,8 +40,12 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
@@ -50,7 +55,12 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_APROV;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
+import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
 
 /**
@@ -165,6 +175,9 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     }
 
     public void onRequestPermissionsResult() {
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_APROV);
+        }
         accountPresenter.gerNumberToSMS();
     }
 
@@ -195,6 +208,11 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_APROV, segmentation, 1, 0);
+        }
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
             nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
         } else {
@@ -210,11 +228,21 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
     @Override
     public void finishReseting() {
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_APROV, segmentation, 1, 0);
+        }
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
     @Override
     public void onResetingFailed() {
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_APROV, segmentation, 1, 0);
+        }
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
@@ -261,7 +289,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         if (error != null && !error.toString().isEmpty()) {
 
 
-            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),error.toString(), new DialogInterface.OnClickListener() {
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), error.toString(), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {

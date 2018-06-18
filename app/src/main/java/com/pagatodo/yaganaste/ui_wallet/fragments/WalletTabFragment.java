@@ -157,7 +157,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         cardWalletAdpater.notifyDataSetChanged();
         pager_indicator.setView(0, cardWalletAdpater.getSize());
         updateOperations(0);
-        viewPagerWallet.setCurrentItem(cardWalletAdpater.getCount() / 2);
+        viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? cardWalletAdpater.getCount() / 2 : 0);
         if (Utils.isDeviceOnline()) {
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
@@ -171,7 +171,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             board.setVisibility(View.VISIBLE);
         }
     }
-
 
 
     private void updateOperations(final int position) {
@@ -241,10 +240,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void sendSuccessStatusAccount(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
-        App.getInstance().getPrefs().saveData(CARD_STATUS,statusId);
+        App.getInstance().getPrefs().saveData(CARD_STATUS, statusId);
         cardWalletAdpater.changeStatusCard(this.pageCurrent);
         cardWalletAdpater.notifyDataSetChanged();
-        if (!isBegin){
+        if (!isBegin) {
             if (!prefs.containsData(IS_OPERADOR)) {
                 walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             }
@@ -345,10 +344,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             if (isOnline) {
                 //String f = SingletonUser.getInstance().getCardStatusId();
                 //if (f == null || f.isEmpty() || f.equals("0")) {
-                    EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
-                    if (usuarioClienteResponse.getCuentas().size() != 0) {
-                        walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
-                    }
+                EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
+                if (usuarioClienteResponse.getCuentas().size() != 0) {
+                    walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                }
 
                 //}
             }

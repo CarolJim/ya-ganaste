@@ -17,16 +17,15 @@ import java.util.Map;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
-import static com.pagatodo.yaganaste.utils.Recursos.TIMEOUT;
-
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.CONNECTION_TIMEOUT;
 
 /**
  * Created on 16/02/2017.
  *
  * @author flima
  * @version 1.0
- *          <p>
- *          Clase Facade para el cliente Http
+ * <p>
+ * Clase Facade para el cliente Http
  */
 public class NetFacade {
 
@@ -93,7 +92,7 @@ public class NetFacade {
         request.setBody(createParams(envolve, oRequest));
         request.setRequestResult(requestResult);
         request.setTypeResponse(responseType);
-        request.setTimeOut(TIMEOUT);
+        request.setTimeOut(App.getInstance().getPrefs().loadDataInt(CONNECTION_TIMEOUT));
         return request;
     }
 
@@ -107,7 +106,7 @@ public class NetFacade {
         request.setBody(createParamsnotag(envolve, oRequest));
         request.setRequestResult(requestResult);
         request.setTypeResponse(responseType);
-        request.setTimeOut(TIMEOUT);
+        request.setTimeOut(App.getInstance().getPrefs().loadDataInt(CONNECTION_TIMEOUT));
         return request;
     }
 
@@ -123,9 +122,10 @@ public class NetFacade {
             if (envolve) {
                 if (oRequest instanceof AdqRequest) {
                     return JsonManager.madeJsonAdquirente(tmp);
-                } if (oRequest instanceof AdqRequestNoTag) {
+                }
+                if (oRequest instanceof AdqRequestNoTag) {
                     return tmp;
-                }else{
+                } else {
                     return JsonManager.madeJson(tmp);
                 }
             } else {

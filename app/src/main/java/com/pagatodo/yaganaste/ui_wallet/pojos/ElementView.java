@@ -68,7 +68,6 @@ public class ElementView implements ElementGlobal {
     private int typeOptions;
 
     private ArrayList<OperadoresResponse> list = new ArrayList<>();
-
     private String nombreNegocio;
 
     public ArrayList<OperadoresResponse> getList() {
@@ -107,7 +106,13 @@ public class ElementView implements ElementGlobal {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
+    }
 
+    public ElementView(int idOperacion, int resource, int title, String nombreComercio) {
+        this.idOperacion = idOperacion;
+        this.resource = resource;
+        this.title = title;
+        this.nombreNegocio = nombreComercio;
     }
 
     public ElementView(int idOperacion, int resource, int title, int description, boolean status, boolean color, int textbutton, int typeOptions) {
@@ -209,7 +214,7 @@ public class ElementView implements ElementGlobal {
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
-        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129 && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN));
         }

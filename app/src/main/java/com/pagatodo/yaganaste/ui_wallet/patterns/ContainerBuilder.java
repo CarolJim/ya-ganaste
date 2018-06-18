@@ -89,7 +89,8 @@ public class ContainerBuilder {
     private static Container settingsMenu(Container s, ViewGroup parent) {
         s.addOptionMenuSegurity(parent, new OptionMenuItem(ID_DESVINCULAR, R.string.ajustes_desvincular_option, 0, RAW));
         //s.addItemViewHolderMenuSegurity(new OptionMenuItem(ID_CANCELACION, R.string.ajustes_cancelacion_option, 0, RAW));
-        s.addOptionMenuSegurity(parent, new OptionMenuItem(-1, R.string.shortcuts_option, R.string.shotcuts_option_subtitle, RADIOBUTTON));
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129)
+            s.addOptionMenuSegurity(parent, new OptionMenuItem(-1, R.string.shortcuts_option, R.string.shotcuts_option_subtitle, RADIOBUTTON));
         return s;
     }
 

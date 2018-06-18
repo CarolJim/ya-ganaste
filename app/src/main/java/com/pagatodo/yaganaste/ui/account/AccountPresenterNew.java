@@ -117,7 +117,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private ChangeNipPresenterImp changeNipPresenterImp;
     private ResetPinPresenter resetPinPresenter;
 
-
     public void setIView(View accountView) {
         super.setIView(accountView);
 

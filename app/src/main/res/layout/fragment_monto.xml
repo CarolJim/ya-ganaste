@@ -23,6 +23,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
+            android:textAllCaps="true"
             android:textColor="@color/gray_text_wallet_2" />
 
         <include layout="@layout/calculator_layout" />

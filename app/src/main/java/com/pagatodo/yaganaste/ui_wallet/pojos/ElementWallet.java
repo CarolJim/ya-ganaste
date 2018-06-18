@@ -227,11 +227,11 @@ public class ElementWallet {
     public static ElementWallet getCardLectorAdq(AgentesRespose agentesRespose) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
-        if (isBluetooth && !agentesRespose.getNombreNegocio().equals("")) {
-            frontView = frontCardBusiness(frontView, agentesRespose.getNombreNegocio());
-        }
 
         if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentesRespose != null) {
+            if (isBluetooth && !agentesRespose.getNombreNegocio().equals("")) {
+                frontView = frontCardBusiness(frontView, agentesRespose.getNombreNegocio());
+            }
             String leyenda;
             int descripcion;
             boolean isReload = true;
@@ -293,12 +293,12 @@ public class ElementWallet {
 
     public static ElementWallet getCardBalanceAdq(AgentesRespose agentesRespose) {
         Bitmap frontView, backView;
-        if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.AUDIO.ordinal()) {
-            frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
-            backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_back);
-        } else {
+        if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.lector_bt);
             backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.lector_bt_back);
+        } else {
+            frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
+            backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_back);
         }
         return new ElementWallet(TYPE_ADQ, frontView, backView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
