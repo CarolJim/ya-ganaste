@@ -170,7 +170,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
                 this.onEventListener.onEvent(EVENT_GO_TO_SEND_TICKET, this.movTab);
                 return true;
             case R.id.action_cancelar_cobro:
-                UI.showAlertDialog(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
+                UI.showAlertDialogCancelar(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -323,7 +323,7 @@ public class ElementView implements ElementGlobal {
                 elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
             }
         }
-        elementViews.add(new ElementView(OPTION_GENERATE_TOKEN, R.drawable.ic_generar, R.string.generar_codigo));
+    //    elementViews.add(new ElementView(OPTION_GENERATE_TOKEN, R.drawable.ic_generar, R.string.generar_codigo));
         return elementViews;
     }
 

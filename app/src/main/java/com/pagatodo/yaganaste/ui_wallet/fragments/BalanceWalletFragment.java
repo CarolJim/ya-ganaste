@@ -118,6 +118,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.chiandpin)
     ImageView chiandpin;
 
+    
+
     private ILoginContainerManager loginContainerManager;
     private AccountPresenterNew accountPresenter;
     private CardWalletAdpater adapterBalanceCard;
@@ -170,7 +172,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);
-        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
         rcvElementsBalance.setHasFixedSize(true);
         if (prefs.loadData(CARD_NUMBER).isEmpty()) {
             Status = ESTATUS_CUENTA_BLOQUEADA;
@@ -272,6 +274,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @Override
     public void onPageSelected(int position) {
 
+
+
         pager_indicator.selectDots(pageCurrent % adapterBalanceCard.getSize(), position % adapterBalanceCard.getSize());
         this.pageCurrent = position;
         adapterBalanceCard.resetFlip();
@@ -279,8 +283,11 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
             if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
+                rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+
                 accountPresenter.updateBalance();
             } else {
+                rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
             }
         }

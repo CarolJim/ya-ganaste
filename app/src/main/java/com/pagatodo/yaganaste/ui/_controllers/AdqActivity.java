@@ -17,13 +17,18 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 
@@ -101,6 +106,10 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                         Direction.FORDWARD, false);
                 break;
+            case EVENT_PAYMENT:
+                finish();
+                break;
+
         }
     }
 

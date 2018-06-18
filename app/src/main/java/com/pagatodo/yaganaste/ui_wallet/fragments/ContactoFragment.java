@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -74,7 +76,19 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
                         new String[]{Manifest.permission.READ_PHONE_STATE},
                         MY_PERMISSIONS_REQUEST_SEND_SMS);
             } else {
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0180050010000")));
+
+                UI.createSimpleCustomDialogCURP(getString(R.string.desea_cacelar), "",
+                        getFragmentManager(), new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0180050010000")));
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+                            }
+                        }, true, false);
+
             }
         }
         if (view.getId() == R.id.view_element_correo) {

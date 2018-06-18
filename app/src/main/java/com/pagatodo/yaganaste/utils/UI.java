@@ -314,6 +314,21 @@ public class UI {
                 .create();
         builder.show();
     }
+
+    public static void showAlertDialogCancelar(Context context, String message, DialogInterface.OnClickListener positive) {
+        AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
+                .setTitle(R.string.app_name)
+                .setMessage(message)
+                .setPositiveButton(R.string.entendido_titulo, positive)
+                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        builder.show();
+    }
     public static void showAlertDialog(Context context, String titulo,String message, DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(titulo)
