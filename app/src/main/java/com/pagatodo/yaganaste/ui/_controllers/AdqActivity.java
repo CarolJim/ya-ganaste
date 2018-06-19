@@ -97,6 +97,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 break;
             case EVENT_GO_MAINTAB:
                 finish();
+                onBackPressed();
                 break;
             case EVENT_GO_LOGIN_FRAGMENT:
                 setResult(Activity.RESULT_OK);

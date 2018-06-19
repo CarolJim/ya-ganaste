@@ -281,16 +281,22 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         adapterBalanceCard.resetFlip();
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
-        if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
-            if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
-                rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
-                accountPresenter.updateBalance();
-            } else {
-                rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
+        if (prefs.containsData(IS_OPERADOR)) {
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            accountPresenter.updateBalance();
+        }else {
+            if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
+                if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
+                    rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                    accountPresenter.updateBalance();
+                } else {
+                    rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
+                }
             }
         }
+
 
         updateOperations(position);
 
@@ -372,6 +378,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         adapterBalanceCard = new CardWalletAdpater(false, this);
         if (prefs.containsData(IS_OPERADOR)) {
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
             chiandpin.setVisibility(VISIBLE);
             vpBalace.setVisibility(GONE);
             try {

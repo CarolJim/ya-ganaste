@@ -422,6 +422,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        clearContent();
         //paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
@@ -431,6 +432,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             case R.id.btnenviar:
                 validateForms();
                 continuePayment();
+
                 break;
             case R.id.add_favorites_list_serv:
                 /**
@@ -698,11 +700,12 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 referenciaNumber = numberReference.getText().toString().trim();
                 payment = new Envios(selectedType, referencia, 0D, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
+                clearContent();
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
                 intent.putExtra("favoritoItem", favoriteItem);
                 startActivity(intent);
-                clearContent();
+
             }
         }
     }

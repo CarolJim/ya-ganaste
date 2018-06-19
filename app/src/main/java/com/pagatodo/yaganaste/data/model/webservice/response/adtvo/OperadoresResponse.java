@@ -11,6 +11,9 @@ public class OperadoresResponse implements Serializable {
     private String NombreUsuario;
     private String PetroNumero;
 
+    public OperadoresResponse() {
+    }
+
     public int getIdOperador() {
         return IdOperador;
     }

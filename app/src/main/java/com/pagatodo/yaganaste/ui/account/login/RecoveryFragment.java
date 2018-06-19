@@ -170,6 +170,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
                 break;
             case R.id.btnNextRecuperar:
                 validateForm();
+
                 break;
             default:
                 break;
