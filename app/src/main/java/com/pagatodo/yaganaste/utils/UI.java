@@ -332,12 +332,12 @@ public class UI {
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(R.string.title_aceptar, positive)
-                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
+                /*.setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
-                })
+                })*/
                 .create();
         builder.show();
     }

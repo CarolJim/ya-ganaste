@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.usb.UsbDevice;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,7 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.USBClass;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -109,7 +111,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false;
     private static boolean banderaCacelachevron = false;
-    public Preferencias prefs;
+    private Preferencias prefs;
+    private UsbDevice usbDevice;
 
     public InsertDongleFragment() {
     }
@@ -156,6 +159,14 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
             //pos.selectEmvApp(position);
+        } else if (communicationMode == QPOSService.CommunicationMode.USB_OTG_CDC_ACM.ordinal()) {
+            USBClass usb = new USBClass();
+            ArrayList<String> deviceList = usb.GetUSBDevices(App.getContext());
+            final CharSequence[] items = deviceList.toArray(new CharSequence[deviceList.size()]);
+            String selectedDevice = (String) items[0];
+            usbDevice = USBClass.getMdevices().get(selectedDevice);
+            App.getInstance().initEMVListener(QPOSService.CommunicationMode.USB_OTG_CDC_ACM);
+            App.getInstance().pos.openUsb(usbDevice);
         }
 
         prefs = App.getInstance().getPrefs();
@@ -261,6 +272,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             App.getInstance().pos.closeAudio();
             if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                 App.getInstance().pos.disconnectBT();
+            } else if (communicationMode == QPOSService.CommunicationMode.USB_OTG_CDC_ACM.ordinal()) {
+                App.getInstance().pos.closeUsb();
             }
         }
         super.onDestroy();

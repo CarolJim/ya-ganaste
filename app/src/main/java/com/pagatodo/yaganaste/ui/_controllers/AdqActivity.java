@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
@@ -50,7 +52,16 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
-        onEvent(EVENT_GO_INSERT_DONGLE, null);
+        if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            UI.showAlertDialog(this, getResources().getString(R.string.app_name), "Asegurate de tener tú dispositivo conectado", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    onEvent(EVENT_GO_INSERT_DONGLE, null);
+                }
+            });
+        } else {
+            onEvent(EVENT_GO_INSERT_DONGLE, null);
+        }
     }
 
     /**
@@ -71,7 +82,9 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
                 // AQUI
-                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                /*loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                        Direction.FORDWARD, false);*/
+                loadFragment(InsertDongleFragment.newInstance(QPOSService.CommunicationMode.USB_OTG_CDC_ACM.ordinal()),
                         Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:

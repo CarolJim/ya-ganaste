@@ -41,6 +41,10 @@
         android:name="android.hardware.camera.flash"
         android:required="false" />
     <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.usb.host" />
+    <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
@@ -93,7 +97,11 @@
         <activity
             android:name=".ui._controllers.AdqActivity"
             android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui._controllers.TabActivity"
             android:screenOrientation="portrait"
@@ -182,7 +190,7 @@
         <activity android:name=".ui_wallet.SearchCarrierActivity" />
         <activity
             android:name=".ui._controllers.manager.FavoritesActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

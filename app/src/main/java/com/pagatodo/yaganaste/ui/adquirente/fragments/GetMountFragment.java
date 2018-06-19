@@ -70,6 +70,7 @@ import butterknife.BindView;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse>, View.OnClickListener {
@@ -120,7 +121,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             nameComerce = getArguments().getString(NAME_COMERCE);
         }
         isValid = true;
@@ -480,7 +481,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     @Override
     public void onClick(View view) {
-
         if (view.getId() == R.id.btncobrar) {
             actionChargecobro();
         }
