@@ -302,12 +302,7 @@ public class UI {
                 .setTitle(R.string.app_name)
                 .setMessage(message)
                 .setPositiveButton(R.string.title_aceptar, positive)
-                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
         builder.show();
     }
@@ -317,12 +312,7 @@ public class UI {
                 .setTitle(R.string.app_name)
                 .setMessage(message)
                 .setPositiveButton(R.string.entendido_titulo, positive)
-                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
         builder.show();
     }
@@ -332,12 +322,7 @@ public class UI {
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(R.string.title_aceptar, positive)
-                /*.setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })*/
+                /*.setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())*/
                 .create();
         builder.show();
     }
@@ -347,12 +332,7 @@ public class UI {
                 .setTitle(titulo)
                 .setMessage(message)
                 .setPositiveButton(R.string.title_llamar, positive)
-                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
         builder.show();
     }
@@ -361,13 +341,8 @@ public class UI {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(R.string.title_aceptar, positive)
-                .setNegativeButton(R.string.title_cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setPositiveButton(textPsitive, positive)
+                .setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
         builder.show();
     }

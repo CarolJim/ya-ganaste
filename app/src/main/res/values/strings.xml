@@ -1318,7 +1318,7 @@
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>
-    <string name="item_menu_remmbolsar">Rembolsar cobro</string>
+    <string name="item_menu_remmbolsar">Reembolsar cobro</string>
     <string name="item_menu_reenviar">Reenviar ticket</string>
     <string name="item_menu_cancelar">Cancelar cobro</string>
     <string name="item_menu_anadir_mov">Añadir</string>
@@ -1427,7 +1427,7 @@
     <!-- Movimientos Reembolso-->
     <string name="title_dailog_reem">¿Estás seguro que deseas reembolsar el cobro?</string>
     <string name="message_dialog_reem">Este movimiento generará una comisión de 3.95% más IVA sobre el monto cobrado.</string>
-    <string name="positive_btn_reem">Reembolsar</string>
+    <string name="positive_btn_reem">REEMBOLSAR</string>
     <string name="message_succes_reembolso">¡El cobro fue reembolsado exitosamente!</string>
     <string name="message_deseable_reembolso">Este movimiento no puede ser reembolsado</string>
 

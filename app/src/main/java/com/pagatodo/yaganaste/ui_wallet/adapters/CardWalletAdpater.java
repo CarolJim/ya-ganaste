@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
@@ -73,25 +74,25 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void changeStatusCard(int position) {
-        //String statusCard = SingletonUser.getInstance().getCardStatusId();
-        //if (statusCard != null) {
+        int resImage = R.mipmap.main_card_zoom_blue;
         if (App.getInstance().getPrefs().loadData(CARD_STATUS).equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-            //walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
-            //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
-            //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
-            this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
-
-        } else {
-            //elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
-            this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
-            //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
-            //walletList.addWallet(ElementWallet.getCardyaganaste());
+            resImage = R.mipmap.main_card_zoom_gray;
+            //this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
         }
-        /*} else {
-            elementViewList.get(position % elementViewList.size()).setFrontBitmap(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
-            //this.elementViewList.set(index,ElementWallet.getCardyaganaste());
-            //walletList.addWallet(ElementWallet.getCardyaganaste());
-        }*/
+
+
+
+        for (int i = 0; i < this.getCount(); i++) {
+            //if (this.elementViewList.get(position % elementViewList.size()).getTypeWallet() == TYPE_EMISOR){
+                //this.listHolder.get(i % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), resImage)));
+                if (i % elementViewList.size() == 0){
+                    this.listHolder.get(i).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), resImage)));
+                }
+
+            //}
+        }
+
+
 
     }
 
@@ -106,6 +107,8 @@ public class CardWalletAdpater extends PagerAdapter {
                 return this.elementViewList.size();
             else {
                 return this.elementViewList.size() * LOOPS_COUNT;
+                //return Integer.MAX_VALUE;
+
             }
         } else {
             return this.elementViewList.size();
@@ -153,9 +156,9 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void eneableOnclick(int position) {
-        //if (this.listHolder.get(position) != null) {
+
         this.listHolder.get(position % elementViewList.size()).setEneable(true);
-        //}
+
     }
 
     public ElementWallet getElemenWallet(int position) {
@@ -168,12 +171,20 @@ public class CardWalletAdpater extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        //super.destroyItem(container, position, object);
         container.removeView((View) object);
 
     }
 
     public void updateSaldo(int position, String saldo) {
         elementViewList.get(position % elementViewList.size()).setSaldo(saldo);
+    }
+
+    public ArrayList<ElementWallet> getElementViewList() {
+        return elementViewList;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return super.getItemPosition(object);
     }
 }

@@ -263,6 +263,14 @@ public class ElementWallet {
                 R.string.mejor_precio, false);
     }
 
+    public static ElementWallet getCardMisNegocios(){
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
+        return new ElementWallet(TYPE_ADQ, frontView,
+                "Cobra con tarjeta",
+                ElementView.getListLectorEmi(),
+                R.string.mejor_precio, false);
+    }
+
     public static ElementWallet getCardBalanceEmi() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue);
         Bitmap backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue_back);
@@ -317,6 +325,8 @@ public class ElementWallet {
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
                 ElementView.getListStarbucksBalance(), R.string.saldo_disponible, false, R.string.starbucks_card, App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS));
     }
+
+
 
 
 }

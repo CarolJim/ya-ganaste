@@ -28,6 +28,8 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
+import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
+import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
@@ -49,6 +51,8 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
@@ -236,12 +240,21 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
         App.getInstance().getPrefs().saveData(CARD_STATUS, statusId);
-        cardWalletAdpater.changeStatusCard(this.pageCurrent);
-        cardWalletAdpater.notifyDataSetChanged();
+
+
+        //cardWalletAdpater.changeStatusCard(pageCurrent);
+        //cardWalletAdpater.notifyDataSetChanged();
+
         if (!isBegin) {
             if (!prefs.containsData(IS_OPERADOR)) {
                 walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             }
+            Wallet walletList = WalletBuilder.createWalletsEsencials(false);
+            cardWalletAdpater.addAllList(walletList.getList());
+            //viewPagerWallet.clearOnPageChangeListeners();
+            viewPagerWallet.setAdapter(cardWalletAdpater);
+            viewPagerWallet.setCurrentItem(pageCurrent);
+            //viewPagerWallet.addOnPageChangeListener(this);
         }
     }
 
@@ -274,9 +287,11 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         this.pageCurrent = position;
         cardWalletAdpater.resetFlip();
         updateOperations(position);
-        if (!prefs.containsData(IS_OPERADOR)) {
-            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
-        }
+
+            if (!prefs.containsData(IS_OPERADOR)) {
+                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
+            }
+
     }
 
     @Override
@@ -340,10 +355,18 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             if (isOnline) {
                 //String f = SingletonUser.getInstance().getCardStatusId();
                 //if (f == null || f.isEmpty() || f.equals("0")) {
-                EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
-                if (usuarioClienteResponse.getCuentas().size() != 0) {
-                    walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
-                }
+
+                    if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
+                        EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
+
+                        if (usuarioClienteResponse.getCuentas().size() != 0) {
+                            walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                        }
+                    } else if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_ADQ){
+                        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                    }
+
+
 
                 //}
             }
