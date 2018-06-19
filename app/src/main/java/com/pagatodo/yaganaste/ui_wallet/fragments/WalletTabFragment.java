@@ -47,6 +47,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
@@ -154,7 +155,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void getPagerAdapter(ArrayList<ElementWallet> elementWallets) {
         cardWalletAdpater.addAllList(elementWallets);
-        cardWalletAdpater.notifyDataSetChanged();
+        viewPagerWallet.setAdapter(cardWalletAdpater);
         pager_indicator.setView(0, cardWalletAdpater.getSize());
         updateOperations(0);
         viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? cardWalletAdpater.getCount() / 2 : 0);
@@ -218,12 +219,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void sendCardReported() {
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards(false);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //checkDataCard();
     }
 
     @Override
@@ -292,6 +287,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private void checkDataCard() {
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
+            pager_indicator.removeAllViews();
             walletPresenter.getWalletsCards(false);
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
@@ -351,8 +347,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
                 //}
             }
+        } else if (resultCode == RESULT_CODE_SELECT_DONGLE) {
+            checkDataCard();
         }
-
     }
 }
 

@@ -179,7 +179,7 @@ public class PairBluetoothFragment extends GenericFragment implements AdapterVie
                 public void run() {
                     getActivity().onBackPressed();
                 }
-            }, 1500);
+            }, 500);
         }
     }
 

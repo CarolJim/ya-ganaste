@@ -63,6 +63,8 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void addAllList(ArrayList<ElementWallet> elementViewList) {
+        this.listHolder = new ArrayList<>();
+        this.elementViewList = new ArrayList<>();
         this.elementViewList = elementViewList;
     }
 
@@ -121,9 +123,7 @@ public class CardWalletAdpater extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.wallet_element, container, false);
-
         WalletViewHolder holder = new WalletViewHolder(view, null);
-
         if (this.listener != null) {
             holder = new WalletViewHolder(view, this.listener, position);
         }
@@ -131,7 +131,6 @@ public class CardWalletAdpater extends PagerAdapter {
         container.addView(view);
         this.listHolder.add(holder);
         return view;
-
     }
 
     public void resetFlip() {
