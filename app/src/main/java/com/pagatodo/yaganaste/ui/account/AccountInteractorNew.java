@@ -6,7 +6,6 @@ import android.util.Log;
 import com.dspread.xpos.QPOSService;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -85,11 +84,9 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -815,8 +812,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void processLogin(DataSourceResult response) {
         IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
-        String json = "{\"Adquirente\":{\"Agentes\":[{\"EsAgenteRechazado\":false,\"EsComercioUYU\":true,\"EstatusAgente\":2,\"EstatusDocumentacion\":2,\"IdComercio\":62,\"IdEstatus\":0,\"NombreNegocio\":\"Uniformes GarcÃ\u00ADa\",\"NumeroAgente\":\"29772\",\"Operadores\":[{\"EstatusUsuario\":\"Activo\",\"IdEstatusUsuario\":1,\"IdOperador\":71,\"IdUsuario\":42767,\"IdUsuarioAdquirente\":\"348\",\"IsAdmin\":true,\"NombreUsuario\":\"jonhtheking@hotmail.com\",\"PetroNumero\":\"97721001\"},{\"EstatusUsuario\":\"Activo\",\"IdEstatusUsuario\":1,\"IdOperador\":72,\"IdUsuario\":43742,\"IdUsuarioAdquirente\":\"18365\",\"IsAdmin\":false,\"NombreUsuario\":\"op297721@mail.com\",\"PetroNumero\":\"97721020\"}]}]},\"Cliente\":{\"ConCuenta\":true,\"Nombre\":\"Jose Antonio\",\"PrimerApellido\":\"Garcia\",\"SegundoApellido\":\"Gonzalez\"},\"Control\":{\"EsAgente\":true,\"EsCliente\":true,\"EsUsuario\":true,\"RequiereActivacionSMS\":false},\"Emisor\":{\"Cuentas\":[{\"CLABE\":\"148 180 1000 0046 8829\",\"Cuenta\":\"100 0004 6882\",\"IdCuenta\":112625,\"IdUsuario\":0,\"NumeroCliente\":null,\"Tarjetas\":[{\"AsignoNip\":true,\"Numero\":\"5389 8402 0000 8414\"}],\"Telefono\":\"55 4664 0127\"}]},\"Usuario\":{\"EsExtranjero\":false,\"IdEstatus\":12,\"IdUsuario\":42767,\"IdUsuarioAdquirente\":\"\",\"ImagenAvatarURL\":\"\",\"NombreUsuario\":\"jonhtheking@hotmail.com\",\"PasswordAsignado\":true,\"Roles\":[{\"IdRol\":128,\"NombreRol\":\"Operador P. FÃ\u00ADsica\"}],\"Semilla\":\"\",\"TokenSesion\":\"A9343C6EDC4718EAA53FBF2BB3B7063934D5143B23E78D61BA88E25CEC083B62970D9F4AF16089448401216325C2B05E\",\"TokenSesionAdquirente\":\"\"}}";
-        DataIniciarSesionUYU dataUser = new Gson().fromJson(json, DataIniciarSesionUYU.class); /*data.getData();*/
+        DataIniciarSesionUYU dataUser = data.getData();
 
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
