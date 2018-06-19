@@ -145,12 +145,12 @@ public class MyDongleFragment extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (communicationMode == QPOSService.CommunicationMode.AUDIO.ordinal()) {
-            imgYaGanasteCard.setImageResource(R.mipmap.lector_front);
-            txtSerialNumber.setVisibility(GONE);
-        } else {
+        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             imgYaGanasteCard.setImageResource(R.drawable.lector_bt);
             txtSerialNumber.setText("S/N: " + App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE));
+        } else {
+            imgYaGanasteCard.setImageResource(R.mipmap.lector_front);
+            txtSerialNumber.setVisibility(GONE);
         }
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
 

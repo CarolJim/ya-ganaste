@@ -57,8 +57,9 @@ import ly.count.android.sdk.DeviceId;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.SESSION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.WS_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_COUNTLY;
 
 /**
@@ -148,6 +149,7 @@ public class App extends Application {
         if (!BuildConfig.DEBUG) {
             countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key), null, DeviceId.Type.OPEN_UDID);
             countly.enableCrashReporting();
+            countly.setLoggingEnabled(true);
         } else {
             Stetho.initializeWithDefaults(this);
         }
@@ -163,6 +165,7 @@ public class App extends Application {
                 "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste");
         remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOYALTY_CARDS, false);
         remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOGS, false);
+        remoteConfigDefaults.put(ForcedUpdateChecker.CONNECTION_TIMEOUT, WS_TIMEOUT);
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
         firebaseRemoteConfig.fetch(0)
@@ -323,7 +326,7 @@ public class App extends Application {
     }
 
     private void startCounter() {
-        countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
+        countDownTimer = new CountDownTimer(SESSION_TIMEOUT, SESSION_TIMEOUT) {
             @Override
             public void onTick(long millisUntilFinished) {
             }

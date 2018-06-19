@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 import java.util.ArrayList;
 
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
@@ -63,6 +64,8 @@ public class CardWalletAdpater extends PagerAdapter {
     }
 
     public void addAllList(ArrayList<ElementWallet> elementViewList) {
+        this.listHolder = new ArrayList<>();
+        this.elementViewList = new ArrayList<>();
         this.elementViewList = elementViewList;
     }
 
@@ -70,14 +73,25 @@ public class CardWalletAdpater extends PagerAdapter {
         return elementViewList.size();
     }
 
-    public void changeStatusCard(int position){
-            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-                this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+    public void changeStatusCard(int position) {
+        int resImage = R.mipmap.main_card_zoom_blue;
+        if (App.getInstance().getPrefs().loadData(CARD_STATUS).equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+            resImage = R.mipmap.main_card_zoom_gray;
+            //this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_gray)));
+        }
 
-            } else {
 
-                this.listHolder.get(position % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.main_card_zoom_blue)));
-            }
+
+        for (int i = 0; i < this.getCount(); i++) {
+            //if (this.elementViewList.get(position % elementViewList.size()).getTypeWallet() == TYPE_EMISOR){
+                //this.listHolder.get(i % elementViewList.size()).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), resImage)));
+                if (i % elementViewList.size() == 0){
+                    this.listHolder.get(i).setStatus(frontCardYg(BitmapFactory.decodeResource(App.getContext().getResources(), resImage)));
+                }
+
+            //}
+        }
+
 
 
     }
@@ -89,10 +103,12 @@ public class CardWalletAdpater extends PagerAdapter {
     @Override
     public int getCount() {
         if (isLoop) {
-            if (this.elementViewList.size() == 1)
+            if (this.elementViewList.size() < 3)
                 return this.elementViewList.size();
             else {
                 return this.elementViewList.size() * LOOPS_COUNT;
+                //return Integer.MAX_VALUE;
+
             }
         } else {
             return this.elementViewList.size();
@@ -110,9 +126,7 @@ public class CardWalletAdpater extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.wallet_element, container, false);
-
         WalletViewHolder holder = new WalletViewHolder(view, null);
-
         if (this.listener != null) {
             holder = new WalletViewHolder(view, this.listener, position);
         }
@@ -120,7 +134,6 @@ public class CardWalletAdpater extends PagerAdapter {
         container.addView(view);
         this.listHolder.add(holder);
         return view;
-
     }
 
     public void resetFlip() {
@@ -164,5 +177,14 @@ public class CardWalletAdpater extends PagerAdapter {
 
     public void updateSaldo(int position, String saldo) {
         elementViewList.get(position % elementViewList.size()).setSaldo(saldo);
+    }
+
+    public ArrayList<ElementWallet> getElementViewList() {
+        return elementViewList;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return super.getItemPosition(object);
     }
 }

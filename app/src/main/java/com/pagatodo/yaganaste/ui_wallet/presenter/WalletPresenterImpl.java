@@ -131,7 +131,6 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             //adapter.addAllList(walletList.getList());
             //adapter.notifyDataSetChanged();
             walletView.getPagerAdapter(walletList.getList());
-
         }
     }
 

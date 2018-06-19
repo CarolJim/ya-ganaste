@@ -79,6 +79,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
@@ -465,6 +466,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof DetailsAdquirenteFragment) {
             loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+        } else if (fragment instanceof SelectDongleFragment || fragment instanceof PairBluetoothFragment) {
+            setResult(RESULT_CODE_SELECT_DONGLE);
+            super.onBackPressed();
         } else {
             setResult(PICK_WALLET_TAB_REQUEST);
             super.onBackPressed();

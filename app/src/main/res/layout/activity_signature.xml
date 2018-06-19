@@ -172,7 +172,7 @@
                         android:id="@+id/btnSendSignature"
                         style="@style/buttonSquareRoundedBluedd"
                         android:background="@drawable/button_rounded_blue"
-                        android:text="Continuar"
+                        android:text="Autorizar"
                         android:textColor="@color/whiteColor" />
                 </LinearLayout>
             </LinearLayout>

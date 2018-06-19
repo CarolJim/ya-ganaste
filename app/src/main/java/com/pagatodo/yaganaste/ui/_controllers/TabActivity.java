@@ -138,6 +138,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
     public static final int TYPE_DETAILS = 3;
     public static final int PICK_WALLET_TAB_REQUEST = 9630;  // The request code
+    public static final int RESULT_CODE_SELECT_DONGLE = 9631;  // The result code code
 
 
     private AprovPresenter tabPresenter;
@@ -200,7 +201,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     private void init() {
-        ContainerBuilder.builder(this,mLinearLayout,this,MAINMENU);
+        ContainerBuilder.builder(this, mLinearLayout, this, MAINMENU);
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
         imgLoginExistProfile.setOnClickListener(v -> setAvatar());
@@ -241,9 +242,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
 
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             mainViewPager.setCurrentItem(1);
-        }else {
+        } else {
             mainViewPager.setCurrentItem(0);
         }
         mainTab.setupWithViewPager(mainViewPager);
@@ -340,7 +341,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         } else if (event.equals(EVENT_BLOCK_CARD_BACK)) {
 
-        } else if (event.equals(EVENT_LOGOUT)){
+        } else if (event.equals(EVENT_LOGOUT)) {
             logOut(App.getContext().getResources().getString(R.string.reload_session));
         }
     }
@@ -444,18 +445,17 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (resultCode == RESUL_FAVORITES) {
 
             //if (getCurrentFragment() instanceof EnviosFromFragmentNewVersion){
-                //EnviosFromFragmentNewVersion.newInstance().onActivityResult(requestCode, resultCode, data);
-                Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
-                childFragment.onActivityResult(requestCode,resultCode,data);
+            //EnviosFromFragmentNewVersion.newInstance().onActivityResult(requestCode, resultCode, data);
+            Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
+            childFragment.onActivityResult(requestCode, resultCode, data);
 
             //}
-        } else if (resultCode == INTENT_FAVORITE){
+        } else if (resultCode == INTENT_FAVORITE) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
-            childFragment.onActivityResult(requestCode,resultCode,data);
-        } else if (resultCode == PICK_WALLET_TAB_REQUEST){
-
-                Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
-                childFragment.onActivityResult(requestCode,resultCode,data);
+            childFragment.onActivityResult(requestCode, resultCode, data);
+        } else if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE) {
+            Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
+            childFragment.onActivityResult(requestCode, resultCode, data);
 
         }
 

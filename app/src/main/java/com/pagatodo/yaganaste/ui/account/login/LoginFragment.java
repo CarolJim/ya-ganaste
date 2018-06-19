@@ -46,6 +46,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import ly.count.android.sdk.Countly;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -53,6 +54,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
@@ -396,6 +398,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_LOG_IN);
+        }
         accountPresenter.login(username, password); // Realizamos el  Login
     }
 

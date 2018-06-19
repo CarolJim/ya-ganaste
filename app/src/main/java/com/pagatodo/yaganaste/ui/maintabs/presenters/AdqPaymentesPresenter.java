@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -25,13 +26,20 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
@@ -55,6 +63,9 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void getRemoteMovementsData(AdquirentePaymentsTab data) {
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_MOVS_ADQ);
+        }
         movementsView.showLoader("Cargando movimientos");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFechaInicial(data.getDateStart());
@@ -90,8 +101,10 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void onSuccesResponse(ResumenMovimientosAdqResponse response) {
-        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-            Log.e("AdqPaymentesPresenter", " response " + response.getMovimientos());
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_MOVS_ADQ, segmentation, 1, 0);
         }
         if (response.getMovimientos() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<DataMovimientoAdq>>());

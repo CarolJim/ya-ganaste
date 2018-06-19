@@ -378,7 +378,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) != QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     chiandpin.setImageResource(R.mipmap.lector_front);
                     chiandpin.getLayoutParams().width = 400;
-
                 }
             } catch (Exception e) {
                 Log.d("Lector", "Sin opc de lector seleccionada");

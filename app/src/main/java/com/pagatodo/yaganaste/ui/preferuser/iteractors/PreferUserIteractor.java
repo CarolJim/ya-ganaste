@@ -95,6 +95,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         }
     }
 */
+
     /**
      * Manejo de la excepcion de error en el BitmapDownload, usamos el showExceptionToPresenter generico
      * para mostrar el mensaje de error
@@ -179,7 +180,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         try {
             ApiAdtvo.cerrarSesion(this);
         } catch (OfflineException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             preferUserPresenter.showExceptionToPresenter(e.toString());
         }
     }
@@ -215,6 +216,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
 
     /**
      * Inicia la peticion al ApiTrans para consumir el servicio
+     *
      * @param request
      */
     @Override
@@ -398,10 +400,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     @Override
     public void onFailed(DataSourceResult error) {
         // Log.d("PreferUserIteractor", "Error: " + error);
-            if (error.getWebService().equals(ENVIARCORREO_CONTACTANOS)) {
-                preferUserPresenter.sendErrorServerCorreoContactanosPresenter(error.getData().toString());
-        }else if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
-             // Log.d("PreferUserIteractor", "Error: " + error);
+        if (error.getWebService().equals(ENVIARCORREO_CONTACTANOS)) {
+            preferUserPresenter.sendErrorServerCorreoContactanosPresenter(error.getData().toString());
+        } else if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
+            // Log.d("PreferUserIteractor", "Error: " + error);
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(CAMBIAR_CONTRASENIA)) {
             //Log.d("PreferUserIteractor", "CambiarContrasenia ErrorServer " + error.toString());

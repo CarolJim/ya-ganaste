@@ -23,6 +23,7 @@ public class ForcedUpdateChecker {
     public static final String KEY_UPDATE_URL = "forced_update_store_url";
     public static final String SHOW_LOYALTY_CARDS = "show_loyalty_cards";
     public static final String SHOW_LOGS = "show_logs";
+    public static final String CONNECTION_TIMEOUT = "connection_timeout";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
@@ -45,8 +46,10 @@ public class ForcedUpdateChecker {
         final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         boolean showLoyalty = remoteConfig.getBoolean(SHOW_LOYALTY_CARDS);
         boolean showLogs = remoteConfig.getBoolean(SHOW_LOGS);
+        int connectionTimeout = Integer.valueOf(remoteConfig.getString(CONNECTION_TIMEOUT));
         App.getInstance().getPrefs().saveDataBool(SHOW_LOYALTY, showLoyalty);
         App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
+        App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
         if (!showLoyalty) {
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
         }

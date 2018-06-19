@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -20,15 +22,22 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 
 public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener {
     private Preferencias preferencias;
@@ -83,6 +92,9 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         final Handler handler = new Handler();
         preferencias = App.getInstance().getPrefs();
         new DatabaseManager().checkCountries();
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_SPLASH);
+        }
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -141,10 +153,15 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         }
 
         /**
-         * Iniciamos el flujo normal solo si nuestra bandera de downloadFile es falsa, esto signoica
-         * que no estamos descargand onada, en caso contrario en automatico se hace el proceso para
+         * Iniciamos el flujo normal solo si nuestra bandera de downloadFile es falsa, esto significa
+         * que no estamos descargando nada, en caso contrario en automatico se hace el proceso para
          * descargar y abrir por el hilo de notificacion
          */
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_SPLASH, segmentation, 1, 0);
+        }
         if (!downloadFile) {
             startActivity(intent/*, SPLASH_ACTIVITY_RESULT, options.toBundle()*/);
             SplashActivity.this.finish();

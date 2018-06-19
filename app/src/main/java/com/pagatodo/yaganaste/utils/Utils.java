@@ -834,6 +834,16 @@ public class Utils {
         }
     }
 
+    public static String getTypeConnection() {
+        ConnectivityManager connManager = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            return networkInfo.getTypeName() + " " + networkInfo.getSubtypeName();
+        } else {
+            return "NO_CONNECTION";
+        }
+    }
+
     public static int calculateFilterLength(int rawLength) {
         return rawLength += (rawLength - 1) / GROUP_FORMAT;
     }

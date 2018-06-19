@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
@@ -26,6 +26,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ly.count.android.sdk.Countly;
+import ly.count.android.sdk.DeviceId;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 
@@ -97,7 +99,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      */
     @Override
     public void onClick(View v) {
-
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
           /*  UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
@@ -136,6 +137,9 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();
         RequestHeaders.clearPreferences();
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().changeDeviceId(DeviceId.Type.OPEN_UDID, null);
+        }
     }
 
     /**
@@ -145,7 +149,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      */
     @Override
     public void sendErrorServerView(String mensaje) {
-        showDialogCustom(mensaje);
+        //showDialogCustom(mensaje);
         onEventListener.onEvent("DISABLE_BACK", false);
     }
 
@@ -180,17 +184,5 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
 
             }
         });
-
-
     }
-
-//    /**
-//     * HEredamos este metodo de GenericFRagment, y por medio de la referencia super, comunicamos
-//     * el DataSourceResult para el paso final
-//     * @param response
-//     */
-//    @Override
-//    public void errorSessionExpired(DataSourceResult response) {
-//        super.errorSessionExpired(response);
-//    }
 }

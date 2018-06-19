@@ -7,6 +7,7 @@ import com.dspread.xpos.QPOSService;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -87,8 +88,12 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import ly.count.android.sdk.Countly;
 
 import static android.content.Context.BLUETOOTH_SERVICE;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
@@ -127,9 +132,13 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
 import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
@@ -463,6 +472,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalance() {
         try {
+            if (!BuildConfig.DEBUG) {
+                Countly.sharedInstance().startEvent(EVENT_BALANCE_EMISOR);
+            }
             ApiTrans.consultarSaldo(this);
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO, null);
@@ -482,6 +494,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalanceAdq(ElementWallet elementWallet) {
         try {
+            if (!BuildConfig.DEBUG) {
+                Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
+            }
             ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentesRespose());
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
@@ -680,12 +695,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_BALANCE_EMISOR, segmentation, 1, 0);
+        }
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             prefs.saveData(USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalance();
-
-
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
@@ -703,6 +721,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_BALANCE_ADQ, segmentation, 1, 0);
+        }
         if (response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
             prefs.saveData(ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
@@ -954,8 +977,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (!dataUser.getControl().getRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
             //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento
-
-
             String old = prefs.loadData(OLD_NIP);
             SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && (!old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
             if (!SingletonUser.getInstance().needsReset()) {
@@ -965,6 +986,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
+        }
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().changeDeviceId(dataUser.getUsuario().getNombreUsuario());
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_LOG_IN, segmentation, 1, 0);
         }
         accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
