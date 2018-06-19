@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
@@ -345,10 +346,15 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             if (isOnline) {
                 //String f = SingletonUser.getInstance().getCardStatusId();
                 //if (f == null || f.isEmpty() || f.equals("0")) {
-                    EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
-                    if (usuarioClienteResponse.getCuentas().size() != 0) {
-                        walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
-                    }
+                    if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
+                        EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
+
+                        if (usuarioClienteResponse.getCuentas().size() != 0) {
+                            walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                        }
+                    } 
+
+
 
                 //}
             }
