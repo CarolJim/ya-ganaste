@@ -249,7 +249,7 @@ public class DatabaseManager {
             @Override
             protected List<Agentes> doInBackground(Void... voids) {
                 List<Agentes> agentes = App.getAppDatabase().agentesModel().selectAgentes();
-                for(Agentes agente: agentes){
+                for (Agentes agente : agentes) {
                     List<Operadores> operadores = App.getAppDatabase().operadoresModel().getOperadoresByAgente(agente.getNumeroAgente());
                     agente.setOperadores(operadores);
                 }
@@ -274,6 +274,16 @@ public class DatabaseManager {
             @Override
             protected Integer doInBackground(Void... voids) {
                 return App.getAppDatabase().operadoresModel().getIdUsuarioAdquirienteRolOperador();
+            }
+        }.execute().get();
+    }
+
+    /* Obtener el IdUsuarioAdquiriente del admistrador por comercio */
+    public Integer getIdUsuarioAdqByAgente(final String numeroAgente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                return App.getAppDatabase().operadoresModel().getIdUsuarioAdquirienteByAgente(numeroAgente);
             }
         }.execute().get();
     }

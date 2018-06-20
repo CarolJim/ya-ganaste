@@ -19,6 +19,9 @@ public interface OperadoresDao {
     @Query("SELECT id_usuario_adquiriente FROM Operadores LIMIT 1")
     int getIdUsuarioAdquirienteRolOperador();
 
+    @Query("SELECT id_usuario_adquiriente FROM Operadores WHERE numero_agente=:numeroAgente AND is_admin = 1")
+    int getIdUsuarioAdquirienteByAgente(String numeroAgente);
+
     @Insert(onConflict = IGNORE)
     void insertOperador(Operadores operadores);
 
