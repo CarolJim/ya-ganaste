@@ -217,7 +217,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_ADQ:
-                loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
+                //loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_OPERADORES_ADQ:
                 loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);

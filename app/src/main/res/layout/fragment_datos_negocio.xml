@@ -147,9 +147,9 @@
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_gravity="center_vertical"
-                    android:tint="@color/colorAccent"
                     android:layout_marginRight="11dp"
-                    android:src="@drawable/ico_select" />
+                    android:src="@drawable/ico_select"
+                    android:tint="@color/colorAccent" />
             </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage

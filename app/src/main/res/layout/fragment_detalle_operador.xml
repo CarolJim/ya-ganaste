@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui_wallet.fragments.DetalleOperadorFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/detalle_de_operador"
+        android:layout_marginTop="27dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/titulo_datos_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/sub_titulo_datos_personales"
+        android:textAlignment="center"
+        android:textColor="@color/textColorAlternative"
+        android:textSize="16sp"
+        app:tipo="Text" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_border_rectangle"
+        android:layout_margin="3dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            >
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/ususario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="start"
+            android:text="Usuario"
+            android:textColor="@color/textColorAlternative"
+            android:textSize="16sp"
+            app:tipo="Text" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/correo_operador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:gravity="start"
+                android:text="operador@yaganaste.com"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:tipo="Text" />
+
+            <LinearLayout
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@color/adadad"
+                android:orientation="vertical"
+
+               />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start"
+                android:text="Contraseña"
+                android:textColor="@color/textColorAlternative"
+                android:textSize="16sp"
+                app:tipo="Text" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/contrasena_operador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:gravity="start"
+                android:text="123456"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:tipo="Text" />
+
+            <LinearLayout
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@color/adadad"
+                android:orientation="vertical"
+                />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start"
+                android:text="Status"
+                android:textColor="@color/textColorAlternative"
+                android:textSize="16sp"
+                app:tipo="Text" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/status_operador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:gravity="start"
+                android:text="Operador activo"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:tipo="Text" />
+
+            <LinearLayout
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@color/adadad"
+                android:orientation="vertical"
+                android:layout_marginBottom="14sp"
+                />
+
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

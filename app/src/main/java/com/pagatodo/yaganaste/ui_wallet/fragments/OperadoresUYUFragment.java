@@ -72,6 +72,15 @@ public class OperadoresUYUFragment extends GenericFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rcvRewards.setLayoutManager(llm);
         rcvRewards.setHasFixedSize(true);
+        OperadoresResponse operadoresResponse = new OperadoresResponse();
+
+        operadoresResponse.setIdOperador(123);
+        operadoresResponse.setIdUsuario(123);
+        operadoresResponse.setIdUsuarioAdquirente("123123");
+        operadoresResponse.setAdmin(false);
+        operadoresResponse.setNombreUsuario("operador@fulanito.com");
+        operadoresResponse.setPetroNumero("sdkasjdoiaj");
+
         operadoresUYUFragments = elementView.getList();
         String nombreN = elementView.getNombreNegocio();
         titulo_nombre_negocio.setText(nombreN);

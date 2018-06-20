@@ -77,7 +77,7 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
                         MY_PERMISSIONS_REQUEST_SEND_SMS);
             } else {
 
-                UI.createSimpleCustomDialogCURP(getString(R.string.desea_cacelar), "",
+                UI.createSimpleCustomDialogLlamar(getString(R.string.deseaRealizarLlamada), " ",
                         getFragmentManager(), new DialogDoubleActions() {
                             @Override
                             public void actionConfirm(Object... params) {
@@ -87,7 +87,7 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
                             @Override
                             public void actionCancel(Object... params) {
                             }
-                        }, true, false);
+                        }, true, true);
 
             }
         }
