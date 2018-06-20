@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ReembolsoDataRequest;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 /**

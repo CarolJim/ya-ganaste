@@ -19,7 +19,8 @@ import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import ly.count.android.sdk.Countly;
 
@@ -98,10 +100,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         }
 
 
-
-
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
-                .simple_spinner_dropdown_item);
 
 
 
@@ -216,6 +214,19 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         Log.d("TABSELECT",i + "");
+        int idADQ = 0;
+
+        try {
+            idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(i).getNumeroAgente());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        RequestHeaders.setIdCuentaAdq("" + idADQ);
+
+        getDataForTab(tabMonths.getCurrentData(currentTab));
 
     }
 

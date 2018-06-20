@@ -22,8 +22,11 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
@@ -39,6 +42,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,8 +84,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     protected IFavoritesPresenter favoritesPresenter;
     protected PresenterPaymentFragment paymentPresenter;
-    protected ArrayList<String> listComercios;
+    protected List<String> listComercios;
     protected ArrayAdapter<String> spinnerArrayAdapter;
+    protected List<Agentes> agentes;
 
     public AbstractAdEmFragment(){
 
@@ -90,8 +95,16 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.listComercios = new ArrayList<>();
-        for (AgentesRespose itemAgente : SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes()){
-            this.listComercios.add(itemAgente.getNombreNegocio());
+        agentes = new ArrayList<>();
+        try {
+            agentes = new DatabaseManager().getAgentes();
+            for (Agentes itemAgente : agentes){
+                this.listComercios.add(itemAgente.getNombreNegocio());
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         this.movementsList = new ArrayList<>();
         super.onCreate(savedInstanceState);
@@ -106,8 +119,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
                         listComercios);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerArrayAdapter);
-        spinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -136,6 +148,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         //recyclerMovements.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset_mov));
         recyclerMovements.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         movementsPresenter.getPagerData(getTab());
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setSelection(0);
+        spinner.setOnItemSelectedListener(this);
 
     }
 
@@ -185,6 +200,17 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
             //showLoader("");
+            int idADQ = 0;
+            try {
+                idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
+                RequestHeaders.setIdCuentaAdq("" + idADQ);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
             getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
         }
     }

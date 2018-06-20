@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.OperadoresResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.interfaces.IChangeOperador;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
@@ -58,7 +58,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 public class DetalleOperadorFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IChangeOperador{
 
     private View rootView;
-    OperadoresResponse operadoresResponse;
+    Operadores operadoresResponse;
     @BindView(R.id.correo_operador)
     StyleTextView correo_operador;
     @BindView(R.id.contrasena_operador)
@@ -90,7 +90,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
 
     ChangeStatusOperadorPresenter changeStatusOperadorPresenter;
 
-    public static DetalleOperadorFragment newInstance(OperadoresResponse operadoresResponse) {
+    public static DetalleOperadorFragment newInstance(Operadores operadoresResponse) {
         DetalleOperadorFragment fragment = new DetalleOperadorFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailsActivity.DATA, operadoresResponse);
@@ -104,7 +104,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        operadoresResponse = (OperadoresResponse) args.getSerializable(DetailsActivity.DATA);
+        operadoresResponse = (Operadores) args.getSerializable(DetailsActivity.DATA);
 
     }
 
@@ -124,10 +124,11 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootView);
 
-        titulo_negocio.setText(operadoresResponse.getNombreNegocio());
+        //titulo_negocio.setText(operadoresResponse.getNombreNegocio());
+        titulo_negocio.setText("");
         correo_operador.setText(operadoresResponse.getNombreUsuario());
         contrasena_operador.setText(operadoresResponse.getPetroNumero());
-        if (operadoresResponse.getIdEstatusUsuario()==1){
+        if (operadoresResponse.getIdOperador() ==1){
             status_operador.setText("Operador activo");
         }else {
             status_operador.setText("Operador bloqueado");
