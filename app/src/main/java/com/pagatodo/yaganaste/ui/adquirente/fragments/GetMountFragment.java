@@ -285,9 +285,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
-
-                    Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
@@ -332,15 +329,14 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
-
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
             }
-        } else showValidationError(getString(R.string.enter_mount));
-
+        } else
+            showValidationError(getString(R.string.enter_mount));
     }
 
     @Override

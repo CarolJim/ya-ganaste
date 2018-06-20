@@ -23,8 +23,10 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -64,6 +66,8 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,9 +127,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
-
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
-
 
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
@@ -184,7 +186,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_ADQ && getCurrentFragment() instanceof DetailsAdquirenteFragment) {
             getMenuInflater().inflate(R.menu.menu_mov_det_adq, menu);
-            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getEsComercioUYU()) {
+            boolean isComerioUyU = false;
+            try {
+                isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (isComerioUyU) {
                 menu.findItem(R.id.action_rembolsar).setVisible(false);
             }
             if (!movTab.getItemMov().getEstatus().equals("2")) {

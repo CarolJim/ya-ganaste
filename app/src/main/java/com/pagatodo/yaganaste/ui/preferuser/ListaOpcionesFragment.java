@@ -52,7 +52,6 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
@@ -157,22 +156,6 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         config_notify.setOnClickListener(this);
         ll_usuario.setOnClickListener(this);
 
-        int idEstatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
-        if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
-           /* ll_cuenta.setVisibility(View.VISIBLE);
-            View view_cuenta = rootview.findViewById(R.id.content_prefer_view_acount);
-            view_cuenta.setVisibility(View.VISIBLE);
-
-            ll_cuenta.setOnClickListener(this);*/
-        }
-        /*if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
-            ll_dongle.setVisibility(View.VISIBLE);
-            View view_cuenta = rootview.findViewById(R.id.contenedordongle);
-            view_cuenta.setVisibility(View.VISIBLE);
-            ll_dongle.setOnClickListener(this);
-        }*/
-
-
         ll_cuenta.setOnClickListener(this);
         //ll_card.setOnClickListener(this);
         ll_help_legal.setOnClickListener(this);
@@ -200,15 +183,9 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         //tv_name.setText(mName);
         tv_name.setText(nombreprimerUser + " " + apellidoMostrarUser);
         tv_email.setText(mEmail);
-
         // Hacemos Set de la version de codigo
-
-
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
-
         // updatePhoto();
-
-
     }
 
     private void updatePhoto() {

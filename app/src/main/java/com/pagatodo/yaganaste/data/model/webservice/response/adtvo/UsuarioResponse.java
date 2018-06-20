@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class UsuarioResponse implements Serializable{
     private boolean EsExtranjero;
-    private int IdEstatus;
+    @SerializedName("IdEstatus")
+    private int IdEstatusEmisor;
     private int IdUsuario;
     private String IdUsuarioAdquirente = "";
     private String ImagenAvatarURL = "";
@@ -24,12 +27,12 @@ public class UsuarioResponse implements Serializable{
         EsExtranjero = esExtranjero;
     }
 
-    public int getIdEstatus() {
-        return IdEstatus;
+    public int getIdEstatusEmisor() {
+        return IdEstatusEmisor;
     }
 
-    public void setIdEstatus(int idEstatus) {
-        IdEstatus = idEstatus;
+    public void setIdEstatusEmisor(int idEstatusEmisor) {
+        IdEstatusEmisor = idEstatusEmisor;
     }
 
     public int getIdUsuario() {
@@ -105,7 +108,7 @@ public class UsuarioResponse implements Serializable{
     }
 
     /*
-    "IdEstatus": 5,
+    "IdEstatusEmisor": 5,
             "IdUsuario": 4016,
             "IdUsuarioAdquirente": "",
             "ImagenAvatarURL": "http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/Avatar/bd1e98dcf6560edd7e707efb8eaff96044c63a6732a2c6a1cdfe516ee5d8ef4b_{0}.png",

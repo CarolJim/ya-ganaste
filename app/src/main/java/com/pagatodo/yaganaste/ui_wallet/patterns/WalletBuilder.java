@@ -2,18 +2,20 @@ package com.pagatodo.yaganaste.ui_wallet.patterns;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AdquirienteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
-import com.pagatodo.yaganaste.utils.Recursos;
 
-import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 
 public class WalletBuilder {
 
@@ -32,7 +34,7 @@ public class WalletBuilder {
             }*/
 
         } else {
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
+            if (App.getInstance().getPrefs().loadDataInt(ID_ROL) != 129) {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
             }
         }
@@ -62,8 +64,7 @@ public class WalletBuilder {
 
     public static Wallet createWalletsBalance() {
         Wallet walletList = new Wallet();
-        DataIniciarSesionUYU dataUyu = App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE);
-        if ((dataUyu != null && dataUyu.getUsuario().getRoles().get(0).getIdRol() != 129) || dataUyu == null) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) != 129) {
             if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA)) {
                 walletList.addWallet(ElementWallet.getCardBalanceEmiBloqueda());
                 //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
@@ -72,10 +73,15 @@ public class WalletBuilder {
                 //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
             }
         }
-        if (!RequestHeaders.getTokenAdq().isEmpty() && dataUyu != null) {
-            AdquirienteResponse response = dataUyu.getAdquirente();
-            for (AgentesRespose agentesRespose : response.getAgentes()) {
-                walletList.addWallet(ElementWallet.getCardBalanceAdq(agentesRespose));
+        List<Agentes> agentes = new ArrayList<>();
+        try {
+            agentes = new DatabaseManager().getAgentes();
+        } catch (ExecutionException|InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (!RequestHeaders.getTokenAdq().isEmpty() && agentes.size()>0) {
+            for (Agentes agente : agentes) {
+                walletList.addWallet(ElementWallet.getCardBalanceAdq(agente));
             }
             /*for (int i = 0; i < response.getAgentes().size(); i++){
                 walletList.addWallet(ElementWallet.getCardBalanceAdq(response.getAgentes().get(i)));

@@ -6,8 +6,6 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AdquirienteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.utils.Utils;
 
@@ -47,14 +45,6 @@ public class Preferencias {
         editor.commit();
     }
 
-    public void saveDataAgentesRespons(String key, DataIniciarSesionUYU agentesRespose){
-        SharedPreferences.Editor editor = this.preferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(agentesRespose);
-        editor.putString(key, json);
-        editor.commit();
-    }
-
     public boolean containsData(String key) {
         return this.preferences.getBoolean(key, false);
     }
@@ -73,11 +63,6 @@ public class Preferencias {
 
     public String loadData(String key) {
         return this.preferences.getString(key, "");
-    }
-
-    public DataIniciarSesionUYU loadAdquirienteResponse(String key) {
-        Gson gson = new Gson();
-        return gson.fromJson(this.preferences.getString(key,""), DataIniciarSesionUYU.class);
     }
 
     public String getDataString(int key) {

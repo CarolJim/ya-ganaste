@@ -1,17 +1,50 @@
-package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
+package com.pagatodo.yaganaste.data.room_db.entities;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
-public class OperadoresResponse implements Serializable {
+@Entity
+public class Operadores implements Serializable {
 
-    private int IdOperador;
+    @PrimaryKey
+    @ColumnInfo(name = "id_usuario")
     private int IdUsuario;
-    private String IdUsuarioAdquirente = "";
-    private Boolean IsAdmin;
+
+    @ColumnInfo(name = "numero_agente")
+    private int NumeroAgente;
+
+    @ColumnInfo(name = "id_usuario_adquiriente")
+    private String IdUsuarioAdquirente;
+
+    @ColumnInfo(name = "id_operador")
+    private int IdOperador;
+
+    @ColumnInfo(name = "is_admin")
+    private boolean IsAdmin;
+
+    @ColumnInfo(name = "nombre_usuario")
     private String NombreUsuario;
+
+    @ColumnInfo(name = "petro_numero")
     private String PetroNumero;
 
-    public OperadoresResponse() {
+    public boolean getIsAdmin() {
+        return IsAdmin;
+    }
+
+    public void setIsAdmin(boolean admin) {
+        IsAdmin = admin;
+    }
+
+    public int getNumeroAgente() {
+        return NumeroAgente;
+    }
+
+    public void setNumeroAgente(int numeroAgente) {
+        NumeroAgente = numeroAgente;
     }
 
     public int getIdOperador() {
@@ -36,14 +69,6 @@ public class OperadoresResponse implements Serializable {
 
     public void setIdUsuarioAdquirente(String idUsuarioAdquirente) {
         IdUsuarioAdquirente = idUsuarioAdquirente;
-    }
-
-    public Boolean getAdmin() {
-        return IsAdmin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        IsAdmin = admin;
     }
 
     public String getNombreUsuario() {

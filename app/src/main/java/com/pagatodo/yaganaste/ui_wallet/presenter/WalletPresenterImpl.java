@@ -8,13 +8,11 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaR
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
-import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
-import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
 import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
@@ -22,7 +20,6 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
@@ -55,7 +52,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     public void updateBalance(ElementWallet item) {
         if (item.isUpdate()) {
             walletView.showProgress();
-            walletInteractor.getBalance(item.getTypeWallet(), item.getAgentesRespose());
+            walletInteractor.getBalance(item.getTypeWallet(), item.getAgentes());
         } else {
             onSuccesSaldo(item.getTypeWallet(), "");
         }
@@ -82,22 +79,6 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccess(@Nullable Integer typeWallet, @Nullable Object result) {
         walletView.hideProgress();
-        /*if (result instanceof DataInfoAgente) {
-            DataInfoAgente response = (DataInfoAgente) result;
-            Preferencias sp = App.getInstance().getPrefs();
-            sp.saveDataBool(ES_AGENTE, response.isEsAgente());
-            sp.saveDataBool(ES_AGENTE_RECHAZADO, response.isEsAgenteRechazado());
-            sp.saveDataInt(ESTATUS_AGENTE, response.getEstatusAgente());
-            sp.saveDataInt(ESTATUS_DOCUMENTACION, response.getEstatusDocumentacion());
-            if (response.getIdEstatus() > 0)
-                sp.saveDataInt(ID_ESTATUS, response.getIdEstatus());
-            sp.saveData(ID_USUARIO_ADQUIRIENTE, response.getIdUsuarioAdquirente());
-            sp.saveData(COMPANY_NAME, response.getNombreNegocio());
-            sp.saveData(TIPO_AGENTE, response.getTipoAgente());
-            RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
-            RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
-            walletView.sendSuccessInfoAgente();
-        } else*/
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129) {
             switch (typeWallet) {
                 case TYPE_ADQ:
@@ -142,49 +123,10 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         }
     }
 
-    /*
-        @Override
-        public void onSuccessInfoAgente(DataInfoAgente response) {
-            walletView.hideProgress();
-            Preferencias sp = App.getInstance().getPrefs();
-            sp.saveDataBool(ES_AGENTE, response.isEsAgente());
-            sp.saveDataBool(ES_AGENTE_RECHAZADO, response.isEsAgenteRechazado());
-            sp.saveDataInt(ESTATUS_AGENTE, response.getEstatusAgente());
-            sp.saveDataInt(ESTATUS_DOCUMENTACION, response.getEstatusDocumentacion());
-            if (response.getIdEstatus() > 0)
-                sp.saveDataInt(ID_ESTATUS, response.getIdEstatus());
-            sp.saveData(ID_USUARIO_ADQUIRIENTE, response.getIdUsuarioAdquirente());
-            sp.saveData(COMPANY_NAME, response.getNombreNegocio());
-            sp.saveData(TIPO_AGENTE, response.getTipoAgente());
-            RequestHeaders.setTokenAdq(response.getTokenSesionAdquirente());
-            RequestHeaders.setIdCuentaAdq(response.getIdUsuarioAdquirente());
-            walletView.sendSuccessInfoAgente();
-        }
-    */
     @Override
     public void onFailed(int errorCode, int action, String error) {
         walletView.hideProgress();
         walletView.sendError(errorCode);
-        /*switch (errorCode){
-            case CODE_OFFLINE:
-
-                break;
-        }*/
-
-        /*if (errorCode != CODE_ERROR_INFO_AGENTE) {
-            if (walletView != null) {
-                walletView.setError(error);
-            } else if (this.movementsEmisorView != null) {
-                movementsEmisorView.setError(error);
-                movementsEmisorView.hideProgress();
-            }
-        } else if (errorCode == ERROR_STATUS){
-            walletView.sendErrorStatus();
-        } else {
-            walletView.sendErrorInfoAgente();
-            walletView.hideProgress();
-        }*/
-
     }
 
     @Override

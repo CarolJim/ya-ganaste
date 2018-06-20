@@ -162,11 +162,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         } else if (communicationMode == QPOSService.CommunicationMode.USB_OTG_CDC_ACM.ordinal()) {
             USBClass usb = new USBClass();
             ArrayList<String> deviceList = usb.GetUSBDevices(App.getContext());
-            final CharSequence[] items = deviceList.toArray(new CharSequence[deviceList.size()]);
+            /*final CharSequence[] items = deviceList.toArray(new CharSequence[deviceList.size()]);
             String selectedDevice = (String) items[0];
             usbDevice = USBClass.getMdevices().get(selectedDevice);
             App.getInstance().initEMVListener(QPOSService.CommunicationMode.USB_OTG_CDC_ACM);
-            App.getInstance().pos.openUsb(usbDevice);
+            App.getInstance().pos.openUsb(usbDevice);*/
         }
 
         prefs = App.getInstance().getPrefs();

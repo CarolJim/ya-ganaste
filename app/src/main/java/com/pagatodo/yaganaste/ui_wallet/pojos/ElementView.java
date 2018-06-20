@@ -7,20 +7,16 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.OperadoresResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
-import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
@@ -67,10 +63,10 @@ public class ElementView implements ElementGlobal {
     private int textbutton;
     private int typeOptions;
 
-    private ArrayList<OperadoresResponse> list = new ArrayList<>();
+    private List<Operadores> list = new ArrayList<>();
     private String nombreNegocio;
 
-    public ArrayList<OperadoresResponse> getList() {
+    public List<Operadores> getList() {
         return list;
     }
 
@@ -82,7 +78,7 @@ public class ElementView implements ElementGlobal {
         this.nombreNegocio = nombreNegocio;
     }
 
-    public void setList(ArrayList<OperadoresResponse> list) {
+    public void setList(ArrayList<Operadores> list) {
         this.list = list;
     }
 
@@ -93,7 +89,7 @@ public class ElementView implements ElementGlobal {
         return new ElementView();
     }
 
-    public ElementView(int idOperacion, int resource, int title, ArrayList<OperadoresResponse> list, String nombreNegocio) {
+    public ElementView(int idOperacion, int resource, int title, List<Operadores> list, String nombreNegocio) {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
@@ -208,9 +204,8 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }*/
 
-    public static ArrayList<ElementView> getListLectorAdq(ArrayList<OperadoresResponse> list, String nombreN, boolean isComercioUyu) {
+    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, boolean isComercioUyu) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
@@ -223,30 +218,30 @@ public class ElementView implements ElementGlobal {
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
-            if (isAgente && Idestatus == IdEstatus.I6.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I6.getId()) {
                 elementViews = ElementView.getListEstadoContinuarRegistro();
             }
-            if (isAgente && Idestatus == IdEstatus.I7.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I7.getId()) {
                 elementViews = ElementView.getListEstadoRevisando();
             }
 
-            if (isAgente && Idestatus == IdEstatus.I8.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I8.getId()) {
                 elementViews = ElementView.getListEstadoRevisando();
             }
 
-            if (isAgente && Idestatus == IdEstatus.I9.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I9.getId()) {
                 elementViews = ElementView.getListEstadoError();
             }
 
-            if (isAgente && Idestatus == IdEstatus.I10.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I10.getId()) {
                 elementViews = ElementView.getListEstadoRechazado();
             }
 
-            if (isAgente && Idestatus == IdEstatus.I11.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I11.getId()) {
                 elementViews = ElementView.getListEstadoRevisando();
             }
 
-            if (isAgente && Idestatus == IdEstatus.I13.getId()) {
+            if (isAgente && idEstatusAgente == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado();
             }
             /*if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&

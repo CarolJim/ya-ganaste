@@ -1,8 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -40,8 +37,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_ADQ;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
-import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
 
@@ -79,7 +75,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void updateBalance() {
-        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR) == IdEstatus.CUPO.getId()) {
             movementsIteractor.getDatosCupo();
         } else {
             movementsIteractor.getBalance();

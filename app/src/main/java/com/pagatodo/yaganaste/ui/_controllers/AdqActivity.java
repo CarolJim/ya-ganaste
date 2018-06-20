@@ -52,16 +52,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
-        if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-            UI.showAlertDialog(this, getResources().getString(R.string.app_name), "Asegurate de tener tú dispositivo conectado", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    onEvent(EVENT_GO_INSERT_DONGLE, null);
-                }
-            });
-        } else {
-            onEvent(EVENT_GO_INSERT_DONGLE, null);
-        }
+        onEvent(EVENT_GO_INSERT_DONGLE, null);
     }
 
     /**
@@ -82,9 +73,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
                 // AQUI
-                /*loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        Direction.FORDWARD, false);*/
-                loadFragment(InsertDongleFragment.newInstance(QPOSService.CommunicationMode.USB_OTG_CDC_ACM.ordinal()),
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                         Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:

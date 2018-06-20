@@ -18,7 +18,6 @@ import android.widget.Button;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
@@ -33,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 
 
 public class StatusRegisterAdquirienteFragment extends GenericFragment implements View.OnClickListener {
@@ -123,7 +122,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         ButterKnife.bind(this, rootview);
         int Idestatus;
 
-        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
 
         statusViewCupo.setVisibility(View.GONE);
         statusViewadqrevsolc.setVisibility(View.GONE);
@@ -234,7 +233,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         if (id == R.id.btnNextScreen) {
             int Idestatus;
 
-            Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+            Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
 
             if (Idestatus == IdEstatus.I7.getId()) {
                 if (onEventListener != null) {

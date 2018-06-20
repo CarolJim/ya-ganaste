@@ -10,7 +10,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -32,7 +31,7 @@ import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragmen
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
@@ -73,7 +72,7 @@ public class BussinesActivity extends LoaderActivity {
         setUpActionBar();
         setVisibilityPrefer(false);
         int Idestatus;
-        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
         boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         if (esAgente && Idestatus == IdEstatus.I7.getId()) {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
