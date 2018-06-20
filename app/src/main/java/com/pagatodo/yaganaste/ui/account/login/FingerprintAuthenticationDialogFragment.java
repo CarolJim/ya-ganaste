@@ -35,7 +35,9 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
 
 import java.security.KeyStore;
 
@@ -162,6 +164,8 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     public void onAttach(Context context) {
         super.onAttach(context);
         //mActivity = (AccountActivity) getActivity();
+        if (context instanceof WalletMainActivity)
+            mActivity = (WalletMainActivity) getActivity();
         if (context instanceof AccountActivity)
             mActivity = (AccountActivity) getActivity();
         if (context instanceof PaymentsProcessingActivity)
@@ -265,7 +269,10 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void updateStage() {
         switch (mStage) {
             case FINGERPRINT:
-                if (fragmentInstance instanceof BlockCardFragment) {
+                if (fragmentInstance instanceof DetalleOperadorFragment) {
+                    fingerprint_titulo.setText("Autoriza esta operación ");
+                    mSecondDialogButton.setOnClickListener(view -> dismiss());
+                } else if (fragmentInstance instanceof BlockCardFragment) {
                     fingerprint_titulo.setText("Bloquear Tarjeta ");
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof AccessCodeGenerateFragment) {

@@ -94,6 +94,13 @@ public enum WebService {
     CONSULTA_SALDO_CUPO,
     CANCELA_TRANSACTION_EMV_DEPOSIT,
     OBTIENE_DATOS_CUPO,
+
+    /**
+     *
+     * ws operadores
+     */
+    CHANGE_STATUS_OPERADOR,
+
     /**
      * WS STARBUCKS
      */

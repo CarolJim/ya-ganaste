@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
+import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.OperadoresUyUAdapter;
@@ -24,10 +25,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OperadoresUYUFragment extends GenericFragment {
+public class OperadoresUYUFragment extends GenericFragment implements OnRecyclerItemClickListener {
 
     @BindView(R.id.rcv_operadore_uyu)
     RecyclerView rcvRewards;
@@ -35,9 +38,10 @@ public class OperadoresUYUFragment extends GenericFragment {
 
     @BindView(R.id.titulo_nombre_negocio)
     StyleTextView titulo_nombre_negocio;
-
+    String nombreN;
 
     private View rootView;
+
 
     ElementView elementView;
     List<Operadores> operadoresUYUFragments;
@@ -70,18 +74,10 @@ public class OperadoresUYUFragment extends GenericFragment {
         rcvRewards.setLayoutManager(llm);
         rcvRewards.setHasFixedSize(true);
         Operadores operadoresResponse = new Operadores();
-
-        operadoresResponse.setIdOperador(123);
-        operadoresResponse.setIdUsuario(123);
-        operadoresResponse.setIdUsuarioAdquirente("123123");
-        operadoresResponse.setIsAdmin(false);
-        operadoresResponse.setNombreUsuario("operador@fulanito.com");
-        operadoresResponse.setPetroNumero("sdkasjdoiaj");
-
         operadoresUYUFragments = elementView.getList();
         String nombreN = elementView.getNombreNegocio();
         titulo_nombre_negocio.setText(nombreN);
-        rcvRewards.setAdapter(new OperadoresUyUAdapter(operadoresUYUFragments));
+        rcvRewards.setAdapter(new OperadoresUyUAdapter(operadoresUYUFragments,getActivity(),this));
     }
 
     @Override
@@ -94,4 +90,11 @@ public class OperadoresUYUFragment extends GenericFragment {
         return rootView;
     }
 
+    @Override
+    public void onRecyclerItemClick(View v, int position) {
+    //    OperadoresResponse operadoresResponse ;
+      //  operadoresResponse= operadoresUYUFragments.get(position);
+     //   onEventListener.onEvent(EVENT_OPERADOR_DETALLE, operadoresResponse);
+
+    }
 }

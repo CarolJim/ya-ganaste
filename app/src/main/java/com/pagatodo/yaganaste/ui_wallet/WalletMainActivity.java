@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.icu.text.MeasureFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -49,6 +52,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FavoritesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
@@ -69,10 +73,19 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.util.concurrent.ExecutionException;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.KeyGenerator;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
@@ -139,6 +152,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private Menu menu;
     private ElementView itemOperation;
     private ShareActionProvider mShareActionProvider;
+
+    private KeyStore mKeyStore;
+    private KeyGenerator mKeyGenerator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,8 +241,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_ADQ:
-                loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
-                //loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                //loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_OPERADORES_ADQ:
                 loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
@@ -448,6 +464,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 this.movTab = (MovTab) data;
                 loadFragment(SendTicketFragment.newInstance(movTab), R.id.fragment_container);
                 break;
+            case EVENT_OPERADOR_DETALLE:
+              //  loadFragment(DetalleOperadorFragment.newInstance((OperadoresResponse) data), R.id.fragment_container);
+                break;
+
+
         }
     }
 
@@ -481,6 +502,59 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         } else {
             setResult(PICK_WALLET_TAB_REQUEST);
             super.onBackPressed();
+        }
+    }
+
+
+    /**
+     * Creates a symmetric key in the Android Key Store which can only be used after the user has
+     * authenticated with fingerprint.
+     *
+     * @param keyName                          the name of the key to be created
+     * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
+     *                                         be invalidated even if a new fingerprint is enrolled.
+     *                                         The default value is {@code true}, so passing
+     *                                         {@code true} doesn't change the behavior
+     *                                         (the key will be invalidated if a new fingerprint is
+     *                                         enrolled.). Note that this parameter is only valid if
+     *                                         the app works on Android N developer preview.
+     */
+    public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
+        // The enrolling flow for fingerprint. This is where you ask the user to set up fingerprint
+        // for your flow. Use of keys is necessary if you need to know if the set of
+        // enrolled fingerprints has changed.
+        try {
+            mKeyStore.load(null);
+            // Set the alias of the entry in Android KeyStore where the key will appear
+            // and the constrains (purposes) in the constructor of the Builder
+
+            KeyGenParameterSpec.Builder builder = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                builder = new KeyGenParameterSpec.Builder(keyName,
+                        KeyProperties.PURPOSE_ENCRYPT |
+                                KeyProperties.PURPOSE_DECRYPT)
+                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                        // Require the user to authenticate with a fingerprint to authorize every use
+                        // of the key
+                        .setUserAuthenticationRequired(true)
+                        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
+            }
+
+            // This is a workaround to avoid crashes on devices whose API level is < 24
+            // because KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment is only
+            // visible on API level +24.
+            // Ideally there should be a compat library for KeyGenParameterSpec.Builder but
+            // which isn't available yet.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                builder.setInvalidatedByBiometricEnrollment(invalidatedByBiometricEnrollment);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mKeyGenerator.init(builder.build());
+            }
+            mKeyGenerator.generateKey();
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
+                | CertificateException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

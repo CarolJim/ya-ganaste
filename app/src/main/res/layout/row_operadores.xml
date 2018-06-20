@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/inputtext_normal"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_title_rewards"
         android:layout_width="wrap_content"
@@ -22,6 +28,14 @@
         android:layout_marginRight="11dp"
         app:srcCompat="@drawable/arrow_canvas"
         android:tint="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#e0e0e0"
+        />
 
 
 </LinearLayout>
