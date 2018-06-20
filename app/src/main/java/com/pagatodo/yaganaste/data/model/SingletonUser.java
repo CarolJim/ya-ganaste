@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.data.model;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -18,7 +17,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_CUPO;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -70,8 +69,9 @@ public class SingletonUser {
             prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getCliente().getNombre())
                     .concat(SPACE).concat(dataUser.getCliente().getPrimerApellido()));
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
-            //prefs.saveDataBool(PASSWORD_CHANGE, false);
-            prefs.saveDataBool(ES_AGENTE, dataUser.getControl().getEsAgente());
+            /* Cuando el array de Agentes llega vacío singifica que el usuario es emisor solamente,
+             *  en caso de que llegue con algún elemento entonces significa que realizó su proceso adq */
+            prefs.saveDataBool(ES_AGENTE, dataUser.getAdquirente().getAgentes() != null);
             prefs.saveDataInt(ID_ROL, dataUser.getUsuario().getRoles().get(0).getIdRol());
             if (dataUser.getUsuario().getRoles().get(0).getIdRol() == 129) {
                 prefs.saveDataBool(IS_OPERADOR, true);
@@ -104,12 +104,12 @@ public class SingletonUser {
                 prefs.saveData(URL_PHOTO_USER, dataUser.getUsuario().getImagenAvatarURL());
             }
         }
-        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I10.getId() ||
-                App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.I13.getId()) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR) == IdEstatus.I10.getId() ||
+                App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR) == IdEstatus.I13.getId()) {
             prefs.saveDataBool(ESTADO_RECHAZADO, true);
         }
 
-        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.CUPO.getId()) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR) == IdEstatus.CUPO.getId()) {
             prefs.saveDataBool(IS_CUPO, true);
         }
     }

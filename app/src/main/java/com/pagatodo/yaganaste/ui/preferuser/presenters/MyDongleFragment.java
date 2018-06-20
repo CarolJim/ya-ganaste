@@ -24,10 +24,11 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
@@ -39,29 +40,27 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_REPAYMENT;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.EMV_DETECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.LEYENDO;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_BATTERY_LEVEL;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_KSN;
-import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_FINAL_CONFIRM;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_IS_SERVER_CONNECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
@@ -153,13 +152,18 @@ public class MyDongleFragment extends GenericFragment implements
             txtSerialNumber.setVisibility(GONE);
         }
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
-
+        boolean isComerioUyU = false;
+        try {
+            isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         if (SingletonUser.getInstance().getDataUser().getUsuario() != null) {
             if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129
-                    || SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(0).getEsComercioUYU())
+                    || isComerioUyU)
                 lytConfigRepayment.setVisibility(View.GONE);
         } else {
-            if (App.getInstance().getPrefs().loadAdquirienteResponse(ADQRESPONSE).getUsuario().getRoles().get(0).getIdRol() == 129)
+            if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129)
                 lytConfigRepayment.setVisibility(View.GONE);
         }
 

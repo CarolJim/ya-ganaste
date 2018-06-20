@@ -11,17 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.OperadoresResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirReciboFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.OperadoresUyUAdapter;
-import com.pagatodo.yaganaste.ui_wallet.adapters.RewardsStarbucksAdapter;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,9 +39,8 @@ public class OperadoresUYUFragment extends GenericFragment {
 
     private View rootView;
 
-
     ElementView elementView;
-    ArrayList<OperadoresResponse> operadoresUYUFragments;
+    List<Operadores> operadoresUYUFragments;
 
     public static OperadoresUYUFragment newInstance(ElementView elementView) {
         OperadoresUYUFragment fragment = new OperadoresUYUFragment();
@@ -72,12 +69,12 @@ public class OperadoresUYUFragment extends GenericFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rcvRewards.setLayoutManager(llm);
         rcvRewards.setHasFixedSize(true);
-        OperadoresResponse operadoresResponse = new OperadoresResponse();
+        Operadores operadoresResponse = new Operadores();
 
         operadoresResponse.setIdOperador(123);
         operadoresResponse.setIdUsuario(123);
         operadoresResponse.setIdUsuarioAdquirente("123123");
-        operadoresResponse.setAdmin(false);
+        operadoresResponse.setIsAdmin(false);
         operadoresResponse.setNombreUsuario("operador@fulanito.com");
         operadoresResponse.setPetroNumero("sdkasjdoiaj");
 

@@ -59,7 +59,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_C
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_USUARIO_ADQUIRIENTE;
 
 public class CancelAccountFragment extends SupportFragment implements View.OnClickListener, IRequestResult, TextWatcher, INavigationView {
@@ -261,7 +261,7 @@ public class CancelAccountFragment extends SupportFragment implements View.OnCli
         if (isOnline) {
             SingletonUser singletonUser = SingletonUser.getInstance();
             DataIniciarSesionUYU data = singletonUser.getDataUser();
-            int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+            int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
             int idafiliacion = 2;
 
             if (Idestatus == IdEstatus.I5.getId()){
@@ -333,7 +333,7 @@ public class CancelAccountFragment extends SupportFragment implements View.OnCli
         //onEventListener.onEvent(EVENT_HIDE_LOADER,null);
         //SingletonUser singletonUser = SingletonUser.getInstance();
         //DataIniciarSesion data = singletonUser.getDataUser();
-        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS);
+        int Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
         int idafiliacion = 2;
 
         if (Idestatus == IdEstatus.I5.getId()){

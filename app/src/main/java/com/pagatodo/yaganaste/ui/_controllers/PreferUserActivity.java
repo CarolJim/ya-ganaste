@@ -12,16 +12,13 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.AvisoPrivacidadFragment;
 import com.pagatodo.yaganaste.ui.preferuser.CuentaReembolsoFragment;
@@ -63,7 +60,6 @@ import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_C
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 
@@ -439,8 +435,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
             case "PREFER_USER_CANCELACION":
                 String desc = getResources().getString(R.string.cacncel_desc);
-                if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) &&
-                        App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()) {
+                if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)/* &&
+                        App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR) == IdEstatus.ADQUIRENTE.getId()*/) {
                     desc = getResources().getString(R.string.cacncel_desc_adq);
                 }
                 loadFragment(CancelAccountFragment.newInstance(getResources().getString(R.string.cancel_title), desc), Direction.FORDWARD, false);

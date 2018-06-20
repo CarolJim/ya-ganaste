@@ -1,9 +1,8 @@
 package com.pagatodo.yaganaste.ui_wallet.interfaces;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
 /**
@@ -13,7 +12,7 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 public interface WalletInteractor extends IRequestResult<DataSourceResult> {
 
     void getWalletsCards(boolean error, WalletNotification listener);
-    void getBalance(int typeWallet, AgentesRespose agentesRespose);
+    void getBalance(int typeWallet, Agentes agentes);
     void getStatusAccount(EstatusCuentaRequest request);
     //void getInfoAgente();
 }

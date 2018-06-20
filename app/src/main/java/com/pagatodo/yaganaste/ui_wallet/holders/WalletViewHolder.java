@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.BuildConfig;
@@ -87,7 +86,7 @@ public class WalletViewHolder extends GenericHolder {
                 flipView.flip(false);
             } else {
                 this.cardLayout.setVisibility(View.VISIBLE);
-                this.nameBusiness.setText(item.getAgentesRespose().getNombreNegocio());
+                this.nameBusiness.setText(item.getAgentes().getNombreNegocio());
             }
         }
 

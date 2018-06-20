@@ -136,6 +136,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();
+        new DatabaseManager().deleteAgentes();
         RequestHeaders.clearPreferences();
         if (!BuildConfig.DEBUG) {
             Countly.sharedInstance().changeDeviceId(DeviceId.Type.OPEN_UDID, null);

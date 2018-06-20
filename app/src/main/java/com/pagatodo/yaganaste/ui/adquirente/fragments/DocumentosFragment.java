@@ -11,7 +11,6 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -79,7 +77,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
@@ -118,7 +116,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     LinearLayout lnr_help;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
-
 
     private View rootview;
     private int documentProcessed = 0;
@@ -326,11 +323,11 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-                Log.e("Ya Ganaste", "@Entrada 1");
+            Log.e("Ya Ganaste", "@Entrada 1");
             showLoader("");
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
-                Log.e("Ya Ganaste", "@Path Foto = " + path);
+            Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
                 Bitmap original = BitmapFactory.decodeFile(path);
                 Bitmap scaled;
@@ -345,7 +342,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -381,7 +378,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -414,7 +411,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
-            Log.e("Ya Ganaste", "@Entrada 2");
+        Log.e("Ya Ganaste", "@Entrada 2");
     }
 
     @SuppressLint("ResourceType")
@@ -611,10 +608,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void documentsUploaded(String message) {
         dataDocumnets.clear();
         nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
-        SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatus(7);
-        App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, 7);
+        SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatusEmisor(7);
+        App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, 7);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
-
     }
 
     /***
@@ -625,8 +621,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void documentosActualizados(String s) {
         dataDocumnets.clear();
         refreshContent();
-        SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatus(7);
-        App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, 7);
+        SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatusEmisor(7);
+        App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, 7);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
 
     }
@@ -805,23 +801,23 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
         UI.showAlertDialog(getContext(), mData.getMotivo() + "\n" + mData.getComentario(),
                 (dialogInterface, i) -> {
-            switch (mPosition) {
-                case 0:
-                    selectImageSource(IFE_FRONT);
-                    break;
-                case 1:
-                    selectImageSource(IFE_BACK);
-                    break;
-                case 2:
-                    selectImageSource(COMPROBANTE_FRONT);
-                    break;
-                case 3:
-                    selectImageSource(COMPROBANTE_BACK);
-                    break;
-                default:
-                    break;
-            }
-        });
+                    switch (mPosition) {
+                        case 0:
+                            selectImageSource(IFE_FRONT);
+                            break;
+                        case 1:
+                            selectImageSource(IFE_BACK);
+                            break;
+                        case 2:
+                            selectImageSource(COMPROBANTE_FRONT);
+                            break;
+                        case 3:
+                            selectImageSource(COMPROBANTE_BACK);
+                            break;
+                        default:
+                            break;
+                    }
+                });
     }
 
     /**

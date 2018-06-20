@@ -48,7 +48,7 @@ public class ForcedUpdateChecker {
         boolean showLogs = remoteConfig.getBoolean(SHOW_LOGS);
         int connectionTimeout = Integer.valueOf(remoteConfig.getString(CONNECTION_TIMEOUT));
         App.getInstance().getPrefs().saveDataBool(SHOW_LOYALTY, showLoyalty);
-        App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
+        App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, /*!BuildConfig.DEBUG ? showLogs : */true);
         App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
         if (!showLoyalty) {
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);

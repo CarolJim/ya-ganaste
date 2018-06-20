@@ -7,10 +7,9 @@ import android.util.Log;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.UtilsGraphics;
 
 import java.util.ArrayList;
@@ -18,18 +17,14 @@ import java.util.ArrayList;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
-import static com.pagatodo.yaganaste.utils.StringUtils.ocultarCardNumberFormat;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardBusiness;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
-import static com.pagatodo.yaganaste.utils.UtilsGraphics.getTextInBitmap;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.overlayImages;
 
 /**
@@ -50,7 +45,7 @@ public class ElementWallet {
     private ArrayList<ElementView> elementViews;
     private int tipoSaldo;
     private boolean isUpdate;
-    private AgentesRespose agentesRespose;
+    private Agentes agentes;
     private int titleDesRes;
     private String cardNumberRes;
 
@@ -69,7 +64,7 @@ public class ElementWallet {
 
     public ElementWallet(int typeWallet, Bitmap frontBitmap, Bitmap rearBitmap, String saldo,
                          ArrayList<ElementView> elementViews, int tipoSaldo, boolean isUpdate,
-                         AgentesRespose agentesRespose) {
+                         Agentes agentes) {
         this.typeWallet = typeWallet;
         this.frontBitmap = frontBitmap;
         this.rearBitmap = rearBitmap;
@@ -77,7 +72,7 @@ public class ElementWallet {
         this.elementViews = elementViews;
         this.tipoSaldo = tipoSaldo;
         this.isUpdate = isUpdate;
-        this.agentesRespose = agentesRespose;
+        this.agentes = agentes;
     }
 
     public ElementWallet(int typeWallet, Bitmap frontBitmap, Bitmap rearBitmap, String saldo,
@@ -146,12 +141,12 @@ public class ElementWallet {
         this.rearBitmap = rearBitmap;
     }
 
-    public AgentesRespose getAgentesRespose() {
-        return agentesRespose;
+    public Agentes getAgentes() {
+        return agentes;
     }
 
-    public void setAgentesRespose(AgentesRespose agentesRespose) {
-        this.agentesRespose = agentesRespose;
+    public void setAgentes(Agentes agentes) {
+        this.agentes = agentes;
     }
 
     public int getTitleDesRes() {
@@ -224,18 +219,18 @@ public class ElementWallet {
                 ElementView.getListConfigCard(), R.string.title_wallet_second_settings, false, null);
     }
 
-    public static ElementWallet getCardLectorAdq(AgentesRespose agentesRespose) {
+    public static ElementWallet getCardLectorAdq(Agentes agentes) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), isBluetooth ? R.drawable.chip_pin : R.mipmap.lector_front);
 
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentesRespose != null) {
-            if (isBluetooth && !agentesRespose.getNombreNegocio().equals("")) {
-                frontView = frontCardBusiness(frontView, agentesRespose.getNombreNegocio());
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false) && agentes != null) {
+            if (isBluetooth && !agentes.getNombreNegocio().equals("")) {
+                frontView = frontCardBusiness(frontView, agentes.getNombreNegocio());
             }
             String leyenda;
             int descripcion;
             boolean isReload = true;
-            if (App.getInstance().getPrefs().loadDataInt(ID_ESTATUS) == IdEstatus.ADQUIRENTE.getId()) {
+            if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;
             } else {
@@ -245,10 +240,10 @@ public class ElementWallet {
             }
             if (isBluetooth) {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
-                        ElementView.getListLectorAdq(agentesRespose.getOperadores(), agentesRespose.getNombreNegocio(), agentesRespose.getEsComercioUYU()), descripcion, isReload, agentesRespose);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             } else {
                 return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
-                        ElementView.getListLectorAdq(agentesRespose.getOperadores(), agentesRespose.getNombreNegocio(), agentesRespose.getEsComercioUYU()), descripcion, isReload, agentesRespose);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             }
         } else {
             return getCardLectorEmi();
@@ -299,7 +294,7 @@ public class ElementWallet {
                 R.string.saldo_disponible, true, R.string.tarjeta_yg, StringUtils.ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)));
     }
 
-    public static ElementWallet getCardBalanceAdq(AgentesRespose agentesRespose) {
+    public static ElementWallet getCardBalanceAdq(Agentes agentes) {
         Bitmap frontView, backView;
         if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.lector_bt);
@@ -311,7 +306,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_ADQ, frontView, backView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
                 ElementView.getListAdqBalance(),
-                R.string.saldo_reembolso, true, R.string.cobros_con_tarjeta, agentesRespose.getNombreNegocio());
+                R.string.saldo_reembolso, true, R.string.cobros_con_tarjeta, agentes.getNombreNegocio());
     }
 
     public static ElementWallet getCardBalanceStarbucks() {

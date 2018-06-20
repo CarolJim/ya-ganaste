@@ -8,7 +8,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -52,7 +52,7 @@ public class WalletInteractorImpl implements WalletInteractor {
     }
 
     @Override
-    public void getBalance(int typeWallet, AgentesRespose agente) {
+    public void getBalance(int typeWallet, Agentes agente) {
         try {
             switch (typeWallet) {
                 case TYPE_EMISOR:

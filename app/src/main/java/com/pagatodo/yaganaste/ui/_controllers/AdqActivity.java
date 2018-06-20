@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;

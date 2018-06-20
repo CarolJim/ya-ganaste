@@ -70,6 +70,7 @@ import butterknife.BindView;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse>, View.OnClickListener {
@@ -120,7 +121,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             nameComerce = getArguments().getString(NAME_COMERCE);
         }
         isValid = true;
@@ -284,9 +285,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
-
-                    Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
@@ -331,15 +329,14 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
-
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
             }
-        } else showValidationError(getString(R.string.enter_mount));
-
+        } else
+            showValidationError(getString(R.string.enter_mount));
     }
 
     @Override
@@ -480,7 +477,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     @Override
     public void onClick(View view) {
-
         if (view.getId() == R.id.btncobrar) {
             actionChargecobro();
         }

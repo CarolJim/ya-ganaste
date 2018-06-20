@@ -37,7 +37,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCup
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AdquirienteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CardStarbucks;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -45,7 +44,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioC
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
@@ -53,7 +51,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesion
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
@@ -95,7 +92,6 @@ import java.util.concurrent.ExecutionException;
 
 import ly.count.android.sdk.Countly;
 
-import static android.content.Context.BLUETOOTH_SERVICE;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
@@ -127,7 +123,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.ACTUAL_LEVEL_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQRESPONSE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
@@ -143,9 +138,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
 import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
@@ -497,7 +491,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (!BuildConfig.DEBUG) {
                 Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
             }
-            ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentesRespose());
+            ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentes());
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
@@ -816,12 +810,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
-            App.getInstance().getPrefs().saveDataAgentesRespons(ADQRESPONSE, dataUser);
+            if (dataUser.getAdquirente().getAgentes() != null && dataUser.getAdquirente().getAgentes().size() > 0) {
+                new DatabaseManager().insertAgentes(dataUser.getAdquirente().getAgentes());
+            }
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.getControl().getEsUsuario()) {
                 user.setDataUser(dataUser);// Si Usuario
-                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, dataUser.getUsuario().getIdEstatus());
+                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, dataUser.getUsuario().getIdEstatusEmisor());
                 String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
                 App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
@@ -831,7 +827,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 /* Para los comercios UyU ya no se necesita configurar el lector debido a que ya está configurado
                  * que tiene un lector Bluetooth */
                 if (adquiriente.getAgentes() != null && adquiriente.getAgentes().size() > 0 &&
-                        adquiriente.getAgentes().get(0).getEsComercioUYU()) {
+                        adquiriente.getAgentes().get(0).isEsComercioUYU()) {
                     App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
                     App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
                 }
@@ -882,7 +878,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         DataIniciarSesion dataUser = new DataIniciarSesion();
         dataUser.setEsUsuario(dataUserUyu.getControl().getEsUsuario());
         dataUser.setConCuenta(dataUserUyu.getCliente().getConCuenta());
-        dataUser.setIdEstatus(dataUserUyu.getUsuario().getIdEstatus());
+        dataUser.setIdEstatusEmisor(dataUserUyu.getUsuario().getIdEstatusEmisor());
         dataUser.setRequiereActivacionSMS(dataUserUyu.getControl().getRequiereActivacionSMS());
         dataUser.setSemilla(dataUserUyu.getUsuario().getSemilla());
 
@@ -916,7 +912,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             SingletonUser user = SingletonUser.getInstance();
             if (dataUser.isEsUsuario()) {
                 user.setDataUser(dataUser);// Si Usuario
-                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, dataUser.getIdEstatus());
+                App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, dataUser.getIdEstatusEmisor());
                 String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
                 App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
@@ -1225,10 +1221,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             DataIniciarSesionUYU newSessionData = data.getData();
+            if (newSessionData.getAdquirente().getAgentes() != null && newSessionData.getAdquirente().getAgentes().size() > 0) {
+                new DatabaseManager().insertAgentes(newSessionData.getAdquirente().getAgentes());
+            }
             SingletonUser userInfo = SingletonUser.getInstance();
             newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);
-            App.getInstance().getPrefs().saveDataInt(ID_ESTATUS, newSessionData.getUsuario().getIdEstatus());
+            App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, newSessionData.getUsuario().getIdEstatusEmisor());
             /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
             accountManager.onSucces(response.getWebService(), "Información Actualizada.");
         } else {

@@ -5,9 +5,11 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.room_db.entities.MontoComercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.utils.JsonManager;
 
@@ -191,7 +193,7 @@ public class DatabaseManager {
 
     /* Obtener lista de favoritos por tipo de comercio de la BD */
     public List<Favoritos> getListFavoritosByIdComercio(final int idTypeComercio) throws ExecutionException, InterruptedException {
-        return new AsyncTask<Void, Void, List<Favoritos>>(){
+        return new AsyncTask<Void, Void, List<Favoritos>>() {
             @Override
             protected List<Favoritos> doInBackground(Void... voids) {
                 List<Favoritos> dataFavorites = new ArrayList<>();
@@ -212,12 +214,79 @@ public class DatabaseManager {
 
     /* Validar si ya existe el favorito en la BD */
     public boolean favoriteAllreadyExists(final String referencia, final int idComercio) throws ExecutionException, InterruptedException {
-        return new AsyncTask<Void, Void, Boolean>(){
+        return new AsyncTask<Void, Void, Boolean>() {
 
             @Override
             protected Boolean doInBackground(Void... voids) {
                 return App.getAppDatabase().favoritosModel().favoriteExists(referencia, idComercio);
             }
         }.execute().get();
+    }
+
+    /* Insertar la lista de Agentes y Operadores en la BD */
+    public void insertAgentes(final List<Agentes> agentes) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                App.getAppDatabase().agentesModel().deleteAll();
+                App.getAppDatabase().operadoresModel().deleteAll();
+                App.getAppDatabase().agentesModel().insertAgentes(agentes);
+                for (Agentes agente : agentes) {
+                    for (Operadores operador : agente.getOperadores()) {
+                        operador.setNumeroAgente(Integer.valueOf(agente.getNumeroAgente()));
+                        /* Inserta los operadores respectivos de los agentes en la BD */
+                        App.getAppDatabase().operadoresModel().insertOperador(operador);
+                    }
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    /* Obtener la lista de agentes guardados en la BD */
+    public List<Agentes> getAgentes() throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, List<Agentes>>() {
+            @Override
+            protected List<Agentes> doInBackground(Void... voids) {
+                List<Agentes> agentes = App.getAppDatabase().agentesModel().selectAgentes();
+                for(Agentes agente: agentes){
+                    List<Operadores> operadores = App.getAppDatabase().operadoresModel().getOperadoresByAgente(agente.getNumeroAgente());
+                    agente.setOperadores(operadores);
+                }
+                return agentes;
+            }
+        }.execute().get();
+    }
+
+    /* Obtener si el comercio seleccionado es del programa UyU o YG en la BD */
+    public Boolean isComercioUyU(final String idUsuarioAdq) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return App.getAppDatabase().agentesModel().esComercioUyU(idUsuarioAdq);
+            }
+        }.execute().get();
+    }
+
+    /* Obtener el IdUsuarioAdquiriente del rol Operador = 129 */
+    public Integer getIdUsuarioAdqRolOperador() throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                return App.getAppDatabase().operadoresModel().getIdUsuarioAdquirienteRolOperador();
+            }
+        }.execute().get();
+    }
+
+    /* Borrar los agentes y operadores en la BD */
+    public void deleteAgentes() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                App.getAppDatabase().agentesModel().deleteAll();
+                App.getAppDatabase().operadoresModel().deleteAll();
+                return null;
+            }
+        }.execute();
     }
 }

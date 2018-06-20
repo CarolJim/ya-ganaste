@@ -13,7 +13,7 @@ public class Recursos {
     public static final String URL_COUNTLY;
 
     //BASE DE DATOS
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "ya_ganaste.db";
 
     public static final String PUBLIC_KEY_RSA;
@@ -52,12 +52,12 @@ public class Recursos {
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
         } else {
-            URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
-            //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
-            URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-            //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
-            URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
-            //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
+            //URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
+            URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
+            //URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
+            URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
+            //URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com/Middleware.svc";
+            URL_SERVER_ADQ = "https://adqyaganastepreprod.yaganaste.com:19446/Middleware.svc";
             URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
             URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
             URL_COUNTLY = "https://us-try.count.ly";
@@ -67,7 +67,8 @@ public class Recursos {
 
             PIN_ADVO = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
             PIN_TRANS = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-            PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
+            //PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
+            PIN_YA = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
         }
     }
@@ -286,11 +287,10 @@ public class Recursos {
     public static final String ESTATUS_DOCUMENTACION = "ESTATUS_DOCUMENTACION"; // int
     public static final String ID_USUARIO_ADQUIRIENTE = "ID_USUARIO_ADQUIRIENTE"; // string
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
-    public static final String ID_ESTATUS = "ID_ESTATUS"; // int
+    public static final String ID_ESTATUS_EMISOR = "ID_ESTATUS_EMISOR"; // int
     public static final String HAS_CONFIG_DONGLE = "HAS_CONFIG_DONGLE"; // boolean
     public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
     public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
-    public static final String ADQRESPONSE = "ADQRESPONSE"; // string
 
     // Recursos referentes a Starbucks
     public static final String HAS_STARBUCKS = "HAS_STARBUCKS";  //boolean
