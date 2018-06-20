@@ -37,9 +37,13 @@ public class WalletBuilder {
             }
         }
 
-        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null) {
-            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() == 1){
+        //Mis Negocios getCardMisNegocios
 
+
+        //Adquiriente
+        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null) {
+            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() != 1){
+                walletList.addWallet(ElementWallet.getCardMisNegocios());
             }
 
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
@@ -49,6 +53,7 @@ public class WalletBuilder {
             walletList.addWallet(ElementWallet.getCardLectorAdq(null));
         }
 
+        //Starbucks
         if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             if (App.getInstance().getPrefs().loadDataBoolean(HAS_STARBUCKS, false)) {
                 walletList.addWallet(ElementWallet.getCardStarbucks());

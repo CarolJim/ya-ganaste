@@ -37,6 +37,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_MVIMIENTOS_ADQ = 102;
     static public final int OPTION_OPERADORES_ADQ = 104;
     static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
+    static public final int OPTION_MVIMIENTOS_BUSSINES = 105;
     //static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
 
     static public final int OPTION_ADMON_EMISOR = 301;
@@ -354,6 +355,15 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_RECOMPENSAS, R.drawable.icon_star, R.string.opt_recompensas));
         elementViews.add(new ElementView(OPTION_SUCURSALES, R.drawable.ico_store, R.string.opt_sucursales));
+        return elementViews;
+    }
+
+    public static ArrayList<ElementView> getListMyBusiness(){
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_BUSSINES, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+        //elementViews.add(new ElementView(OPTION_MVIMIENTOS_BUSSINES, R.drawable.icono_movimientos, R.string.operation_movimientos));
         return elementViews;
     }
 

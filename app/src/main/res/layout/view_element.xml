@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/gray_border_rectangle"
     android:gravity="center"
+    android:layout_gravity="center|top"
     android:orientation="vertical"
     android:visibility="visible"
     app:cardBackgroundColor="@color/whiteColor">
@@ -23,7 +24,9 @@
             android:layout_marginTop="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/icon_tab_ya"></ImageView>
+            android:background="@mipmap/icon_tab_ya">
+
+        </ImageView>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/text_option"

@@ -2,34 +2,35 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AgentesRespose;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
-import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.views.SwipeToFav;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -42,7 +43,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_ADQ;
 import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 
 /**
@@ -51,7 +51,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, AdapterView.OnItemSelectedListener{
 
     public SwipyRefreshLayoutDirection direction;
     public static final String TYPE = "TYPE";
@@ -67,17 +67,21 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @BindView(R.id.recycler_movements)
     RecyclerView recyclerMovements;
-    //@BindView(R.id.txt_info_movements)
-    //TextView txtInfoMovements;
     @BindView(R.id.swipe_container)
     SwipyRefreshLayout swipeContainer;
     @BindView(R.id.progress_emisor)
     ProgressLayout progress_emisor;
     @BindView(R.id.title)
     StyleTextView title;
+    @BindView(R.id.filter)
+    LinearLayout filterLinerLayout;
+    @BindView(R.id.spnTypeSend)
+    Spinner spinner;
 
     protected IFavoritesPresenter favoritesPresenter;
     protected PresenterPaymentFragment paymentPresenter;
+    protected ArrayList<String> listComercios;
+    protected ArrayAdapter<String> spinnerArrayAdapter;
 
     public AbstractAdEmFragment(){
 
@@ -85,6 +89,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        this.listComercios = new ArrayList<>();
+        for (AgentesRespose itemAgente : SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes()){
+            this.listComercios.add(itemAgente.getNombreNegocio());
+        }
         this.movementsList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -93,16 +101,22 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             type = args.getInt(TYPE);
         }
         doubleSwipePosition = new HashMap<>();
-
+        spinnerArrayAdapter = new ArrayAdapter<>
+                (getContext(), android.R.layout.simple_spinner_item,
+                        listComercios);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
+                .simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setOnItemSelectedListener(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.adquitente_emisor_fragment, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
     }
@@ -111,10 +125,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        //txtInfoMovements.setVisibility(View.GONE);
-        //txtInfoMovements.setOnClickListener(this);
-        //progress_emisor.setVisibility(View.VISIBLE);
-        //progress_emisor.setBackgroundColor(getResources().getColor(R.color.colorLoaderAlpha));
+
+
+        //filterLinerLayout
         swipeContainer.setDirection(type == MOVEMENTS_EMISOR ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
         swipeContainer.setOnRefreshListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -122,8 +135,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         recyclerMovements.setHasFixedSize(true);
         //recyclerMovements.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.item_offset_mov));
         recyclerMovements.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-
         movementsPresenter.getPagerData(getTab());
+
     }
 
     @Override
@@ -177,7 +190,11 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected void getDataForTab(T dataToRequest) {
-        //txtInfoMovements.setVisibility(View.GONE);
+
+        //Obtener el ID
+
+
+
         movementsPresenter.getRemoteMovementsData(dataToRequest);
     }
 

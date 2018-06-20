@@ -183,6 +183,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
             colums = 1;
         }
+        if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() == 2) {
+            colums = 2;
+        }
         elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
         elementsWalletAdapter.notifyDataSetChanged();
         llm.setSpanCount(colums);

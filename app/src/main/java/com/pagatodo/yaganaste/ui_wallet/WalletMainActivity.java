@@ -90,6 +90,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ST
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_BUSSINES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_OPERADORES_ADQ;
@@ -288,6 +289,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_ADDFAVORITE_PAYMENT:
                 loadFragment(FavoritesFragment.newInstance(OPTION_ADDFAVORITE_PAYMENT), R.id.fragment_container);
                 break;
+            case OPTION_MVIMIENTOS_BUSSINES:
+
+                loadFragment(PaymentsFragment.newInstance(0,true), R.id.fragment_container);
+                break;
             default:
                 finish();
                 break;
@@ -434,7 +439,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_MOV_ADQ:
                 this.movTab = (MovTab) data;
-                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab()), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(),false), R.id.fragment_container);
                 break;
             case EVENT_GO_TO_SEND_TICKET:
                 this.movTab = (MovTab) data;

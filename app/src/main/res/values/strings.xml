@@ -525,6 +525,7 @@
     <string name="transfer_card_unavailable">No disponible</string>
     <string name="saldo_pendiente">Saldo por\nreembolsar</string>
     <string name="saldo_reembolso">Saldo por reembolsar</string>
+    <string name="saldo_reembolso_total">Saldo total por reembolsar</string>
     <string name="saldo_disponible">Saldo disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>

@@ -7,10 +7,65 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <LinearLayout
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/inputtext_normal"
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/bussinesName"
+            android:id="@+id/tipo_envio"
+            style="@style/generic_text_style_4"
+            android:layout_gravity="start"
+            android:visibility="visible"
+            android:layout_marginStart="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spnTypeSend"
+                android:layout_width="0dp"
+                android:layout_gravity="bottom"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/transparent"
+                tools:ignore="UnusedAttribute"
+                android:layout_marginStart="15dp"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imageViewCustomSpinner"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="21dp"
+                android:layout_marginBottom="4dp"
+                android:adjustViewBounds="true"
+                android:tint="@color/colorAccent"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ico_select"
+                android:layout_marginEnd="21dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
     <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
         android:id="@+id/tab_months"
         android:layout_width="match_parent"
         android:layout_height="58dp"
+        android:layout_below="@id/filter"
         app:tabTextColor="@color/texthint"
         app:tabIndicatorColor="@color/whiteColor"
         app:tabGravity="center"

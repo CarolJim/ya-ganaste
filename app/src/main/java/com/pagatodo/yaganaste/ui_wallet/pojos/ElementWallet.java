@@ -264,11 +264,11 @@ public class ElementWallet {
     }
 
     public static ElementWallet getCardMisNegocios(){
-        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
-        return new ElementWallet(TYPE_ADQ, frontView,
-                "Cobra con tarjeta",
-                ElementView.getListLectorEmi(),
-                R.string.mejor_precio, false);
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.negocios);
+        return new ElementWallet(TYPE_BUSINESS, frontView,
+                StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
+                ElementView.getListMyBusiness(),
+                R.string.saldo_reembolso_total, false);
     }
 
     public static ElementWallet getCardBalanceEmi() {
