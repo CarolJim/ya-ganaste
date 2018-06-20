@@ -25,6 +25,9 @@
     <string name="getMovementsByMonthUrl">/ConsultarMovimientosMes</string>
     <string name="validate_data_person">/ValidarDatosPersona</string>
     <string name="validate_data_person_curp">/ValidarDatosCurp</string>
+    <string name="cambia_status_operador">/CambiarEstatusUsuario</string>
+
+
 
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>

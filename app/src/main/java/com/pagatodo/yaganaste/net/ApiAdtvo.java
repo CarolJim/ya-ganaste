@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContras
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CancelRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ChangeStatusOperadorRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
@@ -111,6 +112,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_STATUS_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
@@ -320,6 +322,18 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(VALIDAR_DATOS_PERSONA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person),
+                headers, request, GenericResponse.class, result);
+    }
+    /**
+     * Método que se invoca cuando se desean obtener más movimientos por mes.
+     *
+     * @param request {@link ValidarDatosPersonaRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void changestatusoperador(ChangeStatusOperadorRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        NetFacade.consumeWS(CHANGE_STATUS_OPERADOR,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.cambia_status_operador),
                 headers, request, GenericResponse.class, result);
     }
     /**

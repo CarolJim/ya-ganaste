@@ -24,13 +24,13 @@
         android:textSize="18sp" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/titulo_datos_usuario"
+        android:id="@+id/titulo_negocio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:text="@string/sub_titulo_datos_personales"
+        android:text="Papeleria XXXX"
         android:textAlignment="center"
         android:textColor="@color/textColorAlternative"
         android:textSize="16sp"
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gray_border_rectangle"
-        android:layout_margin="3dp"
+        android:layout_margin="5dp"
         >
 
         <LinearLayout
@@ -77,7 +77,8 @@
             <LinearLayout
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:background="@color/adadad"
+                android:background="#e0e0e0"
+                android:layout_marginRight="30dp"
                 android:orientation="vertical"
 
                />
@@ -109,7 +110,8 @@
             <LinearLayout
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:background="@color/adadad"
+                android:background="#e0e0e0"
+                android:layout_marginRight="30dp"
                 android:orientation="vertical"
                 />
 
@@ -139,9 +141,10 @@
             <LinearLayout
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:background="@color/adadad"
+                android:background="#e0e0e0"
                 android:orientation="vertical"
                 android:layout_marginBottom="14sp"
+                android:layout_marginRight="30dp"
                 />
 
 
