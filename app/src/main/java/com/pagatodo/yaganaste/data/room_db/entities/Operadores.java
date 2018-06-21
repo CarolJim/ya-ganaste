@@ -31,6 +31,28 @@ public class Operadores implements Serializable {
     @ColumnInfo(name = "petro_numero")
     private String PetroNumero;
 
+    @ColumnInfo(name = "estatus_usuario")
+    private String EstatusUsuario;
+
+    @ColumnInfo(name = "id_estatus_usuario")
+    private int IdEstatusUsuario;
+
+    public int getIdEstatusUsuario() {
+        return IdEstatusUsuario;
+    }
+
+    public void setIdEstatusUsuario(int idEstatusUsuario) {
+        IdEstatusUsuario = idEstatusUsuario;
+    }
+
+    public String getEstatusUsuario() {
+        return EstatusUsuario;
+    }
+
+    public void setEstatusUsuario(String estatusUsuario) {
+        EstatusUsuario = estatusUsuario;
+    }
+
     public boolean getIsAdmin() {
         return IsAdmin;
     }

@@ -260,11 +260,9 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
     public void showErrorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         //UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
-        UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.no_internet_access), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
+        UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.no_internet_access), R.string.title_aceptar,
+                (dialogInterface, i) -> {
+                });
 
     }
 
@@ -288,21 +286,15 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
                         notifyRequestContainer();
                     } else {
                         //UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_fav), getActivity().getSupportFragmentManager(), getFragmentTag());
-                        UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.error_add_fav), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                            }
-                        });
-
-
+                        UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.error_add_fav), R.string.title_aceptar,
+                                (dialogInterface, i) -> {
+                                });
                         // UI.showToastShort(App.getContext().getString(R.string.error_add_fav), getActivity());
                     }
                 } else {
-                    UI.showAlertDialog(getContext(), getActivity().getString(R.string.title_error), getActivity().getString(R.string.txt_error_calculate_amount), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
+                    UI.showAlertDialog(getContext(), getActivity().getString(R.string.title_error), getActivity().getString(R.string.txt_error_calculate_amount),
+                            R.string.title_aceptar, (dialogInterface, i) -> {
+                            });
                 }
                 break;
             case R.id.row_request_payment:
@@ -378,11 +370,9 @@ public class PaymentRequestFragment extends GenericFragment implements View.OnCl
             //notifyRequestContainer();
         } else {
             //UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.error_add_numero), getActivity().getSupportFragmentManager(), getFragmentTag());
-            UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.error_add_numero), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
+            UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.error_add_numero), R.string.title_aceptar,
+                    (dialogInterface, i) -> {
+                    });
         }
     }
 

@@ -198,15 +198,11 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
 
     private void showDialogMesage(final String mensaje, final int mControl) {
 
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (mControl == 1) {
-                    onEventListener.onEvent(EVENT_CLOSE_ACT, null);
-                }
-            }
-        });
-
-
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje,
+                R.string.title_aceptar, (dialogInterface, i) -> {
+                    if (mControl == 1) {
+                        onEventListener.onEvent(EVENT_CLOSE_ACT, null);
+                    }
+                });
     }
 }

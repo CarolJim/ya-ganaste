@@ -58,7 +58,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE `Agentes` (`numero_agente` TEXT NOT NULL, `es_comercio_uyu` INTEGER NOT NULL, `id_estatus` INTEGER NOT NULL, `nombre_negocio` TEXT, PRIMARY KEY(`numero_agente`))");
             database.execSQL("CREATE TABLE `Operadores` (`id_usuario` INTEGER NOT NULL, `numero_agente` INTEGER NOT NULL, `id_usuario_adquiriente` TEXT, `id_operador` INTEGER NOT NULL, `is_admin` INTEGER NOT NULL," +
-                    "`nombre_usuario` TEXT, `petro_numero` TEXT, PRIMARY KEY(`id_usuario`))");
+                    "`nombre_usuario` TEXT, `petro_numero` TEXT, `estatus_usuario` TEXT, `id_estatus_usuario` INTEGER NOT NULL, PRIMARY KEY(`id_usuario`))");
         }
     };
 }

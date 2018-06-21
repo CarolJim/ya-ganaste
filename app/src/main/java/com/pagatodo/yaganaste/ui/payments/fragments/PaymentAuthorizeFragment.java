@@ -454,14 +454,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             errorBody = "La contraseña ingresada no es válida, verifícala";
             //UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
 
-            UI.showAlertDialog(getContext(), errorTittle, errorBody, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
-
-
-
+            UI.showAlertDialog(getContext(), errorTittle, errorBody,
+                    R.string.title_aceptar, (dialogInterface, i) -> {
+                    });
         } else if (error.toString().equals(getString(R.string.no_internet_access))) {
             errorTittle = "Ya Ganaste";
             errorBody = getString(R.string.no_internet_access);

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -230,7 +231,8 @@ public class ElementWallet {
             String leyenda;
             int descripcion;
             boolean isReload = true;
-            if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId()) {
+                /*if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {*/
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;
             } else {
@@ -258,7 +260,7 @@ public class ElementWallet {
                 R.string.mejor_precio, false);
     }
 
-    public static ElementWallet getCardMisNegocios(){
+    public static ElementWallet getCardMisNegocios() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.negocios);
         return new ElementWallet(TYPE_BUSINESS, frontView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
@@ -320,8 +322,6 @@ public class ElementWallet {
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
                 ElementView.getListStarbucksBalance(), R.string.saldo_disponible, false, R.string.starbucks_card, App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS));
     }
-
-
 
 
 }

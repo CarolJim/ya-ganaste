@@ -38,16 +38,12 @@ public class WalletBuilder {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
             }
         }
-
         //Mis Negocios getCardMisNegocios
-
-
         //Adquiriente
         if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null) {
             if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() != 1){
                 walletList.addWallet(ElementWallet.getCardMisNegocios());
             }
-
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
                 walletList.addWallet(ElementWallet.getCardLectorAdq(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i)));
             }

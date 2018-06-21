@@ -276,7 +276,7 @@ public class MapStarbucksFragment extends GenericFragment implements OnCompleteL
 
     @Override
     public void showError(String error) {
-        UI.showAlertDialog(getActivity(), getString(R.string.app_name), error, null);
+        UI.showAlertDialog(getActivity(), getString(R.string.app_name), error, R.string.title_aceptar,null);
     }
 
     @Override

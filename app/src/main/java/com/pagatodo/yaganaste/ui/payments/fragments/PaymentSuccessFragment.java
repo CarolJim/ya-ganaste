@@ -305,12 +305,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     private void showSimpleDialog(String title, String text) {
         //UI.createSimpleCustomDialog(title, text, getFragmentManager(), this.getFragmentTag());
-
-
-        UI.showAlertDialog(getContext(), title, text, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
+        UI.showAlertDialog(getContext(), title, text, R.string.title_aceptar, (dialogInterface, i) -> {
         });
     }
 

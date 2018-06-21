@@ -159,11 +159,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
             //UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
             //      this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
-            UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
+            UI.showAlertDialog(this, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
+                    R.string.title_aceptar, (dialogInterface, i) -> {
+                    });
         }
         switch (action) {
             case GO_TO_LOGIN:

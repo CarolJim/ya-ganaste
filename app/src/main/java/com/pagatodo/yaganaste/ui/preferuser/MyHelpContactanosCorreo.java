@@ -97,12 +97,9 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
         if (isOnline) {
             if (contenidoemail.isEmpty()) {
                 //UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
-                UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.correo_vacio), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-
+                UI.showAlertDialog(getContext(), getString(R.string.app_name), getString(R.string.correo_vacio),
+                        R.string.title_aceptar, (dialogInterface, i) -> {
+                        });
             }
             if (!contenidoemail.isEmpty()) {
                 EnviarCorreoContactanosRequest mensajeRequest = new EnviarCorreoContactanosRequest(contenidoemail);

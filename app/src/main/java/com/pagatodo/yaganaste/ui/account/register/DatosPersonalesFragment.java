@@ -791,14 +791,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (!error.toString().isEmpty() && errorVerificationData < 4) {
             //  UI.showToastShort(error.toString(), getActivity());
             text = getString(R.string.problem_with_register1);
-
-            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), text, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), text,
+                    R.string.title_aceptar, (dialogInterface, i) -> {
+                    });
         } else {
             text = getString(R.string.problem_with_register2);
             titulo = getString(R.string.titulo_extranjero);

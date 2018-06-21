@@ -342,13 +342,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen),
+                        R.string.title_aceptar, (dialogInterface, i) -> {
+                        });
             }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             Cursor cursor = null;
@@ -378,14 +374,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen), R.string.title_aceptar,
+                        (dialogInterface, i) -> {
+                        });
                 adqPresenter.showGaleryError();
             } finally {
                 if (cursor != null) {
