@@ -31,6 +31,7 @@ public class GetOperatorsPresenter implements IgetlistOperatorsiteractor {
 
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
+        operators.hideLoader();
         switch (ws) {
             case GET_OPERADOR:
                 List<Operadores> list = new ArrayList<>();
@@ -46,11 +47,13 @@ public class GetOperatorsPresenter implements IgetlistOperatorsiteractor {
 
     @Override
     public void onError(WebService ws, Object error) {
-
+    operators.hideLoader();
+    operators.failGetOperador("Error al consultar operadores");
     }
 
     @Override
     public void getListOperators() {
+        operators.showLoader("Cargando ..");
         getOperatorsIteractor.getlistoperadores();
     }
 }

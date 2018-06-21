@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.OperadoresUyUAdapter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetOperators;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.GetOperatorsPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.AGENTE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.LAST_NAME;
@@ -110,7 +114,7 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
 
     @Override
     public void failGetOperador(String mensaje) {
-
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -125,12 +129,12 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override

@@ -111,6 +111,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -242,7 +243,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
 
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             mainViewPager.setCurrentItem(1);
         } else {
             mainViewPager.setCurrentItem(0);
