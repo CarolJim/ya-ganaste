@@ -60,10 +60,6 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment.USER_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
-
-/**
- * A simple {@link GenericFragment} subclass.
- */
 public class DatosNegocioFragment extends GenericFragment implements View.OnClickListener,
         ValidationForms, INavigationView<Object, ErrorObject>, IDatosNegView<ErrorObject>,
         DialogDoubleActions, IOnSpinnerClick {
@@ -105,10 +101,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @BindView(R.id.textsubgiro)
     StyleTextView textsubgiro;
-
-
-
-
 
 
     /*@BindView(R.id.btnBackBussinesInfo)

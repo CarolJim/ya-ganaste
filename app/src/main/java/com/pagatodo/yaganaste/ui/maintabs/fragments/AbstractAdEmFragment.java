@@ -123,7 +123,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
 
-        
+
 
     }
 
@@ -207,8 +207,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             //showLoader("");
             int idADQ = 0;
             try {
-                idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
-                RequestHeaders.setIdCuentaAdq("" + idADQ);
+                if (!agentes.isEmpty()) {
+                    idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
+                    RequestHeaders.setIdCuentaAdq("" + idADQ);
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
@@ -129,5 +130,10 @@ public class UtilsGraphics {
         return overlayImages(cardBusiness, nameBusiness, 40, cardBusiness.getHeight() / 2);
         /* Pegar nombre del cliente en diseño tarjeta */
         //return overlayImages(faceView, nameUser, 40, (faceView.getHeight() / 2) + (cardNumber.getHeight() * 1.2F));
+    }
+
+    public static int Dp(int px, View view){
+        float scale = view.getResources().getDisplayMetrics().density;
+        return (int) (scale * px + 0.5f);
     }
 }
