@@ -10,10 +10,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -26,22 +24,14 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
 import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT_AD;
-import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_ADQ;
 
 public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab, ItemMovements<DataMovimientoAdq>> {
 
@@ -98,10 +88,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         } else {
             filterLinerLayout.setVisibility(View.GONE);
         }
-
-
-
-
 
     }
 
