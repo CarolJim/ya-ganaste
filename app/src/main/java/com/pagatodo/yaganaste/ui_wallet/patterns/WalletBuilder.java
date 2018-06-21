@@ -43,8 +43,10 @@ public class WalletBuilder {
 
 
         //Adquiriente
-        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null) {
-            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() != 1){
+        if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null && SingletonUser.getInstance().getDataUser().getControl().getEsAgente()) {
+
+
+            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() > 1){
                 walletList.addWallet(ElementWallet.getCardMisNegocios());
             }
 
