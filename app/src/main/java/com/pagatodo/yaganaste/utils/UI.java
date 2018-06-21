@@ -37,7 +37,6 @@ public class UI {
 
     public static AlertDialog.Builder showAlertDialog(String message, String button, Context context, final DialogDoubleActions dialogActions) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.Theme_DialogPrueba);
-
         builder.setMessage(message)
                 .setCancelable(false)
                 .setNeutralButton(button, (dialog, id) -> {
@@ -249,8 +248,8 @@ public class UI {
     }
 
     public static void createSimpleCustomDialogLlamar(String title, String message,
-                                                FragmentManager fragmentManager, final DialogDoubleActions actions,
-                                                boolean hasConfirmBtn, boolean hasCancelBtn) {
+                                                      FragmentManager fragmentManager, final DialogDoubleActions actions,
+                                                      boolean hasConfirmBtn, boolean hasCancelBtn) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_llamar, title, message, hasConfirmBtn, hasCancelBtn);
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
@@ -341,12 +340,13 @@ public class UI {
                 .create();
         builder.show();
     }
-    public static void showAlertDialog(Context context, String titulo,String message, DialogInterface.OnClickListener positive) {
+
+    public static void showAlertDialog(Context context, String titulo, String message, String possitiveButton, DialogInterface.OnClickListener positive) {
         AlertDialog builder = new AlertDialog.Builder(new ContextThemeWrapper(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT))
                 .setTitle(titulo)
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(R.string.title_aceptar, positive)
+                .setPositiveButton(possitiveButton, positive)
                 /*.setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())*/
                 .create();
         builder.show();

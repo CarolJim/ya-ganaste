@@ -408,30 +408,21 @@ public class PaymentAuthorizeFragmentWallwt extends GenericFragment implements V
             errorTittle = "Contraseña Inválida";
             errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
             //UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
-            UI.showAlertDialog(getContext(), errorTittle, errorBody, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
-
+            UI.showAlertDialog(getContext(), errorTittle, errorBody, R.string.title_aceptar,
+                    (dialogInterface, i) -> {
+                    });
         } else if (error.toString().equals(getString(R.string.no_internet_access))) {
             errorTittle = "Ya Ganaste";
             errorBody = getString(R.string.no_internet_access);
             //UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
-            UI.showAlertDialog(getContext(), errorTittle, errorBody, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
-
-
+            UI.showAlertDialog(getContext(), errorTittle, errorBody, R.string.title_aceptar,
+                    (dialogInterface, i) -> {
+                    });
         } else if (!TextUtils.isEmpty(error.toString())) {
             //UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
-            UI.showAlertDialog(getContext(), errorTittle, errorBody, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
+            UI.showAlertDialog(getContext(), errorTittle, errorBody, R.string.title_aceptar,
+                    (dialogInterface, i) -> {
+                    });
         }
     }
 

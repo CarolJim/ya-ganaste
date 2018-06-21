@@ -88,7 +88,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
         btn_desasociar.setOnClickListener(this);
     }
 
@@ -127,12 +126,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     public void sendSuccessDesasociarToView(String mensaje) {
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null);
-            }
-        });
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, "Desvincular", (dialogInterface, i) -> onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null));
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();
@@ -179,11 +173,9 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      * @param mensaje
      */
     public void showDialogCustom(final String mensaje) {
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, R.string.title_aceptar,
+                (dialogInterface, i) -> {
 
-            }
-        });
+                });
     }
 }

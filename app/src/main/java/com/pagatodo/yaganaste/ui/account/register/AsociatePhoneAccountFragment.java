@@ -287,17 +287,12 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     @Override
     public void showError(final Object error) {
         if (error != null && !error.toString().isEmpty()) {
-
-
-            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), error.toString(), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
-                        onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                    }
-                }
-            });
-
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), error.toString(),
+                    R.string.title_aceptar, (dialogInterface, i) -> {
+                        if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                            onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                        }
+                    });
         }
     }
 

@@ -881,13 +881,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             } else {
                 /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
                 //UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(), "");
-                UI.showAlertDialog(this, getString(R.string.title_error), getString(R.string.error_favorite_exist), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
-
-
+                UI.showAlertDialog(this, getString(R.string.title_error), getString(R.string.error_favorite_exist),
+                        R.string.title_aceptar, (dialogInterface, i) -> {
+                        });
             }
         }
     }

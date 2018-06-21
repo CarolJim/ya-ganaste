@@ -44,7 +44,7 @@
             style="@style/buttonSquareRoundedBlue"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center"
-            android:text="@string/title_aceptar"
+            android:text="@string/desvincular"
             android:layout_alignParentBottom="true"/>
 
 

@@ -80,15 +80,9 @@ public class DocumentApprovedFragment extends GenericFragment implements
 
         if (!UtilsNet.isOnline(getActivity())) {
             swipeRefreshLayout.setRefreshing(false);
-
-            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),getResources().getString(R.string.no_internet_access), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-
-
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getResources().getString(R.string.no_internet_access),
+                    R.string.title_aceptar, (dialogInterface, i) -> {
+                    });
         } else {
             swipeRefreshLayout.setRefreshing(false);
             refreshContent();

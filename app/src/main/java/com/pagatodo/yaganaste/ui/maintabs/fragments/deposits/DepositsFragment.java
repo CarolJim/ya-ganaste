@@ -82,14 +82,10 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     @Override
     public void showErrorMessage(String message) {
         //UI.createSimpleCustomDialog("Error", message, getChildFragmentManager(), getFragmentTag());
+        UI.showAlertDialog(getContext(), getString(R.string.title_error),message,
+                R.string.title_aceptar, (dialogInterface, i) -> {
 
-        UI.showAlertDialog(getContext(), getString(R.string.title_error),message, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-
+                });
     }
 
     @Override
