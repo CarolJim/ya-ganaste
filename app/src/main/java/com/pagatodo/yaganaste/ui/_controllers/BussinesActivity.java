@@ -29,6 +29,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_ERROR_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
@@ -68,11 +70,19 @@ public class BussinesActivity extends LoaderActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         //presenterAccount = new AccountPresenterNew(this);
-
         setUpActionBar();
         setVisibilityPrefer(false);
-        int Idestatus;
+        int Idestatus = 5;
+        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)) {
+            Idestatus = 0;
+            if (App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) != CRM_DOCTO_APROBADO
+                    && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) != STATUS_DOCTO_PENDIENTE) {
+                App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+            }
+        }
+
         Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
+
         boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         if (esAgente && Idestatus == IdEstatus.I7.getId()) {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
@@ -92,10 +102,7 @@ public class BussinesActivity extends LoaderActivity {
         } else {
             loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
         }
-
         //pref = App.getInstance().getPrefs();
-
-        System.gc();
     }
 
     @Override
