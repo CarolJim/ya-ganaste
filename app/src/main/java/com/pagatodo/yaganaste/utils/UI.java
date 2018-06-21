@@ -347,7 +347,7 @@ public class UI {
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(possitiveButton, positive)
-                /*.setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())*/
+                .setNegativeButton(R.string.title_cancelar, (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
         builder.show();
     }

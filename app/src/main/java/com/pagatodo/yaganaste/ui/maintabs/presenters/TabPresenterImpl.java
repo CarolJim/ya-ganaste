@@ -39,7 +39,6 @@ public class TabPresenterImpl extends GenericPresenterMain<IPreferUserGeneric> i
         if (tab != null) {
             tabMenuIteractor.getpagerData(tab);
         }
-
     }
 
     @Override

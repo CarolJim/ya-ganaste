@@ -241,7 +241,7 @@ public class DateUtil {
 
     public static List<AdquirentePaymentsTab> getTabsAdquirente() {
         LinkedList<AdquirentePaymentsTab> tabs = new LinkedList<>();
-        for (int subs = 0; subs >= -4; subs--) {
+        for (int subs = 0; subs >= -5; subs--) {
             Calendar calendar = Calendar.getInstance(new Locale("MX"));
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.US);
             calendar.add(Calendar.MONTH, subs);

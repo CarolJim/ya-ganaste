@@ -102,13 +102,11 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         if (isOnline) {
           /*  UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
                     doubleActions, true, true);*/
-            UI.showAlertDialog(getContext(), getResources().getString(R.string.deseaDesasociarDispositivo), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    onEventListener.onEvent("DISABLE_BACK", true);
-                    mPreferPresenter.DesasociarToPresenter();
-                }
-            });
+            UI.showAlertDialog(getContext(), getString(R.string.app_name), getResources().getString(R.string.deseaDesasociarDispositivo), "Desvincular",
+                    (DialogInterface.OnClickListener) (dialogInterface, i) -> {
+                        onEventListener.onEvent("DISABLE_BACK", true);
+                        mPreferPresenter.DesasociarToPresenter();
+                    });
         } else {
             // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
             showDialogCustom(getResources().getString(R.string.no_internet_access));
@@ -126,7 +124,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     public void sendSuccessDesasociarToView(String mensaje) {
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, "Desvincular", (dialogInterface, i) -> onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null));
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, getString(R.string.title_aceptar), (dialogInterface, i) -> onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null));
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();
