@@ -12,6 +12,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFr
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.ChangeStatusOperadorPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -50,6 +52,8 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.SUCCES_CHANGE_STATUS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -128,7 +132,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         titulo_negocio.setText("");
         correo_operador.setText(operadoresResponse.getNombreUsuario());
         contrasena_operador.setText(operadoresResponse.getPetroNumero());
-        if (operadoresResponse.getIdOperador() ==1){
+        if (operadoresResponse.getIdEstatusUsuario() ==1){
             status_operador.setText("Operador activo");
         }else {
             status_operador.setText("Operador bloqueado");
@@ -138,80 +142,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         status_operador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                //Huella
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!fingerprintManager.isHardwareDetected()) {
-                    } else if (!keyguardManager.isKeyguardSecure()) {
-                        return;
-                    } else {
-                        try {
-                            keyStore = KeyStore.getInstance("AndroidKeyStore");
-                        } catch (KeyStoreException e) {
-                            throw new RuntimeException("Failed to get an instance of KeyStore", e);
-                        }
-                        try {
-                            keyGenerator = KeyGenerator
-                                    .getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-                        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-                            throw new RuntimeException("Failed to get an instance of KeyGenerator", e);
-                        }
-                        Cipher defaultCipher;
-                        Cipher cipherNotInvalidated;
-                        try {
-                            defaultCipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
-                                    + KeyProperties.BLOCK_MODE_CBC + "/"
-                                    + KeyProperties.ENCRYPTION_PADDING_PKCS7);
-                            cipherNotInvalidated = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
-                                    + KeyProperties.BLOCK_MODE_CBC + "/"
-                                    + KeyProperties.ENCRYPTION_PADDING_PKCS7);
-                        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-                            throw new RuntimeException("Failed to get an instance of Cipher", e);
-                        }
-                        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                        createKey(DEFAULT_KEY_NAME, true);
-                        createKey(KEY_NAME_NOT_INVALIDATED, false);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
-                            if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
-
-                                // Show the fingerprint dialog. The user has the option to use the fingerprint with
-                                // crypto, or you can fall back to using a server-side verified password.
-                                FingerprintAuthenticationDialogFragment fragment
-                                        = new FingerprintAuthenticationDialogFragment();
-                                fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
-                                boolean useFingerprintPreference = mSharedPreferences
-                                        .getBoolean(getString(R.string.use_fingerprint_to_authenticate_key),
-                                                true);
-                                if (useFingerprintPreference) {
-                                    fragment.setStage(
-                                            FingerprintAuthenticationDialogFragment.Stage.FINGERPRINT);
-                                } else {
-                                    fragment.setStage(
-                                            FingerprintAuthenticationDialogFragment.Stage.PASSWORD);
-                                }
-                                fragment.setFragmentInstance(fragmentCode);
-                                fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
-                            } else {
-                                // This happens if the lock screen has been disabled or or a fingerprint got
-                                // enrolled. Thus show the dialog to authenticate with their password first
-                                // and ask the user if they want to authenticate with fingerprints in the
-                                // future
-                                FingerprintAuthenticationDialogFragment fragment
-                                        = new FingerprintAuthenticationDialogFragment();
-                                fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
-                                fragment.setStage(
-                                        FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
-                                fragment.setFragmentInstance(fragmentCode);
-                                fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
-                            }
-                        }
-                    }
-                }
-
-
-
-              //  changeStatusOperadorPresenter.change(operadoresResponse.getNombreUsuario(),operadoresResponse.getIdEstatusUsuario()==1?8:1);
+                changeStatusOperadorPresenter.change(operadoresResponse.getNombreUsuario(),operadoresResponse.getIdEstatusUsuario()==1?8:1);
             }
         });
 
@@ -289,15 +220,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     }
 
 
-    @Override
-    public void loginstarsucced() {
 
-    }
-
-    @Override
-    public void loginfail() {
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -357,5 +280,16 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     @Override
     public void showError(Object error) {
 
+    }
+
+
+    @Override
+    public void succedoperador(String mensaje) {
+        onEventListener.onEvent(SUCCES_CHANGE_STATUS_OPERADOR, mensaje);
+    }
+
+    @Override
+    public void failoperador(String mensaje) {
+        UI.showErrorSnackBar(getActivity(), mensaje, Snackbar.LENGTH_SHORT);
     }
 }

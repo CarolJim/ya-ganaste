@@ -100,6 +100,7 @@ public enum WebService {
      * ws operadores
      */
     CHANGE_STATUS_OPERADOR,
+    GET_OPERADOR,
 
     /**
      * WS STARBUCKS

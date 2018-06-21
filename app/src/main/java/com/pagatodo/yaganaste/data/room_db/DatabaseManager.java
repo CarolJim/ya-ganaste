@@ -243,6 +243,23 @@ public class DatabaseManager {
         }.execute();
     }
 
+    /* Insertar lista de operadores por agente en la BD */
+    public void insertOperadores(final List<Operadores> operadores, String numerAgente) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                App.getAppDatabase().operadoresModel().deleteByAgente(numerAgente);
+                for (Operadores operador : operadores) {
+                    operador.setNumeroAgente(Integer.valueOf(numerAgente));
+                    /* Inserta los operadores respectivos de los agentes en la BD */
+                    App.getAppDatabase().operadoresModel().insertOperador(operador);
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+
     /* Obtener la lista de agentes guardados en la BD */
     public List<Agentes> getAgentes() throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, List<Agentes>>() {
@@ -278,12 +295,32 @@ public class DatabaseManager {
         }.execute().get();
     }
 
-    /* Obtener el IdUsuarioAdquiriente del admistrador por comercio */
+    /* Obtener el IdUsuarioAdquiriente del admistrador por comercio de la BD */
     public Integer getIdUsuarioAdqByAgente(final String numeroAgente) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(Void... voids) {
                 return App.getAppDatabase().operadoresModel().getIdUsuarioAdquirienteByAgente(numeroAgente);
+            }
+        }.execute().get();
+    }
+
+    /* Obtener la lista de Operadores actualizada de la BD */
+    public List<Operadores> getOperadoresByAgente(String numAgente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, List<Operadores>>() {
+            @Override
+            protected List<Operadores> doInBackground(Void... voids) {
+                return App.getAppDatabase().operadoresModel().getOperadoresByAgente(numAgente);
+            }
+        }.execute().get();
+    }
+
+    /* Obtener el estatus del agente de la BD */
+    public Integer getIdEstatusAgente(String numAgente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                return App.getAppDatabase().agentesModel().getIdEstatusAgente(numAgente);
             }
         }.execute().get();
     }

@@ -71,7 +71,7 @@ public class SingletonUser {
             prefs.saveDataBool(PASSWORD_CHANGE, dataUser.getUsuario().getPasswordAsignado());
             /* Cuando el array de Agentes llega vacío singifica que el usuario es emisor solamente,
              *  en caso de que llegue con algún elemento entonces significa que realizó su proceso adq */
-            prefs.saveDataBool(ES_AGENTE, dataUser.getAdquirente().getAgentes() != null);
+            prefs.saveDataBool(ES_AGENTE, dataUser.getAdquirente().getAgentes() != null && dataUser.getAdquirente().getAgentes().size() > 0);
             prefs.saveDataInt(ID_ROL, dataUser.getUsuario().getRoles().get(0).getIdRol());
             if (dataUser.getUsuario().getRoles().get(0).getIdRol() == 129) {
                 prefs.saveDataBool(IS_OPERADOR, true);
@@ -79,7 +79,7 @@ public class SingletonUser {
                 prefs.saveDataBool(IS_OPERADOR, false);
             }
 
-            prefs.saveData(COMPANY_NAME, dataUser.getAdquirente().getAgentes() != null &&  !dataUser.getAdquirente().getAgentes().isEmpty() ? (dataUser.getAdquirente().getAgentes().get(0).getNombreNegocio()) : "");
+            prefs.saveData(COMPANY_NAME, dataUser.getAdquirente().getAgentes() != null && !dataUser.getAdquirente().getAgentes().isEmpty() ? (dataUser.getAdquirente().getAgentes().get(0).getNombreNegocio()) : "");
             //prefs.saveDataBool(PASSWORD_CHANGE, false);
             prefs.saveData(NAME_USER, dataUser.getCliente().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getCliente().getNombre().concat(SPACE).
@@ -91,11 +91,6 @@ public class SingletonUser {
             prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getEmisor().getCuentas().get(0).getIdCuenta()));
         }
         App.getInstance().getPrefs().saveDataInt(TIPO_AGENTE, 1);
-        if (App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false)
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_AGENTE) != CRM_DOCTO_APROBADO
-                && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) != STATUS_DOCTO_PENDIENTE) {
-            App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
-        }
         if (dataUser.getUsuario() != null && dataUser.getUsuario().getImagenAvatarURL() != null) {
             String mUserImage = dataUser.getUsuario().getImagenAvatarURL();
             String[] urlSplit = mUserImage.split("_");

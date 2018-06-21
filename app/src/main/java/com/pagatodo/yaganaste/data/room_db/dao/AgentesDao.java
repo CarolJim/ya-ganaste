@@ -21,6 +21,9 @@ public interface AgentesDao {
             " ON Agentes.numero_agente = Operadores.numero_agente AND Operadores.id_usuario_adquiriente=:idUsuarioAdq")
     boolean esComercioUyU(String idUsuarioAdq);
 
+    @Query("SELECT DISTINCT id_estatus FROM Agentes WHERE numero_agente=:numAgente")
+    int getIdEstatusAgente(String numAgente);
+
     @Insert(onConflict = IGNORE)
     void insertAgentes(List<Agentes> agentes);
 

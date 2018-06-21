@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet;
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.text.MeasureFormat;
 import android.os.Build;
@@ -22,16 +23,21 @@ import android.widget.ShareActionProvider;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
+import com.pagatodo.yaganaste.interfaces.Command;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
@@ -88,6 +94,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.SUCCES_CHANGE_STATUS_OPERADOR;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
@@ -288,7 +295,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 break;
             case 7:
-                startActivity(BussinesActivity.createIntent(this));
+                startActivity(BussinesActivity.createIntent(this, itemOperation.getNumeroAgente()));
                 finish();
                 break;
             case 12:
@@ -314,8 +321,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(FavoritesFragment.newInstance(OPTION_ADDFAVORITE_PAYMENT), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_BUSSINES:
-
-                loadFragment(PaymentsFragment.newInstance(0,true), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(0, true), R.id.fragment_container);
                 break;
             default:
                 finish();
@@ -463,16 +469,33 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_MOV_ADQ:
                 this.movTab = (MovTab) data;
-                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(),false), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(), false), R.id.fragment_container);
                 break;
             case EVENT_GO_TO_SEND_TICKET:
                 this.movTab = (MovTab) data;
                 loadFragment(SendTicketFragment.newInstance(movTab), R.id.fragment_container);
                 break;
             case EVENT_OPERADOR_DETALLE:
-              //  loadFragment(DetalleOperadorFragment.newInstance((OperadoresResponse) data), R.id.fragment_container);
+                loadFragment(DetalleOperadorFragment.newInstance((Operadores) data), R.id.fragment_container);
                 break;
+            case SUCCES_CHANGE_STATUS_OPERADOR:
 
+                PageResult pageResult = new PageResult(R.drawable.ic_check_success, this.getString(R.string.change_status_success),
+                        this.getString(R.string.cancelation_success_message), false);
+                pageResult.setNamerBtnPrimary(this.getString(R.string.continuar));
+                //pageResult.setNamerBtnSecondary("Llamar");
+                pageResult.setActionBtnPrimary(new Command() {
+                    @Override
+                    public void action(Context context, Object... params) {
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE_SUCCESS, context.getString(R.string.cancelation_success));
+                    }
+                });
+                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
+
+
+                loadFragment(TransactionResultFragment.newInstance(pageResult), Direction.FORDWARD, false);
+                break;
 
         }
     }
@@ -501,6 +524,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof DetailsAdquirenteFragment) {
             loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+        } else if (fragment instanceof DetalleOperadorFragment) {
+            loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof SelectDongleFragment || fragment instanceof PairBluetoothFragment) {
             setResult(RESULT_CODE_SELECT_DONGLE);
             super.onBackPressed();

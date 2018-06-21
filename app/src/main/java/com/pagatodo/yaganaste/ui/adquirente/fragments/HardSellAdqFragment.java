@@ -52,7 +52,7 @@ public class HardSellAdqFragment extends GenericFragment implements View.OnClick
         switch (view.getId()) {
 
             case R.id.btnHardSellNext:
-                startActivity(BussinesActivity.createIntent(getActivity()));
+                startActivity(BussinesActivity.createIntent(getActivity(),"0"));
                 break;
 
             default:

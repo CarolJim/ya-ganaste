@@ -119,6 +119,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_STORES = "EVENT_STORES";
     public final static String EVENT_ADMIN_ADQ = "EVENT_ADMIN_ADQ";
     public final static String EVENT_OPERADOR_DETALLE = "EVENT_OPERADOR_DETALLE";
+    public final static String SUCCES_CHANGE_STATUS_OPERADOR = "SUCCES_CHANGE_STATUS_OPERADOR";
     FrameLayout container;
     //private String TAG = getClass().getSimpleName();
     private Preferencias pref;

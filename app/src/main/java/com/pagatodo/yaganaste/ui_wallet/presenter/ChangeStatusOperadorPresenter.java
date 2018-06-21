@@ -30,12 +30,12 @@ public class ChangeStatusOperadorPresenter implements IChangeStatusOperador {
 
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
-
+        iChangeOperador.succedoperador(msgSuccess.toString());
     }
 
     @Override
     public void onError(WebService ws, Object error) {
-
+        iChangeOperador.failoperador(error.toString());
     }
 
     @Override
@@ -44,7 +44,6 @@ public class ChangeStatusOperadorPresenter implements IChangeStatusOperador {
         ChangeStatusOperadorRequest request  = new ChangeStatusOperadorRequest();
         request.setNombreUsuario(usuario);
         request.setIdEstatus(newstatus);
-
         changeStatusOperadorIteractor.changeStatus(request);
 
 

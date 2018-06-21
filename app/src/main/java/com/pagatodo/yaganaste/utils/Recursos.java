@@ -1,6 +1,14 @@
 package com.pagatodo.yaganaste.utils;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
+
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.PIN_YG_ADMIN;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.PIN_YG_ADQ;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.PIN_YG_TRANS;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_YG_ADMIN;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_YG_ADQ;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_YG_TRANS;
 
 public class Recursos {
 
@@ -35,7 +43,6 @@ public class Recursos {
 
     //URL DE WS
     static {
-
         if (BuildConfig.DEBUG) {
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
@@ -52,27 +59,25 @@ public class Recursos {
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
         } else {
-            URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
-            //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
-            URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-            //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-            URL_SERVER_ADQ = "https://adqyaganaste.pagatodo.com:19447/Middleware.svc";
-            //URL_SERVER_ADQ = "https://adqyaganastepreprod.yaganaste.com:19446/Middleware.svc";
+            URL_SERVER_ADTVO = App.getInstance().getPrefs().loadData(URL_YG_ADMIN);
+            //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
+            URL_SERVER_TRANS = App.getInstance().getPrefs().loadData(URL_YG_TRANS);
+            //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
+            URL_SERVER_ADQ = App.getInstance().getPrefs().loadData(URL_YG_ADQ);
+            //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
             URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
-            URL_STARBUCKS = "https://crt-rewards.starbucks.mx";
+            URL_STARBUCKS = App.getInstance().getPrefs().loadData(ForcedUpdateChecker.URL_STARBUCKS);
             URL_COUNTLY = "https://us-try.count.ly";
 
             PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
-            PIN_ADVO = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-            PIN_TRANS = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-            PIN_YA = "275a28946f92da9acab52475df6ec73a10a40811";
-            //PIN_YA = "3f3add61acd8b7a3ad1536566669e731ea6e9cea";
-            PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
+            PIN_ADVO = App.getInstance().getPrefs().loadData(PIN_YG_ADMIN);
+            PIN_TRANS = App.getInstance().getPrefs().loadData(PIN_YG_TRANS);
+            PIN_YA = App.getInstance().getPrefs().loadData(PIN_YG_ADQ);
+            PIN_STARBUCKS = App.getInstance().getPrefs().loadData(ForcedUpdateChecker.PIN_STARBUCKS);
         }
     }
-
     /*Estatus Respuesta de Ws YaGanaste*/
 
     //MAPS
@@ -250,6 +255,8 @@ public class Recursos {
     public static final String FULL_NAME_USER = "FULL_NAME_USER";
     public static final String LAST_NAME = "LAST_NAME";
     public static final String CARD_NUMBER = "CARD_NUMBER";
+    public static final String AGENTE_NUMBER = "AGENTE_NUMBER";
+    public static final String ID_COMERCIOADQ = "ID_COMERCIO";
     public static final String CARD_STATUS = "CARD_STATUS";
     public static final String SHOW_BALANCE = "SHOW_BALANCE";
     public static final String USER_BALANCE = "USER_BALANCE";

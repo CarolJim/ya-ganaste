@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -24,11 +25,14 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFra
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_ERROR_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
@@ -37,6 +41,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 public class BussinesActivity extends LoaderActivity {
 
+    private static final String AGENT_NUMBER = "AGENT_NUMBER";
     //Nuevo diseño-flujo
     public final static String EVENT_GO_BUSSINES_DATA = "EVENT_GO_BUSSINES_DATA";
     public final static String EVENT_GO_BUSSINES_ADDRESS = "EVENT_GO_BUSSINES_ADDRESS";
@@ -56,10 +61,10 @@ public class BussinesActivity extends LoaderActivity {
     private DataObtenerDomicilio domicilio;
     private List<Giros> girosComercio;
     private List<ColoniasResponse> listaColonias;
+    private String numAgente = "0";
 
-    public static Intent createIntent(Context from) {
-        return new Intent(from, BussinesActivity.class);
-
+    public static Intent createIntent(Context from, String numAgente) {
+        return new Intent(from, BussinesActivity.class).putExtra(AGENT_NUMBER, numAgente);
     }
 
     @Override
@@ -68,12 +73,23 @@ public class BussinesActivity extends LoaderActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         //presenterAccount = new AccountPresenterNew(this);
-
         setUpActionBar();
         setVisibilityPrefer(false);
-        int Idestatus;
-        Idestatus = App.getInstance().getPrefs().loadDataInt(ID_ESTATUS_EMISOR);
+        numAgente = getIntent().getExtras().getString(AGENT_NUMBER);
+        int Idestatus = 5;
         boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
+        if (esAgente) {
+            try {
+                Idestatus = new DatabaseManager().getIdEstatusAgente(numAgente);
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (Idestatus != CRM_DOCTO_APROBADO && App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) != STATUS_DOCTO_PENDIENTE) {
+                App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+            } else {
+                App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, false);
+            }
+        }
         if (esAgente && Idestatus == IdEstatus.I7.getId()) {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
         } else if (esAgente && Idestatus == IdEstatus.I8.getId()) {
@@ -86,16 +102,13 @@ public class BussinesActivity extends LoaderActivity {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
         } else if (esAgente && Idestatus == IdEstatus.I13.getId()) {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);
-        } else if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+        } else if (App.getInstance().getPrefs().loadDataBoolean(ADQ_PROCESS, false)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
             loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
         }
-
         //pref = App.getInstance().getPrefs();
-
-        System.gc();
     }
 
     @Override

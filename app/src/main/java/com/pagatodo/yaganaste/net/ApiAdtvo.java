@@ -64,10 +64,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewD
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetoperadoresResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionUYUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
@@ -75,7 +77,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobros
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RegisterFBTokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
@@ -111,6 +112,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELACCOUNT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_STATUS_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
@@ -150,6 +152,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_FB;
@@ -324,6 +327,21 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person),
                 headers, request, GenericResponse.class, result);
     }
+
+    /**
+     * Método que se invoca cuando se desean obtener más movimientos por mes.
+     *
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void getoperadores(IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.IdComercio, App.getInstance().getPrefs().loadData(ID_COMERCIOADQ));
+        NetFacade.consumeWS(GET_OPERADOR,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obteneroperadores),
+                headers, "", GetoperadoresResponse.class, result);
+    }
+
+
     /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *

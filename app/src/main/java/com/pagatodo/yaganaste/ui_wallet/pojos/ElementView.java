@@ -70,6 +70,26 @@ public class ElementView implements ElementGlobal {
     private List<Operadores> list = new ArrayList<>();
     private String nombreNegocio;
 
+    private String numeroAgente;
+
+    private String IdComercio;
+
+    public String getIdComercio() {
+        return IdComercio;
+    }
+
+    public void setIdComercio(String idComercio) {
+        IdComercio = idComercio;
+    }
+
+    public String getNumeroAgente() {
+        return numeroAgente;
+    }
+
+    public void setNumeroAgente(String numeroAgente) {
+        this.numeroAgente = numeroAgente;
+    }
+
     public List<Operadores> getList() {
         return list;
     }
@@ -93,12 +113,14 @@ public class ElementView implements ElementGlobal {
         return new ElementView();
     }
 
-    public ElementView(int idOperacion, int resource, int title, List<Operadores> list, String nombreNegocio) {
+    public ElementView(int idOperacion, int resource, int title, List<Operadores> list, String nombreNegocio,String numeroAgente,String idComercio) {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
         this.list = list;
         this.nombreNegocio = nombreNegocio;
+        this.numeroAgente = numeroAgente;
+        this.IdComercio= idComercio;
 
     }
 
@@ -208,14 +230,14 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }*/
 
-    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, boolean isComercioUyu) {
+    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN,String numeroAgente,String idComercio, boolean isComercioUyu) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
         //if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129 && isComercioUyu) {
-        elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN));
+        elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN,numeroAgente,idComercio));
         //}
         List<Agentes> agentes = new ArrayList<>();
         try {

@@ -56,18 +56,18 @@ public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdap
     @Override
     public void onBindViewHolder(OperadoresUyUAdapter.ViewHolder holder, int position) {
         if (operadores.size() > 0) {
-     //       OperadoresResponse operador = operadores.get(position);
-       //     holder.txtTitle.setText(operador.getNombreUsuario());
+            Operadores operador = operadores.get(position);
+            holder.txtTitle.setText(operador.getNombreUsuario());
             if (position % 2 != 0) {
                 holder.row.setBackgroundColor(Color.WHITE);
             } else {
                 holder.row.setBackgroundColor(App.getContext().getResources().getColor(R.color.backgraund_wallet));
             }
-         //   if (operador.getIdEstatusUsuario()==1){
-           //     holder.txtTitle.setTextColor(Color.parseColor("#00A1E1"));
-           // }else {
-           //     holder.txtTitle.setTextColor(Color.parseColor("#D0021B"));
-           // }
+            if (operador.getIdEstatusUsuario()==1){
+                holder.txtTitle.setTextColor(Color.parseColor("#00A1E1"));
+            }else {
+                holder.txtTitle.setTextColor(Color.parseColor("#D0021B"));
+            }
 
             holder.txtTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
