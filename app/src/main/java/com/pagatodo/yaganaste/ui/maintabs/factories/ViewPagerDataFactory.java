@@ -36,6 +36,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class ViewPagerDataFactory {
 
@@ -52,7 +53,7 @@ public class ViewPagerDataFactory {
 
             case MAIN_TABS:
                     addMainFragments(fragmentList);
-                if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+                if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
                     return new ViewPagerData<>(fragmentList, MainTab.values());
                 }else {
                     return new ViewPagerData<>(fragmentList, MainTabOperador.values());
@@ -92,11 +93,11 @@ public class ViewPagerDataFactory {
 
     private static void addMainFragments(List<Fragment> fragmentList) {
         int Idestatus;
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
         }
         fragmentList.add(WalletTabFragment.newInstance());
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol()!=129) {
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(NewPaymentFragment.newInstance());
         }
 

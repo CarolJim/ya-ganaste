@@ -40,7 +40,7 @@ public class GetOperatorsIteractor  implements Igetlistiteractor  , IRequestResu
 
     @Override
     public void onFailed(DataSourceResult error) {
-
+        igetlistOperatorspresenter.onError(GET_OPERADOR,error.toString());
     }
 
     @Override

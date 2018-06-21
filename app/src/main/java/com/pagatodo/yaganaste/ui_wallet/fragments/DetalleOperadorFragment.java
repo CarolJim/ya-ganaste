@@ -2,9 +2,11 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 
 
 import android.app.KeyguardManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,11 +24,13 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IChangeOperador;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.ChangeStatusOperadorPresenter;
@@ -54,6 +58,9 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.SUCCES_CHANGE_STATUS_OPERADOR;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_MOV_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
@@ -142,85 +149,20 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         status_operador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeStatusOperadorPresenter.change(operadoresResponse.getNombreUsuario(),operadoresResponse.getIdEstatusUsuario()==1?8:1);
+
+
+                UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), operadoresResponse.getIdEstatusUsuario() ==1? getString(R.string.relizar_bloqueo):getString(R.string.relizar_desbloque),
+                        R.string.title_aceptar, (dialogInterface, i) -> {
+                            changeStatusOperadorPresenter.change(operadoresResponse.getNombreUsuario(),operadoresResponse.getIdEstatusUsuario()==1?8:1);
+                        });
+
+
+
+
             }
         });
 
     }
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private boolean initCipher(Cipher cipher, String keyName) {
-        try {
-            keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            return true;
-        } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
-                | NoSuchAlgorithmException | InvalidKeyException e) {
-            //throw new RuntimeException("Failed to init Cipher", e);
-            return false;
-        }
-    }
-
-
-
-    /**
-     * Creates a symmetric key in the Android Key Store which can only be used after the user has
-     * authenticated with fingerprint.
-     *
-     * @param keyName                          the name of the key to be created
-     * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
-     *                                         be invalidated even if a new fingerprint is enrolled.
-     *                                         The default value is {@code true}, so passing
-     *                                         {@code true} doesn't change the behavior
-     *                                         (the key will be invalidated if a new fingerprint is
-     *                                         enrolled.). Note that this parameter is only valid if
-     *                                         the app works on Android N developer preview.
-     */
-    public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
-        // The enrolling flow for fingerprint. This is where you ask the user to set up fingerprint
-        // for your flow. Use of keys is necessary if you need to know if the set of
-        // enrolled fingerprints has changed.
-        try {
-            keyStore.load(null);
-            // Set the alias of the entry in Android KeyStore where the key will appear
-            // and the constrains (purposes) in the constructor of the Builder
-
-            KeyGenParameterSpec.Builder builder = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                builder = new KeyGenParameterSpec.Builder(keyName,
-                        KeyProperties.PURPOSE_ENCRYPT |
-                                KeyProperties.PURPOSE_DECRYPT)
-                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                        // Require the user to authenticate with a fingerprint to authorize every use
-                        // of the key
-                        .setUserAuthenticationRequired(true)
-                        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
-            }
-
-            // This is a workaround to avoid crashes on devices whose API level is < 24
-            // because KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment is only
-            // visible on API level +24.
-            // Ideally there should be a compat library for KeyGenParameterSpec.Builder but
-            // which isn't available yet.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                builder.setInvalidatedByBiometricEnrollment(invalidatedByBiometricEnrollment);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                keyGenerator.init(builder.build());
-            }
-            keyGenerator.generateKey();
-        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
-                | CertificateException | IOException e) {
-            //throw new RuntimeException(e);
-            e.printStackTrace();
-        }
-    }
-
-
-
 
     @Override
     public void onClick(View view) {
@@ -269,12 +211,12 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
@@ -285,7 +227,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
 
     @Override
     public void succedoperador(String mensaje) {
-        onEventListener.onEvent(SUCCES_CHANGE_STATUS_OPERADOR, mensaje);
+        onEventListener.onEvent(SUCCES_CHANGE_STATUS_OPERADOR, operadoresResponse.getIdEstatusUsuario());
     }
 
     @Override

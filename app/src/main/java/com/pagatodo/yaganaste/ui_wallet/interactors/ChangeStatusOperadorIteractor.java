@@ -43,15 +43,7 @@ public class ChangeStatusOperadorIteractor implements IChangeIteractorStatusOper
     }
     private void changestatus(DataSourceResult dataSourceResult) {
         GenericResponse response =(GenericResponse)dataSourceResult.getData();
-
-        if (response.getMensaje()=="El operador a sido bloqueado"){
             iChangeStatusOperador.onSucces(CHANGE_STATUS_OPERADOR, response.getMensaje().toString());
-        }
-        if (response.getMensaje()=="El operador a sido desbloqueado"){
-            iChangeStatusOperador.onSucces(CHANGE_STATUS_OPERADOR, response.getMensaje().toString());
-        }else {
-            iChangeStatusOperador.onError(CHANGE_STATUS_OPERADOR, response.getMensaje().toString());
-        }
     }
     @Override
     public void onFailed(DataSourceResult error) {

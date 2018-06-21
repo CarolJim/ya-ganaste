@@ -64,6 +64,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorSuccesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadoresUYUFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
@@ -479,22 +480,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(DetalleOperadorFragment.newInstance((Operadores) data), R.id.fragment_container);
                 break;
             case SUCCES_CHANGE_STATUS_OPERADOR:
+                loadFragment(OperadorSuccesFragment.newInstance((int) data), R.id.fragment_container);
 
-                PageResult pageResult = new PageResult(R.drawable.ic_check_success, this.getString(R.string.change_status_success),
-                        this.getString(R.string.cancelation_success_message), false);
-                pageResult.setNamerBtnPrimary(this.getString(R.string.continuar));
-                //pageResult.setNamerBtnSecondary("Llamar");
-                pageResult.setActionBtnPrimary(new Command() {
-                    @Override
-                    public void action(Context context, Object... params) {
-                        INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE_SUCCESS, context.getString(R.string.cancelation_success));
-                    }
-                });
-                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
-
-
-                loadFragment(TransactionResultFragment.newInstance(pageResult), Direction.FORDWARD, false);
                 break;
 
         }

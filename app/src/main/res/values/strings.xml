@@ -28,7 +28,6 @@
     <string name="cambia_status_operador">/CambiarEstatusUsuario</string>
 
 
-
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
@@ -690,6 +689,8 @@
     <string name="sin_senial">Sin señal telefónica</string>
 
     <string name="continuar">Continuar</string>
+    <string name="relizar_bloqueo">¿Estas seguro que quieres bloquear este operador?</string>
+    <string name="relizar_desbloque">¿Estas seguro que quieres desbloquear este operador?</string>
     <string name="tab_recargas">Recargas</string>
     <string name="tab_servicios">Servicios</string>
     <string name="tab_envios">Envíos</string>
@@ -843,7 +844,8 @@
     <string name="pago_success">El pago fue completado\ncorrectamente</string>
     <string name="cancelation_success">Cancelación exitosa</string>
     <string name="change_status_success"> </string>
-    <string name="sub_change_status_success">La Cuenta del operador ha sido\n</string>
+    <string name="sub_change_status_success">La cuenta del operador ha sido\n bloqueada con éxito</string>
+    <string name="sub_change_status_blok">La cuenta del operador ha sido\n desbloqueada con éxito \n\nYa puede ingresar usando la\nmisma contraseña</string>
     <string name="cancelation_success_message">El cobro fue cancelado con éxito.\nYa puedes retirar la tarjeta del lector</string>
     <string name="mount_be_higer">El monto tiene que ser mayor</string>
     <string name="mount_valid">Ingresa un monto válido</string>
