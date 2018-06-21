@@ -462,7 +462,9 @@
     <string name="datos_negocio_subgiro">Subgiro requerido, verifique su información</string>
     <string name="datos_negocio_telefono">Teléfono requerido, verifique su información</string>
     <string name="datos_telefono_incorrecto">Ingrese un teléfono válido</string>
+    <string name="datos_lada_incorrecto">Ingrese una lada válido</string>
     <string name="datos_negocio_preguntas">Debes contestar todas las preguntas</string>
+    <string name="datos_negocio_lada">Lada requerido, verifique su información</string>
     <!--Server problem-->
     <string name="message_generic_ws">Ocurrió un error de conexión</string>
     <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
