@@ -8,9 +8,17 @@ import android.util.Log;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.PIN_ADVO;
+import static com.pagatodo.yaganaste.utils.Recursos.PIN_TRANS;
+import static com.pagatodo.yaganaste.utils.Recursos.PIN_YA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
 
 public class ForcedUpdateChecker {
 
@@ -20,6 +28,16 @@ public class ForcedUpdateChecker {
     public static final String KEY_CURRENT_VERSION = "forced_update_current_version";
     public static final String KEY_UPDATE_URL = "forced_update_store_url";
     public static final String SHOW_LOYALTY_CARDS = "show_loyalty_cards";
+    public static final String SHOW_LOGS = "show_logs";
+    public static final String CONNECTION_TIMEOUT = "connection_timeout";
+    public static final String URL_YG_TRANS = "url_yg_trans";
+    public static final String URL_YG_ADMIN = "url_yg_admin";
+    public static final String URL_YG_ADQ = "url_yg_adq";
+    public static final String URL_STARBUCKS = "url_starbucks";
+    public static final String PIN_YG_TRANS = "pin_yg_trans";
+    public static final String PIN_YG_ADMIN = "pin_yg_admin";
+    public static final String PIN_YG_ADQ = "pin_yg_adq";
+    public static final String PIN_STARBUCKS = "pin_starbucks";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
@@ -41,7 +59,19 @@ public class ForcedUpdateChecker {
     public void check() {
         final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         boolean showLoyalty = remoteConfig.getBoolean(SHOW_LOYALTY_CARDS);
+        boolean showLogs = remoteConfig.getBoolean(SHOW_LOGS);
+        int connectionTimeout = Integer.valueOf(remoteConfig.getString(CONNECTION_TIMEOUT));
         App.getInstance().getPrefs().saveDataBool(SHOW_LOYALTY, showLoyalty);
+        App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
+        App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
+        App.getInstance().getPrefs().saveData(URL_YG_ADMIN, remoteConfig.getString(URL_YG_ADMIN));
+        App.getInstance().getPrefs().saveData(URL_YG_TRANS, remoteConfig.getString(URL_YG_TRANS));
+        App.getInstance().getPrefs().saveData(URL_YG_ADQ, remoteConfig.getString(URL_YG_ADQ));
+        App.getInstance().getPrefs().saveData(URL_STARBUCKS, remoteConfig.getString(URL_STARBUCKS));
+        App.getInstance().getPrefs().saveData(PIN_YG_ADMIN, remoteConfig.getString(PIN_YG_ADMIN));
+        App.getInstance().getPrefs().saveData(PIN_YG_TRANS, remoteConfig.getString(PIN_YG_TRANS));
+        App.getInstance().getPrefs().saveData(PIN_YG_ADQ, remoteConfig.getString(PIN_YG_ADQ));
+        App.getInstance().getPrefs().saveData(PIN_STARBUCKS, remoteConfig.getString(PIN_STARBUCKS));
         if (!showLoyalty) {
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
         }
