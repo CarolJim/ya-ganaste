@@ -295,7 +295,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 break;
             case 7:
-                startActivity(BussinesActivity.createIntent(this));
+                startActivity(BussinesActivity.createIntent(this, itemOperation.getNumeroAgente()));
                 finish();
                 break;
             case 12:
@@ -321,7 +321,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(FavoritesFragment.newInstance(OPTION_ADDFAVORITE_PAYMENT), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_BUSSINES:
-
                 loadFragment(PaymentsFragment.newInstance(0, true), R.id.fragment_container);
                 break;
             default:

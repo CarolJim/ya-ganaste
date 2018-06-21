@@ -69,6 +69,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.InformacionAg
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionUYUResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ListaNotificationResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
@@ -621,8 +622,8 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_SUBGIROS,
-                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obteneroperadores),
-                headers, null, GetoperadoresResponse.class, result);
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerSubgiros),
+                headers, null, ObtenerSubgirosResponse.class, result);
     }
 
     /**

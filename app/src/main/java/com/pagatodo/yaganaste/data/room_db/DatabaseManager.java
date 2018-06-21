@@ -295,7 +295,7 @@ public class DatabaseManager {
         }.execute().get();
     }
 
-    /* Obtener el IdUsuarioAdquiriente del admistrador por comercio */
+    /* Obtener el IdUsuarioAdquiriente del admistrador por comercio de la BD */
     public Integer getIdUsuarioAdqByAgente(final String numeroAgente) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, Integer>() {
             @Override
@@ -305,12 +305,22 @@ public class DatabaseManager {
         }.execute().get();
     }
 
-    /**/
+    /* Obtener la lista de Operadores actualizada de la BD */
     public List<Operadores> getOperadoresByAgente(String numAgente) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, List<Operadores>>() {
             @Override
             protected List<Operadores> doInBackground(Void... voids) {
                 return App.getAppDatabase().operadoresModel().getOperadoresByAgente(numAgente);
+            }
+        }.execute().get();
+    }
+
+    /* Obtener el estatus del agente de la BD */
+    public Integer getIdEstatusAgente(String numAgente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                return App.getAppDatabase().agentesModel().getIdEstatusAgente(numAgente);
             }
         }.execute().get();
     }
