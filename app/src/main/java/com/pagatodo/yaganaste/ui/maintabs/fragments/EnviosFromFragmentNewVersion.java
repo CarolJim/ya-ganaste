@@ -1118,6 +1118,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     private void textchangeclabe() {
         cardNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1173,10 +1178,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         });
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
