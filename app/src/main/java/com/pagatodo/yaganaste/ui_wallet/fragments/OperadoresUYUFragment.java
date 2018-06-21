@@ -38,39 +38,25 @@ import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OperadoresUYUFragment extends GenericFragment implements OnRecyclerItemClickListener , IGetOperators{
+public class OperadoresUYUFragment extends GenericFragment implements OnRecyclerItemClickListener, IGetOperators {
 
     @BindView(R.id.rcv_operadore_uyu)
     RecyclerView rcvRewards;
-
-
     @BindView(R.id.titulo_nombre_negocio)
     StyleTextView titulo_nombre_negocio;
     String nombreN;
 
     private View rootView;
-
-
     ElementView elementView;
     List<Operadores> operadoresUYUFragments;
-    GetOperatorsPresenter getOperatorsPresenter ;
-
-
-
-
-
+    GetOperatorsPresenter getOperatorsPresenter;
 
     public static OperadoresUYUFragment newInstance(ElementView elementView) {
         OperadoresUYUFragment fragment = new OperadoresUYUFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailsActivity.DATA, elementView);
         fragment.setArguments(args);
-
         return fragment;
-    }
-
-    public static OperadoresUYUFragment newInstance() {
-        return new OperadoresUYUFragment();
     }
 
     @Override
@@ -78,45 +64,32 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         elementView = (ElementView) args.getSerializable(DetailsActivity.DATA);
-        getOperatorsPresenter = new GetOperatorsPresenter(getContext());
-        getOperatorsPresenter.getListOperators();
+        Preferencias prefs = App.getInstance().getPrefs();
+        prefs.saveData(AGENTE_NUMBER, elementView.getNumeroAgente());
+        prefs.saveData(ID_COMERCIOADQ, elementView.getIdComercio());
+        getOperatorsPresenter = new GetOperatorsPresenter(getContext(), this);
     }
-
 
     @Override
     public void onResume() {
         super.onResume();
+        getOperatorsPresenter.getListOperators();
     }
 
     @Override
     public void initViews() {
-
         ButterKnife.bind(this, rootView);
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rcvRewards.setLayoutManager(llm);
         rcvRewards.setHasFixedSize(true);
-        Operadores operadoresResponse = new Operadores();
-        operadoresUYUFragments = elementView.getList();
         String nombreN = elementView.getNombreNegocio();
-
-        String NumeroAgente = elementView.getNumeroAgente();
-
-        String idcomercio = elementView.getIdComercio();
-
-        Preferencias prefs = App.getInstance().getPrefs();
-        prefs.saveData(AGENTE_NUMBER, NumeroAgente);
-
-        prefs.saveData(ID_COMERCIOADQ, idcomercio);
-
         titulo_nombre_negocio.setText(nombreN);
-        rcvRewards.setAdapter(new OperadoresUyUAdapter(operadoresUYUFragments,getActivity(),this));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         rootView = inflater.inflate(R.layout.fragment_operadores_uyu, container, false);
         initViews();
         return rootView;
@@ -124,15 +97,15 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
 
     @Override
     public void onRecyclerItemClick(View v, int position) {
-        Operadores operadoresResponse ;
-        operadoresResponse= operadoresUYUFragments.get(position+1);
+        Operadores operadoresResponse;
+        operadoresResponse = operadoresUYUFragments.get(position + 1);
         onEventListener.onEvent(EVENT_OPERADOR_DETALLE, operadoresResponse);
     }
 
     @Override
     public void succedGetOperador(List<Operadores> operadores) {
-
-
+        operadoresUYUFragments = operadores;
+        rcvRewards.setAdapter(new OperadoresUyUAdapter(operadoresUYUFragments, getActivity(), this));
     }
 
     @Override

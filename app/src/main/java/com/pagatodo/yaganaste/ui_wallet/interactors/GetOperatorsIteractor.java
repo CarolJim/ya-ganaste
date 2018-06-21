@@ -14,10 +14,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.Igetlistiteractor;
 
 import java.util.List;
 
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CGET_OPERADOR;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_STATUS_OPERADOR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.AGENTE_NUMBER;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 
 public class GetOperatorsIteractor  implements Igetlistiteractor  , IRequestResult {
 
@@ -28,27 +26,16 @@ public class GetOperatorsIteractor  implements Igetlistiteractor  , IRequestResu
         this.igetlistOperatorspresenter = igetlistOperatorspresenter;
     }
 
-
-
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-
         switch (dataSourceResult.getWebService()) {
-            case CGET_OPERADOR:
+            case GET_OPERADOR:
                 GetoperadoresResponse data = (GetoperadoresResponse) dataSourceResult.getData();
                 List<Operadores> list = data.getData();
                 new DatabaseManager().insertOperadores(list,App.getInstance().getPrefs().loadData(AGENTE_NUMBER));
+                igetlistOperatorspresenter.onSucces(dataSourceResult.getWebService(),null);
                 break;
         }
-
-
-    }
-
-    private void getlist(DataSourceResult dataSourceResult) {
-
-
-        igetlistOperatorspresenter.onSucces(CGET_OPERADOR,dataSourceResult);
-
     }
 
     @Override
@@ -58,12 +45,11 @@ public class GetOperatorsIteractor  implements Igetlistiteractor  , IRequestResu
 
     @Override
     public void getlistoperadores() {
-
         try {
             ApiAdtvo.getoperadores(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            igetlistOperatorspresenter.onError(CGET_OPERADOR, App.getContext().getString(R.string.no_internet_access));
+            igetlistOperatorspresenter.onError(GET_OPERADOR, App.getContext().getString(R.string.no_internet_access));
         }
 
     }

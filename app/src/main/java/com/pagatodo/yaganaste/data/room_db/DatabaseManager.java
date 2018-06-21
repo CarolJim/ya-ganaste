@@ -243,21 +243,21 @@ public class DatabaseManager {
         }.execute();
     }
 
-    public void insertOperadores(final List<Operadores> operadores,String numerAgente) {
+    /* Insertar lista de operadores por agente en la BD */
+    public void insertOperadores(final List<Operadores> operadores, String numerAgente) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                App.getAppDatabase().operadoresModel().deleteAllOpAget(numerAgente);
-                    for (Operadores operador : operadores) {
-                        operador.setNumeroAgente(Integer.valueOf(numerAgente));
-                        /* Inserta los operadores respectivos de los agentes en la BD */
-                        App.getAppDatabase().operadoresModel().insertOperador(operador);
-                    }
+                App.getAppDatabase().operadoresModel().deleteByAgente(numerAgente);
+                for (Operadores operador : operadores) {
+                    operador.setNumeroAgente(Integer.valueOf(numerAgente));
+                    /* Inserta los operadores respectivos de los agentes en la BD */
+                    App.getAppDatabase().operadoresModel().insertOperador(operador);
+                }
                 return null;
             }
         }.execute();
     }
-
 
 
     /* Obtener la lista de agentes guardados en la BD */
@@ -301,6 +301,16 @@ public class DatabaseManager {
             @Override
             protected Integer doInBackground(Void... voids) {
                 return App.getAppDatabase().operadoresModel().getIdUsuarioAdquirienteByAgente(numeroAgente);
+            }
+        }.execute().get();
+    }
+
+    /**/
+    public List<Operadores> getOperadoresByAgente(String numAgente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, List<Operadores>>() {
+            @Override
+            protected List<Operadores> doInBackground(Void... voids) {
+                return App.getAppDatabase().operadoresModel().getOperadoresByAgente(numAgente);
             }
         }.execute().get();
     }

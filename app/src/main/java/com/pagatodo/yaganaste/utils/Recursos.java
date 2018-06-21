@@ -43,7 +43,6 @@ public class Recursos {
 
     //URL DE WS
     static {
-
         if (BuildConfig.DEBUG) {
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
@@ -79,9 +78,6 @@ public class Recursos {
             PIN_STARBUCKS = App.getInstance().getPrefs().loadData(ForcedUpdateChecker.PIN_STARBUCKS);
         }
     }
-
-}
-
     /*Estatus Respuesta de Ws YaGanaste*/
 
     //MAPS

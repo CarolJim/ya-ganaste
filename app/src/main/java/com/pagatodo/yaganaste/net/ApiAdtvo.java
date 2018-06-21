@@ -76,7 +76,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobros
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RegisterFBTokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
@@ -112,7 +111,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELACCOUNT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CGET_OPERADOR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_STATUS_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
@@ -335,8 +334,8 @@ public class ApiAdtvo extends Api {
      */
     public static void getoperadores(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.IdComercio,App.getInstance().getPrefs().loadData(ID_COMERCIOADQ));
-        NetFacade.consumeWS(CGET_OPERADOR,
+        headers.put(RequestHeaders.IdComercio, App.getInstance().getPrefs().loadData(ID_COMERCIOADQ));
+        NetFacade.consumeWS(GET_OPERADOR,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obteneroperadores),
                 headers, "", GetoperadoresResponse.class, result);
     }

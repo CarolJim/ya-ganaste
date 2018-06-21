@@ -322,7 +322,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_MVIMIENTOS_BUSSINES:
 
-                loadFragment(PaymentsFragment.newInstance(0,true), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(0, true), R.id.fragment_container);
                 break;
             default:
                 finish();
@@ -470,7 +470,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_MOV_ADQ:
                 this.movTab = (MovTab) data;
-                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(),false), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(), false), R.id.fragment_container);
                 break;
             case EVENT_GO_TO_SEND_TICKET:
                 this.movTab = (MovTab) data;
@@ -525,6 +525,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof DetailsAdquirenteFragment) {
             loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+        } else if (fragment instanceof DetalleOperadorFragment) {
+            loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof SelectDongleFragment || fragment instanceof PairBluetoothFragment) {
             setResult(RESULT_CODE_SELECT_DONGLE);
             super.onBackPressed();
