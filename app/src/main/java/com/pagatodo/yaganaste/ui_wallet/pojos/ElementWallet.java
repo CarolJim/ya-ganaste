@@ -242,10 +242,10 @@ public class ElementWallet {
             }
             if (isBluetooth) {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(),agentes.getNumeroAgente(),""+agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             } else {
                 return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(),agentes.getNumeroAgente(),""+agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             }
         } else {
             return getCardLectorEmi();

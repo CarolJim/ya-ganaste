@@ -15,6 +15,7 @@ public class RequestHeaders {
     public static String TokenAutenticacion = "TokenAutenticacion";
     public static String TokenDispositivo = "TokenDispositivo";
     public static String TokenSesion = "TokenSesion";
+    public static String IdComercio = "IdComercio";
     public static String IdCuenta = "IdCuenta";
 
     public static String IdTransaccionFreja = "IdTransaccionFreja";
