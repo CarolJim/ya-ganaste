@@ -10,13 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.OperadoresUyUAdapter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetOperators;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
+import com.pagatodo.yaganaste.ui_wallet.presenter.GetOperatorsPresenter;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
@@ -26,11 +30,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
+import static com.pagatodo.yaganaste.utils.Recursos.AGENTE_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.LAST_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OperadoresUYUFragment extends GenericFragment implements OnRecyclerItemClickListener {
+public class OperadoresUYUFragment extends GenericFragment implements OnRecyclerItemClickListener , IGetOperators{
 
     @BindView(R.id.rcv_operadore_uyu)
     RecyclerView rcvRewards;
@@ -45,6 +53,12 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
 
     ElementView elementView;
     List<Operadores> operadoresUYUFragments;
+    GetOperatorsPresenter getOperatorsPresenter ;
+
+
+
+
+
 
     public static OperadoresUYUFragment newInstance(ElementView elementView) {
         OperadoresUYUFragment fragment = new OperadoresUYUFragment();
@@ -64,6 +78,14 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         elementView = (ElementView) args.getSerializable(DetailsActivity.DATA);
+        getOperatorsPresenter = new GetOperatorsPresenter(getContext());
+        getOperatorsPresenter.getListOperators();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -76,6 +98,16 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
         Operadores operadoresResponse = new Operadores();
         operadoresUYUFragments = elementView.getList();
         String nombreN = elementView.getNombreNegocio();
+
+        String NumeroAgente = elementView.getNumeroAgente();
+
+        String idcomercio = elementView.getIdComercio();
+
+        Preferencias prefs = App.getInstance().getPrefs();
+        prefs.saveData(AGENTE_NUMBER, NumeroAgente);
+
+        prefs.saveData(ID_COMERCIOADQ, idcomercio);
+
         titulo_nombre_negocio.setText(nombreN);
         rcvRewards.setAdapter(new OperadoresUyUAdapter(operadoresUYUFragments,getActivity(),this));
     }
@@ -92,9 +124,44 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
 
     @Override
     public void onRecyclerItemClick(View v, int position) {
-    //    OperadoresResponse operadoresResponse ;
-      //  operadoresResponse= operadoresUYUFragments.get(position);
-     //   onEventListener.onEvent(EVENT_OPERADOR_DETALLE, operadoresResponse);
+        Operadores operadoresResponse ;
+        operadoresResponse= operadoresUYUFragments.get(position+1);
+        onEventListener.onEvent(EVENT_OPERADOR_DETALLE, operadoresResponse);
+    }
+
+    @Override
+    public void succedGetOperador(List<Operadores> operadores) {
+
+
+    }
+
+    @Override
+    public void failGetOperador(String mensaje) {
+
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
 
     }
 }
