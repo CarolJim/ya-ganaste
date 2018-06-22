@@ -34,6 +34,8 @@ public class RegisterAgent {
     private String colonia = "";
     private String idColonia = "";
     private String idEstado = "";
+    private String lada = "";
+    private boolean useSameAddress = false;
 
     private RegisterAgent() {
         cuestionario = new ArrayList<>();
@@ -84,6 +86,22 @@ public class RegisterAgent {
                 }
             }
         }
+    }
+
+    public String getLada() {
+        return lada;
+    }
+
+    public void setLada(String lada) {
+        this.lada = lada;
+    }
+
+    public boolean isUseSameAddress() {
+        return useSameAddress;
+    }
+
+    public void setUseSameAddress(boolean useSameAddress) {
+        this.useSameAddress = useSameAddress;
     }
 
     public int getTipoAgente() {

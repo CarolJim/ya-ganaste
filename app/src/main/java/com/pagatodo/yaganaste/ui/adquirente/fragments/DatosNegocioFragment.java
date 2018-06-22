@@ -53,6 +53,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_PRE_ADDRESS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_CLOSE_ACT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -234,7 +235,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 onSubSpinnerClick();
             }
         });
-        editBussinesPhone.addTextChangedListener(new PhoneTextWatcher(editBussinesPhone));
+        //editBussinesPhone.addTextChangedListener(new PhoneTextWatcher(editBussinesPhone));
 
         setValidationRules();
     }
@@ -299,18 +300,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             }
         });
 
-        /*
-        editBussinesName.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editBussinesName.getId());
-                editBussinesName.imageViewIsGone(true);
-            }
-        });
-
-
-        */
-
         editBussinesPhone.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 //   hideValidationError(editBussinesPhone.getId());
@@ -321,8 +310,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 telefono = editBussinesPhone.getText().toString();
                 telefono = telefono.replaceAll(" ", "");
 
-
-
                 if (editBussinesPhone.getText().toString().isEmpty()) {
                     //  showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
                     //        editBussinesPhone.setIsInvalid();
@@ -330,7 +317,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
-                } else if (!isPhone(telefono)) {
+                } else if (telefono.length()<8) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_error);
@@ -365,7 +352,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_lada.setBackgroundResource(R.drawable.inputtext_error);
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.datos_lada_incorrecto), Snackbar.LENGTH_SHORT);
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_lada), Snackbar.LENGTH_SHORT);
 
                 } else if (isLada(lada)) {
                     hideValidationError(editBussinesLada.getId());
@@ -378,11 +365,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void validateForm() {
-
         getDataForm();
-
         boolean isValid = true;
-
         if (nombre.isEmpty()) {
             //   showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
             // editBussinesName.setIsInvalid();
@@ -391,26 +375,22 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
             text_nombrenegoci.setBackgroundResource(R.drawable.inputtext_error);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_nombre), Snackbar.LENGTH_SHORT);
-
             isValid = false;
         }
-
         if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
             //showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
             txtgiro.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
-
         if (subgiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
             //showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
             txtsubgiro.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
-
         telefono = editBussinesPhone.getText().toString();
         telefono = telefono.replaceAll(" ", "");
 
-        if (!isPhone(telefono) || editBussinesPhone.getText().toString().equalsIgnoreCase("0000000000")) {
+        if (telefono.length()<8 || editBussinesPhone.getText().toString().equalsIgnoreCase("00000000")) {
             // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
             //    editBussinesPhone.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -419,7 +399,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_telefono_incorrecto), Snackbar.LENGTH_SHORT);
             isValid = false;
         }
-
         if (telefono.isEmpty()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
@@ -456,7 +435,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         return Pattern.compile("\\d{10}").matcher(input).find();
     }
     private boolean isLada(String input) {
-        return Pattern.compile("\\d{3}").matcher(input).find();
+        return Pattern.compile("\\d{3}").matcher(input).find() ||
+                Pattern.compile("\\d{2}").matcher(input).find();
     }
 
 
@@ -511,12 +491,11 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         registerAgent.setNombre(nombre);
         registerAgent.setTelefono(lada
                 + telefono);
+        registerAgent.setLada(lada);
         registerAgent.setGiro(giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()));
         registerAgent.setSubGiros(subgiroArrayAdapter.getItemSelected(spinnerSubBussineLine.getSelectedItemPosition()));
-
         onEventListener.onEvent(EVENT_SET_BUSINESS_LIST, girosComercio);
-
-        nextScreen(EVENT_GO_BUSSINES_ADDRESS, null);//Mostramos la siguiente pantalla de registro.
+        nextScreen(EVENT_GO_BUSSINES_PRE_ADDRESS, null);//Mostramos la siguiente pantalla de registro.
     }
 
     @Override
@@ -535,7 +514,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         //spinnerBussineLine.setOnItemSelectedListener(null);
 
         editBussinesName.setText(registerAgent.getNombre());
-        editBussinesPhone.setText(registerAgent.getTelefono());
+        editBussinesPhone.setText(registerAgent.getTelefono().substring(1,10));
+        editBussinesLada.setText(registerAgent.getLada());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
         //spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));
     }
@@ -611,7 +591,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     }
 
     private void showDialogMesage(final String mensaje) {
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name),mensaje,
+        UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje,
                 R.string.title_aceptar, (dialogInterface, i) -> {
 
                 });

@@ -144,15 +144,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     private String idEstado = "";
 
     private String colonyToLoad;
-
     private AccountAdqPresenter adqPresenter;
-
     private ZipWatcher textWatcherZipCode;
-
     private DataObtenerDomicilio domicilio;
 
-    public static DomicilioNegocioFragment newInstance(DataObtenerDomicilio domicilio,
-                                                       List<ColoniasResponse> listaColonias) {
+    public static DomicilioNegocioFragment newInstance(DataObtenerDomicilio domicilio, List<ColoniasResponse> listaColonias) {
         DomicilioNegocioFragment fragmentRegister = new DomicilioNegocioFragment();
         Bundle args = new Bundle();
         args.putSerializable(_DOMICILIO, domicilio);
@@ -170,11 +166,9 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         if (args != null) {
             Serializable dom = args.getSerializable(_DOMICILIO);
             Serializable cols = args.getSerializable(COLONIAS);
-
             if (dom != null) {
                 this.domicilio = (DataObtenerDomicilio) dom;
             }
-
             if (cols != null) {
                 this.listaColonias = (List<ColoniasResponse>) cols;
             }

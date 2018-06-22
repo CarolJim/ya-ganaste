@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PreDomicilioNegocioFragment;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -44,10 +45,12 @@ public class BussinesActivity extends LoaderActivity {
     private static final String AGENT_NUMBER = "AGENT_NUMBER";
     //Nuevo diseño-flujo
     public final static String EVENT_GO_BUSSINES_DATA = "EVENT_GO_BUSSINES_DATA";
+    public final static String EVENT_GO_BUSSINES_PRE_ADDRESS = "EVENT_GO_BUSSINES_PRE_ADDRESS";
     public final static String EVENT_GO_BUSSINES_ADDRESS = "EVENT_GO_BUSSINES_ADDRESS";
     public final static String EVENT_GO_BUSSINES_DOCUMENTS = "EVENT_GO_BUSSINES_DOCUMENTS";
     public final static String EVENT_GO_BUSSINES_COMPLETE = "EVENT_GO_BUSSINES_COMPLETE";
     public final static String EVENT_GO_BUSSINES_DATA_BACK = "EVENT_GO_BUSSINES_DATA_BACK";
+    public final static String EVENT_GO_BUSSINES_PRE_ADDRESS_BACK = "EVENT_GO_BUSSINES_PRE_ADDRESS_BACK";
     public final static String EVENT_GO_BUSSINES_ADDRESS_BACK = "EVENT_GO_BUSSINES_ADDRESS_BACK";
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
@@ -115,17 +118,22 @@ public class BussinesActivity extends LoaderActivity {
     public void onEvent(String event, Object o) {
         super.onEvent(event, o);
         switch (event) {
-
-
             case EVENT_ERROR_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
                 break;
-
             case EVENT_GO_BUSSINES_DATA:
                 loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
                 break;
-            case EVENT_GO_BUSSINES_DATA_BACK:
+            case EVENT_GO_BUSSINES_PRE_ADDRESS:
+                loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_BUSSINES_PRE_ADDRESS_BACK:
                 loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.BACK, false);
+                RegisterAgent.resetBussinessAddress();
+                listaColonias = null;
+                break;
+            case EVENT_GO_BUSSINES_DATA_BACK:
+                loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.BACK, false);
                 RegisterAgent.resetBussinessAddress();
                 listaColonias = null;
                 break;
@@ -133,7 +141,7 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                //loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                //loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.BACK, false);
                 resetRegisterData();
                 finish();
                 break;
@@ -191,6 +199,8 @@ public class BussinesActivity extends LoaderActivity {
             if (currentFragment instanceof DatosNegocioFragment) {
                 RegisterAgent.resetRegisterAgent();
                 finish();
+            } else if (currentFragment instanceof PreDomicilioNegocioFragment) {
+                onEvent(EVENT_GO_BUSSINES_PRE_ADDRESS_BACK, null);
             } else if (currentFragment instanceof DomicilioNegocioFragment) {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
             } else if (currentFragment instanceof InformacionAdicionalFragment) {

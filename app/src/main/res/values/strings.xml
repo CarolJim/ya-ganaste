@@ -464,6 +464,9 @@
     <string name="datos_lada_incorrecto">Ingrese una lada válido</string>
     <string name="datos_negocio_preguntas">Debes contestar todas las preguntas</string>
     <string name="datos_negocio_lada">Lada requerido, verifique su información</string>
+    <string name="datos_usar_mismo_domicilio">¿La dirección de tu negocio es la misma\nque tu dirección personal?</string>
+    <string name="datos_usar_mismo_domicilio_yes">Si, es la misma</string>
+    <string name="datos_usar_mismo_domicilio_no">No, es diferente</string>
     <!--Server problem-->
     <string name="message_generic_ws">Ocurrió un error de conexión</string>
     <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
