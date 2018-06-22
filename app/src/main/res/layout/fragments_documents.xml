@@ -14,9 +14,7 @@
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:layout_weight="1">
-
 
 
         <ScrollView
@@ -32,7 +30,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="16dp">
+                android:paddingTop="10dp">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
@@ -41,7 +39,6 @@
                     android:gravity="center_horizontal"
                     android:textSize="@dimen/size_text_style_2_value"
                     android:textColor="@color/colorAccent"
-                    android:layout_marginTop="17dp"
                     android:text="@string/Documentos"/>
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -50,33 +47,27 @@
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:layout_marginBottom="0dp"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/sub_titulo_documentos"
                     android:textAlignment="center"
                     android:textColor="@color/adadad"
                     android:textSize="14sp"
                     app:tipo="Text" />
+
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/titulo_ine"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="16dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:layout_marginBottom="7dp"
                     android:text="@string/sub_titulo_ine"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccent"
                     android:textSize="11sp"
                     app:tipo="Text" />
 
-
-
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
                         android:orientation="vertical"
                        >
 
@@ -143,20 +134,11 @@
 
                     </LinearLayout>
 
-
-
-
-
-
-
                     <LinearLayout
                         android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical"
                         android:paddingTop="0dp">
 
@@ -172,7 +154,7 @@
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="7dp"
+                            android:layout_marginBottom="0dp"
                             android:gravity="center_horizontal"
                             android:text="@string/documents_comprobantes"
                             android:textAlignment="center"
@@ -184,7 +166,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="00dp"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -238,20 +220,28 @@
                             </LinearLayout>
 
                         </LinearLayout>
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="7dp"
+                            android:gravity="center_horizontal"
+                            android:text="@string/documents_direccion"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="11sp"
+                            app:tipo="Text" />
                     </LinearLayout>
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnWeNeedSmFilesNext"
                         style="@style/buttonSquareRoundedBlue"
-                        android:layout_alignTop="@+id/linearLayout"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="177dp"
                         android:background="@drawable/button_rounded_blue"
                         android:gravity="center"
                         android:text="@string/nextButton" />
 
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/lnr_help"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -271,11 +261,13 @@
                         android:gravity="center"
                         android:text="@string/documents_help" />
 
-                </LinearLayout>
+                </LinearLayout>-->
             </LinearLayout>
 
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
     <LinearLayout
         android:id="@+id/lnr_buttons"

@@ -441,6 +441,7 @@
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
     <string name="bussinesName">Nombre del negocio</string>
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
+    <string name="mexicanQuestion">¿Eres mexicano naturalziado?</string>
 
     <!--Informacion Adicional-->
     <string name="title_informacion_adicional">Información Adicional</string>
@@ -450,6 +451,8 @@
     <string name="error_cargo">Cargo requerido, verifique su información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
     <string name="terms_and_conditions_aditional_info">Al continuar reconozco haber leído y aceptado los\nTéminos y Condiciones</string>
+
+
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu cuenta Ya Ganaste está lista</string>
@@ -644,7 +647,9 @@
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya tienes una cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">A continuación, un comprobante de domicilio comercial no\nmayor a 3 meses, puede ser CFE, teléfono o agua</string>
+    <string name="documents_comprobantes">Comprobante de domicilio comercial\nno mayor a 3 meses (CFE, Teléfono o agua)</string>
+    <string name="documents_direccion">* La dirección debe aparecer exactamente igual\na la registrada previamente</string>
+
     <string name="documents_vigentes">Credencial de elector o pasaporte</string>
 
 
@@ -1430,8 +1435,8 @@
     <string name="tu_solicitud_no">Tu solicitud no pudo ser completada</string>
     <string name="tuvimos_problema_solicitud">Tuvimos un problema con tu solicitud, comunícate con nosotros para conocer más detalles</string>
 
-    <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
-    <string name="sub_titulo_ine">Primero una identificación oficial vigente, puede ser tu\ncredencial de elector (INE) o tu pasaporte</string>
+    <string name="sub_titulo_documentos">Añade una fotografía legible de los siguientes\ndocumentos para confirmar tu información</string>
+    <string name="sub_titulo_ine">Identificación oficial vigente,\ncredencial de elector (INE) o pasaporte</string>
 
     <!-- Cambio de nip-->
     <string name="nip_actual">NIP Actual</string>

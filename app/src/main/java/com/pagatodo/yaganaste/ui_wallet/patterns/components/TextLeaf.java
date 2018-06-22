@@ -10,16 +10,21 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.patterns.interfaces.Component;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import static com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder.TYPE_SUBTITLE;
+import static com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder.TYPE_TITLE;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.Dp;
 
 public class TextLeaf implements Component{
 
+
     private StyleTextView textView;
     private Context context;
+    private int typeText;
 
-    public TextLeaf(StyleTextView textView, int id){
+    public TextLeaf(StyleTextView textView, int typeText, int id){
         this.textView = textView;
         this.context = textView.getContext();
+        this.typeText = typeText;
         setContent(id);
     }
 
@@ -35,22 +40,36 @@ public class TextLeaf implements Component{
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
-        textView.setLayoutParams(params);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        if (this.typeText == TYPE_TITLE){
+            textView.setLayoutParams(params);
+            textView.setTextColor(this.context.getResources().getColor(R.color.colorAccent));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, this.context.getResources().getDimension(R.dimen.size_text_style_2_value));
+        }
+        if (this.typeText == TYPE_SUBTITLE){
+            params.setMargins(0,8,0,32);
+            textView.setLayoutParams(params);
+            textView.setTextColor(this.context.getResources().getColor(R.color.adadad));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+        }
+
         textView.setText((int) item);
-        textView.setTextColor(this.context.getResources().getColor(R.color.colorAccent));
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, this.context.getResources().getDimension(R.dimen.size_text_style_2_value));
+
+
+
 
         /*
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="27dp"
-        android:gravity="center_horizontal"
-        android:text="@string/bussinesInfoTitle"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/size_text_style_2_value"
+        android:id="@+id/titulo_datos_usuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="32dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/sub_titulo_info_adic"
+                        android:textAlignment="center"
+                        android:textColor="@color/adadad"
+                        android:textSize="16sp"
+                        app:tipo="Text"
          */
     }
 

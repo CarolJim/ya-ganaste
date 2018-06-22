@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.AdditionalInformationFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PreDomicilioNegocioFragment;
 
 import java.util.List;
@@ -112,6 +113,10 @@ public class BussinesActivity extends LoaderActivity {
             showBack(true);
         } else {
             loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
+            //loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, true);
+            //loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
+            //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
+
         }
         //pref = App.getInstance().getPrefs();
     }

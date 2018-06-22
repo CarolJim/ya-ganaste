@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -112,8 +113,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     Button btnRegresar;
     @BindView(R.id.lnr_buttons)
     LinearLayout lnr_buttons;
-    @BindView(R.id.lnr_help)
-    LinearLayout lnr_help;
+    //@BindView(R.id.lnr_help)
+    //LinearLayout lnr_help;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -171,9 +172,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
         return rootview;
@@ -303,7 +303,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void initSetClickableDocs() {
         swipeRefreshLayout.setEnabled(false);
         lnr_buttons.setVisibility(VISIBLE);
-        lnr_help.setVisibility(GONE);
+        //lnr_help.setVisibility(GONE);
         ifeFront.setOnClickListener(this);
         ifeBack.setOnClickListener(this);
         addressFront.setOnClickListener(this);
