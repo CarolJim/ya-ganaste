@@ -38,6 +38,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
@@ -102,6 +103,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
@@ -481,9 +483,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case SUCCES_CHANGE_STATUS_OPERADOR:
                 loadFragment(OperadorSuccesFragment.newInstance((int) data), R.id.fragment_container);
-
                 break;
-
         }
     }
 
@@ -515,6 +515,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof SelectDongleFragment || fragment instanceof PairBluetoothFragment) {
             setResult(RESULT_CODE_SELECT_DONGLE);
+            super.onBackPressed();
+        } else if (fragment instanceof  DocumentosFragment){
+            setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             super.onBackPressed();
         } else {
             setResult(PICK_WALLET_TAB_REQUEST);

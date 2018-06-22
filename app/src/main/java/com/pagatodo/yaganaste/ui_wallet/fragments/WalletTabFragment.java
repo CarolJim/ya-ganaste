@@ -369,9 +369,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 } else if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_ADQ) {
                     walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
                 }
-
-
-                //}
             }
         } else if (resultCode == RESULT_CODE_SELECT_DONGLE || resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             checkDataCard();

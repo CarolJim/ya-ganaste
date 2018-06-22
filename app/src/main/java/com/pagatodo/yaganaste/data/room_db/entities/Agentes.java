@@ -34,6 +34,17 @@ public class Agentes implements Serializable {
     @ColumnInfo(name = "nombre_negocio")
     private String NombreNegocio;
 
+    @ColumnInfo(name = "folio")
+    private String Folio;
+
+    public String getFolio() {
+        return Folio;
+    }
+
+    public void setFolio(String folio) {
+        Folio = folio;
+    }
+
     public int getIdComercio() {
         return IdComercio;
     }

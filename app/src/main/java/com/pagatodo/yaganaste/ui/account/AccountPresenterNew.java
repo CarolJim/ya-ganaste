@@ -215,7 +215,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password, PUBLIC_KEY_RSA));
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin, password);
-        ///accountIteractor.login(requestLogin);
     }
 
     @Override

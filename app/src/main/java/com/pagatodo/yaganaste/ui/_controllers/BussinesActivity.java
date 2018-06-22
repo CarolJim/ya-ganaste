@@ -92,6 +92,8 @@ public class BussinesActivity extends LoaderActivity {
             } else {
                 App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, false);
             }
+        } else {
+            App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, false);
         }
         if (esAgente && Idestatus == IdEstatus.I7.getId()) {
             loadFragment(StatusRegisterAdquirienteFragment.newInstance(), Direction.FORDWARD);

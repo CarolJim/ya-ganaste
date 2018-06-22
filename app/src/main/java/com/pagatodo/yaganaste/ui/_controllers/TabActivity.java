@@ -422,7 +422,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
-            getFragment(1).onActivityResult(requestCode, resultCode, data);
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
@@ -454,12 +453,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (resultCode == INTENT_FAVORITE) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
-        } else if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE) {
+        } else if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE
+                || resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
-
         }
-
     }
 
     protected void refreshAdquirenteMovements() {
