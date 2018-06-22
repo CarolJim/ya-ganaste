@@ -34,6 +34,8 @@ public class CrearAgenteRequest implements Serializable {
     private int longitud;
     @SerializedName("Cuestionario")
     private List<CuestionarioEntity> cuestionario;
+    @SerializedName("Folio")
+    private String folio;
 
     @SerializedName("DomicilioNegocio")
     private DataObtenerDomicilio domicilioNegocio;
@@ -42,14 +44,14 @@ public class CrearAgenteRequest implements Serializable {
         cuestionario = new ArrayList<>();
     }
 
-    public CrearAgenteRequest(RegisterAgent registerAgent, int tipoAgente) {
+    public CrearAgenteRequest(RegisterAgent registerAgent, int tipoAgente, String folio) {
         nombreComercio = registerAgent.getNombre();
         giro = registerAgent.getGiro().getIdGiro();
         subGiro = registerAgent.getSubGiros().getIdSubgiro();
         numeroTelefono = registerAgent.getTelefono();
         this.tipoAgente = tipoAgente;
         cuestionario = registerAgent.getCuestionario();
-
+        this.folio = folio;
         DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
         dataObtenerDomicilio.setCp(registerAgent.getCodigoPostal());
         dataObtenerDomicilio.setCalle(registerAgent.getCalle());
@@ -59,8 +61,15 @@ public class CrearAgenteRequest implements Serializable {
         dataObtenerDomicilio.setNumeroExterior(registerAgent.getNumExterior());
         dataObtenerDomicilio.setNumeroInterior(registerAgent.getNumInterior());
         dataObtenerDomicilio.setIdEstado(registerAgent.getIdEstado());
-
         domicilioNegocio = dataObtenerDomicilio;
+    }
+
+    public String getFolio() {
+        return folio;
+    }
+
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 
     public int getTipoAgente() {

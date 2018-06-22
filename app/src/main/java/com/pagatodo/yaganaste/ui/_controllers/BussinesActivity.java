@@ -143,6 +143,7 @@ public class BussinesActivity extends LoaderActivity {
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
                 //loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.BACK, false);
                 resetRegisterData();
+                setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
                 break;
             case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION:

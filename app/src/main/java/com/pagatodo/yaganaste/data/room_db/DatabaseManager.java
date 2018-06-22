@@ -232,10 +232,12 @@ public class DatabaseManager {
                 App.getAppDatabase().operadoresModel().deleteAll();
                 App.getAppDatabase().agentesModel().insertAgentes(agentes);
                 for (Agentes agente : agentes) {
-                    for (Operadores operador : agente.getOperadores()) {
-                        operador.setNumeroAgente(Integer.valueOf(agente.getNumeroAgente()));
-                        /* Inserta los operadores respectivos de los agentes en la BD */
-                        App.getAppDatabase().operadoresModel().insertOperador(operador);
+                    if(agente.getOperadores()!=null) {
+                        for (Operadores operador : agente.getOperadores()) {
+                            operador.setNumeroAgente(Integer.valueOf(agente.getNumeroAgente()));
+                            /* Inserta los operadores respectivos de los agentes en la BD */
+                            App.getAppDatabase().operadoresModel().insertOperador(operador);
+                        }
                     }
                 }
                 return null;

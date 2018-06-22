@@ -5,6 +5,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
@@ -15,6 +17,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.interactores.interfaces.IinfoAdicionalInteractor;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
 
@@ -26,6 +29,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_COB
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_DESTINO;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_MONTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_ORIGEN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COBROS_MENSUALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DESTINO_RECURSOS;
@@ -33,6 +37,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_MONTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ORIGEN_RECURSOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_PAISES;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 /**
@@ -62,9 +67,17 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     }
 
     @Override
+    public void updateSession() {
+        try {
+            ApiAdtvo.actualizarInformacionSesion(this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void registrarAdquirente() {
-        CrearAgenteRequest request = new CrearAgenteRequest(RegisterAgent.getInstance(),
-                1);
+        CrearAgenteRequest request = new CrearAgenteRequest(RegisterAgent.getInstance(), 1, null);
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
@@ -107,7 +120,9 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
         if (result.getWebService() == CREAR_AGENTE) {
             infoAdicionalPresenter.onSuccessCreateUsuarioAdquirente(result);
         }
-
+        if (result.getWebService() == ACTUALIZAR_INFO_SESION) {
+            proccesDataSession(result);
+        }
         if (result.getWebService() == OBTENER_PAISES) {
             proccesPaises(result);
         }
@@ -166,5 +181,17 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
 
     }
 
-
+    private void proccesDataSession(DataSourceResult response) {
+        ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            DataIniciarSesionUYU newSessionData = data.getData();
+            if (newSessionData.getAdquirente().getAgentes() != null && newSessionData.getAdquirente().getAgentes().size() > 0) {
+                new DatabaseManager().insertAgentes(newSessionData.getAdquirente().getAgentes());
+            }
+            SingletonUser userInfo = SingletonUser.getInstance();
+            newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
+            userInfo.setDataUser(newSessionData);
+            App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, newSessionData.getUsuario().getIdEstatusEmisor());
+        }
+    }
 }

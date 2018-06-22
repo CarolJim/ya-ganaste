@@ -49,6 +49,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_ADQUIRENTE_SUCCESS;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
@@ -291,9 +292,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         cardWalletAdpater.resetFlip();
         updateOperations(position);
 
-            if (!prefs.containsData(IS_OPERADOR)) {
-                walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
-            }
+        if (!prefs.containsData(IS_OPERADOR)) {
+            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
+        }
 
     }
 
@@ -359,21 +360,20 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 //String f = SingletonUser.getInstance().getCardStatusId();
                 //if (f == null || f.isEmpty() || f.equals("0")) {
 
-                    if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
-                        EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
+                if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
+                    EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
 
-                        if (usuarioClienteResponse.getCuentas().size() != 0) {
-                            walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
-                        }
-                    } else if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_ADQ){
-                        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                    if (usuarioClienteResponse.getCuentas().size() != 0) {
+                        walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
                     }
-
+                } else if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_ADQ) {
+                    walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+                }
 
 
                 //}
             }
-        } else if (resultCode == RESULT_CODE_SELECT_DONGLE) {
+        } else if (resultCode == RESULT_CODE_SELECT_DONGLE || resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             checkDataCard();
         }
     }

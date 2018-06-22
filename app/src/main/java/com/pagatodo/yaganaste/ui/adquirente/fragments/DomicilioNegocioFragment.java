@@ -192,7 +192,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spBussinesColonia.setAdapter(adapterColonia);
         btnNextBussinesAddress.setOnClickListener(this);
-        if (RegisterAgent.getInstance().isUseSameAddress()) {
+        if (!RegisterAgent.getInstance().isUseSameAddress()) {
             btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_btn));
         } else {
             btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_limpiar));
@@ -234,8 +234,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                     loadHomeAddress();
                 }
                 break;
-
-
             default:
                 break;
         }
@@ -550,7 +548,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             }
         }
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
-
         nextScreen(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION, null);
     }
 
@@ -672,7 +669,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 break;
             case R.id.radioBtnIsBussinesAddressYes:
             default:
-                if (!RegisterAgent.getInstance().isUseSameAddress()) {
+                if (RegisterAgent.getInstance().isUseSameAddress()) {
                     loadHomeAddress();
                 }
                 break;

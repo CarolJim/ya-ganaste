@@ -388,6 +388,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     public void onSuccessCreateAgente() {
         App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
+        infoAdicionalPresenter.updateSession();
     }
 
     @Override

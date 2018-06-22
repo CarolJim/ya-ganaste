@@ -25,11 +25,11 @@ public class WalletBuilder {
         if (!error && SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
             String statusCard = SingletonUser.getInstance().getCardStatusId();
             //if (statusCard != null) {
-                if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
-                    walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
-                } else {
-                    walletList.addWallet(ElementWallet.getCardyaganaste());
-                }
+            if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA) || App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+                walletList.addWallet(ElementWallet.getCardyaganasteBloqueda());
+            } else {
+                walletList.addWallet(ElementWallet.getCardyaganaste());
+            }
             /*} else {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
             }*/
@@ -43,7 +43,7 @@ public class WalletBuilder {
         //Adquiriente
         if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null && !SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()) {
 
-            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() > 1){
+            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() > 1) {
                 walletList.addWallet(ElementWallet.getCardMisNegocios());
             }
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
@@ -79,12 +79,13 @@ public class WalletBuilder {
         List<Agentes> agentes = new ArrayList<>();
         try {
             agentes = new DatabaseManager().getAgentes();
-        } catch (ExecutionException|InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if (!RequestHeaders.getTokenAdq().isEmpty() && agentes.size()>0) {
+        if (!RequestHeaders.getTokenAdq().isEmpty() && agentes.size() > 0) {
             for (Agentes agente : agentes) {
-                walletList.addWallet(ElementWallet.getCardBalanceAdq(agente));
+                if (agente.getOperadores().size() > 0)
+                    walletList.addWallet(ElementWallet.getCardBalanceAdq(agente));
             }
             /*for (int i = 0; i < response.getAgentes().size(); i++){
                 walletList.addWallet(ElementWallet.getCardBalanceAdq(response.getAgentes().get(i)));

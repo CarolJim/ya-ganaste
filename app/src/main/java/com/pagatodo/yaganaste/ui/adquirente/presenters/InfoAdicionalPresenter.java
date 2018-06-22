@@ -34,11 +34,15 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
     }
 
 
-
     @Override
     public void createUsuarioAdquirente() {
         informationAdicionalManager.showLoader("");
         infoAdicionalInteractor.registrarAdquirente();
+    }
+
+    @Override
+    public void updateSession() {
+        infoAdicionalInteractor.updateSession();
     }
 
     @Override

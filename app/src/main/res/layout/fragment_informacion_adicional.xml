@@ -54,7 +54,7 @@
                         android:text="@string/sub_titulo_info_adic"
                         android:textAlignment="center"
                         android:textColor="@color/adadad"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:tipo="Text" />
 
                     <LinearLayout

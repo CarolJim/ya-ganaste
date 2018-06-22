@@ -422,9 +422,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
+            getFragment(1).onActivityResult(requestCode, resultCode, data);
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
-
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         /*} else if (requestCode == Constants.ACTIVITY_LANDING) {

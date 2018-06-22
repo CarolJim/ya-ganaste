@@ -488,6 +488,7 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextBussineslimpiar"
                 style="@style/buttonSquareRoundedBluedd"
+                android:layout_width="215dp"
                 android:background="@drawable/btnbluewhite"
                 android:gravity="center"
                 android:text="Limpiar"
@@ -498,8 +499,9 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextBussinesAddress"
                 style="@style/buttonSquareRoundedBluedd"
-                android:background="@drawable/button_rounded_blue"
+                android:layout_width="215dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
                 android:text="@string/nextButton" />
 
