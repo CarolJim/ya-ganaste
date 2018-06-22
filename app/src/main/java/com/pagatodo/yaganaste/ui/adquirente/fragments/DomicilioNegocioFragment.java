@@ -192,10 +192,13 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spBussinesColonia.setAdapter(adapterColonia);
         btnNextBussinesAddress.setOnClickListener(this);
-
+        if (RegisterAgent.getInstance().isUseSameAddress()) {
+            btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_btn));
+        } else {
+            btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_limpiar));
+        }
         btnNextBussineslimpiar.setOnClickListener(this);
         editBussinesState.setTextEnabled(false);
-
 
         spBussinesColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -222,9 +225,14 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 break;
 
             case R.id.btnNextBussineslimpiar:
-                cleanFields();
-                spcolonia.setVisibility(View.GONE);
-                estadotesto.setVisibility(View.GONE);
+                if (RegisterAgent.getInstance().isUseSameAddress()) {
+                    cleanFields();
+                    spcolonia.setVisibility(View.GONE);
+                    estadotesto.setVisibility(View.GONE);
+                } else {
+                    domicilio = null;
+                    loadHomeAddress();
+                }
                 break;
 
 
@@ -455,12 +463,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         errorNumberAddress.setVisibilityImageError(false);
         errorZipCode.setVisibilityImageError(false);
         errorColonia.setVisibilityImageError(false);*/
-
         clearAllFocus();
-
         RegisterAgent registerAgente = RegisterAgent.getInstance();
-
-
         if (!registerAgente.getCodigoPostal().isEmpty()) {
             for (CuestionarioEntity q : registerAgente.getCuestionario()) {
                 if (q.getPreguntaId() == PREGUNTA_DOMICILIO) {
@@ -666,10 +670,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             case R.id.radioBtnIsBussinesAddressNo:
                 cleanFields();
                 break;
-
             case R.id.radioBtnIsBussinesAddressYes:
             default:
-                loadHomeAddress();
+                if (!RegisterAgent.getInstance().isUseSameAddress()) {
+                    loadHomeAddress();
+                }
                 break;
         }
     }

@@ -184,8 +184,8 @@
     <string name="colonia">Colonia</string>
     <string name="terms_and_conditions">Al continuar reconozco ser mayor de edad, así como\nhaber leído y aceptado los Términos y Condiciones y\nel Aviso de Privacidad</string>
     <string name="postal_code">C.P.</string>
-    <string name="intern_number">Número Interior</string>
-    <string name="outside_number">Número Exterior</string>
+    <string name="intern_number">No. Int.</string>
+    <string name="outside_number">No. Ext.</string>
     <string name="are_you_want_get_payments">¿Te gustaría recibir\npagos con tarjeta?</string>
     <string name="yes_i_want_card_payments">SÍ QUIERO ACEPTAR TARJETA</string>
     <string name="i_dont_want_card_payments">NO QUIERO ACEPTAR TARJETA</string>
@@ -467,6 +467,8 @@
     <string name="datos_usar_mismo_domicilio">¿La dirección de tu negocio es la misma\nque tu dirección personal?</string>
     <string name="datos_usar_mismo_domicilio_yes">Si, es la misma</string>
     <string name="datos_usar_mismo_domicilio_no">No, es diferente</string>
+    <string name="datos_usar_mismo_domicilio_btn">Usar dirección personal</string>
+    <string name="datos_usar_mismo_domicilio_limpiar">Limpiar datos</string>
     <!--Server problem-->
     <string name="message_generic_ws">Ocurrió un error de conexión</string>
     <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
