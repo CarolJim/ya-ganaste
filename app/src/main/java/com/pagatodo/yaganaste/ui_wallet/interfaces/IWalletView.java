@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.interfaces;
 import android.support.v4.view.PagerAdapter;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 
@@ -17,7 +18,7 @@ public interface IWalletView extends IMainWalletView {
     void getSaldo(String saldo);
     void sendCardReported();
     void sendSuccessStatusAccount(EstatusCuentaResponse response);
-    //void sendSuccessInfoAgente();
+    void sendSuccessEstatusDocs(ObtenerDocumentosResponse response);
     void setErrorSaldo(String saldoDefault);
     void sendError(int codeError);
 

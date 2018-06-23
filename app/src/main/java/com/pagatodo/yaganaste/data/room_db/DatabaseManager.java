@@ -327,6 +327,16 @@ public class DatabaseManager {
         }.execute().get();
     }
 
+    /* Obtener el folio del agente de la BD */
+    public String getFolioAgente(String idComercio) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                return App.getAppDatabase().agentesModel().getFolioAgente(idComercio);
+            }
+        }.execute().get();
+    }
+
     /* Borrar los agentes y operadores en la BD */
     public void deleteAgentes() {
         new AsyncTask<Void, Void, Void>() {

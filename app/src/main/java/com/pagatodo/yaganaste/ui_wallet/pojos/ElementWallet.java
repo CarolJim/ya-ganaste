@@ -217,7 +217,7 @@ public class ElementWallet {
         }
         return new ElementWallet(TYPE_SETTINGS, frontView, null,
                 App.getContext().getString(R.string.title_wallet_main_settings) + cardsAvailable,
-                ElementView.getListConfigCard(), R.string.title_wallet_second_settings, false, null);
+                ElementView.getListConfigCard(""), R.string.title_wallet_second_settings, false, null);
     }
 
     public static ElementWallet getCardLectorAdq(Agentes agentes) {

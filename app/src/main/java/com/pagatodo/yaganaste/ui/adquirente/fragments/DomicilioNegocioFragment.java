@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -48,6 +49,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICIL
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADITIONAL_INFORMATION;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_ADDRESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
@@ -63,6 +65,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     public static final String _DOMICILIO = "1";
     public static final String COLONIAS = "2";
+    public static final String FOLIO = "3";
     public static int MIN_LENGHT_VALIDATION_CP = 4;
 
     @BindView(R.id.editBussinesStreetold)
@@ -142,17 +145,19 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     private String Idcolonia = "";
     private boolean respuestaDomicilio;
     private String idEstado = "";
+    private String folio = "";
 
     private String colonyToLoad;
     private AccountAdqPresenter adqPresenter;
     private ZipWatcher textWatcherZipCode;
     private DataObtenerDomicilio domicilio;
 
-    public static DomicilioNegocioFragment newInstance(DataObtenerDomicilio domicilio, List<ColoniasResponse> listaColonias) {
+    public static DomicilioNegocioFragment newInstance(DataObtenerDomicilio domicilio, List<ColoniasResponse> listaColonias, String folio) {
         DomicilioNegocioFragment fragmentRegister = new DomicilioNegocioFragment();
         Bundle args = new Bundle();
         args.putSerializable(_DOMICILIO, domicilio);
         args.putSerializable(COLONIAS, (Serializable) listaColonias);
+        args.putString(FOLIO, folio);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -172,6 +177,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             if (cols != null) {
                 this.listaColonias = (List<ColoniasResponse>) cols;
             }
+            folio = args.getString(FOLIO);
         }
     }
 
@@ -440,7 +446,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         }
 
         if (isValid) {
-            onValidationSuccess();
+            if (getActivity() instanceof WalletMainActivity) {
+                adqPresenter.updateAdq(folio);
+            } else {
+                onValidationSuccess();
+            }
         }
 
     }
@@ -621,8 +631,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     @Override
     public void agentCreated(String message) {
         /*App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
-        onEventListener.onEvent(EVENT_SET_COLONIES_LIST, listaColonias);
-        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);*/
+        onEventListener.onEvent(EVENT_SET_COLONIES_LIST, listaColonias);*/
+        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
     }
 
     @Override

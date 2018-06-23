@@ -32,7 +32,9 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerBancoBi
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCobrosMensualesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.ObtenerInfoComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RegisterFBTokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
@@ -88,6 +90,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolic
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -95,6 +98,7 @@ import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
@@ -112,6 +116,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELACCOUNT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DETAIL_MOVEMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_PASS_6;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CHANGE_STATUS_OPERADOR;
@@ -132,6 +137,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.GENERAR_CODIGO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_FIRST_DATA_NOTIFICATION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_INFORMACION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_NEXT_DATA_NOTIFICATION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.INFO_COMERCIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
@@ -153,7 +159,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_FB;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_STARBUCKS;
@@ -331,7 +339,7 @@ public class ApiAdtvo extends Api {
     /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
      */
     public static void getoperadores(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
@@ -354,6 +362,7 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.cambia_status_operador),
                 headers, request, GenericResponse.class, result);
     }
+
     /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *
@@ -409,7 +418,6 @@ public class ApiAdtvo extends Api {
     }
 
 
-
     /**
      * Método que se invoca para realizar el inicio de sesión de un Usuario o un Cliente BPT.
      *
@@ -426,9 +434,6 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginSimpleUyU),
                 headers, request, IniciarSesionUYUResponse.class, result);
     }
-
-
-
 
 
     /**
@@ -473,7 +478,6 @@ public class ApiAdtvo extends Api {
     }
 
 
-
     /**
      * Método que se invoca para obtener las Colonias a partir de un Código Postal.
      *
@@ -498,7 +502,7 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
-                headers, null, ObtenerDocumentosRequest.class, result);
+                headers, null, ObtenerDocumentosResponse.class, result);
     }
 
     /**
@@ -857,6 +861,7 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
                 headers, request, FavoritosDatosResponse.class, result);
     }
+
     public static void addNewFavorites(AddFavoritesRequest request, IRequestResult result)
             throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
@@ -976,7 +981,7 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put("Content-type", "application/json");
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put("TokenAdquirente",RequestHeaders.getTokensesion());
+        headers.put("TokenAdquirente", RequestHeaders.getTokensesion());
 
         int idCuenta = SingletonUser.getInstance().getDataUser().getEmisor()
                 .getCuentas().get(0).getIdCuenta();
@@ -985,5 +990,17 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.cancelarCuenta),
                 headers, request, GenericResponse.class, result);
 
-        }
     }
+
+    /**
+     * @param result
+     * @throws OfflineException
+     */
+    public static void obtenerInfoComercio(String folio, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(INFO_COMERCIO,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.adqConsultarInformacionComercio) + "?Folio="
+                        + folio, headers, null, ObtenerInfoComercioResponse.class, result);
+    }
+}

@@ -9,4 +9,5 @@ import java.io.Serializable;
 public interface ElementGlobal extends Serializable {
 
     int getIdOperacion();
+    void setIdOperacion(int idOperacion);
 }

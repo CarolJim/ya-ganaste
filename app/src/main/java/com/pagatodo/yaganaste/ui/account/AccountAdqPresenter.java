@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
@@ -73,7 +74,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         // interferir con otros servicios
         // NO MOVER :)
         adqIteractor.getEstatusDocs();
-
     }
 
 
@@ -83,11 +83,10 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         adqIteractor.getClientAddress();
     }
 
-
     @Override
-    public void createAdq() {
-        iAdqView.showLoader(App.getContext().getString(R.string.procesando_solicitud));
-        adqIteractor.registerAdq();
+    public void updateAdq(String folio) {
+        iAdqView.showLoader("Actualizando información");
+        adqIteractor.updateAdq(folio);
     }
 
     /*envio de documentos */

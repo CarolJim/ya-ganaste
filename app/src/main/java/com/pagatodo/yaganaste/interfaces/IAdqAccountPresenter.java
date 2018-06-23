@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface IAdqAccountPresenter {
 
-    void createAdq();
+    void updateAdq(String folio);
 
     void getNeighborhoods(String zipCode);
 

@@ -24,6 +24,9 @@ public interface AgentesDao {
     @Query("SELECT DISTINCT id_estatus FROM Agentes WHERE numero_agente=:numAgente")
     int getIdEstatusAgente(String numAgente);
 
+    @Query("SELECT DISTINCT folio FROM Agentes WHERE id_comercio=:idComercio")
+    String getFolioAgente(String idComercio);
+
     @Insert(onConflict = IGNORE)
     void insertAgentes(List<Agentes> agentes);
 

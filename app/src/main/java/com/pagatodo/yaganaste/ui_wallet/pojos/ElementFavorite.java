@@ -24,4 +24,9 @@ public class ElementFavorite implements ElementGlobal {
     public int getIdOperacion() {
         return this.idOperacion;
     }
+
+    @Override
+    public void setIdOperacion(int idOperacion) {
+
+    }
 }

@@ -843,7 +843,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      */
     private void sendDocuments() {
         updateListFromMapHash();
-
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
                 showError(getString(R.string.adq_must_upload_documents));

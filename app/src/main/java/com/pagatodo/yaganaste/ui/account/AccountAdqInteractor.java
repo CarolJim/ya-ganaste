@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.account;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
@@ -12,7 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumento
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -103,7 +102,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
-
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
@@ -131,32 +129,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     @Override
-    public void registerAdq() {
-
-        RegisterAgent registerAgent = RegisterAgent.getInstance();
-        CrearAgenteRequest request = new CrearAgenteRequest();
-        request.setNombreComercio(registerAgent.getNombre());
-        // TODO: 16/05/2017
-        request.setGiro(registerAgent.getGiro().getIdGiro());
-        request.setSubGiro(registerAgent.getSubGiros().getIdSubgiro());
-        request.setNumeroTelefono(registerAgent.getTelefono());
-        request.setTipoAgente(App.getInstance().getPrefs().loadDataInt(TIPO_AGENTE));
-        request.setCuestionario(registerAgent.getCuestionario());
-
-        DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
-        dataObtenerDomicilio.setCp(registerAgent.getCodigoPostal());
-        dataObtenerDomicilio.setCalle(registerAgent.getCalle());
-        dataObtenerDomicilio.setColonia(registerAgent.getColonia());
-        dataObtenerDomicilio.setEstado(registerAgent.getEstadoDomicilio());
-        dataObtenerDomicilio.setIdColonia(registerAgent.getIdColonia());
-        dataObtenerDomicilio.setNumeroExterior(registerAgent.getNumExterior());
-        dataObtenerDomicilio.setNumeroInterior(registerAgent.getNumInterior());
-        dataObtenerDomicilio.setIdEstado(registerAgent.getIdEstado());
-
-        request.setDomicilioNegocio(dataObtenerDomicilio);
-
-        //   onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
-
+    public void updateAdq(String folio) {
+        CrearAgenteRequest request = new CrearAgenteRequest(RegisterAgent.getInstance(), 1, folio);
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
@@ -239,7 +213,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response
      */
     private void processSendDocuments(DataSourceResult response) {
-
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             actualizaEstatusUsuario();
@@ -281,9 +254,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     private void processStatusDocuments(DataSourceResult response) {
 
-        ObtenerDocumentosRequest data = (ObtenerDocumentosRequest) response.getData();
+        ObtenerDocumentosResponse data = (ObtenerDocumentosResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            List<EstatusDocumentosResponse> listaDocumentos = data.getData();
+            List<EstatusDocumentosResponse> listaDocumentos = data.getDocumentos();
             if (listaDocumentos != null && listaDocumentos.size() > 0) {
                 accountManager.onSucces(response.getWebService(), listaDocumentos);
 
@@ -294,10 +267,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(response.getWebService(), "error " + data.getMensaje());
-
-
         }
-
     }
 
     /**
@@ -326,7 +296,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response {@link DataSourceResult} respuesta del servicio
      */
     private void processAgentCreated(DataSourceResult response) {
-
         CrearAgenteResponse data = (CrearAgenteResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(CREAR_AGENTE, null);

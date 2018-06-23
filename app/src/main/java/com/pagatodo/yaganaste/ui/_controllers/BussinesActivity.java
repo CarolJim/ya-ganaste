@@ -145,7 +145,7 @@ public class BussinesActivity extends LoaderActivity {
                 listaColonias = null;
                 break;
             case EVENT_GO_BUSSINES_ADDRESS:
-                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.FORDWARD, false);
+                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias, null), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
                 //loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.BACK, false);
@@ -158,14 +158,14 @@ public class BussinesActivity extends LoaderActivity {
                 break;
             case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK:
                 RegisterAgent.getInstance().resetAditionalInformation();
-                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias, null), Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_MONEY_LAUNDERING:
                 loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK:
                 RegisterAgent.getInstance().resetAditionalInformation();
-                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias, null), Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);

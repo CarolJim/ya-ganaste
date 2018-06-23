@@ -190,6 +190,8 @@ public enum WebService {
     /*cancelar cuenta*/
     CANCELACCOUNT,
     /* Detalle de movimiento */
-    DETAIL_MOVEMENT
+    DETAIL_MOVEMENT,
+    /* Obtener Informacion Comercio */
+    INFO_COMERCIO
 }
 

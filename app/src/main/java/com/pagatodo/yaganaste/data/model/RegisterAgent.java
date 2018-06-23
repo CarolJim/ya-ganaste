@@ -78,12 +78,16 @@ public class RegisterAgent {
 
     public void resetAditionalInformation() {
         if (this.cuestionario.size() > 0) {
-            for (CuestionarioEntity cuestionario : this.cuestionario) {
-                if (cuestionario.getPreguntaId() == PREGUNTA_FAMILIAR) {
-                    this.cuestionario.remove(cuestionario);
-                } else if (cuestionario.getPreguntaId() == PREGUNTA_ERES_MEXICANO_NATURALIZADO) {
-                    this.cuestionario.remove(cuestionario);
+            try {
+                for (CuestionarioEntity cuestionario : this.cuestionario) {
+                    if (cuestionario.getPreguntaId() == PREGUNTA_FAMILIAR) {
+                        this.cuestionario.remove(cuestionario);
+                    } else if (cuestionario.getPreguntaId() == PREGUNTA_ERES_MEXICANO_NATURALIZADO) {
+                        this.cuestionario.remove(cuestionario);
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
