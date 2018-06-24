@@ -38,6 +38,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
+
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
@@ -80,7 +81,9 @@ public class BussinesActivity extends LoaderActivity {
         setUpActionBar();
         setVisibilityPrefer(false);
         numAgente = getIntent().getExtras().getString(AGENT_NUMBER);
-        int Idestatus = 5;
+
+
+            int Idestatus = 5;
         boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         if (esAgente) {
             try {
@@ -126,6 +129,7 @@ public class BussinesActivity extends LoaderActivity {
         super.onEvent(event, o);
         switch (event) {
             case EVENT_ERROR_DOCUMENTS:
+
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
                 break;
             case EVENT_GO_BUSSINES_DATA:

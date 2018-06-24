@@ -307,6 +307,16 @@ public class DatabaseManager {
         }.execute().get();
     }
 
+    /* Obtener agente por folio de la BD */
+    public Agentes getAgenteByFolio(String folio) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Agentes>() {
+            @Override
+            protected Agentes doInBackground(Void... voids) {
+                return App.getAppDatabase().agentesModel().getAgenteByFolio(folio);
+            }
+        }.execute().get();
+    }
+
     /* Obtener la lista de Operadores actualizada de la BD */
     public List<Operadores> getOperadoresByAgente(String numAgente) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, List<Operadores>>() {
@@ -336,6 +346,19 @@ public class DatabaseManager {
             }
         }.execute().get();
     }
+
+    /* Set id status agente de la BD */
+    public void setIdStatusAgente(String folioadq) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                App.getAppDatabase().agentesModel().updateStatus(8,folioadq);
+                return null;
+            }
+        }.execute();
+    }
+
+
 
     /* Borrar los agentes y operadores en la BD */
     public void deleteAgentes() {

@@ -33,6 +33,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIA
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
+
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 
@@ -163,6 +166,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             } else if (ws == CARGA_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).documentsUploaded("");
             } else if (ws == ACTUALIZAR_DOCUMENTOS) {
+                new DatabaseManager().setIdStatusAgente(App.getInstance().getPrefs().loadData(FOLIOADQ));
                 ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
         } else {

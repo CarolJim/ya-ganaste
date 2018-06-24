@@ -17,6 +17,9 @@ public interface AgentesDao {
     @Query("SELECT * FROM Agentes")
     List<Agentes> selectAgentes();
 
+    @Query("SELECT * FROM Agentes WHERE folio=:folio")
+    Agentes getAgenteByFolio(String folio);
+
     @Query("SELECT DISTINCT es_comercio_uyu FROM Agentes INNER JOIN Operadores" +
             " ON Agentes.numero_agente = Operadores.numero_agente AND Operadores.id_usuario_adquiriente=:idUsuarioAdq")
     boolean esComercioUyU(String idUsuarioAdq);
@@ -33,4 +36,7 @@ public interface AgentesDao {
     @Query("DELETE FROM Agentes")
     void deleteAll();
 
+
+    @Query("UPDATE Agentes SET id_estatus =:status WHERE folio=:folioadq")
+    void updateStatus(int status,String folioadq );
 }
