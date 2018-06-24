@@ -35,20 +35,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-            android:id="@+id/radioBtnPublicServantYes"
-            style="@style/RadioButtonMenu"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:checked="false"
-            android:text="Si" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
             android:id="@+id/radioBtnPublicServantNo"
             style="@style/RadioButtonMenu"
             android:layout_width="45dp"
             android:layout_height="25dp"
             android:text="No" />
 
+        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+            android:id="@+id/radioBtnPublicServantYes"
+            style="@style/RadioButtonMenu"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:checked="false"
+            android:text="Si" />
 
     </RadioGroup>
 

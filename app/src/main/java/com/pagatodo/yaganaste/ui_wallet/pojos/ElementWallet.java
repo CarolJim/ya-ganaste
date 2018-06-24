@@ -236,16 +236,16 @@ public class ElementWallet {
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;
             } else {
-                leyenda = "Cobra con tarjeta";
+                leyenda =   App.getContext().getString(R.string.cobro_tarjeta);
                 descripcion = R.string.mejor_precio;
                 isReload = false;
             }
             if (isBluetooth) {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(),agentes.getNumeroAgente(),""+agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             } else {
                 return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(),agentes.getNumeroAgente(),""+agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             }
         } else {
             return getCardLectorEmi();
@@ -255,7 +255,7 @@ public class ElementWallet {
     private static ElementWallet getCardLectorEmi() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
         return new ElementWallet(TYPE_ADQ, frontView,
-                "Cobra con tarjeta",
+                App.getContext().getString(R.string.cobro_tarjeta),
                 ElementView.getListLectorEmi(),
                 R.string.mejor_precio, false);
     }

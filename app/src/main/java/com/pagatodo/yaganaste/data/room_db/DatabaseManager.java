@@ -308,11 +308,11 @@ public class DatabaseManager {
     }
 
     /* Obtener agente por folio de la BD */
-    public Agentes getAgenteByFolio(String folio) throws ExecutionException, InterruptedException {
+    public Agentes getAgenteByComercio(int idComercio) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, Agentes>() {
             @Override
             protected Agentes doInBackground(Void... voids) {
-                return App.getAppDatabase().agentesModel().getAgenteByFolio(folio);
+                return App.getAppDatabase().agentesModel().getAgenteByComercio(idComercio);
             }
         }.execute().get();
     }

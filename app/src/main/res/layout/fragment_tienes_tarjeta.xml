@@ -84,14 +84,14 @@
                                 style="@style/RadioButtonMenu"
                                 android:layout_width="45dp"
                                 android:layout_height="25dp"
-                                android:checked="false"
+                                android:checked="true"
                                 android:text="Si" />
+
                             <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
                                 android:id="@+id/radioBtnNo"
                                 style="@style/RadioButtonMenu"
                                 android:layout_width="45dp"
                                 android:layout_height="25dp"
-
                                 android:text="No" />
                         </RadioGroup>
                     </LinearLayout>
@@ -99,8 +99,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/hint_color"
-                        android:layout_marginBottom="19.5dp"/>
+                        android:layout_marginBottom="19.5dp"
+                        android:background="@color/hint_color" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtMessageCard"

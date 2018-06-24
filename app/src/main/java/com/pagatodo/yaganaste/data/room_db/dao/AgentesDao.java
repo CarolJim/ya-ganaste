@@ -17,8 +17,8 @@ public interface AgentesDao {
     @Query("SELECT * FROM Agentes")
     List<Agentes> selectAgentes();
 
-    @Query("SELECT * FROM Agentes WHERE folio=:folio")
-    Agentes getAgenteByFolio(String folio);
+    @Query("SELECT * FROM Agentes WHERE id_comercio=:idComercio")
+    Agentes getAgenteByComercio(int idComercio);
 
     @Query("SELECT DISTINCT es_comercio_uyu FROM Agentes INNER JOIN Operadores" +
             " ON Agentes.numero_agente = Operadores.numero_agente AND Operadores.id_usuario_adquiriente=:idUsuarioAdq")

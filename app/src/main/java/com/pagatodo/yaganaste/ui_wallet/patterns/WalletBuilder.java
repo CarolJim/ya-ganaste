@@ -14,7 +14,6 @@ import java.util.concurrent.ExecutionException;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
-import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 
@@ -49,7 +48,7 @@ public class WalletBuilder {
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
                 Agentes agentes = new Agentes();
                 try {
-                    agentes = new DatabaseManager().getAgenteByFolio(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i).getFolio());
+                    agentes = new DatabaseManager().getAgenteByComercio(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i).getIdComercio());
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                     agentes = SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i);

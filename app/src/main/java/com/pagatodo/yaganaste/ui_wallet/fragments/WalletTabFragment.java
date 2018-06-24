@@ -172,6 +172,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setAdapter(cardWalletAdpater);
         pager_indicator.setView(0, cardWalletAdpater.getSize());
         updateOperations(0);
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
         viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? cardWalletAdpater.getCount() / 2 : 0);
         if (Utils.isDeviceOnline()) {
             String f = SingletonUser.getInstance().getCardStatusId();
@@ -337,7 +338,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         if (!prefs.containsData(IS_OPERADOR)) {
             walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
         }
-
     }
 
     @Override
@@ -417,7 +417,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         }
     }
 
-    private void goToWalletMainActivity(){
+    private void goToWalletMainActivity() {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, element);
         startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);

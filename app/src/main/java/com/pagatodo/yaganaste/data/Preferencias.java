@@ -65,6 +65,10 @@ public class Preferencias {
         return this.preferences.getString(key, "");
     }
 
+    public String loadData(String key, String def) {
+        return this.preferences.getString(key, def);
+    }
+
     public String getDataString(int key) {
         return this.preferences.getString(context.getString(key), context.getString(R.string.catalogo_version_init));
     }

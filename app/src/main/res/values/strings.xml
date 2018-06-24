@@ -339,7 +339,7 @@
 
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este correo ya ha sido registrado</string>
-    <string name="userDataTitle">Datos de Usuario</string>
+    <string name="userDataTitle">Datos de usuario</string>
     <string name="confirmEmail">Confirmar Correo</string>
     <string name="password">Contraseña</string>
     <string name="password6d">Contraseña (6 Dígitos)</string>
@@ -438,7 +438,7 @@
 
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
-    <string name="bussinesInfoTitle">Datos de tu Negocio</string>
+    <string name="bussinesInfoTitle">Datos de tu negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
     <string name="bussinesName">Nombre del negocio</string>
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
@@ -452,7 +452,6 @@
     <string name="error_cargo">Cargo requerido, verifique su información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
     <string name="terms_and_conditions_aditional_info">Al continuar reconozco haber leído y aceptado los\nTéminos y Condiciones</string>
-
 
 
     <!--felicidades-->
@@ -543,8 +542,8 @@
     <string name="saldo_disponible">Saldo disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>
-    <string name="mejor_precio">¡Al mejor precio!</string>
-    <string name="cobro_tarjeta">Cobra con tarjeta</string>
+    <string name="mejor_precio">Y recibe tu dinero al instante</string>
+    <string name="cobro_tarjeta">Acepta pagos con tarjeta</string>
 
     <string name="linea_credito">Línea de Crédito*</string>
     <string name="linea_credito_cupo">Línea de Crédito:</string>
@@ -1224,7 +1223,7 @@
     <string name="subtitle_bloquear_tarjeta">Deshabilitar tu tarjeta temporalmente</string>
     <string name="bloquear_tarjeta">Bloqueo temporal\nde tarjeta</string>
     <string name="bloquear_tarjeta_admin">Bloquear Tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloqueo temporal\nde tarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloqueo de\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
     <string name="realizar_cobro">Realizar un\ncobro rápido</string>
@@ -1393,8 +1392,8 @@
     <string name="contrasena_confirma_usuario">Confirmar contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>
-    <string name="sub_titulo_domicilio">¿Cuál es la dirección de tu negocio?\nPor defecto, asignamos tu dirección personal</string>
+    <string name="sub_titulo_datos_personales">¡Hola %s! Registra los\ndatos de tu negocio</string>
+    <string name="sub_titulo_domicilio">Indica la dirección de tu negocio como\naparece en el comprobante de domicilio 	</string>
     <string name="sub_titulo_info_adic">Responde las siguientes preguntas</string>
 
     <string name="datos_personal_nombre_b">Nombre(s)</string>

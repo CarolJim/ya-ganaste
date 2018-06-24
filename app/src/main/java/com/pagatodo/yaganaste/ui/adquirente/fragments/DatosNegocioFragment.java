@@ -317,7 +317,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
-                } else if (telefono.length()<8) {
+                } else if (telefono.length()<7) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_error);
@@ -390,7 +390,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         telefono = editBussinesPhone.getText().toString();
         telefono = telefono.replaceAll(" ", "");
 
-        if (telefono.length()<8 || editBussinesPhone.getText().toString().equalsIgnoreCase("00000000")) {
+        if (telefono.length()<7 || editBussinesPhone.getText().toString().equalsIgnoreCase("00000000")) {
             // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
             //    editBussinesPhone.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

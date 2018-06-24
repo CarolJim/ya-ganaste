@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 
@@ -59,23 +60,23 @@ public class Recursos {
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
         } else {
-            URL_SERVER_ADTVO = App.getInstance().getPrefs().loadData(URL_YG_ADMIN);
+            URL_SERVER_ADTVO = FirebaseRemoteConfig.getInstance().getString(URL_YG_ADMIN);
             //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
-            URL_SERVER_TRANS = App.getInstance().getPrefs().loadData(URL_YG_TRANS);
+            URL_SERVER_TRANS = FirebaseRemoteConfig.getInstance().getString(URL_YG_TRANS);
             //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
-            URL_SERVER_ADQ = App.getInstance().getPrefs().loadData(URL_YG_ADQ);
+            URL_SERVER_ADQ = FirebaseRemoteConfig.getInstance().getString(URL_YG_ADQ);
             //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
             URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
-            URL_STARBUCKS = App.getInstance().getPrefs().loadData(ForcedUpdateChecker.URL_STARBUCKS);
+            URL_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.URL_STARBUCKS);
             URL_COUNTLY = "https://us-try.count.ly";
 
             PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
 
-            PIN_ADVO = App.getInstance().getPrefs().loadData(PIN_YG_ADMIN);
-            PIN_TRANS = App.getInstance().getPrefs().loadData(PIN_YG_TRANS);
-            PIN_YA = App.getInstance().getPrefs().loadData(PIN_YG_ADQ);
-            PIN_STARBUCKS = App.getInstance().getPrefs().loadData(ForcedUpdateChecker.PIN_STARBUCKS);
+            PIN_ADVO = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADMIN);
+            PIN_TRANS = FirebaseRemoteConfig.getInstance().getString(PIN_YG_TRANS);
+            PIN_YA = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADQ);
+            PIN_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.PIN_STARBUCKS);
         }
     }
     /*Estatus Respuesta de Ws YaGanaste*/
