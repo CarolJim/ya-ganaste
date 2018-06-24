@@ -36,6 +36,7 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.presenter.ChangeStatusOperadorPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.IOException;
@@ -78,6 +79,11 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     StyleTextView status_operador;
     @BindView(R.id.titulo_negocio)
     StyleTextView titulo_negocio;
+
+    @BindView(R.id.btnbloquaar)
+    StyleButton btnbloquaar;
+
+
 
 
 
@@ -146,7 +152,10 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
             status_operador.setTextColor(Color.parseColor("#D0021B"));
         }
 
-        status_operador.setOnClickListener(new View.OnClickListener() {
+
+        btnbloquaar.setText(operadoresResponse.getIdEstatusUsuario() ==1? getString(R.string.boton_bloqueo):getString(R.string.boton_desbloque));
+
+        btnbloquaar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

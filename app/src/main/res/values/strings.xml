@@ -700,6 +700,10 @@
     <string name="continuar">Continuar</string>
     <string name="relizar_bloqueo">¿Estas seguro que quieres bloquear este operador?</string>
     <string name="relizar_desbloque">¿Estas seguro que quieres desbloquear este operador?</string>
+
+    <string name="boton_bloqueo">Bloquear operador</string>
+    <string name="boton_desbloque">Desbloquear operador</string>
+
     <string name="tab_recargas">Recargas</string>
     <string name="tab_servicios">Servicios</string>
     <string name="tab_envios">Envíos</string>
@@ -1546,4 +1550,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="detalle_de_operador">Detalle de operador</string>
+    <string name="bloquear_operador">Bloquear operador</string>
 </resources>
