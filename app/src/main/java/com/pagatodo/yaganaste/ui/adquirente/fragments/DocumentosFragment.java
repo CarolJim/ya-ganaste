@@ -21,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -333,10 +334,15 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();
+                DisplayMetrics metrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+               int nuevoWidth = metrics.widthPixels;
+                int nuevoHeight = metrics.heightPixels;
+
                 if (height > width) {
-                    scaled = Bitmap.createScaledBitmap(original, 500, 888, false);
+                    scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
                 } else {
-                    scaled = Bitmap.createScaledBitmap(original, 888, 500, false);
+                    scaled = Bitmap.createScaledBitmap(original, nuevoHeight, nuevoWidth, false);
                 }
                 saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 hideLoader();
