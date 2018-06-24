@@ -138,7 +138,7 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         //titulo_negocio.setText(operadoresResponse.getNombreNegocio());
         titulo_negocio.setText("");
         correo_operador.setText(operadoresResponse.getNombreUsuario());
-        contrasena_operador.setText(operadoresResponse.getPetroNumero());
+        contrasena_operador.setText(operadoresResponse.getPetroNumero().substring(0,5));
         if (operadoresResponse.getIdEstatusUsuario() ==1){
             status_operador.setText("Operador activo");
         }else {

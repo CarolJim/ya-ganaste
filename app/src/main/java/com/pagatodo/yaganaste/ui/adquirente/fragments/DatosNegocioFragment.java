@@ -511,7 +511,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         if (registerAgent.getNombre().isEmpty()) {
             return;
         }
-        //spinnerBussineLine.setOnItemSelectedListener(null);
 
         editBussinesName.setText(registerAgent.getNombre());
         editBussinesPhone.setText(registerAgent.getTelefono().substring(1,10));
