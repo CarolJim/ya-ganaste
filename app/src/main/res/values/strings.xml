@@ -509,7 +509,6 @@
     <string name="adq_payment_with_card">Ya puedes recibir \npagos con tarjeta</string>
     <string name="adq_new_section_payment">A continuación, te enseñaremos tu \nnueva sección de cobros</string>
     <string name="adq_title_thanks_msg">Este proceso puede tardar\nhasta 48 horas hábiles</string>
-
     <string name="adq_subtitle_accept">Tus documentos han sido\naprobados</string>
     <string name="adq_msg_accept">A continuación, te enseñaremos tu\nnueva sección de cobros</string>
     <string name="adq_aproved">Aprobada</string>
