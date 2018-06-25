@@ -111,6 +111,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -242,7 +243,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
 
-        if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129) {
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             mainViewPager.setCurrentItem(1);
         } else {
             mainViewPager.setCurrentItem(0);
@@ -423,7 +424,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
-
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         /*} else if (requestCode == Constants.ACTIVITY_LANDING) {
@@ -453,12 +453,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (resultCode == INTENT_FAVORITE) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
-        } else if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE) {
+        } else if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE
+                || resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
             childFragment.onActivityResult(requestCode, resultCode, data);
-
         }
-
     }
 
     protected void refreshAdquirenteMovements() {

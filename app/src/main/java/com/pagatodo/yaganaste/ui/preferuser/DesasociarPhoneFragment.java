@@ -102,11 +102,13 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         if (isOnline) {
           /*  UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
                     doubleActions, true, true);*/
-            UI.showAlertDialog(getContext(), getString(R.string.app_name), getResources().getString(R.string.deseaDesasociarDispositivo), "Desvincular",
-                    (DialogInterface.OnClickListener) (dialogInterface, i) -> {
-                        onEventListener.onEvent("DISABLE_BACK", true);
-                        mPreferPresenter.DesasociarToPresenter();
-                    });
+            UI.showAlertDialog(getContext(), getString(R.string.app_name), getResources().getString(R.string.deseaDesasociarDispositivo), "Desvincular", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    onEventListener.onEvent("DISABLE_BACK", true);
+                    mPreferPresenter.DesasociarToPresenter();
+                }
+            });
         } else {
             // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
             showDialogCustom(getResources().getString(R.string.no_internet_access));

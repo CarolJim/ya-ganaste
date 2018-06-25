@@ -27,4 +27,8 @@ public interface OperadoresDao {
 
     @Query("DELETE FROM Operadores")
     void deleteAll();
+
+    @Query("DELETE FROM Operadores WHERE numero_agente=:numeroAgente" )
+    void deleteByAgente(String numeroAgente);
 }
+

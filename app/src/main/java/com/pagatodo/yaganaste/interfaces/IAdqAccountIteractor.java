@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public interface IAdqAccountIteractor {
-    void registerAdq();
+    void updateAdq(String folio);
 
     void getNeighborhoodByZipCode(String zipCode);
 

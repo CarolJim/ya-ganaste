@@ -100,6 +100,7 @@ public enum WebService {
      * ws operadores
      */
     CHANGE_STATUS_OPERADOR,
+    GET_OPERADOR,
 
     /**
      * WS STARBUCKS
@@ -189,6 +190,8 @@ public enum WebService {
     /*cancelar cuenta*/
     CANCELACCOUNT,
     /* Detalle de movimiento */
-    DETAIL_MOVEMENT
+    DETAIL_MOVEMENT,
+    /* Obtener Informacion Comercio */
+    INFO_COMERCIO
 }
 

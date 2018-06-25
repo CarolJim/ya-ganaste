@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
@@ -32,6 +33,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIA
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
+
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 
@@ -73,7 +77,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         // interferir con otros servicios
         // NO MOVER :)
         adqIteractor.getEstatusDocs();
-
     }
 
 
@@ -83,11 +86,10 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         adqIteractor.getClientAddress();
     }
 
-
     @Override
-    public void createAdq() {
-        iAdqView.showLoader(App.getContext().getString(R.string.procesando_solicitud));
-        adqIteractor.registerAdq();
+    public void updateAdq(String folio) {
+        iAdqView.showLoader("Actualizando información");
+        adqIteractor.updateAdq(folio);
     }
 
     /*envio de documentos */
@@ -164,6 +166,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             } else if (ws == CARGA_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).documentsUploaded("");
             } else if (ws == ACTUALIZAR_DOCUMENTOS) {
+                new DatabaseManager().setIdStatusAgente(App.getInstance().getPrefs().loadData(FOLIOADQ));
                 ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
         } else {

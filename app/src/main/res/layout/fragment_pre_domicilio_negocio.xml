@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <ImageView
+        android:id="@+id/ico_negocio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        app:srcCompat="@drawable/ico_negocios" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_title_repayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ico_negocio"
+        android:layout_marginTop="30dp"
+        android:text="@string/datos_usar_mismo_domicilio"
+        android:textAlignment="center"
+        android:textColor="@color/white_text_wallet"
+        android:textSize="@dimen/size_text_style_2_half_value"
+        app:tipo="Text" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/btn_yes"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_no"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/white_round_button"
+        android:gravity="center"
+        android:text="@string/datos_usar_mismo_domicilio_yes"
+        android:textColor="@color/white_text_wallet"
+        android:textSize="@dimen/size_text_style_2_half_value"
+        app:tipo="Text" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/btn_no"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/white_round_button"
+        android:gravity="center"
+        android:text="@string/datos_usar_mismo_domicilio_no"
+        android:textColor="@color/white_text_wallet"
+        android:textSize="@dimen/size_text_style_2_half_value"
+        app:tipo="Text" />
+
+</RelativeLayout>

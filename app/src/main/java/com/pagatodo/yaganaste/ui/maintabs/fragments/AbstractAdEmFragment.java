@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -33,6 +34,7 @@ import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
+import com.pagatodo.yaganaste.ui_wallet.adapters.SimpleArrayAdapater;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
@@ -114,11 +116,14 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             type = args.getInt(TYPE);
         }
         doubleSwipePosition = new HashMap<>();
-        spinnerArrayAdapter = new ArrayAdapter<>
+        /*spinnerArrayAdapter = new ArrayAdapter<>
                 (getContext(), android.R.layout.simple_spinner_item,
-                        listComercios);
+                        listComercios);*/
+        spinnerArrayAdapter = new SimpleArrayAdapater(getContext(),-1, this.listComercios);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
+
+
 
     }
 
@@ -202,8 +207,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             //showLoader("");
             int idADQ = 0;
             try {
-                idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
-                RequestHeaders.setIdCuentaAdq("" + idADQ);
+                if (!agentes.isEmpty()) {
+                    idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
+                    RequestHeaders.setIdCuentaAdq("" + idADQ);
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

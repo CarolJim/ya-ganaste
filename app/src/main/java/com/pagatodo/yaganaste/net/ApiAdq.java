@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.net;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -100,7 +102,7 @@ public class ApiAdq extends Api {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129) {
             String idUserAdq = "0";
             try {
-                new DatabaseManager().getIdUsuarioAdqRolOperador();
+                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -257,7 +259,7 @@ public class ApiAdq extends Api {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129) {
             String idUserAdq = "0";
             try {
-                new DatabaseManager().getIdUsuarioAdqRolOperador();
+                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -374,7 +376,7 @@ public class ApiAdq extends Api {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129) {
             String idUserAdq = "0";
             try {
-                new DatabaseManager().getIdUsuarioAdqRolOperador();
+                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }

@@ -86,7 +86,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     String a;
     private View rootview;
     private AccountPresenterNew accountPresenter;
-    private char mask_number_card = 'X';
+    private char mask_number_card = '_';
     public static int LONG_PRESS_TIME = 500;
     private final Handler handler = new Handler();
     private final Runnable longPressed = new Runnable() {
@@ -222,7 +222,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                     @Override
                     public boolean onKey(View v, int keyCode, KeyEvent event) {
                         StringBuilder cardNumber = new StringBuilder(editNumber.getText().toString());
-                        int lastSharpIndex = cardNumber.indexOf("X");
+                        int lastSharpIndex = cardNumber.indexOf("_");
                         if (keyCode == KeyEvent.KEYCODE_DEL) {
                             if (lastSharpIndex <= 10 && lastSharpIndex >= 0) {
                                 return false;
@@ -245,7 +245,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
                         }
                         editNumber.setText(cardNumber);
-                        if (cardNumber.indexOf("X") == -1) {
+                        if (cardNumber.indexOf("_") == -1) {
                             hideKeyboard();
                         }
                         return false;
@@ -450,7 +450,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void resetCardNumberDefault() {
-        editNumber.setText(DEFAULT_CARD + "XX XXXX XXXX");
+        editNumber.setText(DEFAULT_CARD + "__ ____ ____");
     }
 
     private void generateCardNumberRamdon() {

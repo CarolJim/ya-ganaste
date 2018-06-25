@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.ui_wallet.interactors.WalletInteractorImpl;
@@ -69,6 +70,17 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
             walletView.sendCardReported();
         }
     }
+
+    @Override
+    public void getStatusDocuments() {
+        walletView.showProgress();
+        walletInteractor.getEstatusDocumentos();
+    }
+
+    @Override
+    public void getInfoComercio(String folio) {
+        walletInteractor.getInfoComercio(folio);
+    }
 /*
     @Override
     public void getInformacionAgente() {
@@ -120,6 +132,8 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         walletView.hideProgress();
         if (response instanceof EstatusCuentaResponse) {
             walletView.sendSuccessStatusAccount((EstatusCuentaResponse) response);
+        } else if (response instanceof ObtenerDocumentosResponse){
+            walletView.sendSuccessEstatusDocs((ObtenerDocumentosResponse) response);
         }
     }
 

@@ -166,6 +166,15 @@ public class App extends Application {
         remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOYALTY_CARDS, false);
         remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOGS, false);
         remoteConfigDefaults.put(ForcedUpdateChecker.CONNECTION_TIMEOUT, WS_TIMEOUT);
+        remoteConfigDefaults.put(ForcedUpdateChecker.URL_YG_TRANS, "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc");
+        remoteConfigDefaults.put(ForcedUpdateChecker.URL_YG_ADMIN, "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc");
+        remoteConfigDefaults.put(ForcedUpdateChecker.URL_YG_ADQ, "https://adquirente.yaganaste.com:19447/Middleware.svc");
+        remoteConfigDefaults.put(ForcedUpdateChecker.URL_STARBUCKS, "https://crt-rewards.starbucks.mx");
+        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_TRANS, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
+        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_ADMIN, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
+        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_ADQ, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
+        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_STARBUCKS, "425965554aaa92372ccb807ff20a35d26f72d20d");
+
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
         firebaseRemoteConfig.fetch(0)

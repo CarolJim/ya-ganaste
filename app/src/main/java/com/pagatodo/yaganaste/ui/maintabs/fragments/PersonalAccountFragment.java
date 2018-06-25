@@ -81,6 +81,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     protected void onTabLoaded() {
+        filterLinerLayout.setVisibility(View.GONE);
         tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
     }
 

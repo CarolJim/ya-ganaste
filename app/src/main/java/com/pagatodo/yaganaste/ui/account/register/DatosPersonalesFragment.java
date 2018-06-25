@@ -287,8 +287,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editBirthDay.setOnClickListener(onClickListenerDatePicker);
         adaptergenero = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, Genero.values(), this);
 
-        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
-                States.values(), this);
+        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
 

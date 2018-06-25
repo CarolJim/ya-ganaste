@@ -228,6 +228,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         }
         btnContinueEnvio.setOnClickListener(this);
         setValidationRules();
+
+
+
         //Huella
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface IinfoAdicionalInteractor extends IRequestResult {
     List<Paises> getPaisesList();
-
+    void updateSession();
     void registrarAdquirente();
     void setSpinner(SpinnerPLD sp);
     void setPaises();

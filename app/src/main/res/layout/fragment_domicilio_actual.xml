@@ -164,48 +164,44 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-
-            </LinearLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/text_cp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/edit_nombre"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/inputtext_normal"
-                android:gravity="center_vertical"
-                android:hint="@string/zipCodeHint"
-                android:maxLines="1"
-                android:textColorHint="@color/texthint"
-                app:counterEnabled="false"
-                app:counterMaxLength="1"
-                app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                app:hintTextAppearance="@style/HintText"
-                app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute">
-
-                <EditText
-                    android:id="@+id/editZipCode"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_cp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="9dp"
-                    android:background="@android:color/transparent"
-                    android:digits="1,2,3,4,5,6,7,8,9,0"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
+                    android:layout_height="50dp"
+                    android:layout_weight=".35"
+                    android:layout_below="@+id/edit_nombre"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:gravity="center_vertical"
+                    android:hint="@string/zipCodeHint"
+                    android:maxLines="1"
+                    android:textColorHint="@color/texthint"
+                    app:counterEnabled="false"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color"
+                    tools:ignore="UnusedAttribute">
 
-                    android:maxLength="5"
-                    android:paddingLeft="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/grayColor"
-                    android:theme="@style/NewEdittextwallet" />
+                    <EditText
+                        android:id="@+id/editZipCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
+                        android:digits="1,2,3,4,5,6,7,8,9,0"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
 
-            </android.support.design.widget.TextInputLayout>
+                        android:maxLength="5"
+                        android:paddingLeft="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
 
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                 style="@style/generic_text_style_2"
@@ -403,7 +399,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="25dp" />
+                android:layout_height="50dp" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLegales"

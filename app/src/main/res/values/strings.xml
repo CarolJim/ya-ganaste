@@ -28,7 +28,6 @@
     <string name="cambia_status_operador">/CambiarEstatusUsuario</string>
 
 
-
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
@@ -60,6 +59,7 @@
     <string name="getBalanceAdqUrl">/ConsultarSaldoADQ</string>
     <string name="getSucursales">/LocalizarSucursales</string>
     <string name="obtenerSubgiros">/ObtenerSubgiros</string>
+    <string name="obteneroperadores">/ObtenerOperadores</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
@@ -87,6 +87,7 @@
     <string name="cancelarCuenta">/CancelarCuenta</string>
 
     <!--Métodos de WS Adquiriente-->
+    <string name="adqConsultarInformacionComercio">/ConsultarInformacionComercio</string>
     <string name="adqLogin">/agMov/login</string>
     <string name="adqRegisterDongle">/agMov/register_dongle</string>
     <string name="adqTransactionEmv">/agMov/transactionEmvDepositAccount</string>
@@ -184,8 +185,8 @@
     <string name="colonia">Colonia</string>
     <string name="terms_and_conditions">Al continuar reconozco ser mayor de edad, así como\nhaber leído y aceptado los Términos y Condiciones y\nel Aviso de Privacidad</string>
     <string name="postal_code">C.P.</string>
-    <string name="intern_number">Número Interior</string>
-    <string name="outside_number">Número Exterior</string>
+    <string name="intern_number">No. Int.</string>
+    <string name="outside_number">No. Ext.</string>
     <string name="are_you_want_get_payments">¿Te gustaría recibir\npagos con tarjeta?</string>
     <string name="yes_i_want_card_payments">SÍ QUIERO ACEPTAR TARJETA</string>
     <string name="i_dont_want_card_payments">NO QUIERO ACEPTAR TARJETA</string>
@@ -338,7 +339,7 @@
 
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este correo ya ha sido registrado</string>
-    <string name="userDataTitle">Datos de Usuario</string>
+    <string name="userDataTitle">Datos de usuario</string>
     <string name="confirmEmail">Confirmar Correo</string>
     <string name="password">Contraseña</string>
     <string name="password6d">Contraseña (6 Dígitos)</string>
@@ -437,10 +438,11 @@
 
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
-    <string name="bussinesInfoTitle">Datos de tu Negocio</string>
+    <string name="bussinesInfoTitle">Datos de tu negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
     <string name="bussinesName">Nombre del negocio</string>
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
+    <string name="mexicanQuestion">¿Eres mexicano naturalziado?</string>
 
     <!--Informacion Adicional-->
     <string name="title_informacion_adicional">Información Adicional</string>
@@ -450,6 +452,7 @@
     <string name="error_cargo">Cargo requerido, verifique su información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
     <string name="terms_and_conditions_aditional_info">Al continuar reconozco haber leído y aceptado los\nTéminos y Condiciones</string>
+
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu cuenta Ya Ganaste está lista</string>
@@ -461,7 +464,14 @@
     <string name="datos_negocio_subgiro">Subgiro requerido, verifique su información</string>
     <string name="datos_negocio_telefono">Teléfono requerido, verifique su información</string>
     <string name="datos_telefono_incorrecto">Ingrese un teléfono válido</string>
+    <string name="datos_lada_incorrecto">Ingrese una lada válido</string>
     <string name="datos_negocio_preguntas">Debes contestar todas las preguntas</string>
+    <string name="datos_negocio_lada">Lada requerido, verifique su información</string>
+    <string name="datos_usar_mismo_domicilio">¿La dirección de tu negocio es la misma\nque tu dirección personal?</string>
+    <string name="datos_usar_mismo_domicilio_yes">Si, es la misma</string>
+    <string name="datos_usar_mismo_domicilio_no">No, es diferente</string>
+    <string name="datos_usar_mismo_domicilio_btn">Usar dirección personal</string>
+    <string name="datos_usar_mismo_domicilio_limpiar">Limpiar datos</string>
     <!--Server problem-->
     <string name="message_generic_ws">Ocurrió un error de conexión</string>
     <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
@@ -532,8 +542,8 @@
     <string name="saldo_disponible">Saldo disponible</string>
     <string name="saldo_en_cuenta">Saldo en cuenta</string>
     <string name="saldo_personal">Saldo personal:</string>
-    <string name="mejor_precio">¡Al mejor precio!</string>
-    <string name="cobro_tarjeta">Cobra con tarjeta</string>
+    <string name="mejor_precio">Y recibe tu dinero al instante</string>
+    <string name="cobro_tarjeta">Acepta pagos con tarjeta</string>
 
     <string name="linea_credito">Línea de Crédito*</string>
     <string name="linea_credito_cupo">Línea de Crédito:</string>
@@ -637,9 +647,9 @@
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya tienes una cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">A continuación, un comprobante de domicilio comercial no\nmayor a 3 meses, puede ser CFE, teléfono o agua</string>
+    <string name="documents_comprobantes">Comprobante de domicilio comercial\nno mayor a 3 meses (CFE, Teléfono o agua)</string>
     <string name="documents_vigentes">Credencial de elector o pasaporte</string>
-
+    <string name="documentos_iguales">* La dirección debe aparecer exactamente igual\na la registrada previamente</string>
 
     <!-- Restricciones para los editText -->
     <string name="input_phone">0123456789</string>
@@ -687,6 +697,12 @@
     <string name="sin_senial">Sin señal telefónica</string>
 
     <string name="continuar">Continuar</string>
+    <string name="relizar_bloqueo">¿Estas seguro que quieres bloquear este operador?</string>
+    <string name="relizar_desbloque">¿Estas seguro que quieres desbloquear este operador?</string>
+
+    <string name="boton_bloqueo">Bloquear operador</string>
+    <string name="boton_desbloque">Desbloquear operador</string>
+
     <string name="tab_recargas">Recargas</string>
     <string name="tab_servicios">Servicios</string>
     <string name="tab_envios">Envíos</string>
@@ -839,6 +855,9 @@
     <string name="aprobada_cobro">El cobro fue realizado con éxito,\nya puedes retirar la tarjeta del lector</string>
     <string name="pago_success">El pago fue completado\ncorrectamente</string>
     <string name="cancelation_success">Cancelación exitosa</string>
+    <string name="change_status_success"> </string>
+    <string name="sub_change_status_success">La cuenta del operador ha sido\n bloqueada con éxito</string>
+    <string name="sub_change_status_blok">La cuenta del operador ha sido\n desbloqueada con éxito \n\nYa puede ingresar usando la\nmisma contraseña</string>
     <string name="cancelation_success_message">El cobro fue cancelado con éxito.\nYa puedes retirar la tarjeta del lector</string>
     <string name="mount_be_higer">El monto tiene que ser mayor</string>
     <string name="mount_valid">Ingresa un monto válido</string>
@@ -1204,7 +1223,7 @@
     <string name="subtitle_bloquear_tarjeta">Deshabilitar tu tarjeta temporalmente</string>
     <string name="bloquear_tarjeta">Bloqueo temporal\nde tarjeta</string>
     <string name="bloquear_tarjeta_admin">Bloquear Tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloqueo temporal\nde tarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloqueo de\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
     <string name="realizar_cobro">Realizar un\ncobro rápido</string>
@@ -1373,9 +1392,9 @@
     <string name="contrasena_confirma_usuario">Confirmar contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">Ingresa tus datos personales\ncomo aparecen en tu identificación</string>
-    <string name="sub_titulo_domicilio">¿Cuál es la dirección de tu negocio?\nPor defecto, asignamos tu dirección personal</string>
-    <string name="sub_titulo_info_adic">Casi estamos listos, necesitamos hacerte algunas\npreguntas más para completar tu registro</string>
+    <string name="sub_titulo_datos_personales">¡Hola %s! Registra los\ndatos de tu negocio</string>
+    <string name="sub_titulo_domicilio">Indica la dirección de tu negocio como\naparece en el comprobante de domicilio 	</string>
+    <string name="sub_titulo_info_adic">Responde las siguientes preguntas</string>
 
     <string name="datos_personal_nombre_b">Nombre(s)</string>
     <string name="add_favorite_txt">Añadir Favorito</string>
@@ -1401,7 +1420,7 @@
     <string name="introduce_nip_valido">Introduce NIP</string>
 
     <!-- Registro Adquiriente Adapters -->
-    <string name="title_tipo_uno">Estamos revisando tu solicitud</string>
+    <string name="title_tipo_uno">Estamos validando tu registro</string>
     <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas</string>
     <string name="title_tipo_desc_dos">¿Tienes dudas? Contáctanos</string>
     <string name="title_tipo_desc_tres">Indícanos el modelo de tu lector\nde tarjetas Ya Ganaste</string>
@@ -1410,16 +1429,17 @@
     <string name="sin_lector_aun">Aún no tengo\nlector de tarjetas</string>
     <string name="contacto">contacto@yaganaste.com</string>
     <string name="btn_reenviar">Reenviar</string>
+    <string name="btn_revisar">Revisar</string>
     <string name="felicidades">¡Felicidades!</string>
     <string name="ya_se_puede">Ya puedes comenzar a recibir pagos con\ntarjeta ¡al mejor precio!</string>
-    <string name="ocurrio_error_doc">Ocurrió un error con tu documentación</string>
+    <string name="ocurrio_error_doc">Ocurrió un error</string>
     <string name="error_seleccion_lector">Por favor seleccione una opción</string>
-    <string name="tuvimos_problema">Tuvimos un problema con tus documentos, es necesario que los vuelvas a enviar</string>
+    <string name="tuvimos_problema">Tuvimos un problema con los datos de tu\nnegocio o tu documentación</string>
     <string name="tu_solicitud_no">Tu solicitud no pudo ser completada</string>
     <string name="tuvimos_problema_solicitud">Tuvimos un problema con tu solicitud, comunícate con nosotros para conocer más detalles</string>
 
-    <string name="sub_titulo_documentos">Por último, necesitamos fotos de tus documentos\npara confirmar tu identidad</string>
-    <string name="sub_titulo_ine">Primero una identificación oficial vigente, puede ser tu\ncredencial de elector (INE) o tu pasaporte</string>
+    <string name="sub_titulo_documentos">Añade una fotografía legible de los siguientes\ndocumentos para confirmar tu información</string>
+    <string name="sub_titulo_ine">Identificación oficial vigente,\ncredencial de elector (INE) o pasaporte</string>
 
     <!-- Cambio de nip-->
     <string name="nip_actual">NIP Actual</string>
@@ -1529,4 +1549,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="detalle_de_operador">Detalle de operador</string>
+    <string name="bloquear_operador">Bloquear operador</string>
 </resources>

@@ -15,11 +15,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,8 +114,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     Button btnRegresar;
     @BindView(R.id.lnr_buttons)
     LinearLayout lnr_buttons;
-    @BindView(R.id.lnr_help)
-    LinearLayout lnr_help;
+    //@BindView(R.id.lnr_help)
+    //LinearLayout lnr_help;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -171,9 +173,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
         return rootview;
@@ -303,7 +304,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void initSetClickableDocs() {
         swipeRefreshLayout.setEnabled(false);
         lnr_buttons.setVisibility(VISIBLE);
-        lnr_help.setVisibility(GONE);
+        //lnr_help.setVisibility(GONE);
         ifeFront.setOnClickListener(this);
         ifeBack.setOnClickListener(this);
         addressFront.setOnClickListener(this);
@@ -333,10 +334,15 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();
+                DisplayMetrics metrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+               int nuevoWidth = metrics.widthPixels;
+                int nuevoHeight = metrics.heightPixels;
+
                 if (height > width) {
-                    scaled = Bitmap.createScaledBitmap(original, 500, 888, false);
+                    scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
                 } else {
-                    scaled = Bitmap.createScaledBitmap(original, 888, 500, false);
+                    scaled = Bitmap.createScaledBitmap(original, nuevoHeight, nuevoWidth, false);
                 }
                 saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 hideLoader();
@@ -843,7 +849,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      */
     private void sendDocuments() {
         updateListFromMapHash();
-
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
                 showError(getString(R.string.adq_must_upload_documents));

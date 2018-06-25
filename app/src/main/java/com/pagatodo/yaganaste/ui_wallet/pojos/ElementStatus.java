@@ -14,4 +14,9 @@ public class ElementStatus implements ElementGlobal {
     public int getIdOperacion() {
         return 0;
     }
+
+    @Override
+    public void setIdOperacion(int idOperacion) {
+
+    }
 }

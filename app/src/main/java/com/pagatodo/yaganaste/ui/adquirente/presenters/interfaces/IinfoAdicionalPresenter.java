@@ -14,6 +14,8 @@ public interface IinfoAdicionalPresenter<T> {
 
     void createUsuarioAdquirente();
 
+    void updateSession();
+
     void onSuccessCreateUsuarioAdquirente(Object success);
 
     void onWSError(WebService ws, T error);

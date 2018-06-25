@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.maintabs.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.List;
 
-/**
- * Created by Jordan on 17/04/2017.
- */
+
 
 public class SpinnerArrayAdapter extends ArrayAdapter {
     private static String CANTIDAD_HINT = App.getContext().getResources().getString(R.string.details_monto);
@@ -42,7 +41,7 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
 
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         SpinnerArrayAdapter.DropDownHolder holder;
         Object item = mItems.get(position);
@@ -86,8 +85,9 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
     }
 
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, final ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
         SpinnerArrayAdapter.ViewHolder holder;
         Object item = mItems.get(position);
@@ -107,12 +107,7 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
             holder = (SpinnerArrayAdapter.ViewHolder) row.getTag();
         }
 
-        holder.editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parent.performClick();
-            }
-        });
+        holder.editText.setOnClickListener(v -> parent.performClick());
 
 
         if (paymentType == Constants.PAYMENT_RECARGAS) {

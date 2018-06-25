@@ -129,7 +129,8 @@
                         android:layout_marginLeft="15dp"
                         android:text="Giro comercial"
                         android:textColor="@color/hint_color"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:layout_marginStart="15dp" />
 
                         <Spinner
                             android:id="@+id/spinnerBussineLine"
@@ -139,7 +140,9 @@
                             android:layout_marginBottom="4dp"
                             android:layout_marginLeft="15dp"
                             android:background="@null"
-                            app:backgroundTint="@color/transparent" />
+                            android:backgroundTint="@color/transparent"
+                            android:layout_marginStart="15dp"
+                            tools:ignore="UnusedAttribute" />
 
                 </LinearLayout>
 
@@ -214,10 +217,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_lada"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/edit_nombre"
+                        android:background="@drawable/inputtext_normal"
+                        android:gravity="center_vertical"
+                        android:hint="Lada"
+                        android:maxLines="1"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:hintTextAppearance="@style/HintText"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        android:textColorHint="@color/hint_color"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/editBussinesLada"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:digits="1,2,3,4,5,6,7,8,9,0"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:paddingLeft="15dp"
+                            android:singleLine="true"
+                            android:theme ="@style/NewEdittextwallet"
+                            android:textColor="@color/grayColor"
+                            android:paddingStart="15dp"
+                            tools:ignore="RtlSymmetry" />
+
+                    </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_telefono"
-                    android:layout_width="match_parent"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/edit_nombre"
                     android:background="@drawable/inputtext_normal"
@@ -241,14 +286,14 @@
                         android:digits="1,2,3,4,5,6,7,8,9,0"
                         android:imeOptions="actionDone"
                         android:inputType="number"
-                        android:maxLength="12"
+                        android:maxLength="10"
                         android:paddingLeft="15dp"
                         android:singleLine="true"
                         android:theme ="@style/NewEdittextwallet"
                         android:textColor="@color/grayColor" />
 
                 </android.support.design.widget.TextInputLayout>
-
+                </LinearLayout>
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editBussinesPhoneold"
                     style="@style/FragmentElementWithValidation"
@@ -268,6 +313,8 @@
 
 
             </LinearLayout>
+
+
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
     </ScrollView>

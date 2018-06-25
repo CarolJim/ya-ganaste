@@ -25,11 +25,33 @@ public class Agentes implements Serializable {
     @ColumnInfo(name = "es_comercio_uyu")
     private boolean EsComercioUYU;
 
+    @ColumnInfo(name = "id_comercio")
+    private int IdComercio;
+
     @ColumnInfo(name = "id_estatus")
     private int IdEstatus;
 
     @ColumnInfo(name = "nombre_negocio")
     private String NombreNegocio;
+
+    @ColumnInfo(name = "folio")
+    private String Folio;
+
+    public String getFolio() {
+        return Folio;
+    }
+
+    public void setFolio(String folio) {
+        Folio = folio;
+    }
+
+    public int getIdComercio() {
+        return IdComercio;
+    }
+
+    public void setIdComercio(int idComercio) {
+        IdComercio = idComercio;
+    }
 
     @Ignore
     private List<Operadores> Operadores = new ArrayList<>();

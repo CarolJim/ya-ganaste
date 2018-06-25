@@ -181,9 +181,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @BindView(R.id.imageViewCustomSpinner)
     AppCompatImageView imageViewCustomSpinner;
 
-
-
-
     TransferType selectedType;
     List<String> tipoPago = new ArrayList<>();
     int idTipoComercio, idComercio, longitudRefer, keyIdComercio, maxLength;
@@ -217,8 +214,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         enviosPresenter = new EnviosPresenter(this);
         backUpResponsefavo = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(Constants.PAYMENT_ENVIOS, this, getContext(), false);
-
-
 
         if (!UtilsNet.isOnline(getActivity())) {
             UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
@@ -365,9 +360,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), Constants.PAYMENT_ENVIOS, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
 
-        
-
-
         tipoEnvio.setOnItemSelectedListener(this);
         receiverName.setSingleLine();
         if (favoriteItem != null) {
@@ -423,7 +415,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        clearContent();
+        //clearContent();
         //paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
@@ -1118,6 +1110,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         }
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     private void textchangeclabe() {
         cardNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -1173,10 +1170,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         });
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

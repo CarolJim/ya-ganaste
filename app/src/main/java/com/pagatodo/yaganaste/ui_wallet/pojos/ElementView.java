@@ -20,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
@@ -38,6 +39,9 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
     static public final int OPTION_MVIMIENTOS_BUSSINES = 105;
     //static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
+    static public final int OPTION_CONTINUE_DOCS = 106;
+    static public final int OPTION_ERROR_ADDRESS = 107;
+    static public final int OPTION_ERROR_ADDRESS_DOCS = 108;
 
     static public final int OPTION_ADMON_EMISOR = 301;
     static public final int OPTION_ADMON_ADQ = 302;
@@ -70,6 +74,26 @@ public class ElementView implements ElementGlobal {
     private List<Operadores> list = new ArrayList<>();
     private String nombreNegocio;
 
+    private String numeroAgente;
+
+    private String IdComercio;
+
+    public String getIdComercio() {
+        return IdComercio;
+    }
+
+    public void setIdComercio(String idComercio) {
+        IdComercio = idComercio;
+    }
+
+    public String getNumeroAgente() {
+        return numeroAgente;
+    }
+
+    public void setNumeroAgente(String numeroAgente) {
+        this.numeroAgente = numeroAgente;
+    }
+
     public List<Operadores> getList() {
         return list;
     }
@@ -93,12 +117,14 @@ public class ElementView implements ElementGlobal {
         return new ElementView();
     }
 
-    public ElementView(int idOperacion, int resource, int title, List<Operadores> list, String nombreNegocio) {
+    public ElementView(int idOperacion, int resource, int title, List<Operadores> list, String nombreNegocio, String numeroAgente, String idComercio) {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
         this.list = list;
         this.nombreNegocio = nombreNegocio;
+        this.numeroAgente = numeroAgente;
+        this.IdComercio = idComercio;
 
     }
 
@@ -113,6 +139,18 @@ public class ElementView implements ElementGlobal {
         this.resource = resource;
         this.title = title;
         this.nombreNegocio = nombreComercio;
+    }
+
+    public ElementView(int idOperacion, int resource, int title, int description, boolean status, boolean color, int textbutton, int typeOptions, String idComercio) {
+        this.idOperacion = idOperacion;
+        this.resource = resource;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.color = color;
+        this.textbutton = textbutton;
+        this.typeOptions = typeOptions;
+        this.IdComercio = idComercio;
     }
 
     public ElementView(int idOperacion, int resource, int title, int description, boolean status, boolean color, int textbutton, int typeOptions) {
@@ -208,19 +246,21 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }*/
 
-    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, boolean isComercioUyu) {
+    public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         boolean isAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
-        //if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() != 129 && isComercioUyu) {
-        elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN));
-        //}
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
+            elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
+        }
         List<Agentes> agentes = new ArrayList<>();
         try {
             agentes = new DatabaseManager().getAgentes();
-        } catch (ExecutionException | InterruptedException e) { e.printStackTrace(); }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         if (agentes.size() < 2) {
             elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
@@ -229,30 +269,30 @@ public class ElementView implements ElementGlobal {
             elementViews = ElementView.getListLectorEmi();
         } else {
             if (isAgente && idEstatusAgente == IdEstatus.I6.getId()) {
-                elementViews = ElementView.getListEstadoContinuarRegistro();
+                elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.I7.getId()) {
-                elementViews = ElementView.getListEstadoRevisando();
+                elementViews = ElementView.getListEstadoRevisando(idComercio);
             }
 
             if (isAgente && idEstatusAgente == IdEstatus.I8.getId()) {
-                elementViews = ElementView.getListEstadoRevisando();
+                elementViews = ElementView.getListEstadoRevisando(idComercio);
             }
 
             if (isAgente && idEstatusAgente == IdEstatus.I9.getId()) {
-                elementViews = ElementView.getListEstadoError();
+                elementViews = ElementView.getListEstadoError(idComercio);
             }
 
             if (isAgente && idEstatusAgente == IdEstatus.I10.getId()) {
-                elementViews = ElementView.getListEstadoRechazado();
+                elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
 
             if (isAgente && idEstatusAgente == IdEstatus.I11.getId()) {
-                elementViews = ElementView.getListEstadoRevisando();
+                elementViews = ElementView.getListEstadoRevisando(idComercio);
             }
 
             if (isAgente && idEstatusAgente == IdEstatus.I13.getId()) {
-                elementViews = ElementView.getListEstadoRechazado();
+                elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
             /*if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
@@ -269,51 +309,51 @@ public class ElementView implements ElementGlobal {
     }
 
     //Proceso Revisando
-    public static ArrayList<ElementView> getListEstadoRevisando() {
+    public static ArrayList<ElementView> getListEstadoRevisando(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false, false, R.string.next, OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(10, R.drawable.ico_revision, R.string.title_tipo_uno, R.string.title_tipo_desc, false, false, R.string.next, OPTION_ZONE_UNO, idComercio));
         return elementViews;
     }
 
     //Proceso Aprobado
-    public static ArrayList<ElementView> getListEstadoAprobado() {
+    public static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE));
+        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE, idComercio));
         return elementViews;
     }
 
     // Seleccion de Lector
-    public static ArrayList<ElementView> getListSeleccionarLector() {
+    public static ArrayList<ElementView> getListSeleccionarLector(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_CONFIG_DONGLE, R.drawable.ic_check_success, R.string.title_tipo_desc_tres, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_DOS));
+        elementViews.add(new ElementView(OPTION_CONFIG_DONGLE, R.drawable.ic_check_success, R.string.title_tipo_desc_tres, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_DOS, idComercio));
         return elementViews;
     }
 
     //Proceso Aprobado
-    public static ArrayList<ElementView> getListConfigCard() {
+    public static ArrayList<ElementView> getListConfigCard(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_card, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(OPTION_SETTINGSCARD, R.drawable.icon_card, R.string.title_main, R.string.title_second, true, false, R.string.title_button_card, OPTION_ZONE_UNO, idComercio));
         return elementViews;
     }
 
     //Proceso Continuar Registro Documentacion
-    public static ArrayList<ElementView> getListEstadoContinuarRegistro() {
+    public static ArrayList<ElementView> getListEstadoContinuarRegistro(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(12, R.drawable.portada_adq, -1, -1, true, false, R.string.continuar_registro, OPTION_ZONE));
+        elementViews.add(new ElementView(OPTION_CONTINUE_DOCS, R.drawable.portada_adq, -1, -1, true, false, R.string.continuar_registro, OPTION_ZONE, idComercio));
         return elementViews;
     }
 
     //Proceso Aprobado
-    public static ArrayList<ElementView> getListEstadoError() {
+    public static ArrayList<ElementView> getListEstadoError(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true, R.string.btn_reenviar, OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(12, R.drawable.ico_alert_red, R.string.ocurrio_error_doc, R.string.tuvimos_problema, true, true, R.string.btn_revisar, OPTION_ZONE_UNO, idComercio));
         return elementViews;
     }
 
     //Proceso Rechazado
-    public static ArrayList<ElementView> getListEstadoRechazado() {
+    public static ArrayList<ElementView> getListEstadoRechazado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar, OPTION_ZONE_UNO));
+        elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar, OPTION_ZONE_UNO, idComercio));
         return elementViews;
     }
 
@@ -375,5 +415,10 @@ public class ElementView implements ElementGlobal {
     @Override
     public int getIdOperacion() {
         return this.idOperacion;
+    }
+
+    @Override
+    public void setIdOperacion(int idOperacion) {
+        this.idOperacion = idOperacion;
     }
 }
