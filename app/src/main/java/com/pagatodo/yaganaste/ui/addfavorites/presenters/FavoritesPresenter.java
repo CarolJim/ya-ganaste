@@ -225,7 +225,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         if (dataSourceResult.getData() instanceof ConsultarTitularCuentaResponse) {
             mView.hideLoader();
             ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
-            mView.toViewSuccessDeleteFavorite(response.getMensaje());
+            mView.toViewSuccessGetPerson();
         }
     }
 
@@ -283,7 +283,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         if (dataSourceResult.getData() instanceof ConsultarTitularCuentaResponse) {
             mView.hideLoader();
             ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
-            mView.toViewErrorCuentaFail(response.getMensaje());
+            mView.onFailGetTitulaName(response.getMensaje());
         }
     }
 

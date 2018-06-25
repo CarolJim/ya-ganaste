@@ -28,6 +28,8 @@ public interface IAddFavoritesActivity {
 
     void toViewSuccessEdit(FavoritosEditDatosResponse response);
 
+    void toViewSuccessGetPerson();
+
     void onFailGetTitulaName(String error);
 
     void toViewErrorCuentaFail(String mensaje);

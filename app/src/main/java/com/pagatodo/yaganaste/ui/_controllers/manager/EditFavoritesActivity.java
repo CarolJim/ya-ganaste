@@ -688,6 +688,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
+    public void toViewSuccessGetPerson() {
+
+    }
+
+    @Override
     public void onFailGetTitulaName(String error) {
 
     }

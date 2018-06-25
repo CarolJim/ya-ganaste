@@ -526,7 +526,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/btn_navigation_bottom"
+        android:paddingBottom="16dp"
         android:visibility="visible">
 
 

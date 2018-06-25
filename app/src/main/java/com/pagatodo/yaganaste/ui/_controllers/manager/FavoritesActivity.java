@@ -76,6 +76,7 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
@@ -207,6 +208,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     TextInputLayout til_num_telefono;
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_name_favorite;
+    @BindView(R.id.btnSendAddFavoritos)
+    StyleButton btnSendAddFavoritos;
 
     @BindView(R.id.referencianumber)
     TextInputLayout referencianumber;
@@ -951,8 +954,13 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     }
 
     @Override
-    public void onFailGetTitulaName(String error) {
+    public void toViewSuccessGetPerson() {
 
+    }
+
+    @Override
+    public void onFailGetTitulaName(String error) {
+        UI.showErrorSnackBar(this, error, Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -1307,6 +1315,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void onTextComplete() {
+        UI.hideKeyBoard(this);
         favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
     }
 
@@ -1565,6 +1574,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         } else if (favoriteProcess == EDIT_FAVORITE) {
             // Hacemos Set del Titulo
             textTittle.setText(App.getContext().getResources().getString(R.string.editarFavorites));
+            btnSendAddFavoritos.setText("Editar");
 
             dataFavoritos = (Favoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
             current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
