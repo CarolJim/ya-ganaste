@@ -1574,7 +1574,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         } else if (favoriteProcess == EDIT_FAVORITE) {
             // Hacemos Set del Titulo
             textTittle.setText(App.getContext().getResources().getString(R.string.editarFavorites));
-            btnSendAddFavoritos.setText("Editar");
+            btnSendAddFavoritos.setText("Guardar favorito");
 
             dataFavoritos = (Favoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
             current_tab = getIntent().getIntExtra(CURRENT_TAB_ID, 1);
