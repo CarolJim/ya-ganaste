@@ -144,6 +144,7 @@
                     android:layout_height="17dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="11dp"
+                    android:id="@+id/id_parentescoimg"
                     android:src="@drawable/ico_select"
                     android:tint="@color/colorAccent" />
             </LinearLayout>

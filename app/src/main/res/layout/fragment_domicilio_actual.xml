@@ -260,9 +260,10 @@
 
                 <ImageView
                     android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="11dp"
+                    android:id="@+id/imgcp"
                     android:src="@drawable/ico_select"
                     android:tint="@color/colorAccent" />
             </LinearLayout>

@@ -242,6 +242,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         //boardBookmarks.getLayout();
         //listView.setAdapter(adapterList);
 
+
+
+
         /**
          *
          * Parte de los focus change para manejar los edit text activados y normales
@@ -410,6 +413,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
 
         // Agregamos  Listener al campo de Editfavorites
         editarFavoritos.setOnClickListener(this);
+
+        imageViewCustomSpinner.setOnClickListener(view -> tipoEnvio.performClick());
     }
 
     @Override

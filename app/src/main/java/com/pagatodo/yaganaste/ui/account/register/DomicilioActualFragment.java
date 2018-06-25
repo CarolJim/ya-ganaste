@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -103,6 +104,13 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     CustomValidationEditText editZipCodeold;
     @BindView(R.id.editZipCode)
     EditText editZipCode;
+
+    @BindView(R.id.imgcp)
+    ImageView imgcp;
+
+
+
+
 
     @BindView(R.id.editState)
     CustomValidationEditText editState;
@@ -197,7 +205,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         hideLoader();
-
+        imgcp.setOnClickListener(view -> spcolonia.performClick());
         errorStreetMessage.setVisibilityImageError(false);
         errorNumeroMessage.setVisibilityImageError(false);
         errorZipCodeMessage.setVisibilityImageError(false);

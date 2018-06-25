@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -114,6 +115,18 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     @BindView(R.id.destino)
     StyleTextView destino;
 
+    @BindView(R.id.imgcobromensual)
+    ImageView imgcobromensual;
+    @BindView(R.id.imgmontomensual)
+    ImageView imgmontomensual;
+    @BindView(R.id.imgtorigen)
+    ImageView imgtorigen;
+    @BindView(R.id.imgdestino)
+    ImageView imgdestino;
+
+
+
+
 
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
@@ -156,6 +169,12 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
         setClickLegales();
         infoAdicionalPresenter.setSpinner(SPINNER_PLD_COBROS);
+        imgcobromensual.setOnClickListener(view -> spnCobrosMensuales.performClick());
+        imgmontomensual.setOnClickListener(view -> spnMontoMensual.performClick());
+        imgtorigen.setOnClickListener(view -> spnOrigenRecursos.performClick());
+        imgdestino.setOnClickListener(view -> spnDestinoRecursos.performClick());
+
+
     }
 
 

@@ -103,6 +103,7 @@
                             android:tint="@color/colorAccent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="11dp"
+                            android:id="@+id/imgcobromensual"
                             android:src="@drawable/ico_select" />
                     </LinearLayout>
 
@@ -160,8 +161,9 @@
                             android:layout_height="17dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="11dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/ico_select" />
+                            android:src="@drawable/ico_select"
+                            android:id="@+id/imgmontomensual"
+                            android:tint="@color/colorAccent" />
                     </LinearLayout>
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorMontoMensual"
@@ -183,8 +185,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            >
+                            android:orientation="vertical">
 
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                 android:id="@+id/origen"
@@ -214,8 +215,9 @@
                             android:layout_height="17dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="11dp"
-                            android:tint="@color/colorAccent"
-                            android:src="@drawable/ico_select" />
+                            android:src="@drawable/ico_select"
+                            android:id="@+id/imgtorigen"
+                            android:tint="@color/colorAccent" />
                     </LinearLayout>
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
@@ -269,6 +271,7 @@
                         <ImageView
                             android:layout_width="17dp"
                             android:layout_height="17dp"
+                            android:id="@+id/imgdestino"
                             android:tint="@color/colorAccent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="11dp"

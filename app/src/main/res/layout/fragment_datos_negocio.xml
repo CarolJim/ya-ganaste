@@ -152,6 +152,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="11dp"
                     android:src="@drawable/ico_select"
+                    android:id="@+id/spiner1"
                     android:tint="@color/colorAccent" />
             </LinearLayout>
 
@@ -198,7 +199,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="0dp"
                         android:background="@null"
-                        app:backgroundTint="@color/transparent" />
+                        android:backgroundTint="@color/transparent" />
 
                 </LinearLayout>
 
@@ -207,6 +208,7 @@
                     android:layout_height="17dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="11dp"
+                    android:id="@+id/spiner12"
                     android:src="@drawable/ico_select"
                     android:tint="@color/colorAccent" />
             </LinearLayout>

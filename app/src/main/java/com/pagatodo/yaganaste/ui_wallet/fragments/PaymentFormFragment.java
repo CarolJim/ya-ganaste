@@ -166,6 +166,13 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.txtconcepto)
     LinearLayout txtconcepto;
 
+    @BindView(R.id.imgmonto)
+    ImageView imgmonto;
+
+
+
+
+
 
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_num_telefono2;
@@ -264,6 +271,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         ButterKnife.bind(this, rootView);
         btnContinue.setOnClickListener(this);
         // edtPhoneNumber.setCursorVisible(true);
+
+
+        imgmonto.setOnClickListener(view -> spnMontoRecarga.performClick() );
 
         edtPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -109,6 +110,14 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.textsubgiro)
     StyleTextView textsubgiro;
 
+    @BindView(R.id.spiner1)
+    ImageView spiner1;
+
+    @BindView(R.id.spiner12)
+    ImageView spiner12;
+
+
+
 
     /*@BindView(R.id.btnBackBussinesInfo)
     Button btnBackBussinesInfo;*/
@@ -186,6 +195,11 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(),
                 R.layout.spinner_layout, girosComercio, this);
         spinnerBussineLine.setAdapter(giroArrayAdapter);
+
+        spiner1.setOnClickListener(view -> spinnerBussineLine.performClick());
+
+        spiner12.setOnClickListener(view -> spinnerSubBussineLine.performClick() );
+
         spinnerBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
