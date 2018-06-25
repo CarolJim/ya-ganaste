@@ -127,6 +127,9 @@ public class DetailsEmisorFragment extends GenericFragment {
         int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE);
 
+        int permissioStorageWrite = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
         // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
         if (permissionSMS == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
@@ -136,9 +139,9 @@ public class DetailsEmisorFragment extends GenericFragment {
         }
 
         // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
-        if (permissionStorage == -1) {
+        if (permissionStorage == -1 || permissioStorageWrite == -1) {
             ValidatePermissions.checkPermissions(getActivity(),
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_STORAGE);
             isValid = false;
         }

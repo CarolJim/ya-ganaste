@@ -70,10 +70,12 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
         if (view.getId() == R.id.view_elementlllamar) {
             int permissionCall = ContextCompat.checkSelfPermission(getContext(),
                     Manifest.permission.READ_PHONE_STATE);
+            int permissionCall2 = ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.CALL_PHONE);
             // Si no tenemos el permiso lo solicitamos, en cawso contrario entramos al proceso de envio del MSN
-            if (permissionCall == -1) {
+            if (permissionCall == -1 || permissionCall2 == -1) {
                 ValidatePermissions.checkPermissions(getActivity(),
-                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                        new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE},
                         MY_PERMISSIONS_REQUEST_SEND_SMS);
             } else {
 

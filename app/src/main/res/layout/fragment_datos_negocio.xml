@@ -47,7 +47,7 @@
                     android:layout_marginBottom="32dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/sub_titulo_datos_personales"
+                    android:text="@string/sub_titulo_datos_negocio"
                     android:textAlignment="center"
                     android:textColor="@color/adadad"
                     android:textSize="14sp"

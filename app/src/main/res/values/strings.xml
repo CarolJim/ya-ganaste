@@ -1393,7 +1393,8 @@
     <string name="contrasena_confirma_usuario">Confirmar contraseña (6 dígitos)</string>
 
     <string name="titulo_datos_usuario">Registra tus datos de usuario\npara que puedas iniciar sesión.</string>
-    <string name="sub_titulo_datos_personales">¡Hola %s! Registra los\ndatos de tu negocio</string>
+    <string name="sub_titulo_datos_personales">Registra tus datos de usuario\npara que puedas iniciar sesión.</string>
+    <string name="sub_titulo_datos_negocio">¡Hola %s! Registra los\ndatos de tu negocio</string>
     <string name="sub_titulo_domicilio">Indica la dirección de tu negocio como\naparece en el comprobante de domicilio 	</string>
     <string name="sub_titulo_info_adic">Responde las siguientes preguntas</string>
 
