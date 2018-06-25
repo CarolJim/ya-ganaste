@@ -76,12 +76,8 @@ public class SelectDongleFragment extends GenericFragment implements View.OnClic
                 imgTypeNormal.setImageResource(R.drawable.rdb_pressed);
             }
         }catch (Exception e){
-
             Log.d("NO Data","Selec type connection");
         }
-
-
-
     }
 
     @Override

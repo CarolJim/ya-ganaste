@@ -115,7 +115,7 @@ public class WalletInteractorImpl implements WalletInteractor {
     @Override
     public void getInfoComercio(String folio) {
         try {
-            ApiAdtvo.obtenerInfoComercio(folio,this);
+            ApiAdtvo.obtenerInfoComercio(folio, this);
         } catch (OfflineException e) {
             this.listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
         }
@@ -189,7 +189,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                 }
                 break;
             case INFO_COMERCIO:
-                ObtenerInfoComercioResponse response = (ObtenerInfoComercioResponse)result.getData();
+                ObtenerInfoComercioResponse response = (ObtenerInfoComercioResponse) result.getData();
                 if (response.getCodigoRespuesta() == CODE_OK) {
                     RegisterAgent.getInstance().setCodigoPostal(response.getDomicilioNegocio().getCp());
                     RegisterAgent.getInstance().setCalle(response.getDomicilioNegocio().getCalle());
@@ -216,6 +216,9 @@ public class WalletInteractorImpl implements WalletInteractor {
            /* case GET_INFORMACION_AGENTE:
                 this.listener.onFailed(CODE_ERROR_INFO_AGENTE, Recursos.NO_ACTION, error.getData().toString());
                 break;*/
+            case OBTENER_DOCUMENTOS:
+                this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
+                break;
             case CONSULTAR_MOVIMIENTOS_MES:
                 this.listener.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
                 break;

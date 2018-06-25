@@ -39,7 +39,6 @@ public class NetFacade {
      *                      de la petición.
      */
     public static void consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String, String> headers, Object oRequest, Type responseType, IRequestResult requestResult) throws OfflineException {
-
         if (UtilsNet.isOnline(App.getContext())) {
             WsCaller wsCaller = new WsCaller();
             wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest,

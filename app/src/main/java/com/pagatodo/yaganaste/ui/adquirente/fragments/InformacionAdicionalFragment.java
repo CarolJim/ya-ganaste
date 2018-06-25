@@ -91,7 +91,6 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     Button btnNext;
 
 
-
     @BindView(R.id.text_cargo)
     TextInputLayout text_cargo;
     @BindView(R.id.edit_text)
@@ -222,14 +221,14 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     //hideValidationError(R.id.editCargo);
-                 //   editCargo.imageViewIsGone(true);
+                    //   editCargo.imageViewIsGone(true);
                 } else {
                     if (TextUtils.isEmpty(editCargo.getText())) {
                         //showValidationError(R.id.editCargo, getString(R.string.error_cargo));
-                   //     editCargo.setIsInvalid();
+                        //     editCargo.setIsInvalid();
                     } else {
                         //hideValidationError(R.id.editCargo);
-                     //   editCargo.setIsValid();
+                        //   editCargo.setIsValid();
                     }
                 }
             }
@@ -378,9 +377,10 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void onIsMexaYesCheck() {
         layoutPais.setVisibility(View.GONE);
+        text_cargo.setVisibility(View.GONE);
         //editCountry.setText("");
-     //   editCountry.imageViewIsGone(false);
-      //  editCountry.setDrawableImage(R.drawable.menu_canvas);
+        //   editCountry.imageViewIsGone(false);
+        //  editCountry.setDrawableImage(R.drawable.menu_canvas);
         paisNacimiento = null;
 
     }
@@ -388,9 +388,10 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void onIsMexaNoCheck() {
         layoutPais.setVisibility(View.VISIBLE);
+        text_cargo.setVisibility(View.VISIBLE);
         //editCountry.setText("");
         //editCountry.imageViewIsGone(false);
-       // editCountry.setDrawableImage(R.drawable.menu_canvas);
+        // editCountry.setDrawableImage(R.drawable.menu_canvas);
         infoAdicionalPresenter.getPaisesList();
     }
 
@@ -408,7 +409,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
         cargo = "";
         editCargo.setText("");
-       // editCargo.imageViewIsGone(true);
+        // editCargo.imageViewIsGone(true);
     }
 
     @Override
@@ -417,7 +418,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
         cargo = "";
         editCargo.setText("");
-       // editCargo.imageViewIsGone(true);
+        // editCargo.imageViewIsGone(true);
         editCargo.clearFocus();
 
         if (spinnerParentescoAdapter != null) {
@@ -440,14 +441,14 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void onCountrySelectedListener(Paises item) {
         paisNacimiento = item;
-       //editCountry.setText(item.getPais());
+        //editCountry.setText(item.getPais());
         //txtmexica.setBackgroundResource(R.drawable.inputtext_normal);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parentesco = spinnerParentescoAdapter.getItem(position);
-        if (position!=0) {
+        if (position != 0) {
             textoprentesco.setVisibility(View.VISIBLE);
             textoprentesco.setTextColor(getResources().getColor(R.color.colorAccent));
         }

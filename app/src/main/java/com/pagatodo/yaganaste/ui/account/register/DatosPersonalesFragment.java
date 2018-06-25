@@ -347,7 +347,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editCountry:
                 onCountryClick();
-
                 break;
             case R.id.imageViewValidation:
                 onCountryClick();

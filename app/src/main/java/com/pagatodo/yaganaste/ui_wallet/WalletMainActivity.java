@@ -133,6 +133,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
@@ -376,7 +377,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     break;
             }
         }
-        if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO) {
+        if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
+                || requestCode == PAYMENTS_ADQUIRENTE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         } else {
             if (data != null) {
@@ -554,9 +556,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
         } else if (fragment instanceof DetalleOperadorFragment) {
             loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container, Direction.BACK);
-        } else if (fragment instanceof SelectDongleFragment || fragment instanceof PairBluetoothFragment) {
+        } else if (fragment instanceof SelectDongleFragment) {
             setResult(RESULT_CODE_SELECT_DONGLE);
             super.onBackPressed();
+        } else if (fragment instanceof PairBluetoothFragment) {
+            loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
+                    R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof DocumentosFragment) {
             setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             super.onBackPressed();

@@ -232,7 +232,7 @@ public class DatabaseManager {
                 App.getAppDatabase().operadoresModel().deleteAll();
                 App.getAppDatabase().agentesModel().insertAgentes(agentes);
                 for (Agentes agente : agentes) {
-                    if(agente.getOperadores()!=null) {
+                    if (agente.getOperadores() != null) {
                         for (Operadores operador : agente.getOperadores()) {
                             operador.setNumeroAgente(Integer.valueOf(agente.getNumeroAgente()));
                             /* Inserta los operadores respectivos de los agentes en la BD */
@@ -312,7 +312,10 @@ public class DatabaseManager {
         return new AsyncTask<Void, Void, Agentes>() {
             @Override
             protected Agentes doInBackground(Void... voids) {
-                return App.getAppDatabase().agentesModel().getAgenteByComercio(idComercio);
+                Agentes agente = App.getAppDatabase().agentesModel().getAgenteByComercio(idComercio);
+                List<Operadores> operadores = App.getAppDatabase().operadoresModel().getOperadoresByAgente(agente.getNumeroAgente());
+                agente.setOperadores(operadores);
+                return agente;
             }
         }.execute().get();
     }
@@ -352,12 +355,11 @@ public class DatabaseManager {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                App.getAppDatabase().agentesModel().updateStatus(8,folioadq);
+                App.getAppDatabase().agentesModel().updateStatus(8, folioadq);
                 return null;
             }
         }.execute();
     }
-
 
 
     /* Borrar los agentes y operadores en la BD */

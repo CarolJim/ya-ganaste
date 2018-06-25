@@ -67,6 +67,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
@@ -393,6 +394,15 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                         break;
                     default:
                         break;
+                }
+                break;
+            case PAYMENTS_ADQUIRENTE:
+                if (resultCode == RESULT_OK) {
+                    NumberCalcTextWatcher.cleanData();
+                    et_amount.setText("0");
+                    edtConcept.setText(null);
+                    mySeekBar.setProgress(0);
+                    NumberCalcTextWatcher.cleanData();
                 }
                 break;
         }
