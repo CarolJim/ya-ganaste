@@ -112,7 +112,9 @@
             android:theme="@style/TransparentNoTitleBar"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".ui._controllers.DetailsActivity" />
+        <activity android:name=".ui._controllers.DetailsActivity"
+            android:exported="true"
+            />
         <activity android:name=".ui._controllers.OnlineTxActivity" />
         <activity android:name=".ui.otp.activities.OtpCodeActivity" />
         <activity android:name=".ui._controllers.ScannVisionActivity" />
@@ -155,6 +157,7 @@
             android:name=".ui._controllers.PreferUserActivity"
             android:label="@string/title_activity_prefer_user"
             android:parentActivityName=".ui._controllers.TabActivity"
+            android:exported="true"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -67,7 +67,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/button_rounded_blue"
-        android:text="@string/btn_req_payment_2_txt"
+        android:text="@string/btn_agregar_favo"
         android:textAllCaps="false"
         android:textColor="@color/whiteColor"
         android:textSize="@dimen/size_text_style_2_value"

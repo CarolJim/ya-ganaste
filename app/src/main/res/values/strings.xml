@@ -725,6 +725,7 @@
     <string name="btn_payment_favorites_txt">Pagos favoritos</string>
     <string name="btn_req_payment_txt">Solicitar</string>
     <string name="btn_req_payment_2_txt">Agregar</string>
+    <string name="btn_agregar_favo">Guardar favorito</string>
     <string name="txt_exito">Éxito</string>
     <string name="txt_cancelar">Cancelar</string>
     <string name="error_enviando_ticket">Error enviando ticket</string>
