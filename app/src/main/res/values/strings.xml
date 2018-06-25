@@ -503,7 +503,7 @@
     <string name="adq_upgrade_documents">Actualizando documentos</string>
     <string name="adq_error_open_image">La aplicación no pudo acceder a su imagen, intente con otra galería</string>
     <string name="adq_title_thanks">¡Gracias!</string>
-    <string name="adq_subtitle_thanks">Tus documentos están\nsiendo revisados</string>
+    <string name="adq_subtitle_thanks">Hemos recibido tu información, en este\nmomento esta en proceso de aprobación\n\nPodíamos tardar hasta 48 horas, te\nmantendremos al tanto</string>
     <string name="adq_documents_approved">Tus documentos \nfueron aprobados</string>
     <string name="adq_notification_pending">Te notificaremos cuando \ntu sección de cobros este lista</string>
     <string name="adq_payment_with_card">Ya puedes recibir \npagos con tarjeta</string>
@@ -635,6 +635,7 @@
     <string name="tarjeta_cancelada">Tu tarjeta esta cancelada</string>
     <string name="title_aceptar">Aceptar</string>
     <string name="title_cancelar">Cancelar</string>
+    <string name="title_nada"> </string>
     <string name="title_guardar">Guardar</string>
     <string name="title_reintentar">Reintentar</string>
     <string name="title_llamar">Llamar</string>

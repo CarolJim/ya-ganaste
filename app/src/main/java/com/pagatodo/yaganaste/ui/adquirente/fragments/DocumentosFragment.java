@@ -796,7 +796,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
 
-        UI.showAlertDialog(getContext(), mData.getMotivo() + "\n" + mData.getComentario(),
+        UI.showAlertDialogcoemtario(getContext(),mData.getMotivo(),  "\n" + mData.getComentario(),false,
                 (dialogInterface, i) -> {
                     switch (mPosition) {
                         case 0:
