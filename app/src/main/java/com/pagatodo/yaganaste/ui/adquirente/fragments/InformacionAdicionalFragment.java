@@ -396,7 +396,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onHasFamiliarYesCheck() {
-        //layoutFamiliarCargoPublico.setVisibility(View.VISIBLE);
+        txtparentesco.setVisibility(View.VISIBLE);
         if (spinnerParentescoAdapter == null) {
             spinnerParentescoAdapter = new StatesSpinnerAdapter(getContext(),
                     R.layout.spinner_layout, Parentescos.values(), this);
@@ -413,7 +413,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onHasFamiliarNoCheck() {
-        //layoutFamiliarCargoPublico.setVisibility(View.GONE);
+        txtparentesco.setVisibility(View.GONE);
 
         cargo = "";
         editCargo.setText("");

@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.patterns.CreateDatailBuilder;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -99,7 +100,7 @@ public class DetailsEmisorFragment extends GenericFragment {
                     movimientosResponse);
         }
 
-        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, item,false);
+        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, item, false);
         CreateDatailBuilder.createByType(getContext(), container, movimientosResponse);
 
     }
@@ -164,7 +165,7 @@ public class DetailsEmisorFragment extends GenericFragment {
             outputStream.flush();
             outputStream.close();
             sendScreenshot(imageFile);
-        } catch (Throwable e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
