@@ -13,14 +13,22 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
-**_VERSION_4.2.2 - 13 de Junio al ... (ID:?)_**
+**_VERSION_4.2.2 - 13 al 25 de Junio del 2018 (ID:4900)_**
 
 Descripción al desarrollador:
 
     * Configuración de logs productivos con Firebase
     * Configuración de visibiildad de saldos en accesos directos
-    * Parche para cuando los agentes son nulos desde el WS
+    * Parche para cuando los agentes son nulos o vacíos desde el WS
+    * Configuración de url's productivas con Firebase
+    * Correción certificado Middleware para *.yaganaste.com
+    * Migración de base de datos a versión 2 con anexo de tablas (Agentes, Operadores)
     * Corrección diseños
+    
+Funcionalidad:
+
+    * Pantalla Mis Operadores
+    * Correcciones menores
 
 **_VERSION 4.2.0 - 9 de Mayo al 12 de Junio del 2018 (ID:4811)_**
 
