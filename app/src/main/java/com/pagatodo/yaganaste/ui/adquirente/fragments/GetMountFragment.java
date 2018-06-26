@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
@@ -74,7 +75,8 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
-public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener, OnCompleteListener<LocationSettingsResponse>, View.OnClickListener {
+public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener,
+        OnCompleteListener<LocationSettingsResponse>, View.OnClickListener, NumberCalcTextWatcher.TextChange {
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 900;
     private static final String NAME_COMERCE = "NAME_COMERCE";
@@ -84,13 +86,17 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @BindView(R.id.et_amount)
     public EditText et_amount;
     @BindView(R.id.edtConcept)
-    StyleEdittext edtConcept;
+    EditText edtConcept;
     @BindView(R.id.keyboard_view)
     CustomKeyboardView keyboardView;
     @BindView(R.id.img_arrow_previous)
     ImageView imgArrowPrev;
     @BindView(R.id.btncobrar)
     LinearLayout btncobrar;
+    @BindView(R.id.cobrar)
+    StyleTextView cobrar;
+    @BindView(R.id.text_input_concepto)
+    TextInputLayout inputConcept;
 
     LinearLayout layout_amount;
     private String nameComerce = "";
@@ -130,7 +136,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_monto, container, false);
         initViews();
@@ -140,6 +146,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void initViews() {
         super.initViews();
+
         /**
          * layout_amount capa que controla el abrir el teclado
          * tvMontoEntero TextView que contiene los enteros del elemento
@@ -152,7 +159,11 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         tvMontoEntero = (StyleTextView) rootview.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (StyleTextView) rootview.findViewById(R.id.tv_monto_decimal);
         imgArrowPrev = (ImageView) rootview.findViewById(R.id.img_arrow_previous);
-        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept));
+        cobrar = (StyleTextView) rootview.findViewById(R.id.cobrar);
+        edtConcept = (EditText) rootview.findViewById(R.id.edtConcept);
+        inputConcept = rootview.findViewById(R.id.text_input_concepto);
+
+        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept,this));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         btncobrar.setOnClickListener(this);
@@ -168,15 +179,14 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             });
         }*/
 
+
+
         // Make the custom keyboard appear
-        et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    keyboardView.showCustomKeyboard(v);
-                } else {
-                    keyboardView.hideCustomKeyboard();
-                }
+        et_amount.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                keyboardView.showCustomKeyboard(v);
+            } else {
+                //keyboardView.hideCustomKeyboard();
             }
         });
 
@@ -205,7 +215,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             }
         });
 
-        edtConcept.setOnEditTextImeBackListener(this);
+        //edtConcept.setOnEditTextImeBackListener(this);
         edtConcept.setImeOptions(EditorInfo.IME_ACTION_DONE);
         edtConcept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -217,7 +227,14 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 return false;
             }
         });
-
+        edtConcept.setOnFocusChangeListener((view, b) -> {
+            if (b){
+                inputConcept.setBackgroundResource(R.drawable.inputtext_active);
+            } else {
+                inputConcept.setBackgroundResource(R.drawable.inputtext_normal);
+                et_amount.requestFocus();
+            }
+        });
         et_amount.requestFocus();
     }
 
@@ -490,6 +507,13 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         if (view.getId() == R.id.btncobrar) {
             actionChargecobro();
         }
+    }
+
+
+    @Override
+    public void onChangeTextListener(String text) {
+        //String leyenda = "Cobrar ";
+        cobrar.setText("Cobrar " + text);
     }
 }
 
