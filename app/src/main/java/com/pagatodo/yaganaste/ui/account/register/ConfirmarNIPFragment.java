@@ -117,7 +117,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
 
         cameraManager = new CameraManager(this);
-        //cameraManager.initCamera(getActivity(), iv_photo_item, this);
+       cameraManager.initCamera(getActivity(), this);
 
     }
 
@@ -243,7 +243,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
         if (registerUser.getPerfirlfoto()!=null){
             if ( !registerUser.getPerfirlfoto().toString().isEmpty()) {
-                cameraManager.setCropImageselfie(registerUser.getPerfirlfoto());
+                cameraManager.setCropImageselfie( Uri.parse(registerUser.getUrifotoperfil()));
             }else {
                 accountPresenter.assignNIP(nip);
             }

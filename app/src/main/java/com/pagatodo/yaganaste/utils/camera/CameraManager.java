@@ -126,6 +126,15 @@ public class CameraManager {
         this.mView = mView;
     }
 
+    public void initCamera(Activity mContext,
+                           IListaOpcionesView mView) {
+        this.mContext = mContext;
+        contador = new ArrayList<>();
+        dataDocumnets = new ArrayList<>();
+
+        this.mView = mView;
+    }
+
 
     public void initCameraUploadDocument(Activity mContext, UploadDocumentView imageViewCamera,
                                          IListaOpcionesView mView) {
