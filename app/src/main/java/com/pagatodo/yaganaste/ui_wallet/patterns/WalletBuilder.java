@@ -41,9 +41,9 @@ public class WalletBuilder {
         //Mis Negocios getCardMisNegocios
         //Adquiriente
         if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes() != null && !SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().isEmpty()) {
-            /*if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() > 1) {
+            if (SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size() > 1) {
                 walletList.addWallet(ElementWallet.getCardMisNegocios());
-            }*/
+            }
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
                 Agentes agentes = new Agentes();
                 try {
