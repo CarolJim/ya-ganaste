@@ -39,6 +39,7 @@ public class ElementWallet {
     public static final int TYPE_STARBUCKS = 13;
     public static final int TYPE_SETTINGS = 14;
     public static final int TYPE_BUSINESS = 15;
+    public static final int TYPE_ADQ_ADM = 16;
 
     private int typeWallet;
     private Bitmap frontBitmap, rearBitmap;

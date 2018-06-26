@@ -120,7 +120,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             String sIniciales = getIniciales(payments.getNombreDestinatario());
             txtInicialesFav.setText(sIniciales);
         }
-        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null));
+        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null,null));
 
         et_amount.setOnTouchListener(new View.OnTouchListener() {
             @Override

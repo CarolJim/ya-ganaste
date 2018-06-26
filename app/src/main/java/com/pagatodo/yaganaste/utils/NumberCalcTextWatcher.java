@@ -28,11 +28,12 @@ import java.util.regex.Pattern;
 
 public class NumberCalcTextWatcher implements TextWatcher {
 
+    private TextChange listener;
     private final static Pattern rfc2822 = Pattern.compile("^\\$?(\\d{1,5})?(\\.(\\d{1,2})?)?$");
     protected static String amount = "";
     String tmpAMount, strAmountEditText;
     private EditText etMonto;
-    StyleEdittext edtConcept;
+    EditText edtConcept;
     private TextView tvMontoEntero, tvMontoDecimal;
     private DecimalFormat formatter;
     private DecimalFormat fmt;
@@ -41,11 +42,12 @@ public class NumberCalcTextWatcher implements TextWatcher {
     private String newData;
     private String TAG = getClass().getSimpleName();
 
-    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal, @Nullable StyleEdittext edtConcept) {
+    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal, @Nullable EditText edtConcept, TextChange listener) {
         this.etMonto = edtMount;
         this.tvMontoEntero = tvMontoEntero;
         this.tvMontoDecimal = tvMontoDecimal;
         this.edtConcept = edtConcept;
+        this.listener = listener;
     }
 
     public static void cleanData() {
@@ -200,7 +202,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
                     CustomKeyboardView.setCodeKey(99);
                     etMonto.setText(StringUtils.getCurrencyValue(tmp));
                     Selection.setSelection(etMonto.getText(), StringUtils.getCurrencyValue(tmp).toString().length());
-
+                    listener.onChangeTextListener(etMonto.getText().toString());
                     // Guardamos la cantidad en el modelo para recuperar en caso de perdida
                     //TransactionAdqData.getCurrentTransaction().setAmount(Utils.getCurrencyValue(strAmountEditText));
 
@@ -220,5 +222,9 @@ public class NumberCalcTextWatcher implements TextWatcher {
         if (rfc2822.matcher(toCheck).matches())
             return true;
         return false;
+    }
+
+    public interface TextChange{
+        void onChangeTextListener(String text);
     }
 }

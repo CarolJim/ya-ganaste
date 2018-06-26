@@ -198,7 +198,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="0dp"
                         android:background="@null"
-                        app:backgroundTint="@color/transparent" />
+                        android:backgroundTint="@color/transparent" />
 
                 </LinearLayout>
 

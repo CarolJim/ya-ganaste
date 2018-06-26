@@ -35,6 +35,7 @@ import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ERROR_STATUS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_BUSINESS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
@@ -80,6 +81,9 @@ public class WalletInteractorImpl implements WalletInteractor {
                     String numCard = App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS);
                     CardRequest cardRequest = new CardRequest(numCard);
                     ApiStarbucks.saldoSb(cardRequest, this);
+                    break;
+                case TYPE_BUSINESS:
+
                     break;
                 default:
                     this.listener.onSuccesSaldo(typeWallet, "");

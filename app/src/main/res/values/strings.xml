@@ -441,6 +441,7 @@
     <string name="bussinesInfoTitle">Datos de tu negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
     <string name="bussinesName">Nombre del negocio</string>
+
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
     <string name="mexicanQuestion">¿Eres mexicano naturalziado?</string>
 
@@ -560,6 +561,7 @@
     <string name="mensaje_pagaste2">Con tu tarjeta:</string>
 
     <string name="monto_cobrar">Monto</string>
+    <string name="concepto">Concepto (Opcional)</string>
     <string name="retirar_tarjeta">Retira la tarjeta</string>
     <string name="tu_firma">Tu firma</string>
 
