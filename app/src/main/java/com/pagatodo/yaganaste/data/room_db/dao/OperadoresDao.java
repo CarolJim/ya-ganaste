@@ -16,6 +16,9 @@ public interface OperadoresDao {
     @Query("SELECT * FROM Operadores WHERE numero_agente=:numeroAgente")
     List<Operadores> getOperadoresByAgente(String numeroAgente);
 
+    @Query("SELECT * FROM Operadores WHERE numero_agente=:numeroAgente AND is_admin = 1")
+    Operadores getOperadorAdminByAgente(String numeroAgente);
+
     @Query("SELECT id_usuario_adquiriente FROM Operadores LIMIT 1")
     int getIdUsuarioAdquirienteRolOperador();
 

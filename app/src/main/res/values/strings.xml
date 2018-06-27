@@ -104,6 +104,7 @@
     <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
     <string name="adqMovimientos">/agMov/Movimientos</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
+    <string name="adqGetSaldoAdm">/agMov/ObtenerSaldo</string>
     <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
     <string name="adqGetTypeRepayment">/agMov/ObtieneTipoReembolso</string>

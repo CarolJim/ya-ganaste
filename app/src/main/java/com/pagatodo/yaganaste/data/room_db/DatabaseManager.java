@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.room_db;
 
+import android.annotation.SuppressLint;
+import android.graphics.Path;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -277,6 +279,37 @@ public class DatabaseManager {
         }.execute().get();
     }
 
+    /* Obtener la lista de operadores administradores guardados en la BD */
+    public List<Operadores> getOperadores() throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, List<Operadores>>() {
+            @Override
+            protected List<Operadores> doInBackground(Void... voids) {
+                List<Agentes> agentes = App.getAppDatabase().agentesModel().selectAgentes();
+                List<Operadores> operadores = new ArrayList<>();
+                for (Agentes agente : agentes) {
+                    operadores.add(App.getAppDatabase().operadoresModel().getOperadorAdminByAgente(agente.getNumeroAgente()));
+                    //agente.setOperadores(operadores);
+                }
+                return operadores;
+            }
+        }.execute().get();
+    }
+
+    /* Obtener la lista de operadores administradores guardados en la BD */
+    public List<Operadores> getOperadoresAdmin(Agentes agente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, List<Operadores>>() {
+            @Override
+            protected List<Operadores> doInBackground(Void... voids) {
+                //List<Agentes> agentes = App.getAppDatabase().agentesModel().selectAgentes();
+                List<Operadores> operadores = new ArrayList<>();
+                operadores.add(App.getAppDatabase().operadoresModel().getOperadorAdminByAgente(agente.getNumeroAgente()));
+                return operadores;
+            }
+        }.execute().get();
+    }
+
+
+
     /* Obtener si el comercio seleccionado es del programa UyU o YG en la BD */
     public Boolean isComercioUyU(final String idUsuarioAdq) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, Boolean>() {
@@ -363,6 +396,7 @@ public class DatabaseManager {
 
 
     /* Borrar los agentes y operadores en la BD */
+
     public void deleteAgentes() {
         new AsyncTask<Void, Void, Void>() {
             @Override

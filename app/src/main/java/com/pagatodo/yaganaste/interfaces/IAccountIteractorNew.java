@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarbucksRequest;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -61,7 +62,7 @@ public interface IAccountIteractorNew<T> {
 
     void getBalance();
 
-    void getBalanceAdq(ElementWallet elementWallet);
+    void getBalanceAdq(Agentes agentes);
 
     void getBalanceStarbucks();
 

@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.SaldoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
@@ -65,6 +66,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSald
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataConsultarAsignacion;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataCuentaDisponible;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.room_db.entities.Rewards;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -486,12 +489,23 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void getBalanceAdq(ElementWallet elementWallet) {
+    public void getBalanceAdq(Agentes agente) {
         try {
             if (!BuildConfig.DEBUG) {
                 Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
             }
-            ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentes());
+            //ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentes());
+            try {
+                SaldoRequest saldoRequest = new SaldoRequest();
+                DatabaseManager db = new DatabaseManager();
+                Operadores operador = db.getOperadoresAdmin(agente).get(0);
+                saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                ApiAdq.consultaSaldoCupo(saldoRequest,this);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }

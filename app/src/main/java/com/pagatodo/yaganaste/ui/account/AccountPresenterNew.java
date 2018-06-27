@@ -447,7 +447,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void updateBalanceAdq(ElementWallet elementWallet) {
         this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
-        accountIteractor.getBalanceAdq(elementWallet);
+        accountIteractor.getBalanceAdq(elementWallet.getAgentes());
     }
 
     @Override

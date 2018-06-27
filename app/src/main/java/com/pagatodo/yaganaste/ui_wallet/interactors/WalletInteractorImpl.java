@@ -7,16 +7,20 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.SubGiro;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.SaldoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.ObtenerInfoComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -30,6 +34,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import ly.count.android.sdk.Countly;
 
@@ -63,6 +68,8 @@ public class WalletInteractorImpl implements WalletInteractor {
 
     @Override
     public void getBalance(int typeWallet, Agentes agente) {
+        SaldoRequest saldoRequest = new SaldoRequest();
+        DatabaseManager db = new DatabaseManager();
         try {
             switch (typeWallet) {
                 case TYPE_EMISOR:
@@ -75,7 +82,17 @@ public class WalletInteractorImpl implements WalletInteractor {
                     if (!BuildConfig.DEBUG) {
                         Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
                     }
-                    ApiAdq.consultaSaldoCupo(this, agente);
+                    try {
+                        Operadores operador = db.getOperadoresAdmin(agente).get(0);
+                        saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                        ApiAdq.consultaSaldoCupo(saldoRequest,this);
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
                     break;
                 case TYPE_STARBUCKS:
                     String numCard = App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS);
@@ -83,6 +100,24 @@ public class WalletInteractorImpl implements WalletInteractor {
                     ApiStarbucks.saldoSb(cardRequest, this);
                     break;
                 case TYPE_BUSINESS:
+                    //getOperadores
+                    try {
+                        if (!db.getOperadores().isEmpty()){
+                            for (Operadores operador: db.getOperadores()){
+                                    if (operador.getIsAdmin()) {
+                                        saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                                    }
+                            }
+                            ApiAdq.consultaSaldoAdmin(saldoRequest,this);
+                        } else {
+                            this.listener.onSuccesSaldo(typeWallet, "");
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
 
                     break;
                 default:
@@ -125,16 +160,6 @@ public class WalletInteractorImpl implements WalletInteractor {
         }
     }
 
-    /*@Override
-    public void getInfoAgente() {
-        try {
-            ApiAdtvo.getInformacionAgente(this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-            listener.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-        }
-    }*/
-
     //REQUEST
     @Override
     public void onSuccess(DataSourceResult result) {
@@ -165,6 +190,8 @@ public class WalletInteractorImpl implements WalletInteractor {
                     Countly.sharedInstance().endEvent(EVENT_BALANCE_ADQ, segmentation, 1, 0);
                 }
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
+                break;
+            case CONSULTAR_SALDO_ADQ_ADM:
                 break;
             case CONSULTAR_SALDO_SB:
                 validateResponse((SaldoSBRespons) result.getData());

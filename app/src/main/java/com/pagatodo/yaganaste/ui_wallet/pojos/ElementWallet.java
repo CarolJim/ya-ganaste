@@ -79,7 +79,7 @@ public class ElementWallet {
 
     public ElementWallet(int typeWallet, Bitmap frontBitmap, Bitmap rearBitmap, String saldo,
                          ArrayList<ElementView> elementViews, int tipoSaldo, boolean isUpdate,
-                         int titleDes, String cardNumber) {
+                         int titleDes, String cardNumber, Agentes agentes) {
         this.typeWallet = typeWallet;
         this.frontBitmap = frontBitmap;
         this.rearBitmap = rearBitmap;
@@ -89,6 +89,7 @@ public class ElementWallet {
         this.isUpdate = isUpdate;
         this.titleDesRes = titleDes;
         this.cardNumberRes = cardNumber;
+        this.agentes = agentes;
     }
 
     public boolean isUpdate() {
@@ -266,7 +267,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_BUSINESS, frontView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
                 ElementView.getListMyBusiness(),
-                R.string.saldo_reembolso_total, false);
+                R.string.saldo_reembolso_total, true);
     }
 
     public static ElementWallet getCardBalanceEmi() {
@@ -280,7 +281,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_EMISOR, frontView, resultBitmat,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 ElementView.getListEmisorBalance(),
-                R.string.saldo_disponible, true, R.string.tarjeta_yg, StringUtils.ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)));
+                R.string.saldo_disponible, true, R.string.tarjeta_yg, StringUtils.ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)),null);
     }
 
     public static ElementWallet getCardBalanceEmiBloqueda() {
@@ -294,7 +295,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_EMISOR, frontView, resultBitmat,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)),
                 ElementView.getListEmisorBalance(),
-                R.string.saldo_disponible, true, R.string.tarjeta_yg, StringUtils.ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)));
+                R.string.saldo_disponible, true, R.string.tarjeta_yg, StringUtils.ocultarCardNumberFormat(App.getInstance().getPrefs().loadData(CARD_NUMBER)),null);
     }
 
     public static ElementWallet getCardBalanceAdq(Agentes agentes) {
@@ -309,7 +310,7 @@ public class ElementWallet {
         return new ElementWallet(TYPE_ADQ, frontView, backView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
                 ElementView.getListAdqBalance(),
-                R.string.saldo_reembolso, true, R.string.cobros_con_tarjeta, agentes.getNombreNegocio());
+                R.string.saldo_reembolso, true, R.string.cobros_con_tarjeta, agentes.getNombreNegocio(),agentes);
     }
 
     public static ElementWallet getCardBalanceStarbucks() {
@@ -321,7 +322,7 @@ public class ElementWallet {
                 (backView.getHeight() / 2) - (starbucksCode.getHeight() / 2));
         return new ElementWallet(TYPE_STARBUCKS, frontView, resultBitmat,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(STARBUCKS_BALANCE)),
-                ElementView.getListStarbucksBalance(), R.string.saldo_disponible, false, R.string.starbucks_card, App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS));
+                ElementView.getListStarbucksBalance(), R.string.saldo_disponible, false, R.string.starbucks_card, App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS),null);
     }
 
 

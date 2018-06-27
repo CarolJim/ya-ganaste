@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistraNotifica
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDeviceDataRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.SaldoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TypeRepaymentRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.AutenticaNIPResponse;
@@ -50,6 +51,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.AUTENTICA_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ_ADM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DETAIL_MOVEMENT;
@@ -295,9 +297,10 @@ public class ApiAdq extends Api {
      *
      * @param result {@link IRequestResult} listener del resultado de la petición.
      */
-    public static void consultaSaldoCupo(IRequestResult result, Agentes agente) throws OfflineException {
+    public static void consultaSaldoCupo(SaldoRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        if (agente != null) {
+        headers.put("Content-type", "application/json");
+        /*if (agente != null) {
             String idUsAdq = "";
             for (Operadores operador : agente.getOperadores()) {
                 if (operador.getIsAdmin()) {
@@ -305,12 +308,34 @@ public class ApiAdq extends Api {
                 }
             }
             RequestHeaders.setIdCuentaAdq(idUsAdq);
-        }
-        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
-        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
-        NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
-                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),
-                headers, null, ConsultaSaldoCupoResponse.class, result);
+        }*/
+       //headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+       // headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        NetFacade.consumeWSnotag(CONSULTAR_SALDO_ADQ,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
+                headers, request, ConsultaSaldoCupoResponse.class, result);
+    }
+
+    /**
+     * CONSULTA DE SALDO ADMINISTRADORES
+     */
+    public static void consultaSaldoAdmin(SaldoRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put("Content-type", "application/json");
+        //if (agente != null) {
+            /*String idUsAdq = "";
+            for (Operadores operador : agente.getOperadores()) {
+                if (operador.getIsAdmin()) {
+                    idUsAdq = operador.getIdUsuarioAdquirente();
+                }
+            }*/
+            //RequestHeaders.setIdCuentaAdq(idUsAdq);
+        //}
+        //headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        //headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        NetFacade.consumeWSnotag(CONSULTAR_SALDO_ADQ,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
+                headers, request, ConsultaSaldoCupoResponse.class, result);
     }
 
     /**

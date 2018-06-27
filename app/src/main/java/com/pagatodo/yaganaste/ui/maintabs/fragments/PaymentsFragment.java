@@ -199,7 +199,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("TABSELECT",i + "");
+
         int idADQ = 0;
 
         try {
