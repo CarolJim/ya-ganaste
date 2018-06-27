@@ -57,7 +57,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MOVEMENTS_EMISOR;
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, AdapterView.OnItemSelectedListener{
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener, AdapterView.OnItemSelectedListener {
 
     public SwipyRefreshLayoutDirection direction;
     public static final String TYPE = "TYPE";
@@ -90,7 +90,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected ArrayAdapter<String> spinnerArrayAdapter;
     protected List<Agentes> agentes;
 
-    public AbstractAdEmFragment(){
+    public AbstractAdEmFragment() {
 
     }
 
@@ -100,7 +100,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         agentes = new ArrayList<>();
         try {
             agentes = new DatabaseManager().getAgentes();
-            for (Agentes itemAgente : agentes){
+            for (Agentes itemAgente : agentes) {
                 this.listComercios.add(itemAgente.getNombreNegocio());
             }
         } catch (ExecutionException e) {
@@ -119,10 +119,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         /*spinnerArrayAdapter = new ArrayAdapter<>
                 (getContext(), android.R.layout.simple_spinner_item,
                         listComercios);*/
-        spinnerArrayAdapter = new SimpleArrayAdapater(getContext(),-1, this.listComercios);
+        spinnerArrayAdapter = new SimpleArrayAdapater(getContext(), -1, this.listComercios);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);
-
 
 
     }
@@ -225,7 +224,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected void getDataForTab(T dataToRequest) {
 
         //Obtener el ID
-
 
 
         movementsPresenter.getRemoteMovementsData(dataToRequest);

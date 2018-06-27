@@ -370,6 +370,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == ASIGNAR_NIP) {
                 accountView.showError(error.toString());
             }
+            if (ws == ACTUALIZAR_AVATAR) {
+                ((IListaOpcionesView) accountView).sendErrorAvatarToView("imagen no cargada");
+            }
         } else if (accountView instanceof IListaOpcionesView) {
             if (ws == ACTUALIZAR_AVATAR) {
                 ((IListaOpcionesView) accountView).sendErrorAvatarToView("imagen no cargada");
@@ -378,6 +381,14 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == ASIGNAR_NEW_NIP) {
                 accountView.showError(error.toString());
             }
+            if (ws == ACTUALIZAR_AVATAR) {
+                ((IListaOpcionesView) accountView).sendErrorAvatarToView("Imagen cargada Correctamente");
+                //accountView.showErrorTitular(data.toString());
+                // mensajesucces.showErrorTitular(data.toString());
+
+            }
+
+
         } else if (accountView instanceof IVerificationSMSView) {
             if (ws == VERIFICAR_ACTIVACION) {
                 if (error instanceof Object[]) {
