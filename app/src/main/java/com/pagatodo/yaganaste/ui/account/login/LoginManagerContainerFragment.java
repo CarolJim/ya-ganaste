@@ -12,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
@@ -26,10 +29,12 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -112,6 +117,17 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     public void loadQuickPayment() {
         loadFragment(GetMountFragment.newInstance(App.getInstance().getPrefs().loadData(COMPANY_NAME)), Direction.FORDWARD, true);
         showBack(true);
+    }
+
+    public void loadGetBalanceClosedLoop(){
+        UI.showAlertDialog(getContext(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
+                getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
+                    TransactionAdqData.getCurrentTransaction().setAmount("");
+                    TransactionAdqData.getCurrentTransaction().setDescription("");
+                    Intent intentAdq = new Intent(getActivity(), AdqActivity.class);
+                    intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
+                    startActivity(intentAdq);
+                });
     }
 
     public void loadConfigDongle() {

@@ -309,7 +309,6 @@ public class DatabaseManager {
     }
 
 
-
     /* Obtener si el comercio seleccionado es del programa UyU o YG en la BD */
     public Boolean isComercioUyU(final String idUsuarioAdq) throws ExecutionException, InterruptedException {
         return new AsyncTask<Void, Void, Boolean>() {
@@ -346,8 +345,10 @@ public class DatabaseManager {
             @Override
             protected Agentes doInBackground(Void... voids) {
                 Agentes agente = App.getAppDatabase().agentesModel().getAgenteByComercio(idComercio);
-                List<Operadores> operadores = App.getAppDatabase().operadoresModel().getOperadoresByAgente(agente.getNumeroAgente());
-                agente.setOperadores(operadores);
+                if (agente != null) {
+                    List<Operadores> operadores = App.getAppDatabase().operadoresModel().getOperadoresByAgente(agente.getNumeroAgente());
+                    agente.setOperadores(operadores);
+                }
                 return agente;
             }
         }.execute().get();

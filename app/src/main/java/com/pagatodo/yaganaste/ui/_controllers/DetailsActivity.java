@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -171,7 +172,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     public void loadInsertDongleFragment(DataMovimientoAdq dataMovimientoAdq) {
         loadFragment(InsertDongleFragment.newInstance(true, dataMovimientoAdq,
-                App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)), Direction.FORDWARD, true);
+                App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE), QPOSService.TransactionType.PAYMENT.ordinal()),
+                Direction.FORDWARD, true);
     }
 
     @Override

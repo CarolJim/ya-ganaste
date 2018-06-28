@@ -193,6 +193,8 @@ public enum WebService {
     /* Detalle de movimiento */
     DETAIL_MOVEMENT,
     /* Obtener Informacion Comercio */
-    INFO_COMERCIO
+    INFO_COMERCIO,
+    /* Consultar Saldo UyU */
+    CONSULT_BALANCE_UYU
 }
 

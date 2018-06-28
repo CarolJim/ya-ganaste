@@ -53,6 +53,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADMIN_ADQ;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_CHECK_MONEY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_REWARDS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
@@ -60,6 +61,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_STORE
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_CLOSED_LOOP;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE_TOKEN;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
@@ -118,7 +120,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.chiandpin)
     ImageView chiandpin;
 
-    
 
     private ILoginContainerManager loginContainerManager;
     private AccountPresenterNew accountPresenter;
@@ -273,9 +274,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void onPageSelected(int position) {
-
-
-
         pager_indicator.selectDots(pageCurrent % adapterBalanceCard.getSize(), position % adapterBalanceCard.getSize());
         this.pageCurrent = position;
         adapterBalanceCard.resetFlip();
@@ -283,21 +281,19 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
 
         if (prefs.containsData(IS_OPERADOR)) {
-            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
             accountPresenter.updateBalance();
-        }else {
+        } else {
             if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
                     rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
                     accountPresenter.updateBalance();
                 } else {
-                    rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
                     accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
                 }
             }
         }
-
-
         updateOperations(position);
 
     }
@@ -312,7 +308,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         adapterBalanceCard.resetFlip();
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
-
         switch (elementView.getIdOperacion()) {
             case OPTION_BLOCK_CARD:
                 nextScreen(EVENT_BLOCK_CARD, null);
@@ -331,6 +326,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 break;
             case OPTION_SUCURSALES:
                 nextScreen(EVENT_STORES, null);
+                break;
+            case OPTION_BALANCE_CLOSED_LOOP:
+                nextScreen(EVENT_CHECK_MONEY_CARD, null);
                 break;
             default:
                 break;
@@ -378,7 +376,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         adapterBalanceCard = new CardWalletAdpater(false, this);
         if (prefs.containsData(IS_OPERADOR)) {
-            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
             chiandpin.setVisibility(VISIBLE);
             vpBalace.setVisibility(GONE);
             try {
@@ -414,7 +412,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
 
     private void updateOperations(final int position) {
-
         elementsWalletAdapter.setListOptions(adapterBalanceCard.getElemenWallet(position).getElementViews());
         elementsWalletAdapter.notifyDataSetChanged();
 

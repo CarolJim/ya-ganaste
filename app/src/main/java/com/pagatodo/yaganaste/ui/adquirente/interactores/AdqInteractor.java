@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import java.io.Serializable;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
@@ -98,6 +99,17 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     }
 
     @Override
+    public void initConsult(TransaccionEMVDepositRequest request) {
+        try {
+            ApiAdq.transaccionEMVDeposit(request, this);
+        } catch (OfflineException e){
+            e.printStackTrace();
+            accountManager.hideLoader();
+            accountManager.onError(CONSULT_BALANCE_UYU, context.getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
     public void initPayment(final TransaccionEMVDepositRequest request, boolean signWithPin) {
         try {
             ApiAdq.transaccionEMVDeposit(request, this);
@@ -152,7 +164,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         switch (dataSourceResult.getWebService()) {
-
             case LOGIN_ADQ:
                 processLoginAdq(dataSourceResult);
                 break;
@@ -163,7 +174,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             case TRANSACCIONES_EMV_DEPOSIT:
                 processTransactionResult(dataSourceResult);
                 break;
-
+            case CONSULT_BALANCE_UYU:
+                processConsultUyu(dataSourceResult);
+                break;
             case FIRMA_DE_VOUCHER:
                 processSendSignal(dataSourceResult);
                 break;
@@ -320,7 +333,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
      *
      * @param response {@link DataSourceResult} respuesta del servicio
      */
-
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
@@ -385,6 +397,20 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_ERROR);
                 pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
                 result.setPageResult(pageResultError);
+                accountManager.onSucces(response.getWebService(), data);//Retornamos mensaje de error.
+                break;
+        }
+    }
+
+    private void processConsultUyu(DataSourceResult response) {
+        TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
+        TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
+        String marcaBancaria = result.getTransaccionResponse().getMarcaTarjetaBancaria();
+        switch (data.getError().getId()) {
+            case ADQ_CODE_OK:
+                accountManager.onSucces(response.getWebService(), data);
+                break;
+            default:
                 accountManager.onSucces(response.getWebService(), data);//Retornamos mensaje de error.
                 break;
         }

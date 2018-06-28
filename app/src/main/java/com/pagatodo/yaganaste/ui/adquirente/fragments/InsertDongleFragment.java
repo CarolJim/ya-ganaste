@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_BALANCE_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -87,7 +88,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     private static final String TAG = InsertDongleFragment.class.getSimpleName();
     private static String DATA_KEY = "is_cancelation_data", DATA_MOVEMENTS = "data_movimiento_adq",
-            MODE_COMMUNICACTION = "mode_communication";
+            MODE_COMMUNICACTION = "mode_communication", TYPE_TRANSACTION = "type_transaction";
 
     @BindView(R.id.imgInsertDongle)
     LottieAnimationView imgInsertDongle;
@@ -108,6 +109,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private Handler handlerSwipe;
     private IntentFilter broadcastEMVSwipe;
     private int currentVolumenDevice, maxVolumenDevice, communicationMode;
+    private QPOSService.TransactionType transactionType;
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false;
     private static boolean banderaCacelachevron = false;
@@ -118,23 +120,25 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
     public static InsertDongleFragment newInstance(boolean isCancelation, DataMovimientoAdq dataMovimientoAdq,
-                                                   int communicationMode) {
+                                                   int communicationMode, int idTypeTransaction) {
         InsertDongleFragment fragment = new InsertDongleFragment();
         Bundle args = new Bundle();
         args.putBoolean(DATA_KEY, isCancelation);
         args.putSerializable(DATA_MOVEMENTS, dataMovimientoAdq);
         args.putInt(MODE_COMMUNICACTION, communicationMode);
+        args.putInt(TYPE_TRANSACTION, idTypeTransaction);
         fragment.setArguments(args);
         banderaCacelachevron = true;
         return fragment;
     }
 
-    public static InsertDongleFragment newInstance(int communicationMode) {
+    public static InsertDongleFragment newInstance(int communicationMode, int idTypeTransaction) {
         InsertDongleFragment fragment = new InsertDongleFragment();
         Bundle args = new Bundle();
         args.putBoolean(DATA_KEY, false);
         args.putSerializable(DATA_MOVEMENTS, null);
         args.putInt(MODE_COMMUNICACTION, communicationMode);
+        args.putInt(TYPE_TRANSACTION, idTypeTransaction);
         fragment.setArguments(args);
         return fragment;
     }
@@ -168,7 +172,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             App.getInstance().initEMVListener(QPOSService.CommunicationMode.USB_OTG_CDC_ACM);
             App.getInstance().pos.openUsb(usbDevice);*/
         }
-
+        /* Obtener tipo de transaccion por realizar */
+        int idTypeTransaction = getArguments().getInt(TYPE_TRANSACTION);
+        if (idTypeTransaction == QPOSService.TransactionType.PAYMENT.ordinal()) {
+            transactionType = QPOSService.TransactionType.PAYMENT;
+        } else if (idTypeTransaction == QPOSService.TransactionType.INQUIRY.ordinal()) {
+            transactionType = QPOSService.TransactionType.INQUIRY;
+        }
         prefs = App.getInstance().getPrefs();
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
@@ -407,11 +417,14 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
         }
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                hideLoader();
+        new Handler().postDelayed(() -> {
+            hideLoader();
+            if (transactionType == QPOSService.TransactionType.PAYMENT) {
                 nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
+            } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
+                nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
             }
+
         }, DELAY_MESSAGE_PROGRESS);
     }
 
@@ -539,13 +552,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         @SuppressLint("SimpleDateFormat")
         @Override
         public void onReceive(Context context, Intent intent) {
-
             int mensaje = intent.getIntExtra(MSJ, -1);
             String error = intent.getStringExtra(ERROR);
 
             switch (mensaje) {
                 case LECTURA_OK:
-                    showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.i("IposListener: ", "=====>>  LECTURA OK");
                     }
@@ -554,10 +565,14 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                             Log.i("IposListener: ", "=====>>   LECTURA_OK ");
                         }
                         TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
-                        if (isCancelation) {
-                            adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
-                        } else {
-                            adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
+                        if (transactionType == QPOSService.TransactionType.PAYMENT) {
+                            if (isCancelation) {
+                                adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
+                            } else {
+                                adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
+                            }
+                        } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
+                            //adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction));
                         }
                     }
                     break;
@@ -600,7 +615,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         amountCard = dataMovimientoAdq.getMonto().replace(".", "");
                     }
                     App.getInstance().pos.setPosDisplayAmountFlag(true);
-                    App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);
+                    App.getInstance().pos.setAmount(amountCard, "", "484", transactionType);
                     break;
                 case REQUEST_TIME:
                     String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());

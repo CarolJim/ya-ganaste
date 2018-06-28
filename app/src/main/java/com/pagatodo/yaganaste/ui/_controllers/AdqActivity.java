@@ -39,12 +39,15 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_INSERT_DONGLE = "EVENT_GO_INSERT_DONGLE";
     public final static String EVENT_GO_INSERT_DONGLE_CANCELATION = "EVENT_GO_INSERT_DONGLE_CANCELATION";
     public final static String EVENT_GO_TRANSACTION_RESULT = "EVENT_GO_TRANSACTION_RESULT";
+    public final static String EVENT_GO_GET_BALANCE_RESULT = "EVENT_GO_GET_BALANCE_RESULT";
     public final static String EVENT_GO_REMOVE_CARD = "EVENT_GO_REMOVE_CARD";
     public final static String EVENT_GO_GET_SIGNATURE = "EVENT_GO_GET_SIGNATURE";
     public final static String EVENT_GO_DETAIL_TRANSACTION = "EVENT_GO_DETAIL_TRANSACTION";
     public final static String EVENT_GO_LOGIN_FRAGMENT = "EVENT_GO_LOGIN_FRAGMENT";
+    public final static String TYPE_TRANSACTION = "TYPE_TRANSACTION";
     public static String KEY_TRANSACTION_DATA = "KEYTRANSACTIONDATA";
     private Preferencias pref;
+    private int idTransactionType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
+        idTransactionType = getIntent().getExtras().getInt(TYPE_TRANSACTION);
         onEvent(EVENT_GO_INSERT_DONGLE, null);
     }
 
@@ -73,16 +77,17 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
                 // AQUI
-                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE),
+                        idTransactionType), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:
                 // AQUI
-                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE),
+                        idTransactionType), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
-                loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, false);
+                loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()),
+                        Direction.FORDWARD, false);
                 showBack(false);
                 break;
             case EVENT_GO_REMOVE_CARD:
@@ -106,8 +111,8 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 finish();
                 break;
             case EVENT_RETRY_PAYMENT:
-                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE),
+                        idTransactionType), Direction.FORDWARD, false);
                 break;
             case EVENT_PAYMENT:
                 finish();

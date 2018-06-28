@@ -108,6 +108,12 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
+    public void initConsultBalance(TransaccionEMVDepositRequest request) {
+        iAdqView.showLoader(App.getContext().getString(R.string.procesando_consulta));
+        adqInteractor.initConsult(request);
+    }
+
+    @Override
     public void sendSignature(SignatureData signatureData) {
         iAdqView.showLoader(App.getContext().getString(R.string.enviando_firma));
         adqInteractor.sendSignalVoucher(buildSignatureRequest(TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(), signatureData));
@@ -152,6 +158,9 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
             case TRANSACCIONES_EMV_DEPOSIT:
                 iAdqView.showError(error.toString());
                 //((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
+                break;
+            case CONSULT_BALANCE_UYU:
+                iAdqView.showError(error.toString());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.showError(error);
@@ -228,6 +237,11 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
             case TRANSACCIONES_EMV_DEPOSIT:
                 TransaccionEMVDepositResponse response = (TransaccionEMVDepositResponse) data;
                 ((IAdqTransactionRegisterView) iAdqView).transactionResult(response.getError().toString(), response.getTlvResult());
+                break;
+            case CONSULT_BALANCE_UYU:
+                TransaccionEMVDepositResponse responseBalance = (TransaccionEMVDepositResponse) data;
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(responseBalance.getError().toString(),
+                        responseBalance.getTlvResult());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();

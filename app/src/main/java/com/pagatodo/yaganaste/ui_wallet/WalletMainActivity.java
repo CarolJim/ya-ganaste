@@ -406,13 +406,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(GetMountFragment.newInstance(itemOperation.getNombreNegocio()), R.id.fragment_container, Direction.BACK);
                 break;
             case EVENT_GO_INSERT_DONGLE:
-                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        R.id.fragment_container, Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE),
+                        QPOSService.TransactionType.PAYMENT.ordinal()), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_INSERT_DONGLE_CANCELATION:
                 loadFragment(InsertDongleFragment.newInstance(true, (DataMovimientoAdq) data,
-                        App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)), R.id.fragment_container,
-                        Direction.FORDWARD, true);
+                        App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE), QPOSService.TransactionType.PAYMENT.ordinal()),
+                        R.id.fragment_container, Direction.FORDWARD, true);
                 //menu.getItem(ACTION_CANCEL_CHARGE).setVisible(false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
@@ -440,8 +440,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 finish();
                 break;
             case EVENT_RETRY_PAYMENT:
-                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
-                        R.id.fragment_container, Direction.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE),
+                        QPOSService.TransactionType.PAYMENT.ordinal()), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_NIP_CHANGE:
                 loadFragment(MyChangeNip.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
