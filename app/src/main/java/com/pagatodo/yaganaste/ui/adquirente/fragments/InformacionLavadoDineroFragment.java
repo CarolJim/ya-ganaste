@@ -35,7 +35,7 @@ import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
-import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
+import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.adquirente.managers.InformationAdicionalManager;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.InfoAdicionalPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
@@ -134,7 +134,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     //private List<String> montoMensual;
     //private List<String> origenRecursos;
     //private List<String> destinoRecursos;
-    private StatesSpinnerAdapter spinnerParentescoAdapter;
+    private EnumSpinnerAdapter spinnerParentescoAdapter;
     private IEnumSpinner parentesco;
     private ArrayAdapter<String> adpaterCobros, adapterMonto, adpaterOrigen, adpaterDestino;
 

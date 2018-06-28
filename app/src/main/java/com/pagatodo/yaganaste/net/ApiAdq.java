@@ -54,6 +54,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ_ADM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DETAIL_MOVEMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
@@ -201,6 +202,21 @@ public class ApiAdq extends Api {
 
         NetFacade.consumeWS(TRANSACCIONES_EMV_DEPOSIT,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqTransactionEmv),
+                headers, request, TransaccionEMVDepositResponse.class, result);
+    }
+
+    /**
+     * Consulta saldo tarjetas Closed Loop
+     * @param request {@link TransaccionEMVDepositRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void consultaSaldoUYU(TransaccionEMVDepositRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
+        NetFacade.consumeWS(CONSULT_BALANCE_UYU,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqConsultarSaldoCard),
                 headers, request, TransaccionEMVDepositResponse.class, result);
     }
 

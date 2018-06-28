@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -30,6 +32,8 @@ import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,8 +73,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     EditText editPassword;
     @BindView(R.id.edit_passwordconfirm)
     EditText editPasswordConfirm;
-
-
 
     @BindView(R.id.text_emailconfirm)
     TextInputLayout text_emailconfirm;
@@ -128,7 +130,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         accountPresenter.setIView(this);
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
         preferencias.saveDataBool(Recursos.HUELLA_FAIL,true);
-        //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
     @Override

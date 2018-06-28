@@ -230,6 +230,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
         request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadDataInt(TIPO_AGENTE)));
         request.setTransactionDateTime(Utils.getTimeStamp());
+        request.setDigitPIN(signWithPin);
         return request;
     }
 
@@ -572,7 +573,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                 adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
-                            //adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction));
+                            adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction));
                         }
                     }
                     break;

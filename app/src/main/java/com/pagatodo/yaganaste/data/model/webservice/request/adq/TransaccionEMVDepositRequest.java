@@ -24,7 +24,7 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
     private String noTransaction = "";
     private AccountDepositData accountDepositData;
     private ImplicitData implicitData;
-
+    private boolean digitPIN;
 
     public TransaccionEMVDepositRequest() {
         emvData = new EmvData();
@@ -160,5 +160,13 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
 
     public void setAditionalAmount(String aditionalAmount) {
         this.aditionalAmount = aditionalAmount;
+    }
+
+    public boolean isDigitPIN() {
+        return digitPIN;
+    }
+
+    public void setDigitPIN(boolean digitPIN) {
+        this.digitPIN = digitPIN;
     }
 }

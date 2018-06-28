@@ -29,13 +29,16 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBuscaPais;
@@ -45,11 +48,12 @@ import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.Genero;
-import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -157,7 +161,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     AppCompatImageView imageViewCustomSpinner;
 
     StatesSpinnerAdapter adapterBirthPlace;
-    StatesSpinnerAdapter adaptergenero;
+    EnumSpinnerAdapter adaptergenero;
     Calendar newDate;
     Calendar actualDate;
     private View rootview;
@@ -172,6 +176,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     int month;
     int day;
     private int errorVerificationData = 0;
+    private List<DtoStates> states = new ArrayList<>();
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
@@ -251,10 +256,32 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("Cat").child("Edo");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    states = new ArrayList<>();
+                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                        DtoStates item = singleSnapshot.getValue(DtoStates.class);
+                        states.add(item);
+                    }
+                    states.add(0, new DtoStates("0", "Lugar de nacimiento"));
+                    adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
+                            states, DatosPersonalesFragment.this);
+                    spinnerBirthPlace.setAdapter(adapterBirthPlace);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -285,10 +312,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
         txtfecha.setOnClickListener(onClickListenerDatePicker);
         editBirthDay.setOnClickListener(onClickListenerDatePicker);
-        adaptergenero = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, Genero.values(), this);
+        adaptergenero = new EnumSpinnerAdapter(getContext(), R.layout.spinner_layout, Genero.values(), this);
 
-        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
-        spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
 
         spinnergenero.setAdapter(adaptergenero);
@@ -560,7 +585,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             isValid = false;
         }
 
-        if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals(States.S33.getName())) {
+        if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals("Extranjero")) {
             if (country == null) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
@@ -641,15 +666,15 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        IEnumSpinner itemSelected = adapterBirthPlace.getItem(position);
+        DtoStates itemSelected = adapterBirthPlace.getItem(position);
         txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_normal);
 
-        if (itemSelected == States.S0) {
+        if (itemSelected.getID_Estado().equals("0")) {
         } else {
             lugarnacimientomens.setVisibility(VISIBLE);
             lugarnacimientomens.setTextColor(getResources().getColor(R.color.colorAccent));
         }
-        if (itemSelected == States.S33) {
+        if (itemSelected.getID_Estado().equals("33")) {
             if (country != null) {
                 lytCountry.setVisibility(VISIBLE);
                 //errorCountryMessage.setVisibility(VISIBLE);
@@ -699,11 +724,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
-        if (BuildConfig.DEBUG) {
+        /*if (BuildConfig.DEBUG) {
             onValidationSuccess();
-        } else {
-            accountPresenter.validatePersonData();
-        }
+        } else {*/
+        accountPresenter.validatePersonData();
+        //}
     }
 
     @Override
@@ -717,15 +742,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
         nombre = editNames.getText().toString();
         apPaterno = editFirstLastName.getText().toString();
         apMaterno = editSecoundLastName.getText().toString();
-      /*
-        if (spinnergenero.getSelectedItemPosition() != 0) {
-            genero =spinnergenero.getSelectedItemPosition() == 1 ?"H":spinnergenero.getSelectedItemPosition() == 2? "M":"";
-        }
-        */
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
-            StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
-            idEstadoNacimiento = Integer.toString(((IEnumSpinner) spinnerBirthPlace.getSelectedItem()).getId());
+            idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).getID_Estado();
         }
     }
 
@@ -748,7 +767,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (registerUser.getPaisNacimiento() != null) {
             country = registerUser.getPaisNacimiento();
         }
-        spinnerBirthPlace.setSelection(States.getItemByName(registerUser.getLugarNacimiento()).getId());
+        int position = 0;
+        for (int i = 0; i < states.size(); i++) {
+            if (states.get(i).getID_Estado().equals(registerUser.getLugarNacimiento()))
+                position = i;
+        }
+        spinnerBirthPlace.setSelection(position);
         fechaNacimiento = registerUser.getFechaNacimiento();
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {

@@ -91,6 +91,7 @@
     <string name="adqLogin">/agMov/login</string>
     <string name="adqRegisterDongle">/agMov/register_dongle</string>
     <string name="adqTransactionEmv">/agMov/transactionEmvDepositAccount</string>
+    <string name="adqConsultarSaldoCard">/agMov/consultaSaldoCard</string>
     <string name="adqRegisterNIP">/agMov/nip</string>
     <string name="adqGetSessionAgente">/agMov/sesion_agente</string>
     <string name="adqRegisterDeviceData">/agMov/registerDeviceData</string>

@@ -18,28 +18,25 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
-import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-
-import java.util.List;
 
 /**
  * Created by Jordan on 28/03/2017.
  */
 
-public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
+public class EnumSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
     Context mContext;
     int mLayoutResourceId;
-    List<DtoStates> mItems;
+    IEnumSpinner[] mItems;
     private IOnSpinnerClick spinnerClick;
 
-    public StatesSpinnerAdapter(@NonNull Context context,
-                                @LayoutRes int resource, @NonNull List<DtoStates> mItems,
-                                IOnSpinnerClick iOnSpinnerClick) {
-        super(context, resource, mItems);
+    public EnumSpinnerAdapter(@NonNull Context context,
+                              @LayoutRes int resource, @NonNull IEnumSpinner[] objects,
+                              IOnSpinnerClick iOnSpinnerClick) {
+        super(context, resource, objects);
         this.mLayoutResourceId = resource;
         this.mContext = context;
-        this.mItems = mItems;
+        this.mItems = objects;
         this.spinnerClick = iOnSpinnerClick;
     }
 
@@ -48,27 +45,28 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
-        StatesSpinnerAdapter.DropDownHolder holder;
+        EnumSpinnerAdapter.DropDownHolder holder;
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(mLayoutResourceId, parent, false);
 
-            holder = new StatesSpinnerAdapter.DropDownHolder();
+            holder = new EnumSpinnerAdapter.DropDownHolder();
             holder.txtTitle = (StyleTextView) row.findViewById(R.id.textView_spinner);
 
             row.setTag(holder);
         } else {
-            holder = (StatesSpinnerAdapter.DropDownHolder) row.getTag();
+            holder = (EnumSpinnerAdapter.DropDownHolder) row.getTag();
         }
-        DtoStates item = mItems.get(position);
+        IEnumSpinner item = mItems[position];
         if (position == 0) {
             holder.txtTitle.setText("");
-            holder.txtTitle.setHint(item.getNombre());
+            holder.txtTitle.setHint(item.getName());
             holder.txtTitle.setHintTextColor(mContext.getResources().getColor(R.color.hint_color));
         } else {
-            holder.txtTitle.setText(item.getNombre());
+            holder.txtTitle.setText(item.getName());
         }
+
         return row;
     }
 
@@ -76,12 +74,12 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
-        StatesSpinnerAdapter.ViewHolder holder;
+        EnumSpinnerAdapter.ViewHolder holder;
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(R.layout.spinner_custom_layout, parent, false);
 
-            holder = new StatesSpinnerAdapter.ViewHolder();
+            holder = new EnumSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
             if (position == 0) {
                 holder.editText.setTextColor(App.getContext().getResources().getColor(R.color.hint_color));
@@ -92,7 +90,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
             holder.laySpinnerCustom = (LinearLayout) row.findViewById(R.id.laySpinnerCustom);
             row.setTag(holder);
         } else {
-            holder = (StatesSpinnerAdapter.ViewHolder) row.getTag();
+            holder = (EnumSpinnerAdapter.ViewHolder) row.getTag();
         }
 
         View.OnClickListener onClick = new View.OnClickListener() {
@@ -109,11 +107,11 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
 
         holder.downArrow.setOnClickListener(onClick);
 
-        DtoStates item = mItems.get(position);
+        IEnumSpinner item = mItems[position];
         if (position == 0) {
-            holder.editText.setHint(item.getNombre());
+            holder.editText.setHint(item.getName());
         } else {
-            holder.editText.setText(item.getNombre());
+            holder.editText.setText(item.getName());
         }
 
         return row;
@@ -126,12 +124,24 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
 
     @Override
     public int getCount() {
-        return mItems.size();
+        return mItems.length;
     }
 
+    /*public String getItemIdString(int position) {
+        return mItems[position].getId();
+    }*/
+
     public String getItemName(int position) {
-        return mItems.get(position).getNombre();
+        return mItems[position].getName();
     }
+
+    /*public int getPositionItemByName(String name) {
+        for (int position = 0; position < mItems.length; position++) {
+            if (mItems[position].getName().equals(name))
+                return position;
+        }
+        return 0;
+    }*/
 
     static class DropDownHolder {
         StyleTextView txtTitle;
@@ -142,4 +152,5 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
         ImageView downArrow;
         LinearLayout laySpinnerCustom;
     }
+
 }

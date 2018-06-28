@@ -101,8 +101,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void initConsult(TransaccionEMVDepositRequest request) {
         try {
-            ApiAdq.transaccionEMVDeposit(request, this);
-        } catch (OfflineException e){
+            ApiAdq.consultaSaldoUYU(request, this);
+        } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
             accountManager.onError(CONSULT_BALANCE_UYU, context.getString(R.string.no_internet_access));

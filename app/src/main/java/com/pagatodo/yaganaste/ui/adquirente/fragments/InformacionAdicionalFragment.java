@@ -5,7 +5,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.widget.Space;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -36,14 +34,12 @@ import com.pagatodo.yaganaste.interfaces.enums.Parentescos;
 import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
+import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.adquirente.managers.InformationAdicionalManager;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.InfoAdicionalPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
@@ -106,7 +102,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     private boolean hasFamiliaCargoPublico;
     private String cargo;
     private Paises paisNacimiento;
-    private StatesSpinnerAdapter spinnerParentescoAdapter;
+    private EnumSpinnerAdapter spinnerParentescoAdapter;
     private IEnumSpinner parentesco;
     private ArrayList<Paises> paises;
 
@@ -399,7 +395,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void onHasFamiliarYesCheck() {
         txtparentesco.setVisibility(View.VISIBLE);
         if (spinnerParentescoAdapter == null) {
-            spinnerParentescoAdapter = new StatesSpinnerAdapter(getContext(),
+            spinnerParentescoAdapter = new EnumSpinnerAdapter(getContext(),
                     R.layout.spinner_layout, Parentescos.values(), this);
             //spParentesco.setAdapter(spinnerParentescoAdapter);
             //spParentesco.setOnItemSelectedListener(this);
