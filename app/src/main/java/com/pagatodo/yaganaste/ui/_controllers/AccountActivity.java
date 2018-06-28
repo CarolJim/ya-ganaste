@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -60,6 +61,7 @@ import static android.os.Process.killProcess;
 import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
@@ -68,6 +70,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -119,6 +122,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_STORES = "EVENT_STORES";
     public final static String EVENT_ADMIN_ADQ = "EVENT_ADMIN_ADQ";
     public final static String EVENT_OPERADOR_DETALLE = "EVENT_OPERADOR_DETALLE";
+    public final static String EVENT_CHECK_MONEY_CARD = "EVENT_CHECK_MONEY_CARD";
     public final static String SUCCES_CHANGE_STATUS_OPERADOR = "SUCCES_CHANGE_STATUS_OPERADOR";
     FrameLayout container;
     //private String TAG = getClass().getSimpleName();
@@ -144,7 +148,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_container);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
@@ -328,6 +331,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_PAYMENT:
                 loginContainerFragment.loadQuickPayment();
+                break;
+            case EVENT_CHECK_MONEY_CARD:
+                loginContainerFragment.loadGetBalanceClosedLoop();
                 break;
             case EVENT_CONFIG_DONGLE:
                 loginContainerFragment.loadConfigDongle();

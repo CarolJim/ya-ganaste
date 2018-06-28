@@ -70,6 +70,7 @@ import butterknife.BindView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
@@ -163,7 +164,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         edtConcept = (EditText) rootview.findViewById(R.id.edtConcept);
         inputConcept = rootview.findViewById(R.id.text_input_concepto);
 
-        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept,this));
+        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept, this));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         btncobrar.setOnClickListener(this);
@@ -178,7 +179,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 }
             });
         }*/
-
 
 
         // Make the custom keyboard appear
@@ -228,7 +228,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             }
         });
         edtConcept.setOnFocusChangeListener((view, b) -> {
-            if (b){
+            if (b) {
                 inputConcept.setBackgroundResource(R.drawable.inputtext_active);
             } else {
                 inputConcept.setBackgroundResource(R.drawable.inputtext_normal);
@@ -348,6 +348,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
+                    intent.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.PAYMENT.ordinal());
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {

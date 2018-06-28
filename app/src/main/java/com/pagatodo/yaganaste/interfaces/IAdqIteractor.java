@@ -17,6 +17,8 @@ public interface IAdqIteractor {
 
     void initCancelPayment(CancelaTransaccionDepositoEmvRequest request);
 
+    void initConsult(TransaccionEMVDepositRequest request);
+
     void sendSignalVoucher(FirmaDeVoucherRequest request);
 
     void sendTicket(EnviarTicketCompraRequest request, boolean applyAgent);

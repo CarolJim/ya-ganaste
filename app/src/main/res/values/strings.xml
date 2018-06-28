@@ -791,12 +791,14 @@
     <string name="numero_iave_incorrecto">Número de IAVE incorrecto</string>
     <string name="numero_telefono_incorrecto">Número de teléfono inválido</string>
 
+    <!-- Proceso de Cobro/Consulta de Saldo -->
     <string name="detalle_movimiento">Detalle de movimiento</string>
     <string name="cobraste">Cobraste</string>
     <string name="con_la_tarjeta">Con la tarjeta:</string>
     <string name="cancel_cobro_confirmation">¿Estás seguro que quieres\ncancelar este cobro?</string>
     <string name="procesando_cancelacion">Realizando cancelación</string>
     <string name="procesando_cobro">Procesando el pago</string>
+    <string name="procesando_consulta">Consultando el saldo</string>
     <string name="validando_lector"></string>
     <string name="enviando_firma"></string>
     <string name="enviando_ticket">Enviando recibo</string>
@@ -1357,6 +1359,7 @@
     <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>
     <string name="operation_configurar">Configurar lector\nde tarjetas</string>
+    <string name="operation_consultar_saldo">Consultar saldo\nen tarjeta</string>
     <string name="operation_registrar">Registrar</string>
 
     <!-- Wallet Settings Card -->
@@ -1551,8 +1554,11 @@
     <string name="papeleria_mi_lupita">Papelería  "Mi Lupita"</string>
     <string name="sin_operadores">Sin Operadores</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Consultar Saldo UyU -->
+    <string name="consultar_saldo_uyu_title">Consultar saldo en tarjetas</string>
+    <string name="consultar_saldo_uyu_desc">Únicamente podrás consultar saldo de las siguientes tarjetas:\n- Uniformes y útiles escolares.\n- Adulto Mayor CDMX</string>
+    <string name="consultar_saldo_uyu_btn">Consultar saldo</string>
+
     <string name="detalle_de_operador">Detalle de operador</string>
     <string name="bloquear_operador">Bloquear operador</string>
 </resources>

@@ -191,8 +191,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         cameraManager = new CameraManager(this);
         cameraManager.initCamera(this, imgLoginExistProfile, this);
         cropResultReceiver = new CropIwaResultReceiver();
-        cropResultReceiver.setListener(this);
-        cropResultReceiver.register(this);
+        try {
+            cropResultReceiver.setListener(this);
+            cropResultReceiver.unregister(this);
+            cropResultReceiver.register(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         fbmPresenter = new FBPresenter(this, new FBInteractor());
         this.tabPresenter = new MainMenuPresenterImp(this);
         this.resetPinPresenter = new ResetPinPresenterImp(false);
@@ -290,7 +295,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (App.getInstance().getPrefs().containsData(CUPO_COMPLETE) && App.getInstance().getPrefs().loadDataBoolean(CUPO_COMPLETE, false)) {
             App.getInstance().getPrefs().saveDataBool(CUPO_COMPLETE, false);
         }
-
         updatePhoto();
     }
 

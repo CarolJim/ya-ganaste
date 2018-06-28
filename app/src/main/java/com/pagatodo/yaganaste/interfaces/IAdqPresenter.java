@@ -13,6 +13,8 @@ public interface IAdqPresenter {
 
     void initTransaction(TransaccionEMVDepositRequest request, boolean signWithPin);
 
+    void initConsultBalance(TransaccionEMVDepositRequest request);
+
     void initCancelation(TransaccionEMVDepositRequest request, DataMovimientoAdq dataMovimientoAdq);
 
     void sendSignature(SignatureData signatureData);
