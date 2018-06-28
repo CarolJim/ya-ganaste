@@ -61,7 +61,8 @@
                             android:layout_height="50dp"
                             android:layout_marginRight="8.5dp"
                             android:background="@drawable/inputtext_normal"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_marginEnd="8.5dp">
 
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                 android:id="@+id/seleccionaGenero"
@@ -70,7 +71,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:paddingLeft="12.5dp"
-                                android:text="@string/genero" />
+                                android:text="@string/genero"
+                                android:paddingStart="12.5dp" />
 
                             <RadioGroup
                                 android:id="@+id/radioGender"
@@ -93,10 +95,13 @@
                                     android:background="@drawable/ico_male"
                                     android:gravity="center" />
 
-                                <android.support.v4.widget.Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1" />
+                                <View
+                                    android:layout_width="1dp"
+                                    android:background="#c4c4c4"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    />
 
                                 <RadioButton
                                     android:id="@+id/radioBtnFemale"
@@ -302,7 +307,7 @@
                         <LinearLayout
                             android:id="@+id/txtfecha"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_marginTop="3dp"
                             android:background="@drawable/inputtext_normal"
                             android:orientation="horizontal">
@@ -337,6 +342,15 @@
 
                             </android.support.design.widget.TextInputLayout>
 
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_height="match_parent"
+                                android:background="#c4c4c4"
+                                android:layout_marginEnd="10dp" />
+
                             <ImageView
                                 android:layout_width="17dp"
                                 android:layout_height="17dp"
@@ -368,7 +382,8 @@
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:orientation="vertical"
-                                android:paddingLeft="12.5dp">
+                                android:paddingLeft="12.5dp"
+                                >
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/lugarnacimientomens"
@@ -389,14 +404,22 @@
                                     android:textSize="14sp" />
 
                             </LinearLayout>
-
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_height="match_parent"
+                                android:background="#c4c4c4"
+                                android:layout_marginEnd="10dp" />
                             <ImageView
-                                android:layout_width="14.1dp"
-                                android:layout_height="17.5dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="11dp"
                                 android:tint="@color/colorAccent"
-                                android:src="@drawable/pin_canvas_gray" />
+                                android:src="@drawable/pin_canvas_gray"
+                                android:layout_marginEnd="11dp" />
                         </LinearLayout>
 
                         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage

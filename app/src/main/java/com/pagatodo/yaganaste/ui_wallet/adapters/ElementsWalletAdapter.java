@@ -23,12 +23,14 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
     private OnItemClickListener listener;
     private boolean isBalance = false;
 
+
     public ElementsWalletAdapter(Activity context, OnItemClickListener listener, boolean isBalance) {
         this.context = context;
         this.elementViews = new ArrayList<>();
         this.listener = listener;
         this.isBalance = isBalance;
     }
+
 
     @Override
     public OptionsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
@@ -57,5 +59,6 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
     public void setListOptions(List<ElementView> elementViews) {
         this.elementViews = elementViews;
     }
+
 
 }

@@ -45,7 +45,7 @@ public class WalletBuilder {
                 walletList.addWallet(ElementWallet.getCardMisNegocios());
             }
             for (int i = 0; i < SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().size(); i++) {
-                Agentes agentes = new Agentes();
+                Agentes agentes;
                 try {
                     agentes = new DatabaseManager().getAgenteByComercio(SingletonUser.getInstance().getDataUser().getAdquirente().getAgentes().get(i).getIdComercio());
                 } catch (ExecutionException | InterruptedException e) {

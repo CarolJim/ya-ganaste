@@ -299,7 +299,7 @@ public class ApiAdq extends Api {
      */
     public static void consultaSaldoCupo(SaldoRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        headers.put("Content-type", "application/json");
+        //headers.put("Content-type", "application/json");
         /*if (agente != null) {
             String idUsAdq = "";
             for (Operadores operador : agente.getOperadores()) {

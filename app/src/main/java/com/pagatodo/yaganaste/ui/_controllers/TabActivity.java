@@ -51,6 +51,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.patterns.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
@@ -516,6 +517,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             } else if (actualFragment instanceof GetMountFragment) {
                 goHome();
             } else if (actualFragment instanceof WalletTabFragment) {
+                showDialogOut();
+            } else if (actualFragment instanceof OperadorTabFragment) {
                 showDialogOut();
             } else if (actualFragment instanceof SendWalletFragment) {
                 goHome();

@@ -491,7 +491,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case EVENT_GO_SELECT_DONGLE:
-                loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
+                loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD,false);
                 break;
             case EVENT_GO_CONFIG_DONGLE:
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {

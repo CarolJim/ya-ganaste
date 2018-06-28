@@ -84,6 +84,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     }
                     try {
                         Operadores operador = db.getOperadoresAdmin(agente).get(0);
+
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                         ApiAdq.consultaSaldoCupo(saldoRequest,this);
                     } catch (ExecutionException e) {

@@ -402,15 +402,16 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             if (isOnline) {
                 //String f = SingletonUser.getInstance().getCardStatusId();
                 //if (f == null || f.isEmpty() || f.equals("0")) {
+                if (!prefs.containsData(IS_OPERADOR)) {
+                    if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
+                        EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
 
-                if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
-                    EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
-
-                    if (usuarioClienteResponse.getCuentas().size() != 0) {
-                        walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                        if (usuarioClienteResponse.getCuentas().size() != 0) {
+                            walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
+                        }
+                    } else if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_ADQ || cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_BUSINESS) {
+                        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
                     }
-                } else if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_ADQ || cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_BUSINESS) {
-                    walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
                 }
             }
         } else if (resultCode == RESULT_CODE_SELECT_DONGLE || resultCode == RESULT_ADQUIRENTE_SUCCESS) {

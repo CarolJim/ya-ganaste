@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
@@ -57,7 +58,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_KSN;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 
-public class PairBluetoothFragment extends GenericFragment implements AdapterView.OnItemClickListener,
+public class PairBluetoothFragment extends SupportFragment implements AdapterView.OnItemClickListener,
         IAdqTransactionRegisterView {
 
     private static final String TAG = PairBluetoothFragment.class.getSimpleName();

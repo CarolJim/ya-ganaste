@@ -32,7 +32,13 @@ public class ButtonsViewHolder extends OptionsViewHolder{
     public void bind(final ElementView elementView, final OnItemClickListener listener) {
         this.button.setBackgroundResource(elementView.getResource());
         this.textOption.setText(context.getString(elementView.getTitle()));
-        this.itemView.setOnClickListener(v -> listener.onItemClick(elementView));
+        if (listener != null) {
+            this.itemView.setOnClickListener(v -> listener.onItemClick(elementView));
+        }
+    }
+
+    public View getItemView(){
+        return this.itemView;
     }
 /*
     public void bind(final ElementView elementView, final ElementsBalanceAdapter.OnItemClickListener listener) {
