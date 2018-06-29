@@ -495,12 +495,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (!BuildConfig.DEBUG) {
                 Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
             }
+            //ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentes());
             try {
                 SaldoRequest saldoRequest = new SaldoRequest();
-                Operadores opAdmin = new DatabaseManager().getOperadoresAdmin(agente).get(0);
-                saldoRequest.addPetroNum(new SaldoRequest.PetroNum(opAdmin.getPetroNumero()));
-                RequestHeaders.setIdCuentaAdq(opAdmin.getIdUsuarioAdquirente());
-                ApiAdq.consultaSaldoCupo(saldoRequest, this);
+                DatabaseManager db = new DatabaseManager();
+                Operadores operador = db.getOperadoresAdmin(agente);
+                saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
+                ApiAdq.consultaSaldoCupo(saldoRequest,this);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

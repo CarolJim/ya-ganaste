@@ -61,8 +61,6 @@ public class ContactoFragment extends SupportFragment implements View.OnClickLis
         ButterKnife.bind(this, rootView);
         initViews();
         return rootView;
-
-
     }
 
     @Override

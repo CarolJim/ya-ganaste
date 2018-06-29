@@ -67,7 +67,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetalleOperadorFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IChangeOperador{
+public class DetalleOperadorFragment extends GenericFragment implements View.OnClickListener, IChangeOperador{
 
     private View rootView;
     Operadores operadoresResponse;
@@ -79,34 +79,9 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     StyleTextView status_operador;
     @BindView(R.id.titulo_negocio)
     StyleTextView titulo_negocio;
-
     @BindView(R.id.btnbloquaar)
     StyleButton btnbloquaar;
-
-
-
-
-
-    private static final String KEY_NAME = "yourKey";
-    private static final String KEY_NAME_NOT_INVALIDATED = "key_not_invalidated";
-    private static final String DIALOG_FRAGMENT_TAG = "myFragment";
-    static final String DEFAULT_KEY_NAME = "default_key";
-    private SharedPreferences mSharedPreferences;
-    static PaymentAuthorizeFragment fragmentCode;
-    private CustomErrorDialog customErrorDialog;
-    private KeyguardManager keyguardManager;
-    private FingerprintManager fingerprintManager;
-    private Cipher cipher;
-    private FingerprintManager.CryptoObject cryptoObject;
-    private String texto;
-    private String titulo;
-    private KeyStore keyStore;
-    private KeyGenerator keyGenerator;
-    private static Preferencias preferencias = App.getInstance().getPrefs();
-
-
     ChangeStatusOperadorPresenter changeStatusOperadorPresenter;
-
     public static DetalleOperadorFragment newInstance(Operadores operadoresResponse) {
         DetalleOperadorFragment fragment = new DetalleOperadorFragment();
         Bundle args = new Bundle();
@@ -114,9 +89,6 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         fragment.setArguments(args);
         return fragment;
     }
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +96,6 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         operadoresResponse = (Operadores) args.getSerializable(DetailsActivity.DATA);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -133,14 +104,11 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
         initViews();
         changeStatusOperadorPresenter = new ChangeStatusOperadorPresenter(getContext());
         changeStatusOperadorPresenter.setIView(this);
-
         return rootView;
     }
-
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
         //titulo_negocio.setText(operadoresResponse.getNombreNegocio());
         titulo_negocio.setText("");
         correo_operador.setText(operadoresResponse.getNombreUsuario());
@@ -151,23 +119,14 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
             status_operador.setText("Operador bloqueado");
             status_operador.setTextColor(Color.parseColor("#D0021B"));
         }
-
-
         btnbloquaar.setText(operadoresResponse.getIdEstatusUsuario() ==1? getString(R.string.boton_bloqueo):getString(R.string.boton_desbloque));
-
         btnbloquaar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), operadoresResponse.getIdEstatusUsuario() ==1? getString(R.string.relizar_bloqueo):getString(R.string.relizar_desbloque),
                         R.string.title_aceptar, (dialogInterface, i) -> {
                             changeStatusOperadorPresenter.change(operadoresResponse.getNombreUsuario(),operadoresResponse.getIdEstatusUsuario()==1?8:1);
                         });
-
-
-
-
             }
         });
 
@@ -177,37 +136,6 @@ public class DetalleOperadorFragment extends GenericFragment implements View.OnC
     public void onClick(View view) {
 
     }
-
-    @Override
-    public void setValidationRules() {
-
-    }
-
-    @Override
-    public void validateForm() {
-
-    }
-
-    @Override
-    public void showValidationError(int id, Object o) {
-
-    }
-
-    @Override
-    public void hideValidationError(int id) {
-
-    }
-
-    @Override
-    public void onValidationSuccess() {
-
-    }
-
-    @Override
-    public void getDataForm() {
-
-    }
-
     @Override
     public void nextScreen(String event, Object data) {
 

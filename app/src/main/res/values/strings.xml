@@ -60,6 +60,7 @@
     <string name="getSucursales">/LocalizarSucursales</string>
     <string name="obtenerSubgiros">/ObtenerSubgiros</string>
     <string name="obteneroperadores">/ObtenerOperadores</string>
+    <string name="obtenerresumendia">/agMov/ObtenerResumenDia?fecha=</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
@@ -1264,6 +1265,8 @@
     <string name="mas_info"><u>Más información</u></string>
     <string name="reload_session"><u>Recargar</u></string>
     <string name="mis_operadores">Mis operadores</string>
+    <string name="ventas_dia">Ventas del día</string>
+
 
     <!-- Wallet StarBucks-->
     <string name="opt_recompensas">Mis\nrecompensas</string>
@@ -1561,5 +1564,8 @@
     <string name="consultar_saldo_uyu_btn">Consultar saldo</string>
 
     <string name="detalle_de_operador">Detalle de operador</string>
+    <string name="ventas_diarias">Ventas del día</string>
+    <string name="monto_ventas">Monto de ventas</string>
     <string name="bloquear_operador">Bloquear operador</string>
+    <string name="movimientos_recientes">Ver movimientos recientes</string>
 </resources>

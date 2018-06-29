@@ -83,8 +83,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                         Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
                     }
                     try {
-                        Operadores operador = db.getOperadoresAdmin(agente).get(0);
-
+                        Operadores operador = db.getOperadoresAdmin(agente);
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                         ApiAdq.consultaSaldoCupo(saldoRequest,this);
                     } catch (ExecutionException e) {
@@ -92,8 +91,6 @@ public class WalletInteractorImpl implements WalletInteractor {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-
                     break;
                 case TYPE_STARBUCKS:
                     String numCard = App.getInstance().getPrefs().loadData(NUMBER_CARD_STARBUCKS);

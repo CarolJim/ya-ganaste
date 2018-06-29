@@ -38,6 +38,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_OPERADORES_ADQ = 104;
     static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
     static public final int OPTION_MVIMIENTOS_BUSSINES = 105;
+    static public final int OPTION_VENTAS_ADQ = 109;
     //static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
     static public final int OPTION_CONTINUE_DOCS = 106;
     static public final int OPTION_ERROR_ADDRESS = 107;
@@ -254,8 +255,10 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
-            elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
+
         }
+        elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
+        elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ico_reportes, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
         List<Agentes> agentes = new ArrayList<>();
         try {
             agentes = new DatabaseManager().getAgentes();

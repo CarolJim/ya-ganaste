@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDeviceD
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetResumenDiaResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
@@ -59,6 +60,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.DETAIL_MOVEMENT
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_RESUMENDIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_TYPE_REPAYMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
@@ -70,6 +72,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.SEND_REEMBOLSO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_TYPE_REPAYMENT;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
@@ -353,6 +356,21 @@ public class ApiAdq extends Api {
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
                 headers, request, ConsultaSaldoCupoResponse.class, result);
     }
+    /**
+     * Método que se invoca cuando se desean obtener más movimientos por mes.
+     *
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void getresumendia(String fecha,IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put("Content-type", "application/json");
+        headers.put(RequestHeaders.ID, App.getInstance().getPrefs().loadData(ID_COMERCIOADQ));
+        NetFacade.consumeWS(GET_RESUMENDIA,
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.obtenerresumendia)+fecha,
+                headers, null, GetResumenDiaResponse.class, result);
+    }
+
+
 
     /**
      * @param request
