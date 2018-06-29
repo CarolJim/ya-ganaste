@@ -20,4 +20,6 @@ public interface IAdqTransactionRegisterView extends INavigationView {
 
     void showSimpleDialogError(String message, DialogDoubleActions actions);
 
+    void onErrorConsultSaldo(String message);
+
 }

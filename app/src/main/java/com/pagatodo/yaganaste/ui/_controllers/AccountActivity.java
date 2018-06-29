@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.dspread.xpos.QPOSService;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -51,6 +53,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import java.security.KeyStore;
@@ -71,6 +74,7 @@ import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragmen
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SIZE_APP;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -540,22 +544,35 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 .setTitle(getString(R.string.title_update))
                 .setMessage(getString(R.string.text_update_forced))
                 .setPositiveButton("Actualizar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                        (dialog1, which) -> {
+                            /* Validar el tamaño necesario para actualizar la App */
+                            if (FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024 > Long.valueOf(Utils.getAvailableInternalMemorySize())) {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
                                 startActivity(i);
                                 killProcess(myPid());
+                            } else {
+                                showDialogUninstallApps();
                             }
                         })
                 .setNegativeButton("No gracias",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                killProcess(myPid());
-                            }
-                        }).create();
+                        (dialog12, which) -> killProcess(myPid())).create();
+        dialog.show();
+    }
+
+    private void showDialogUninstallApps() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.title_free_space))
+                .setMessage(getString(R.string.desc_free_space))
+                .setPositiveButton("Liberar espacio",
+                        (dialog1, which) -> {
+                            Intent intent = new Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS);
+                            startActivity(intent);
+                            killProcess(myPid());
+                        })
+                .setNegativeButton("Cancelar",
+                        (dialog12, which) -> killProcess(myPid())).create();
         dialog.show();
     }
 }

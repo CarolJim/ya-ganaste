@@ -647,6 +647,8 @@
     <string name="title_update">Actualización</string>
     <string name="text_update_forced">Para poder continuar es necesario actualizar tu app</string>
     <string name="text_update_warn">Hay una nueva versión de Ya Ganaste, ¿Deseas descargarla ahora?</string>
+    <string name="title_free_space">Espacio insuficiente</string>
+    <string name="desc_free_space">No cuentas con el espacio suficiente en tu dispositivo para actualizar tu app</string>
 
     <string name="tienes_cuenta">¿Ya tienes una cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>

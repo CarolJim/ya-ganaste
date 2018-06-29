@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 
@@ -116,6 +117,9 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 break;
             case EVENT_PAYMENT:
                 finish();
+                break;
+            case EVENT_GO_GET_BALANCE_RESULT:
+                Log.e("YG","Cosulta Closed Loop: "+data.toString());
                 break;
 
         }

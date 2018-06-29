@@ -284,6 +284,11 @@ public class MyDongleFragment extends GenericFragment implements
     }
 
     @Override
+    public void onErrorConsultSaldo(String message) {
+
+    }
+
+    @Override
     public void nextScreen(String event, Object data) {
 
     }

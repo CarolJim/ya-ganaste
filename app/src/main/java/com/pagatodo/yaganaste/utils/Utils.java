@@ -15,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.StatFs;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.text.InputFilter;
@@ -826,7 +827,6 @@ public class Utils {
     public static boolean isDeviceOnline() {
         ConnectivityManager connManager = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
-
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             return true;
         } else {
@@ -983,5 +983,56 @@ public class Utils {
         Log.e("EMV", "ARPC ORIGINAL: " + tlv);
         Log.e("EMV", "ARPC TRADUCIDO: " + translate);
         return translate;
+    }
+
+    /**
+     * Get the available internal memory size to update App
+     */
+    public static String getAvailableInternalMemorySize() {
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = stat.getBlockSize();
+        long availableBlocks = stat.getAvailableBlocks();
+        return formatSize(availableBlocks * blockSize);
+    }
+
+    /**
+     * Get the available external memory size to update App
+     */
+    public static String getTotalExternalMemorySize() {
+        if (externalMemoryAvailable()) {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            long totalBlocks = stat.getBlockCount();
+            return formatSize(totalBlocks * blockSize);
+        } else {
+            return "Error";
+        }
+    }
+
+    private static String formatSize(long size) {
+        //String suffix = null;
+        if (size >= 1024) {
+            size /= 1024;
+            /*suffix = "KB";
+            if (size >= 1024) {
+                suffix = "MB";
+                size /= 1024;
+            }*/
+        }
+        StringBuilder resultBuffer = new StringBuilder(Long.toString(size));
+       /* int commaOffset = resultBuffer.length() - 3;
+        while (commaOffset > 0) {
+            resultBuffer.insert(commaOffset, ',');
+            commaOffset -= 3;
+        }
+        if (suffix != null) resultBuffer.append(suffix);*/
+        return resultBuffer.toString();
+    }
+
+    private static boolean externalMemoryAvailable() {
+        return android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED);
     }
 }
