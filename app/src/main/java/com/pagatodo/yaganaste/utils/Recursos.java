@@ -258,6 +258,7 @@ public class Recursos {
     public static final String CARD_NUMBER = "CARD_NUMBER";
     public static final String AGENTE_NUMBER = "AGENTE_NUMBER";
     public static final String ID_COMERCIOADQ = "ID_COMERCIO";
+    public static final String NOM_COM = "NOM_COM";
     public static final String FOLIOADQ = "FOLIOADQ";
     public static final String CARD_STATUS = "CARD_STATUS";
     public static final String SHOW_BALANCE = "SHOW_BALANCE";
@@ -298,6 +299,7 @@ public class Recursos {
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS_EMISOR = "ID_ESTATUS_EMISOR"; // int
     public static final String HAS_CONFIG_DONGLE = "HAS_CONFIG_DONGLE"; // boolean
+    public static final String IS_UYU = "IS_UYU"; // boolean
     public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
     public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
 

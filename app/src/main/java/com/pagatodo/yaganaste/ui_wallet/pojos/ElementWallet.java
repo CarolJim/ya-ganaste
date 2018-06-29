@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UtilsGraphics;
 
@@ -19,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
@@ -307,9 +309,10 @@ public class ElementWallet {
             frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
             backView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_back);
         }
+
         return new ElementWallet(TYPE_ADQ, frontView, backView,
                 StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE)),
-                ElementView.getListAdqBalance(),
+                ElementView.getListAdqBalance(agentes.isEsComercioUYU()),
                 R.string.saldo_reembolso, true, R.string.cobros_con_tarjeta, agentes.getNombreNegocio(),agentes);
     }
 

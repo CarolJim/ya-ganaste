@@ -108,6 +108,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
+    public final static String EVENT_GO_VENTAS = "EVENT_GO_VENTAS";
     public final static String EVENT_RECOVERY_PASS = "EVENT_RECOVERY_PASS";
     public final static String EVENT_RECOVERY_PASS_BACK = "EVENT_RECOVERY_PASS_BACK";
     public final static String EVENT_BLOCK_CARD = "EVENT_BLOCK_CARD";
@@ -350,6 +351,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_SECURE_CODE_BACK:
                 loadFragment(loginContainerFragment, Direction.BACK, false);
                 break;
+            case EVENT_GO_VENTAS:
+                loginContainerFragment.loadVentas();
+                break;
+
+
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
                 /*

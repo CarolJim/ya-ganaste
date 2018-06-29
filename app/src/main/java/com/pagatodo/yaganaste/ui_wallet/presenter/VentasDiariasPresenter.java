@@ -38,6 +38,7 @@ public class VentasDiariasPresenter implements IVentasDiarias {
     @Override
     public void onError(WebService ws, Object error) {
         viewventas.hideLoader();
+        viewventas.failGetResumenDia(error.toString());
     }
 
     @Override

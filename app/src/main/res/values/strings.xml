@@ -1568,4 +1568,5 @@
     <string name="monto_ventas">Monto de ventas</string>
     <string name="bloquear_operador">Bloquear operador</string>
     <string name="movimientos_recientes">Ver movimientos recientes</string>
+    <string name="ltima_actualizaci_n">Última actualización</string>
 </resources>

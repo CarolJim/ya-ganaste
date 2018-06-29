@@ -20,7 +20,6 @@
         android:id="@+id/linera_monto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/back_edittext_gray"
         android:gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -46,7 +45,7 @@
             style="@style/generic_calculator_integer_styleticket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="435" />
+            android:text="0" />
 
         <!--    <TextView
                 android:id="@+id/tv_monto_entero"
@@ -76,7 +75,7 @@
                 style="@style/generic_calculator_decimal_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="88" />
+                android:text="00" />
 
             <!--   <TextView
                    android:id="@+id/tv_monto_decimal"

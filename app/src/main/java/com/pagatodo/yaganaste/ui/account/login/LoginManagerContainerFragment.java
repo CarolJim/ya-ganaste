@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.MapStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
@@ -139,6 +140,15 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
             loadFragment(MyDongleFragment.newInstance(prefs.loadDataInt(MODE_CONNECTION_DONGLE)), Direction.FORDWARD, true);
             showBack(true);
         }
+    }
+
+
+
+    public void loadVentas() {
+
+            loadFragment(VentasDiariasFragment.newInstance(), Direction.FORDWARD, true);
+            showBack(true);
+
     }
 
     public void loadRewards() {

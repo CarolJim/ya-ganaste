@@ -20,7 +20,7 @@
         android:id="@+id/linera_monto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/back_edittext_gray"
+
         android:gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -47,7 +47,7 @@
             style="@style/generic_calculator_integer_styleventasprincipal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15,256" />
+            android:text="0" />
 
         <!--    <TextView
                 android:id="@+id/tv_monto_entero"

@@ -33,11 +33,15 @@ public class VentasDiariasIteractor implements IVentasDiariasIteractor , IReques
         switch (dataSourceResult.getWebService()) {
             case GET_RESUMENDIA:
                 GetResumenDiaResponse data = (GetResumenDiaResponse) dataSourceResult.getData();
-                Ventas ventas = Ventas.getInstance();
-                ventas.setMontoventas(data.getSaldo());
-                ventas.setTicketp(data.getTicketPromedio());
-                ventas.setCobrosr(data.getNumeroCobros());
-                iVentasDiariaspresenter.onSucces(GET_RESUMENDIA,"Succes");
+                if (!data.getResult().getId().equals("0")) {
+                    Ventas ventas = Ventas.getInstance();
+                    ventas.setMontoventas(data.getSaldo());
+                    ventas.setTicketp(data.getTicketPromedio());
+                    ventas.setCobrosr(data.getNumeroCobros());
+                    iVentasDiariaspresenter.onSucces(GET_RESUMENDIA, "Succes");
+                }else {
+                    iVentasDiariaspresenter.onError(GET_RESUMENDIA,data.getResult().getMessage());
+                }
                 break;
         }
     }
