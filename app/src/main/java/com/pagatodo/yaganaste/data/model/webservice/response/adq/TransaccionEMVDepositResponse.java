@@ -23,6 +23,7 @@ public class TransaccionEMVDepositResponse implements Serializable {
     private String maskedPan = "";
     private String name = "";
     private String saldo = "";
+    private String descripcion = "";
     private String tipoTarjeta = "";
     private String tipoTarjetaBanco = "";
     private String tlvResult = "";
@@ -30,6 +31,14 @@ public class TransaccionEMVDepositResponse implements Serializable {
 
     public TransaccionEMVDepositResponse() {
         error = new DataResultAdq();
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getARQC() {

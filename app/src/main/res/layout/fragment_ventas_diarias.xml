@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui_wallet.fragments.VentasDiariasFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="27dp"
+            android:text="@string/ventas_diarias"
+            android:textColor="@color/colorAccent"
+            android:textSize="18dp" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titulo_negocio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Papeleria XXXX"
+            android:textAlignment="center"
+            android:textColor="@color/textColorAlternative"
+            android:textSize="16dp"
+            app:tipo="Text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/whiteColor"
+            android:orientation="horizontal"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:id="@+id/linerarventasayercontainer"
+                >
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/sub_ventasayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Ventas de ayer"
+                android:textAlignment="center"
+                android:textColor="@color/textColorAlternative"
+                android:textSize="16dp"
+                app:tipo="Text" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/whiteColor"
+                   android:id="@+id/linerarventasayer"
+                   android:orientation="vertical"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:id="@+id/linerarventashoycontainer"
+                >
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/sub_ventashoy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="Ventas de hoy"
+                    android:layout_marginBottom="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorAlternative"
+                    android:textSize="16dp"
+                    app:tipo="Text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/colorAccent"
+                    android:id="@+id/linerarventashoy"
+                    android:orientation="vertical"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp"
+            android:background="@drawable/gray_border_rectangle"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="21dp"
+                android:text="@string/monto_ventas"
+                android:textColor="@color/colorAccent"
+                android:textSize="14dp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/sub_actualizacin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/ltima_actualizaci_n"
+                android:textAlignment="center"
+                android:textColor="@color/textColorAlternative"
+                android:textSize="12dp"
+                app:tipo="Text" />
+
+
+            <include layout="@layout/calculatorventaprincipal" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/gray_border_rectangle"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/gray_border_rectangle"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+
+                    >
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/sub_cobros_realizados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Cobros realizados"
+                android:textAlignment="center"
+                android:textColor="@color/textColorAlternative"
+                android:textSize="12dp"
+                app:tipo="Text" />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/cobrosrealizados"
+                style="@style/generic_calculator_integer_styleticket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text="0" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight=".6"
+
+                    >
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/sub_tiketpromedio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:text="Ticket promedio"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColorAlternative"
+                        android:textSize="12dp"
+                        app:tipo="Text" />
+
+                    <include layout="@layout/calculatortecketpromedio" />
+
+                </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnBackDatosUsuario"
+            style="@style/buttonDirecctionBackSmall"
+            android:gravity="center"
+            android:text="@string/backButton"
+            android:visibility="gone" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="@dimen/btns_separation"
+            android:layout_height="match_parent" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnbloquaar"
+            android:layout_width="219dp"
+            style="@style/buttonSquareRoundedBlueNewWalletmovi"
+            android:background="@drawable/button_rounded_blue"
+            android:gravity="center"
+
+            android:text="@string/movimientos_recientes" />
+    </LinearLayout>
+
+</FrameLayout>

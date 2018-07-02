@@ -21,6 +21,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
@@ -38,6 +39,8 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_OPERADORES_ADQ = 104;
     static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
     static public final int OPTION_MVIMIENTOS_BUSSINES = 105;
+    static public final int OPTION_VENTAS_ADQ = 109;
+    static public final int OPTION_VENTAS_ADQAFUERA = 210;
     //static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
     static public final int OPTION_CONTINUE_DOCS = 106;
     static public final int OPTION_ERROR_ADDRESS = 107;
@@ -255,7 +258,10 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
+            elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ico_reportes, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
         }
+
+
         List<Agentes> agentes = new ArrayList<>();
         try {
             agentes = new DatabaseManager().getAgentes();
@@ -378,12 +384,17 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }
 
-    public static ArrayList<ElementView> getListAdqBalance() {
+    public static ArrayList<ElementView> getListAdqBalance(boolean isuyu) {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
         elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
-        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+       if (isuyu) {
+           elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA,  R.drawable.ico_reportes, R.string.ventas_dia));
+       }else {
+           elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+
+       }
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }

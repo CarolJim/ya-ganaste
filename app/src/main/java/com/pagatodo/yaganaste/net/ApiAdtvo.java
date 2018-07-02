@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCobrosM
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.ObtenerInfoComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetResumenDiaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RegisterFBTokenRequest;
@@ -137,6 +138,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.GENERAR_CODIGO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_FIRST_DATA_NOTIFICATION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_INFORMACION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_NEXT_DATA_NOTIFICATION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_RESUMENDIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INFO_COMERCIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;

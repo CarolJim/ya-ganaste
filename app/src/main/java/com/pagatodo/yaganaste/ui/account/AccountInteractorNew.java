@@ -143,7 +143,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
 import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
@@ -495,12 +494,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (!BuildConfig.DEBUG) {
                 Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
             }
+            //ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentes());
             try {
                 SaldoRequest saldoRequest = new SaldoRequest();
-                Operadores opAdmin = new DatabaseManager().getOperadoresAdmin(agente).get(0);
-                saldoRequest.addPetroNum(new SaldoRequest.PetroNum(opAdmin.getPetroNumero()));
-                RequestHeaders.setIdCuentaAdq(opAdmin.getIdUsuarioAdquirente());
-                ApiAdq.consultaSaldoCupo(saldoRequest, this);
+                DatabaseManager db = new DatabaseManager();
+                Operadores operador = db.getOperadoresAdmin(agente);
+                saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
+                ApiAdq.consultaSaldoCupo(saldoRequest,this);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -840,20 +841,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 AdquirienteResponse adquiriente = user.getDataUser().getAdquirente();
                 /* Para los comercios UyU ya no se necesita configurar el lector debido a que ya está configurado
                  * que tiene un lector Bluetooth */
-                if (!prefs.containsData(IS_OPERADOR)){
-                    if (adquiriente.getAgentes() != null && adquiriente.getAgentes().size() > 0 &&
+                if (adquiriente.getAgentes() != null && adquiriente.getAgentes().size() > 0 &&
                         adquiriente.getAgentes().get(0).isEsComercioUYU()) {
-                        App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
-                        App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
-                    }
-                } else {
-
-                    if (!App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)){
-                        App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
-                        App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
-                    }
+                    App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
+                    App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
                 }
-
                 if (dataUser.getCliente().getConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getEmisor().getCuentas().get(0).getIdCuenta()));
                     if (prefs.loadDataBoolean(PASSWORD_CHANGE, false)) {

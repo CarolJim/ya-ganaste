@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_amount_control"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/titleAmount"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <EditText
+        android:id="@+id/et_amount"
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:id="@+id/linera_monto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/tv_sign"
+            style="@style/generic_calculator_sign_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_sign"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="7dp"-->
+        <!--android:text="$"-->
+        <!--android:textSize="@dimen/frag_getmount_calculator_simbolo_text_Size" />-->
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/tv_monto_enteroticketp"
+            style="@style/generic_calculator_integer_styleticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" />
+
+        <!--    <TextView
+                android:id="@+id/tv_monto_entero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/frag_getmount_calculator_enteros_text_Size" />-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="."
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/tv_monto_decimalticketp"
+                style="@style/generic_calculator_decimal_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="00" />
+
+            <!--   <TextView
+                   android:id="@+id/tv_monto_decimal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="00"
+                   android:textColor="@color/whiteColor"
+                   android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />-->
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

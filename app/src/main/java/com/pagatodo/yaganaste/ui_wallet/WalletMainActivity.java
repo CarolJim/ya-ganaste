@@ -77,6 +77,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendTicketFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
@@ -133,6 +134,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQ;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
@@ -270,6 +272,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_OPERADORES_ADQ:
                 loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
+                break;
+            case OPTION_VENTAS_ADQ:
+                loadFragment(VentasDiariasFragment.newInstance(itemOperation), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_STARBUCKS:
                 loadFragment(MovementsSbFragment.newInstance(), R.id.fragment_container);

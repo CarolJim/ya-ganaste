@@ -219,6 +219,16 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
+    <style name="buttonSquareRoundedBlueNewWalletmovi" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns_big</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_half_value</item>
+    </style>
+
     <style name="RowTitle">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
@@ -730,6 +740,19 @@
         <item name="tipo">Descripcion</item>
     </style>
 
+
+    <style name="generic_calculator_integer_styleticket">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">50dp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_calculator_integer_styleventasprincipal">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">70dp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
     <style name="generic_calculator_integer_style_cobro">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">70sp</item>
@@ -738,7 +761,7 @@
 
     <style name="generic_calculator_decimal_style">
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">18dp</item>
         <item name="tipo">Descripcion</item>
     </style>
 

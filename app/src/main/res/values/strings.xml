@@ -60,6 +60,7 @@
     <string name="getSucursales">/LocalizarSucursales</string>
     <string name="obtenerSubgiros">/ObtenerSubgiros</string>
     <string name="obteneroperadores">/ObtenerOperadores</string>
+    <string name="obtenerresumendia">/agMov/ObtenerResumenDia?fecha=</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
@@ -646,6 +647,8 @@
     <string name="title_update">Actualización</string>
     <string name="text_update_forced">Para poder continuar es necesario actualizar tu app</string>
     <string name="text_update_warn">Hay una nueva versión de Ya Ganaste, ¿Deseas descargarla ahora?</string>
+    <string name="title_free_space">Espacio insuficiente</string>
+    <string name="desc_free_space">No cuentas con el espacio suficiente en tu dispositivo para actualizar tu app</string>
 
     <string name="tienes_cuenta">¿Ya tienes una cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>
@@ -1264,6 +1267,8 @@
     <string name="mas_info"><u>Más información</u></string>
     <string name="reload_session"><u>Recargar</u></string>
     <string name="mis_operadores">Mis operadores</string>
+    <string name="ventas_dia">Ventas del día</string>
+
 
     <!-- Wallet StarBucks-->
     <string name="opt_recompensas">Mis\nrecompensas</string>
@@ -1559,7 +1564,15 @@
     <string name="consultar_saldo_uyu_title">Consultar saldo en tarjetas</string>
     <string name="consultar_saldo_uyu_desc">Únicamente podrás consultar saldo de las siguientes tarjetas:\n- Uniformes y útiles escolares.\n- Adulto Mayor CDMX</string>
     <string name="consultar_saldo_uyu_btn">Consultar saldo</string>
+    <string name="consultar_saldo_title">Consulta de saldo</string>
+    <string name="consultar_saldo_subtitle">La tarjeta de %s\nterminación %s\ncuenta con:</string>
+    <string name="consultar_saldo_disponible">Saldo disponible</string>
 
     <string name="detalle_de_operador">Detalle de operador</string>
+    <string name="ventas_diarias">Ventas del día</string>
+    <string name="monto_ventas">Monto de ventas</string>
     <string name="bloquear_operador">Bloquear operador</string>
+    <string name="movimientos_recientes">Ver movimientos recientes</string>
+    <string name="ltima_actualizaci_n">Última actualización</string>
+
 </resources>

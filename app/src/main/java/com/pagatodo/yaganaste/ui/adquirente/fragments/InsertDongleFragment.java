@@ -435,6 +435,25 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 getFragmentManager(), actions);
     }
 
+    @Override
+    public void onErrorConsultSaldo(String message) {
+        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            App.getInstance().pos.sendOnlineProcessResult("8A023030");
+        }
+        DialogDoubleActions doubleActions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                getActivity().finish();
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        };
+        UI.createSimpleCustomDialog(getString(R.string.title_error), message, getFragmentManager(), doubleActions, true, false);
+    }
+
 
     @Override
     public void nextScreen(String event, Object data) {
@@ -573,6 +592,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                 adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
+                            TransactionAdqData.getCurrentTransaction().setAmount("0");
                             adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction));
                         }
                     }

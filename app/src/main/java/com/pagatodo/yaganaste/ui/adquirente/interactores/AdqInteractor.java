@@ -411,7 +411,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 accountManager.onSucces(response.getWebService(), data);
                 break;
             default:
-                accountManager.onSucces(response.getWebService(), data);//Retornamos mensaje de error.
+                accountManager.onError(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
                 break;
         }
     }

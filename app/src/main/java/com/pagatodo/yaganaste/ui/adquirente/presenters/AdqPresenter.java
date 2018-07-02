@@ -160,7 +160,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 //((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
                 break;
             case CONSULT_BALANCE_UYU:
-                iAdqView.showError(error.toString());
+                ((IAdqTransactionRegisterView) iAdqView).onErrorConsultSaldo(error.toString());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.showError(error);
@@ -240,8 +240,8 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 break;
             case CONSULT_BALANCE_UYU:
                 TransaccionEMVDepositResponse responseBalance = (TransaccionEMVDepositResponse) data;
-                ((IAdqTransactionRegisterView) iAdqView).transactionResult(responseBalance.getError().toString(),
-                        responseBalance.getTlvResult());
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(responseBalance.getDescripcion() + "_" +
+                        responseBalance.getSaldo(), responseBalance.getTlvResult());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();

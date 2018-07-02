@@ -296,13 +296,12 @@ public class DatabaseManager {
     }
 
     /* Obtener la lista de operadores administradores guardados en la BD */
-    public List<Operadores> getOperadoresAdmin(Agentes agente) throws ExecutionException, InterruptedException {
-        return new AsyncTask<Void, Void, List<Operadores>>() {
+    public Operadores getOperadoresAdmin(Agentes agente) throws ExecutionException, InterruptedException {
+        return new AsyncTask<Void, Void, Operadores>() {
             @Override
-            protected List<Operadores> doInBackground(Void... voids) {
+            protected Operadores doInBackground(Void... voids) {
                 //List<Agentes> agentes = App.getAppDatabase().agentesModel().selectAgentes();
-                List<Operadores> operadores = new ArrayList<>();
-                operadores.add(App.getAppDatabase().operadoresModel().getOperadorAdminByAgente(agente.getNumeroAgente()));
+                Operadores operadores = App.getAppDatabase().operadoresModel().getOperadorAdminByAgente(agente.getNumeroAgente());
                 return operadores;
             }
         }.execute().get();

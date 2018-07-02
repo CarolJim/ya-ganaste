@@ -54,6 +54,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADMIN_ADQ;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_CHECK_MONEY_CARD;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_VENTAS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_REWARDS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
@@ -67,14 +68,18 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQAFUERA;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
+import static com.pagatodo.yaganaste.utils.Recursos.NOM_COM;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -288,7 +293,11 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
                     rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
                     accountPresenter.updateBalance();
+
                 } else {
+                    int idcomercio =adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
+                    App.getInstance().getPrefs().saveData(NOM_COM,adapterBalanceCard.getElemenWallet(position).getAgentes().getNombreNegocio());
+                    App.getInstance().getPrefs().saveData(ID_COMERCIOADQ,idcomercio+"");
                     rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
                     accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
                 }
@@ -309,6 +318,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
         switch (elementView.getIdOperacion()) {
+
             case OPTION_BLOCK_CARD:
                 nextScreen(EVENT_BLOCK_CARD, null);
                 break;
@@ -330,6 +340,10 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             case OPTION_BALANCE_CLOSED_LOOP:
                 nextScreen(EVENT_CHECK_MONEY_CARD, null);
                 break;
+            case OPTION_VENTAS_ADQAFUERA:
+                nextScreen(EVENT_GO_VENTAS, null);
+                break;
+
             default:
                 break;
         }

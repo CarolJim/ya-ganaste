@@ -35,6 +35,7 @@ public class ForcedUpdateChecker {
     public static final String PIN_YG_ADMIN = "pin_yg_admin";
     public static final String PIN_YG_ADQ = "pin_yg_adq";
     public static final String PIN_STARBUCKS = "pin_starbucks";
+    public static final String SIZE_APP = "size_app";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
