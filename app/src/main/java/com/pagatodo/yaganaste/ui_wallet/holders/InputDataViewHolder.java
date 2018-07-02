@@ -36,6 +36,13 @@ public class InputDataViewHolder extends GenericHolder {
     public void bind(Object item, OnClickItemHolderListener listener) {
         String textHint = (String) item;
         this.inputLayout.setHint(textHint);
+        this.inputLayout.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                inputLayout.setBackgroundResource(R.drawable.inputtext_active);
+            } else {
+                inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
     }
 
     @Override
@@ -47,5 +54,7 @@ public class InputDataViewHolder extends GenericHolder {
     public View getView() {
         return this.itemView;
     }
+
+
 
 }

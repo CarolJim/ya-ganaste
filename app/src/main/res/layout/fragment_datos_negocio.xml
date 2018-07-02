@@ -146,6 +146,15 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#e0e0e0"
+                    android:layout_marginEnd="15dp" />
+
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
@@ -189,7 +198,8 @@
                         android:layout_marginLeft="15dp"
                         android:text="Subgiro comercial"
                         android:textColor="@color/hint_color"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:layout_marginStart="15dp" />
 
                     <Spinner
                         android:id="@+id/spinnerSubBussineLine"
@@ -202,7 +212,14 @@
                         android:backgroundTint="@color/transparent" />
 
                 </LinearLayout>
-
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#e0e0e0"
+                    android:layout_marginEnd="15dp" />
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"

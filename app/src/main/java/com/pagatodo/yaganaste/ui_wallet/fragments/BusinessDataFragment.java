@@ -72,6 +72,8 @@ public class BusinessDataFragment extends GenericFragment {
     @Override
     public void initViews() {
         FormBuilder builder = new FormBuilder(getContext());
-        builder.formBusinessData().inflate(layout);
+        //builder.formBusinessData().inflate(layout);
+       // builder.setQuest(layout,R.string.publicServantQuestion,false).inflate(layout);
+
     }
 }

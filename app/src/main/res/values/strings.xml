@@ -455,7 +455,7 @@
     <string name="error_cargo">Cargo requerido, verifique su información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
     <string name="terms_and_conditions_aditional_info">Al continuar reconozco haber leído y aceptado los\nTéminos y Condiciones</string>
-
+    <string name="parentesco">Parentesco</string>
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu cuenta Ya Ganaste está lista</string>

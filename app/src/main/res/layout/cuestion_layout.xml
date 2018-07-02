@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="44dp">
+    android:layout_height="46dp">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/textPublicServant"
@@ -35,27 +34,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-            android:id="@+id/radioBtnPublicServantNo"
-            style="@style/RadioButtonMenu"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:text="No" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
             android:id="@+id/radioBtnPublicServantYes"
             style="@style/RadioButtonMenu"
             android:layout_width="45dp"
             android:layout_height="25dp"
-            android:checked="false"
             android:text="Si" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+            android:id="@+id/radioBtnPublicServantNo"
+            style="@style/RadioButtonMenu"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:checked="false"
+            android:text="No" />
 
     </RadioGroup>
 
     <View
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#d0d0d0"
+        android:layout_height="2dp"
         android:layout_marginTop="8dp"
+        android:background="#d0d0d0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

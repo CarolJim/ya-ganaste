@@ -57,7 +57,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_ERES_MEXICANO_NATUR
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
 
 /**
- * Created by Jordan on 03/08/2017.
+ * @author icruz
  */
 
 public class InformacionAdicionalFragment extends GenericFragment implements View.OnClickListener,

@@ -178,7 +178,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        titulo_datos_usuario.setText(String.format(getString(R.string.sub_titulo_datos_personales), App.getInstance().getPrefs().loadData(NAME_USER)));
+        titulo_datos_usuario.setText(String.format(getString(R.string.sub_titulo_datos_negocio), App.getInstance().getPrefs().loadData(NAME_USER)));
         if (girosComercio == null) {
             girosComercio = new ArrayList<>();
             Giros giroHint = new Giros();

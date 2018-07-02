@@ -11,17 +11,27 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
+import com.pagatodo.yaganaste.interfaces.enums.Parentescos;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
+import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.managers.InformationAdicionalManager;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.InfoAdicionalPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
+import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.QuestionViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.SpinnerHolder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder;
 import com.pagatodo.yaganaste.utils.UI;
 
+import java.util.ArrayList;
+
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.Dp;
 
-public class AdditionalInformationFragment extends GenericFragment implements RadioGroup.OnCheckedChangeListener{
+public class AdditionalInformationFragment extends GenericFragment implements IOnSpinnerClick {
 
     private IinfoAdicionalPresenter infoAdicionalPresenter;
     private LinearLayout layout;
@@ -54,14 +64,69 @@ public class AdditionalInformationFragment extends GenericFragment implements Ra
     @Override
     public void initViews() {
         FormBuilder builder = new FormBuilder(getContext());
-        //builder.infoAditionalCuestion(this).inflate(layout);
-        builder.setTitle(R.string.title_informacion_adicional).inflate(layout);
-        builder.setTitle(R.string.sub_titulo_info_adic).inflate(layout);
-        builder.setQuestion(R.string.publicServantQuestion,false,this).inflate(layout);
-        builder.setQuestion(R.string.mexicanQuestion,true,this).inflate(layout);
+        ArrayList<DtoStates> listParentesco = new ArrayList<>(); //
+
+        for (Parentescos parentescos: Parentescos.values()){
+            listParentesco.add(new DtoStates(String.valueOf(parentescos.getId()),parentescos.getName()));
+        }
+
+        SpinnerHolder parentesco = builder.setSpinner(layout,R.string.parentesco,new StatesSpinnerAdapter(getContext(),
+                R.layout.spinner_layout, listParentesco, this));
+
+        SpinnerHolder states = builder.setSpinner(layout,R.string.parentesco,new StatesSpinnerAdapter(getContext(),
+                R.layout.spinner_layout, listParentesco, this));
+
+        InputDataViewHolder inputDataViewHolder = builder.setInputText(layout,getContext().getResources().getString(R.string.txt_cargo));
+
+        QuestionViewHolder qCargoPublico = builder.setQuest(layout, R.string.publicServantQuestion, false, (radioGroup, checkedId) -> {
+            switch (checkedId) {
+                case R.id.radioBtnPublicServantNo:
+                    parentesco.getView().setVisibility(View.GONE);
+                    inputDataViewHolder.getView().setVisibility(View.GONE);
+                    break;
+                case R.id.radioBtnPublicServantYes:
+                    parentesco.getView().setVisibility(View.VISIBLE);
+                    inputDataViewHolder.getView().setVisibility(View.VISIBLE);
+                    break;
+
+            }
+        });
+
+
+
+        QuestionViewHolder qNacionalidad =
+        builder.setQuest(layout, R.string.mexicanQuestion, true, (radioGroup, i) -> {
+            UI.hideKeyBoard(getActivity());
+
+        });
+
+        qCargoPublico.inflate(layout);
+        parentesco.inflate(layout);
+        parentesco.getView().setVisibility(View.GONE);
+        inputDataViewHolder.inflate(layout);
+        inputDataViewHolder.getView().setVisibility(View.GONE);
+        qNacionalidad.inflate(layout);
+        states.inflate(layout);
+        states.getView().setVisibility(View.GONE);
 
     }
 
+    @Override
+    public void onSpinnerClick() {
+
+    }
+
+    @Override
+    public void onSubSpinnerClick() {
+
+    }
+
+    @Override
+    public void hideKeyBoard() {
+
+    }
+
+/*
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, @IdRes int checkedId) {
         UI.hideKeyBoard(getActivity());
@@ -80,4 +145,5 @@ public class AdditionalInformationFragment extends GenericFragment implements Ra
                 break;
         }
     }
+    */
 }
