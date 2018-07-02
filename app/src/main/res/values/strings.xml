@@ -1564,6 +1564,9 @@
     <string name="consultar_saldo_uyu_title">Consultar saldo en tarjetas</string>
     <string name="consultar_saldo_uyu_desc">Únicamente podrás consultar saldo de las siguientes tarjetas:\n- Uniformes y útiles escolares.\n- Adulto Mayor CDMX</string>
     <string name="consultar_saldo_uyu_btn">Consultar saldo</string>
+    <string name="consultar_saldo_title">Consulta de saldo</string>
+    <string name="consultar_saldo_subtitle">La tarjeta de %s\nterminación %s\ncuenta con:</string>
+    <string name="consultar_saldo_disponible">Saldo disponible</string>
 
     <string name="detalle_de_operador">Detalle de operador</string>
     <string name="ventas_diarias">Ventas del día</string>
@@ -1571,4 +1574,5 @@
     <string name="bloquear_operador">Bloquear operador</string>
     <string name="movimientos_recientes">Ver movimientos recientes</string>
     <string name="ltima_actualizaci_n">Última actualización</string>
+
 </resources>

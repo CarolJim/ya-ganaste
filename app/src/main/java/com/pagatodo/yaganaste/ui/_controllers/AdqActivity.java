@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.SaldoUyuFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
@@ -119,7 +120,8 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 finish();
                 break;
             case EVENT_GO_GET_BALANCE_RESULT:
-                Log.e("YG","Cosulta Closed Loop: "+data.toString());
+                loadFragment(SaldoUyuFragment.newInstance(data.toString()), Direction.FORDWARD, false);
+                showBack(false);
                 break;
 
         }
