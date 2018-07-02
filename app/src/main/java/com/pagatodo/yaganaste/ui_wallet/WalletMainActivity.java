@@ -42,6 +42,7 @@ import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
@@ -181,6 +182,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
+    private Obtener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -358,7 +360,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-                loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                loadFragment(DatosNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
             default:
                 finish();

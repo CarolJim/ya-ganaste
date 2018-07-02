@@ -71,7 +71,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    public static final String ITEM_OPERATION = "ITEM_OPERATION";
+    public static final String ITEM_OPERATION = "ITEM_OPERATION", DOCS_RESPONSE = "DOCS_RESPONSE";
     public static final int ERROR_STATUS = 12;
 
     @BindView(R.id.progressGIF)
@@ -94,6 +94,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private int pageCurrent;
     private GridLayoutManager llm;
     private ElementView element;
+    private ObtenerDocumentosResponse docs;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -263,7 +264,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         //cardWalletAdpater.notifyDataSetChanged();
         if (!isBegin) {
             //if (!prefs.containsData(IS_OPERADOR)) {
-              //  walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+            //  walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             //}
             Wallet walletList = WalletBuilder.createWalletsEsencials(false);
             cardWalletAdpater.addAllList(walletList.getList());
@@ -276,6 +277,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void sendSuccessEstatusDocs(ObtenerDocumentosResponse response) {
+        docs = response;
         String folio = "";
         try {
             folio = new DatabaseManager().getFolioAgente(element.getIdComercio());
@@ -422,6 +424,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private void goToWalletMainActivity() {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, element);
+        if (docs != null) {
+            intent.putExtra(DOCS_RESPONSE, docs);
+        }
         startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
     }
 }

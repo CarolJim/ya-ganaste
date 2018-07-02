@@ -57,7 +57,7 @@ public class Recursos {
 
             PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
-            PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+            PIN_YA = "96ee37f328e456d27cfb3b6bba40e3438fb1cd2d";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
         } else {
             URL_SERVER_ADTVO = FirebaseRemoteConfig.getInstance().getString(URL_YG_ADMIN);
