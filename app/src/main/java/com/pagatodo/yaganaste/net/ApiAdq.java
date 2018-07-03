@@ -364,7 +364,7 @@ public class ApiAdq extends Api {
     public static void getresumendia(String fecha,IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put("Content-type", "application/json");
-        headers.put(RequestHeaders.ID, App.getInstance().getPrefs().loadData(ID_COMERCIOADQ));
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         NetFacade.consumeWS(GET_RESUMENDIA,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.obtenerresumendia)+fecha,
                 headers, null, GetResumenDiaResponse.class, result);
