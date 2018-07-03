@@ -79,7 +79,7 @@ public class BussinesActivity extends LoaderActivity {
         numAgente = getIntent().getExtras().getString(AGENT_NUMBER);
 
 
-            int Idestatus = 5;
+        int Idestatus = 5;
         boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         if (esAgente) {
             try {
@@ -111,7 +111,7 @@ public class BussinesActivity extends LoaderActivity {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
-            loadFragment(DatosNegocioFragment.newInstance(null,girosComercio), Direction.FORDWARD, true);
+            loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
             //loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, true);
             //loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
             //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
@@ -129,13 +129,13 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
                 break;
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(DatosNegocioFragment.newInstance(null,girosComercio), Direction.FORDWARD, false);
+                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_PRE_ADDRESS:
                 loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_PRE_ADDRESS_BACK:
-                loadFragment(DatosNegocioFragment.newInstance(null,girosComercio), Direction.BACK, false);
+                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.BACK, false);
                 RegisterAgent.resetBussinessAddress();
                 listaColonias = null;
                 break;

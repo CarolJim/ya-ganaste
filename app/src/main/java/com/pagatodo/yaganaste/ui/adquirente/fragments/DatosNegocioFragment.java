@@ -67,7 +67,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         ValidationForms, INavigationView<Object, ErrorObject>, IDatosNegView<ErrorObject>,
         DialogDoubleActions, IOnSpinnerClick {
 
-    private static final String GIROS = "1", DOCS = "2";
+    private static final String GIROS = "1";
 
     @BindView(R.id.editBussinesNameold)
     CustomValidationEditText editBussinesNameold;
@@ -141,12 +141,10 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private BussinesLineSpinnerAdapter giroArrayAdapter;
     private SubBussinesLineSpinnerAdapter subgiroArrayAdapter;
     private DatosNegocioPresenter datosNegocioPresenter;
-    private ObtenerDocumentosResponse docs;
 
-    public static DatosNegocioFragment newInstance(ObtenerDocumentosResponse docs, List<Giros> girosComercio) {
+    public static DatosNegocioFragment newInstance(List<Giros> girosComercio) {
         DatosNegocioFragment fragmentRegister = new DatosNegocioFragment();
         Bundle args = new Bundle();
-        args.putParcelable(DOCS, docs);
         args.putSerializable(GIROS, (Serializable) girosComercio);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
@@ -162,7 +160,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             if (subgiros != null) {
                 this.girosComercio = (List<Giros>) subgiros;
             }
-            docs = args.getParcelable(DOCS);
         }
     }
 
@@ -251,11 +248,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             }
         });
         //editBussinesPhone.addTextChangedListener(new PhoneTextWatcher(editBussinesPhone));
-
         setValidationRules();
-        if(docs != null){
-
-        }
     }
 
     private void initValues() {
@@ -525,14 +518,13 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     }
 
     private void setCurrentData() {
-
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         if (registerAgent.getNombre().isEmpty()) {
             return;
         }
 
         editBussinesName.setText(registerAgent.getNombre());
-        editBussinesPhone.setText(registerAgent.getTelefono().substring(1, 10));
+        editBussinesPhone.setText(registerAgent.getTelefono());
         editBussinesLada.setText(registerAgent.getLada());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
         //spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));

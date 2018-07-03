@@ -65,7 +65,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
@@ -94,7 +93,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private int pageCurrent;
     private GridLayoutManager llm;
     private ElementView element;
-    private ObtenerDocumentosResponse docs;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -277,7 +275,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     @Override
     public void sendSuccessEstatusDocs(ObtenerDocumentosResponse response) {
-        docs = response;
         String folio = "";
         try {
             folio = new DatabaseManager().getFolioAgente(element.getIdComercio());
@@ -424,9 +421,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private void goToWalletMainActivity() {
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, element);
-        if (docs != null) {
-            intent.putExtra(DOCS_RESPONSE, docs);
-        }
         startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
     }
 }

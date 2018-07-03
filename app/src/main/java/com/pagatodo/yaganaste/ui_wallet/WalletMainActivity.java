@@ -188,7 +188,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
     private List<Giros> girosComercio = new ArrayList<>();
-    private ObtenerDocumentosResponse docs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,9 +199,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 return;
             }
             if (getIntent().getExtras() != null) {
-                if (getIntent().getExtras().get(DOCS_RESPONSE) != null) {
-                    docs = (ObtenerDocumentosResponse) getIntent().getExtras().get(DOCS_RESPONSE);
-                }
                 itemOperation = (ElementView) getIntent().getSerializableExtra(ITEM_OPERATION);
                 getLoadFragment(itemOperation.getIdOperacion());
 
@@ -369,7 +365,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-                loadFragment(DatosNegocioFragment.newInstance(docs, girosComercio), R.id.fragment_container);
+                loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
                 //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
             default:
