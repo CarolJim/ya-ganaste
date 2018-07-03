@@ -22,7 +22,7 @@ public class Recursos {
     public static final String URL_COUNTLY;
 
     //BASE DE DATOS
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "ya_ganaste.db";
 
     public static final String PUBLIC_KEY_RSA;

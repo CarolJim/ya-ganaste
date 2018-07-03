@@ -45,7 +45,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInMemoryDatabase(Context context) {
         if (INSTANCE == null)
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, Recursos.DATABASE_NAME)
-                    .addMigrations(MIGRATION_1_2).build();
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3).build();
         return INSTANCE;
     }
 
@@ -59,6 +59,15 @@ public abstract class AppDatabase extends RoomDatabase {
             database.execSQL("CREATE TABLE `Agentes` (`numero_agente` TEXT NOT NULL, `es_comercio_uyu` INTEGER NOT NULL, `folio` TEXT, `id_comercio` INTEGER NOT NULL, `id_estatus` INTEGER NOT NULL, `nombre_negocio` TEXT, PRIMARY KEY(`numero_agente`))");
             database.execSQL("CREATE TABLE `Operadores` (`id_usuario` INTEGER NOT NULL, `numero_agente` INTEGER NOT NULL, `id_usuario_adquiriente` TEXT, `id_operador` INTEGER NOT NULL, `is_admin` INTEGER NOT NULL," +
                     "`nombre_usuario` TEXT, `petro_numero` TEXT, `estatus_usuario` TEXT, `id_estatus_usuario` INTEGER NOT NULL, PRIMARY KEY(`id_usuario`))");
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("DROP TABLE IF EXISTS `Operadores`");
+            database.execSQL("CREATE TABLE `Operadores` (`id_usuario` INTEGER NOT NULL, `numero_agente` INTEGER NOT NULL, `id_usuario_adquiriente` TEXT, `id_operador` INTEGER NOT NULL, `is_admin` INTEGER NOT NULL," +
+                    "`nombre_usuario` TEXT, `petro_numero` TEXT NOT NULL, `estatus_usuario` TEXT, `id_estatus_usuario` INTEGER NOT NULL, PRIMARY KEY(`petro_numero`))");
         }
     };
 }

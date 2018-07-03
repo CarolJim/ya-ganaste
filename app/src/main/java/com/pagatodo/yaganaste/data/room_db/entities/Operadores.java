@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.room_db.entities;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -10,6 +11,10 @@ import java.io.Serializable;
 public class Operadores implements Serializable {
 
     @PrimaryKey
+    @ColumnInfo(name = "petro_numero")
+    @NonNull
+    private String PetroNumero;
+
     @ColumnInfo(name = "id_usuario")
     private int IdUsuario;
 
@@ -27,9 +32,6 @@ public class Operadores implements Serializable {
 
     @ColumnInfo(name = "nombre_usuario")
     private String NombreUsuario;
-
-    @ColumnInfo(name = "petro_numero")
-    private String PetroNumero;
 
     @ColumnInfo(name = "estatus_usuario")
     private String EstatusUsuario;

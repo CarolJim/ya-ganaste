@@ -235,6 +235,10 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 et_amount.requestFocus();
             }
         });
+        et_amount.setText("0");
+        edtConcept.setText(null);
+        mySeekBar.setProgress(0);
+        NumberCalcTextWatcher.cleanData();
         et_amount.requestFocus();
     }
 
@@ -439,7 +443,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         //et_amount.setText(App.getInstance().getCurrentMount());
         edtConcept.setText(null);
         mySeekBar.setProgress(0);
-        et_amount.requestFocus();*/
+        */
+        et_amount.requestFocus();
         int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
                 Manifest.permission.RECORD_AUDIO);
         int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),

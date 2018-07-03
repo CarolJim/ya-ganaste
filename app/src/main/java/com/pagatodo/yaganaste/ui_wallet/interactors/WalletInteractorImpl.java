@@ -102,7 +102,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     try {
                         if (!db.getOperadores().isEmpty()) {
                             for (Operadores operador : db.getOperadores()) {
-                                if (operador.getIsAdmin()) {
+                                if (operador!=null && operador.getIsAdmin()) {
                                     saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                                 }
                             }
