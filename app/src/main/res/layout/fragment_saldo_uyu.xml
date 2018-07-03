@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,32 +24,47 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_title"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:textSize="@dimen/size_text_style_2_half_value" />
 
-    <include
-        layout="@layout/calculator_layout"
-        android:layout_width="match_parent"
+    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+        android:id="@+id/txtAmount"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_subtitle" />
+        android:layout_below="@id/txt_subtitle"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:text="780.23"
+        android:textColor="@color/colorAccent"
+        android:textSize="40sp"
+        app:decimalLenght="1"
+        app:dotBottom="true"
+        app:symbolSmaller="true" />
+
+    <View android:layout_width="200dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_text_wallet_4"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txtAmount"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/titleAmount"
         style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_amount_control"
+        android:layout_below="@id/txtAmount"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="5dp"
         android:text="@string/consultar_saldo_disponible"
         android:textColor="@color/gray_text_wallet" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_continue"
         style="@style/buttonSquareRoundedBlue"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_rounded_blue"
-        android:layout_alignParentBottom="true"
         android:text="@string/next" />
 
 </RelativeLayout>

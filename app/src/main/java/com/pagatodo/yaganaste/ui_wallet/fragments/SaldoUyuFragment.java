@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -26,12 +27,12 @@ public class SaldoUyuFragment extends GenericFragment {
 
     @BindView(R.id.txt_subtitle)
     StyleTextView txtSubtitle;
-    @BindView(R.id.et_amount)
-    public EditText et_amount;
+    @BindView(R.id.txtAmount)
+    MontoTextView et_amount;
     @BindView(R.id.btn_continue)
     StyleButton btnContinue;
 
-    private String cardType, balance, cardNumber="1111";
+    private String cardType, balance, cardNumber;
 
     public static SaldoUyuFragment newInstance(String message) {
         SaldoUyuFragment saldoUyuFragment = new SaldoUyuFragment();
@@ -44,11 +45,12 @@ public class SaldoUyuFragment extends GenericFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null){
+        if (getArguments() != null) {
             String message = getArguments().getString(MESSAGE_SALDO);
             String[] desc = message.split("_");
             cardType = desc[0];
             balance = desc[1];
+            cardNumber = desc[2];
         }
     }
 
@@ -65,7 +67,8 @@ public class SaldoUyuFragment extends GenericFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        txtSubtitle.setText(getString(R.string.consultar_saldo_subtitle).format("%s", cardType, cardNumber));
+        txtSubtitle.setText("La tarjeta de " + cardType + " terminación " +
+                cardNumber.substring(cardNumber.length() - 4, cardNumber.length())+ " cuenta con:");
         et_amount.setText(balance);
         btnContinue.setOnClickListener(view -> onEventListener.onEvent(EVENT_PAYMENT, null));
     }

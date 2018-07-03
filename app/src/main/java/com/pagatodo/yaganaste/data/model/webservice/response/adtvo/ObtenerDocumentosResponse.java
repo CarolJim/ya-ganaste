@@ -1,5 +1,8 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
@@ -45,7 +48,7 @@ public class ObtenerDocumentosResponse extends GenericResponse {
         return Data.IdEstatus;
     }
 
-    public boolean hasErrorInDocs(){
+    public boolean hasErrorInDocs() {
         return Data.docsWithError();
     }
 
@@ -58,9 +61,9 @@ public class ObtenerDocumentosResponse extends GenericResponse {
         String Estatus, Folio, Motivo;
         int IdEstatus;
 
-        public boolean docsWithError(){
-            for (EstatusDocumentosResponse docs: Documentos){
-                if(docs.getIdEstatus()==STATUS_DOCTO_RECHAZADO){
+        public boolean docsWithError() {
+            for (EstatusDocumentosResponse docs : Documentos) {
+                if (docs.getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     return true;
                 }
             }

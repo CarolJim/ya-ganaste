@@ -77,11 +77,12 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     protected void onTabLoaded() {
         //tabMonths.setVisibility(View.GONE);
-        if (this.currentTab != -1) {
+        tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
+        /*if (this.currentTab != -1) {
             tabMonths.getTabAt(this.currentTab).select();
         } else {
             tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
-        }
+        }*/
 
         if (this.isBussines){
             filterLinerLayout.setVisibility(View.VISIBLE);

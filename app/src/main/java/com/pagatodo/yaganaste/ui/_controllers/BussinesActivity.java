@@ -33,11 +33,8 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_ERROR_DOC
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
-
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
@@ -56,6 +53,7 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
     public final static String EVENT_SET_BUSINESS_LIST = "EVENT_SET_BUSINESS_LIST";
+    public final static String EVENT_SET_BUSINESS_LIST2 = "EVENT_SET_BUSINESS_LIST2";
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION = "EVENT_GO_BUSSINES_INFORMACION_ADICIONAL";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK = "EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK";
@@ -82,7 +80,7 @@ public class BussinesActivity extends LoaderActivity {
         numAgente = getIntent().getExtras().getString(AGENT_NUMBER);
 
 
-            int Idestatus = 5;
+        int Idestatus = 5;
         boolean esAgente = App.getInstance().getPrefs().loadDataBoolean(ES_AGENTE, false);
         if (esAgente) {
             try {

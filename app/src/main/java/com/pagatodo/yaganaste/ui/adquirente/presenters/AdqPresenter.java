@@ -241,7 +241,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
             case CONSULT_BALANCE_UYU:
                 TransaccionEMVDepositResponse responseBalance = (TransaccionEMVDepositResponse) data;
                 ((IAdqTransactionRegisterView) iAdqView).transactionResult(responseBalance.getDescripcion() + "_" +
-                        responseBalance.getSaldo(), responseBalance.getTlvResult());
+                        responseBalance.getSaldo()+"_"+responseBalance.getMaskedPan(), responseBalance.getTlvResult());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();

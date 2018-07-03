@@ -85,7 +85,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     try {
                         Operadores operador = db.getOperadoresAdmin(agente);
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
-                        ApiAdq.consultaSaldoCupo(saldoRequest,this);
+                        ApiAdq.consultaSaldoCupo(saldoRequest, this);
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -100,13 +100,13 @@ public class WalletInteractorImpl implements WalletInteractor {
                 case TYPE_BUSINESS:
                     //getOperadores
                     try {
-                        if (!db.getOperadores().isEmpty()){
-                            for (Operadores operador: db.getOperadores()){
-                                    if (operador.getIsAdmin()) {
-                                        saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
-                                    }
+                        if (!db.getOperadores().isEmpty()) {
+                            for (Operadores operador : db.getOperadores()) {
+                                if (operador!=null && operador.getIsAdmin()) {
+                                    saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                                }
                             }
-                            ApiAdq.consultaSaldoAdmin(saldoRequest,this);
+                            ApiAdq.consultaSaldoAdmin(saldoRequest, this);
                         } else {
                             this.listener.onSuccesSaldo(typeWallet, "");
                         }
@@ -230,7 +230,13 @@ public class WalletInteractorImpl implements WalletInteractor {
                     giro.setIdGiro(response.getGiro());
                     RegisterAgent.getInstance().setGiro(giro);
                     RegisterAgent.getInstance().setNombre(response.getNombreNegocio());
-                    RegisterAgent.getInstance().setTelefono(response.getNumeroTelefono());
+                    if (response.getNumeroTelefono().length() == 13) {
+                        RegisterAgent.getInstance().setLada(response.getNumeroTelefono().substring(0, 3));
+                        RegisterAgent.getInstance().setTelefono(response.getNumeroTelefono().substring(3, response.getNumeroTelefono().length()));
+                    } else {
+                        RegisterAgent.getInstance().setLada(response.getNumeroTelefono().substring(0, 2));
+                        RegisterAgent.getInstance().setTelefono(response.getNumeroTelefono().substring(2, response.getNumeroTelefono().length()));
+                    }
                     SubGiro subGiro = new SubGiro();
                     subGiro.setIdSubgiro(response.getSubGiro());
                     RegisterAgent.getInstance().setSubGiros(subGiro);

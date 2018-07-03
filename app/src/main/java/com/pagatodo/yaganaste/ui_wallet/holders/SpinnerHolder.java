@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
@@ -30,7 +31,7 @@ public class SpinnerHolder extends GenericHolder {
     private StyleTextView texthint;
     private Spinner spinner;
     private BussinesLineSpinnerAdapter adapter;
-
+    private ImageView row;
 
     public SpinnerHolder(View itemView) {
         super(itemView);
@@ -41,6 +42,7 @@ public class SpinnerHolder extends GenericHolder {
     public void init() {
         this.texthint = this.itemView.findViewById(R.id.text_hint);
         this.spinner = this.itemView.findViewById(R.id.spinner);
+        this.row = this.itemView.findViewById(R.id.row);
     }
 
     @Override
@@ -72,6 +74,9 @@ public class SpinnerHolder extends GenericHolder {
             } else {
                 this.itemView.setBackgroundResource(R.drawable.inputtext_normal);
             }
+        });
+        this.row.setOnClickListener(view -> {
+            this.spinner.performClick();
         });
     }
 

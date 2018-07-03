@@ -20,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.FELICIDADES_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -301,6 +302,9 @@ public class ElementView implements ElementGlobal {
             if (isAgente && idEstatusAgente == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
+            if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ, false)) {
+                elementViews = ElementView.getListEstadoRechazado(idComercio);
+            }
             /*if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
                 elementViews = ElementView.getListSeleccionarLector();
@@ -364,6 +368,13 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }
 
+    //Proceso Felicidades
+    public static ArrayList<ElementView> getListEstadoFelicidadesADQ(String idComercio) {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(100, R.drawable.ic_action_done, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar, OPTION_ZONE_UNO, idComercio));
+        return elementViews;
+    }
+
     public static ArrayList<ElementView> getListEnviar(Context context) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(ID_ENVIAR, R.mipmap.send_icon, R.string.enviar_dinero));
@@ -389,12 +400,11 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.realizar_cobro));
         elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
-       if (isuyu) {
-           elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA,  R.drawable.ico_reportes, R.string.ventas_dia));
-       }else {
-           elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
-
-       }
+        if (isuyu) {
+            elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ico_reportes, R.string.ventas_dia));
+        } else {
+            elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+        }
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }

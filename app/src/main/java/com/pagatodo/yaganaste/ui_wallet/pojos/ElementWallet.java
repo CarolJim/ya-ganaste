@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.FELICIDADES_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -248,8 +249,16 @@ public class ElementWallet {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
                         ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             } else {
-                return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
-                        ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+
+                if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ,false))  {
+                    return getCardLectorEmi();
+
+                } else {
+                    return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
+                            ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
+                }
+
+
             }
         } else {
             return getCardLectorEmi();
@@ -257,6 +266,14 @@ public class ElementWallet {
     }
 
     private static ElementWallet getCardLectorEmi() {
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
+        return new ElementWallet(TYPE_ADQ, frontView,
+                App.getContext().getString(R.string.cobro_tarjeta),
+                ElementView.getListLectorEmi(),
+                R.string.mejor_precio, false);
+    }
+
+    private static ElementWallet getCardADQFirst() {
         Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
         return new ElementWallet(TYPE_ADQ, frontView,
                 App.getContext().getString(R.string.cobro_tarjeta),

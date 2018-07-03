@@ -65,13 +65,12 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    public static final String ITEM_OPERATION = "ITEM_OPERATION";
+    public static final String ITEM_OPERATION = "ITEM_OPERATION", DOCS_RESPONSE = "DOCS_RESPONSE";
     public static final int ERROR_STATUS = 12;
 
     @BindView(R.id.progressGIF)
@@ -263,7 +262,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         //cardWalletAdpater.notifyDataSetChanged();
         if (!isBegin) {
             //if (!prefs.containsData(IS_OPERADOR)) {
-              //  walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
+            //  walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             //}
             Wallet walletList = WalletBuilder.createWalletsEsencials(false);
             cardWalletAdpater.addAllList(walletList.getList());

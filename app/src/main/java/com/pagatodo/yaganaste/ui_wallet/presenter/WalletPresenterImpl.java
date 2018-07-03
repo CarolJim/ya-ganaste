@@ -132,7 +132,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
         walletView.hideProgress();
         if (response instanceof EstatusCuentaResponse) {
             walletView.sendSuccessStatusAccount((EstatusCuentaResponse) response);
-        } else if (response instanceof ObtenerDocumentosResponse){
+        } else if (response instanceof ObtenerDocumentosResponse) {
             walletView.sendSuccessEstatusDocs((ObtenerDocumentosResponse) response);
         }
     }
@@ -153,7 +153,7 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
     @Override
     public void onSuccesSaldo(int typeWallet, String saldo) {
         walletView.hideProgress();
-        if (saldo!=null && !saldo.equals("")) {
+        if (saldo != null && !saldo.equals("")) {
             switch (typeWallet) {
                 case TYPE_STARBUCKS:
                     App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);
