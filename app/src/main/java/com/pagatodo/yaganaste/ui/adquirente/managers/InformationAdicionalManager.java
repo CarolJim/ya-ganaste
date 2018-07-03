@@ -15,6 +15,7 @@ import java.util.List;
  */
 
 public interface InformationAdicionalManager extends ValidationForms, INavigationView {
+
     void onIsMexaYesCheck();
 
     void onIsMexaNoCheck();

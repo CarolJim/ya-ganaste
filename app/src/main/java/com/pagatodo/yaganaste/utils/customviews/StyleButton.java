@@ -14,10 +14,6 @@ import android.view.ViewTreeObserver;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 
-
-/**
- * Created by jcortez on 14/10/2015.
- */
 public class  StyleButton extends AppCompatButton implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";

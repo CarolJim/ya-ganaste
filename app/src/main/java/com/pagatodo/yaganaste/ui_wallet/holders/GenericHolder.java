@@ -22,8 +22,8 @@ public abstract class GenericHolder extends RecyclerView.ViewHolder implements L
     @Override
     public abstract void inflate(ViewGroup layout);
 
+    @Override
     public abstract View getView();
-
 
 
 }

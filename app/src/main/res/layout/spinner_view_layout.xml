@@ -19,23 +19,24 @@
             style="@style/generic_text_style_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginLeft="15dp"
+            android:visibility="gone"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="start"
             android:textColor="@color/hint_color"
-            android:visibility="visible"
-            android:layout_marginStart="15dp" />
+            />
 
         <Spinner
             android:id="@+id/spinner"
             style="@style/SpinnerNoArrow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
             android:background="@null"
             android:backgroundTint="@color/transparent"
             android:layout_marginStart="15dp"
-            tools:ignore="UnusedAttribute" />
+            tools:targetApi="lollipop" />
 
     </LinearLayout>
 

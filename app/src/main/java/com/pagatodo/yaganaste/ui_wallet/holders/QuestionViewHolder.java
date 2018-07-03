@@ -22,6 +22,14 @@ public class QuestionViewHolder extends GenericHolder {
         init();
     }
 
+    public CustomRadioButton getResponseYes() {
+        return responseYes;
+    }
+
+    public CustomRadioButton getResponseNo() {
+        return responseNo;
+    }
+
     @Override
     public void init() {
         this.textQuestion = itemView.findViewById(R.id.textPublicServant);

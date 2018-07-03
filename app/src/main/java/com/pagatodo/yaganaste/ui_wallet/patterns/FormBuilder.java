@@ -4,13 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.QuestionViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.SpinnerHolder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.components.AdditionalInformationComposite;
@@ -77,11 +80,11 @@ public class FormBuilder {
         return questionViewHolder;
     }
 
-    public SpinnerHolder setSpinner(ViewGroup parent, int texthint, StatesSpinnerAdapter adapter){
+    public SpinnerHolder setSpinner(ViewGroup parent, int texthint, BussinesLineSpinnerAdapter adapter, OnClickItemHolderListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.spinner_view_layout, parent, false);
         SpinnerHolder spinnerHolder = new SpinnerHolder(layout);
-        spinnerHolder.bind(new SpinnerHolder.SpinerItem(texthint,adapter),null);
+        spinnerHolder.bind(new SpinnerHolder.SpinerItem(texthint,adapter),listener);
         return spinnerHolder;
     }
 
@@ -93,6 +96,14 @@ public class FormBuilder {
         return inputDataViewHolder;
     }
 
+    public View setSpace(ViewGroup parent, int high){
+        View space = new View(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                high);
+        space.setLayoutParams(params);
+        return space;
+    }
 
     /*public void addItemOptionMenuIViewHolder(int resource, Object item){
 

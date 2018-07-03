@@ -20,7 +20,6 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdditionalInformationFragment;
@@ -115,10 +114,9 @@ public class BussinesActivity extends LoaderActivity {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
-            //loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
-            //loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, true);
-            loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
-            //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
+            loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
+            //loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
+
 
         }
         //pref = App.getInstance().getPrefs();
@@ -139,7 +137,7 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_PRE_ADDRESS_BACK:
-                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.BACK, false);
+                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.BACK, true);
                 RegisterAgent.resetBussinessAddress();
                 listaColonias = null;
                 break;
@@ -158,7 +156,7 @@ public class BussinesActivity extends LoaderActivity {
                 finish();
                 break;
             case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION:
-                loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK:
                 RegisterAgent.getInstance().resetAditionalInformation();
@@ -215,7 +213,7 @@ public class BussinesActivity extends LoaderActivity {
                 onEvent(EVENT_GO_BUSSINES_PRE_ADDRESS_BACK, null);
             } else if (currentFragment instanceof DomicilioNegocioFragment) {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
-            } else if (currentFragment instanceof InformacionAdicionalFragment) {
+            } else if (currentFragment instanceof AdditionalInformationFragment) {
                 onEvent(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK, null);
             } else if (currentFragment instanceof InformacionLavadoDineroFragment) {
                 onEvent(EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK, null);

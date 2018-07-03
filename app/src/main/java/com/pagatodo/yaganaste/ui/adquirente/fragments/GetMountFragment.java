@@ -169,6 +169,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         keyboardView.setPreviewEnabled(false);
         btncobrar.setOnClickListener(this);
         txtNameComerce.setText(nameComerce);
+        et_amount.requestFocus();
+
 /*      Se comenta este codigo para quitar el Shebron y la funcionalidad, se deja por si se retoma el disenio
         if (getActivity() instanceof AccountActivity) {
             imgArrowPrev.setVisibility(View.VISIBLE);
@@ -438,8 +440,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         et_amount.setText("0");
         //et_amount.setText(App.getInstance().getCurrentMount());
         edtConcept.setText(null);
-        mySeekBar.setProgress(0);
-        et_amount.requestFocus();*/
+        mySeekBar.setProgress(0);*/
+        et_amount.requestFocus();
         int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
                 Manifest.permission.RECORD_AUDIO);
         int permissionLocationFine = ContextCompat.checkSelfPermission(App.getContext(),

@@ -22,6 +22,10 @@ public class ButtonLeaf implements Component{
         setContent(textButtonRes);
     }
 
+    public StyleButton getButton() {
+        return button;
+    }
+
     @Override
     public void add(Component component) {
 
@@ -39,9 +43,7 @@ public class ButtonLeaf implements Component{
         button.setGravity(Gravity.CENTER);
         button.setText((int)item);
         button.setAllCaps(false);
-        button.setTextSize(TypedValue.COMPLEX_UNIT_PX,15);
-
-
+        button.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
 
 
 /*

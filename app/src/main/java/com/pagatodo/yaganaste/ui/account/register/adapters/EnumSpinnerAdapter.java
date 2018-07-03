@@ -93,19 +93,21 @@ public class EnumSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
             holder = (EnumSpinnerAdapter.ViewHolder) row.getTag();
         }
 
-        View.OnClickListener onClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spinnerClick.onSpinnerClick();
-                parent.performClick();
-            }
-        };
 
-        holder.laySpinnerCustom.setOnClickListener(onClick);
+        if (spinnerClick != null && parent != null) {
+            View.OnClickListener onClick = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    spinnerClick.onSpinnerClick();
+                    parent.performClick();
+                }
+            };
+            holder.laySpinnerCustom.setOnClickListener(onClick);
 
-        holder.editText.setOnClickListener(onClick);
+            holder.editText.setOnClickListener(onClick);
 
-        holder.downArrow.setOnClickListener(onClick);
+            holder.downArrow.setOnClickListener(onClick);
+        }
 
         IEnumSpinner item = mItems[position];
         if (position == 0) {

@@ -56,10 +56,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_ERES_MEXICANO_NATURALIZADO;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
 
-/**
- * @author icruz
- */
-
 public class InformacionAdicionalFragment extends GenericFragment implements View.OnClickListener,
         InformationAdicionalManager, IOnSpinnerClick, RadioGroup.OnCheckedChangeListener,
         OnCountrySelectedListener, AdapterView.OnItemSelectedListener {

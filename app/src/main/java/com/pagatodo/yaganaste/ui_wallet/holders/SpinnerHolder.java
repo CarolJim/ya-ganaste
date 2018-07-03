@@ -3,9 +3,12 @@ package com.pagatodo.yaganaste.ui_wallet.holders;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
@@ -26,6 +29,8 @@ public class SpinnerHolder extends GenericHolder {
 
     private StyleTextView texthint;
     private Spinner spinner;
+    private BussinesLineSpinnerAdapter adapter;
+
 
     public SpinnerHolder(View itemView) {
         super(itemView);
@@ -41,9 +46,33 @@ public class SpinnerHolder extends GenericHolder {
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {
         SpinerItem spinerItem = (SpinerItem) item;
-        //this.texthint.setText(spinerItem.getTextHint());
-        this.spinner.setAdapter(spinerItem.getAdapter());
+        this.texthint.setText(spinerItem.getTextHint());
+        this.adapter = spinerItem.getAdapter();
+        this.spinner.setAdapter(adapter);
+        if (listener != null){
+            this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    listener.onClick(adapter.getItem(position));
+                    if (position!=0) {
+                        texthint.setVisibility(View.VISIBLE);
+                        texthint.setTextColor(texthint.getContext().getResources().getColor(R.color.colorAccent));
+                    }
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        }
+        this.itemView.setOnFocusChangeListener((view, b) -> {
+            if (b) {
+                this.itemView.setBackgroundResource(R.drawable.inputtext_active);
+            } else {
+                this.itemView.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
     }
 
     @Override
@@ -58,9 +87,9 @@ public class SpinnerHolder extends GenericHolder {
 
     public static class SpinerItem{
         private int textHint;
-        private StatesSpinnerAdapter adapter;
+        private BussinesLineSpinnerAdapter adapter;
 
-        public SpinerItem(int textHint, StatesSpinnerAdapter adapter) {
+        public SpinerItem(int textHint, BussinesLineSpinnerAdapter adapter) {
             this.textHint = textHint;
             this.adapter = adapter;
         }
@@ -73,11 +102,11 @@ public class SpinnerHolder extends GenericHolder {
             this.textHint = textHint;
         }
 
-        public StatesSpinnerAdapter getAdapter() {
+        public BussinesLineSpinnerAdapter getAdapter() {
             return adapter;
         }
 
-        public void setAdapter(StatesSpinnerAdapter adapter) {
+        public void setAdapter(BussinesLineSpinnerAdapter adapter) {
             this.adapter = adapter;
         }
     }

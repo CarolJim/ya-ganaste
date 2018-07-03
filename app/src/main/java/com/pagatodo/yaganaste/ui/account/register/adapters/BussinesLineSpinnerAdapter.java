@@ -125,9 +125,12 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spinnerClick.onSpinnerClick();
+                if (spinnerClick != null) {
+                    spinnerClick.onSpinnerClick();
+                    spinnerClick.hideKeyBoard();
+                }
                 parent.performClick();
-                spinnerClick.hideKeyBoard();
+
             }
         };
 
@@ -137,7 +140,9 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
             @Override
             public void onClick(View v) {
                 parent.performClick();
-                spinnerClick.hideKeyBoard();
+                if (spinnerClick != null) {
+                    spinnerClick.hideKeyBoard();
+                }
             }
         });
 
