@@ -158,23 +158,16 @@ public class MyDongleFragment extends GenericFragment implements
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if (SingletonUser.getInstance().getDataUser().getUsuario() != null) {
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getRoles().get(0).getIdRol() == 129
-                    || isComerioUyU)
-                lytConfigRepayment.setVisibility(View.GONE);
-        } else {
-            if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129)
+        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129  || isComerioUyU){
                 lytConfigRepayment.setVisibility(View.GONE);
         }
-
-
         lytConfigRepayment.setOnClickListener(v -> {
-            if (!UtilsNet.isOnline(getActivity())) {
-                UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
-            } else {
-                onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
-            }
-        });
+        if (!UtilsNet.isOnline(getActivity())) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+        } else {
+            onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
+        }
+    });
         lytConfigDongle.setOnClickListener(v -> {
             BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
             if (!adapter.isEnabled()) {

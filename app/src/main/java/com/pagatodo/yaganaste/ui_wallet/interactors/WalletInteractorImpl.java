@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -85,6 +86,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     try {
                         Operadores operador = db.getOperadoresAdmin(agente);
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
+                        RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
                         ApiAdq.consultaSaldoCupo(saldoRequest, this);
                     } catch (ExecutionException e) {
                         e.printStackTrace();

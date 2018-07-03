@@ -120,7 +120,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         showBack(true);
     }
 
-    public void loadGetBalanceClosedLoop(){
+    public void loadGetBalanceClosedLoop() {
         UI.showAlertDialog(getContext(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
                 getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
                     TransactionAdqData.getCurrentTransaction().setAmount("");
@@ -142,13 +142,9 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         }
     }
 
-
-
     public void loadVentas() {
-
-            loadFragment(VentasDiariasFragment.newInstance(), Direction.FORDWARD, true);
-            showBack(true);
-
+        loadFragment(VentasDiariasFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
     }
 
     public void loadRewards() {

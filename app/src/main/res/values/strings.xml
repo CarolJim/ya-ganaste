@@ -1543,7 +1543,7 @@
     <string name="pairing_device_error">Ocurrió un error al conectar el lector</string>
     <string name="configurate_device">Configurando lector</string>
     <string name="please_config_dongle">Selecciona tu lector principal</string>
-    <string name="please_insert_pin">Pide a tu cliente que ingrese su NIP\ncon el teclado del lector</string>
+    <string name="please_insert_pin">Pide a tu cliente que ingrese su PIN\ncon el teclado del lector</string>
 
     <!-- Seleccionar lector para cobros -->
     <string name="select_dongle_title">Seleccionar lector</string>
