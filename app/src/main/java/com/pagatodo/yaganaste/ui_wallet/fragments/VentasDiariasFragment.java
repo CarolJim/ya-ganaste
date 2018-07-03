@@ -163,7 +163,7 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
     }
 
     private String getYesterdayDateString() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return dateFormat.format(yesterday());
     }
     private Date yesterday() {

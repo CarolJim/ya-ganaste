@@ -75,6 +75,7 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFI
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SIZE_APP;
+import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -338,7 +339,13 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loginContainerFragment.loadQuickPayment();
                 break;
             case EVENT_CHECK_MONEY_CARD:
-                loginContainerFragment.loadGetBalanceClosedLoop();
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                        && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
+                    loginContainerFragment.loadConfigDongle();
+                }else {
+
+                    loginContainerFragment.loadGetBalanceClosedLoop();
+                }
                 break;
             case EVENT_CONFIG_DONGLE:
                 loginContainerFragment.loadConfigDongle();

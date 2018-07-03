@@ -495,7 +495,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 break;
         }
     }
-
     @Override
     public void onValidationSuccess() {
         /*Guardamos datos en Singleton de registro.*/
@@ -527,7 +526,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesPhone.setText(registerAgent.getTelefono());
         editBussinesLada.setText(registerAgent.getLada());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
-        //spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));
+        spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));
     }
 
     @Override
@@ -603,8 +602,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private void showDialogMesage(final String mensaje) {
         UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje,
                 R.string.title_aceptar, (dialogInterface, i) -> {
-
                 });
     }
 }
-
