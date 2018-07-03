@@ -53,6 +53,7 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
     public final static String EVENT_SET_BUSINESS_LIST = "EVENT_SET_BUSINESS_LIST";
+    public final static String EVENT_SET_BUSINESS_LIST2 = "EVENT_SET_BUSINESS_LIST2";
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION = "EVENT_GO_BUSSINES_INFORMACION_ADICIONAL";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK = "EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK";

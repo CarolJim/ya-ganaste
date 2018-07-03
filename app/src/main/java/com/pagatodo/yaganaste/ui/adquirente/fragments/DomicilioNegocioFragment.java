@@ -162,6 +162,14 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         return fragmentRegister;
     }
 
+    public static DomicilioNegocioFragment newInstance() {
+        DomicilioNegocioFragment fragmentRegister = new DomicilioNegocioFragment();
+        Bundle args = new Bundle();
+
+        fragmentRegister.setArguments(args);
+        return fragmentRegister;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

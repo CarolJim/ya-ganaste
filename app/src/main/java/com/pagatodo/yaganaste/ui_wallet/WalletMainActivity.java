@@ -114,6 +114,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST2;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REQUEST_CODE_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
@@ -147,6 +149,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
@@ -536,10 +539,32 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_PENDIENTE);
                     loadFragment(DocumentosFragment.newInstance(), R.id.fragment_container);
                 } else {
+
+                    RegisterAgent.getInstance().setUseSameAddress(true);
+                    String folio = "";
+                    try {
+                        folio = new DatabaseManager().getFolioAgente(itemOperation.getIdComercio());
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    new DatabaseManager().setIdStatusAgente(folio);
                     setResult(PICK_WALLET_TAB_REQUEST);
+                    setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                     finish();
                 }
                 break;
+            case EVENT_SET_BUSINESS_LIST:
+                RegisterAgent.getInstance().setUseSameAddress(true);
+                String folio = "";
+                try {
+                    folio = new DatabaseManager().getFolioAgente(itemOperation.getIdComercio());
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
+                loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                break;
+
         }
     }
 

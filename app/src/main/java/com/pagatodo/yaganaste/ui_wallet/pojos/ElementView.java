@@ -20,6 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.FELICIDADES_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -301,6 +302,9 @@ public class ElementView implements ElementGlobal {
             if (isAgente && idEstatusAgente == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
+            if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ,false)) {
+                elementViews = ElementView.getListEstadoRechazado(idComercio);
+            }
             /*if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
                 elementViews = ElementView.getListSeleccionarLector();
@@ -361,6 +365,13 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListEstadoRechazado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(13, R.drawable.ico_alert_red, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar, OPTION_ZONE_UNO, idComercio));
+        return elementViews;
+    }
+
+    //Proceso Felicidades
+    public static ArrayList<ElementView> getListEstadoFelicidadesADQ(String idComercio) {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(100, R.drawable.ic_action_done, R.string.tu_solicitud_no, R.string.tuvimos_problema_solicitud, false, true, R.string.btn_reenviar, OPTION_ZONE_UNO, idComercio));
         return elementViews;
     }
 
