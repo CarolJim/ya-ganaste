@@ -105,7 +105,7 @@ public class ApiAdq extends Api {
      */
     public static void registroDongle(RegistroDongleRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129) {
+        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || RequestHeaders.getIdCuentaAdq().equals("")) {
             String idUserAdq = "0";
             try {
                 idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
