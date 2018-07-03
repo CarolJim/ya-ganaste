@@ -23,12 +23,14 @@ import android.widget.ShareActionProvider;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.interfaces.Command;
@@ -84,6 +86,8 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import java.io.IOException;
@@ -116,6 +120,7 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SEL
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.DOCS_RESPONSE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADDFAVORITE_PAYMENT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
@@ -182,7 +187,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
-    private Obtener
+    private List<Giros> girosComercio = new ArrayList<>();
+    private ObtenerDocumentosResponse docs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +200,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 return;
             }
             if (getIntent().getExtras() != null) {
+                if (getIntent().getExtras().get(DOCS_RESPONSE) != null) {
+                    docs = (ObtenerDocumentosResponse) getIntent().getExtras().get(DOCS_RESPONSE);
+                }
                 itemOperation = (ElementView) getIntent().getSerializableExtra(ITEM_OPERATION);
                 getLoadFragment(itemOperation.getIdOperacion());
 
@@ -360,7 +369,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-                loadFragment(DatosNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                loadFragment(DatosNegocioFragment.newInstance(docs, girosComercio), R.id.fragment_container);
                 //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
             default:
@@ -499,7 +508,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 break;
             case EVENT_GO_SELECT_DONGLE:
-                loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD,false);
+                loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIG_DONGLE:
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {

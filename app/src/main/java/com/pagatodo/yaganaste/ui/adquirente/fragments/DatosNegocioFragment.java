@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SubGiro;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -66,7 +67,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         ValidationForms, INavigationView<Object, ErrorObject>, IDatosNegView<ErrorObject>,
         DialogDoubleActions, IOnSpinnerClick {
 
-    private static final String GIROS = "1";
+    private static final String GIROS = "1", DOCS = "2";
 
     @BindView(R.id.editBussinesNameold)
     CustomValidationEditText editBussinesNameold;
@@ -117,8 +118,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     ImageView spiner12;
 
 
-
-
     /*@BindView(R.id.btnBackBussinesInfo)
     Button btnBackBussinesInfo;*/
     @BindView(R.id.btnNextBussinesInfo)
@@ -142,11 +141,12 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private BussinesLineSpinnerAdapter giroArrayAdapter;
     private SubBussinesLineSpinnerAdapter subgiroArrayAdapter;
     private DatosNegocioPresenter datosNegocioPresenter;
+    private ObtenerDocumentosResponse docs;
 
-
-    public static DatosNegocioFragment newInstance(List<Giros> girosComercio) {
+    public static DatosNegocioFragment newInstance(ObtenerDocumentosResponse docs, List<Giros> girosComercio) {
         DatosNegocioFragment fragmentRegister = new DatosNegocioFragment();
         Bundle args = new Bundle();
+        args.putParcelable(DOCS, docs);
         args.putSerializable(GIROS, (Serializable) girosComercio);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
@@ -162,6 +162,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             if (subgiros != null) {
                 this.girosComercio = (List<Giros>) subgiros;
             }
+            docs = args.getParcelable(DOCS);
         }
     }
 
@@ -198,7 +199,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
         spiner1.setOnClickListener(view -> spinnerBussineLine.performClick());
 
-        spiner12.setOnClickListener(view -> spinnerSubBussineLine.performClick() );
+        spiner12.setOnClickListener(view -> spinnerSubBussineLine.performClick());
 
         spinnerBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -220,7 +221,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     spinnerSubBussineLine.setSelection(1);
                 }
                 onSpinnerClick();
-                if (position!=0) {
+                if (position != 0) {
                     textgiro.setVisibility(View.VISIBLE);
                     textgiro.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
@@ -238,7 +239,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 onSubSpinnerClick();
-                if (position!=0){
+                if (position != 0) {
                     textsubgiro.setVisibility(View.VISIBLE);
                     textsubgiro.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
@@ -252,6 +253,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         //editBussinesPhone.addTextChangedListener(new PhoneTextWatcher(editBussinesPhone));
 
         setValidationRules();
+        if(docs != null){
+
+        }
     }
 
     private void initValues() {
@@ -331,7 +335,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_error);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.datos_negocio_telefono), Snackbar.LENGTH_SHORT);
-                } else if (telefono.length()<7) {
+                } else if (telefono.length() < 7) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                     text_telefono.setBackgroundResource(R.drawable.inputtext_error);
@@ -350,7 +354,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             if (hasFocus) {
 
                 text_lada.setBackgroundResource(R.drawable.inputtext_active);
-        } else {
+            } else {
 
                 lada = editBussinesLada.getText().toString();
                 lada = lada.replaceAll(" ", "");
@@ -404,7 +408,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         telefono = editBussinesPhone.getText().toString();
         telefono = telefono.replaceAll(" ", "");
 
-        if (telefono.length()<7 || editBussinesPhone.getText().toString().equalsIgnoreCase("00000000")) {
+        if (telefono.length() < 7 || editBussinesPhone.getText().toString().equalsIgnoreCase("00000000")) {
             // showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
             //    editBussinesPhone.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -448,6 +452,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private boolean isPhone(String input) {
         return Pattern.compile("\\d{10}").matcher(input).find();
     }
+
     private boolean isLada(String input) {
         return Pattern.compile("\\d{3}").matcher(input).find() ||
                 Pattern.compile("\\d{2}").matcher(input).find();
@@ -527,7 +532,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         }
 
         editBussinesName.setText(registerAgent.getNombre());
-        editBussinesPhone.setText(registerAgent.getTelefono().substring(1,10));
+        editBussinesPhone.setText(registerAgent.getTelefono().substring(1, 10));
         editBussinesLada.setText(registerAgent.getLada());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
         //spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));

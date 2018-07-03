@@ -23,7 +23,6 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.AdditionalInformationFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PreDomicilioNegocioFragment;
 
 import java.util.List;
@@ -34,11 +33,8 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_ERROR_DOC
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
-
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
@@ -115,7 +111,7 @@ public class BussinesActivity extends LoaderActivity {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
-            loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
+            loadFragment(DatosNegocioFragment.newInstance(null,girosComercio), Direction.FORDWARD, true);
             //loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, true);
             //loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
             //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
@@ -133,13 +129,13 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
                 break;
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
+                loadFragment(DatosNegocioFragment.newInstance(null,girosComercio), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_PRE_ADDRESS:
                 loadFragment(PreDomicilioNegocioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_PRE_ADDRESS_BACK:
-                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.BACK, false);
+                loadFragment(DatosNegocioFragment.newInstance(null,girosComercio), Direction.BACK, false);
                 RegisterAgent.resetBussinessAddress();
                 listaColonias = null;
                 break;
