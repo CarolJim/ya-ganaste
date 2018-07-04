@@ -343,7 +343,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     loginContainerFragment.loadConfigDongle();
                 }else {
-
                     loginContainerFragment.loadGetBalanceClosedLoop();
                 }
                 break;

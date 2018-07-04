@@ -112,6 +112,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE_CANCELATION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST;
@@ -128,6 +129,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADDFAVOR
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_STARBUCK;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_CLOSED_LOOP;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONTINUE_DOCS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO;
@@ -370,6 +372,21 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
                 //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                break;
+            case OPTION_BALANCE_CLOSED_LOOP:
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                        && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
+                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+                }else {
+                    UI.showAlertDialog(this, getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
+                            getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
+                                TransactionAdqData.getCurrentTransaction().setAmount("");
+                                TransactionAdqData.getCurrentTransaction().setDescription("");
+                                Intent intentAdq = new Intent(this, AdqActivity.class);
+                                intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
+                                startActivity(intentAdq);
+                            });
+                }
                 break;
             default:
                 finish();
