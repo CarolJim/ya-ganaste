@@ -14,8 +14,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
-import com.pagatodo.yaganaste.ui_wallet.patterns.Wallet;
-import com.pagatodo.yaganaste.ui_wallet.patterns.WalletBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Wallet;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
 

@@ -24,7 +24,7 @@ import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.patterns.CreateDatailBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.CreateDatailBuilder;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.EOFException;

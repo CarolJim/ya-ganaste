@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui_wallet.patterns;
+package com.pagatodo.yaganaste.ui_wallet.patterns.builders;
 
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 

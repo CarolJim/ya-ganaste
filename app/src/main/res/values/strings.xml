@@ -1353,6 +1353,7 @@
 
     <!-- Toolbar Item Menu -->
     <string name="item_menu_share">Compartir</string>
+    <string name="item_menu_help">Ayuda</string>
     <string name="item_menu_remmbolsar">Reembolsar cobro</string>
     <string name="item_menu_reenviar">Reenviar ticket</string>
     <string name="item_menu_cancelar">Cancelar cobro</string>

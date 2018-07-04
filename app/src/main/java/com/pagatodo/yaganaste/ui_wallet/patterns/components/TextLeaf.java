@@ -10,8 +10,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.patterns.interfaces.Component;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import static com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder.TYPE_SUBTITLE;
-import static com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder.TYPE_TITLE;
+import static com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder.TYPE_SUBTITLE;
+import static com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder.TYPE_TITLE;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.Dp;
 
 public class TextLeaf implements Component{

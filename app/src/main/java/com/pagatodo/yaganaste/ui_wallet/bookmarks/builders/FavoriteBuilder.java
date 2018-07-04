@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.ui_wallet.holders.LauncherHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
-import com.pagatodo.yaganaste.ui_wallet.patterns.Builder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Builder;
 
 public class FavoriteBuilder extends Builder{
 

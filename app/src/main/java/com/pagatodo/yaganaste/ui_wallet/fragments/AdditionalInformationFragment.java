@@ -24,7 +24,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.QuestionViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.SpinnerHolder;
-import com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -98,6 +98,7 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
             switch (checkedId) {
                 case R.id.radioBtnPublicServantNo:
                     states.getView().setVisibility(View.VISIBLE);
+                    showDialogList(getListPaises());
                     break;
                 case R.id.radioBtnPublicServantYes:
                     states.getView().setVisibility(View.GONE);
@@ -106,15 +107,15 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         });
 
         qCargoPublico.inflate(layout);
-        layout.addView(builder.setSpace(layout,10));
+        layout.addView(builder.setSpace(10));
         parentesco.inflate(layout);
         parentesco.getView().setVisibility(View.GONE);
-        layout.addView(builder.setSpace(layout,10));
+        layout.addView(builder.setSpace(10));
         inputDataViewHolder.inflate(layout);
         inputDataViewHolder.getView().setVisibility(View.GONE);
-        layout.addView(builder.setSpace(layout,10));
+        layout.addView(builder.setSpace(10));
         qNacionalidad.inflate(layout);
-        layout.addView(builder.setSpace(layout,10));
+        layout.addView(builder.setSpace(10));
         states.inflate(layout);
         states.getView().setVisibility(View.GONE);
         states.getEditText().setFocusable(false);

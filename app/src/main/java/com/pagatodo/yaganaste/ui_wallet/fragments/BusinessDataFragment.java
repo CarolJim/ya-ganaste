@@ -13,7 +13,7 @@ import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
-import com.pagatodo.yaganaste.ui_wallet.patterns.FormBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder;
 
 import java.io.Serializable;
 import java.util.List;

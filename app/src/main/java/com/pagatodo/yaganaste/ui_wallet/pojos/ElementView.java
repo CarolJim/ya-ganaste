@@ -42,7 +42,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_MVIMIENTOS_BUSSINES = 105;
     static public final int OPTION_VENTAS_ADQ = 109;
     static public final int OPTION_VENTAS_ADQAFUERA = 210;
-    //static public final int OPTION_MVIMIENTOS_STARBUCKS = 103;
+    static public final int OPTION_TUTORIALS = 401;
     static public final int OPTION_CONTINUE_DOCS = 106;
     static public final int OPTION_ERROR_ADDRESS = 107;
     static public final int OPTION_ERROR_ADDRESS_DOCS = 108;

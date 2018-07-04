@@ -26,7 +26,7 @@ import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IDetailAdqView;
-import com.pagatodo.yaganaste.ui_wallet.patterns.CreateDatailBuilder;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.CreateDatailBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.facade.FacadeMovements;
 import com.pagatodo.yaganaste.ui_wallet.presenter.MovementDetailAdqPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;

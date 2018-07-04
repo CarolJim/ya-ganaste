@@ -80,6 +80,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendTicketFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
@@ -142,6 +143,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_TUTORIALS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQ;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
@@ -160,9 +162,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_CONFIG_REPAYMENT = "EVENT_GO_CONFIG_REPAYMENT";
     public final static String EVENT_GO_CONFIG_REPAYMENT_BACK = "EVENT_GO_CONFIG_REPAYMENT_BACK";
     public final static String EVENT_GO_SELECT_DONGLE = "EVENT_GO_SELECT_DONGLE";
-    public final static String EVENT_GO_SELECT_DONGLE_BACK = "EVENT_GO_SELECT_DONGLE_BACK";
+    //public final static String EVENT_GO_SELECT_DONGLE_BACK = "EVENT_GO_SELECT_DONGLE_BACK";
     public final static String EVENT_GO_CONFIG_DONGLE = "EVENT_GO_CONFIG_DONGLE";
-    public final static String EVENT_GO_CONFIG_DONGLE_BACK = "EVENT_GO_CONFIG_DONGLE_BACK";
+    //public final static String EVENT_GO_CONFIG_DONGLE_BACK = "EVENT_GO_CONFIG_DONGLE_BACK";
     public final static String EVENT_GO_CARD_REPORT = "EVENT_GO_CARD_REPORD";
     public final static String EVENT_GO_DETAIL_EMISOR = "EVENT_GO_DETAIL_EMISOR";
     public final static String EVENT_GO_DETAIL_ADQ = "EVENT_GO_DETAIL_ADQ";
@@ -175,6 +177,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
+
+
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
 
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
@@ -231,7 +235,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         this.menu = menu;
         //getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
-            getMenuInflater().inflate(R.menu.menu_wallet, menu);
+                getMenuInflater().inflate(R.menu.menu_wallet, menu);
             menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment) {
             getMenuInflater().inflate(R.menu.menu_wallet, menu);
@@ -370,6 +374,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
                 //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                break;
+            case OPTION_TUTORIALS:
+                loadFragment(TutorialsFragment.newInstance(), R.id.fragment_container);
                 break;
             default:
                 finish();
