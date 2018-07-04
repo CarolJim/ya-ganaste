@@ -178,7 +178,9 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
                 || currentFragment instanceof MapStarbucksFragment
                 || currentFragment instanceof MyDongleFragment
                 || currentFragment instanceof SelectDongleFragment
-                || currentFragment instanceof PairBluetoothFragment) {
+                || currentFragment instanceof PairBluetoothFragment
+                || currentFragment instanceof VentasDiariasFragment
+                ) {
             showBack(false);
             loadFragment(BalanceWalletFragment.newInstance(), Direction.BACK, false);
         } else if (currentFragment instanceof RecoveryFragment) {
