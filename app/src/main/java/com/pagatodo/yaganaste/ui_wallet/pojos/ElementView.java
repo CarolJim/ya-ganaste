@@ -46,7 +46,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_CONTINUE_DOCS = 106;
     static public final int OPTION_ERROR_ADDRESS = 107;
     static public final int OPTION_ERROR_ADDRESS_DOCS = 108;
-    static public final int OPTION_BALANCE_CLOSED_LOOP = 109;
+    static public final int OPTION_BALANCE_CLOSED_LOOP = 110;
 
     static public final int OPTION_ADMON_EMISOR = 301;
     static public final int OPTION_ADMON_ADQ = 302;
@@ -257,12 +257,11 @@ public class ElementView implements ElementGlobal {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
+        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ico_reportes, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
         }
-
-
         List<Agentes> agentes = new ArrayList<>();
         try {
             agentes = new DatabaseManager().getAgentes();
@@ -272,7 +271,6 @@ public class ElementView implements ElementGlobal {
         if (agentes.size() < 2) {
             elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
-
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
@@ -402,9 +400,8 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
         if (isuyu) {
             elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ico_reportes, R.string.ventas_dia));
-        } else {
-            elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }

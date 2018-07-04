@@ -526,7 +526,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesPhone.setText(registerAgent.getTelefono());
         editBussinesLada.setText(registerAgent.getLada());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
-        spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));
+//        spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));
     }
 
     @Override

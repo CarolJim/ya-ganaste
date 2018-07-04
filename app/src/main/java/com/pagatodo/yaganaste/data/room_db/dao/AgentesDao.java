@@ -36,7 +36,6 @@ public interface AgentesDao {
     @Query("DELETE FROM Agentes")
     void deleteAll();
 
-
     @Query("UPDATE Agentes SET id_estatus =:status WHERE folio=:folioadq")
     void updateStatus(int status,String folioadq );
 }

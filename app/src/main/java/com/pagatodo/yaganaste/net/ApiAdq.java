@@ -406,7 +406,22 @@ public class ApiAdq extends Api {
      */
     public static void obtieneTiposReembolso(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        String idUserAdq = "0";
+        try {
+            idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (RequestHeaders.getIdCuentaAdq().isEmpty()){
+            RequestHeaders.setIdCuentaAdq(idUserAdq);
+        }else {
+            headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        }
+
+
+
+
+
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(GET_TYPE_REPAYMENT,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetTypeRepayment),
