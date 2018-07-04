@@ -374,19 +374,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
             case OPTION_BALANCE_CLOSED_LOOP:
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
-                        && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
-                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
-                }else {
-                    UI.showAlertDialog(this, getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
-                            getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
-                                TransactionAdqData.getCurrentTransaction().setAmount("");
-                                TransactionAdqData.getCurrentTransaction().setDescription("");
-                                Intent intentAdq = new Intent(this, AdqActivity.class);
-                                intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
-                                startActivity(intentAdq);
-                            });
-                }
+
                 break;
             default:
                 finish();

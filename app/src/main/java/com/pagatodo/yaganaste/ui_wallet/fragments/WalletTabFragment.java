@@ -13,16 +13,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
@@ -51,21 +54,25 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_LOGOUT;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_ADQUIRENTE_SUCCESS;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory.TypePresenter.WALLETPRESENTER;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_CLOSED_LOOP;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS_DOCS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_BUSINESS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
         OnItemClickListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener {
@@ -419,9 +426,28 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void goToWalletMainActivity() {
-        Intent intent = new Intent(getContext(), WalletMainActivity.class);
-        intent.putExtra(ITEM_OPERATION, element);
-        startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+
+        if (element.getIdOperacion()==OPTION_BALANCE_CLOSED_LOOP){
+            if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                    && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
+                loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+            }else {
+                UI.showAlertDialog(getContext(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
+                        getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
+                            TransactionAdqData.getCurrentTransaction().setAmount("");
+                            TransactionAdqData.getCurrentTransaction().setDescription("");
+                            Intent intentAdq = new Intent(getContext(), AdqActivity.class);
+                            intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
+                            startActivity(intentAdq);
+                        });
+            }
+        }else {
+            Intent intent = new Intent(getContext(), WalletMainActivity.class);
+            intent.putExtra(ITEM_OPERATION, element);
+            startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+        }
+
+
     }
 }
 
