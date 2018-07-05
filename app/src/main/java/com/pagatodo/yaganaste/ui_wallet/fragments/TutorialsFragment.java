@@ -64,7 +64,7 @@ public class TutorialsFragment extends GenericFragment {
         builder.setButton(container_options, new ElementView(OPTION_EMAIL, R.drawable.ico_correo, R.string.correo), item -> {
             UtilsIntents.sendEmail(getActivity());
         }).inflate(container_options);
-
+        container_options.addView(builder.setSpaceVertical(10));
         builder.setButton(container_options, new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada), item -> {
             UtilsIntents.createCallIntent(getActivity());
         }).inflate(container_options);

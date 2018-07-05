@@ -80,6 +80,15 @@ public class FormBuilder {
         return space;
     }
 
+    public View setSpaceVertical(int high){
+        View space = new View(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                high,
+                high);
+        space.setLayoutParams(params);
+        return space;
+    }
+
     @SuppressLint("ResourceType")
     public View setViewLine(){
         View space = new View(context);
@@ -90,6 +99,7 @@ public class FormBuilder {
         space.setBackgroundResource(R.color.gray_text_wallet_4);
         return space;
     }
+
 
     public LinearTextViewHolder setLineraText(ViewGroup parent,
                                               DtoVideoTutorials item,

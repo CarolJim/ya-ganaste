@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 public class LinearTextViewHolder extends GenericHolder {
 
     private StyleTextView title;
+    private StyleTextView SubTitle;
 
     public LinearTextViewHolder(View itemView) {
         super(itemView);
@@ -20,13 +21,14 @@ public class LinearTextViewHolder extends GenericHolder {
     @Override
     public void init() {
        this.title = this.itemView.findViewById(R.id.title);
-
+       this.SubTitle = this.itemView.findViewById(R.id.sub_title);
     }
 
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {
         DtoVideoTutorials videotutorial = (DtoVideoTutorials) item;
         this.title.setText(videotutorial.Title);
+        this.SubTitle.setText(videotutorial.Subtitle);
         this.itemView.setOnClickListener(view -> listener.onClick(item));
 
     }
