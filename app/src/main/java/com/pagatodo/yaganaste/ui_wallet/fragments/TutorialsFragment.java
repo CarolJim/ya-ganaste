@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CALL;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_EMAIL;
 
-public class TutorialsFragment extends GenericFragment {
+public class TutorialsFragment extends SupportFragment {
 
     private View rootView;
     private FormBuilder builder;
@@ -83,6 +84,7 @@ public class TutorialsFragment extends GenericFragment {
                             appIntent.putExtra("force_fullscreen", true);
                             startActivity(appIntent);
                         }).inflate(container);
+
                     }
                 }
             }

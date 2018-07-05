@@ -1298,7 +1298,7 @@
     <string name="navigation_drawer_menu_chat">Chat</string>
     <string name="navigation_drawer_menu_ajustes">Ajustes</string>
     <string name="navigation_drawer_menu_acerca">Acerca de</string>
-    <string name="navigation_drawer_menu_contacto">Contacto</string>
+    <string name="navigation_drawer_menu_contacto">Ayuda</string>
     <string name="navigation_drawer_logout">Cerrar sesión</string>
 
     <string name="security_huella_option">Huella digital</string>
