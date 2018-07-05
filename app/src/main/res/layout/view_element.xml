@@ -23,8 +23,8 @@
         <ImageView
             android:id="@+id/button_item"
             android:layout_marginTop="7dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@mipmap/icon_tab_ya">
 
         </ImageView>

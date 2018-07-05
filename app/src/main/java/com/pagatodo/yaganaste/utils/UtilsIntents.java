@@ -58,7 +58,14 @@ public class UtilsIntents {
         intentEditFav.putExtra(FAVORITE_PROCESS, EDIT_FAVORITE);
         activity.startActivityForResult(intentEditFav, INTENT_FAVORITE);
     }
-
+    public static void sendEmail(Activity activity) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_EMAIL, "contacto@yaganaste.com");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto");
+        //intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+        activity.startActivity(Intent.createChooser(intent, "Send Email"));
+    }
     public static void favoriteNewIntent(Activity activity) {
 
         Intent intentAddFavorite = new Intent(activity, FavoritesActivity.class);

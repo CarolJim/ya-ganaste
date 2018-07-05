@@ -1576,4 +1576,10 @@
     <string name="movimientos_recientes">Ver movimientos recientes</string>
     <string name="ltima_actualizaci_n">Última actualización</string>
 
+    <!-- Ayuda fragment-->
+    <string name="title_fragment_ayuda">Ayuda Ya Ganaste</string>
+    <string name="subtitle_fragment_ayuda">Si tienes alguna duda o comentario\ndel servicio, comunícate con nosotros</string>
+    <string name="title_videos">Video tutoriales</string>
+    <string name="correo">Correo\nelectronico</string>
+    <string name="llamada">Llamada\ntelefónica</string>
 </resources>

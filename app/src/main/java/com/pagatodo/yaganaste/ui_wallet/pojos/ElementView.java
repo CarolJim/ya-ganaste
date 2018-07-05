@@ -62,6 +62,11 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_ADDFAVORITE_PAYMENT = 3001;
     static public final int OPTION_CONFIG_DONGLE = 14;
 
+    //Help
+    static public final int OPTION_EMAIL = 501;
+    static public final int OPTION_CALL = 502;
+
+
     public static final int OPTION_SIMPLE = 0;
     public static final int OPTION_ZONE = 1;
     public static final int OPTION_ZONE_UNO = 2;
@@ -250,6 +255,13 @@ public class ElementView implements ElementGlobal {
 
         return elementViews;
     }*/
+
+    public static ArrayList<ElementView> getListHelp(){
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_EMAIL, R.drawable.ico_correo, R.string.correo));
+        elementViews.add(new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada));
+        return elementViews;
+    }
 
     public static ArrayList<ElementView> getListLectorAdq(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu) {
         ArrayList<ElementView> elementViews = new ArrayList<>();

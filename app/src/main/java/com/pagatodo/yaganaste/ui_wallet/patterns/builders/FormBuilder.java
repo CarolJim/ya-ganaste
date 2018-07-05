@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.patterns.builders;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
+import com.pagatodo.yaganaste.ui_wallet.holders.ButtonSimpleViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.LinearTextViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
@@ -25,6 +29,7 @@ import com.pagatodo.yaganaste.ui_wallet.patterns.components.InputTextLeaf;
 import com.pagatodo.yaganaste.ui_wallet.patterns.components.SpinnerLeaf;
 import com.pagatodo.yaganaste.ui_wallet.patterns.components.TextLeaf;
 import com.pagatodo.yaganaste.ui_wallet.patterns.interfaces.Component;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -75,8 +80,19 @@ public class FormBuilder {
         return space;
     }
 
+    @SuppressLint("ResourceType")
+    public View setViewLine(){
+        View space = new View(context);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1);
+        space.setLayoutParams(params);
+        space.setBackgroundResource(R.color.gray_text_wallet_4);
+        return space;
+    }
+
     public LinearTextViewHolder setLineraText(ViewGroup parent,
-                                              LinearTextViewHolder.Videotutorial item,
+                                              DtoVideoTutorials item,
                                               OnClickItemHolderListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.linear_text_layout, parent, false);
@@ -84,4 +100,15 @@ public class FormBuilder {
         linearTextViewHolder.bind(item,listener);
         return linearTextViewHolder;
     }
+
+    //new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));
+    public ButtonSimpleViewHolder setButton(ViewGroup parent, ElementView elementView, OnClickItemHolderListener listener){
+        LayoutInflater inflater = LayoutInflater.from(this.context);
+        View layout = inflater.inflate(R.layout.view_element, parent, false);
+        ButtonSimpleViewHolder buttonsViewHolder = new ButtonSimpleViewHolder(layout);
+        buttonsViewHolder.bind(elementView,listener);
+        return buttonsViewHolder;
+    }
+
+
 }

@@ -40,6 +40,8 @@ public class ButtonsViewHolder extends OptionsViewHolder{
     public View getItemView(){
         return this.itemView;
     }
+
+
 /*
     public void bind(final ElementView elementView, final ElementsBalanceAdapter.OnItemClickListener listener) {
         this.button.setBackgroundResource(elementView.getResource());

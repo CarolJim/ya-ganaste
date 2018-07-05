@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 public class LinearTextViewHolder extends GenericHolder {
@@ -24,8 +25,8 @@ public class LinearTextViewHolder extends GenericHolder {
 
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {
-        Videotutorial videotutorial = (Videotutorial) item;
-        this.title.setText(videotutorial.getTitle());
+        DtoVideoTutorials videotutorial = (DtoVideoTutorials) item;
+        this.title.setText(videotutorial.Title);
         this.itemView.setOnClickListener(view -> listener.onClick(item));
 
     }
@@ -40,29 +41,4 @@ public class LinearTextViewHolder extends GenericHolder {
         return this.itemView;
     }
 
-    public static class Videotutorial{
-        String title;
-        String url;
-
-        public Videotutorial(String title, String url) {
-            this.title = title;
-            this.url = url;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-    }
 }
