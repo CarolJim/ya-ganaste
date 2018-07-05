@@ -61,6 +61,7 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
     View rootView;
     VentasDiariasPresenter presenter ;
     String datetime;
+    String datetimeactualizacion;
     ElementView elementView;
     public static  VentasDiariasFragment newInstance(ElementView elementView){
 
@@ -99,12 +100,14 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
                              Bundle savedInstanceState) {
         rootView  =  inflater.inflate(R.layout.fragment_ventas_diarias, container, false);
         Calendar c = Calendar.getInstance();
+        Calendar cact = Calendar.getInstance();
         SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss aa");
+        SimpleDateFormat dateformatactualizacion = new SimpleDateFormat("hh:mm:ss aa");
         datetime = dateformat.format(c.getTime());
-        System.out.println(datetime);
+        datetimeactualizacion=dateformatactualizacion.format(cact.getTime());
         ayer = Integer.toString(c.get(Calendar.DATE));
         presenter = new VentasDiariasPresenter(getContext(),this);
-        ultimaactu = datetime.substring(11,24);
+        ultimaactu = datetimeactualizacion;
         initViews();
         presenter.obtenerResumendia(datetime.substring(0,10));
         return rootView;
@@ -142,9 +145,12 @@ public class VentasDiariasFragment extends SupportFragment implements View.OnCli
     @Override
     public void succedGetResumenDia(String mensaje) {
         SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss aa");
+        SimpleDateFormat dateformatactualizacion = new SimpleDateFormat("hh:mm:ss aa");
+
         Calendar c2 = Calendar.getInstance();
+        Calendar cact = Calendar.getInstance();
         datetime = dateformat.format(c2.getTime());
-        ultimaactu = datetime.substring(11,24);
+        ultimaactu = dateformatactualizacion.format(cact.getTime());
         sub_actualizacin.setText(getResources().getString(R.string.ltima_actualizaci_n)+" "+ultimaactu);
         Ventas ventas = Ventas.getInstance();
         cobrosrealizados.setText(ventas.getCobrosr());
