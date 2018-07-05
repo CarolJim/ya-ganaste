@@ -18,17 +18,11 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.room_db.AppDatabase;
@@ -58,6 +52,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import io.fabric.sdk.android.Fabric;
 import ly.count.android.sdk.Countly;
 import ly.count.android.sdk.DeviceId;
 
@@ -155,8 +150,8 @@ public class App extends Application {
         //Contly
         if (!BuildConfig.DEBUG) {
             countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key), null, DeviceId.Type.OPEN_UDID);
-            countly.enableCrashReporting();
             countly.setLoggingEnabled(true);
+            Fabric.with(this, new Crashlytics());
         } else {
             Stetho.initializeWithDefaults(this);
         }

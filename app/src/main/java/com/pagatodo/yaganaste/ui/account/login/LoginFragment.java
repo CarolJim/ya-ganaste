@@ -105,9 +105,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
 
-    @BindView(R.id.linerar_principal)
-    LinearLayout linerar_principal;
-
     @BindView(R.id.txtVersionApp)
     TextView txtVersionApp;
 
@@ -163,7 +160,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        linerar_principal.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
         SpannableString ss;

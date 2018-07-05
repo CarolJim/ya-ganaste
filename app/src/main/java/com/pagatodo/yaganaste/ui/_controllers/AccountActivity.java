@@ -50,6 +50,7 @@ import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
@@ -92,6 +93,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_GO_ASOCIATE_PHONE = "EVENT_GO_ASOCIATE_PHONE";
     public final static String EVENT_GO_PIN_CONFIRMATION = "EVENT_GO_PIN_CONFIRMATION";
     public final static String EVENT_GO_MAIN_TAB_ACTIVITY = "EVENT_GO_MAIN_TAB_ACTIVITY";
+    public final static String EVENT_GO_HELP = "EVENT_GO_HELP";
     //Nuevo diseño-flujo
     public final static String EVENT_DATA_USER = "EVENT_GO_DATA_USER";
     public final static String EVENT_DATA_USER_BACK = "EVENT_GO_DATA_USER_BACK";
@@ -176,6 +178,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         switch (action) {
             case GO_TO_LOGIN:
                 //App.getInstance().getPrefs().saveData(FIREBASE_KEY, FirebaseInstanceId.getInstance().getToken());
+                showToolbarHelp(true);
                 loadFragment(loginContainerFragment);
                 break;
 
@@ -342,7 +345,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     loginContainerFragment.loadConfigDongle();
-                }else {
+                } else {
                     loginContainerFragment.loadGetBalanceClosedLoop();
                 }
                 break;
@@ -364,8 +367,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_GO_VENTAS:
                 loginContainerFragment.loadVentas();
                 break;
-
-
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
                 /*
@@ -391,6 +392,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 } else {
                     onBackPressed();
                 }
+                break;
+            case EVENT_GO_HELP:
+                loadFragment(TutorialsFragment.newInstance(), Direction.FORDWARD);
                 break;
         }
     }
@@ -464,6 +468,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 onEvent(EVENT_BLOCK_CARD_BACK, null);
             } else if (currentFragment instanceof PairBluetoothFragment
                     || currentFragment instanceof SelectDongleFragment) {
+                loadFragment(loginContainerFragment, Direction.BACK, false);
+            } else if (currentFragment instanceof TutorialsFragment) {
+                showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
