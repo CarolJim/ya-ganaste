@@ -82,7 +82,7 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
                 agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(),
                 "" + agentes.getIdComercio(), agentes.isEsComercioUYU());
 
-        for (int i = 0; i <operadores.size();i++){
+        for (int i = 0; i <operadores.size()-1;i++){
             addViewHolder(operadores.get(i));
             if (i != operadores.size()-1)
                 addView();
