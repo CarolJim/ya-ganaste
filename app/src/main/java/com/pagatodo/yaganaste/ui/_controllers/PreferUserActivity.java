@@ -44,6 +44,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.ContactoFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -178,7 +179,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CODE) {
             loadFragment(QRFragment.newInstance());
         } else if (getIntent().getIntExtra(MENU, 0) == MENU_CONTACTO) {
-            loadFragment(ContactoFragment.newInstance());
+            //loadFragment(ContactoFragment.newInstance());
+            loadFragment(TutorialsFragment.newInstance());
         } else {
             loadFragment(SecurityFragment.newInstance(getIntent().getIntExtra(MENU, 0), ""));
         }
