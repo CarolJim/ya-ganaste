@@ -80,7 +80,7 @@ public class AdapterPagosClass {
         mRecyclerView.setHasFixedSize(true);
 
         // Hacemos el Set Horizontal para el RV
-        mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         if(mAdapter != null){

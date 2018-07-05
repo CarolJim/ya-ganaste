@@ -38,6 +38,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 public class OperadorTabFragment extends SupportFragment implements OnItemClickListener {
 
     private View viewRoot;
+    @BindView(R.id.container_elements_otro)
+    LinearLayout conteainerElementsOtro;
     @BindView(R.id.container_elements)
     LinearLayout conteainerElements;
     @BindView(R.id.wallet)
@@ -85,6 +87,9 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
             if (i != operadores.size()-1)
                 addView();
         }
+        addViewHolderOtro(operadores.get(operadores.size()-1));
+
+
     }
 
     private Agentes getAgenete(){
@@ -104,6 +109,11 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
         return agentes;
     }
 
+    private void addViewHolderOtro(ElementView elementView){
+        ButtonsViewHolder holder = (ButtonsViewHolder) ContainerBuilder.getViewHolder(getActivity(),conteainerElements,-1);
+        holder.bind(elementView, this);
+        conteainerElementsOtro.addView(holder.getItemView());
+    }
     private void addViewHolder(ElementView elementView){
         ButtonsViewHolder holder = (ButtonsViewHolder) ContainerBuilder.getViewHolder(getActivity(),conteainerElements,-1);
         holder.bind(elementView, this);
@@ -130,6 +140,7 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE) {
             this.conteainerElements.removeAllViews();
+            this.conteainerElementsOtro.removeAllViews();
             createWallet();
         }
     }
