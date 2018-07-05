@@ -64,10 +64,10 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
         DtoStates item = mItems.get(position);
         if (position == 0) {
             holder.txtTitle.setText("");
-            holder.txtTitle.setHint(item.getNombre());
+            holder.txtTitle.setHint(item.Nombre);
             holder.txtTitle.setHintTextColor(mContext.getResources().getColor(R.color.hint_color));
         } else {
-            holder.txtTitle.setText(item.getNombre());
+            holder.txtTitle.setText(item.Nombre);
         }
         return row;
     }
@@ -111,9 +111,9 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
 
         DtoStates item = mItems.get(position);
         if (position == 0) {
-            holder.editText.setHint(item.getNombre());
+            holder.editText.setHint(item.Nombre);
         } else {
-            holder.editText.setText(item.getNombre());
+            holder.editText.setText(item.Nombre);
         }
 
         return row;
@@ -130,7 +130,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<DtoStates> {
     }
 
     public String getItemName(int position) {
-        return mItems.get(position).getNombre();
+        return mItems.get(position).Nombre;
     }
 
     static class DropDownHolder {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.dspread.xpos.QPOSService;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
@@ -501,7 +502,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 Operadores operador = db.getOperadoresAdmin(agente);
                 saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                 RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
-                ApiAdq.consultaSaldoCupo(saldoRequest,this);
+                ApiAdq.consultaSaldoCupo(saldoRequest, this);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -839,10 +840,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesion());
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 AdquirienteResponse adquiriente = user.getDataUser().getAdquirente();
-                /* Para los comercios UyU ya no se necesita configurar el lector debido a que ya está configurado
-                 * que tiene un lector Bluetooth */
                 if (adquiriente.getAgentes() != null && adquiriente.getAgentes().size() > 0 &&
-                        adquiriente.getAgentes().get(0).isEsComercioUYU()) {
+                        !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
                     App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
                     App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
                 }
@@ -999,6 +998,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
         }
         if (!BuildConfig.DEBUG) {
+            FirebaseAnalytics.getInstance(App.getContext()).setUserId(dataUser.getUsuario().getNombreUsuario());
             Countly.sharedInstance().changeDeviceId(dataUser.getUsuario().getNombreUsuario());
             Map<String, String> segmentation = new HashMap<>();
             segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
