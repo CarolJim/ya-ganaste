@@ -40,8 +40,6 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
     private View viewRoot;
     @BindView(R.id.container_elements)
     LinearLayout conteainerElements;
-    @BindView(R.id.container_elements_otro)
-    LinearLayout conteainerElementsOtro;
     @BindView(R.id.wallet)
     ImageView wallet;
     @BindView(R.id.title_negocio)
@@ -82,13 +80,11 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
                 agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(),
                 "" + agentes.getIdComercio(), agentes.isEsComercioUYU());
 
-        for (int i = 0; i <operadores.size()-1;i++){
-            addViewHolder(conteainerElements,operadores.get(i));
+        for (int i = 0; i <operadores.size();i++){
+            addViewHolder(operadores.get(i));
             if (i != operadores.size()-1)
                 addView();
         }
-        addViewHolder(conteainerElementsOtro,operadores.get(operadores.size()));
-
     }
 
     private Agentes getAgenete(){
@@ -108,16 +104,12 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
         return agentes;
     }
 
-    //Agrega un botton de opcion//
-    private void addViewHolder(ViewGroup linear, ElementView elementView){
+    private void addViewHolder(ElementView elementView){
         ButtonsViewHolder holder = (ButtonsViewHolder) ContainerBuilder.getViewHolder(getActivity(),conteainerElements,-1);
         holder.bind(elementView, this);
-        linear.addView(holder.getItemView());
+        conteainerElements.addView(holder.getItemView());
     }
 
-
-
-    /*Espacio o margen entre botones*/
     private void addView(){
         View view = new View(getContext());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
