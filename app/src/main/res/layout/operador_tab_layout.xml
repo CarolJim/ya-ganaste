@@ -23,49 +23,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageView
             android:layout_centerInParent="true"
             android:id="@+id/wallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/chip_pin"
             android:contentDescription="@string/app_name"/>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/title_negocio"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:background="#FFF"
-            android:gravity="center"/>
+
+            android:layout_marginLeft="97dp"
+             />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/container_elements"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="168dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_layout">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="70dp"
+        app:layout_constraintTop_toBottomOf="@+id/card_layout"
 
-    </LinearLayout>
+        >
 
     <LinearLayout
-        android:id="@+id/container_elements_otro"
+        android:id="@+id/container_elements"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -76,10 +66,28 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container_elements">
+        app:layout_constraintTop_toBottomOf="@+id/card_layout">
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/container_elements_otro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_layout">
+    </LinearLayout>
     </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

@@ -87,7 +87,7 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
             if (i != operadores.size()-1)
                 addView();
         }
-        addViewHolder(conteainerElementsOtro,operadores.get(operadores.size()));
+        addViewHolder(conteainerElementsOtro,operadores.get(operadores.size()-1));
 
     }
 
@@ -138,6 +138,7 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == PICK_WALLET_TAB_REQUEST || resultCode == RESULT_CODE_SELECT_DONGLE) {
             this.conteainerElements.removeAllViews();
+            this.conteainerElementsOtro.removeAllViews();
             createWallet();
         }
     }
