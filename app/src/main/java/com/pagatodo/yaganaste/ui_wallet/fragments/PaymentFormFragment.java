@@ -170,10 +170,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     ImageView imgmonto;
 
 
-
-
-
-
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_num_telefono2;
 
@@ -273,7 +269,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         // edtPhoneNumber.setCursorVisible(true);
 
 
-        imgmonto.setOnClickListener(view -> spnMontoRecarga.performClick() );
+        imgmonto.setOnClickListener(view -> spnMontoRecarga.performClick());
 
         edtPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -739,10 +735,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 errorTittle = App.getContext().getResources().getString(R.string.new_body_envios_importe_empty_error);
                 errorText = App.getContext().getResources().getString(R.string.mount_valid);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.mount_valid), Snackbar.LENGTH_SHORT);
-            } else if (errorTittle.equals(App.getContext().getResources().getString(R.string.txt_concept_empty))){
+            } else if (errorText.equals(App.getContext().getResources().getString(R.string.txt_concept_empty))) {
                 errorTittle = App.getContext().getResources().getString(R.string.txt_concept_empty);
                 errorText = App.getContext().getResources().getString(R.string.txt_concept_empty);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.txt_concept_empty), Snackbar.LENGTH_SHORT);
+            } else if (errorText.equals(getString(R.string.txt_referencia_errornuevo))) {
+                errorTittle = App.getContext().getResources().getString(R.string.txt_referencia_errornuevo);
+                errorText = App.getContext().getResources().getString(R.string.txt_referencia_errornuevo);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_referencia_errornuevo), Snackbar.LENGTH_SHORT);
             }
             //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }

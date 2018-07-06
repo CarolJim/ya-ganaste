@@ -331,6 +331,16 @@ public class Recursos {
     public static final String EVENT_APROV = "EVENT_APROV";
     public static final String EVENT_BALANCE_EMISOR = "EVENT_BALANCE_EMISOR";
     public static final String EVENT_BALANCE_ADQ = "EVENT_BALANCE_ADQ";
+    public static final String EVENT_SHORTCUT_CHARGE = "EVENT_SHORTCUT_CHARGE";
+    public static final String EVENT_BALANCE_UYU = "EVENT_BALANCE_UYU";
+    public static final String EVENT_SEND_MONEY = "EVENT_SEND_MONEY";
+    public static final String EVENT_ADD_FAV = "EVENT_ADD_FAV";
+    public static final String EVENT_EDIT_FAV = "EVENT_EDIT_FAV";
+    public static final String EVENT_DELETE_FAV = "EVENT_DELETE_FAV";
+    public static final String EVENT_CHARGE_ADQ_REG = "EVENT_CHARGE_ADQ_REG";
+    public static final String EVENT_CHARGE_ADQ_CL = "EVENT_CHARGE_ADQ_CL";
+    public static final String EVENT_RECHARGE_PHONE = "EVENT_RECHARGE_PHONE";
+    public static final String EVENT_SERV_PAYMENT = "EVENT_SERV_PAYMENT";
 
     /* Segmentaciones eventos County */
     public static final String CONNECTION_TYPE = "CONNECTION_TYPE";

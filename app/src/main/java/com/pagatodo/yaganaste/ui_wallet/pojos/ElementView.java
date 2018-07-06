@@ -413,7 +413,7 @@ public class ElementView implements ElementGlobal {
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isuyu) {
             elementViews.add(new ElementView(OPTION_VENTAS_ADQAFUERA, R.drawable.ico_reportes, R.string.ventas_dia));
         }
-        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
+        //elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         //elementViews.add(new ElementView(4, R.drawable.ic_calc, context.getResources().getString(R.string.calcular_comisiones)));
         return elementViews;
     }

@@ -119,8 +119,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
         cardWalletAdpater = new CardWalletAdpater(true);
         isBegin = true;
-        upDateSaldo(0);
-
     }
 
 
@@ -149,6 +147,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         board.setreloadOnclicklistener(this);
         checkDataCard();
+        upDateSaldo(0);
     }
 
     @Override
@@ -428,6 +427,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void goToWalletMainActivity() {
+
 
         if (element.getIdOperacion()==OPTION_BALANCE_CLOSED_LOOP){
             if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()

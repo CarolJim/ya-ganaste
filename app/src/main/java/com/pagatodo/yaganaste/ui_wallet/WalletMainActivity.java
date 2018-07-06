@@ -186,6 +186,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private static final int ACTION_SHARE = 0, ACTION_CANCEL_CHARGE = 1;
     public static final int REQUEST_CHECK_SETTINGS = 91, MY_PERMISSIONS_REQUEST_PHONE = 100;
     private MovTab movTab;
+    private boolean onDongleChanged = false;
 
     @BindView(R.id.toolbar_wallet)
     Toolbar toolbar;
@@ -237,7 +238,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         this.menu = menu;
         //getMenuInflater().inflate(R.menu.menu_wallet, menu);
         if (itemOperation.getIdOperacion() == OPTION_DEPOSITO) {
-                getMenuInflater().inflate(R.menu.menu_wallet, menu);
+            getMenuInflater().inflate(R.menu.menu_wallet, menu);
             menu.getItem(ACTION_SHARE).setVisible(true);
         } else if (itemOperation.getIdOperacion() == OPTION_MVIMIENTOS_EMISOR && getCurrentFragment() instanceof DetailsEmisorFragment) {
             getMenuInflater().inflate(R.menu.menu_wallet, menu);
@@ -606,10 +607,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
         } else if (fragment instanceof DetalleOperadorFragment) {
             loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container, Direction.BACK);
-        } else if (fragment instanceof SelectDongleFragment) {
+        } else if (fragment instanceof SelectDongleFragment || onDongleChanged) {
             setResult(RESULT_CODE_SELECT_DONGLE);
             super.onBackPressed();
         } else if (fragment instanceof PairBluetoothFragment) {
+            onDongleChanged = true;
             loadFragment(MyDongleFragment.newInstance(App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE)),
                     R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof DocumentosFragment) {

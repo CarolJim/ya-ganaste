@@ -215,14 +215,17 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         Log.e(TAG, "onEvent - - " + event);
         switch (event) {
             case EVENT_GO_LOGIN:
+                showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.FORDWARD, false);
                 break;
 
             case EVENT_RECOVERY_PASS:
+                showToolbarHelp(false);
                 loginContainerFragment.loadRecoveryFragment();
                 break;
 
             case EVENT_RECOVERY_PASS_BACK:
+                showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
                 break;
 
@@ -314,6 +317,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(AsignarNIPFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_ASOCIATE_PHONE:
+                showToolbarHelp(false);
                 changeToolbarVisibility(true);
                 showBack(true);
                 loadFragment(AsociatePhoneAccountFragment.newInstance(), Direction.FORDWARD, false);
@@ -330,18 +334,22 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_BLOCK_CARD:
+                showToolbarHelp(false);
                 loginContainerFragment.loadBlockFragment();
                 break;
             case EVENT_BLOCK_CARD_BACK:
                 onBackPressed();
                 break;
             case EVENT_SECURE_CODE:
+                showToolbarHelp(false);
                 loginContainerFragment.loadSecureCodeContainer();
                 break;
             case EVENT_PAYMENT:
+                showToolbarHelp(false);
                 loginContainerFragment.loadQuickPayment();
                 break;
             case EVENT_CHECK_MONEY_CARD:
+                showToolbarHelp(false);
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     loginContainerFragment.loadConfigDongle();
@@ -350,24 +358,31 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 }
                 break;
             case EVENT_CONFIG_DONGLE:
+                showToolbarHelp(false);
                 loginContainerFragment.loadConfigDongle();
                 break;
             case EVENT_REWARDS:
+                showToolbarHelp(false);
                 loginContainerFragment.loadRewards();
                 break;
             case EVENT_STORES:
+                showToolbarHelp(false);
                 loginContainerFragment.loadStores();
                 break;
             case EVENT_ADMIN_ADQ:
+                showToolbarHelp(false);
                 loginContainerFragment.loadConfigDongle();
                 break;
             case EVENT_SECURE_CODE_BACK:
+                showToolbarHelp(false);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
                 break;
             case EVENT_GO_VENTAS:
+                showToolbarHelp(false);
                 loginContainerFragment.loadVentas();
                 break;
             case EVENT_GO_MAINTAB:
+                showToolbarHelp(false);
                 resetRegisterData();
                 /*
                  * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
@@ -384,9 +399,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 finish();
                 break;
             case EVENT_GO_SELECT_DONGLE:
+                showToolbarHelp(false);
                 loadFragment(SelectDongleFragment.newInstance(), Direction.FORDWARD);
                 break;
             case EVENT_GO_CONFIG_DONGLE:
+                showToolbarHelp(false);
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     loadFragment(PairBluetoothFragment.newInstance(), Direction.FORDWARD);
                 } else {
@@ -394,6 +411,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 }
                 break;
             case EVENT_GO_HELP:
+                showToolbarHelp(false);
                 loadFragment(TutorialsFragment.newInstance(), Direction.FORDWARD);
                 break;
         }
@@ -459,15 +477,19 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     showDialogOut();
                 }
             } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
+                showToolbarHelp(true);
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 showDialogOut();
             } else if (currentFragment instanceof RecoveryFragment) {
+                showToolbarHelp(true);
                 onEvent(EVENT_RECOVERY_PASS_BACK, null);
             } else if (currentFragment instanceof BlockCardFragment) {
+                showToolbarHelp(true);
                 //Toast.makeText(this, "Click Back. Main Responde", Toast.LENGTH_SHORT).show();
                 onEvent(EVENT_BLOCK_CARD_BACK, null);
             } else if (currentFragment instanceof PairBluetoothFragment
                     || currentFragment instanceof SelectDongleFragment) {
+                showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else if (currentFragment instanceof TutorialsFragment) {
                 showToolbarHelp(true);

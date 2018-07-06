@@ -34,14 +34,14 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
     private View toolbarLayout;
     public String mUserImage;
-    private ImageView imgNotif, imgToolbar, imgOk, icon_help;
+    private ImageView imgNotif, imgToolbar, imgOk;
     private StyleTextView omitir;
     //CircleImageView imageView;
     //ImageView imageView;
     //static CircleImageView imageViewdes;
     //static ImageView imageViewdes;
     private View toolbarShadow;
-    private AppCompatImageView btnBack;
+    private AppCompatImageView btnBack, icon_help;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -58,7 +58,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         imgToolbar = (ImageView) findViewById(R.id.imgToolbar);
         omitir = (StyleTextView) findViewById(R.id.omitir);
         imgOk = (ImageView) findViewById(R.id.btn_ok);
-        icon_help = (ImageView) findViewById(R.id.icon_help);
+        icon_help = (AppCompatImageView) findViewById(R.id.help_icon);
         toolbarShadow = (View) findViewById(R.id.toolbar_shadow);
         //if (imageView != null) {
         //     imageView.setOnClickListener(this);
@@ -207,7 +207,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
                 UI.hideKeyBoard(this);
                 onBackPressed();
                 break;
-            case R.id.icon_help:
+            case R.id.help_icon:
                 UI.hideKeyBoard(this);
                 icon_help.setVisibility(View.GONE);
                 btnBack.setVisibility(View.VISIBLE);

@@ -85,7 +85,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
                 if (montos.length == 2) {
                     if (tvMontoEntero != null)
                         tvMontoEntero.setText(montos[0]);
-                    if (tvMontoEntero.getText().equals("0")){
+                    if (tvMontoEntero.getText().equals("0")) {
                         tvMontoEntero.setText("0");
                     }
                     if (tvMontoDecimal != null)
@@ -202,14 +202,16 @@ public class NumberCalcTextWatcher implements TextWatcher {
                     CustomKeyboardView.setCodeKey(99);
                     etMonto.setText(StringUtils.getCurrencyValue(tmp));
                     Selection.setSelection(etMonto.getText(), StringUtils.getCurrencyValue(tmp).toString().length());
-                    listener.onChangeTextListener(etMonto.getText().toString());
+                    if (listener != null) {
+                        listener.onChangeTextListener(etMonto.getText().toString());
+                    }
                     // Guardamos la cantidad en el modelo para recuperar en caso de perdida
                     //TransactionAdqData.getCurrentTransaction().setAmount(Utils.getCurrencyValue(strAmountEditText));
 
                     // Hacemos un set vacio en el concepto al reiniciarse la cantidad
-                    if(tmp.equals("0.00")){
+                    if (tmp.equals("0.00")) {
                         tvMontoEntero.setText("0");
-                        if(edtConcept != null){
+                        if (edtConcept != null) {
                             edtConcept.setText("");
                         }
                     }
@@ -224,7 +226,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
         return false;
     }
 
-    public interface TextChange{
+    public interface TextChange {
         void onChangeTextListener(String text);
     }
 }
