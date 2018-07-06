@@ -119,6 +119,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
         cardWalletAdpater = new CardWalletAdpater(true);
         isBegin = true;
+        upDateSaldo(0);
 
     }
 
@@ -194,6 +195,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             board.setVisibility(View.VISIBLE);
         }
     }
+
 
 
     private void updateOperations(final int position) {
