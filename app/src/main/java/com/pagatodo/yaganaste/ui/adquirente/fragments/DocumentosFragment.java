@@ -336,13 +336,21 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 int height = original.getHeight();
                 DisplayMetrics metrics = new DisplayMetrics();
                 getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-               int nuevoWidth = metrics.widthPixels;
+                int nuevoWidth = metrics.widthPixels;
                 int nuevoHeight = metrics.heightPixels;
 
-                if (height > width) {
+                if(nuevoHeight>900){
+                    int originalH=nuevoHeight;
+                    int originalW=nuevoWidth;
+                    nuevoWidth= 900;
+                    nuevoHeight =(originalH*nuevoWidth)/originalW;
                     scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
-                } else {
-                    scaled = Bitmap.createScaledBitmap(original, nuevoHeight, nuevoWidth, false);
+                }else {
+                    if (height > width) {
+                        scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
+                    } else {
+                        scaled = Bitmap.createScaledBitmap(original, nuevoHeight, nuevoWidth, false);
+                    }
                 }
                 saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 hideLoader();
