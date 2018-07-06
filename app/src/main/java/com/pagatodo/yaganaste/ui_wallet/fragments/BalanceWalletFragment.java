@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -48,6 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.davidea.flipview.FlipView;
+import ly.count.android.sdk.Countly;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -74,6 +76,8 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
@@ -330,6 +334,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 nextScreen(EVENT_SECURE_CODE, null);
                 break;
             case OPTION_PAYMENT_ADQ:
+                if (!BuildConfig.DEBUG) {
+                    Countly.sharedInstance().startEvent(EVENT_SHORTCUT_CHARGE);
+                }
                 nextScreen(EVENT_PAYMENT, null);
                 break;
             case OPTION_ADMON_ADQ:
@@ -342,6 +349,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 nextScreen(EVENT_STORES, null);
                 break;
             case OPTION_BALANCE_CLOSED_LOOP:
+                if (!BuildConfig.DEBUG) {
+                    Countly.sharedInstance().startEvent(EVENT_BALANCE_UYU);
+                }
                 nextScreen(EVENT_CHECK_MONEY_CARD, null);
                 break;
             case OPTION_VENTAS_ADQAFUERA:

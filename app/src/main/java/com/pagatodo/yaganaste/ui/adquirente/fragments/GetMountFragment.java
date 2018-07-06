@@ -47,6 +47,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -64,9 +65,12 @@ import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
+import ly.count.android.sdk.Countly;
 
 import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_INSERT_DONGLE;
@@ -74,6 +78,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTIO
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.REQUEST_CHECK_SETTINGS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener,
@@ -353,6 +358,11 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
+                    if (!BuildConfig.DEBUG) {
+                        Map<String, String> segmentation = new HashMap<>();
+                        segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                        Countly.sharedInstance().endEvent(EVENT_SHORTCUT_CHARGE, segmentation, 1, 0);
+                    }
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     intent.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.PAYMENT.ordinal());
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);

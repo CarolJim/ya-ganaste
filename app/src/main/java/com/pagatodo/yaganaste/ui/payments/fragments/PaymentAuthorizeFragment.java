@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
@@ -70,10 +71,12 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SEND_MONEY;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
@@ -430,6 +433,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void onValidationSuccess() {
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_SEND_MONEY);
+        }
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }
 
@@ -493,6 +499,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void onOtpGenerated(String otp) {
         RequestHeaders.setTokenFreja(otp);
+        if (!BuildConfig.DEBUG) {
+            Countly.sharedInstance().startEvent(EVENT_SEND_MONEY);
+        }
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }
 

@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -27,12 +28,21 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SaldoUyuFragment;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY_NAME;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 
@@ -120,6 +130,11 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 finish();
                 break;
             case EVENT_GO_GET_BALANCE_RESULT:
+                if (!BuildConfig.DEBUG) {
+                    Map<String, String> segmentation = new HashMap<>();
+                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    Countly.sharedInstance().endEvent(EVENT_BALANCE_UYU, segmentation, 1, 0);
+                }
                 loadFragment(SaldoUyuFragment.newInstance(data.toString()), Direction.FORDWARD, false);
                 showBack(false);
                 break;

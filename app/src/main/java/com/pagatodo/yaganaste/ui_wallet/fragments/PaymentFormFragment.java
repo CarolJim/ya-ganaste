@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
@@ -64,11 +65,14 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import ly.count.android.sdk.Countly;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.utils.Constants.AVON;
@@ -82,6 +86,9 @@ import static com.pagatodo.yaganaste.utils.Constants.MAFER;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.SKY;
 import static com.pagatodo.yaganaste.utils.Constants.TELMEXSR;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_RECHARGE_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SERV_PAYMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
@@ -597,11 +604,18 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     referencia = edtPhoneNumber.getText().toString().trim();
                     referencia = referencia.replaceAll(" ", "");
                     monto = (Double) spnMontoRecarga.getSelectedItem();
+                    if (!BuildConfig.DEBUG) {
+                        Countly.sharedInstance().startEvent(EVENT_RECHARGE_PHONE);
+                    }
                     recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
+
                 } else {
                     referencia = edtReferenceNumber.getText().toString().replaceAll(" ", "");
                     //concepto = txtComisionServicio.getText().toString().trim();
                     concepto = edtServiceConcept.getText().toString().trim();
+                    if (!BuildConfig.DEBUG) {
+                        Countly.sharedInstance().startEvent(EVENT_SERV_PAYMENT);
+                    }
                     iPresenterPayment.validateFieldsCarrier(referencia, edtServiceImport.getText().toString().trim(),
                             concepto, comercioResponse.getLongitudReferencia());
                 }
@@ -837,8 +851,19 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
         if (isRecarga) {
+
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_RECHARGE_PHONE, segmentation, 1, 0);
+            }
             intent.putExtra("TAB", Constants.PAYMENT_RECARGAS);
         } else {
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_SERV_PAYMENT, segmentation, 1, 0);
+            }
             intent.putExtra("TAB", Constants.PAYMENT_SERVICIOS);
         }
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
