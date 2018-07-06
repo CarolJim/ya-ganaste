@@ -823,9 +823,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void processLogin(DataSourceResult response) {
         IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
         DataIniciarSesionUYU dataUser = data.getData();
-        RequestHeaders.setUsername(dataUser.getUsuario().getNombreUsuario());
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
+            RequestHeaders.setUsername(dataUser.getUsuario().getNombreUsuario());
             if (dataUser.getAdquirente().getAgentes() != null && dataUser.getAdquirente().getAgentes().size() > 0) {
                 new DatabaseManager().insertAgentes(dataUser.getAdquirente().getAgentes());
             }

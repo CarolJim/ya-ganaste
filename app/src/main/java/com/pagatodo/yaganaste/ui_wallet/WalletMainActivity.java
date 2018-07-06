@@ -378,9 +378,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
                 //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
-
             case OPTION_TUTORIALS:
                 loadFragment(TutorialsFragment.newInstance(), R.id.fragment_container);
+                break;
             case OPTION_BALANCE_CLOSED_LOOP:
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {

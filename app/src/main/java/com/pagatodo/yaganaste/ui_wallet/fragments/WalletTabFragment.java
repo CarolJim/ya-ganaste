@@ -147,14 +147,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         rcvOpciones.setHasFixedSize(true);
         board.setreloadOnclicklistener(this);
         checkDataCard();
-        upDateSaldo(0);
     }
 
     @Override
     public void showProgress() {
         board.setVisibility(View.INVISIBLE);
         progressLayout.setVisibility(View.VISIBLE);
-
     }
 
     @Override
@@ -179,7 +177,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setAdapter(cardWalletAdpater);
         pager_indicator.setView(0, cardWalletAdpater.getSize());
         updateOperations(0);
-        //walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
+        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
         viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? cardWalletAdpater.getCount() / 2 : 0);
         if (Utils.isDeviceOnline()) {
             String f = SingletonUser.getInstance().getCardStatusId();
