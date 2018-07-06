@@ -5,5 +5,5 @@
         android:id="@+id/action_help"
         android:title="@string/item_menu_share"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/help_icon"/>
+        android:icon="@drawable/ic_help"/>
 </menu>

@@ -153,7 +153,7 @@
             android:scaleType="center"
             android:tint="@color/whiteColor"
             android:visibility="gone"
-            app:srcCompat="@drawable/help_icon" />
+            app:srcCompat="@drawable/ic_help" />
     </FrameLayout>
 
     <!-- **** Place Your Content Here **** -->

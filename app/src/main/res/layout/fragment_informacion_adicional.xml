@@ -194,7 +194,7 @@
                 android:layout_marginTop="16dp"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="match_parent"
@@ -247,7 +247,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/inputtext_normal"
                 android:orientation="horizontal"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

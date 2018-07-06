@@ -196,7 +196,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
 
-
     private void updateOperations(final int position) {
         int colums = 3;
         if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
@@ -427,29 +426,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     }
 
     private void goToWalletMainActivity() {
-
-
-        if (element.getIdOperacion()==OPTION_BALANCE_CLOSED_LOOP){
-            if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
-                    && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
-                loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
-            }else {
-                UI.showAlertDialog(getContext(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
-                        getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
-                            TransactionAdqData.getCurrentTransaction().setAmount("");
-                            TransactionAdqData.getCurrentTransaction().setDescription("");
-                            Intent intentAdq = new Intent(getContext(), AdqActivity.class);
-                            intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
-                            startActivity(intentAdq);
-                        });
-            }
-        }else {
-            Intent intent = new Intent(getContext(), WalletMainActivity.class);
-            intent.putExtra(ITEM_OPERATION, element);
-            startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
-        }
-
-
+        Intent intent = new Intent(getContext(), WalletMainActivity.class);
+        intent.putExtra(ITEM_OPERATION, element);
+        startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
     }
 }
 

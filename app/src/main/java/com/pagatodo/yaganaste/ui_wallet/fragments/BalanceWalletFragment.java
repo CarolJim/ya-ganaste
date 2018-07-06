@@ -125,7 +125,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.chiandpin)
     ImageView chiandpin;
 
-
     private ILoginContainerManager loginContainerManager;
     private AccountPresenterNew accountPresenter;
     private CardWalletAdpater adapterBalanceCard;
@@ -285,8 +284,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
 
-        if (prefs.containsData(IS_OPERADOR)) {
-            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        if (prefs.loadDataBoolean(IS_OPERADOR, false)) {
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
             accountPresenter.updateBalance();
         } else {
             if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
@@ -295,10 +294,15 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                     accountPresenter.updateBalance();
 
                 } else {
-                    int idcomercio =adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
-                    App.getInstance().getPrefs().saveData(NOM_COM,adapterBalanceCard.getElemenWallet(position).getAgentes().getNombreNegocio());
-                    App.getInstance().getPrefs().saveData(ID_COMERCIOADQ,idcomercio+"");
-                    rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                    int idcomercio = adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
+                    boolean esUyU = adapterBalanceCard.getElemenWallet(position).getAgentes().isEsComercioUYU();
+                    App.getInstance().getPrefs().saveData(NOM_COM, adapterBalanceCard.getElemenWallet(position).getAgentes().getNombreNegocio());
+                    App.getInstance().getPrefs().saveData(ID_COMERCIOADQ, idcomercio + "");
+                    if (esUyU) {
+                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                    } else {
+                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    }
                     accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
                 }
             }
@@ -390,7 +394,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityFrontItems(VISIBLE);
         adapterBalanceCard = new CardWalletAdpater(false, this);
         if (prefs.containsData(IS_OPERADOR)) {
-            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
             chiandpin.setVisibility(VISIBLE);
             vpBalace.setVisibility(GONE);
             try {

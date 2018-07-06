@@ -708,7 +708,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
              * para mostrarlo en el UI.createSimpleCustomDialog
              */
             String errorTittle = "";
-            if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
+            if(errorText.equals(getString(R.string.txt_importe_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.txt_importe_error);
+                errorText = App.getContext().getResources().getString(R.string.txt_importe_error);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_importe_error), Snackbar.LENGTH_SHORT);
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {

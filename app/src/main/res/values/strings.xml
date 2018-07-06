@@ -246,7 +246,7 @@
     <string name="txt_escribe_tu_pass">Contraseña</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
-    <string name="txt_iniciar_sesion">Iniciar sesión</string>
+    <string name="txt_iniciar_sesion">Ya tengo una cuenta</string>
     <string name="recover_pass">¿Olvidaste tu contraseña?\n<u>Aquí podemos ayudarte</u></string>
     <string name="other_user">Ingresar con otro usuario</string>
     <string name="ingress_mail_to_recover_pass">Ingresa el correo electrónico\ncon el que registraste tu\ncuenta Ya Ganaste</string>
@@ -446,7 +446,7 @@
     <string name="bussinesName">Nombre del negocio</string>
 
     <string name="publicServantQuestion">¿Tú o algún familiar han desempeñado cargos públicos?</string>
-    <string name="mexicanQuestion">¿Eres mexicano naturalziado?</string>
+    <string name="mexicanQuestion">¿Eres mexicano naturalizado?</string>
 
     <!--Informacion Adicional-->
     <string name="title_informacion_adicional">Información Adicional</string>

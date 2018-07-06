@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_MONEY_LAUNDERING;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
@@ -130,20 +132,14 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         isExtranjero = SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero();
         btnNext.setOnClickListener(this);
 
-
         editCargo.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 text_cargo.setBackgroundResource(R.drawable.inputtext_active);
-
             } else {
-
                 text_cargo.setBackgroundResource(R.drawable.inputtext_normal);
-
-
             }
         });
-
-
+        Log.e("YG", "Extranjero: " + isExtranjero);
         if (isExtranjero) {
             layoutEresMexa.setVisibility(View.VISIBLE);
             //spaceFamiliar.setVisibility(View.VISIBLE);
@@ -368,8 +364,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onIsMexaYesCheck() {
-        layoutPais.setVisibility(View.GONE);
-        text_cargo.setVisibility(View.GONE);
+        layoutPais.setVisibility(GONE);
+        text_cargo.setVisibility(GONE);
         //editCountry.setText("");
         //   editCountry.imageViewIsGone(false);
         //  editCountry.setDrawableImage(R.drawable.menu_canvas);
@@ -406,7 +402,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onHasFamiliarNoCheck() {
-        txtparentesco.setVisibility(View.GONE);
+        txtparentesco.setVisibility(GONE);
 
         cargo = "";
         editCargo.setText("");

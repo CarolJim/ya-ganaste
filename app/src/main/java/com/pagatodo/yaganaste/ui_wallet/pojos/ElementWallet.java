@@ -249,7 +249,6 @@ public class ElementWallet {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
                         ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             } else {
-
                 if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ,false))  {
                     return getCardLectorEmi();
 
@@ -266,7 +265,7 @@ public class ElementWallet {
     }
 
     private static ElementWallet getCardLectorEmi() {
-        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.mipmap.lector_front);
+        Bitmap frontView = BitmapFactory.decodeResource(App.getContext().getResources(), R.drawable.register_chip);
         return new ElementWallet(TYPE_ADQ, frontView,
                 App.getContext().getString(R.string.cobro_tarjeta),
                 ElementView.getListLectorEmi(),

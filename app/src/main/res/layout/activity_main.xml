@@ -31,9 +31,9 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_create_user"
         style="@style/buttonSquareRoundedBlue"
-        android:background="@drawable/blue_rounded_white_button"
+        android:background="@drawable/white_round_button"
         android:text="@string/txt_registrate"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/whiteColor"
         android:textSize="16sp" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
@@ -41,9 +41,9 @@
         style="@style/buttonSquareRoundedBlue"
         android:layout_marginBottom="35dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/white_round_button"
+        android:background="@drawable/blue_rounded_white_button"
         android:text="@string/txt_iniciar_sesion"
-        android:textColor="@color/whiteColor"
+        android:textColor="@color/colorAccent"
         android:textSize="16sp" />
 
 </LinearLayout>

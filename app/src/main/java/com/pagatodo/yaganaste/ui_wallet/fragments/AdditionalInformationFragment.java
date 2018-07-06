@@ -77,10 +77,10 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     public void initViews() {
         ButterKnife.bind(this, rootView);
         FormBuilder builder = new FormBuilder(getContext());
-        parentesco = builder.setSpinner(layout,R.string.parentesco,new BussinesLineSpinnerAdapter(getContext(),
-                R.layout.spinner_layout, getList(), null),this);
-        states = builder.setInputText(layout,"");
-        inputDataViewHolder = builder.setInputText(layout,getContext().getResources().getString(R.string.txt_cargo));
+        parentesco = builder.setSpinner(layout, R.string.parentesco, new BussinesLineSpinnerAdapter(getContext(),
+                R.layout.spinner_layout, getList(), null), this);
+        states = builder.setInputText(layout, "");
+        inputDataViewHolder = builder.setInputText(layout, getContext().getResources().getString(R.string.txt_cargo));
         qCargoPublico = builder.setQuest(layout, R.string.publicServantQuestion, false, (radioGroup, checkedId) -> {
             switch (checkedId) {
                 case R.id.radioBtnPublicServantNo:
@@ -114,20 +114,20 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         inputDataViewHolder.inflate(layout);
         inputDataViewHolder.getView().setVisibility(View.GONE);
         layout.addView(builder.setSpace(10));
-        qNacionalidad.inflate(layout);
-        layout.addView(builder.setSpace(10));
+        if (SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero()) {
+            qNacionalidad.inflate(layout);
+            layout.addView(builder.setSpace(10));
+        }
         states.inflate(layout);
         states.getView().setVisibility(View.GONE);
         states.getEditText().setFocusable(false);
         states.getEditText().setOnClickListener(view -> showDialogList(getListPaises()));
-
-
         btnNext.setOnClickListener(this);
     }
 
-    private List<Giros> getList(){
+    private List<Giros> getList() {
         List<Giros> list = new ArrayList<>();
-        for (Parentescos parentescos: Parentescos.values()){
+        for (Parentescos parentescos : Parentescos.values()) {
             Giros giro = new Giros();
             giro.setIdGiro(parentescos.getId());
             giro.setGiro(parentescos.getName());
@@ -137,9 +137,9 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
 
     }
 
-    private void validateForm(){
+    private void validateForm() {
         boolean isValid = true;
-        if (SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero() && !qNacionalidad.getResponseYes().isChecked()){
+        if (SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero() && !qNacionalidad.getResponseYes().isChecked()) {
             if (country == null) {
                 states.getInputLayout().setBackgroundResource(R.drawable.inputtext_error);
                 isValid = false;
@@ -162,7 +162,7 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         }
     }
 
-    private void onValidationSuccess(){
+    private void onValidationSuccess() {
         RegisterAgent registerAgent = RegisterAgent.getInstance();
 
         if (registerAgent.getCuestionario().size() > 0) {
