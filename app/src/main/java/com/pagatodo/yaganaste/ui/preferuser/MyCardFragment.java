@@ -197,7 +197,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
                 break;
             default:
-                if (BuildConfig.DEBUG)
+                if (!BuildConfig.DEBUG)
                     Log.d("ESTAUS", state);
                 break;
         }

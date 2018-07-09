@@ -39,7 +39,7 @@ public class FormBuilder {
     public static final int TYPE_SUBTITLE = 2;
     private Context context;
 
-    public  FormBuilder(Context context) {
+    public FormBuilder(Context context) {
         this.context = context;
     }
 

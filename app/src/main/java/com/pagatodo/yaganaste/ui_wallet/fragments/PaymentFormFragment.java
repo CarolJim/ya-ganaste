@@ -605,7 +605,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     referencia = referencia.replaceAll(" ", "");
                     monto = (Double) spnMontoRecarga.getSelectedItem();
                     if (!BuildConfig.DEBUG) {
-                        Countly.sharedInstance().startEvent(EVENT_RECHARGE_PHONE);
+                        Countly.sharedInstance().recordEvent(EVENT_RECHARGE_PHONE,1);
                     }
                     recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
 
@@ -614,7 +614,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     //concepto = txtComisionServicio.getText().toString().trim();
                     concepto = edtServiceConcept.getText().toString().trim();
                     if (!BuildConfig.DEBUG) {
-                        Countly.sharedInstance().startEvent(EVENT_SERV_PAYMENT);
+                        Countly.sharedInstance().recordEvent(EVENT_SERV_PAYMENT,1);
                     }
                     iPresenterPayment.validateFieldsCarrier(referencia, edtServiceImport.getText().toString().trim(),
                             concepto, comercioResponse.getLongitudReferencia());
@@ -851,19 +851,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         Intent intent = new Intent(getContext(), PaymentsProcessingActivity.class);
         intent.putExtra("pagoItem", payment);
         if (isRecarga) {
-
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_RECHARGE_PHONE, segmentation, 1, 0);
-            }
             intent.putExtra("TAB", Constants.PAYMENT_RECARGAS);
         } else {
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_SERV_PAYMENT, segmentation, 1, 0);
-            }
             intent.putExtra("TAB", Constants.PAYMENT_SERVICIOS);
         }
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación

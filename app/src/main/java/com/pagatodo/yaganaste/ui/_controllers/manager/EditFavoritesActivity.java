@@ -1176,7 +1176,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 longitudRefer = customCarouselItem.getComercio().getLongitudReferencia();
             }
         }
-        if (BuildConfig.DEBUG)
+        if (!BuildConfig.DEBUG)
             Log.d(TAG, "Log");
 
 

@@ -434,7 +434,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void onValidationSuccess() {
         if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().startEvent(EVENT_SEND_MONEY);
+            Countly.sharedInstance().recordEvent(EVENT_SEND_MONEY,1);
         }
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }
@@ -500,7 +500,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void onOtpGenerated(String otp) {
         RequestHeaders.setTokenFreja(otp);
         if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().startEvent(EVENT_SEND_MONEY);
+            Countly.sharedInstance().recordEvent(EVENT_SEND_MONEY,1);
         }
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }

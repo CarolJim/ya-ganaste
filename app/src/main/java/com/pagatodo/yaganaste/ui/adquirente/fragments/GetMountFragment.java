@@ -358,11 +358,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     NumberCalcTextWatcher.cleanData();*/
 
                     //onEventListener.onEvent(EVENT_GO_INSERT_DONGLE,null);
-                    if (!BuildConfig.DEBUG) {
-                        Map<String, String> segmentation = new HashMap<>();
-                        segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                        Countly.sharedInstance().endEvent(EVENT_SHORTCUT_CHARGE, segmentation, 1, 0);
-                    }
+
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     intent.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.PAYMENT.ordinal());
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);

@@ -335,7 +335,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 break;
             case OPTION_PAYMENT_ADQ:
                 if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().startEvent(EVENT_SHORTCUT_CHARGE);
+                    Countly.sharedInstance().recordEvent(EVENT_SHORTCUT_CHARGE,1);
                 }
                 nextScreen(EVENT_PAYMENT, null);
                 break;
@@ -350,7 +350,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 break;
             case OPTION_BALANCE_CLOSED_LOOP:
                 if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().startEvent(EVENT_BALANCE_UYU);
+                    Countly.sharedInstance().recordEvent(EVENT_BALANCE_UYU,1);
                 }
                 nextScreen(EVENT_CHECK_MONEY_CARD, null);
                 break;

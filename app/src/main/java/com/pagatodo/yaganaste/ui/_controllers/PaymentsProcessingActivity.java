@@ -255,11 +255,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             /*Intent intent = new Intent();
             intent.putExtra(RESULT, Constants.RESULT_SUCCESS);*/
             setResult(RESULT_CODE_OK_CLOSE/*, intent*/);
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_SEND_MONEY, segmentation, 1, 0);
-            }
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
             showBack(false);
             menu.getItem(ACTION_SHARE).setVisible(true);
