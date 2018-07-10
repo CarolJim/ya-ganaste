@@ -7,30 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.account.register.adapters.EnumSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
 import com.pagatodo.yaganaste.ui_wallet.holders.ButtonSimpleViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.LinearTextViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.QuestionViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.SpinnerHolder;
-import com.pagatodo.yaganaste.ui_wallet.patterns.components.AdditionalInformationComposite;
-import com.pagatodo.yaganaste.ui_wallet.patterns.components.BusinessDataComposite;
-import com.pagatodo.yaganaste.ui_wallet.patterns.components.ButtonLeaf;
-import com.pagatodo.yaganaste.ui_wallet.patterns.components.CuestionLeaf;
-import com.pagatodo.yaganaste.ui_wallet.patterns.components.InputTextLeaf;
-import com.pagatodo.yaganaste.ui_wallet.patterns.components.SpinnerLeaf;
 import com.pagatodo.yaganaste.ui_wallet.patterns.components.TextLeaf;
-import com.pagatodo.yaganaste.ui_wallet.patterns.interfaces.Component;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 public class FormBuilder {
@@ -111,13 +99,12 @@ public class FormBuilder {
         return linearTextViewHolder;
     }
 
-    //new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));
     public ButtonSimpleViewHolder setButton(ViewGroup parent, ElementView elementView, OnClickItemHolderListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.view_element, parent, false);
-        ButtonSimpleViewHolder buttonsViewHolder = new ButtonSimpleViewHolder(layout);
-        buttonsViewHolder.bind(elementView,listener);
-        return buttonsViewHolder;
+        ButtonSimpleViewHolder buttonSimpleViewHolder = new ButtonSimpleViewHolder(layout);
+        buttonSimpleViewHolder.bind(elementView,listener);
+        return buttonSimpleViewHolder;
     }
 
 

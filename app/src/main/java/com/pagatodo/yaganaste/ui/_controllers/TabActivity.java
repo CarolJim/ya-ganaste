@@ -643,7 +643,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     @Override
-    public void onClick(Object item) {
+    public void onItemClick(Object item) {
         OptionMenuItem optionMenuItem = (OptionMenuItem) item;
         switch (optionMenuItem.getIdItem()) {
             case ID_SEGURIDAD:

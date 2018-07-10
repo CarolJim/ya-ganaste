@@ -56,7 +56,7 @@ public class AvisoPrivacidadFragment extends GenericFragment implements OnClickI
     }
 
     @Override
-    public void onClick(Object optionMenuItem) {
+    public void onItemClick(Object optionMenuItem) {
         OptionMenuItem item = (OptionMenuItem) optionMenuItem;
         switch (item.getIdItem()){
             case 1:

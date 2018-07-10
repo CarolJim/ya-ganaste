@@ -20,6 +20,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.dspread.xpos.EmvAppTag;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -41,10 +42,13 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ly.count.android.sdk.Countly;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.VISIBLE;
@@ -58,10 +62,12 @@ import static com.pagatodo.yaganaste.utils.Constants.TIPO_TRANSACCION_CHIP;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EMV_DETECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
@@ -423,6 +429,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             if (transactionType == QPOSService.TransactionType.PAYMENT) {
                 nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
             } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
+
+                if (!BuildConfig.DEBUG) {
+                    Map<String, String> segmentation = new HashMap<>();
+                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    Countly.sharedInstance().endEvent(EVENT_BALANCE_UYU, segmentation, 1, 0);
+                }
                 nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
             }
 
@@ -593,6 +605,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
                             TransactionAdqData.getCurrentTransaction().setAmount("0");
+                            if (!BuildConfig.DEBUG) {
+                                Countly.sharedInstance().startEvent(EVENT_BALANCE_UYU);
+                            }
                             adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction));
                         }
                     }

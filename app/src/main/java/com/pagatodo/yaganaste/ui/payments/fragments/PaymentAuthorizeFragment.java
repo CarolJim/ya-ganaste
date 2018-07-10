@@ -415,6 +415,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (TextUtils.isEmpty(password)) {
             showValidationError(0, getString(R.string.datos_usuario_pass));
         } else {
+            if (!BuildConfig.DEBUG) {
+                Countly.sharedInstance().startEvent(EVENT_SEND_MONEY);
+            }
             paymentAuthorizePresenter.validatePasswordFormat(password);
         }
     }
@@ -433,9 +436,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void onValidationSuccess() {
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().recordEvent(EVENT_SEND_MONEY,1);
-        }
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }
 
@@ -499,9 +499,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void onOtpGenerated(String otp) {
         RequestHeaders.setTokenFreja(otp);
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().recordEvent(EVENT_SEND_MONEY,1);
-        }
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }
 

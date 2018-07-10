@@ -605,16 +605,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     referencia = referencia.replaceAll(" ", "");
                     monto = (Double) spnMontoRecarga.getSelectedItem();
                     if (!BuildConfig.DEBUG) {
-                        Countly.sharedInstance().recordEvent(EVENT_RECHARGE_PHONE,1);
+                        Countly.sharedInstance().startEvent(EVENT_RECHARGE_PHONE);
                     }
-                    recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
+                   recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
 
                 } else {
                     referencia = edtReferenceNumber.getText().toString().replaceAll(" ", "");
                     //concepto = txtComisionServicio.getText().toString().trim();
                     concepto = edtServiceConcept.getText().toString().trim();
                     if (!BuildConfig.DEBUG) {
-                        Countly.sharedInstance().recordEvent(EVENT_SERV_PAYMENT,1);
+                        Countly.sharedInstance().startEvent(EVENT_SERV_PAYMENT);
                     }
                     iPresenterPayment.validateFieldsCarrier(referencia, edtServiceImport.getText().toString().trim(),
                             concepto, comercioResponse.getLongitudReferencia());

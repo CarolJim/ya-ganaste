@@ -219,7 +219,7 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
 
     //spinner
     @Override
-    public void onClick(Object item) {
+    public void onItemClick(Object item) {
         textParentesco = (Giros) item;
         parentesco.getView().setBackgroundResource(R.drawable.inputtext_normal);
     }

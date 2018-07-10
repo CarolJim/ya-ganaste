@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui_wallet.holders;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,7 +31,7 @@ public class ButtonSimpleViewHolder extends GenericHolder {
         this.button.setBackgroundResource(elementView.getResource());
         this.textOption.setText(elementView.getTitle());
         if (listener != null) {
-            this.itemView.setOnClickListener(v -> listener.onClick(elementView));
+            this.itemView.setOnClickListener(v -> listener.onItemClick(elementView));
         }
     }
 

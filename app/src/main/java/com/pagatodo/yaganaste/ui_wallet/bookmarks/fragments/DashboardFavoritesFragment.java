@@ -73,7 +73,7 @@ public class DashboardFavoritesFragment extends SupportFragment implements Facad
     }
 
     @Override
-    public void onClick(Object item) {
+    public void onItemClick(Object item) {
 
     }
 }

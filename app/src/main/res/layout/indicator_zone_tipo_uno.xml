@@ -11,7 +11,7 @@
         android:background="@drawable/ico_revision"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_uno"
         style="@style/generic_text_style_2"
         android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
         android:textColor="@color/colorAccent"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_desc"
         style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_marginTop="6dp"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_desc_dos"
         style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         android:layout_marginTop="6dp"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/numero_tel"
         style="@style/generic_text_style_2"
         android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
         android:textColor="@color/colorAccent"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/numero_contacto"
         style="@style/generic_text_style_9"
         android:layout_width="wrap_content"

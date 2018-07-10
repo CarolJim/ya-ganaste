@@ -1401,7 +1401,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     }
 
     @Override
-    public void onClick(Object item) {
+    public void onItemClick(Object item) {
         /**
          * Si es editable mandamos a Edittar, si no a proceso normal
          */

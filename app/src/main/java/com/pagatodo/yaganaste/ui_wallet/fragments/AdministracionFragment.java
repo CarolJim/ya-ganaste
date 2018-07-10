@@ -150,7 +150,7 @@ public class AdministracionFragment extends SupportFragment implements OnClickIt
     }
 
     @Override
-    public void onClick(Object optionMenuItem) {
+    public void onItemClick(Object optionMenuItem) {
         OptionMenuItem item = (OptionMenuItem) optionMenuItem;
         switch (item.getIdItem()) {
             case 1:

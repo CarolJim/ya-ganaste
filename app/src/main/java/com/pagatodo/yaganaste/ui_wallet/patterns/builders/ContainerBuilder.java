@@ -3,29 +3,23 @@ package com.pagatodo.yaganaste.ui_wallet.patterns.builders;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.InputTexAdapter;
 import com.pagatodo.yaganaste.ui_wallet.adapters.TextDataAdapter;
-import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.ButtonSimpleViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.IndicationZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
-import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.SelectOptionZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.StatusZoneViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.ui_wallet.pojos.InputText;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
-import com.pagatodo.yaganaste.utils.Recursos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,18 +29,12 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_DOS
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CANCELACION;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CCAMBIAR_PASS;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CODE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_DESVINCULAR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_LOGOUT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RADIOBUTTON;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.INDICATION.RAW;
-import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
-import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
 
 
 /**
@@ -156,7 +144,7 @@ public class ContainerBuilder {
         }
     }
 
-    public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
+    /* public static OptionsViewHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         OptionsViewHolder op = null;
         //OPTION_ZONE
@@ -175,11 +163,33 @@ public class ContainerBuilder {
                 break;
         }
         return op;
+    }*/
+
+    public static GenericHolder getViewHolder(Activity context, ViewGroup parent, int typeholder) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        GenericHolder op = null;
+        //OPTION_ZONE
+        switch (typeholder) {
+            case OPTION_ZONE:
+                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone, parent, false));
+                break;
+            case OPTION_ZONE_UNO:
+                op = new StatusZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_uno, parent, false));
+                break;
+            case OPTION_ZONE_DOS:
+                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
+                break;
+            default:
+                op = new ButtonSimpleViewHolder(inflater.inflate(R.layout.view_element, parent, false));
+                break;
+        }
+        return op;
     }
 
-    public static OptionsViewHolder getViewHolderBalance(Activity context, ViewGroup parent) {
+    public static GenericHolder getViewHolderBalance(Activity context, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ButtonsViewHolder(context, inflater.inflate(R.layout.balance_element, parent, false));
+        //new (inflater.inflate(R.layout.view_element, parent, false))
+        return new ButtonSimpleViewHolder(inflater.inflate(R.layout.balance_element, parent, false));
     }
 
     public static TextDataViewHolder getViewHolder(ViewGroup parent) {

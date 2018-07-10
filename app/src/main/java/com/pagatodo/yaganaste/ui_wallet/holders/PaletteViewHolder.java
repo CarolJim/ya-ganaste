@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui_wallet.holders;
 
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
@@ -92,7 +90,7 @@ public class PaletteViewHolder extends GenericHolder {
             txtInicialesFav.setVisibility(View.VISIBLE);
             txtInicialesFav.setText(StringUtils.getIniciales(favorito.getNombre()));
         }
-        this.itemView.setOnClickListener(view -> listener.onClick(favorito));
+        this.itemView.setOnClickListener(view -> listener.onItemClick(favorito));
     }
 
     @Override

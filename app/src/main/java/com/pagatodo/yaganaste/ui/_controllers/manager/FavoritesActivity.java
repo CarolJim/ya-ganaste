@@ -323,7 +323,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                             public void actionConfirm(Object... params) {
                                 DeleteFavoriteRequest deleteFavoriteRequest = new DeleteFavoriteRequest();
                                 if (!BuildConfig.DEBUG) {
-                                    Countly.sharedInstance().recordEvent(EVENT_DELETE_FAV,1);
+                                    Countly.sharedInstance().startEvent(EVENT_DELETE_FAV);
                                 }
                                 favoritesPresenter.toPresenterDeleteFavorite(deleteFavoriteRequest, idFavorito);
                             }
@@ -884,7 +884,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             dataFavoritos.setReferencia(referService);
             favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
             if (!BuildConfig.DEBUG) {
-                Countly.sharedInstance().recordEvent(EVENT_EDIT_FAV,1);
+                Countly.sharedInstance().startEvent(EVENT_EDIT_FAV);
             }
             favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
 
@@ -895,7 +895,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
                 favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
                 if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().recordEvent(EVENT_ADD_FAV,1);
+                    Countly.sharedInstance().startEvent(EVENT_ADD_FAV);
                 }
                 favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
             } else {
@@ -933,6 +933,11 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mensaje) {
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_ADD_FAV, segmentation, 1, 0);
+        }
         showDialogMesage(getString(R.string.title_dialog_favorite),
                 getString(R.string.respond_ok_add_new_favorite), 1);
 
@@ -951,7 +956,12 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessDeleteFavorite(String mensaje) {
-        //showDialogMesage(getString(R.string.title_dialog_delete_favorite), getString(R.string.respond_ok_delete_favorite), 1);
+
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            Countly.sharedInstance().endEvent(EVENT_DELETE_FAV, segmentation, 1, 0);
+        }
         setResult(INTENT_FAVORITE);
         finish();
     }
@@ -964,6 +974,11 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
 
         } else {
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_EDIT_FAV, segmentation, 1, 0);
+            }
             favoritesPresenter.updateLocalFavorite(dataFavoritos);
             showDialogMesage(getString(R.string.title_dialog_edit_favorite),
                     getString(R.string.respond_ok_edit_favorite), 1);

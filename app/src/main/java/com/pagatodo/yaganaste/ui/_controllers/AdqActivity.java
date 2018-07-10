@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -22,18 +21,10 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SaldoUyuFragment;
-import com.pagatodo.yaganaste.utils.Utils;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
-import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 

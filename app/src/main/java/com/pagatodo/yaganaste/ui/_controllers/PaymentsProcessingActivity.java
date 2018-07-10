@@ -211,13 +211,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 mensajeLoader = getString(R.string.procesando_envios_loader);
                 break;
         }
-        btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(v -> onBackPressed());
     }
 
     public PaymentsProcessingManager getManager() {
@@ -254,11 +249,13 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             /*Intent intent = new Intent();
             intent.putExtra(RESULT, Constants.RESULT_SUCCESS);*/
+
             setResult(RESULT_CODE_OK_CLOSE/*, intent*/);
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
             showBack(false);
             menu.getItem(ACTION_SHARE).setVisible(true);
             saveDataResponse();
+
             UI.showSuccessSnackBar(this, response.getMensaje(), Snackbar.LENGTH_SHORT);
         } else {
             onFailPaimentResponse(result);

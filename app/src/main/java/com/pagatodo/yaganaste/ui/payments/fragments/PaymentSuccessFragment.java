@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -45,13 +46,20 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_RECHARGE_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SEND_MONEY;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SERV_PAYMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 
@@ -187,6 +195,11 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_RECHARGE_PHONE, segmentation, 1, 0);
+            }
         } else if (pago instanceof Servicios) {
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
@@ -200,6 +213,11 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_SERV_PAYMENT, segmentation, 1, 0);
+            }
         } else if (pago instanceof Envios) {
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
@@ -228,6 +246,12 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             } else {
                 layoutClaveRastreo.setVisibility(View.GONE);
                 viewClaveRastreo.setVisibility(View.GONE);
+            }
+
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_SEND_MONEY, segmentation, 1, 0);
             }
 
         }

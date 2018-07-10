@@ -173,7 +173,7 @@ public class Container {
     public void addSimpleHolder(final Favoritos favorito, final OnClickItemHolderListener listener){
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.row_envios, parent, false);
-        layout.setOnClickListener(view -> listener.onClick(favorito));
+        layout.setOnClickListener(view -> listener.onItemClick(favorito));
         this.parent.addView(layout);
     }
 
@@ -201,7 +201,7 @@ public class Container {
             viewHolder.raw = layout.findViewById(R.id.raw_item);
             viewHolder.relativeLayout = layout.findViewById(R.id.item_menu);
             viewHolder.title.setText(optionMenuItem.getResourceTitle());
-            viewHolder.relativeLayout.setOnClickListener(view -> listenerHolder.onClick(optionMenuItem));
+            viewHolder.relativeLayout.setOnClickListener(view -> listenerHolder.onItemClick(optionMenuItem));
             parent.addView(layout);
         }
         if (optionMenuItem.getIndication() != null && optionMenuItem.getIndication() == RADIOBUTTON) {

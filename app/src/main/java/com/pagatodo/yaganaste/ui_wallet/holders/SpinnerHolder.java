@@ -55,7 +55,7 @@ public class SpinnerHolder extends GenericHolder {
             this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    listener.onClick(adapter.getItem(position));
+                    listener.onItemClick(adapter.getItem(position));
                     if (position!=0) {
                         texthint.setVisibility(View.VISIBLE);
                         texthint.setTextColor(texthint.getContext().getResources().getColor(R.color.colorAccent));

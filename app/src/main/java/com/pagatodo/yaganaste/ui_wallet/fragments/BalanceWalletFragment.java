@@ -18,7 +18,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -28,8 +27,8 @@ import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Wallet;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
@@ -70,13 +69,13 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQAFUERA;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
@@ -87,8 +86,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.NOM_COM;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
-import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 /**
@@ -96,7 +93,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
  */
 
 public class BalanceWalletFragment extends GenericFragment implements View.OnClickListener,
-        ViewPager.OnPageChangeListener, IBalanceView, OnItemClickListener,
+        ViewPager.OnPageChangeListener, IBalanceView, OnClickItemHolderListener,
         ICardBalance {
 
     private View rootView;
@@ -321,7 +318,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void onItemClick(ElementView elementView) {
+    public void onItemClick(Object item) {
+        ElementView elementView = (ElementView) item;
         adapterBalanceCard.resetFlip();
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
@@ -349,9 +347,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 nextScreen(EVENT_STORES, null);
                 break;
             case OPTION_BALANCE_CLOSED_LOOP:
-                if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().recordEvent(EVENT_BALANCE_UYU,1);
-                }
                 nextScreen(EVENT_CHECK_MONEY_CARD, null);
                 break;
             case OPTION_VENTAS_ADQAFUERA:
@@ -387,7 +382,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
     }
 
-    private void checkStatusCard() {
+    /*private void checkStatusCard() {
         String f = SingletonUser.getInstance().getCardStatusId();
         if (f == null || f.isEmpty() || f.equals("0")) {
             String mTDC = prefs.loadData(CARD_NUMBER);
@@ -397,7 +392,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             App.getInstance().getPrefs().saveData(CARD_STATUS, f);
             setBalanceCards();
         }
-    }
+    }*/
 
     private void setBalanceCards() {
         setVisibilityBackItems(GONE);
@@ -428,7 +423,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         vpBalace.addOnPageChangeListener(this);
         pager_indicator.removeAllViews();
         updateOperations(this.pageCurrent);
-        accountPresenter.updateBalance();
+        if(accountPresenter != null) {
+            accountPresenter.updateBalance();
+        }
         if (!prefs.containsData(IS_OPERADOR)) {
             setUiPageViewController();
         }

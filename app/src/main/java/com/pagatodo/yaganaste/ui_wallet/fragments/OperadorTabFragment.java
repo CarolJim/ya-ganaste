@@ -20,8 +20,8 @@ import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
-import com.pagatodo.yaganaste.ui_wallet.holders.ButtonsViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
@@ -41,7 +41,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
-public class OperadorTabFragment extends SupportFragment implements OnItemClickListener {
+public class OperadorTabFragment extends SupportFragment implements OnClickItemHolderListener {
 
     private View viewRoot;
     @BindView(R.id.container_elements_otro)
@@ -112,15 +112,15 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
     }
 
     private void addViewHolderOtro(ElementView elementView) {
-        ButtonsViewHolder holder = (ButtonsViewHolder) ContainerBuilder.getViewHolder(getActivity(), conteainerElements, -1);
+        GenericHolder holder = ContainerBuilder.getViewHolder(getActivity(), conteainerElements, -1);
         holder.bind(elementView, this);
-        conteainerElementsOtro.addView(holder.getItemView());
+        conteainerElementsOtro.addView(holder.getView());
     }
 
     private void addViewHolder(ElementView elementView) {
-        ButtonsViewHolder holder = (ButtonsViewHolder) ContainerBuilder.getViewHolder(getActivity(), conteainerElements, -1);
+        GenericHolder holder = ContainerBuilder.getViewHolder(getActivity(), conteainerElements, -1);
         holder.bind(elementView, this);
-        conteainerElements.addView(holder.getItemView());
+        conteainerElements.addView(holder.getView());
     }
 
     private void addView() {
@@ -132,7 +132,8 @@ public class OperadorTabFragment extends SupportFragment implements OnItemClickL
     }
 
     @Override
-    public void onItemClick(ElementView elementView) {
+    public void onItemClick(Object item) {
+        ElementView elementView = (ElementView) item;
         if (elementView.getIdOperacion() == OPTION_BALANCE_CLOSED_LOOP) {
             if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                     && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {

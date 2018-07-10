@@ -29,7 +29,7 @@ public class LinearTextViewHolder extends GenericHolder {
         DtoVideoTutorials videotutorial = (DtoVideoTutorials) item;
         this.title.setText(videotutorial.Title);
         this.SubTitle.setText(videotutorial.Subtitle);
-        this.itemView.setOnClickListener(view -> listener.onClick(item));
+        this.itemView.setOnClickListener(view -> listener.onItemClick(item));
 
     }
 

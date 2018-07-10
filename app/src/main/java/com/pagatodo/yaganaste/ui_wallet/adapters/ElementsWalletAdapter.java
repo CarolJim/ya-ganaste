@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.ui_wallet.holders.GenericHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.holders.OptionsViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 
 import java.util.ArrayList;
@@ -16,15 +16,15 @@ import java.util.List;
  * Created by ozuniga on 14/02/2017.
  */
 
-public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolder> {
+public class ElementsWalletAdapter extends RecyclerView.Adapter<GenericHolder> {
 
     private List<ElementView> elementViews;
     private Activity context;
-    private OnItemClickListener listener;
+    private OnClickItemHolderListener listener;
     private boolean isBalance = false;
 
 
-    public ElementsWalletAdapter(Activity context, OnItemClickListener listener, boolean isBalance) {
+    public ElementsWalletAdapter(Activity context, OnClickItemHolderListener listener, boolean isBalance) {
         this.context = context;
         this.elementViews = new ArrayList<>();
         this.listener = listener;
@@ -33,8 +33,9 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
 
 
     @Override
-    public OptionsViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+    public GenericHolder onCreateViewHolder(ViewGroup parent, int position) {
         if (!isBalance) {
+            //return ContainerBuilder.getViewHolder(context, parent, elementViews.get(position).getTypeOptions());
             return ContainerBuilder.getViewHolder(context, parent, elementViews.get(position).getTypeOptions());
         } else {
             return ContainerBuilder.getViewHolderBalance(context, parent);
@@ -42,7 +43,7 @@ public class ElementsWalletAdapter extends RecyclerView.Adapter<OptionsViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final OptionsViewHolder holder, final int position) {
+    public void onBindViewHolder(final GenericHolder holder, final int position) {
         holder.bind(elementViews.get(position), listener);
     }
 

@@ -51,7 +51,7 @@ public class ViewHolderMenuSegurity extends GenericHolder{
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onClick(itemOption);
+                    listener.onItemClick(itemOption);
                 }
             });
         }

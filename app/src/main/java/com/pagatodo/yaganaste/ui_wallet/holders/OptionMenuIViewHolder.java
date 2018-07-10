@@ -34,7 +34,7 @@ public class OptionMenuIViewHolder extends GenericHolder {
     public void bind(final Object item, final OnClickItemHolderListener listener) {
         final OptionMenuItem itemOption = (OptionMenuItem) item;
 
-        this.relativeLayout.setOnClickListener(view -> listener.onClick(item));
+        this.relativeLayout.setOnClickListener(view -> listener.onItemClick(item));
 
         if (itemOption.getResourceItem() != -1){
             this.imageView.setBackgroundResource(itemOption.getResourceItem());

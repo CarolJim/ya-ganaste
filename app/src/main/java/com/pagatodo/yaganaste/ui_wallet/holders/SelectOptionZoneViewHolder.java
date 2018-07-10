@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dspread.xpos.QPOSService;
-import com.facebook.stetho.common.Util;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.OnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -26,21 +24,24 @@ import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
  * Created by icruz on 26/02/2018.
  */
 
-public class SelectOptionZoneViewHolder extends OptionsViewHolder implements View.OnClickListener {
+public class SelectOptionZoneViewHolder extends GenericHolder implements View.OnClickListener {
 
-    //public Context context;
-    private static final int FIRST_OPTION = 1, SECOND_OPTION = 2, THIRD_OPTION = 3;
     public Activity activity;
-    public ImageView imgBtn1, imgBtn2, imgBtn3;
-    public TextView title;
-    public StyleTextView descBtn1, descBtn2, descBtn3;
-    public LinearLayout btn1, btn2, btn3;
-    public StyleButton btnContinue;
+    private static final int FIRST_OPTION = 1, SECOND_OPTION = 2, THIRD_OPTION = 3;
+    private ImageView imgBtn1, imgBtn2, imgBtn3;
+    private StyleTextView title, descBtn1, descBtn2, descBtn3;
+    private LinearLayout btn1, btn2, btn3;
+    private StyleButton btnContinue;
     private int idButton;
 
-    public SelectOptionZoneViewHolder(Activity context, View itemView) {
+    public SelectOptionZoneViewHolder(Activity activity, View itemView) {
         super(itemView);
-        this.activity = context;
+        this.activity = activity;
+        init();
+    }
+
+    @Override
+    public void init() {
         this.title = itemView.findViewById(R.id.txt_title);
         this.descBtn1 = itemView.findViewById(R.id.button_1_text);
         this.descBtn2 = itemView.findViewById(R.id.button_2_text);
@@ -55,17 +56,18 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
     }
 
     @Override
-    public void bind(final ElementView elementView, final OnItemClickListener listener) {
+    public void bind(Object item, OnClickItemHolderListener listener) {
+        ElementView elementView = (ElementView) item;
         this.title.setText(elementView.getTitle());
 
         if (elementView.isStatus()) {
-            this.descBtn1.setText(activity.getString(R.string.lector_plug));
-            this.descBtn2.setText(activity.getString(R.string.lector_inalambrico));
-            this.descBtn3.setText(activity.getString(R.string.sin_lector_aun));
+            this.descBtn1.setText(this.activity.getString(R.string.lector_plug));
+            this.descBtn2.setText(this.activity.getString(R.string.lector_inalambrico));
+            this.descBtn3.setText(this.activity.getString(R.string.sin_lector_aun));
             this.imgBtn1.setImageResource(R.drawable.ico_cobrar_in);
             this.imgBtn2.setImageResource(R.drawable.ic_bluetooth_dongle);
             this.imgBtn3.setImageResource(R.drawable.ic_no_dongle);
-            this.btnContinue.setText(activity.getString(R.string.continuar));
+            this.btnContinue.setText(this.activity.getString(R.string.continuar));
             this.btnContinue.setOnClickListener(v -> {
 
                 switch (idButton) {
@@ -84,10 +86,10 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
                         /* SIN LECTOR */
                         App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, 0);
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
-                        activity.startActivity(browserIntent);
+                        this.activity.startActivity(browserIntent);
                         break;
                     default:
-                        UI.showErrorSnackBar(activity, activity.getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(this.activity, this.itemView.getContext().getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
                         break;
 
 
@@ -106,22 +108,32 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
         switch (v.getId()) {
             case R.id.btn_1:
                 idButton = FIRST_OPTION;
-                this.btn1.setBackground(activity.getResources().getDrawable(R.drawable.blue_border_rectangle));
-                this.btn2.setBackground(activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
-                this.btn3.setBackground(activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
+                this.btn1.setBackground(this.activity.getResources().getDrawable(R.drawable.blue_border_rectangle));
+                this.btn2.setBackground(this.activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
+                this.btn3.setBackground(this.activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
                 break;
             case R.id.btn_2:
                 idButton = SECOND_OPTION;
-                this.btn1.setBackground(activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
-                this.btn2.setBackground(activity.getResources().getDrawable(R.drawable.blue_border_rectangle));
-                this.btn3.setBackground(activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
+                this.btn1.setBackground(this.activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
+                this.btn2.setBackground(this.activity.getResources().getDrawable(R.drawable.blue_border_rectangle));
+                this.btn3.setBackground(this.activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
                 break;
             case R.id.btn_3:
                 idButton = THIRD_OPTION;
-                this.btn1.setBackground(activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
-                this.btn2.setBackground(activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
-                this.btn3.setBackground(activity.getResources().getDrawable(R.drawable.blue_border_rectangle));
+                this.btn1.setBackground(this.activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
+                this.btn2.setBackground(this.activity.getResources().getDrawable(R.drawable.gray_border_rectangle));
+                this.btn3.setBackground(this.activity.getResources().getDrawable(R.drawable.blue_border_rectangle));
                 break;
         }
+    }
+
+    @Override
+    public void inflate(ViewGroup layout) {
+        layout.addView(this.itemView);
+    }
+
+    @Override
+    public View getView() {
+        return this.itemView;
     }
 }

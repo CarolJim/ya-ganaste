@@ -97,7 +97,7 @@ public class BoardBookmarks implements FacadeBookmarks.ListenerFavorite, OnClick
 
 
     @Override
-    public void onClick(Object item) {
+    public void onItemClick(Object item) {
         Favoritos favorito = (Favoritos) item;
         ElementFavorite itemOperation = new ElementFavorite(OPTION_ADDFAVORITE_PAYMENT,favorito);
         if (favorito.getIdComercio() == 0) {
