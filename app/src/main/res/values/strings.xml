@@ -1255,7 +1255,7 @@
     <string name="please_connect_dongle_battery">Por favor conecta tu lector para conocer su nivel de batería</string>
     <string name="please_turn_on_dongle_battery">Por favor enciende tu lector para conocer su nivel de batería</string>
     <string name="receiving_dongle_battery">Obteniendo el nivel de batería</string>
-    <string name="time_repayment">Configuración de reembolso</string>
+    <string name="time_repayment">Tiempo de reembolso</string>
     <string name="select_dongle">Seleccionar lector</string>
     <string name="time_repayment_desc">Selecciona en cuánto tiempo deseas recibir\nlos reembolsos de tus cobros</string>
     <string name="row_time_repayment_desc">Comisión por venta %s + IVA</string>
@@ -1439,7 +1439,14 @@
     <string name="title_tipo_desc">En este momento tus documentos están siendo\nrevisados, puede tomarnos hasta 48 horas</string>
     <string name="title_tipo_desc_dos">¿Tienes dudas? Contáctanos</string>
     <string name="title_tipo_desc_tres">Indícanos el modelo de tu lector\nde tarjetas Ya Ganaste</string>
+    <string name="title_reembolso">Indícanos el modelo de tu lector\nde tarjetas Ya Ganaste</string>
     <string name="lector_plug">Lector de tarjetas\ncon plug</string>
+
+
+    <string name="reembolso_cuarentayocho">Comisión\n2.9% + IVA</string>
+    <string name="reembolso_veinticuatro">Comisión\n3.45% + IVA</string>
+    <string name="reembolso_inmediato">Comisión\n3.99% + IVA</string>
+
     <string name="lector_inalambrico">Lector de tarjetas\ninalámbrico</string>
     <string name="sin_lector_aun">Aún no tengo\nlector de tarjetas</string>
     <string name="contacto">contacto@yaganaste.com</string>

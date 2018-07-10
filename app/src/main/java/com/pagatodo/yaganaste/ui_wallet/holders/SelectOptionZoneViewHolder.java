@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_DONGLE_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
@@ -33,6 +34,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
     private LinearLayout btn1, btn2, btn3;
     private StyleButton btnContinue;
     private int idButton;
+    boolean reembolso;
 
     public SelectOptionZoneViewHolder(Activity activity, View itemView) {
         super(itemView);
@@ -55,12 +57,30 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         this.btnContinue = itemView.findViewById(R.id.btn_continue);
     }
 
+    /*public SelectOptionZoneViewHolder(Activity context, View itemView,boolean reembolso) {
+        super(itemView);
+        this.activity = context;
+        this.title = itemView.findViewById(R.id.txt_title);
+        this.descBtn1 = itemView.findViewById(R.id.button_1_text);
+        this.descBtn2 = itemView.findViewById(R.id.button_2_text);
+        this.descBtn3 = itemView.findViewById(R.id.button_3_text);
+        this.imgBtn1 = itemView.findViewById(R.id.button_1_image);
+        this.imgBtn2 = itemView.findViewById(R.id.button_2_image);
+        this.imgBtn3 = itemView.findViewById(R.id.button_3_image);
+        this.btn1 = itemView.findViewById(R.id.btn_1);
+        this.btn2 = itemView.findViewById(R.id.btn_2);
+        this.btn3 = itemView.findViewById(R.id.btn_3);
+        this.btnContinue = itemView.findViewById(R.id.btn_continue);
+        this.reembolso = reembolso;
+    }*/
+
     @Override
     public void bind(Object item, OnClickItemHolderListener listener) {
         ElementView elementView = (ElementView) item;
         this.title.setText(elementView.getTitle());
 
         if (elementView.isStatus()) {
+/*<<<<<<< HEAD
             this.descBtn1.setText(this.activity.getString(R.string.lector_plug));
             this.descBtn2.setText(this.activity.getString(R.string.lector_inalambrico));
             this.descBtn3.setText(this.activity.getString(R.string.sin_lector_aun));
@@ -83,7 +103,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
                         break;
                     case THIRD_OPTION:
                         App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
-                        /* SIN LECTOR */
+
                         App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, 0);
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
                         this.activity.startActivity(browserIntent);
@@ -91,11 +111,72 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
                     default:
                         UI.showErrorSnackBar(this.activity, this.itemView.getContext().getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
                         break;
+*/
+            if (reembolso){
+                this.descBtn1.setText(activity.getString(R.string.reembolso_cuarentayocho));
+                this.descBtn2.setText(activity.getString(R.string.reembolso_veinticuatro));
+                this.descBtn3.setText(activity.getString(R.string.reembolso_inmediato));
+                this.imgBtn1.setImageResource(R.drawable.primerreembolso);
+                this.imgBtn2.setImageResource(R.drawable.ico_segundoreembolso);
+                this.imgBtn3.setImageResource(R.drawable.ico_inmediato);
+                this.btnContinue.setText(activity.getString(R.string.continuar));
+            }else {
+
+                this.descBtn1.setText(activity.getString(R.string.lector_plug));
+                this.descBtn2.setText(activity.getString(R.string.lector_inalambrico));
+                this.descBtn3.setText(activity.getString(R.string.sin_lector_aun));
+                this.imgBtn1.setImageResource(R.drawable.ico_cobrar_in);
+                this.imgBtn2.setImageResource(R.drawable.ic_bluetooth_dongle);
+                this.imgBtn3.setImageResource(R.drawable.ic_no_dongle);
+                this.btnContinue.setText(activity.getString(R.string.continuar));
+            }
+            this.btnContinue.setOnClickListener(v -> {
+                if (reembolso){
+                    switch (idButton) {
+                        case FIRST_OPTION:
+                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "5");
+                            listener.onItemClick(elementView);
+                            break;
+                        case SECOND_OPTION:
+                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "4");
+                            listener.onItemClick(elementView);
+                            break;
+                        case THIRD_OPTION:
+                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "2");
+                            listener.onItemClick(elementView);
+                            break;
+                        default:
+                            UI.showErrorSnackBar(activity, activity.getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
+                            break;
+                    }
+                }else {
+                    switch (idButton) {
+                        case FIRST_OPTION:
+                            App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
+                            App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.AUDIO.ordinal());
+                            listener.onItemClick(elementView);
+                            break;
+                        case SECOND_OPTION:
+                            App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
+                            App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
+                            listener.onItemClick(elementView);
+                            break;
+                        case THIRD_OPTION:
+                            App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
+                            /* SIN LECTOR */
+                            App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, 0);
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
+                            activity.startActivity(browserIntent);
+                            break;
+                        default:
+                            UI.showErrorSnackBar(activity, activity.getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
+                            break;
 
 
-
-
+                    }
                 }
+
+
             });
         }
         this.btn1.setOnClickListener(this);

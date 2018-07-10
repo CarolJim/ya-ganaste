@@ -50,13 +50,25 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     private ITimeRepaymentPresenter timeRepaymentPresenter;
     private List<TiposReembolsoResponse> tiposReembolso;
     private TypesRepaymentAdapter adapter;
-    private int idTypeServer, idTypeLocal;
+    private int idTypeServer;
+    private static int idTypeLocal;
+
+    public static String tipo_reeembolso="100";
 
     public static TimeRepaymentFragment newInstance() {
         TimeRepaymentFragment timeRepaymentFragment = new TimeRepaymentFragment();
         Bundle bundle = new Bundle();
         timeRepaymentFragment.setArguments(bundle);
         return timeRepaymentFragment;
+    }
+
+    public static TimeRepaymentFragment newInstance(String tipo ) {
+        TimeRepaymentFragment timeRepaymentFragment = new TimeRepaymentFragment();
+        Bundle bundle = new Bundle();
+        timeRepaymentFragment.setArguments(bundle);
+        tipo_reeembolso = tipo;
+        return timeRepaymentFragment;
+
     }
 
     @Override
@@ -76,13 +88,30 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
+
         initViews();
+    }
+
+    public void reembolso(){
+        if (Utils.isDeviceOnline()) {
+            if (idTypeLocal != idTypeServer) {
+                timeRepaymentPresenter.updateTypeRepayment(idTypeLocal);
+            } else {
+                UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+            }
+        } else {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+        }
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(App.getContext(), LinearLayoutManager.VERTICAL, false);
+        if(!tipo_reeembolso.equals("100")){
+            idTypeLocal = Integer.parseInt(tipo_reeembolso);
+            reembolso();
+        }
         rcvTypeRepayments.setLayoutManager(mLayoutManager);
         rcvTypeRepayments.setHasFixedSize(true);
         timeRepaymentPresenter.getTypePayments();
@@ -124,6 +153,7 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     public void onSuccessUpdateType() {
         idTypeServer = idTypeLocal;
         UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+        tipo_reeembolso="100";
     }
 
     @Override

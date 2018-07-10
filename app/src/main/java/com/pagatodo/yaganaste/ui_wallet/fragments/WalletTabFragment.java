@@ -327,6 +327,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     }
 
+
     @Override
     public void onPageSelected(int position) {
         pager_indicator.selectDots(this.pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
@@ -421,6 +422,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, element);
         startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+
     }
 }
 

@@ -50,14 +50,13 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     EditText et_amount;
     @BindView(R.id.txt_receiver_name)
     StyleTextView txtReceiverName;
-    @BindView(R.id.tv_monto_entero)
-    StyleTextView tvMontoEntero;
-    @BindView(R.id.tv_monto_decimal)
-    StyleTextView tvMontoDecimal;
+
     @BindView(R.id.saldoDisponible)
     MontoTextView saldoDisponible;
     @BindView(R.id.txtInicialesFav)
     TextView txtInicialesFav;
+    View view;
+    private StyleTextView tvMontoEntero, tvMontoDecimal;
 
     private float MIN_AMOUNT = 1.0f, current_mount;
     Double monto;
@@ -83,17 +82,20 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_send_wallet, container, false);
-        ButterKnife.bind(this, view);
+         view = inflater.inflate(R.layout.fragment_send_wallet, container, false);
         initViews();
         return view;
 
     }
-
     @Override
     public void initViews() {
+        ButterKnife.bind(this, view);
+        tvMontoEntero = (StyleTextView) view.findViewById(R.id.tv_monto_entero);
+        tvMontoDecimal = (StyleTextView) view.findViewById(R.id.tv_monto_decimal);
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+
+
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txtReceiverName.setText(payments.getNombreDestinatario());
@@ -121,7 +123,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             txtInicialesFav.setText(sIniciales);
         }
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, null,null));
-
+        et_amount.requestFocus();
         et_amount.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -140,11 +142,11 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 if (b) {
                     keyboardView.showCustomKeyboard(view);
                 } else {
-                    keyboardView.hideCustomKeyboard();
+                  //  keyboardView.hideCustomKeyboard();
                 }
             }
         });
-        et_amount.requestFocus();
+
     }
 
     public void continueSendPayment() {

@@ -26,6 +26,8 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_DOS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_FIRST;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_REENBOLSO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ZONE_UNO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
@@ -158,6 +160,13 @@ public class ContainerBuilder {
             case OPTION_ZONE_DOS:
                 op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
                 break;
+            case OPTION_ZONE_FIRST:
+                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
+                break;
+            case OPTION_ZONE_REENBOLSO:
+                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false),true);
+                break;
+
             default:
                 op = new ButtonsViewHolder(context, inflater.inflate(R.layout.view_element, parent, false));
                 break;
