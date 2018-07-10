@@ -158,6 +158,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -368,13 +369,19 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
 
             case OPTION_REENVOLSO_FIRST:
-                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("1")){
+                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
 
+                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("5")){
+
+                    loadFragment(TimeRepaymentFragment.newInstance("5"), R.id.fragment_container);
+                }
+                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("4")){
+
+                    loadFragment(TimeRepaymentFragment.newInstance("4"), R.id.fragment_container);
                 }
                 if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("2")){
 
-                }
-                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("3")){
+                    loadFragment(TimeRepaymentFragment.newInstance("2"), R.id.fragment_container);
 
                 }
                 break;
@@ -659,7 +666,19 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         } else if (fragment instanceof DocumentosFragment) {
             setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             super.onBackPressed();
-        } else {
+        }else if (fragment instanceof TimeRepaymentFragment) {
+            setResult(PICK_WALLET_TAB_REQUEST);
+            setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
+            finish();
+            super.onBackPressed();
+        }else if (fragment instanceof MyDongleFragment) {
+            setResult(PICK_WALLET_TAB_REQUEST);
+            setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
+            finish();
+            super.onBackPressed();
+
+
+        }else {
             setResult(PICK_WALLET_TAB_REQUEST);
             super.onBackPressed();
         }

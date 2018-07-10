@@ -333,7 +333,7 @@ public class ElementView implements ElementGlobal {
                 elementViews = ElementView.getListSeleccionarLector(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
                 elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&

@@ -99,15 +99,15 @@ public class SelectOptionZoneViewHolder extends OptionsViewHolder implements Vie
                 if (reembolso){
                     switch (idButton) {
                         case FIRST_OPTION:
-                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "1");
+                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "5");
                             listener.onItemClick(elementView);
                             break;
                         case SECOND_OPTION:
-                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "2");
+                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "4");
                             listener.onItemClick(elementView);
                             break;
                         case THIRD_OPTION:
-                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "3");
+                            App.getInstance().getPrefs().saveData(CONFIG_DONGLE_REEMBOLSO, "2");
                             listener.onItemClick(elementView);
                             break;
                         default:
