@@ -44,7 +44,7 @@ public class Recursos {
 
     //URL DE WS
     static {
-        if (BuildConfig.DEBUG) {
+       if (BuildConfig.DEBUG) {
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
             URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
@@ -300,6 +300,9 @@ public class Recursos {
     public static final String TIPO_AGENTE = "TOKEN_SESION_ADQUIRIENTE"; // string
     public static final String ID_ESTATUS_EMISOR = "ID_ESTATUS_EMISOR"; // int
     public static final String HAS_CONFIG_DONGLE = "HAS_CONFIG_DONGLE"; // boolean
+    public static final String CONFIG_DONGLE_REEMBOLSO = "CONFIG_DONGLE_REEMBOLSO"; // boolean
+    public static final String FIST_ADQ_LOGIN= "FIST_ADQ_LOGIN"; // boolean
+    public static final String FIST_ADQ_REEMBOLSO= "FIST_ADQ_REEMBOLSO"; // boolean
     public static final String IS_UYU = "IS_UYU"; // boolean
     public static final String MODE_CONNECTION_DONGLE = "MODE_CONNECTION_DONGLE"; // int
     public static final String BT_PAIR_DEVICE = "BT_PAIR_DEVICE"; // string
