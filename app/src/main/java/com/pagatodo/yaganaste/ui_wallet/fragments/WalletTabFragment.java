@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocume
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
@@ -333,6 +334,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
     }
 
+
     @Override
     public void onPageSelected(int position) {
         pager_indicator.selectDots(this.pageCurrent % cardWalletAdpater.getSize(), position % cardWalletAdpater.getSize());
@@ -427,6 +429,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         Intent intent = new Intent(getContext(), WalletMainActivity.class);
         intent.putExtra(ITEM_OPERATION, element);
         startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+
     }
 }
 

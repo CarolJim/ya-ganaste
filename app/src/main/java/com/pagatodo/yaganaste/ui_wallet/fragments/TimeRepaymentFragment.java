@@ -50,13 +50,26 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     private ITimeRepaymentPresenter timeRepaymentPresenter;
     private List<TiposReembolsoResponse> tiposReembolso;
     private TypesRepaymentAdapter adapter;
-    private int idTypeServer, idTypeLocal;
+    private int idTypeServer;
+    private static int idTypeLocal;
+
+    public static String tipo_reeembolso;
 
     public static TimeRepaymentFragment newInstance() {
         TimeRepaymentFragment timeRepaymentFragment = new TimeRepaymentFragment();
         Bundle bundle = new Bundle();
         timeRepaymentFragment.setArguments(bundle);
         return timeRepaymentFragment;
+    }
+
+    public static TimeRepaymentFragment newInstance(String tipo ) {
+        TimeRepaymentFragment timeRepaymentFragment = new TimeRepaymentFragment();
+        Bundle bundle = new Bundle();
+        timeRepaymentFragment.setArguments(bundle);
+        tipo_reeembolso = tipo;
+        //idTypeLocal = tipo;
+        return timeRepaymentFragment;
+
     }
 
     @Override
@@ -77,6 +90,18 @@ public class TimeRepaymentFragment extends GenericFragment implements ITimeRepay
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
+    }
+
+    public void reembolso(){
+        if (Utils.isDeviceOnline()) {
+            if (idTypeLocal != idTypeServer) {
+                timeRepaymentPresenter.updateTypeRepayment(idTypeLocal);
+            } else {
+                UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+            }
+        } else {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+        }
     }
 
     @Override

@@ -82,6 +82,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.SendTicketFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
@@ -136,6 +137,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONTINUE
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS_DOCS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_FIRST_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_BUSSINES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
@@ -143,6 +145,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENT
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_OPERADORES_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_REENVOLSO_FIRST;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGSCARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_TUTORIALS;
@@ -150,9 +153,11 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_A
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
+import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_DONGLE_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -347,10 +352,33 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_CONFIG_DONGLE:
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+                    App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE,true);
                 } else {
+                    setResult(PICK_WALLET_TAB_REQUEST);
+                    setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                     finish();
+                    App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE,true);
                 }
                 break;
+            case OPTION_FIRST_ADQ:
+                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN,true);
+                setResult(PICK_WALLET_TAB_REQUEST);
+                setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
+                finish();
+                break;
+
+            case OPTION_REENVOLSO_FIRST:
+                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("1")){
+
+                }
+                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("2")){
+
+                }
+                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("3")){
+
+                }
+                break;
+
             case OPTION_RECOMPENSAS:
                 loadFragment(RewardsStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;

@@ -21,6 +21,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FELICIDADES_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
@@ -61,6 +64,8 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_SETTINGSCARD = 2112;
     static public final int OPTION_ADDFAVORITE_PAYMENT = 3001;
     static public final int OPTION_CONFIG_DONGLE = 14;
+    static public final int OPTION_FIRST_ADQ = 15;
+    static public final int OPTION_REENVOLSO_FIRST = 16;
 
     //Help
     static public final int OPTION_EMAIL = 501;
@@ -71,6 +76,11 @@ public class ElementView implements ElementGlobal {
     public static final int OPTION_ZONE = 1;
     public static final int OPTION_ZONE_UNO = 2;
     public static final int OPTION_ZONE_DOS = 3;
+    public static final int OPTION_ZONE_FIRST = 4;
+    public static final int OPTION_ZONE_REENBOLSO = 5;
+
+
+
 
     private int idOperacion;
     private int resource;
@@ -283,6 +293,9 @@ public class ElementView implements ElementGlobal {
         if (agentes.size() < 2) {
             elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
+
+
+
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
@@ -315,10 +328,21 @@ public class ElementView implements ElementGlobal {
             if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ, false)) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
-            /*if (isAgente && Idestatus == IdEstatus.ADQUIRENTE.getId() &&
+            if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
-                elementViews = ElementView.getListSeleccionarLector();
-            }*/
+                elementViews = ElementView.getListSeleccionarLector(idComercio);
+            }
+            if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
+                elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
+            }
+            if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)){
+                elementViews = ElementView.getListEstadoAprobado(idComercio);
+            }
+
+
+
         }
         return elementViews;
     }
@@ -339,7 +363,7 @@ public class ElementView implements ElementGlobal {
     //Proceso Aprobado
     public static ArrayList<ElementView> getListEstadoAprobado(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
-        elementViews.add(new ElementView(11, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE, idComercio));
+        elementViews.add(new ElementView(OPTION_FIRST_ADQ, R.drawable.ic_check_success, R.string.felicidades, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_FIRST, idComercio));
         return elementViews;
     }
 
@@ -347,6 +371,13 @@ public class ElementView implements ElementGlobal {
     public static ArrayList<ElementView> getListSeleccionarLector(String idComercio) {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_CONFIG_DONGLE, R.drawable.ic_check_success, R.string.title_tipo_desc_tres, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_DOS, idComercio));
+        return elementViews;
+    }
+
+    // Seleccion de Lector
+    public static ArrayList<ElementView> getListSeleccionarTipoReevolso(String idComercio) {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_REENVOLSO_FIRST, R.drawable.ic_check_success, R.string.time_repayment_desc, R.string.ya_se_puede, true, false, R.string.next, OPTION_ZONE_REENBOLSO, idComercio));
         return elementViews;
     }
 
