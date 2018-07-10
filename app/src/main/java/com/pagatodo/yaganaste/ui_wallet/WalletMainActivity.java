@@ -370,20 +370,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
 
             case OPTION_REENVOLSO_FIRST:
                 App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-
-                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("5")){
-
-                    loadFragment(TimeRepaymentFragment.newInstance("5"), R.id.fragment_container);
-                }
-                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("4")){
-
-                    loadFragment(TimeRepaymentFragment.newInstance("4"), R.id.fragment_container);
-                }
-                if (App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO).equals("2")){
-
-                    loadFragment(TimeRepaymentFragment.newInstance("2"), R.id.fragment_container);
-
-                }
+                loadFragment(TimeRepaymentFragment.newInstance(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)), R.id.fragment_container);
                 break;
 
             case OPTION_RECOMPENSAS:

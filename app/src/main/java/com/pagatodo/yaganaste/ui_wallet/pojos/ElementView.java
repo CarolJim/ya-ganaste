@@ -341,8 +341,6 @@ public class ElementView implements ElementGlobal {
                 elementViews = ElementView.getListEstadoAprobado(idComercio);
             }
 
-
-
         }
         return elementViews;
     }
