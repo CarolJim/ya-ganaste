@@ -59,12 +59,11 @@ public class UtilsIntents {
         activity.startActivityForResult(intentEditFav, INTENT_FAVORITE);
     }
     public static void sendEmail(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, "contacto@yaganaste.com");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Contacto");
-        //intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
-        activity.startActivity(Intent.createChooser(intent, "Send Email"));
+        Intent email = new Intent(Intent.ACTION_SENDTO);
+        //email.setType("text/html");
+        email.setData(Uri.parse("mailto:"));
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"contacto@yaganaste.com"});
+        activity.startActivity(Intent.createChooser(email, "Send Email"));
     }
     public static void favoriteNewIntent(Activity activity) {
 
