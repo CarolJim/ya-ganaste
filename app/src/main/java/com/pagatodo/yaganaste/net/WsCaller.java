@@ -74,15 +74,24 @@ public class WsCaller implements IServiceConsumer {
                 response -> {
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.d(TAG, "Response Success : " + response.toString());
+                    }
+                    if (!BuildConfig.DEBUG) {
                         tracer.setStatusWS(response.toString());
                         tracer.End();
-
                     }
+
                     if (request.getRequestResult() != null) {
                         DataSourceResult dataSourceResult = new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse()));
                         request.getRequestResult().onSuccess(dataSourceResult);
-                        tracer.getStatus(dataSourceResult);
+                        if (!BuildConfig.DEBUG) {
+                            tracer.getStatus(dataSourceResult);
+                        }
+                    } else {
+                        if (!BuildConfig.DEBUG) {
+                            tracer.getStatusError();
+                        }
                     }
+
                 },
                 error -> {
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -96,6 +105,9 @@ public class WsCaller implements IServiceConsumer {
                             }
                         }
                         request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
+                    }
+                    if (!BuildConfig.DEBUG) {
+                        tracer.getStatusError();
                     }
                 }, request.getHeaders());
 

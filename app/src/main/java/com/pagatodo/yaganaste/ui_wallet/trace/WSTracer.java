@@ -12,4 +12,7 @@ public abstract class WSTracer implements TraceRequest {
 
     @Override
     public abstract void getStatus(DataSourceResult result);
+
+    @Override
+    public abstract void getStatusError();
 }

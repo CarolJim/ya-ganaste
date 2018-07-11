@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.trace;
 
 import android.util.Log;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -14,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class Tracer extends WSTracer {
@@ -34,20 +36,20 @@ public class Tracer extends WSTracer {
         this.email = email;
     }
 
-    public String getWSNama() {
-        return WSName;
-    }
-
-    public void setWSNama(String WSNama) {
-        this.WSName = WSNama;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getWSName() {
+        return WSName;
+    }
+
+    public void setWSName(String WSName) {
+        this.WSName = WSName;
     }
 
     public Long getStartTime() {
@@ -90,12 +92,12 @@ public class Tracer extends WSTracer {
         this.contecction = contecction;
     }
 
-    public Long getTiemTaken() {
+    public Long getTimeTaken() {
         return timeTaken;
     }
 
-    public void setTiemTaken(Long tiemTaken) {
-        this.timeTaken = tiemTaken;
+    public void setTimeTaken(Long timeTaken) {
+        this.timeTaken = timeTaken;
     }
 
     @Override
@@ -111,22 +113,39 @@ public class Tracer extends WSTracer {
     @Override
     public void getStatus(DataSourceResult result) {
         GenericResponse genericResponse  = (GenericResponse) result.getData();
-        if (!BuildConfig.DEBUG && (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK))  {
-            Log.d(TAG_LOG, this.WSName);
-            Log.d(TAG_LOG, this.email);
-            Log.d(TAG_LOG, "" + this.startTime);
-            Log.d(TAG_LOG, "" + this.finalTime);
-            //Log.d(TAG_LOG,this.statusHttp);
-            Log.d(TAG_LOG, this.statusWS);
-            Log.d(TAG_LOG, Utils.getTypeConnection());
-            this.timeTaken = this.startTime - this.finalTime;
-            Log.d(TAG_LOG, "" + TimeUnit.SECONDS.convert(this.timeTaken, TimeUnit.NANOSECONDS));
-        }
+
+
+
+            if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK ||
+                    (genericResponse.getCodigoRespuesta() == Recursos.CODE_OK &&
+                            App.getInstance().getPrefs().loadDataBoolean(TRACE_SUCCESS_WS, false))) {
+                Log.d(TAG_LOG, this.WSName);
+                Log.d(TAG_LOG, this.email);
+                Log.d(TAG_LOG, "" + this.startTime);
+                Log.d(TAG_LOG, "" + this.finalTime);
+                //Log.d(TAG_LOG,this.statusHttp);
+                Log.d(TAG_LOG, this.statusWS);
+                Log.d(TAG_LOG, Utils.getTypeConnection());
+                this.timeTaken = this.startTime - this.finalTime;
+                Log.d(TAG_LOG, "" + TimeUnit.SECONDS.convert(this.timeTaken, TimeUnit.NANOSECONDS));
+
+            }
+
+
 
 
     }
 
-
-
-
+    @Override
+    public void getStatusError() {
+        Log.d(TAG_LOG, this.WSName);
+        Log.d(TAG_LOG, this.email);
+        Log.d(TAG_LOG, "" + this.startTime);
+        Log.d(TAG_LOG, "" + this.finalTime);
+        //Log.d(TAG_LOG,this.statusHttp);
+        Log.d(TAG_LOG, this.statusWS);
+        Log.d(TAG_LOG, Utils.getTypeConnection());
+        this.timeTaken = this.startTime - this.finalTime;
+        Log.d(TAG_LOG, "" + TimeUnit.SECONDS.convert(this.timeTaken, TimeUnit.NANOSECONDS));
+    }
 }
