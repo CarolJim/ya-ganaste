@@ -858,7 +858,7 @@ public class ApiAdtvo extends Api {
         //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
-        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         NetFacade.consumeWS(ADD_FAVORITES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
                 headers, request, FavoritosDatosResponse.class, result);
@@ -873,7 +873,7 @@ public class ApiAdtvo extends Api {
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
-        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        // headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
 
         NetFacade.consumeWS(ADD_NEW_FAVORITES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
@@ -903,7 +903,7 @@ public class ApiAdtvo extends Api {
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("IdFavorito", "" + idFavorito);
         headers.put("Content-Type", "application/json");
-        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        // headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         NetFacade.consumeWS(EDIT_FAVORITES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateFavoritos),
                 headers, request, FavoritosEditDatosResponse.class, result);
