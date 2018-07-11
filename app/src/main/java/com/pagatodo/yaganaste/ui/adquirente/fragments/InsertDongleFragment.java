@@ -437,7 +437,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 }
                 nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
             }
-
         }, DELAY_MESSAGE_PROGRESS);
     }
 

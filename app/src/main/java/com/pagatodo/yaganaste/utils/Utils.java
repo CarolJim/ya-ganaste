@@ -82,6 +82,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.FINGERPRINT_KEY;
 import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 
 @SuppressLint("SimpleDateFormat")
@@ -915,7 +916,8 @@ public class Utils {
                         searchLength = true;
                     }
                 }
-                //Log.i("EMV", "TAG: " + TAG);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
+                    Log.i("EMV", "TAG: " + TAG);
                 /* Una vez encontrado el TAG procedemos a buscar la longitud del contenido del tag */
             } else if (searchLength) {
                 /* Si el TAG es igual a 91 entonces necesitamos convertir el decimal que llega de
@@ -938,7 +940,8 @@ public class Utils {
                 }
                 searchLength = false;
                 searchContent = true;
-                //Log.i("EMV", "LENGTH: " + LENGTH);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
+                    Log.i("EMV", "LENGTH: " + LENGTH);
                 /* Una vez que ya se enontró la longitud, se debe empezar a buscar el contenido del
                  * dependiendo la longitud indicada, así como la limpieza para el TAG 91 */
             } else if (searchContent) {
@@ -977,7 +980,8 @@ public class Utils {
                     searchContent = false;
                     searchTag = true;
                 }
-                //Log.i("EMV", "CONTENT: " + CONTENT);
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
+                    Log.i("EMV", "CONTENT: " + CONTENT);
             }
         }
         Log.e("EMV", "ARPC ORIGINAL: " + tlv);

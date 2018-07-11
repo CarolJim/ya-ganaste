@@ -36,6 +36,7 @@ public class ForcedUpdateChecker {
     public static final String PIN_YG_ADQ = "pin_yg_adq";
     public static final String PIN_STARBUCKS = "pin_starbucks";
     public static final String SIZE_APP = "size_app";
+    public static final String TRACE_SUCCESS_WS = "trace_success_ws";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
@@ -58,9 +59,11 @@ public class ForcedUpdateChecker {
         final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         boolean showLoyalty = remoteConfig.getBoolean(SHOW_LOYALTY_CARDS);
         boolean showLogs = remoteConfig.getBoolean(SHOW_LOGS);
+        boolean traceSuccessWs = remoteConfig.getBoolean(TRACE_SUCCESS_WS);
         int connectionTimeout = Integer.valueOf(remoteConfig.getString(CONNECTION_TIMEOUT));
         App.getInstance().getPrefs().saveDataBool(SHOW_LOYALTY, showLoyalty);
-        App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, /*!BuildConfig.DEBUG ? showLogs : */true);
+        App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
+        App.getInstance().getPrefs().saveDataBool(TRACE_SUCCESS_WS, traceSuccessWs);
         App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
         App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
         App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);

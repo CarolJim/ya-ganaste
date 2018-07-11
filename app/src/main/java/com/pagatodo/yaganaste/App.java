@@ -177,6 +177,7 @@ public class App extends Application {
         remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_ADQ, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
         remoteConfigDefaults.put(ForcedUpdateChecker.PIN_STARBUCKS, "425965554aaa92372ccb807ff20a35d26f72d20d");
         remoteConfigDefaults.put(ForcedUpdateChecker.SIZE_APP, 25);
+        remoteConfigDefaults.put(ForcedUpdateChecker.TRACE_SUCCESS_WS, false);
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
         firebaseRemoteConfig.fetch(0)
