@@ -188,6 +188,12 @@ public class ContainerBuilder {
             case OPTION_ZONE_DOS:
                 op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false));
                 break;
+            case OPTION_ZONE_FIRST:
+                op = new IndicationZoneViewHolder(context, inflater.inflate(R.layout.indicador_zona_first_adq, parent, false));
+                break;
+            case OPTION_ZONE_REENBOLSO:
+                op = new SelectOptionZoneViewHolder(context, inflater.inflate(R.layout.indicator_zone_tipo_dos, parent, false),true);
+                break;
             default:
                 op = new ButtonSimpleViewHolder(inflater.inflate(R.layout.view_element, parent, false));
                 break;

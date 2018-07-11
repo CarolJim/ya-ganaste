@@ -42,6 +42,14 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         init();
     }
 
+    public SelectOptionZoneViewHolder(Activity activity, View itemView, boolean reembolso) {
+        super(itemView);
+        this.activity = activity;
+        this.reembolso = reembolso;
+        init();
+    }
+
+
     @Override
     public void init() {
         this.title = itemView.findViewById(R.id.txt_title);
@@ -57,7 +65,7 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         this.btnContinue = itemView.findViewById(R.id.btn_continue);
     }
 
-    /*public SelectOptionZoneViewHolder(Activity context, View itemView,boolean reembolso) {
+    /*public SelectOptionZoneViewHolder(Activity context, View itemView) {
         super(itemView);
         this.activity = context;
         this.title = itemView.findViewById(R.id.txt_title);
