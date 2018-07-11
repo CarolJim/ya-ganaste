@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.net;
 
+import android.os.Trace;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -8,8 +9,10 @@ import com.android.volley.VolleyError;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IServiceConsumer;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
+import com.pagatodo.yaganaste.ui_wallet.trace.Tracer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +44,7 @@ public class WsCaller implements IServiceConsumer {
 
     @Override
     public void sendJsonPost(final WsRequest request) {
+        Tracer tracer = new Tracer(request.getMethod_name().name(), RequestHeaders.getUsername());
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -67,33 +71,31 @@ public class WsCaller implements IServiceConsumer {
                 request.getMethod(),
                 request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
                 request.getMethod() == POST ? request.getBody() : null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                            Log.d(TAG, "Response Success : " + response.toString());
-                        }
-                        if (request.getRequestResult() != null) {
-                            request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse())));
-                        }
+                response -> {
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d(TAG, "Response Success : " + response.toString());
+                        tracer.setStatusWS(response.toString());
+                        tracer.End();
+
+                    }
+                    if (request.getRequestResult() != null) {
+                        DataSourceResult dataSourceResult = new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse()));
+                        request.getRequestResult().onSuccess(dataSourceResult);
+                        tracer.getStatus(dataSourceResult);
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                            Log.d(TAG, error.toString());
-                            Log.d(TAG, "Request Failed : " + error.getMessage());
-                        }
-                        if (request.getRequestResult() != null) {
-                            if (error.networkResponse != null) {
-                                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                                    Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
-                                }
+                error -> {
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d(TAG, error.toString());
+                        Log.d(TAG, "Request Failed : " + error.getMessage());
+                    }
+                    if (request.getRequestResult() != null) {
+                        if (error.networkResponse != null) {
+                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
                             }
-
-                            request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
                         }
+                        request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
                     }
                 }, request.getHeaders());
 
@@ -101,7 +103,11 @@ public class WsCaller implements IServiceConsumer {
                 request.getTimeOut(),
                 0,//Se quitan los reintentos para validar si esto arroja SocketException
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //TRACER
 
+
+
+        tracer.Start();
         volleySingleton.addToRequestQueue(jsonRequest);
     }
 
