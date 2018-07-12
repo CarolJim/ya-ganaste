@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
+import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.account.login.NewConfirmPasswordLogin;
 import com.pagatodo.yaganaste.ui.account.login.NewPasswordLoginChange;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
@@ -139,6 +140,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     private static AccountPresenterNew presenterAccount;
     App aplicacion;
     Boolean back = false;
+    private boolean ayuda = false;
 
     private String action = "";
 
@@ -161,6 +163,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         setUpActionBar();
+
         ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
         App aplicacion = new App();
         presenterAccount = new AccountPresenterNew(this);
@@ -188,6 +191,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
 
                 // TODO: 28/04/2017
                 resetRegisterData();
+                break;
+
+            case EVENT_GO_HELP:
+                showToolbarHelp(false);
+                loadFragment(TutorialsFragment.newInstance(), Direction.FORDWARD);
+                ayuda=true;
                 break;
         }
     }
@@ -491,7 +500,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     || currentFragment instanceof SelectDongleFragment) {
                 showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
-            } else if (currentFragment instanceof TutorialsFragment) {
+            } else if (currentFragment instanceof TutorialsFragment && ayuda) {
+                super.onBackPressed();
+            }else if (currentFragment instanceof TutorialsFragment ) {
                 showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else {

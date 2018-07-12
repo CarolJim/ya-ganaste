@@ -20,12 +20,15 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_HELP;
 
 
 /**
@@ -51,6 +54,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     Button btnMainCreateAccount;
     @BindView(R.id.btn_login_user)
     Button btnLogin;
+    @BindView(R.id.help_text)
+    StyleTextView help_text;
+
+
+
+
     private PagerAdapter pagerAdapter;
 
     public static MainFragment newInstance() {
@@ -74,6 +83,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         ButterKnife.bind(this, rootview);
         btnMainCreateAccount.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        help_text.setOnClickListener(this);
         pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -110,6 +120,14 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
                 break;
+            case R.id.help_text:
+                intent = new Intent(getActivity(), AccountActivity.class);
+                intent.putExtra(SELECTION, EVENT_GO_HELP);
+                startActivity(intent);
+                break;
+
+
+
         }
     }
 

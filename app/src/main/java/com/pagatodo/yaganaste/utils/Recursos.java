@@ -77,7 +77,7 @@ public class Recursos {
             PIN_TRANS = FirebaseRemoteConfig.getInstance().getString(PIN_YG_TRANS);
             PIN_YA = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADQ);
             PIN_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.PIN_STARBUCKS);
-        }
+       }
     }
     /*Estatus Respuesta de Ws YaGanaste*/
 
