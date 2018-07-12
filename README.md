@@ -13,7 +13,21 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
-**_VERSION_4.2.2 - 13 al 25 de Junio del 2018 (ID:4900)_**
+**_VERSION 4.2.5 - 25 de Junio al 12 de Julio del 2018 (ID:5004)_**
+
+Descripción al desarrollador:
+
+    * Quitar token de headers para alta y edición de favoritos.
+    * Video tutoriales.
+    * Correcciones incidencias.
+
+Funcionalidad:
+
+    * Alta de favorito después de una transferencia.
+    * Modulo de tutoriales.
+    * Pantalla de bienvenido a los agentes.
+
+**_VERSION 4.2.2 - 13 al 25 de Junio del 2018 (ID:4900)_**
 
 Descripción al desarrollador:
 

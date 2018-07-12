@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.net;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
+import com.android.volley.ResponseDelivery;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
@@ -27,7 +28,8 @@ public class CustomJsonObjectRequest extends JsonObjectRequest {
      * @param errorListener Error listener, or null to ignore errors.
      * @param headers       Headers to add in the peticion
      */
-    public CustomJsonObjectRequest(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener, Map<String, String> headers) {
+    public CustomJsonObjectRequest(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener,
+                                   Response.ErrorListener errorListener, Map<String, String> headers) {
         super(method, url, jsonRequest, listener, errorListener);
         this.headers = headers;
     }

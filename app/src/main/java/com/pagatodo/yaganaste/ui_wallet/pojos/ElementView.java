@@ -294,8 +294,6 @@ public class ElementView implements ElementGlobal {
             elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
 
-
-
         if (!isAgente) {
             elementViews = ElementView.getListLectorEmi();
         } else {
@@ -333,14 +331,14 @@ public class ElementView implements ElementGlobal {
                 elementViews = ElementView.getListSeleccionarLector(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)){
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
+                    && !isComercioUyu){
                 elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)){
                 elementViews = ElementView.getListEstadoAprobado(idComercio);
             }
-
         }
         return elementViews;
     }
