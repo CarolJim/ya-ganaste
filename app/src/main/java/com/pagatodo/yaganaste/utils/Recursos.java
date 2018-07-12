@@ -44,7 +44,7 @@ public class Recursos {
 
     //URL DE WS
     static {
-       if (BuildConfig.DEBUG) {
+      /* if (BuildConfig.DEBUG) {
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
             URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
@@ -59,7 +59,7 @@ public class Recursos {
             PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_YA = "96ee37f328e456d27cfb3b6bba40e3438fb1cd2d";
             PIN_STARBUCKS = "425965554aaa92372ccb807ff20a35d26f72d20d";
-        } else {
+        } else {*/
             URL_SERVER_ADTVO = FirebaseRemoteConfig.getInstance().getString(URL_YG_ADMIN);
             //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = FirebaseRemoteConfig.getInstance().getString(URL_YG_TRANS);
@@ -77,7 +77,7 @@ public class Recursos {
             PIN_TRANS = FirebaseRemoteConfig.getInstance().getString(PIN_YG_TRANS);
             PIN_YA = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADQ);
             PIN_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.PIN_STARBUCKS);
-        }
+       // }
     }
     /*Estatus Respuesta de Ws YaGanaste*/
 
