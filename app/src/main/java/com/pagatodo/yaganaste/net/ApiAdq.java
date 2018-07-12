@@ -371,7 +371,6 @@ public class ApiAdq extends Api {
     }
 
 
-
     /**
      * @param request
      * @param result

@@ -2,21 +2,15 @@ package com.pagatodo.yaganaste.ui_wallet.trace;
 
 import android.util.Log;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
-import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class Tracer extends WSTracer {
 
@@ -27,7 +21,7 @@ public class Tracer extends WSTracer {
     private Long finalTime;
     private String statusHttp;
     private String statusWS; //Codigo de respuesta
-    private String contecction;
+    private String connection;
     private Long timeTaken;
 
 
@@ -84,12 +78,12 @@ public class Tracer extends WSTracer {
         this.statusWS = statusWS;
     }
 
-    public String getContecction() {
-        return contecction;
+    public String getConnection() {
+        return connection;
     }
 
-    public void setContecction(String contecction) {
-        this.contecction = contecction;
+    public void setConnection(String connection) {
+        this.connection = connection;
     }
 
     public Long getTimeTaken() {
@@ -113,9 +107,6 @@ public class Tracer extends WSTracer {
     @Override
     public void getStatus(DataSourceResult result) {
         GenericResponse genericResponse  = (GenericResponse) result.getData();
-
-
-
             if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK ||
                     (genericResponse.getCodigoRespuesta() == Recursos.CODE_OK &&
                             App.getInstance().getPrefs().loadDataBoolean(TRACE_SUCCESS_WS, false))) {
@@ -130,10 +121,6 @@ public class Tracer extends WSTracer {
                 Log.d(TAG_LOG, "" + TimeUnit.SECONDS.convert(this.timeTaken, TimeUnit.NANOSECONDS));
 
             }
-
-
-
-
     }
 
     @Override
