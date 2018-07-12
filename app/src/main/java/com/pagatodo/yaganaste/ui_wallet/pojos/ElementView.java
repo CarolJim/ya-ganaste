@@ -6,7 +6,6 @@ import android.content.Context;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
@@ -20,12 +19,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.FELICIDADES_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
-import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
@@ -78,8 +75,6 @@ public class ElementView implements ElementGlobal {
     public static final int OPTION_ZONE_DOS = 3;
     public static final int OPTION_ZONE_FIRST = 4;
     public static final int OPTION_ZONE_REENBOLSO = 5;
-
-
 
 
     private int idOperacion;
@@ -266,7 +261,7 @@ public class ElementView implements ElementGlobal {
         return elementViews;
     }*/
 
-    public static ArrayList<ElementView> getListHelp(){
+    public static ArrayList<ElementView> getListHelp() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_EMAIL, R.drawable.ico_correo, R.string.correo));
         elementViews.add(new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada));
@@ -323,23 +318,31 @@ public class ElementView implements ElementGlobal {
             if (isAgente && idEstatusAgente == IdEstatus.I13.getId()) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
-            if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ, false)) {
-                elementViews = ElementView.getListEstadoRechazado(idComercio);
-            }
-            if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
+            /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
+                    !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)
+                    && !isComercioUyu) {
                 elementViews = ElementView.getListSeleccionarLector(idComercio);
-            }
+            }*/
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
-                    && !isComercioUyu){
+                    && !isComercioUyu) {
                 elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
-                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)){
+                    !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
                 elementViews = ElementView.getListEstadoAprobado(idComercio);
             }
         }
+        return elementViews;
+    }
+
+    public static ArrayList<ElementView> getListLectorOperador(int idEstatusAgente, List<Operadores> list, String nombreN, String numeroAgente, String idComercio, boolean isComercioUyu) {
+        ArrayList<ElementView> elementViews = new ArrayList<>();
+        boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
+        elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
+        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
+        elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         return elementViews;
     }
 

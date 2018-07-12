@@ -8,10 +8,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -20,6 +22,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import static android.os.Process.killProcess;
@@ -28,9 +31,11 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SIZE_APP;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker.OnUpdateNeededListener {
 
@@ -90,22 +95,39 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
                 .setTitle(getString(R.string.title_update))
                 .setMessage(getString(R.string.text_update_forced))
                 .setPositiveButton("Actualizar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                        (dialog1, which) -> {
+                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                Log.e(getString(R.string.app_name), "Tamaño App: "+ FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024
+                                        + "  Tamaño Disponible: "+Long.valueOf(Utils.getAvailableInternalMemorySize()));
+                            }
+                            /* Validar el tamaño necesario para actualizar la App */
+                            if ((FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
                                 startActivity(i);
                                 killProcess(myPid());
+                            } else {
+                                showDialogUninstallApps();
                             }
                         })
                 .setNegativeButton("No gracias",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                killProcess(myPid());
-                            }
-                        }).create();
+                        (dialog12, which) -> killProcess(myPid())).create();
+        dialog.show();
+    }
+
+    private void showDialogUninstallApps() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.title_free_space))
+                .setMessage(getString(R.string.desc_free_space))
+                .setPositiveButton("Liberar espacio",
+                        (dialog1, which) -> {
+                            Intent intent = new Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS);
+                            startActivity(intent);
+                            killProcess(myPid());
+                        })
+                .setNegativeButton("Cancelar",
+                        (dialog12, which) -> killProcess(myPid())).create();
         dialog.show();
     }
 }

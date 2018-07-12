@@ -453,11 +453,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                                 }
                             },
                             true, false);
+                } else if (requestCode == BACK_FROM_PAYMENTS) {
+                    childFragment.onActivityResult(requestCode, resultCode, data);
                 } else {
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
-
                 }
             }
         } else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO

@@ -84,7 +84,7 @@ public class OperadorTabFragment extends SupportFragment implements OnClickItemH
         this.titleNegocio.setText(agentes.getNombreNegocio());
         this.titleNegocio.setVisibility(isBluetooth ? View.VISIBLE : View.GONE);
 
-        ArrayList<ElementView> operadores = ElementView.getListLectorAdq(agentes.getIdEstatus(),
+        ArrayList<ElementView> operadores = ElementView.getListLectorOperador(agentes.getIdEstatus(),
                 agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(),
                 "" + agentes.getIdComercio(), agentes.isEsComercioUYU());
 

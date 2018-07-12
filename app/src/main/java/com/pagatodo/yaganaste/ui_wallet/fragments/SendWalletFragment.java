@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
 public class SendWalletFragment extends GenericFragment implements EditTextImeBackListener {
@@ -161,7 +162,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
                 intent.putExtra("favoriteItem", favoritos);
                 intent.putExtra("TAB", Constants.PAYMENT_ENVIOS);
                 SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
-                getActivity().startActivityForResult(intent, 999);
+                getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
                 //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 //getActivity().finish();
             }

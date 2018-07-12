@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import com.dspread.xpos.QPOSService;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -83,6 +84,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
         ForcedUpdateChecker.OnUpdateNeededListener {
@@ -196,7 +198,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_GO_HELP:
                 showToolbarHelp(false);
                 loadFragment(TutorialsFragment.newInstance(), Direction.FORDWARD);
-                ayuda=true;
+                ayuda = true;
                 break;
         }
     }
@@ -502,7 +504,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else if (currentFragment instanceof TutorialsFragment && ayuda) {
                 super.onBackPressed();
-            }else if (currentFragment instanceof TutorialsFragment ) {
+            } else if (currentFragment instanceof TutorialsFragment) {
                 showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.BACK, false);
             } else {
@@ -591,8 +593,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 .setMessage(getString(R.string.text_update_forced))
                 .setPositiveButton("Actualizar",
                         (dialog1, which) -> {
+                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                Log.e(getString(R.string.app_name), "Tamaño App: "+FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024
+                                        + "  Tamaño Disponible: "+Long.valueOf(Utils.getAvailableInternalMemorySize()));
+                            }
                             /* Validar el tamaño necesario para actualizar la App */
-                            if (FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024 > Long.valueOf(Utils.getAvailableInternalMemorySize())) {
+                            if ((FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
                                 startActivity(i);

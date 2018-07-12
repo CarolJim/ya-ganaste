@@ -90,7 +90,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     protected OnEventListener onEventListener;
     private ViewPager viewPagerWallet;
     private boolean isBegin;
-    private int pageCurrent;
+    private int pageCurrent = 0;
     private GridLayoutManager llm;
     private ElementView element;
 
@@ -171,7 +171,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         pager_indicator.setView(0, cardWalletAdpater.getSize());
         updateOperations(0);
         walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
-        viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? cardWalletAdpater.getCount() / 2 : 0);
+        viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? (cardWalletAdpater.getCount() / 2) + pageCurrent : pageCurrent);
         if (Utils.isDeviceOnline()) {
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {

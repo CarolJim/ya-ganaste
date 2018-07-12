@@ -248,7 +248,6 @@ public class Recursos {
     public static final String SPACE = " ";
     public static final String HAS_SESSION = "HAS_SESSION";
     public static final String IS_OPERADOR = "IS_OPERADOR";
-    public static final String FELICIDADES_ADQ = "FELICIDADES_ADQ";
     public static final String PASSWORD_CHANGE = "PASSWORD_CHANGE";
 
     public static final String IS_CUPO = "IS_CUPO";

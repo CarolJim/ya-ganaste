@@ -10,7 +10,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UtilsGraphics;
 
@@ -19,9 +18,7 @@ import java.util.ArrayList;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.FELICIDADES_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOYALTY;
@@ -249,15 +246,8 @@ public class ElementWallet {
                 return new ElementWallet(TYPE_ADQ, null, null, leyenda,
                         ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
             } else {
-                if (App.getInstance().getPrefs().loadDataBoolean(FELICIDADES_ADQ,false))  {
-                    return getCardLectorEmi();
-
-                } else {
                     return new ElementWallet(TYPE_ADQ, frontView, null, leyenda,
                             ElementView.getListLectorAdq(agentes.getIdEstatus(), agentes.getOperadores(), agentes.getNombreNegocio(), agentes.getNumeroAgente(), "" + agentes.getIdComercio(), agentes.isEsComercioUYU()), descripcion, isReload, agentes);
-                }
-
-
             }
         } else {
             return getCardLectorEmi();

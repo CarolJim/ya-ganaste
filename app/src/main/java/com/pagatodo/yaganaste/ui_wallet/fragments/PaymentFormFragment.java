@@ -75,6 +75,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ly.count.android.sdk.Countly;
 
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.utils.Constants.AVON;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
@@ -607,7 +608,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     if (!BuildConfig.DEBUG) {
                         Countly.sharedInstance().startEvent(EVENT_RECHARGE_PHONE);
                     }
-                   recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
+                    recargasPresenter.validateFields(referencia, monto, comercioResponse.getLongitudReferencia(), isIAVE);
 
                 } else {
                     referencia = edtReferenceNumber.getText().toString().replaceAll(" ", "");
@@ -645,8 +646,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 contactPicked(data);
             }
         } else if (requestCode == BACK_FROM_PAYMENTS) {
-
-            if (resultCode == Constants.RESULT_CODE_OK_CLOSE) {
+            if (resultCode == Constants.RESULT_CODE_OK_CLOSE || resultCode == RESUL_FAVORITES) {
+                getActivity().setResult(RESUL_FAVORITES);
                 getActivity().finish();
             }
 
@@ -722,7 +723,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
              * para mostrarlo en el UI.createSimpleCustomDialog
              */
             String errorTittle = "";
-            if(errorText.equals(getString(R.string.txt_importe_error))) {
+            if (errorText.equals(getString(R.string.txt_importe_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.txt_importe_error);
                 errorText = App.getContext().getResources().getString(R.string.txt_importe_error);
                 UI.showErrorSnackBar(getActivity(), getString(R.string.txt_importe_error), Snackbar.LENGTH_SHORT);

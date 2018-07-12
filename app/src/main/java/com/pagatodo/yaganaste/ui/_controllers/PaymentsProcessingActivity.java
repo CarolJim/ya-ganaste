@@ -58,6 +58,7 @@ import butterknife.ButterKnife;
 import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.interfaces.enums.Direction.FORDWARD;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
@@ -372,13 +373,12 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == RESUL_FAVORITES) {
                 // Toast.makeText(this, data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
                 PaymentSuccessFragment fragment = (PaymentSuccessFragment)
                         getSupportFragmentManager().findFragmentById(R.id.container);
                 fragment.hideAddFavorites();
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
+            } else if (resultCode == Activity.RESULT_CANCELED) {
                 // Toast.makeText(this, "Fail Epic Fail", Toast.LENGTH_SHORT).show();
             }
         }

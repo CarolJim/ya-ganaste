@@ -940,7 +940,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         }
         showDialogMesage(getString(R.string.title_dialog_favorite),
                 getString(R.string.respond_ok_add_new_favorite), 1);
-
     }
 
     @Override
@@ -1430,7 +1429,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 editAlias.setText(nombreDest);
             }
 
-            // Set NOMBRE COMERCION
+            // Set NOMBRE COMERCIO
             editListServ.setText(nombreComercio);
             String formatoPago = mReferencia;
 

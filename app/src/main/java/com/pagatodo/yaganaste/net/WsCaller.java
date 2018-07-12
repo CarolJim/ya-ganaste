@@ -44,7 +44,7 @@ public class WsCaller implements IServiceConsumer {
 
     @Override
     public void sendJsonPost(final WsRequest request) {
-        Tracer tracer = new Tracer(request.getMethod_name().name(), RequestHeaders.getUsername());
+        /*Tracer tracer = new Tracer(request.getMethod_name().name(), RequestHeaders.getUsername());*/
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -75,21 +75,21 @@ public class WsCaller implements IServiceConsumer {
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.d(TAG, "Response Success : " + response.toString());
                     }
-                    if (!BuildConfig.DEBUG) {
+                    /*if (!BuildConfig.DEBUG) {
                         tracer.setStatusWS(response.toString());
                         tracer.End();
-                    }
+                    }*/
 
                     if (request.getRequestResult() != null) {
                         DataSourceResult dataSourceResult = new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse()));
                         request.getRequestResult().onSuccess(dataSourceResult);
-                        if (!BuildConfig.DEBUG) {
+                        /*if (!BuildConfig.DEBUG) {
                             tracer.getStatus(dataSourceResult);
-                        }
+                        }*/
                     } else {
-                        if (!BuildConfig.DEBUG) {
+                        /*if (!BuildConfig.DEBUG) {
                             tracer.getStatusError();
-                        }
+                        }*/
                     }
 
                 },
@@ -106,9 +106,9 @@ public class WsCaller implements IServiceConsumer {
                         }
                         request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
                     }
-                    if (!BuildConfig.DEBUG) {
+                    /*if (!BuildConfig.DEBUG) {
                         tracer.getStatusError();
-                    }
+                    }*/
                 }, request.getHeaders());
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -116,10 +116,7 @@ public class WsCaller implements IServiceConsumer {
                 0,//Se quitan los reintentos para validar si esto arroja SocketException
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //TRACER
-
-
-
-        tracer.Start();
+        /*        tracer.Start();*/
         volleySingleton.addToRequestQueue(jsonRequest);
     }
 

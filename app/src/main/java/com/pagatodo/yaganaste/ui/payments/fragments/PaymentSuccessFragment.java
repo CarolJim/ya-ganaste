@@ -54,6 +54,7 @@ import butterknife.ButterKnife;
 import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
@@ -407,11 +408,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     @Override
     public void finalizePayment() {
+        getActivity().setResult(RESUL_FAVORITES);
         getActivity().finish();
-
-        if (enviotrue) {
-            getActivity().finish();
-        }
         //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 

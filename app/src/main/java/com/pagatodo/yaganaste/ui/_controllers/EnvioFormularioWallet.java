@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
 
 public class EnvioFormularioWallet extends LoaderActivity implements OnEventListener {
@@ -66,6 +67,9 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CODE_OK_CLOSE) {
+            finish();
+        } else {
+            setResult(RESUL_FAVORITES);
             finish();
         }
     }

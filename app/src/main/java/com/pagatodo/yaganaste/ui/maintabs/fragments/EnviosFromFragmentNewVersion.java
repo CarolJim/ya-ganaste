@@ -106,6 +106,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.F
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
@@ -702,8 +703,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
                 intent.putExtra("favoritoItem", favoriteItem);
-                startActivity(intent);
-
+                startActivityForResult(intent, BACK_FROM_PAYMENTS);
             }
         }
     }
