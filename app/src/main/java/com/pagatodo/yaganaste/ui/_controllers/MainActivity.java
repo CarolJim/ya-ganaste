@@ -101,14 +101,14 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
                                         + "  Tamaño Disponible: "+Long.valueOf(Utils.getAvailableInternalMemorySize()));
                             }
                             /* Validar el tamaño necesario para actualizar la App */
-                            if ((FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
+                            /*if ((FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {*/
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
                                 startActivity(i);
                                 killProcess(myPid());
-                            } else {
+                           /* } else {
                                 showDialogUninstallApps();
-                            }
+                            }*/
                         })
                 .setNegativeButton("No gracias",
                         (dialog12, which) -> killProcess(myPid())).create();
