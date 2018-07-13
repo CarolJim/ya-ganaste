@@ -821,6 +821,7 @@
 
     <string name="vuelve_conectar_lector">Vuelve a conectar el lector</string>
     <string name="vuelve_configurar_lector">Vuelve a configurar el lector</string>
+    <string name="error_select_emv_app">Error al obtener tarjeta</string>
     <string name="inserta_lector_valido">Conecta un lector de tarjeta válido</string>
     <string name="verificando_email">Verificando correo electrónico</string>
     <string name="actualizando_saldo"> </string>

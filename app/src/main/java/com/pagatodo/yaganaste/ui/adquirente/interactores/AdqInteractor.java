@@ -142,6 +142,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void sendTicket(EnviarTicketCompraRequest request, boolean applyAgent) {
         try {
+            request.setName("");
             ApiAdq.enviarTicketCompra(request, this, applyAgent);
         } catch (OfflineException e) {
             e.printStackTrace();

@@ -59,6 +59,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Constants.TIPO_TRANSACCION_CHIP;
+import static com.pagatodo.yaganaste.utils.Recursos.APP_LIST;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK_ERROR;
@@ -79,6 +80,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_FINAL_CONFIRM;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_IS_SERVER_CONNECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
+import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_SELECT_APP;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
@@ -781,6 +783,28 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                     getActivity().finish();
                                 }
                             });
+                    break;
+                case REQUEST_SELECT_APP:
+                    String[] list = intent.getExtras().getStringArray(APP_LIST);
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.i("IposListener: ", "=====>>    REQUEST_SELECT_APP Size list: " + list.length);
+                    }
+                    if (list.length > 0) {
+                        App.getInstance().pos.selectEmvApp(0);
+                    } else {
+                        showSimpleDialogError(getString(R.string.error_select_emv_app),
+                                new DialogDoubleActions() {
+                                    @Override
+                                    public void actionConfirm(Object... params) {
+                                        configurePos();
+                                    }
+
+                                    @Override
+                                    public void actionCancel(Object... params) {
+                                        getActivity().finish();
+                                    }
+                                });
+                    }
                     break;
                 default:
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
