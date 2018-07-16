@@ -249,6 +249,11 @@ public class PairBluetoothFragment extends SupportFragment implements AdapterVie
     }
 
     @Override
+    public void onErrorTransaction() {
+
+    }
+
+    @Override
     public void nextScreen(String event, Object data) {
     }
 

@@ -23,13 +23,18 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -59,8 +64,11 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Constants.TIPO_TRANSACCION_CHIP;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.APP_LIST;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
@@ -73,7 +81,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.LEYENDO;
+import static com.pagatodo.yaganaste.utils.Recursos.MALFUNCTION_EMV;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
+import static com.pagatodo.yaganaste.utils.Recursos.ONLINE_PROCESS_FAILED;
+import static com.pagatodo.yaganaste.utils.Recursos.ONLINE_PROCESS_SUCCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.PINPAD_FAILED_EMV;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_BATTERY_LEVEL;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_KSN;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_AMOUNT;
@@ -85,6 +97,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.TIME_OUT_EMV;
 import static com.pagatodo.yaganaste.utils.Recursos.TIPO_AGENTE;
 
 
@@ -123,6 +136,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private static boolean banderaCacelachevron = false;
     private Preferencias prefs;
     private UsbDevice usbDevice;
+    private TransaccionEMVDepositRequest requestTransaction;
 
     public InsertDongleFragment() {
     }
@@ -168,7 +182,20 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         } else if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
             App.getInstance().pos.clearBluetoothBuffer();
-            App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+            if (App.getInstance().pos != null) {
+                App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+            } else {
+                showSimpleDialogError(getString(R.string.error_pos_is_null), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        getActivity().finish();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+                    }
+                });
+            }
             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
             //pos.selectEmvApp(position);
         } else if (communicationMode == QPOSService.CommunicationMode.USB_OTG_CDC_ACM.ordinal()) {
@@ -422,24 +449,37 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void transactionResult(final String message, String tlv) {
-        /* Proceso para validar si se necesita realizar Reverso o no */
-        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-            App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
-        }
-        new Handler().postDelayed(() -> {
-            hideLoader();
-            if (transactionType == QPOSService.TransactionType.PAYMENT) {
-                nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
-            } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
-
-                if (!BuildConfig.DEBUG) {
-                    Map<String, String> segmentation = new HashMap<>();
-                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                    Countly.sharedInstance().endEvent(EVENT_BALANCE_UYU, segmentation, 1, 0);
+        hideLoader();
+        if (transactionType == QPOSService.TransactionType.PAYMENT) {
+            /* Valida si el camino fue de cobro o cancelación */
+            if (!isCancelation) {
+                /* Si es un cobro, entonces valida el estatus de la transaccion */
+                if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_APROVE) {
+                    /* Mandar información a la tarjeta en caso de que el cobro haya sido con un dispositivo Bluetooth */
+                    if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                        showLoader("");
+                        App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
+                    } else {
+                        /* En caso de ser dispositivo Audio Jack, mandar a la siguiente pantalla */
+                        nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
+                    }
+                    /* REVERSO para cuando el servicio informa que hubo un problema y mandar a la siguiente pantalla */
+                } else if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_ERROR) {
+                    adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), MALFUNCTION_EMV);
+                    nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
                 }
-                nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
+            } else {
+                /* Si fue un cobro entonces continua a la siguiente pantalla (No es necesario hacer reverso) */
+                nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
             }
-        }, DELAY_MESSAGE_PROGRESS);
+        } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
+            if (!BuildConfig.DEBUG) {
+                Map<String, String> segmentation = new HashMap<>();
+                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                Countly.sharedInstance().endEvent(EVENT_BALANCE_UYU, segmentation, 1, 0);
+            }
+            nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
+        }
     }
 
     @Override
@@ -465,6 +505,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             }
         };
         UI.createSimpleCustomDialog(getString(R.string.title_error), message, getFragmentManager(), doubleActions, true, false);
+    }
+
+    @Override
+    public void onErrorTransaction() {
+        /* REVERSO para cuando el servicio tuvo un error por tiempo de espera o desconexión */
+        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), TIME_OUT_EMV);
     }
 
 
@@ -597,7 +643,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                             Log.i("IposListener: ", "=====>>   LECTURA_OK ");
                         }
-                        TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
+                        requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
                         if (transactionType == QPOSService.TransactionType.PAYMENT) {
                             if (isCancelation) {
                                 adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
@@ -699,7 +745,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
                                 @Override
                                 public void actionCancel(Object... params) {
-
+                                    getActivity().finish();
                                 }
                             });
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -805,6 +851,27 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                     }
                                 });
                     }
+                    break;
+                case ONLINE_PROCESS_SUCCESS:
+                    hideLoader();
+                    nextScreen(EVENT_GO_TRANSACTION_RESULT, "");
+                    break;
+                case ONLINE_PROCESS_FAILED:
+                    hideLoader();
+                    /* REVERSO para cuando el chip rechaza la transacción */
+                    adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), PINPAD_FAILED_EMV);
+                    showSimpleDialogError(intent.getStringExtra(ERROR),
+                            new DialogDoubleActions() {
+                                @Override
+                                public void actionConfirm(Object... params) {
+                                    getActivity().finish();
+                                }
+
+                                @Override
+                                public void actionCancel(Object... params) {
+                                    getActivity().finish();
+                                }
+                            });
                     break;
                 default:
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {

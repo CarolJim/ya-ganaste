@@ -24,6 +24,16 @@ public class CancelaTransaccionDepositoEmvRequest extends AdqRequest implements 
     private String noTransaction;
     private AccountDepositData accountDepositData;
     private ImplicitData implicitData;
+    @SerializedName("TipoCancelacion")
+    private int tipoCancelación;
+
+    public int getTipoCancelación() {
+        return tipoCancelación;
+    }
+
+    public void setTipoCancelación(int tipoCancelación) {
+        this.tipoCancelación = tipoCancelación;
+    }
 
     public String getNoSerie() {
         return noSerie;

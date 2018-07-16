@@ -136,7 +136,7 @@ public class Recursos {
     public static final int NO_ACTION = -2;
     public static final int GO_LOGIN = -3;
 
-    /*Adq / Dongle*/
+    /*Adq Dongle*/
     public static final int ENCENDIENDO = 100;
     public static final int ENCENDIDO = 110;
     public static final int APAGANDO = 120;
@@ -161,6 +161,14 @@ public class Recursos {
     public static final int REQUEST_FINAL_CONFIRM = 310;
     public static final int REQUEST_PIN = 320;
     public static final int REQUEST_SELECT_APP = 330;
+    public static final int ONLINE_PROCESS_SUCCESS = 340;
+    public static final int ONLINE_PROCESS_FAILED = 350;
+
+    /* Cancelation Types EMV */
+    public static final int TIME_OUT_EMV = 68;
+    public static final int CANCELATION_EMV = 17;
+    public static final int PINPAD_FAILED_EMV = 40;
+    public static final int MALFUNCTION_EMV = 22;
 
     public static final String TRANSACTION_SEQUENCE = "TRANSACTION_SEQUENCE";
     public static final String IPOS_READER_STATES = "EMVSWIPE_STATES";

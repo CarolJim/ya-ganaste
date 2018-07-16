@@ -71,8 +71,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 /**
  * Armando Sandoval 16/10/2017
  */
-public class MyDongleFragment extends GenericFragment implements
-        IAdqTransactionRegisterView, IPreferUserGeneric {
+public class MyDongleFragment extends GenericFragment implements IPreferUserGeneric {
 
     private static final String TAG = MyDongleFragment.class.getSimpleName();
     private static String MODE_COMMUNICACTION = "mode_communication";
@@ -96,7 +95,6 @@ public class MyDongleFragment extends GenericFragment implements
 
     private IntentFilter broadcastEMVSwipe;
     private int currentVolumenDevice, maxVolumenDevice, communicationMode;
-    private AdqPresenter adqPresenter;
     private boolean isCancelation = false, mensajeuno = false;
 
     View rootview;
@@ -128,8 +126,6 @@ public class MyDongleFragment extends GenericFragment implements
             App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
         }
-        adqPresenter = new AdqPresenter(this);
-        adqPresenter.setIView(this);
     }
 
     @Override
@@ -158,16 +154,16 @@ public class MyDongleFragment extends GenericFragment implements
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129  || isComerioUyU){
-                lytConfigRepayment.setVisibility(View.GONE);
+        if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || isComerioUyU) {
+            lytConfigRepayment.setVisibility(View.GONE);
         }
         lytConfigRepayment.setOnClickListener(v -> {
-        if (!UtilsNet.isOnline(getActivity())) {
-            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
-        } else {
-            onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
-        }
-    });
+            if (!UtilsNet.isOnline(getActivity())) {
+                UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);
+            } else {
+                onEventListener.onEvent(EVENT_GO_CONFIG_REPAYMENT, null);
+            }
+        });
         lytConfigDongle.setOnClickListener(v -> {
             BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
             if (!adapter.isEnabled()) {
@@ -239,73 +235,6 @@ public class MyDongleFragment extends GenericFragment implements
         }
     }
 
-    @Override
-    public void showInsertDongle() {
-
-    }
-
-    @Override
-    public void showInsertCard() {
-
-    }
-
-    @Override
-    public void showInsertPin() {
-
-    }
-
-    @Override
-    public void dongleValidated() {
-
-    }
-
-    @Override
-    public void verifyDongle(String ksn) {
-
-    }
-
-    @Override
-    public void transactionResult(String message, String tlv) {
-
-    }
-
-    @Override
-    public void showSimpleDialogError(String message, DialogDoubleActions actions) {
-        /*UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
-                getFragmentManager(), actions);*/
-        UI.showErrorSnackBar(getActivity(), message, Snackbar.LENGTH_SHORT);
-    }
-
-    @Override
-    public void onErrorConsultSaldo(String message) {
-
-    }
-
-    @Override
-    public void nextScreen(String event, Object data) {
-
-    }
-
-    @Override
-    public void backScreen(String event, Object data) {
-
-    }
-
-    @Override
-    public void showLoader(String message) {
-
-    }
-
-    @Override
-    public void hideLoader() {
-
-    }
-
-    @Override
-    public void showError(Object error) {
-
-    }
-
     public void unregisterReceiverDongle() {
         try {
             getActivity().unregisterReceiver(emvSwipeBroadcastReceiver); // Desregistramos receiver
@@ -331,7 +260,6 @@ public class MyDongleFragment extends GenericFragment implements
                             txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
                             iconBattery.setVisibility(GONE);
                             txtNumberBattery.setSelected(true);
-                            hideLoader();
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
                         } catch (Exception e) {
 
@@ -369,13 +297,6 @@ public class MyDongleFragment extends GenericFragment implements
             int mensaje = intent.getIntExtra(MSJ, -1);
             String error = intent.getStringExtra(ERROR);
             switch (mensaje) {
-                case LECTURA_OK:
-
-                    break;
-                case READ_KSN:
-                    TransaccionEMVDepositRequest transactionKsn = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
-                    verifyDongle(transactionKsn.getNoSerie());
-                    break;
                 case READ_BATTERY_LEVEL:
                     int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
                     String batteryPorcentage = intent.getStringExtra(Recursos.BATTERY_PORCENTAGE);
@@ -392,13 +313,7 @@ public class MyDongleFragment extends GenericFragment implements
                     break;
                 case ERROR_LECTOR:
                     Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
-                    hideLoader();
                     //closeProgress();
-                    break;
-                case LEYENDO:
-                    Log.i("IposListener: ", "=====>>    LEYENDO");
-                    App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
-                    showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
                     break;
                 case REQUEST_TIME:
                     String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
@@ -427,26 +342,6 @@ public class MyDongleFragment extends GenericFragment implements
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    break;
-                case SW_ERROR:
-                    if (mensajeuno == false) {
-                        mensajeuno = true;
-                        showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
-                                new DialogDoubleActions() {
-                                    @Override
-                                    public void actionConfirm(Object... params) {
-                                        showInsertDongle();
-                                    }
-
-                                    @Override
-                                    public void actionCancel(Object... params) {
-
-                                    }
-                                });
-
-                    }
-                    //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
-                    Log.i("IposListener: ", "=====>>    SW_Error");
                     break;
                 case ENCENDIDO:
                     Log.i("IposListener: ", "=====>>    ENCENDIDO");

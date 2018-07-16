@@ -313,6 +313,7 @@
     <string name="registro_small">Inserta el lector para registrarlo</string>
     <string name="error_de_lectura">No fue posible completar la operación, intenta de nuevo</string>
     <string name="error_codigo_de_seguridad">El código de seguridad es inválido</string>
+    <string name="success_request_online_emv">La operación fue aprovada por chip</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
@@ -820,6 +821,7 @@
     <string name="asigna_nip">Asigna tu NIP</string>
 
     <string name="vuelve_conectar_lector">Vuelve a conectar el lector</string>
+    <string name="error_pos_is_null">Ha ocurrido un error, vuelva a intentarlo</string>
     <string name="vuelve_configurar_lector">Vuelve a configurar el lector</string>
     <string name="error_select_emv_app">Error al obtener tarjeta</string>
     <string name="inserta_lector_valido">Conecta un lector de tarjeta válido</string>

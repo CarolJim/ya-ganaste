@@ -168,7 +168,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void getPagerAdapter(ArrayList<ElementWallet> elementWallets) {
         cardWalletAdpater.addAllList(elementWallets);
         viewPagerWallet.setAdapter(cardWalletAdpater);
-        pager_indicator.setView(0, cardWalletAdpater.getSize());
+        pager_indicator.setView(pageCurrent, cardWalletAdpater.getSize());
         updateOperations(0);
         walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
         viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? (cardWalletAdpater.getCount() / 2) + pageCurrent : pageCurrent);

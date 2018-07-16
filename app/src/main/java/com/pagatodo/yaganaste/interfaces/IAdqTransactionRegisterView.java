@@ -22,4 +22,6 @@ public interface IAdqTransactionRegisterView extends INavigationView {
 
     void onErrorConsultSaldo(String message);
 
+    void onErrorTransaction();
+
 }

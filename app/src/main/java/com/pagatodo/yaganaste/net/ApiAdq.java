@@ -68,6 +68,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NOTIFICACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DEVICE_DATA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.REVERSA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SEND_REEMBOLSO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
@@ -108,7 +109,7 @@ public class ApiAdq extends Api {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129 || RequestHeaders.getIdCuentaAdq().equals("")) {
             String idUserAdq = "0";
             try {
-                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
+                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador() + "";
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -210,6 +211,7 @@ public class ApiAdq extends Api {
 
     /**
      * Consulta saldo tarjetas Closed Loop
+     *
      * @param request {@link TransaccionEMVDepositRequest} body de la petición.
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
@@ -280,7 +282,7 @@ public class ApiAdq extends Api {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129) {
             String idUserAdq = "0";
             try {
-                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
+                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador() + "";
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -328,8 +330,8 @@ public class ApiAdq extends Api {
             }
             RequestHeaders.setIdCuentaAdq(idUsAdq);
         }*/
-       //headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
-       // headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        //headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        // headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWSnotag(CONSULTAR_SALDO_ADQ,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
                 headers, request, ConsultaSaldoCupoResponse.class, result);
@@ -348,7 +350,7 @@ public class ApiAdq extends Api {
                     idUsAdq = operador.getIdUsuarioAdquirente();
                 }
             }*/
-            //RequestHeaders.setIdCuentaAdq(idUsAdq);
+        //RequestHeaders.setIdCuentaAdq(idUsAdq);
         //}
         //headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         //headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -356,17 +358,18 @@ public class ApiAdq extends Api {
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
                 headers, request, ConsultaSaldoCupoResponse.class, result);
     }
+
     /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *
      * @param result {@link IRequestResult} listener del resultado de la petición.
      */
-    public static void getresumendia(String fecha,IRequestResult result) throws OfflineException {
+    public static void getresumendia(String fecha, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put("Content-type", "application/json");
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         NetFacade.consumeWS(GET_RESUMENDIA,
-                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.obtenerresumendia)+fecha,
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.obtenerresumendia) + fecha,
                 headers, null, GetResumenDiaResponse.class, result);
     }
 
@@ -382,6 +385,21 @@ public class ApiAdq extends Api {
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
 
         NetFacade.consumeWS(CANCELA_TRANSACTION_EMV_DEPOSIT,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.cancelationTransactionEmv),
+                headers, request, TransaccionEMVDepositResponse.class, result);
+    }
+
+    /**
+     * @param request
+     * @param result
+     * @throws OfflineException
+     */
+    public static void reversaTransaccionDepositoEmv(CancelaTransaccionDepositoEmvRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
+        NetFacade.consumeWS(REVERSA_TRANSACTION_EMV_DEPOSIT,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.cancelationTransactionEmv),
                 headers, request, TransaccionEMVDepositResponse.class, result);
     }
@@ -407,18 +425,15 @@ public class ApiAdq extends Api {
         Map<String, String> headers = getHeadersAdq();
         String idUserAdq = "0";
         try {
-            idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
+            idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador() + "";
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if (RequestHeaders.getIdCuentaAdq().isEmpty()){
+        if (RequestHeaders.getIdCuentaAdq().isEmpty()) {
             RequestHeaders.setIdCuentaAdq(idUserAdq);
-        }else {
+        } else {
             headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         }
-
-
-
 
 
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -449,7 +464,7 @@ public class ApiAdq extends Api {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) == 129) {
             String idUserAdq = "0";
             try {
-                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador()+"";
+                idUserAdq = new DatabaseManager().getIdUsuarioAdqRolOperador() + "";
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }

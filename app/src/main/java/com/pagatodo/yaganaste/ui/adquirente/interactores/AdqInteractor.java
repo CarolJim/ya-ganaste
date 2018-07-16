@@ -38,6 +38,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_C
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.REVERSA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
@@ -95,6 +96,18 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             e.printStackTrace();
             accountManager.hideLoader();
             accountManager.onError(CANCELA_TRANSACTION_EMV_DEPOSIT, context.getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void initReversePayment(CancelaTransaccionDepositoEmvRequest request) {
+        cancelaTransaccionDepositoEmvRequest = request;
+        try {
+            ApiAdq.reversaTransaccionDepositoEmv(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.hideLoader();
+            accountManager.onError(REVERSA_TRANSACTION_EMV_DEPOSIT, context.getString(R.string.no_internet_access));
         }
     }
 

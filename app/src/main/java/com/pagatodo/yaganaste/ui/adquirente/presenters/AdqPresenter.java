@@ -34,6 +34,7 @@ import java.util.Locale;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.buildSignatureRequest;
+import static com.pagatodo.yaganaste.utils.Recursos.CANCELATION_EMV;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.StringUtils.createTicket;
 
@@ -96,8 +97,27 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         cancelRequest.setNoTransaction(Integer.toString(Utils.getTransactionSequence()));
         cancelRequest.setAccountDepositData(request.getAccountDepositData());
         cancelRequest.setImplicitData(request.getImplicitData());
+        cancelRequest.setTipoCancelación(CANCELATION_EMV);
 
         adqInteractor.initCancelPayment(cancelRequest);
+    }
+
+    @Override
+    public void initReverseTransaction(TransaccionEMVDepositRequest request, int typeReverse) {
+        CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
+        cancelRequest.setNoSerie(request.getNoSerie());
+        cancelRequest.setNoTicket(createTicket());
+        cancelRequest.setAmount(request.getAmount());
+        cancelRequest.setSwipeData(request.getSwipeData());
+        cancelRequest.setEMVTransaction(request.getIsEMVTransaction());
+        cancelRequest.setTransactionDateTime(request.getTransactionDateTime());
+        cancelRequest.setEmvData(request.getEmvData());
+        cancelRequest.setTipoCliente(request.getTipoCliente());
+        cancelRequest.setNoTransaction(Integer.toString(Utils.getTransactionSequence()));
+        cancelRequest.setAccountDepositData(request.getAccountDepositData());
+        cancelRequest.setImplicitData(request.getImplicitData());
+        cancelRequest.setTipoCancelación(typeReverse);
+        adqInteractor.initReversePayment(cancelRequest);
     }
 
     @Override
@@ -157,7 +177,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 break;
             case TRANSACCIONES_EMV_DEPOSIT:
                 iAdqView.showError(error.toString());
-                //((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
+                ((IAdqTransactionRegisterView) iAdqView).onErrorTransaction();
                 break;
             case CONSULT_BALANCE_UYU:
                 ((IAdqTransactionRegisterView) iAdqView).onErrorConsultSaldo(error.toString());
@@ -241,7 +261,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
             case CONSULT_BALANCE_UYU:
                 TransaccionEMVDepositResponse responseBalance = (TransaccionEMVDepositResponse) data;
                 ((IAdqTransactionRegisterView) iAdqView).transactionResult(responseBalance.getDescripcion() + "_" +
-                        responseBalance.getSaldo()+"_"+responseBalance.getMaskedPan(), responseBalance.getTlvResult());
+                        responseBalance.getSaldo() + "_" + responseBalance.getMaskedPan(), responseBalance.getTlvResult());
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();

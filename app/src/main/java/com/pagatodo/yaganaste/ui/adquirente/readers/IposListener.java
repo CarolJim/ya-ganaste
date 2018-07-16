@@ -127,7 +127,9 @@ public class IposListener implements QPOSServiceListener {
     public void onRequestTransactionResult(TransactionResult transactionResult) {
         Log.i("IposListener: ", "------onRequestTransactionResult: " + transactionResult.name());
         if (transactionResult != TransactionResult.APPROVED) {
-            enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.error_de_lectura));
+            enviaMensaje(Recursos.ONLINE_PROCESS_FAILED, null, context.getString(R.string.error_de_lectura));
+        } else {
+            enviaMensaje(Recursos.ONLINE_PROCESS_SUCCESS, null, context.getString(R.string.success_request_online_emv));
         }
     }
 

@@ -17,6 +17,8 @@ public interface IAdqPresenter {
 
     void initCancelation(TransaccionEMVDepositRequest request, DataMovimientoAdq dataMovimientoAdq);
 
+    void initReverseTransaction(TransaccionEMVDepositRequest request, int typeReverse);
+
     void sendSignature(SignatureData signatureData);
 
     void sendTicket(String email, boolean applyAgent);
