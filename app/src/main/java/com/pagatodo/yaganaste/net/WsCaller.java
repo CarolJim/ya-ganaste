@@ -84,12 +84,12 @@ public class WsCaller implements IServiceConsumer {
                     tracer.End();
                     if (request.getRequestResult() != null) {
                         DataSourceResult dataSourceResult = new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse()));
-                        GenericResponse genericResponse  = (GenericResponse) dataSourceResult.getData();
-                        if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK){
+                        //GenericResponse genericResponse  = (GenericResponse) dataSourceResult.getData();
+                        /*if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK){
 
 
                                 tracer.setStatusRequest(SUCESS);
-                                tracer.setStatusWS(String.valueOf(genericResponse.getCodigoRespuesta()));
+                                tracer.setStatusWS(dataSourceResult.getData().toString());
                                 tracer.setConnection(Utils.getTypeConnection());
                                 tracer.setDuration(tracer.getFinalTime()-tracer.getStartTime());
                                 tracer.getTracerSucess();
@@ -101,7 +101,12 @@ public class WsCaller implements IServiceConsumer {
                             tracer.setConnection(Utils.getTypeConnection());
                             tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
                             tracer.getTracerError();
-                        }
+                        }*/
+                        tracer.setStatusRequest(SUCESS);
+                        tracer.setStatusWS(dataSourceResult.getData().toString());
+                        tracer.setConnection(Utils.getTypeConnection());
+                        tracer.setDuration(tracer.getFinalTime()-tracer.getStartTime());
+                        tracer.getTracerSucess();
 
                         request.getRequestResult().onSuccess(dataSourceResult);
 

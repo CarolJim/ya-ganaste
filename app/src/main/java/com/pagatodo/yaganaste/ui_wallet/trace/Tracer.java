@@ -11,7 +11,10 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
@@ -96,17 +99,18 @@ public class Tracer extends WSTracer {
     }
 
     public void setDuration(Long duration) {
-        this.duration = TimeUnit.SECONDS.convert(duration, TimeUnit.NANOSECONDS);
+        //this.duration = TimeUnit.SECONDS.convert(duration, TimeUnit.MILLISECONDS);
+        this.duration = duration;
     }
 
     @Override
     public void Start() {
-        this.setStartTime(System.nanoTime());
+        this.setStartTime(System.currentTimeMillis());
     }
 
     @Override
     public void End() {
-        this.setFinalTime(System.nanoTime());
+        this.setFinalTime(System.currentTimeMillis());
     }
 
     @SuppressLint("InvalidAnalyticsName")
@@ -124,18 +128,24 @@ public class Tracer extends WSTracer {
         //}
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void sendEvent(){
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone("Mexico/General"));
         Bundle params = new Bundle();
         params.putString(EMAIL,this.email);
         params.putString(WSNAME,this.WSName);
-        params.putString(START_TIME,String.valueOf(TimeUnit.SECONDS.convert(this.startTime,TimeUnit.NANOSECONDS)));
-        params.putString(FINAL_TIME,String.valueOf(TimeUnit.SECONDS.convert(this.finalTime,TimeUnit.NANOSECONDS)));
+        Log.d(this.WSName,formatter.format(new Date(this.startTime)));
+        params.putString(START_TIME,formatter.format(new Date(this.startTime)));
+        Log.d(this.WSName,formatter.format(new Date(this.finalTime)));
+        params.putString(FINAL_TIME,formatter.format(new Date(this.finalTime)));
         params.putString(ST_REQUEST,this.statusRequest);
         params.putString(ST_WS,this.statusWS);
         params.putString(CONNECTION,this.connection);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("00:mm:ss:SSSSSSS");
+        formatter = new SimpleDateFormat("00:mm:ss.SSS");
+        Log.d(this.WSName,formatter.format(new Date(this.duration)));
+        params.putString(DURATION,formatter.format(new Date(this.duration)));
 
-        params.putString(DURATION,String.valueOf(this.duration));
-        FirebaseAnalytics.getInstance(App.getContext()).logEvent(TAG_EVENT,params);
+        //FirebaseAnalytics.getInstance(App.getContext()).logEvent(TAG_EVENT,params);
     }
 }
