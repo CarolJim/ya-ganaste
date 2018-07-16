@@ -17,18 +17,23 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneTiposReembolsoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.TiposReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EmisorResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.CardWalletAdpater;
 import com.pagatodo.yaganaste.ui_wallet.adapters.ElementsWalletAdapter;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.ITimeRepaymentPresenter;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.ITimeRepaymentView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IWalletView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletPresenter;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Wallet;
@@ -36,6 +41,7 @@ import com.pagatodo.yaganaste.ui_wallet.patterns.builders.WalletBuilder;
 import com.pagatodo.yaganaste.ui_wallet.patterns.factories.PresenterFactory;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
+import com.pagatodo.yaganaste.ui_wallet.presenter.TimeRepaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.views.BoardIndicationsView;
 import com.pagatodo.yaganaste.ui_wallet.views.CustomDots;
 import com.pagatodo.yaganaste.ui_wallet.views.CutomWalletViewPage;
@@ -46,6 +52,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -64,15 +71,18 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_ERROR_INFO_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OFFLINE;
+import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_DONGLE_REEMBOLSO;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
-        OnClickItemHolderListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener {
+        OnClickItemHolderListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener ,ITimeRepaymentView {
 
     public static final String ITEM_OPERATION = "ITEM_OPERATION", DOCS_RESPONSE = "DOCS_RESPONSE";
     public static final int ERROR_STATUS = 12;
-
+    private List<TiposReembolsoResponse> tiposReembolso;
+    private int idTypeServer;
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
     @BindView(R.id.pager_container)
@@ -93,6 +103,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     private int pageCurrent = 0;
     private GridLayoutManager llm;
     private ElementView element;
+    private ITimeRepaymentPresenter timeRepaymentPresenter;
 
     public static WalletTabFragment newInstance() {
         return new WalletTabFragment();
@@ -110,6 +121,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         walletPresenter = (WalletPresenter) PresenterFactory.newInstace(this).getPresenter(WALLETPRESENTER);
+        timeRepaymentPresenter = new TimeRepaymentPresenter(this);
         cardWalletAdpater = new CardWalletAdpater(true);
         isBegin = true;
     }
@@ -225,6 +237,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         this.element = itemOperation;
         if (itemOperation.getIdOperacion() == 12) {  // Error en documentación
             walletPresenter.getStatusDocuments();
+        }else if (itemOperation.getIdOperacion() ==16){
+            App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
+            timeRepaymentPresenter.getTypePayments();
         } else {
             goToWalletMainActivity();
         }
@@ -239,6 +254,49 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     public void sendCardReported() {
         pager_indicator.removeAllViews();
         walletPresenter.getWalletsCards(false);
+    }
+
+    @Override
+    public void onSuccessGetTypes(ObtieneTiposReembolsoResponse response) {
+        tiposReembolso = response.getReembolsos();
+        List<TiposReembolsoResponse> lstTmp = new ArrayList<>();
+        for (int i = 0; i < tiposReembolso.size(); i++) {
+            // Agregar a lista temporal solo los Objetos visibles
+            if (tiposReembolso.get(i).isVisible()) {
+                lstTmp.add(tiposReembolso.get(i));
+            }
+            // Obtener el idTipoReembolso Configurado en el Servidor
+            if (tiposReembolso.get(i).isConfigurado()) {
+                idTypeServer = tiposReembolso.get(i).getID_TipoReembolso();
+            }
+        }
+        reembolso();
+    }
+    @Override
+    public void onSuccessUpdateType() {
+        UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+        showLoader("");
+        goToWalletMainActivity();
+    }
+
+    @Override
+    public void onError(String error) {
+        UI.showErrorSnackBar(getActivity(), error, Snackbar.LENGTH_LONG);
+        showLoader("");
+        goToWalletMainActivity();
+    }
+
+    public void reembolso(){
+        if (Utils.isDeviceOnline()) {
+            if (Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)) != idTypeServer) {
+                timeRepaymentPresenter.updateTypeRepayment(Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)));
+            } else {
+                UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
+                goToWalletMainActivity();
+            }
+        } else {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
+        }
     }
 
     @Override

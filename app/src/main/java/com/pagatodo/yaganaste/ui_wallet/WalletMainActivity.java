@@ -29,6 +29,8 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneTiposReembolsoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.TiposReembolsoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
@@ -62,6 +64,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragmen
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
+import com.pagatodo.yaganaste.ui_wallet.adapters.TypesRepaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
@@ -82,8 +85,6 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.SendTicketFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementGlobal;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -200,10 +201,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private Menu menu;
     private ElementView itemOperation;
     private ShareActionProvider mShareActionProvider;
-
+    private List<TiposReembolsoResponse> tiposReembolso;
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
     private List<Giros> girosComercio = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -369,10 +371,10 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
 
             case OPTION_REENVOLSO_FIRST:
-                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
-                loadFragment(TimeRepaymentFragment.newInstance(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)), R.id.fragment_container);
+                setResult(PICK_WALLET_TAB_REQUEST);
+                setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
+                finish();
                 break;
-
             case OPTION_RECOMPENSAS:
                 loadFragment(RewardsStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
