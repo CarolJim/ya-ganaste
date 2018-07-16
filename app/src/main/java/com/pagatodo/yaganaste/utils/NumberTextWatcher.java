@@ -25,7 +25,7 @@ public class NumberTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        final String mount = StringUtils.getCurrencyValue(StringUtils.getDoubleValue(s.toString().replace(".","")));
+        final String mount = StringUtils.getCurrencyValue(StringUtils.getDoubleValue(s.toString().replace(".",""))/100);
         Double value = StringUtils.getDoubleValue(mount);
         edtText.removeTextChangedListener(this);
         if (value <= 999999.99) {
