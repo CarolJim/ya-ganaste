@@ -10,9 +10,12 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.IServiceConsumer;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 import com.pagatodo.yaganaste.ui_wallet.trace.Tracer;
+import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +25,9 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 
 import static com.android.volley.Request.Method.POST;
+import static com.pagatodo.yaganaste.ui_wallet.trace.Tracer.FAILED;
+import static com.pagatodo.yaganaste.ui_wallet.trace.Tracer.SUCESS;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
@@ -44,7 +50,7 @@ public class WsCaller implements IServiceConsumer {
 
     @Override
     public void sendJsonPost(final WsRequest request) {
-        Tracer tracer = new Tracer(request.getMethod_name().name(), RequestHeaders.getUsername());
+        Tracer tracer = new Tracer(RequestHeaders.getUsername(),request.getMethod_name().name());
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -75,21 +81,38 @@ public class WsCaller implements IServiceConsumer {
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.d(TAG, "Response Success : " + response.toString());
                     }
-                    if (!BuildConfig.DEBUG) {
-                        tracer.setStatusWS(response.toString());
-                        tracer.End();
-                    }
-
+                    tracer.End();
                     if (request.getRequestResult() != null) {
                         DataSourceResult dataSourceResult = new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse()));
+                        GenericResponse genericResponse  = (GenericResponse) dataSourceResult.getData();
+                        if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK){
+
+
+                                tracer.setStatusRequest(SUCESS);
+                                tracer.setStatusWS(String.valueOf(genericResponse.getCodigoRespuesta()));
+                                tracer.setConnection(Utils.getTypeConnection());
+                                tracer.setDuration(tracer.getFinalTime()-tracer.getStartTime());
+                                tracer.getTracerSucess();
+
+                        } else {
+
+                            tracer.setStatusRequest(FAILED);
+                            tracer.setStatusWS(String.valueOf(genericResponse.getCodigoRespuesta()));
+                            tracer.setConnection(Utils.getTypeConnection());
+                            tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                            tracer.getTracerError();
+                        }
+
                         request.getRequestResult().onSuccess(dataSourceResult);
-                        if (!BuildConfig.DEBUG) {
-                            tracer.getStatus(dataSourceResult);
-                        }
+
+
                     } else {
-                        if (!BuildConfig.DEBUG) {
-                            tracer.getStatusError();
-                        }
+
+                        tracer.setStatusRequest(FAILED);
+                        tracer.setStatusWS("Null");
+                        tracer.setConnection(Utils.getTypeConnection());
+                        tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                        tracer.getTracerError();
                     }
 
                 },
@@ -106,9 +129,13 @@ public class WsCaller implements IServiceConsumer {
                         }
                         request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
                     }
-                    if (!BuildConfig.DEBUG) {
-                        tracer.getStatusError();
-                    }
+                    tracer.End();
+                    tracer.setStatusRequest(FAILED);
+                    tracer.setStatusWS("Time out");
+                    tracer.setConnection(Utils.getTypeConnection());
+                    tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                    tracer.getTracerError();
+
                 }, request.getHeaders());
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -116,8 +143,6 @@ public class WsCaller implements IServiceConsumer {
                 0,//Se quitan los reintentos para validar si esto arroja SocketException
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //TRACER
-
-
 
         tracer.Start();
         volleySingleton.addToRequestQueue(jsonRequest);
