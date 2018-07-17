@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.content.Intent;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -999,6 +1000,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
         if (!BuildConfig.DEBUG) {
             FirebaseAnalytics.getInstance(App.getContext()).setUserId(dataUser.getUsuario().getNombreUsuario());
+            Crashlytics.setUserIdentifier(dataUser.getUsuario().getNombreUsuario());
             Countly.sharedInstance().changeDeviceId(dataUser.getUsuario().getNombreUsuario());
             Map<String, String> segmentation = new HashMap<>();
             segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());

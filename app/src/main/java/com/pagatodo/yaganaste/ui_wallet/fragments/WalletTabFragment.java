@@ -77,7 +77,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.FOLIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 
 public class WalletTabFragment extends SupportFragment implements IWalletView,
-        OnClickItemHolderListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener ,ITimeRepaymentView {
+        OnClickItemHolderListener, IMyCardViewHome, ViewPager.OnPageChangeListener, View.OnClickListener, ITimeRepaymentView {
 
     public static final String ITEM_OPERATION = "ITEM_OPERATION", DOCS_RESPONSE = "DOCS_RESPONSE";
     public static final int ERROR_STATUS = 12;
@@ -182,7 +182,9 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setAdapter(cardWalletAdpater);
         pager_indicator.setView(pageCurrent, cardWalletAdpater.getSize());
         updateOperations(0);
-        walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
+        if (cardWalletAdpater.getElemenWallet(0) != null) {
+            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
+        }
         viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? (cardWalletAdpater.getCount() / 2) + pageCurrent : pageCurrent);
         if (Utils.isDeviceOnline()) {
             String f = SingletonUser.getInstance().getCardStatusId();
@@ -200,30 +202,33 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
 
 
     private void updateOperations(final int position) {
-        int colums = 3;
-        if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
-            colums = 1;
-        }
-        if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() == 2) {
-            colums = 2;
-        }
-        elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
-        elementsWalletAdapter.notifyDataSetChanged();
-        llm.setSpanCount(colums);
-        rcvOpciones.setLayoutManager(llm);
-        upDateSaldo(position);
-        rcvOpciones.setAdapter(elementsWalletAdapter);
-        rcvOpciones.scheduleLayoutAnimation();
-        board.setTextSaldo(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
-        if (cardWalletAdpater.getElemenWallet(position).isUpdate()) {
-            board.setReloadVisibility(View.VISIBLE);
-        } else {
-            board.setReloadVisibility(View.INVISIBLE);
+        if (cardWalletAdpater.getElemenWallet(position) != null) {
+            int colums = 3;
+            if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() <= 1) {
+                colums = 1;
+            }
+            if (cardWalletAdpater.getElemenWallet(position).getElementViews().size() == 2) {
+                colums = 2;
+            }
+            elementsWalletAdapter.setListOptions(cardWalletAdpater.getElemenWallet(position).getElementViews());
+            elementsWalletAdapter.notifyDataSetChanged();
+            llm.setSpanCount(colums);
+            rcvOpciones.setLayoutManager(llm);
+            upDateSaldo(position);
+            rcvOpciones.setAdapter(elementsWalletAdapter);
+            rcvOpciones.scheduleLayoutAnimation();
+            board.setTextSaldo(cardWalletAdpater.getElemenWallet(position).getTipoSaldo());
+            if (cardWalletAdpater.getElemenWallet(position).isUpdate()) {
+                board.setReloadVisibility(View.VISIBLE);
+            } else {
+                board.setReloadVisibility(View.INVISIBLE);
+            }
         }
     }
 
     private void upDateSaldo(int position) {
-        board.setTextMonto(cardWalletAdpater.getElemenWallet(position).getSaldo());
+        if (cardWalletAdpater.getElemenWallet(position) != null)
+            board.setTextMonto(cardWalletAdpater.getElemenWallet(position).getSaldo());
     }
 
     private void upDateSaldo(String saldo) {
@@ -237,7 +242,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         this.element = itemOperation;
         if (itemOperation.getIdOperacion() == 12) {  // Error en documentación
             walletPresenter.getStatusDocuments();
-        }else if (itemOperation.getIdOperacion() ==16){
+        } else if (itemOperation.getIdOperacion() == 16) {
             App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
             timeRepaymentPresenter.getTypePayments();
         } else {
@@ -272,6 +277,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         }
         reembolso();
     }
+
     @Override
     public void onSuccessUpdateType() {
         UI.showSuccessSnackBar(getActivity(), getString(R.string.success_time_repayment_save), Snackbar.LENGTH_SHORT);
@@ -286,7 +292,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         goToWalletMainActivity();
     }
 
-    public void reembolso(){
+    public void reembolso() {
         if (Utils.isDeviceOnline()) {
             if (Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)) != idTypeServer) {
                 timeRepaymentPresenter.updateTypeRepayment(Integer.parseInt(App.getInstance().getPrefs().loadData(CONFIG_DONGLE_REEMBOLSO)));
@@ -393,7 +399,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         cardWalletAdpater.resetFlip();
         updateOperations(position);
 
-        if (!prefs.containsData(IS_OPERADOR)) {
+        if (!prefs.containsData(IS_OPERADOR) && cardWalletAdpater.getElemenWallet(position) != null) {
             walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(position));
         }
     }
@@ -428,7 +434,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 //walletPresenter.getWalletsCards(false);
                 if (Utils.isDeviceOnline()) {
                     if (!isBegin) {
-                        if (!prefs.containsData(IS_OPERADOR)) {
+                        if (!prefs.containsData(IS_OPERADOR) && cardWalletAdpater.getElemenWallet(this.pageCurrent) != null) {
                             walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
                         }
                     }
@@ -444,7 +450,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
     @Override
     public void onClick(View view) {
         if (!prefs.containsData(IS_OPERADOR)) {
-            if (elementsWalletAdapter.getItemCount() > 0) {
+            if (elementsWalletAdapter.getItemCount() > 0 && cardWalletAdpater.getElemenWallet(this.pageCurrent) != null) {
                 walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
             }
         }
@@ -459,7 +465,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
             if (isOnline) {
                 //String f = SingletonUser.getInstance().getCardStatusId();
                 //if (f == null || f.isEmpty() || f.equals("0")) {
-                if (!prefs.containsData(IS_OPERADOR)) {
+                if (!prefs.containsData(IS_OPERADOR) && cardWalletAdpater.getElemenWallet(pageCurrent) != null) {
                     if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
                         EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
 

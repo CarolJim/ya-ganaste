@@ -185,10 +185,12 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         }
         setBalanceCards();
         board.setreloadOnclicklistener(view -> {
-            if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
-                accountPresenter.updateBalance();
-            else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
-                accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
+            if (adapterBalanceCard.getElemenWallet(this.pageCurrent) != null) {
+                if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
+                    accountPresenter.updateBalance();
+                else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
+                    accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
+                }
             }
         });
     }
@@ -289,22 +291,23 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
             accountPresenter.updateBalance();
         } else {
-            if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
-                if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
-                    rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
-                    accountPresenter.updateBalance();
-
-                } else {
-                    int idcomercio = adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
-                    boolean esUyU = adapterBalanceCard.getElemenWallet(position).getAgentes().isEsComercioUYU();
-                    App.getInstance().getPrefs().saveData(NOM_COM, adapterBalanceCard.getElemenWallet(position).getAgentes().getNombreNegocio());
-                    App.getInstance().getPrefs().saveData(ID_COMERCIOADQ, idcomercio + "");
-                    if (esUyU) {
-                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            if (adapterBalanceCard.getElemenWallet(position) != null) {
+                if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
+                    if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
+                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                        accountPresenter.updateBalance();
                     } else {
-                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                        int idcomercio = adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
+                        boolean esUyU = adapterBalanceCard.getElemenWallet(position).getAgentes().isEsComercioUYU();
+                        App.getInstance().getPrefs().saveData(NOM_COM, adapterBalanceCard.getElemenWallet(position).getAgentes().getNombreNegocio());
+                        App.getInstance().getPrefs().saveData(ID_COMERCIOADQ, idcomercio + "");
+                        if (esUyU) {
+                            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                        } else {
+                            rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                        }
+                        accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
                     }
-                    accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
                 }
             }
         }
@@ -333,7 +336,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 break;
             case OPTION_PAYMENT_ADQ:
                 if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().recordEvent(EVENT_SHORTCUT_CHARGE,1);
+                    Countly.sharedInstance().recordEvent(EVENT_SHORTCUT_CHARGE, 1);
                 }
                 nextScreen(EVENT_PAYMENT, null);
                 break;
@@ -423,7 +426,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         vpBalace.addOnPageChangeListener(this);
         pager_indicator.removeAllViews();
         updateOperations(this.pageCurrent);
-        if(accountPresenter != null) {
+        if (accountPresenter != null) {
             accountPresenter.updateBalance();
         }
         if (!prefs.containsData(IS_OPERADOR)) {
@@ -437,20 +440,22 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
 
     private void updateOperations(final int position) {
-        elementsWalletAdapter.setListOptions(adapterBalanceCard.getElemenWallet(position).getElementViews());
-        elementsWalletAdapter.notifyDataSetChanged();
+        if (adapterBalanceCard.getElemenWallet(position) != null) {
+            elementsWalletAdapter.setListOptions(adapterBalanceCard.getElemenWallet(position).getElementViews());
+            elementsWalletAdapter.notifyDataSetChanged();
 
-        rcvElementsBalance.setAdapter(elementsWalletAdapter);
-        rcvElementsBalance.scheduleLayoutAnimation();
+            rcvElementsBalance.setAdapter(elementsWalletAdapter);
+            rcvElementsBalance.scheduleLayoutAnimation();
 
-        board.setTextSaldo(adapterBalanceCard.getElemenWallet(position).getTipoSaldo());
-        if (adapterBalanceCard.getElemenWallet(position).isUpdate()) {
-            board.setReloadVisibility(View.VISIBLE);
-        } else {
-            board.setReloadVisibility(View.INVISIBLE);
+            board.setTextSaldo(adapterBalanceCard.getElemenWallet(position).getTipoSaldo());
+            if (adapterBalanceCard.getElemenWallet(position).isUpdate()) {
+                board.setReloadVisibility(View.VISIBLE);
+            } else {
+                board.setReloadVisibility(View.INVISIBLE);
+            }
+            txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
+            txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
         }
-        txtCardDescBalance.setText(adapterBalanceCard.getElemenWallet(position).getTitleDesRes());
-        txtCardDescBalance2.setText(adapterBalanceCard.getElemenWallet(position).getCardNumberRes());
     }
 
     private void updatePhoto() {

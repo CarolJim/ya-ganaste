@@ -165,7 +165,7 @@ public class CardWalletAdpater extends PagerAdapter {
         if (elementViewList.size() > 0) {
             return this.elementViewList.get(position % elementViewList.size());
         } else {
-            return this.elementViewList.get(position);
+            return null;
         }
     }
 
