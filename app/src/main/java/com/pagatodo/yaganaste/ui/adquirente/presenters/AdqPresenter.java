@@ -177,7 +177,11 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 break;
             case TRANSACCIONES_EMV_DEPOSIT:
                 iAdqView.showError(error.toString());
-                ((IAdqTransactionRegisterView) iAdqView).onErrorTransaction();
+                if (!error.toString().equals(App.getContext().getString(R.string.no_internet_access))) {
+                    ((IAdqTransactionRegisterView) iAdqView).onErrorTransaction();
+                } else {
+                    ((IAdqTransactionRegisterView) iAdqView).cancelTransactionChip();
+                }
                 break;
             case CONSULT_BALANCE_UYU:
                 ((IAdqTransactionRegisterView) iAdqView).onErrorConsultSaldo(error.toString());
@@ -219,9 +223,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 
     @Override
     public void onSuccesChangePass6(DataSourceResult dataSourceResult) {
-
     }
-
 
     @Override
     public void onSuccesBalanceAdq() {

@@ -126,10 +126,14 @@ public class IposListener implements QPOSServiceListener {
     @Override
     public void onRequestTransactionResult(TransactionResult transactionResult) {
         Log.i("IposListener: ", "------onRequestTransactionResult: " + transactionResult.name());
-        if (transactionResult != TransactionResult.APPROVED) {
-            enviaMensaje(Recursos.ONLINE_PROCESS_FAILED, null, context.getString(R.string.error_de_lectura));
-        } else {
+        if (transactionResult == TransactionResult.APPROVED) {
             enviaMensaje(Recursos.ONLINE_PROCESS_SUCCESS, null, context.getString(R.string.success_request_online_emv));
+        } else if (transactionResult == TransactionResult.DECLINED) {
+            enviaMensaje(Recursos.ONLINE_PROCESS_FAILED, null, context.getString(R.string.error_de_lectura));
+        } else if(transactionResult == TransactionResult.TERMINATED) {
+            enviaMensaje(Recursos.ONLINE_PROCESS_FAILED, null, context.getString(R.string.error_de_tarjeta));
+        } else if (transactionResult == TransactionResult.CANCEL) {
+            enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.error_de_transaccion));
         }
     }
 
@@ -331,7 +335,7 @@ public class IposListener implements QPOSServiceListener {
     @Override
     public void onRequestQposDisconnected() {
         Log.i("IposListener: ", "------ onRequestQposDisconnected");
-        enviaMensaje(Recursos.DESCONECTADO);
+        enviaMensaje(Recursos.DESCONECTADO, null, context.getString(R.string.error_de_lector_comm));
     }
 
     @Override
@@ -397,7 +401,8 @@ public class IposListener implements QPOSServiceListener {
     @Override
     public void onDeviceFound(BluetoothDevice bluetoothDevice) {
         Log.i("IposListener: ", "------ onDeviceFound");
-        if (bluetoothDevice.getName() != null && bluetoothDevice.getName().contains("MPOS")) {
+        if (bluetoothDevice.getName() != null && !bluetoothDevice.getName().equals("")
+                && bluetoothDevice.getName().contains("MPOS")) {
             Intent intent = new Intent(Recursos.IPOS_READER_STATES);
             intent.putExtra(Recursos.MSJ, Recursos.EMV_DETECTED);
             context.sendBroadcast(intent);

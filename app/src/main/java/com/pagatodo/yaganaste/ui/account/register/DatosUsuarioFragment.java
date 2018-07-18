@@ -101,7 +101,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private View rootview;
     private String email = "";
     private String emailConfirmation = "";
-    private String password = "";
+    private String psw = "";
     private String passwordConfirmation = "";
     private boolean isValidPassword = true;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
@@ -426,7 +426,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
 
         //Validate if Password is empty
-        if (password.isEmpty()) {
+        if (psw.isEmpty()) {
             // showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
             // editPassword.setIsInvalid();
             text_password.setBackgroundResource(R.drawable.inputtext_error);
@@ -443,7 +443,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
 
         //Validate Password Confirmation equals to Password
-        if (!passwordConfirmation.equals(password)) {
+        if (!passwordConfirmation.equals(psw)) {
             // showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
             //editPasswordConfirm.setIsInvalid();
             text_passwordconfirm.setBackgroundResource(R.drawable.inputtext_error);
@@ -518,8 +518,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         RegisterUser registerUser = RegisterUser.getInstance();
         registerUser.setEmail(email);
-        registerUser.setContrasenia(password);
-        App.getInstance().setCadenaHuella(password);
+        registerUser.setContrasenia(psw);
+        App.getInstance().setCadenaHuella(psw);
 
         nextScreen(EVENT_PERSONAL_DATA, null);//Mostramos la siguiente pantalla de registro.
     }
@@ -528,7 +528,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public void getDataForm() {
         email = editMail.getText().toString().trim();
         emailConfirmation = edtitConfirmEmail.getText().toString().trim();
-        password = editPassword.getText().toString().trim();
+        psw = editPassword.getText().toString().trim();
         passwordConfirmation = editPasswordConfirm.getText().toString().trim();
     }
 

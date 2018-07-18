@@ -101,8 +101,12 @@ public class OperadoresUYUFragment extends GenericFragment implements OnRecycler
 
     @Override
     public void onRecyclerItemClick(View v, int position) {
-        Operadores operadoresResponse;
-        operadoresResponse = operadoresUYUFragments.get(position + 1);
+        Operadores operadoresResponse = new Operadores();
+        for (Operadores op : operadoresUYUFragments) {
+            if (Integer.valueOf(op.getIdUsuarioAdquirente()) == position) {
+                operadoresResponse = op;
+            }
+        }
         onEventListener.onEvent(EVENT_OPERADOR_DETALLE, operadoresResponse);
     }
 

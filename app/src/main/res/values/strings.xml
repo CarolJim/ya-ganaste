@@ -312,8 +312,11 @@
     <string name="registro_automatico">Inserta el lector para registrarlo a su cuenta</string>
     <string name="registro_small">Inserta el lector para registrarlo</string>
     <string name="error_de_lectura">No fue posible completar la operación, intenta de nuevo</string>
+    <string name="error_de_transaccion">Transacción declinada, intenta de nuevo</string>
+    <string name="error_de_tarjeta">Error en comunicación con tarjeta, intenta de nuevo</string>
+    <string name="error_de_lector_comm">Error en comunicación con lector, intenta de nuevo</string>
     <string name="error_codigo_de_seguridad">El código de seguridad es inválido</string>
-    <string name="success_request_online_emv">La operación fue aprovada por chip</string>
+    <string name="success_request_online_emv">La operación fue aprobada por chip</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>

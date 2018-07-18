@@ -24,4 +24,5 @@ public interface IAdqTransactionRegisterView extends INavigationView {
 
     void onErrorTransaction();
 
+    void cancelTransactionChip();
 }

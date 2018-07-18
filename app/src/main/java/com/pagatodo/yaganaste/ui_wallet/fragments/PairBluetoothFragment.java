@@ -172,7 +172,7 @@ public class PairBluetoothFragment extends SupportFragment implements AdapterVie
                     devicesBT.get(position).getAddress());
         } else {
             this.position = position;
-            App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getAddress());
+            App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName() + "_" + devicesBT.get(position).getAddress());
             UI.showSuccessSnackBar(getActivity(), getString(R.string.pairing_device_success),
                     Snackbar.LENGTH_SHORT);
             new Handler().postDelayed(new Runnable() {
@@ -250,6 +250,11 @@ public class PairBluetoothFragment extends SupportFragment implements AdapterVie
 
     @Override
     public void onErrorTransaction() {
+
+    }
+
+    @Override
+    public void cancelTransactionChip() {
 
     }
 
@@ -356,7 +361,7 @@ public class PairBluetoothFragment extends SupportFragment implements AdapterVie
                     break;
                 case CONFIG_READER_OK:
                     Log.i("IposListener: ", "=====>>    Configuration Success");
-                    App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getAddress());
+                    App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName() + "_" + devicesBT.get(position).getAddress());
                     UI.showSuccessSnackBar(getActivity(), getString(R.string.pairing_device_success),
                             Snackbar.LENGTH_SHORT);
                     new Handler().postDelayed(new Runnable() {

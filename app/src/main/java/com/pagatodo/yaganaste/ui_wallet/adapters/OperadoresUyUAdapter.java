@@ -34,10 +34,10 @@ public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdap
     OnRecyclerItemClickListener listener;
 
 
-    public OperadoresUyUAdapter(List<Operadores> operadores, Activity activity ,OnRecyclerItemClickListener listener) {
+    public OperadoresUyUAdapter(List<Operadores> operadores, Activity activity, OnRecyclerItemClickListener listener) {
         this.operadoresService = operadores;
-        this.activity= activity;
-        this.listener= listener;
+        this.activity = activity;
+        this.listener = listener;
         this.operadores = new ArrayList<>();
         for (Operadores op : operadoresService) {
             if (!op.getIsAdmin()) {
@@ -63,17 +63,16 @@ public class OperadoresUyUAdapter extends RecyclerView.Adapter<OperadoresUyUAdap
             } else {
                 holder.row.setBackgroundColor(App.getContext().getResources().getColor(R.color.backgraund_wallet));
             }
-            if (operador.getIdEstatusUsuario()==1){
+            if (operador.getIdEstatusUsuario() == 1) {
                 holder.txtTitle.setTextColor(Color.parseColor("#00A1E1"));
-            }else {
+            } else {
                 holder.txtTitle.setTextColor(Color.parseColor("#D0021B"));
             }
 
             holder.txtTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onRecyclerItemClick(view,position);
-
+                    listener.onRecyclerItemClick(view, Integer.valueOf(operador.getIdUsuarioAdquirente()));
                 }
             });
 

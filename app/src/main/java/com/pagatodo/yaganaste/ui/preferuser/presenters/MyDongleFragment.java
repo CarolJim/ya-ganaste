@@ -142,7 +142,14 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         ButterKnife.bind(this, rootview);
         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             imgYaGanasteCard.setImageResource(R.drawable.lector_bt);
-            txtSerialNumber.setText("S/N: " + App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE));
+            String[] btDevice = new String[2];
+            if(prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
+                btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
+                txtSerialNumber.setText("Dispositivos: " + btDevice[0]);
+            } else {
+                btDevice[1] = prefs.loadData(BT_PAIR_DEVICE);
+                txtSerialNumber.setText("S/N: " + btDevice[1]);
+            }
         } else {
             imgYaGanasteCard.setImageResource(R.mipmap.lector_front);
             txtSerialNumber.setVisibility(GONE);
@@ -350,8 +357,14 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
                 case EMV_DETECTED:
                     Log.i("IposListener: ", "======>> Bluetooth Device ");
                     List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
+                    String[] btDevice = new String[2];
+                    if(prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
+                        btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
+                    } else {
+                        btDevice[1] = prefs.loadData(BT_PAIR_DEVICE);
+                    }
                     for (BluetoothDevice device : devicesBT) {
-                        if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
+                        if (device.getAddress().equals(btDevice[1])) {
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             break;
                         } /*else if (device.getName().contains("MPOS")) {

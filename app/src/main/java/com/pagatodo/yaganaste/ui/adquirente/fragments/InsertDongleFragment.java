@@ -72,6 +72,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.DESCONECTADO;
 import static com.pagatodo.yaganaste.utils.Recursos.EMV_DETECTED;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
@@ -132,7 +133,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private int currentVolumenDevice, maxVolumenDevice, communicationMode;
     private QPOSService.TransactionType transactionType;
     private AdqPresenter adqPresenter;
-    private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false;
+    private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false, isTransactionInitialized = false;
     private static boolean banderaCacelachevron = false;
     private Preferencias prefs;
     private UsbDevice usbDevice;
@@ -513,6 +514,16 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), TIME_OUT_EMV);
     }
 
+    @Override
+    public void cancelTransactionChip() {
+        /* Operación declinada por falta de internet, se le comunica al lector */
+        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+            showLoader("");
+            isTransactionInitialized = false;
+            App.getInstance().pos.sendOnlineProcessResult("8A023035");
+        }
+    }
+
 
     @Override
     public void nextScreen(String event, Object data) {
@@ -648,6 +659,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                             if (isCancelation) {
                                 adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
                             } else {
+                                isTransactionInitialized = true;
                                 adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
@@ -792,11 +804,17 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         Log.i("IposListener: ", "======>> Bluetooth Device");
                     }
                     List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
+                    String[] btDevice = new String[2];
+                    if (prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
+                        btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
+                    } else {
+                        btDevice[1] = prefs.loadData(BT_PAIR_DEVICE);
+                    }
                     for (BluetoothDevice device : devicesBT) {
                         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                             Log.i("IposListener: ", "======>> Bluetooth Address: " + device.getName() + " " + device.getAddress());
                         }
-                        if (device.getAddress().equals(prefs.loadData(BT_PAIR_DEVICE))) {
+                        if (device.getAddress().equals(btDevice[1])) {
                             App.getInstance().pos.stopScanQPos2Mode();
                             App.getInstance().pos.connectBluetoothDevice(true, 15, device.getAddress());
                             break;
@@ -857,21 +875,25 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     nextScreen(EVENT_GO_TRANSACTION_RESULT, "");
                     break;
                 case ONLINE_PROCESS_FAILED:
+                case DESCONECTADO:
                     hideLoader();
-                    /* REVERSO para cuando el chip rechaza la transacción */
-                    adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), PINPAD_FAILED_EMV);
-                    showSimpleDialogError(intent.getStringExtra(ERROR),
-                            new DialogDoubleActions() {
-                                @Override
-                                public void actionConfirm(Object... params) {
-                                    getActivity().finish();
-                                }
+                    if (isTransactionInitialized) {
+                        isTransactionInitialized = false;
+                        /* REVERSO para cuando el chip rechaza la transacción */
+                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), PINPAD_FAILED_EMV);
+                        showSimpleDialogError(intent.getStringExtra(ERROR),
+                                new DialogDoubleActions() {
+                                    @Override
+                                    public void actionConfirm(Object... params) {
+                                        getActivity().finish();
+                                    }
 
-                                @Override
-                                public void actionCancel(Object... params) {
-                                    getActivity().finish();
-                                }
-                            });
+                                    @Override
+                                    public void actionCancel(Object... params) {
+                                        getActivity().finish();
+                                    }
+                                });
+                    }
                     break;
                 default:
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
