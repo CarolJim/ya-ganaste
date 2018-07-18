@@ -254,7 +254,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         adqPresenter.validateDongle(serial);
     }
 
-    private TransaccionEMVDepositRequest buildEMVRequest(TransaccionEMVDepositRequest request) {
+    private TransaccionEMVDepositRequest buildEMVRequest(TransaccionEMVDepositRequest request, boolean isReverse) {
         TransactionAdqData currentTransaction = TransactionAdqData.getCurrentTransaction();
         SingletonUser currentUser = SingletonUser.getInstance();
 //        request.setAccountDepositData(getCurrentDatesAccountDepositData(currentTransaction.getDescription()));
@@ -263,9 +263,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         request.setAmount(currentTransaction.getAmount());
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
-        request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
+        if(!isReverse) {
+            request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
+            request.setTransactionDateTime(Utils.getTimeStamp());
+        }
         request.setTipoCliente(String.valueOf(App.getInstance().getPrefs().loadDataInt(TIPO_AGENTE)));
-        request.setTransactionDateTime(Utils.getTimeStamp());
         request.setDigitPIN(signWithPin);
         return request;
     }
@@ -466,7 +468,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     /* REVERSO para cuando el servicio informa que hubo un problema y mandar a la siguiente pantalla */
                 } else if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_ERROR) {
-                    adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), MALFUNCTION_EMV);
+                    adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);
                     nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
                 }
             } else {
@@ -511,7 +513,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onErrorTransaction() {
         /* REVERSO para cuando el servicio tuvo un error por tiempo de espera o desconexión */
-        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), TIME_OUT_EMV);
+        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), TIME_OUT_EMV);
     }
 
     @Override
@@ -657,17 +659,17 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
                         if (transactionType == QPOSService.TransactionType.PAYMENT) {
                             if (isCancelation) {
-                                adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
+                                adqPresenter.initCancelation(buildEMVRequest(requestTransaction, false), dataMovimientoAdq);
                             } else {
                                 isTransactionInitialized = true;
-                                adqPresenter.initTransaction(buildEMVRequest(requestTransaction), signWithPin);
+                                adqPresenter.initTransaction(buildEMVRequest(requestTransaction, false), signWithPin);
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
                             TransactionAdqData.getCurrentTransaction().setAmount("0");
                             if (!BuildConfig.DEBUG) {
                                 Countly.sharedInstance().startEvent(EVENT_BALANCE_UYU);
                             }
-                            adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction));
+                            adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction, false));
                         }
                     }
                     break;
@@ -880,7 +882,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     if (isTransactionInitialized) {
                         isTransactionInitialized = false;
                         /* REVERSO para cuando el chip rechaza la transacción */
-                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction), PINPAD_FAILED_EMV);
+                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), PINPAD_FAILED_EMV);
                         showSimpleDialogError(intent.getStringExtra(ERROR),
                                 new DialogDoubleActions() {
                                     @Override
