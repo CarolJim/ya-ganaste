@@ -12,6 +12,7 @@ import com.dspread.xpos.QPOSService.QPOSServiceListener;
 import com.dspread.xpos.QPOSService.TransactionResult;
 import com.dspread.xpos.QPOSService.UpdateInformationResult;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EmvData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ImplicitData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SwipeData;
@@ -43,6 +44,7 @@ public class IposListener implements QPOSServiceListener {
 
         if (result == DoTradeResult.MCR) {
             Log.i("IposListener: ", "------Card Swiped");
+            TransactionAdqData.getCurrentTransaction().setSwipedCard(true);
             TransaccionEMVDepositRequest cardData = new TransaccionEMVDepositRequest();
             cardData.setEmvData(new EmvData());
             cardData.setImplicitData(new ImplicitData());

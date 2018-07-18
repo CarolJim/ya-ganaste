@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.adquirente.interactores;
 import android.content.Context;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -29,8 +30,13 @@ import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULT_BALANCE_UYU;
@@ -50,6 +56,10 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_CL;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_REG;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
@@ -350,7 +360,15 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-        String marcaBancaria = result.getTransaccionResponse().getMarcaTarjetaBancaria();
+        if (!BuildConfig.DEBUG) {
+            Map<String, String> segmentation = new HashMap<>();
+            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            if(data.getTipoTarjeta()==null){
+                Countly.sharedInstance().endEvent(EVENT_CHARGE_ADQ_CL, segmentation, 1, 0);
+            } else {
+                Countly.sharedInstance().endEvent(EVENT_CHARGE_ADQ_REG, segmentation, 1, 0);
+            }
+        }
         switch (data.getError().getId()) {
             case ADQ_CODE_OK:
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);

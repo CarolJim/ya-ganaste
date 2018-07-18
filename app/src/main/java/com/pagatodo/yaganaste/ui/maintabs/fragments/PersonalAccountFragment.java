@@ -8,10 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
@@ -24,16 +22,11 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
 import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.ui_wallet.presenter.PresenterPaymentFragment;
-import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.UtilsIntents;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.UtilsIntents;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
@@ -48,9 +41,6 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAI
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.RIGHT;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
-import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_EMISOR;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 
 
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {

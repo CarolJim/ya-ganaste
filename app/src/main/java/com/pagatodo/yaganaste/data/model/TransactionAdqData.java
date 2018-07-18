@@ -17,6 +17,7 @@ public class TransactionAdqData implements Serializable {
     private TransaccionEMVDepositResponse transaccionResponse;
     private String amount = "";
     private String description = "";
+    private boolean isSwipedCard = false;
 
     private TransactionAdqData() {
         transaccionResponse = new TransaccionEMVDepositResponse();
@@ -49,6 +50,14 @@ public class TransactionAdqData implements Serializable {
 
     public void setStatusTransaction(int statusTransaction) {
         this.statusTransaction = statusTransaction;
+    }
+
+    public boolean isSwipedCard() {
+        return isSwipedCard;
+    }
+
+    public void setSwipedCard(boolean swipedCard) {
+        isSwipedCard = swipedCard;
     }
 
     public int getResponseCode() {

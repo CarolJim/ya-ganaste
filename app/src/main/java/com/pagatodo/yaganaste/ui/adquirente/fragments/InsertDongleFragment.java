@@ -78,6 +78,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_CL;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_REG;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
@@ -263,7 +266,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         request.setAmount(currentTransaction.getAmount());
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
-        if(!isReverse) {
+        if (!isReverse) {
             request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
             request.setTransactionDateTime(Utils.getTimeStamp());
         }
@@ -468,7 +471,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     /* REVERSO para cuando el servicio informa que hubo un problema y mandar a la siguiente pantalla */
                 } else if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_ERROR) {
-                    adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);
+                    if (!TransactionAdqData.getCurrentTransaction().isSwipedCard())
+                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);
                     nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
                 }
             } else {
@@ -513,7 +517,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onErrorTransaction() {
         /* REVERSO para cuando el servicio tuvo un error por tiempo de espera o desconexión */
-        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), TIME_OUT_EMV);
+        if (!TransactionAdqData.getCurrentTransaction().isSwipedCard())
+            adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), TIME_OUT_EMV);
     }
 
     @Override
@@ -662,6 +667,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                 adqPresenter.initCancelation(buildEMVRequest(requestTransaction, false), dataMovimientoAdq);
                             } else {
                                 isTransactionInitialized = true;
+                                if (!BuildConfig.DEBUG) {
+                                    Countly.sharedInstance().startEvent(EVENT_CHARGE_ADQ_REG);
+                                    Countly.sharedInstance().startEvent(EVENT_CHARGE_ADQ_CL);
+                                }
                                 adqPresenter.initTransaction(buildEMVRequest(requestTransaction, false), signWithPin);
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
@@ -879,7 +888,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 case ONLINE_PROCESS_FAILED:
                 case DESCONECTADO:
                     hideLoader();
-                    if (isTransactionInitialized) {
+                    if (isTransactionInitialized && !TransactionAdqData.getCurrentTransaction().isSwipedCard()) {
                         isTransactionInitialized = false;
                         /* REVERSO para cuando el chip rechaza la transacción */
                         adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), PINPAD_FAILED_EMV);

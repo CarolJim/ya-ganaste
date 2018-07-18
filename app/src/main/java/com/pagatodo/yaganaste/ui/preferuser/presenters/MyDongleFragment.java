@@ -145,7 +145,7 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
             String[] btDevice = new String[2];
             if(prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
                 btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
-                txtSerialNumber.setText("Dispositivos: " + btDevice[0]);
+                txtSerialNumber.setText("Dispositivo: " + btDevice[0]);
             } else {
                 btDevice[1] = prefs.loadData(BT_PAIR_DEVICE);
                 txtSerialNumber.setText("S/N: " + btDevice[1]);

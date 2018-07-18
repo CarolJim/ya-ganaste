@@ -75,7 +75,6 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
         java.text.DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
-
         CancellationData cancellationData = new CancellationData();
         cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/", ""));//aaaammdd
         cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
@@ -104,6 +103,15 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 
     @Override
     public void initReverseTransaction(TransaccionEMVDepositRequest request, int typeReverse) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.getAdquirenteMovementDate(request.getTransactionDateTime()));
+        java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+        java.text.DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
+        CancellationData cancellationData = new CancellationData();
+        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/", ""));
+        cancellationData.setTicketOriginalTransaction(request.getNoTicket());
+        cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()).replace(":", ""));
+
         CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
         cancelRequest.setNoSerie(request.getNoSerie());
         cancelRequest.setNoTicket(createTicket());
@@ -117,6 +125,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         cancelRequest.setAccountDepositData(request.getAccountDepositData());
         cancelRequest.setImplicitData(request.getImplicitData());
         cancelRequest.setTipoCancelación(typeReverse);
+        cancelRequest.setCancellationData(cancellationData);
         adqInteractor.initReversePayment(cancelRequest);
     }
 
