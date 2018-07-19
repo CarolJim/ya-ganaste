@@ -1,43 +1,27 @@
 {
   "project_info": {
-    "project_number": "47801405336",
-    "firebase_url": "https://ya-ganaste-e4427.firebaseio.com",
-    "project_id": "ya-ganaste-e4427",
-    "storage_bucket": "ya-ganaste-e4427.appspot.com"
+    "project_number": "120153508549",
+    "firebase_url": "https://ya-ganaste-c5b76.firebaseio.com",
+    "project_id": "ya-ganaste-c5b76",
+    "storage_bucket": "ya-ganaste-c5b76.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:47801405336:android:4ebc6fd4b0e54b51",
+        "mobilesdk_app_id": "1:120153508549:android:4ebc6fd4b0e54b51",
         "android_client_info": {
           "package_name": "com.pagatodo.yaganaste"
         }
       },
       "oauth_client": [
         {
-          "client_id": "47801405336-0g0666ou85l27keqir76250qo7cd0d2f.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.pagatodo.yaganaste",
-            "certificate_hash": "8e750d908aaf252c5e6f8b3ace1dd25cbb516730"
-          }
-        },
-        {
-          "client_id": "47801405336-koag0k8i8082qdmlck636r6rdlckbus7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.pagatodo.yaganaste",
-            "certificate_hash": "efe657b9d21b10cbe776af16c50b5d7fca73c91f"
-          }
-        },
-        {
-          "client_id": "47801405336-1h0e6bp45vgsltl2vj16j5i6ae4t7nr5.apps.googleusercontent.com",
+          "client_id": "120153508549-hrakmq244d9efht2fmr0h6nqdppfl0gt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJY6xouGAtwh5F9brJlXn1u8juF7P4VBs"
+          "current_key": "AIzaSyAgp7uGJVjbyqlHVp2aP2pZI9W3xkNO3Bo"
         }
       ],
       "services": {
@@ -45,20 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "47801405336-1h0e6bp45vgsltl2vj16j5i6ae4t7nr5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "47801405336-u6sqrpsfn0mi10h9kfvf4537rpkccle3.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.pagatodomobile.yaganaste"
-              }
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

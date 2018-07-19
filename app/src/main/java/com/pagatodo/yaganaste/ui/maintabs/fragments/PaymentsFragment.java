@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -32,6 +33,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_DETAIL_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper.LEFT_AD;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 
 public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab, ItemMovements<DataMovimientoAdq>> {
 
@@ -61,7 +63,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     }
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +85,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
             tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
         }*/
 
-        if (this.isBussines){
+        if (this.isBussines) {
             filterLinerLayout.setVisibility(View.VISIBLE);
         } else {
             filterLinerLayout.setVisibility(View.GONE);
@@ -102,8 +103,10 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         this.currentAdapter = createAdapter(movements);
         updateRecyclerData(this.currentAdapter, movements);
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT_AD);
-        new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
+        if (!App.getInstance().getPrefs().loadDataBoolean(IS_UYU, false)) {
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallbackL = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getListenerItemTouchLeft(), LEFT_AD);
+            new ItemTouchHelper(itemTouchHelperCallbackL).attachToRecyclerView(recyclerMovements);
+        }
     }
 
     @Override

@@ -195,6 +195,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:textColor="@color/texthint"
+                        android:textSize="14sp"
                         android:windowSoftInputMode="stateHidden"
                         app:maxLength="50" />
 

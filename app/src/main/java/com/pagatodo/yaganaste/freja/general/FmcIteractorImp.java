@@ -8,7 +8,7 @@ import com.verisec.freja.mobile.core.FmcLogManager;
 import com.verisec.freja.mobile.core.FmcManager;
 import com.verisec.freja.mobile.core.configuration.FmcConfiguration;
 
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SHOW_LOGS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**
  * @author Juan Guerra on 30/03/2017.
@@ -23,7 +23,7 @@ public abstract class FmcIteractorImp implements FmcIteractor {
     public void init(Context context) {
         try {
             if (fmcManager == null) {
-                FmcLogManager.enableLoggingAll(App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS, false));
+                FmcLogManager.enableLoggingAll(App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false));
                 FmcManager.setContext(App.getInstance());
                 this.fmcManager = FmcManager.getFmcManager();
             }

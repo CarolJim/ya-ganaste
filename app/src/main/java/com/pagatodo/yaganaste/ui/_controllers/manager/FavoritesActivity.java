@@ -142,7 +142,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 public class FavoritesActivity extends LoaderActivity implements View.OnClickListener,
         IAddFavoritesActivity, ICropper, IListaOpcionesView,
         CropIwaResultReceiver.Listener, OnListServiceListener, AdapterView.OnItemSelectedListener,
-        ValidationForms, ITextChangeListener, PaymentsCarrouselManager,OtpView {
+        ValidationForms, ITextChangeListener, PaymentsCarrouselManager, OtpView {
 
     // Fijas
     public static final String TAG = FavoritesActivity.class.getSimpleName();
@@ -903,7 +903,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
                         idComercio, mAlias, referService, stringFoto.equals("") ? null : stringFoto, stringFoto.equals("") ? null : "png");
 
-               // favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
+                // favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
                 otpPResenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
                 if (!BuildConfig.DEBUG) {
                     Countly.sharedInstance().startEvent(EVENT_ADD_FAV);
@@ -1487,7 +1487,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     }
                     txtLytListServ.setHint(getString(R.string.details_bank));
                     helpLinearTipoServ.setVisibility(View.VISIBLE);
-                    textViewTipo.setVisibility(View.VISIBLE);
+                    helpLinearTipoServ.setHint(getString(R.string.tipo_de_envio));
                     switch (idTipoEnvio) {
                         case 1:
                             textViewTipo.setText(getResources().getString(R.string.transfer_phone));
@@ -1728,7 +1728,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @Override
     public void onOtpGenerated(String otp) {
         RequestHeaders.setTokenFreja(otp);
-
     }
 
     @Override
