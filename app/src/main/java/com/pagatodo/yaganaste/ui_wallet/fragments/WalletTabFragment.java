@@ -191,10 +191,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         viewPagerWallet.setAdapter(cardWalletAdpater);
         pager_indicator.setView(pageCurrent, cardWalletAdpater.getSize());
         updateOperations(0);
-        if (cardWalletAdpater.getElemenWallet(0) != null) {
-            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(0));
+        if (cardWalletAdpater.getElemenWallet(pageCurrent) != null) {
+            walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(pageCurrent));
         }
-        viewPagerWallet.setCurrentItem(cardWalletAdpater.getSize() > 2 ? (cardWalletAdpater.getCount() / 2) + pageCurrent : pageCurrent);
+        viewPagerWallet.setCurrentItem(/*cardWalletAdpater.getSize() > 2 ? (cardWalletAdpater.getCount() / 2) + pageCurrent : */pageCurrent);
         if (Utils.isDeviceOnline()) {
             String f = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
