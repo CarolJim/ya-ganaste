@@ -162,7 +162,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     int favoriteProcess, current_tab, idTipoComercio, idComercio, longitudRefer,
             maxLength, keyIdComercio, idTipoEnvio, idFavorito, longRefer;
     String stringFoto = "", formatoComercio, mReferencia, nombreComercio, nombreDest;
-    boolean isIAVE, showRefEnvio;
+    boolean isIAVE, showRefEnvio, isEdit;
 
     TransferType selectedType;
     CameraManager cameraManager;
@@ -1205,11 +1205,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
-        // TODO FRank eliminar el texto de cardNumber cuando cambiamos de item, pero debe de mantenerse
-        // la primera vez que pasa por aqui en la carga inicial de informacion
-
-        // cardNumber.setText("");
-
+        if (isEdit)
+            cardNumber.setText("");
+        isEdit = true;
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {
             editSpinner.setText("");

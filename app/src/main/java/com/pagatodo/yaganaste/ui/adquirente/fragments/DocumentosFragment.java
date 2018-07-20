@@ -322,7 +322,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inSampleSize = 2;
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Log.e("Ya Ganaste", "@Entrada 1");
             showLoader("");
@@ -330,7 +331,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             String path = SingletonUser.getInstance().getPathPictureTemp();
             Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
-                Bitmap original = BitmapFactory.decodeFile(path);
+                Bitmap original = BitmapFactory.decodeFile(path,opts);
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();
@@ -345,7 +346,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     nuevoWidth= 900;
                     nuevoHeight =(originalH*nuevoWidth)/originalW;
                     scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
-                }else {
+                } else {
                     if (height > width) {
                         scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
                     } else {
@@ -375,7 +376,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                     path = cursor.getString(columnIndex);
                 }
-                Bitmap original = BitmapFactory.decodeFile(path);
+                Bitmap original = BitmapFactory.decodeFile(path,opts);
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();

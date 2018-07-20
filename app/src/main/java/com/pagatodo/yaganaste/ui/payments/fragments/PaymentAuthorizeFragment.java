@@ -233,7 +233,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         setValidationRules();
 
 
-
         //Huella
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
@@ -442,6 +441,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void getDataForm() {
         password = editPassword.getText().toString().trim();
+        editPassword.setText("");
     }
 
     @Override

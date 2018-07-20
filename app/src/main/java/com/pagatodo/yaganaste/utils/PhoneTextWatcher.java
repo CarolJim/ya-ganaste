@@ -42,7 +42,7 @@ public class PhoneTextWatcher implements TextWatcher {
 
         if (auxText.length() > 10) {
             editText.removeTextChangedListener(this);
-            String subString = String.valueOf(s.subSequence(0, 10));
+            String subString = String.valueOf(auxText.subSequence(0, 10));
             editText.setText(subString);
             editText.addTextChangedListener(this);
             finalText = subString;
