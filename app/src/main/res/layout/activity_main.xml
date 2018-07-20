@@ -54,8 +54,6 @@
         android:textColor="@color/whiteColor"
         android:padding="3dp"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/help_text"
-
-        />
+        android:id="@+id/help_text"/>
 
 </LinearLayout>

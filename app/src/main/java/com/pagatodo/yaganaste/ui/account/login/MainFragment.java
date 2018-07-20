@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +59,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     @BindView(R.id.help_text)
     StyleTextView help_text;
 
-
-
-
     private PagerAdapter pagerAdapter;
 
     public static MainFragment newInstance() {
@@ -84,6 +83,9 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         btnMainCreateAccount.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         help_text.setOnClickListener(this);
+        SpannableString content = new SpannableString("¿Necesitas ayuda?");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        help_text.setText(content);
         pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
