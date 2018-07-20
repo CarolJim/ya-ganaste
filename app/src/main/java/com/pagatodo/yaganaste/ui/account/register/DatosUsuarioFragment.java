@@ -12,8 +12,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -33,8 +31,6 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,17 +48,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private static int MIN_LENGHT_VALIDATION_PASS = 8;
     private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
 
-/*
-    @BindView(R.id.edtitEmail)
-    CustomValidationEditText editMailold;
-
-    @BindView(R.id.edtitConfirmEmail)
-    CustomValidationEditText edtitConfirmEmaildos;
-    @BindView(R.id.editPassword)
-    CustomValidationEditText editPassworddos;
-    @BindView(R.id.editPasswordConfirmation)
-    CustomValidationEditText editPasswordConfirmdos;
-*/
     @BindView(R.id.text_email)
     TextInputLayout text_email;
     @BindView(R.id.edit_email)
@@ -101,8 +86,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private View rootview;
     private String email = "";
     private String emailConfirmation = "";
-    private String psw = "";
-    private String passwordConfirmation = "";
+    private String x = ""; // Password
+    private String xConfirmation = "";  //Passwotd Confirmation
     private boolean isValidPassword = true;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
@@ -426,7 +411,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
 
         //Validate if Password is empty
-        if (psw.isEmpty()) {
+        if (x.isEmpty()) {
             // showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
             // editPassword.setIsInvalid();
             text_password.setBackgroundResource(R.drawable.inputtext_error);
@@ -443,7 +428,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
 
         //Validate Password Confirmation equals to Password
-        if (!passwordConfirmation.equals(psw)) {
+        if (!xConfirmation.equals(x)) {
             // showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
             //editPasswordConfirm.setIsInvalid();
             text_passwordconfirm.setBackgroundResource(R.drawable.inputtext_error);
@@ -452,7 +437,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         }
 
         //Validate if Password Confirmation is Empty
-        if (passwordConfirmation.isEmpty()) {
+        if (xConfirmation.isEmpty()) {
             //showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
             //editPasswordConfirm.setIsInvalid();
             text_password.setBackgroundResource(R.drawable.inputtext_error);
@@ -518,8 +503,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         RegisterUser registerUser = RegisterUser.getInstance();
         registerUser.setEmail(email);
-        registerUser.setContrasenia(psw);
-        App.getInstance().setCadenaHuella(psw);
+        registerUser.setContrasenia(x);
+        App.getInstance().setCadenaHuella(x);
 
         nextScreen(EVENT_PERSONAL_DATA, null);//Mostramos la siguiente pantalla de registro.
     }
@@ -528,8 +513,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public void getDataForm() {
         email = editMail.getText().toString().trim();
         emailConfirmation = edtitConfirmEmail.getText().toString().trim();
-        psw = editPassword.getText().toString().trim();
-        passwordConfirmation = editPasswordConfirm.getText().toString().trim();
+        x = editPassword.getText().toString().trim();
+        xConfirmation = editPasswordConfirm.getText().toString().trim();
     }
 
     private void setCurrentData() {

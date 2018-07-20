@@ -393,14 +393,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_ERROR_ADDRESS_DOCS:
             case OPTION_ERROR_ADDRESS:
                 RegisterAgent.getInstance().setUseSameAddress(true);
-                String folio = "";
-                try {
-                    folio = new DatabaseManager().getFolioAgente(itemOperation.getIdComercio());
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                }
                 loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
-                //loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
             case OPTION_TUTORIALS:
                 loadFragment(TutorialsFragment.newInstance(), R.id.fragment_container);

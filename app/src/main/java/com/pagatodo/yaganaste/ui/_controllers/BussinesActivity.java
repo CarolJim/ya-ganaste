@@ -125,7 +125,6 @@ public class BussinesActivity extends LoaderActivity {
         super.onEvent(event, o);
         switch (event) {
             case EVENT_ERROR_DOCUMENTS:
-
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
                 break;
             case EVENT_GO_BUSSINES_DATA:

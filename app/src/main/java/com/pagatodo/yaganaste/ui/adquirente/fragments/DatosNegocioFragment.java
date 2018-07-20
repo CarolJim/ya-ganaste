@@ -54,13 +54,10 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_PRE_ADDRESS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_BUSINESS_LIST;
-import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_CLOSE_ACT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment.USER_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 
 public class DatosNegocioFragment extends GenericFragment implements View.OnClickListener,

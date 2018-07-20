@@ -374,20 +374,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         walletPresenter.getInfoComercio(folio);
         if (response.getIdEstatus() != 0 && response.getIdEstatus() != 45 && !response.hasErrorInDocs()) { // Error en domicilio
             element.setIdOperacion(OPTION_ERROR_ADDRESS);
-            UI.showAlertDialog(getActivity(), "Por favor revisa los siguientes datos", response.getMotivo(), "Revisar datos", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    goToWalletMainActivity();
-                }
-            });
+            UI.showAlertDialog(getActivity(), "Por favor revisa los siguientes datos", response.getMotivo(),
+                    "Revisar datos", (dialogInterface, i) -> goToWalletMainActivity());
         } else if (response.getIdEstatus() != 0 && response.getIdEstatus() != 45 && response.hasErrorInDocs()) { // Error en domicilio y documentos
             element.setIdOperacion(OPTION_ERROR_ADDRESS_DOCS);
-            UI.showAlertDialog(getActivity(), "Por favor revisa los siguientes datos", response.getMotivo(), "Revisar datos", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    goToWalletMainActivity();
-                }
-            });
+            UI.showAlertDialog(getActivity(), "Por favor revisa los siguientes datos", response.getMotivo(),
+                    "Revisar datos", (dialogInterface, i) -> goToWalletMainActivity());
         } else {
             goToWalletMainActivity();
         }

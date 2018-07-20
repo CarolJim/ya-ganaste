@@ -114,7 +114,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 
         CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
         cancelRequest.setNoSerie(request.getNoSerie());
-        cancelRequest.setNoTicket(createTicket());
+        cancelRequest.setNoTicket(request.getNoTicket());
         cancelRequest.setAmount(request.getAmount());
         cancelRequest.setSwipeData(request.getSwipeData());
         cancelRequest.setEMVTransaction(request.getIsEMVTransaction());
