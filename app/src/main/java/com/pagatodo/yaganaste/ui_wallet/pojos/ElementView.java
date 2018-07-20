@@ -67,6 +67,7 @@ public class ElementView implements ElementGlobal {
     //Help
     static public final int OPTION_EMAIL = 501;
     static public final int OPTION_CALL = 502;
+    static public final int OPTION_CHAT = 503;
 
 
     public static final int OPTION_SIMPLE = 0;
@@ -143,7 +144,7 @@ public class ElementView implements ElementGlobal {
 
     }
 
-    public ElementView(int idOperacion, int resource, int title) {
+    public  ElementView(int idOperacion, int resource, int title) {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
@@ -263,6 +264,7 @@ public class ElementView implements ElementGlobal {
 
     public static ArrayList<ElementView> getListHelp() {
         ArrayList<ElementView> elementViews = new ArrayList<>();
+        elementViews.add(new ElementView(OPTION_CHAT, R.drawable.icon_chat, R.string.chat));
         elementViews.add(new ElementView(OPTION_EMAIL, R.drawable.ico_correo, R.string.correo));
         elementViews.add(new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada));
         return elementViews;

@@ -251,6 +251,7 @@ public class ApiAdq extends Api {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        request.setName("");
         NetFacade.consumeWS(applyAgent ? ENVIAR_TICKET_COMPRA_AUTOM : ENVIAR_TICKET_COMPRA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
                 headers, request, EnviarTicketCompraResponse.class, result);
@@ -266,6 +267,7 @@ public class ApiAdq extends Api {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        request.setName("");
         NetFacade.consumeWS(SHARED_TICKET_COMPRA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
                 headers, request, EnviarTicketCompraResponse.class, result);

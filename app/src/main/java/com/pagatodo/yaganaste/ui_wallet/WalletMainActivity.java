@@ -68,6 +68,7 @@ import com.pagatodo.yaganaste.ui_wallet.adapters.TypesRepaymentAdapter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.ChatFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FavoritesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
@@ -186,6 +187,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_ADMIN_STARBUCKS = "EVENT_GO_TO_ADMIN_STARBUCKS";
     public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
+    public final static String EVENT_GO_CHAT = "EVENT_GO_CHAT";
 
 
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
@@ -607,6 +609,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 //loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
                 loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
+                break;
+            case EVENT_GO_CHAT:
+                loadFragment(ChatFragment.newInstance(),  R.id.fragment_container, Direction.FORDWARD);
                 break;
 
         }

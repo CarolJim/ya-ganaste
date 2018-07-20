@@ -1,50 +1,58 @@
 package com.pagatodo.yaganaste.ui_wallet.trace;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
 
 public class Tracer extends WSTracer {
 
-    private final static String TAG_LOG = "WSTRACER";
-    private String WSName;
+    private final static String TAG_EVENT = "ws_tracer";
+    public final static String SUCESS = "SUCESS";
+    public final static String FAILED = "FAILED";
+
+    //Tag pra el evento
+    private final static String EMAIL = "email";
+    private final static String WSNAME = "ws_name";
+    private final static String START_TIME = "start_time";
+    private final static String FINAL_TIME = "final_time";
+    private final static String ST_REQUEST = "st_request";
+    private final static String ST_WS = "st_ws";
+    private final static String CONNECTION = "connection";
+    private final static String DURATION = "duration";
+
+
+
     private String email;
+    private String WSName;
     private Long startTime;
     private Long finalTime;
-    private String statusHttp;
+    private String statusRequest;
     private String statusWS; //Codigo de respuesta
     private String connection;
-    private Long timeTaken;
+    private Long duration;
 
 
-    public Tracer(String WSNama, String email) {
-        this.WSName = WSNama;
+    public Tracer(String email, String WSName) {
         this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getWSName() {
-        return WSName;
-    }
-
-    public void setWSName(String WSName) {
         this.WSName = WSName;
+        this.Start();
     }
+
 
     public Long getStartTime() {
         return startTime;
@@ -62,12 +70,12 @@ public class Tracer extends WSTracer {
         this.finalTime = finalTime;
     }
 
-    public String getStatusHttp() {
-        return statusHttp;
+    public String getStatusRequest() {
+        return statusRequest;
     }
 
-    public void setStatusHttp(String statusHttp) {
-        this.statusHttp = statusHttp;
+    public void setStatusRequest(String statusRequest) {
+        this.statusRequest = statusRequest;
     }
 
     public String getStatusWS() {
@@ -86,53 +94,58 @@ public class Tracer extends WSTracer {
         this.connection = connection;
     }
 
-    public Long getTimeTaken() {
-        return timeTaken;
+    public Long getDuration() {
+        return duration;
     }
 
-    public void setTimeTaken(Long timeTaken) {
-        this.timeTaken = timeTaken;
+    public void setDuration(Long duration) {
+        //this.duration = TimeUnit.SECONDS.convert(duration, TimeUnit.MILLISECONDS);
+        this.duration = duration;
     }
 
     @Override
     public void Start() {
-        this.startTime = System.nanoTime();
+        this.setStartTime(System.currentTimeMillis());
     }
 
     @Override
     public void End() {
-        this.finalTime = System.nanoTime();
+        this.setFinalTime(System.currentTimeMillis());
+    }
+
+    @SuppressLint("InvalidAnalyticsName")
+    @Override
+    public void getTracerSucess() {
+        //if (App.getInstance().getPrefs().loadDataBoolean(TRACE_SUCCESS_WS, false)) {
+            this.sendEvent();
+        //}
     }
 
     @Override
-    public void getStatus(DataSourceResult result) {
-        GenericResponse genericResponse  = (GenericResponse) result.getData();
-            if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK ||
-                    (genericResponse.getCodigoRespuesta() == Recursos.CODE_OK &&
-                            App.getInstance().getPrefs().loadDataBoolean(TRACE_SUCCESS_WS, false))) {
-                Log.d(TAG_LOG, this.WSName);
-                Log.d(TAG_LOG, this.email);
-                Log.d(TAG_LOG, "" + this.startTime);
-                Log.d(TAG_LOG, "" + this.finalTime);
-                //Log.d(TAG_LOG,this.statusHttp);
-                Log.d(TAG_LOG, this.statusWS);
-                Log.d(TAG_LOG, Utils.getTypeConnection());
-                this.timeTaken = this.startTime - this.finalTime;
-                Log.d(TAG_LOG, "" + TimeUnit.SECONDS.convert(this.timeTaken, TimeUnit.NANOSECONDS));
-
-            }
+    public void getTracerError() {
+        //if (App.getInstance().getPrefs().loadDataBoolean(TRACE_SUCCESS_WS, false)) {
+            this.sendEvent();
+        //}
     }
 
-    @Override
-    public void getStatusError() {
-        Log.d(TAG_LOG, this.WSName);
-        Log.d(TAG_LOG, this.email);
-        Log.d(TAG_LOG, "" + this.startTime);
-        Log.d(TAG_LOG, "" + this.finalTime);
-        //Log.d(TAG_LOG,this.statusHttp);
-        Log.d(TAG_LOG, this.statusWS);
-        Log.d(TAG_LOG, Utils.getTypeConnection());
-        this.timeTaken = this.startTime - this.finalTime;
-        Log.d(TAG_LOG, "" + TimeUnit.SECONDS.convert(this.timeTaken, TimeUnit.NANOSECONDS));
+    @SuppressLint("SimpleDateFormat")
+    private void sendEvent(){
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone("Mexico/General"));
+        Bundle params = new Bundle();
+        params.putString(EMAIL,this.email);
+        params.putString(WSNAME,this.WSName);
+        Log.d(this.WSName,formatter.format(new Date(this.startTime)));
+        params.putString(START_TIME,formatter.format(new Date(this.startTime)));
+        Log.d(this.WSName,formatter.format(new Date(this.finalTime)));
+        params.putString(FINAL_TIME,formatter.format(new Date(this.finalTime)));
+        params.putString(ST_REQUEST,this.statusRequest);
+        params.putString(ST_WS,this.statusWS);
+        params.putString(CONNECTION,this.connection);
+        formatter = new SimpleDateFormat("00:mm:ss.SSS");
+        Log.d(this.WSName,formatter.format(new Date(this.duration)));
+        params.putString(DURATION,formatter.format(new Date(this.duration)));
+
+        //FirebaseAnalytics.getInstance(App.getContext()).logEvent(TAG_EVENT,params);
     }
 }

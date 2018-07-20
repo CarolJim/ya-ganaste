@@ -5,6 +5,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 public interface TraceRequest {
     void Start();
     void End();
-    void getStatus(DataSourceResult result);
-    void getStatusError();
+    void getTracerSucess();
+    void getTracerError();
 }

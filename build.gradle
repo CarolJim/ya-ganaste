@@ -60,6 +60,7 @@ ext {
     archLifecycleVersion = "1.0.0"
     archRoomVersion = "1.0.0"
     countlyVersion = "18.04"
+    aiApiVersion = "2.0.5@aar"
 }
 
 task clean(type: Delete) {

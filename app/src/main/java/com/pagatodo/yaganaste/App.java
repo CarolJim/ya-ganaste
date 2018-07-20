@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-import android.view.ViewGroup;
 
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
@@ -33,8 +32,6 @@ import com.pagatodo.yaganaste.net.VolleySingleton;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
-import com.pagatodo.yaganaste.ui_wallet.holders.TextDataViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.patterns.interfaces.Component;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.FileDownload;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
@@ -419,28 +416,4 @@ public class App extends Application {
         }
     }
 
-    public static class TextLeaf implements Component {
-
-        public TextDataViewHolder holder;
-
-        public TextLeaf(TextDataViewHolder holder, Object item) {
-            this.holder = holder;
-            setContent(item);
-        }
-
-        @Override
-        public void add(Component component) {
-
-        }
-
-        @Override
-        public void setContent(Object item) {
-            this.holder.bind(item, null);
-        }
-
-        @Override
-        public void inflate(ViewGroup layout) {
-            layout.addView(this.holder.getView());
-        }
-    }
 }

@@ -33,7 +33,7 @@
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/ic_circle_border_shadow"
                 android:orientation="vertical">
 
@@ -45,14 +45,13 @@
                     android:layout_centerVertical="true"
                     app:civ_border_color="#FF09CC20" />
 
-                <TextView
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtInicialesFav"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="FM"
                     android:textColor="@color/whiteColor"
                     android:textSize="18sp"
                     android:visibility="gone" />
@@ -72,7 +71,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -123,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:text="@string/ingresa_monto"
                 android:textSize="11sp" />
 
@@ -135,7 +133,7 @@
         android:id="@+id/lyt_saldo_disponible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_weight=".5"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
@@ -167,7 +165,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:gravity="bottom">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
@@ -184,6 +182,17 @@
             android:visibility="visible" />
 
     </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/enviar"
+        android:layout_width="match_parent"
+        android:layout_height="53.5dp"
+        android:gravity="center"
+        android:background="@color/colorAccent"
+        android:layout_gravity="center_vertical"
+        android:text="@string/btn_send"
+        android:textAlignment="center"
+        android:textSize="19sp"/>
 
 </LinearLayout>
 

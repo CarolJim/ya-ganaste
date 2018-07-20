@@ -17,22 +17,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
-import com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder;
+import com.pagatodo.yaganaste.ui_wallet.holders.ButtonSimpleViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.LinearTextViewHolder;
+import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CHAT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CALL;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CHAT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_EMAIL;
 
 public class TutorialsFragment extends SupportFragment {
 
     private View rootView;
-    private FormBuilder builder;
+    private LayoutInflater inflater;
+    private ViewGroup parent;
 
     @BindView(R.id.container_options)
     LinearLayout container_options;
@@ -47,7 +51,7 @@ public class TutorialsFragment extends SupportFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        builder = new FormBuilder(getContext());
+        inflater = LayoutInflater.from(getContext());
     }
 
     @Nullable
@@ -62,11 +66,17 @@ public class TutorialsFragment extends SupportFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        builder.setButton(container_options, new ElementView(OPTION_EMAIL, R.drawable.ico_correo, R.string.correo), item -> {
+        parent = container_options;
+
+        /*setButton(new ElementView(OPTION_CHAT, R.drawable.icon_chat, R.string.chat), item -> {
+            onEventListener.onEvent(EVENT_GO_CHAT,null);
+        }).inflate(container_options);
+        container_options.addView(setSpaceVertical());*/
+        setButton(new ElementView(OPTION_EMAIL, R.drawable.ico_correo, R.string.correo), item -> {
             UtilsIntents.sendEmail(getActivity());
         }).inflate(container_options);
-        container_options.addView(builder.setSpaceVertical(10));
-        builder.setButton(container_options, new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada), item -> {
+        container_options.addView(setSpaceVertical());
+        setButton(new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada), item -> {
             UtilsIntents.createCallIntent(getActivity());
         }).inflate(container_options);
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -76,15 +86,14 @@ public class TutorialsFragment extends SupportFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     container.removeAllViews();
-                    container.addView(builder.setViewLine());
+                    container.addView(setViewLine());
                     for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                         DtoVideoTutorials item = singleSnapshot.getValue(DtoVideoTutorials.class);
-                        builder.setLineraText(container, item, item1 -> {
+                        setLineraText(container, item, item1 -> {
                             Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + item.ID_Video));
                             appIntent.putExtra("force_fullscreen", true);
                             startActivity(appIntent);
                         }).inflate(container);
-
                     }
                 }
             }
@@ -94,5 +103,41 @@ public class TutorialsFragment extends SupportFragment {
 
             }
         });
+
+    }
+    private ButtonSimpleViewHolder setButton(ElementView elementView, OnClickItemHolderListener listener){
+
+        View layout = inflater.inflate(R.layout.view_element, parent, false);
+        ButtonSimpleViewHolder buttonSimpleViewHolder = new ButtonSimpleViewHolder(layout);
+        buttonSimpleViewHolder.bind(elementView,listener);
+        return buttonSimpleViewHolder;
+    }
+
+    private View setSpaceVertical(){
+        View space = new View(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                10,
+                10);
+        space.setLayoutParams(params);
+        return space;
+    }
+
+    public LinearTextViewHolder setLineraText(ViewGroup parent,
+                                              DtoVideoTutorials item,
+                                              OnClickItemHolderListener listener){
+        View layout = inflater.inflate(R.layout.linear_text_layout, parent, false);
+        LinearTextViewHolder linearTextViewHolder = new LinearTextViewHolder(layout);
+        linearTextViewHolder.bind(item,listener);
+        return linearTextViewHolder;
+    }
+
+    public View setViewLine(){
+        View space = new View(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1);
+        space.setLayoutParams(params);
+        space.setBackgroundResource(R.color.gray_text_wallet_4);
+        return space;
     }
 }

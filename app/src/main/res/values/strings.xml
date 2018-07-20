@@ -1595,4 +1595,9 @@
     <string name="title_videos">Video tutoriales</string>
     <string name="correo">Correo\nelectronico</string>
     <string name="llamada">Llamada\ntelefónica</string>
+    <string name="chat">Chat de\nayuda</string>
+
+    <!-- Chat Fragment-->
+    <string name="chat_input_hint">Escribir mensaje</string>
+    <string name="chat_title">Chat Ayuda Ya Ganaste</string>
 </resources>

@@ -50,6 +50,7 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.ChatFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
@@ -97,6 +98,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_GO_PIN_CONFIRMATION = "EVENT_GO_PIN_CONFIRMATION";
     public final static String EVENT_GO_MAIN_TAB_ACTIVITY = "EVENT_GO_MAIN_TAB_ACTIVITY";
     public final static String EVENT_GO_HELP = "EVENT_GO_HELP";
+
     //Nuevo diseño-flujo
     public final static String EVENT_DATA_USER = "EVENT_GO_DATA_USER";
     public final static String EVENT_DATA_USER_BACK = "EVENT_GO_DATA_USER_BACK";
@@ -425,6 +427,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 showToolbarHelp(false);
                 loadFragment(TutorialsFragment.newInstance(), Direction.FORDWARD);
                 break;
+
         }
     }
 
