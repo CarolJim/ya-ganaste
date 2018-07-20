@@ -19,6 +19,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 
+/**
+
+ */
+
 public class CreateDatailBuilder {
 
     public static void createByType(Context context, ViewGroup container, MovimientosResponse response){
@@ -149,7 +153,6 @@ public class CreateDatailBuilder {
         DetailBulder bulder = new DetailBulder(context, container);
         bulder.createDetailMov(item,isAdq);
     }
-
     private static int getReferencuaTitleType(String ref) {
         String referencia = ref.replaceAll(" ", "").trim();
         int longitud = referencia.length();

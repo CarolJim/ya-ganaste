@@ -8,4 +8,5 @@ public interface LauncherHolder {
     void bind(Object item, OnClickItemHolderListener listener);
     void inflate(ViewGroup layout);
     View getView();
+
 }

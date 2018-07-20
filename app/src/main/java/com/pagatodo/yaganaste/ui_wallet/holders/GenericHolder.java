@@ -4,6 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+    Clase abstracta para la creacion de ViewHolders
+ */
 public abstract class GenericHolder extends RecyclerView.ViewHolder implements LauncherHolder{
 
     public View itemView;
@@ -12,7 +15,9 @@ public abstract class GenericHolder extends RecyclerView.ViewHolder implements L
         super(itemView);
         this.itemView = itemView;
     }
-
+    /**
+        Inicia las View generalmente
+     */
     @Override
     public abstract void init();
 

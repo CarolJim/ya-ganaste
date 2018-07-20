@@ -50,12 +50,16 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
     EditText et_amount;
     @BindView(R.id.txt_receiver_name)
     StyleTextView txtReceiverName;
-
     @BindView(R.id.saldoDisponible)
     MontoTextView saldoDisponible;
     @BindView(R.id.txtInicialesFav)
     TextView txtInicialesFav;
+    @BindView(R.id.enviar)
+    StyleTextView btnEnviar;
+
     View view;
+
+
     private StyleTextView tvMontoEntero, tvMontoDecimal;
 
     private float MIN_AMOUNT = 1.0f, current_mount;
@@ -147,6 +151,8 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
             }
         });
 
+        btnEnviar.setOnClickListener(view -> continueSendPayment());
+
     }
 
     public void continueSendPayment() {
@@ -220,7 +226,7 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         //mySeekBar.setProgress(0);
     }
 
-    @Override
+    /*@Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
@@ -228,21 +234,23 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         } else if (et_amount != null) {
             NumberCalcTextWatcher.cleanData();
         }
-    }
+    }*/
 
     private String getIniciales(String fullName) {
+        if (fullName.trim().length() == 1){
+            return fullName.substring(0, 1).toUpperCase();
+        }
+        if (fullName.trim().length() > 1){
+            return fullName.substring(0, 2).toUpperCase();
+        }
+
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
         if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
-        } else {
-            if (spliName.length == 1){
-                sIniciales = fullName.substring(0, 1).toUpperCase()+fullName.substring(0, 1).toUpperCase();
-            }else {
-                sIniciales = fullName.substring(0, 2).toUpperCase();
-            }
+            return sIniciales;
         }
-        return sIniciales;
+        return "";
     }
 
     // Se encarga de crear el circulo Drawable que usaremos para mostrar las imagenes o los textos

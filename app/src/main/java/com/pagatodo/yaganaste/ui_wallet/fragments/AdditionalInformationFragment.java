@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
@@ -24,7 +25,6 @@ import com.pagatodo.yaganaste.ui_wallet.holders.InputDataViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.holders.QuestionViewHolder;
 import com.pagatodo.yaganaste.ui_wallet.holders.SpinnerHolder;
-import com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -50,6 +50,8 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     private Giros textParentesco;
     private InputDataViewHolder inputDataViewHolder;
     private View rootView;
+    private LayoutInflater inflater;
+    private ViewGroup parent;
 
     @BindView(R.id.container)
     LinearLayout layout;
@@ -63,6 +65,7 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        inflater = LayoutInflater.from(getContext());
     }
 
     @Nullable
@@ -76,12 +79,12 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        FormBuilder builder = new FormBuilder(getContext());
-        parentesco = builder.setSpinner(layout, R.string.parentesco, new BussinesLineSpinnerAdapter(getContext(),
+        parent = layout;
+        parentesco = this.setSpinner(R.string.parentesco, new BussinesLineSpinnerAdapter(getContext(),
                 R.layout.spinner_layout, getList(), null), this);
-        states = builder.setInputText(layout, "");
-        inputDataViewHolder = builder.setInputText(layout, getContext().getResources().getString(R.string.txt_cargo));
-        qCargoPublico = builder.setQuest(layout, R.string.publicServantQuestion, false, (radioGroup, checkedId) -> {
+        states = setInputText("");
+        inputDataViewHolder = setInputText(getContext().getResources().getString(R.string.txt_cargo));
+        qCargoPublico = setQuest(R.string.publicServantQuestion, false, (radioGroup, checkedId) -> {
             switch (checkedId) {
                 case R.id.radioBtnPublicServantNo:
                     parentesco.getView().setVisibility(View.GONE);
@@ -94,7 +97,7 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
 
             }
         });
-        qNacionalidad = builder.setQuest(layout, R.string.mexicanQuestion, true, (radioGroup, checkedId) -> {
+        qNacionalidad = setQuest(R.string.mexicanQuestion, true, (radioGroup, checkedId) -> {
             switch (checkedId) {
                 case R.id.radioBtnPublicServantNo:
                     states.getView().setVisibility(View.VISIBLE);
@@ -106,19 +109,19 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
             }
         });
 
-        qCargoPublico.inflate(layout);
-        layout.addView(builder.setSpace(10));
-        parentesco.inflate(layout);
+        qCargoPublico.inflate(parent);
+        layout.addView(setSpace(10));
+        parentesco.inflate(parent);
         parentesco.getView().setVisibility(View.GONE);
-        layout.addView(builder.setSpace(10));
-        inputDataViewHolder.inflate(layout);
+        layout.addView(setSpace(10));
+        inputDataViewHolder.inflate(parent);
         inputDataViewHolder.getView().setVisibility(View.GONE);
-        layout.addView(builder.setSpace(10));
+        layout.addView(setSpace(10));
         if (SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero()) {
-            qNacionalidad.inflate(layout);
-            layout.addView(builder.setSpace(10));
+            qNacionalidad.inflate(parent);
+            layout.addView(setSpace(10));
         }
-        states.inflate(layout);
+        states.inflate(parent);
         states.getView().setVisibility(View.GONE);
         states.getEditText().setFocusable(false);
         states.getEditText().setOnClickListener(view -> showDialogList(getListPaises()));
@@ -204,7 +207,6 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
     }
 
-
     @Override
     public void onCountrySelectedListener(Paises item) {
         country = item;
@@ -236,4 +238,38 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         return null;
     }
 
+
+    /**
+     *  Obtiene el diseño correspondiente al spinner
+     */
+    private SpinnerHolder setSpinner(int texthint, BussinesLineSpinnerAdapter adapter, OnClickItemHolderListener listener){
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View layout = inflater.inflate(R.layout.spinner_view_layout, parent, false);
+        SpinnerHolder spinnerHolder = new SpinnerHolder(layout);
+        spinnerHolder.bind(new SpinnerHolder.SpinerItem(texthint,adapter),listener);
+        return spinnerHolder;
+    }
+
+    public InputDataViewHolder setInputText(String texthint){
+        View layout = inflater.inflate(R.layout.textinput_view_layout, parent, false);
+        InputDataViewHolder inputDataViewHolder = new InputDataViewHolder(layout);
+        inputDataViewHolder.bind(texthint,null);
+        return inputDataViewHolder;
+    }
+
+    public QuestionViewHolder setQuest(int text, boolean deafultR, RadioGroup.OnCheckedChangeListener listener){
+        View layout = inflater.inflate(R.layout.cuestion_layout, parent, false);
+        QuestionViewHolder questionViewHolder = new QuestionViewHolder(layout,listener);
+        questionViewHolder.bind(new QuestionViewHolder.Question(text,deafultR),null);
+        return questionViewHolder;
+    }
+
+    public View setSpace(int high){
+        View space = new View(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                high);
+        space.setLayoutParams(params);
+        return space;
+    }
 }

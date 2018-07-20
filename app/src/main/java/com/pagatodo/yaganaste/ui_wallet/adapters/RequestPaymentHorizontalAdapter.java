@@ -87,14 +87,20 @@ public class RequestPaymentHorizontalAdapter extends RecyclerView.Adapter<Reques
      * @return
      */
     private String getIniciales(String fullName) {
+        if (fullName.trim().length() == 1){
+            return fullName.substring(0, 1).toUpperCase();
+        }
+        if (fullName.trim().length() > 1){
+            return fullName.substring(0, 2).toUpperCase();
+        }
+
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
         if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
-        } else {
-            sIniciales = fullName.substring(0, 2).toUpperCase();
+            return sIniciales;
         }
-        return sIniciales;
+        return "";
     }
 
     private void setImagePicasoFav(ImageView imageView, String urlLogo) {

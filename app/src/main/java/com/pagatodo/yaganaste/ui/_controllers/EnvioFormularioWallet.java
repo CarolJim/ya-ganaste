@@ -34,16 +34,11 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         setContentView(R.layout.activity_fragment_container);
         payment = (Envios) getIntent().getExtras().get("pagoItem");
         favoritos = (Favoritos) getIntent().getExtras().get("favoritoItem");
-        showToolbarOk(true);
+        showToolbarOk(false);
         imgOk = (ImageView) findViewById(R.id.btn_ok);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_ENVIOS, null);
-        imgOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((SendWalletFragment) getCurrentFragment()).continueSendPayment();
-            }
-        });
+        imgOk.setOnClickListener(view -> ((SendWalletFragment) getCurrentFragment()).continueSendPayment());
     }
 
     @Override
@@ -66,7 +61,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CODE_OK_CLOSE) {
-            finish();
+            //finish();
         }
     }
 }

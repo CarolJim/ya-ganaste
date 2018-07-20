@@ -8,12 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
-import com.pagatodo.yaganaste.ui_wallet.patterns.builders.FormBuilder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -71,7 +67,7 @@ public class BusinessDataFragment extends GenericFragment {
 
     @Override
     public void initViews() {
-        FormBuilder builder = new FormBuilder(getContext());
+        //
         //builder.formBusinessData().inflate(layout);
        // builder.setQuest(layout,R.string.publicServantQuestion,false).inflate(layout);
 
