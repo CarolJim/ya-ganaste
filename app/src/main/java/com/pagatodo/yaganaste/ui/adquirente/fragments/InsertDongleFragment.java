@@ -464,7 +464,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     /* Mandar información a la tarjeta en caso de que el cobro haya sido con un dispositivo Bluetooth */
                     if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                         showLoader("");
-                        App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
+                        if (!TransactionAdqData.getCurrentTransaction().isSwipedCard()) {
+                            App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
+                        } else {
+                            nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
+                        }
                     } else {
                         /* En caso de ser dispositivo Audio Jack, mandar a la siguiente pantalla */
                         nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
