@@ -367,7 +367,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         try {
             folio = new DatabaseManager().getFolioAgente(element.getIdComercio());
             prefs.saveData(FOLIOADQ, folio);
-
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }

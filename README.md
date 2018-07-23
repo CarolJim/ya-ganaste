@@ -12,6 +12,10 @@ Las intrucciones de uso son las siguientes:
     4. Descripciones breves:  Una vez que el código de un branch ya sea autorizado para subirse a master se deberá crear una descripción breve de los cambios que se realizaron en el código.
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
+    
+**_VERSION 4.2.7 - 13 al 23 de Julio del 2018 (ID:5092)_**
+
+
 
 **_VERSION 4.2.5 - 25 de Junio al 12 de Julio del 2018 (ID:5004)_**
 

@@ -60,8 +60,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
  * A simple {@link GenericFragment} subclass.
  */
 public class DomicilioNegocioFragment extends GenericFragment implements ValidationForms,
-        View.OnClickListener, IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener,
-        IOnSpinnerClick {
+        View.OnClickListener, IAdqRegisterView<ErrorObject>, IOnSpinnerClick {
 
     public static final String _DOMICILIO = "1";
     public static final String COLONIAS = "2";
@@ -114,14 +113,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     @BindView(R.id.spBussinesColonia)
     Spinner spBussinesColonia;
-    @BindView(R.id.radioIsBussinesAddress)
-    RadioGroup radioIsBussinesAddress;
 
     @BindView(R.id.btnNextBussinesAddress)
     Button btnNextBussinesAddress;
     @BindView(R.id.btnNextBussineslimpiar)
     Button btnNextBussineslimpiar;
-
 
     @BindView(R.id.errorBussinesStreetMessage)
     ErrorMessage errorStreet;
@@ -165,7 +161,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     public static DomicilioNegocioFragment newInstance() {
         DomicilioNegocioFragment fragmentRegister = new DomicilioNegocioFragment();
         Bundle args = new Bundle();
-
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -227,7 +222,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         });
 
         setCurrentData();
-        radioIsBussinesAddress.setOnCheckedChangeListener(this);
         setValidationRules();
     }
 
@@ -240,10 +234,12 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
             case R.id.btnNextBussineslimpiar:
                 if (RegisterAgent.getInstance().isUseSameAddress()) {
+                    RegisterAgent.getInstance().setUseSameAddress(false);
                     cleanFields();
                     spcolonia.setVisibility(View.GONE);
                     estadotesto.setVisibility(View.GONE);
                 } else {
+                    RegisterAgent.getInstance().setUseSameAddress(true);
                     domicilio = null;
                     loadHomeAddress();
                 }
@@ -282,16 +278,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 }
             }
         });
-/*
-
-        editBussinesStreet.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editBussinesStreet.getId());
-                editBussinesStreet.imageViewIsGone(true);
-            }
-        });
-*/
 
         editBussinesExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -316,16 +302,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 }
             }
         });
-
-        /*
-        editBussinesExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editBussinesExtNumber.getId());
-                editBussinesExtNumber.imageViewIsGone(true);
-            }
-        });
-        */
 
         editBussinesZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -393,16 +369,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 }
             }
         });
-
-        /*
-        editBussinesZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editBussinesZipCode.getId());
-                editBussinesZipCode.imageViewIsGone(true);
-            }
-        });
-        */
     }
 
     @Override
@@ -454,13 +420,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         }
 
         if (isValid) {
-            if (getActivity() instanceof WalletMainActivity) {
-                adqPresenter.updateAdq(folio);
-            } else {
-                onValidationSuccess();
-            }
+            onValidationSuccess();
         }
-
     }
 
     private void fillAdapter() {
@@ -475,22 +436,10 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
 
     private void setCurrentData() {
-        /*errorStreet.setVisibilityImageError(false);
-        errorNumberAddress.setVisibilityImageError(false);
-        errorZipCode.setVisibilityImageError(false);
-        errorColonia.setVisibilityImageError(false);*/
         clearAllFocus();
         RegisterAgent registerAgente = RegisterAgent.getInstance();
-        if (!registerAgente.getCodigoPostal().isEmpty()) {
-            for (CuestionarioEntity q : registerAgente.getCuestionario()) {
-                if (q.getPreguntaId() == PREGUNTA_DOMICILIO) {
-                    radioIsBussinesAddress.check(q.isValor() ? R.id.radioBtnIsBussinesAddressYes : R.id.radioBtnIsBussinesAddressNo);
-                }
-            }
-        }
-        if (radioIsBussinesAddress.getCheckedRadioButtonId() == -1) {
-            radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressYes);
-            onCheckedChanged(radioIsBussinesAddress, R.id.radioBtnIsBussinesAddressYes);
+        if (registerAgente.isUseSameAddress()) {
+            loadHomeAddress();
         } else {
             editBussinesStreet.setText(registerAgente.getCalle());
             editBussinesExtNumber.setText(registerAgente.getNumExterior());
@@ -556,7 +505,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         registerAgent.setColonia(colonia);
         registerAgent.setIdColonia(Idcolonia);
         //  editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
-        respuestaDomicilio = radioIsBussinesAddress.getCheckedRadioButtonId() == R.id.radioBtnIsBussinesAddressYes;
+        respuestaDomicilio = registerAgent.isUseSameAddress();
 
         if (registerAgent.getCuestionario().size() > 0) {
             for (CuestionarioEntity cuestionario : registerAgent.getCuestionario()) {
@@ -566,7 +515,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             }
         }
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
-        nextScreen(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION, null);
+        if(getActivity() instanceof WalletMainActivity){
+            adqPresenter.updateAdq(folio);
+        } else {
+            nextScreen(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION, null);
+        }
     }
 
     @Override
@@ -590,7 +543,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     @Override
     public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias) {
-        if (this.domicilio != null && radioIsBussinesAddress.getCheckedRadioButtonId() == R.id.radioBtnIsBussinesAddressYes) {
+        if (this.domicilio != null && RegisterAgent.getInstance().isUseSameAddress()) {
             this.domicilio.setColoniasDomicilio(listaColonias);
         }
         this.listaColonias = listaColonias;
@@ -672,26 +625,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             //  onClick(btnBackBussinesAddress);
         } else if (error.getWebService() == OBTENER_DOMICILIO || error.getWebService() == OBTENER_DOMICILIO_PRINCIPAL) {
             cleanFields();
-            radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressNo);
+            RegisterAgent.getInstance().setUseSameAddress(false);
         }
         error.setHasConfirm(true);
         error.setHasCancel(false);
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        switch (checkedId) {
-            case R.id.radioBtnIsBussinesAddressNo:
-                cleanFields();
-                break;
-            case R.id.radioBtnIsBussinesAddressYes:
-            default:
-                if (RegisterAgent.getInstance().isUseSameAddress()) {
-                    loadHomeAddress();
-                }
-                break;
-        }
     }
 
     private void cleanFields() {

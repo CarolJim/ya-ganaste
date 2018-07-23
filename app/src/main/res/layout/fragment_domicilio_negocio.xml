@@ -72,49 +72,6 @@
                         android:visibility="gone"
                         app:tipo="Descripcion" />
 
-                    <RadioGroup
-                        android:id="@+id/radioIsBussinesAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:theme="@style/RadioButtonTheme"
-                        android:visibility="gone">
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnIsBussinesAddressNo"
-                            style="@style/generic_text_style_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/no" />
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnIsBussinesAddressYes"
-                            style="@style/generic_text_style_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/yes" />
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                    </RadioGroup>
-
                     <android.support.v4.widget.Space
                         android:layout_width="match_parent"
                         android:layout_height="8dp"

@@ -587,7 +587,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-                    if (current_tab == PAYMENT_RECARGAS) {
+                    if (current_tab == PAYMENT_RECARGAS || current_tab == PAYMENT_SERVICIOS) {
                         referenceNumber.setText(barcode.displayValue);
                     } else if (current_tab == PAYMENT_ENVIOS) {
                         if (barcode.displayValue.contains("userName") && barcode.displayValue.contains("phoneNumber") &&

@@ -394,7 +394,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_ERROR_ADDRESS_DOCS:
             case OPTION_ERROR_ADDRESS:
-                RegisterAgent.getInstance().setUseSameAddress(true);
                 loadFragment(DatosNegocioFragment.newInstance(null), R.id.fragment_container);
                 break;
             case OPTION_TUTORIALS:
@@ -600,7 +599,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 }
                 break;
             case EVENT_SET_BUSINESS_LIST:
-                RegisterAgent.getInstance().setUseSameAddress(true);
+                RegisterAgent.getInstance().setOnErrorAddress(true);
                 String folio = "";
                 try {
                     folio = new DatabaseManager().getFolioAgente(itemOperation.getIdComercio());

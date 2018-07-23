@@ -35,7 +35,7 @@ public class RegisterAgent {
     private String idColonia = "";
     private String idEstado = "";
     private String lada = "";
-    private boolean useSameAddress = false;
+    private boolean useSameAddress = false, onErrorAddress = false;
 
     private RegisterAgent() {
         cuestionario = new ArrayList<>();
@@ -130,6 +130,14 @@ public class RegisterAgent {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public boolean isOnErrorAddress() {
+        return onErrorAddress;
+    }
+
+    public void setOnErrorAddress(boolean onErrorAddress) {
+        this.onErrorAddress = onErrorAddress;
     }
 
     public String getRazonSocial() {
