@@ -372,10 +372,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
             onInviteAdquirente();
-        } else if (event.equals(EVENT_CARGA_DOCUMENTS)) {
-            showMainTab();
-            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
-            onInviteAdquirente();
         } else if (event.equals("DISABLE_BACK")) {
             if (data.toString().equals("true")) {
                 disableBackButton = true;

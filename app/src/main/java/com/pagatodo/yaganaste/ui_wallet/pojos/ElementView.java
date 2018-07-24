@@ -18,12 +18,14 @@ import java.util.concurrent.ExecutionException;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 /**
  * Created by icruz on 12/12/2017.
@@ -144,7 +146,7 @@ public class ElementView implements ElementGlobal {
 
     }
 
-    public  ElementView(int idOperacion, int resource, int title) {
+    public ElementView(int idOperacion, int resource, int title) {
         this.idOperacion = idOperacion;
         this.resource = resource;
         this.title = title;
@@ -297,7 +299,8 @@ public class ElementView implements ElementGlobal {
             if (isAgente && idEstatusAgente == IdEstatus.I6.getId()) {
                 elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
             }
-            if (isAgente && idEstatusAgente == IdEstatus.I7.getId()) {
+            if (isAgente && (idEstatusAgente == IdEstatus.I7.getId()
+                    || App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE)) {
                 elementViews = ElementView.getListEstadoRevisando(idComercio);
             }
 
