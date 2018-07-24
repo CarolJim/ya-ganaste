@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
@@ -123,9 +124,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     ImageView imgtorigen;
     @BindView(R.id.imgdestino)
     ImageView imgdestino;
-
-
-
 
 
     private View rootView;
@@ -406,6 +404,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     @Override
     public void onSuccessCreateAgente() {
         App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        getActivity().setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
         infoAdicionalPresenter.updateSession();
     }

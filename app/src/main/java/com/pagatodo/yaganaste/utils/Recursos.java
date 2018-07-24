@@ -133,6 +133,7 @@ public class Recursos {
     public static final int SW_ERROR = 160;
     public static final int LECTURA_OK = 170;
     public static final int SW_TIMEOUT = 180;
+    public static final int SW_DEVICE_BUSY = 185;
     public static final int ENCENDIDO_TIMEOUT = 190;
     public static final int BATTERY_LOW = 200;
     public static final int READ_KSN = 210;

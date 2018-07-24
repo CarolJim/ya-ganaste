@@ -132,7 +132,7 @@ public class IposListener implements QPOSServiceListener {
             enviaMensaje(Recursos.ONLINE_PROCESS_SUCCESS, null, context.getString(R.string.success_request_online_emv));
         } else if (transactionResult == TransactionResult.DECLINED) {
             enviaMensaje(Recursos.ONLINE_PROCESS_FAILED, null, context.getString(R.string.error_de_lectura));
-        } else if(transactionResult == TransactionResult.TERMINATED) {
+        } else if (transactionResult == TransactionResult.TERMINATED) {
             enviaMensaje(Recursos.ONLINE_PROCESS_FAILED, null, context.getString(R.string.error_de_tarjeta));
         } else if (transactionResult == TransactionResult.CANCEL) {
             enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.error_de_transaccion));
@@ -320,6 +320,8 @@ public class IposListener implements QPOSServiceListener {
         Log.e("onErrorValidateService", errorState.name());
         if (errorState.name().equals("WS_TIMEOUT") || errorState.name().equals("CMD_TIMEOUT")) {
             enviaMensaje(Recursos.SW_TIMEOUT);
+        } else if (errorState.equals("DEVICE_BUSY")) {
+            enviaMensaje(Recursos.SW_DEVICE_BUSY);
         } else {
             enviaMensaje(Recursos.READ_KSN_ERROR, null, context.getString(R.string.input_invalid));
             enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.input_invalid));

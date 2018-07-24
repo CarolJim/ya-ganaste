@@ -99,6 +99,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_SELECT_APP;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.SW_DEVICE_BUSY;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.TIME_OUT_EMV;
@@ -475,8 +476,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     /* REVERSO para cuando el servicio informa que hubo un problema y mandar a la siguiente pantalla */
                 } else if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_ERROR) {
-                    if (!TransactionAdqData.getCurrentTransaction().isSwipedCard())
-                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);
+                    /*if (!TransactionAdqData.getCurrentTransaction().isSwipedCard())
+                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);*/
                     nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
                 }
             } else {
@@ -806,6 +807,19 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         //Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
                     }
                     break;
+                case SW_DEVICE_BUSY:
+                    showSimpleDialogError(getString(R.string.device_busy_error), new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    });
+                    break;
                 case ENCENDIDO:
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.i("IposListener: ", "=====>>    ENCENDIDO");
@@ -896,19 +910,19 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         isTransactionInitialized = false;
                         /* REVERSO para cuando el chip rechaza la transacción */
                         adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), PINPAD_FAILED_EMV);
-                        showSimpleDialogError(intent.getStringExtra(ERROR),
-                                new DialogDoubleActions() {
-                                    @Override
-                                    public void actionConfirm(Object... params) {
-                                        getActivity().finish();
-                                    }
-
-                                    @Override
-                                    public void actionCancel(Object... params) {
-                                        getActivity().finish();
-                                    }
-                                });
                     }
+                    showSimpleDialogError(intent.getStringExtra(ERROR),
+                            new DialogDoubleActions() {
+                                @Override
+                                public void actionConfirm(Object... params) {
+                                    getActivity().finish();
+                                }
+
+                                @Override
+                                public void actionCancel(Object... params) {
+                                    getActivity().finish();
+                                }
+                            });
                     break;
                 default:
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {

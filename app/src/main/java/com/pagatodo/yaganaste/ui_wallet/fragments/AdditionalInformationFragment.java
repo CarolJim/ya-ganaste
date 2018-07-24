@@ -99,11 +99,11 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
         });
         qNacionalidad = setQuest(R.string.mexicanQuestion, true, (radioGroup, checkedId) -> {
             switch (checkedId) {
-                case R.id.radioBtnPublicServantNo:
+                case R.id.radioBtnEresMexaNo:
                     states.getView().setVisibility(View.VISIBLE);
                     showDialogList(getListPaises());
                     break;
-                case R.id.radioBtnPublicServantYes:
+                case R.id.radioBtnEresMexaYes:
                     states.getView().setVisibility(View.GONE);
                     break;
             }
@@ -177,7 +177,6 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
                 }
             }
         }
-
         addNewCuestionarios(registerAgent);
         onEventListener.onEvent(EVENT_GO_BUSSINES_MONEY_LAUNDERING, null);
     }
@@ -185,18 +184,18 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
     private void addNewCuestionarios(RegisterAgent registerAgent) {
         if (qCargoPublico.getResponseYes().isChecked()) {
             registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR,
-                    qCargoPublico.getResponseYes().isChecked(),
+                    true,
                     textParentesco.getIdGiro(),
                     inputDataViewHolder.getEditText().getText().toString()));
         } else {
-            registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, qCargoPublico.getResponseNo().isChecked()));
+            registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, false));
         }
 
         if (SingletonUser.getInstance().getDataUser().getUsuario().isEsExtranjero()) {
             if (qNacionalidad.getResponseYes().isChecked()) {
-                registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ERES_MEXICANO_NATURALIZADO, qNacionalidad.getResponseYes().isChecked()));
+                registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ERES_MEXICANO_NATURALIZADO, true));
             } else {
-                registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ERES_MEXICANO_NATURALIZADO, qNacionalidad.getResponseNo().isChecked(), country.getId()));
+                registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ERES_MEXICANO_NATURALIZADO, false, country.getId()));
             }
         }
     }

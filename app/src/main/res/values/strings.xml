@@ -286,6 +286,7 @@
     <string name="txt_referencia_num">Referencia Numérica:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta tu lector de tarjetas\nYa Ganaste en el teléfono</string>
     <string name="enciende_el_lector_bt_para_continuar">Enciende tu lector de tarjetas\nYa Ganaste</string>
+    <string name="device_busy_error">El lector se encuentra ocupado, favor de apagarlo y volverlo a encender</string>
     <string name="text_slide_or_insert">Inserta la tarjeta con chip</string>
     <string name="text_insert_cancelation">Inserta la misma tarjeta con\nla que se hizo el cobro</string>
     <string name="text_slide_cancelation">Desliza la misma tarjeta con\nla que se hizo el cobro</string>

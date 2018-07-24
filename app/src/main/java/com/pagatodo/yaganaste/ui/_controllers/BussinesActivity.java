@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdditionalInformationFragment;
@@ -160,8 +161,7 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK:
-                RegisterAgent.getInstance().resetAditionalInformation();
-                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias, null), Direction.BACK, false);
+                loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
@@ -207,7 +207,7 @@ public class BussinesActivity extends LoaderActivity {
                 onEvent(EVENT_GO_BUSSINES_PRE_ADDRESS_BACK, null);
             } else if (currentFragment instanceof DomicilioNegocioFragment) {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
-            } else if (currentFragment instanceof AdditionalInformationFragment) {
+            } else if (currentFragment instanceof InformacionAdicionalFragment) {
                 onEvent(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK, null);
             } else if (currentFragment instanceof InformacionLavadoDineroFragment) {
                 onEvent(EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK, null);
