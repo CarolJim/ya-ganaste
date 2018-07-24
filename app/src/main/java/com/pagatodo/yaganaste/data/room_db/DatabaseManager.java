@@ -368,7 +368,8 @@ public class DatabaseManager {
         return new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(Void... voids) {
-                return App.getAppDatabase().agentesModel().getIdEstatusAgente(numAgente);
+                int status = App.getAppDatabase().agentesModel().getIdEstatusAgente(numAgente);
+                return status == 0 ? 5 : status;
             }
         }.execute().get();
     }

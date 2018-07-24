@@ -112,10 +112,7 @@ public class BussinesActivity extends LoaderActivity {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
             showBack(true);
         } else {
-            //loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
-            loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, true);
-
-
+            loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
         }
         //pref = App.getInstance().getPrefs();
     }
