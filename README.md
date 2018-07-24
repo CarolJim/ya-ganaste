@@ -13,9 +13,21 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
-**_VERSION 4.2.7 - 13 al 23 de Julio del 2018 (ID:5092)_**
+**_VERSION 4.2.7 - 13 al 24 de Julio del 2018 (ID:5092)_**
 
+Descripción al desarrollador:
 
+    * Reverso a tarjetas con chip EMV
+    * Correccion diseño Favoritos
+    * Tracking del tiempo empleado por Web Services(aún no activo)
+    * Catálogos en Realtime para registro de cliente emisor
+    * Implementación de chat con AI
+    * Corrección de incidencias
+    
+Funcionalidad:
+
+    * Mejoras en la conexión con lector Bluetooth
+    * Correcciones a errores
 
 **_VERSION 4.2.5 - 25 de Junio al 12 de Julio del 2018 (ID:5004)_**
 
