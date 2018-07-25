@@ -210,29 +210,12 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
-            //showLoader("");
-            int idADQ = 0;
-            try {
-                if (!agentes.isEmpty()) {
-                    idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
-                    RequestHeaders.setIdCuentaAdq("" + idADQ);
-                }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
             getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
         }
     }
 
     protected void getDataForTab(T dataToRequest) {
-
         //Obtener el ID
-
-
         movementsPresenter.getRemoteMovementsData(dataToRequest);
     }
 

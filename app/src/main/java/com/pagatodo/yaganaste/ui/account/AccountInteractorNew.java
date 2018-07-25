@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -89,6 +91,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,6 +148,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_MIEMBRO_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_NUMBER_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MEMBER_SINCE;
 import static com.pagatodo.yaganaste.utils.Recursos.MISSING_STARS_NUMBER;
@@ -503,6 +507,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 Operadores operador = db.getOperadoresAdmin(agente);
                 saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                 RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
+                App.getInstance().getPrefs().saveDataBool(IS_UYU, agente.isEsComercioUYU());
                 ApiAdq.consultaSaldoCupo(saldoRequest, this);
             } catch (ExecutionException e) {
                 e.printStackTrace();

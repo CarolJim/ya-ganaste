@@ -83,8 +83,7 @@ public class ForcedUpdateChecker {
             String appVersion = getAppVersion(context);
             String updateUrl = remoteConfig.getString(KEY_UPDATE_URL);
 
-            if (!TextUtils.equals(currentVersion, appVersion)
-                    && onUpdateNeededListener != null) {
+            if (!TextUtils.equals(currentVersion, appVersion) && onUpdateNeededListener != null) {
                 onUpdateNeededListener.onUpdateNeeded(updateUrl);
             }
         }

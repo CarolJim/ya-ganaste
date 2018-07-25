@@ -48,6 +48,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 
 /**
@@ -87,6 +88,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                         Operadores operador = db.getOperadoresAdmin(agente);
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                         RequestHeaders.setIdCuentaAdq(operador.getIdUsuarioAdquirente());
+                        App.getInstance().getPrefs().saveDataBool(IS_UYU, agente.isEsComercioUYU());
                         ApiAdq.consultaSaldoCupo(saldoRequest, this);
                     } catch (ExecutionException e) {
                         e.printStackTrace();
@@ -104,7 +106,7 @@ public class WalletInteractorImpl implements WalletInteractor {
                     try {
                         if (!db.getOperadores().isEmpty()) {
                             for (Operadores operador : db.getOperadores()) {
-                                if (operador!=null && operador.getIsAdmin()) {
+                                if (operador != null && operador.getIsAdmin()) {
                                     saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
                                 }
                             }

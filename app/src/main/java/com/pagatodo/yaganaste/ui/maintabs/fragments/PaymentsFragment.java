@@ -84,13 +84,11 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         } else {
             tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
         }*/
-
         if (this.isBussines) {
             filterLinerLayout.setVisibility(View.VISIBLE);
         } else {
             filterLinerLayout.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -203,9 +201,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
         int idADQ = 0;
-
         try {
             idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(i).getNumeroAgente());
         } catch (ExecutionException e) {
@@ -213,11 +209,8 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         RequestHeaders.setIdCuentaAdq("" + idADQ);
-
         getDataForTab(tabMonths.getCurrentData(currentTab));
-
     }
 
     @Override
