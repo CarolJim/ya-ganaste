@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -170,7 +172,13 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
                 this.onEventListener.onEvent(EVENT_GO_TO_SEND_TICKET, this.movTab);
                 return true;
             case R.id.action_cancelar_cobro:
-                UI.showAlertDialogCancelar(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
+                BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                if (!adapter.isEnabled()) {
+                    Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivity(enabler);
+                } else {
+                    UI.showAlertDialogCancelar(getContext(), getString(R.string.cancelacion_dialog_message), (dialogInterface, i) -> onEventListener.onEvent(EVENT_GO_INSERT_DONGLE_CANCELATION, dataMovimientoAdq));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -212,7 +220,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
                 DateUtil.getMonthShortName(calendar),
                 color, ticket);
 
-        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, movement,true);
+        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, movement, true);
         CreateDatailBuilder.createByTypeAdq(getContext(), container, ticket);
     }
 

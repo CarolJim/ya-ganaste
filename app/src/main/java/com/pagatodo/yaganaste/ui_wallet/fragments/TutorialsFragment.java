@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
@@ -27,9 +28,7 @@ import com.pagatodo.yaganaste.utils.UtilsIntents;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CHAT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CALL;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CHAT;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_EMAIL;
 
 public class TutorialsFragment extends SupportFragment {
@@ -137,7 +136,7 @@ public class TutorialsFragment extends SupportFragment {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 1);
         space.setLayoutParams(params);
-        space.setBackgroundResource(R.color.gray_text_wallet_4);
+        space.setBackgroundColor(App.getContext().getResources().getColor(R.color.gray_text_wallet_4));
         return space;
     }
 }

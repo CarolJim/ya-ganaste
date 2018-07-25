@@ -1,9 +1,11 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,7 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESULT_CODE_SELECT_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_CLOSED_LOOP;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
@@ -52,7 +55,7 @@ public class OperadorTabFragment extends SupportFragment implements OnClickItemH
     ImageView wallet;
     @BindView(R.id.title_negocio)
     StyleTextView titleNegocio;
-
+    private ElementView element;
 
     public static OperadorTabFragment newInstance() {
         return new OperadorTabFragment();
@@ -134,24 +137,31 @@ public class OperadorTabFragment extends SupportFragment implements OnClickItemH
     @Override
     public void onItemClick(Object item) {
         ElementView elementView = (ElementView) item;
+        this.element = elementView;
         if (elementView.getIdOperacion() == OPTION_BALANCE_CLOSED_LOOP) {
-            if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
-                    && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
-                loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
+            BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+            if (!adapter.isEnabled()) {
+                Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivity(enabler);
             } else {
-                UI.showAlertDialog(getContext(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
-                        getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
-                            TransactionAdqData.getCurrentTransaction().setAmount("");
-                            TransactionAdqData.getCurrentTransaction().setDescription("");
-                            Intent intentAdq = new Intent(getContext(), AdqActivity.class);
-                            intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
-                            startActivity(intentAdq);
-                        });
+                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                        && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
+                    element.setIdOperacion(OPTION_CONFIG_DONGLE);
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.please_config_dongle), Snackbar.LENGTH_SHORT);
+                    goToWalletMainActivity();
+                } else {
+                    UI.showAlertDialog(getContext(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
+                            getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
+                                TransactionAdqData.getCurrentTransaction().setAmount("");
+                                TransactionAdqData.getCurrentTransaction().setDescription("");
+                                Intent intentAdq = new Intent(getContext(), AdqActivity.class);
+                                intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
+                                startActivity(intentAdq);
+                            });
+                }
             }
         } else {
-            Intent intent = new Intent(getContext(), WalletMainActivity.class);
-            intent.putExtra(ITEM_OPERATION, elementView);
-            startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+            goToWalletMainActivity();
         }
     }
 
@@ -163,5 +173,11 @@ public class OperadorTabFragment extends SupportFragment implements OnClickItemH
             this.conteainerElementsOtro.removeAllViews();
             createWallet();
         }
+    }
+
+    private void goToWalletMainActivity() {
+        Intent intent = new Intent(getContext(), WalletMainActivity.class);
+        intent.putExtra(ITEM_OPERATION, element);
+        startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
     }
 }

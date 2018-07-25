@@ -358,8 +358,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_CONFIG_DONGLE:
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
                     App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE,true);
+                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
                 } else {
                     setResult(PICK_WALLET_TAB_REQUEST);
                     setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);

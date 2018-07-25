@@ -46,8 +46,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public static String IS_BUSSINES = "IS_BUSSINES";
     private ItemMovements<DataMovimientoAdq> itemClicked;
     private int currentTab;
-    private boolean isBussines = false;
-
 
     public static PaymentsFragment newInstance() {
         return new PaymentsFragment();

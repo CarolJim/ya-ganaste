@@ -123,7 +123,21 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         } else {
             App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
             App.getInstance().pos.clearBluetoothBuffer();
-            App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+            if (App.getInstance().pos != null) {
+                App.getInstance().pos.scanQPos2Mode(App.getContext(), 30);
+            } else {
+                UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), getString(R.string.error_pos_is_null),
+                        getFragmentManager(), new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                getActivity().finish();
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+                            }
+                        });
+            }
             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
         }
     }
@@ -143,7 +157,7 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
         if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
             imgYaGanasteCard.setImageResource(R.drawable.lector_bt);
             String[] btDevice = new String[2];
-            if(prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
+            if (prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
                 btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
                 txtSerialNumber.setText("Dispositivo: " + btDevice[0]);
             } else {
@@ -358,7 +372,7 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
                     Log.i("IposListener: ", "======>> Bluetooth Device ");
                     List<BluetoothDevice> devicesBT = App.getInstance().pos.getDeviceList();
                     String[] btDevice = new String[2];
-                    if(prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
+                    if (prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
                         btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
                     } else {
                         btDevice[1] = prefs.loadData(BT_PAIR_DEVICE);

@@ -92,6 +92,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected List<String> listComercios;
     protected ArrayAdapter<String> spinnerArrayAdapter;
     protected List<Agentes> agentes;
+    protected boolean isBussines = false;
 
     public AbstractAdEmFragment() {
 
@@ -210,6 +211,17 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
+            if(isBussines) {
+                int idADQ = 0;
+                try {
+                    if (!agentes.isEmpty()) {
+                        idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
+                        RequestHeaders.setIdCuentaAdq("" + idADQ);
+                    }
+                } catch (ExecutionException|InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
         }
     }

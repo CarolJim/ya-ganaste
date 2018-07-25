@@ -363,7 +363,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         if (!BuildConfig.DEBUG) {
             Map<String, String> segmentation = new HashMap<>();
             segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            if(data.getTipoTarjeta()==null){
+            if (data.getMarcaTarjetaBancaria() == null) {
                 Countly.sharedInstance().endEvent(EVENT_CHARGE_ADQ_CL, segmentation, 1, 0);
             } else {
                 Countly.sharedInstance().endEvent(EVENT_CHARGE_ADQ_REG, segmentation, 1, 0);
