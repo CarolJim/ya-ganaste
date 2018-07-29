@@ -336,13 +336,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(AdminStarbucksFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_PAYMENT_ADQ:
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                /*if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                     UI.showErrorSnackBar(this, getString(R.string.please_config_dongle), Snackbar.LENGTH_SHORT);
-                } else {
-                    loadFragment(GetMountFragment.newInstance(itemOperation.getNombreNegocio()), R.id.fragment_container);
-                }
+                } else {*/
+                loadFragment(GetMountFragment.newInstance(itemOperation.getNombreNegocio()), R.id.fragment_container);
+                //}
                 break;
             case 7:
                 startActivity(BussinesActivity.createIntent(this, itemOperation.getNumeroAgente()));
@@ -357,18 +357,18 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(DocumentosFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_CONFIG_DONGLE:
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+               /* if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE,true);
                     loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container);
-                } else {
-                    setResult(PICK_WALLET_TAB_REQUEST);
-                    setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
-                    finish();
-                    App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE,true);
-                }
+                } else {*/
+                setResult(PICK_WALLET_TAB_REQUEST);
+                setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
+                finish();
+                App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
+                //}
                 break;
             case OPTION_FIRST_ADQ:
-                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN,true);
+                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_LOGIN, true);
                 setResult(PICK_WALLET_TAB_REQUEST);
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
@@ -557,11 +557,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(SelectDongleFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIG_DONGLE:
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                /*if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
-                } else {
-                    finish();
-                }
+                } else {*/
+                finish();
+                //}
                 break;
             case EVENT_GO_TO_MOV_ADQ:
                 this.movTab = (MovTab) data;
@@ -612,7 +612,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(DomicilioNegocioFragment.newInstance(null, null, folio), R.id.fragment_container);
                 break;
             case EVENT_GO_CHAT:
-                loadFragment(ChatFragment.newInstance(),  R.id.fragment_container, Direction.FORDWARD);
+                loadFragment(ChatFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
                 break;
             case EVENT_DOC_CHECK:
                 App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_PENDIENTE);
@@ -659,19 +659,19 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
         } else if (fragment instanceof DocumentosFragment) {
             setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             super.onBackPressed();
-        }else if (fragment instanceof TimeRepaymentFragment) {
+        } else if (fragment instanceof TimeRepaymentFragment) {
             setResult(PICK_WALLET_TAB_REQUEST);
             setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             finish();
             super.onBackPressed();
-        }else if (fragment instanceof MyDongleFragment) {
+        } else if (fragment instanceof MyDongleFragment) {
             setResult(PICK_WALLET_TAB_REQUEST);
             setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             finish();
             super.onBackPressed();
 
 
-        }else {
+        } else {
             setResult(PICK_WALLET_TAB_REQUEST);
             super.onBackPressed();
         }

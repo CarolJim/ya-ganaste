@@ -25,4 +25,8 @@ public interface IAdqTransactionRegisterView extends INavigationView {
     void onErrorTransaction();
 
     void cancelTransactionChip();
+
+    void onDongleSelected(int position);
+
+    void onSearchCancel();
 }

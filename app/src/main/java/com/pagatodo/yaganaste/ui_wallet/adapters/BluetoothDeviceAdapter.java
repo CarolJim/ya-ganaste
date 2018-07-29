@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
@@ -47,6 +48,7 @@ public class BluetoothDeviceAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = m_Inflater.inflate(R.layout.row_device_bluetooth, null);
         }
+        ImageView imageView1 = (ImageView) convertView.findViewById(R.id.imageView1);
         TextView m_TitleName = (TextView) convertView
                 .findViewById(R.id.txt_device_bt_founded);
         m_TitleName.setText(devices.get(position));

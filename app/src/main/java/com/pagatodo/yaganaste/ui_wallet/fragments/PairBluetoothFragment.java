@@ -259,6 +259,16 @@ public class PairBluetoothFragment extends SupportFragment implements AdapterVie
     }
 
     @Override
+    public void onDongleSelected(int position) {
+
+    }
+
+    @Override
+    public void onSearchCancel() {
+
+    }
+
+    @Override
     public void nextScreen(String event, Object data) {
     }
 

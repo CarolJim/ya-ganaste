@@ -417,11 +417,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_GO_CONFIG_DONGLE:
                 showToolbarHelp(false);
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+               /* if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     loadFragment(PairBluetoothFragment.newInstance(), Direction.FORDWARD);
-                } else {
+                } else {*/
                     onBackPressed();
-                }
+                //}
                 break;
             case EVENT_GO_HELP:
                 showToolbarHelp(false);
