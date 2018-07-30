@@ -27,7 +27,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 public class UtilsIntents {
 
-    public static String INTENT_SHARE = "INTENT_SHARE";
+    public static String INTENT_SHARE = "Compartir con...";
     public static int INTENT_FAVORITE = 46325;
 
     public static void IntentShare(Context context,String message){

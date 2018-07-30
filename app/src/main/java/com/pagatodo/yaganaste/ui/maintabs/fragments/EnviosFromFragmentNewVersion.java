@@ -622,7 +622,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             }
             UI.showErrorSnackBar(getActivity(), errorTittle, Snackbar.LENGTH_LONG);
         }
-
     }
 
     @Override
