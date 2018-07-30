@@ -139,7 +139,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private QPOSService.TransactionType transactionType;
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false, isCancelation = false, isReaderConected = false, signWithPin = false, isTransactionInitialized = false,
-            isDialogSelectBt = false;
+            isDialogSelectBt = false, showDialogError = false;
     private static boolean banderaCacelachevron = false;
     private Preferencias prefs;
     private UsbDevice usbDevice;
@@ -370,6 +370,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertDongle() {
         isDialogSelectBt = false;
+        showDialogError = false;
         try {
             if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                 imgSearchBt.setVisibility(VISIBLE);
@@ -545,6 +546,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onDongleSelected(int position) {
+        App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName());
         App.getInstance().pos.stopScanQPos2Mode();
         App.getInstance().pos.connectBluetoothDevice(true, 10, devicesBT.get(position).getAddress());
     }
@@ -781,23 +783,26 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     if (isDialogSelectBt) {
                         dialogSelectBluetooth.dismiss();
                     }
-                    showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
-                            new DialogDoubleActions() {
-                                @Override
-                                public void actionConfirm(Object... params) {
-                                    showInsertDongle();
-                                    if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-                                        App.getInstance().pos.disconnectBT();
-                                        App.getInstance().pos.clearBluetoothBuffer();
-                                        App.getInstance().pos.scanQPos2Mode(App.getContext(), 15);
+                    if (!showDialogError) {
+                        showDialogError = true;
+                        showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
+                                new DialogDoubleActions() {
+                                    @Override
+                                    public void actionConfirm(Object... params) {
+                                        showInsertDongle();
+                                        if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                                            App.getInstance().pos.disconnectBT();
+                                            App.getInstance().pos.clearBluetoothBuffer();
+                                            App.getInstance().pos.scanQPos2Mode(App.getContext(), 15);
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void actionCancel(Object... params) {
-                                    getActivity().finish();
-                                }
-                            });
+                                    @Override
+                                    public void actionCancel(Object... params) {
+                                        getActivity().finish();
+                                    }
+                                });
+                    }
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
                     }
@@ -855,17 +860,14 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         Log.i("IposListener: ", "======>> Bluetooth Device");
                     }
                     devicesBT = App.getInstance().pos.getDeviceList();
-                    /*String[] btDevice = new String[2];
-                    if (prefs.loadData(BT_PAIR_DEVICE).contains("_")) {
-                        btDevice = prefs.loadData(BT_PAIR_DEVICE).split("_");
-                    } else {
-                        btDevice[1] = prefs.loadData(BT_PAIR_DEVICE);
-                    }*/
-                    for (BluetoothDevice device : devicesBT) {
+                    for (int i = 0; i < devicesBT.size(); i++) {
                         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                            Log.i("IposListener: ", "======>> Bluetooth Address: " + device.getName() + " " + device.getAddress());
+                            Log.i("IposListener: ", "======>> Bluetooth Address: " + devicesBT.get(i).getName() + " " + devicesBT.get(i).getAddress());
                         }
-                        //if (device.getAddress().equals(btDevice[1])) {
+                        if (!devicesBT.get(i).getName().contains("MPOS"))
+                            devicesBT.remove(i);
+                    }
+                    if (!devicesBT.isEmpty()) {
                         if (!isDialogSelectBt) {
                             dialogSelectBluetooth.setDevices(devicesBT);
                             dialogSelectBluetooth.show(getFragmentManager(), "Dialog Select Bt");
@@ -873,8 +875,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         } else {
                             dialogSelectBluetooth.refreshData(devicesBT);
                         }
-                        break;
-                        //}
                     }
                     break;
                 case CONFIG_READER_OK:

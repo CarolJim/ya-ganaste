@@ -363,12 +363,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_CHECK_MONEY_CARD:
                 showToolbarHelp(false);
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+               /* if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     loginContainerFragment.loadConfigDongle();
-                } else {
+                } else {*/
                     loginContainerFragment.loadGetBalanceClosedLoop();
-                }
+                //}
                 break;
             case EVENT_CONFIG_DONGLE:
                 showToolbarHelp(false);

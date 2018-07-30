@@ -66,7 +66,7 @@ public class DialogSelectBluetooth extends DialogFragment implements AdapterView
         this.devices = devices;
     }
 
-    public void refreshData(List<BluetoothDevice> devices){
+    public void refreshData(List<BluetoothDevice> devices) {
         this.devices = devices;
         if (adapter != null) {
             adapter.clearData();
@@ -76,7 +76,8 @@ public class DialogSelectBluetooth extends DialogFragment implements AdapterView
             devicesFounded.add(device.getName());
         }
         adapter = new BluetoothDeviceAdapter(App.getContext(), devicesFounded);
-        lstDevices.setAdapter(adapter);
+        if (lstDevices != null)
+            lstDevices.setAdapter(adapter);
     }
 
     @Override

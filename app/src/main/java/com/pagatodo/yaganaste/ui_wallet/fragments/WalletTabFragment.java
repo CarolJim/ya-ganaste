@@ -261,12 +261,12 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivity(enabler);
             } else {
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
+                /*if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     itemOperation.setIdOperacion(OPTION_CONFIG_DONGLE);
                     UI.showErrorSnackBar(getActivity(), getString(R.string.please_config_dongle), Snackbar.LENGTH_SHORT);
                     goToWalletMainActivity();
-                } else {
+                } else {*/
                     UI.showAlertDialog(getActivity(), getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
                             getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
                                 TransactionAdqData.getCurrentTransaction().setAmount("");
@@ -275,7 +275,7 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                                 intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
                                 startActivity(intentAdq);
                             });
-                }
+                //}
             }
         } else {
             goToWalletMainActivity();

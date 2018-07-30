@@ -405,8 +405,7 @@ public class IposListener implements QPOSServiceListener {
     @Override
     public void onDeviceFound(BluetoothDevice bluetoothDevice) {
         Log.i("IposListener: ", "------ onDeviceFound");
-        if (bluetoothDevice.getName() != null && !bluetoothDevice.getName().equals("")
-                && bluetoothDevice.getName().contains("MPOS")) {
+        if (bluetoothDevice.getName() != null && !bluetoothDevice.getName().equals("")) {
             Intent intent = new Intent(Recursos.IPOS_READER_STATES);
             intent.putExtra(Recursos.MSJ, Recursos.EMV_DETECTED);
             context.sendBroadcast(intent);
