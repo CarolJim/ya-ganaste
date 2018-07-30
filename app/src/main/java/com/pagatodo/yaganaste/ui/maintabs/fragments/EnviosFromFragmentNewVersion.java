@@ -568,7 +568,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 errorTittle = App.getContext().getResources().getString(R.string.type_send_invalid);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_referencia_envio_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_clabe))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_clabe_empty_error);
@@ -583,7 +583,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 errorText = App.getContext().getResources().getString(R.string.new_body_envios_cell_empty_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_error))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_referencia_envio_error);
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_clabe_error))) {
                 errorTittle = App.getContext().getString(R.string.new_tittle_envios_clabe_error);
 
@@ -601,24 +601,24 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 errorText = App.getContext().getString(R.string.new_body_envios_destiny_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_name_error))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_name_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_empty))) {
                 errorTittle = App.getContext().getString(R.string.new_tittle_envios_concepto_error);
                 errorText = App.getContext().getString(R.string.new_body_envios_concepto_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_error))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_concept_error);
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_empty))) {
                 errorTittle = App.getContext().getString(R.string.new_tittle_envios_refer_error);
                 errorText = App.getContext().getString(R.string.new_body_envios_refer_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_short))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_referencia_number_short);
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_invalid))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_referencia_number_invalid);
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_error))) {
-                errorTittle = "Error";
+                errorTittle = getString(R.string.txt_referencia_number_error);
             }
             UI.showErrorSnackBar(getActivity(), errorTittle, Snackbar.LENGTH_LONG);
         }
