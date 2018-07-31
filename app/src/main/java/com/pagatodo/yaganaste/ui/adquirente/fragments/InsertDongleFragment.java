@@ -924,7 +924,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     break;
                 case ONLINE_PROCESS_SUCCESS:
                     hideLoader();
-                    nextScreen(EVENT_GO_TRANSACTION_RESULT, "");
+                    if (transactionType == QPOSService.TransactionType.PAYMENT)
+                        nextScreen(EVENT_GO_TRANSACTION_RESULT, "");
                     break;
                 case ONLINE_PROCESS_FAILED:
                 case DESCONECTADO:
