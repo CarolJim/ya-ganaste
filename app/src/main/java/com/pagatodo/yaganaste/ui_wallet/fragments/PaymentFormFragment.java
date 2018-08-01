@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -68,6 +70,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -184,6 +187,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.scrollViewpagos)
     ScrollView scrollViewpagos;
 
+    @BindView(R.id.txtInicialesFav)
+    StyleTextView txtIniciales;
+
     boolean isRecarga = false;
     boolean isIAVE;
     boolean noCamara;
@@ -198,8 +204,8 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     private SpinnerArrayAdapter dataAdapter;
     private IRecargasPresenter recargasPresenter;
     private IPresenterPaymentFragment iPresenterPayment;
+    private boolean isFavorite;
 
-    /***/
 
     public PaymentFormFragment() {
     }
@@ -225,7 +231,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         super.onCreate(savedInstanceState);
         // Creamos el presentes del favorito
         iPresenterPayment = new PresenterPaymentFragment(this);
-
+        isFavorite = false;
         /**
          * Sin importar que sea un proceso de comercioResponse o favoritos, siempre trabaajreos con
          * ccomercioResponse. En el caso de favorito, accesamos a las propiedades del comercio y lo
@@ -244,7 +250,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                         isRecarga = true;
                     }
                 }
+                isFavorite = true;
             } else {
+                isFavorite = false;
                 comercioResponse = (Comercio) getArguments().getSerializable(ARG_PARAM1);
                 if (comercioResponse != null) {
                     if (comercioResponse.getIdTipoComercio() == 1) {
@@ -256,7 +264,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_payment_form, container, false);
@@ -265,7 +273,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
     }
@@ -279,27 +287,21 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
         imgmonto.setOnClickListener(view -> spnMontoRecarga.performClick());
 
-        edtPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    txt_num_telefono.setBackgroundResource(R.drawable.inputtext_active);
+        edtPhoneNumber.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                txt_num_telefono.setBackgroundResource(R.drawable.inputtext_active);
 
-                } else {
-                    txt_num_telefono.setBackgroundResource(R.drawable.inputtext_normal);
+            } else {
+                txt_num_telefono.setBackgroundResource(R.drawable.inputtext_normal);
 
-                }
             }
         });
 
-        edtServiceConcept.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    txtconcepto.setBackgroundResource(R.drawable.inputtext_active);
-                } else {
-                    txtconcepto.setBackgroundResource(R.drawable.inputtext_normal);
-                }
+        edtServiceConcept.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                txtconcepto.setBackgroundResource(R.drawable.inputtext_active);
+            } else {
+                txtconcepto.setBackgroundResource(R.drawable.inputtext_normal);
             }
         });
 
@@ -331,7 +333,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     tipoPhoto = 2;
                     nameRefer = comercioResponse.getNombreComercio();
                 }
-                setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
+                //setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
                 txtData.setText(nameRefer);
 
                 isIAVE = comercioResponse.getIdComercio() == IAVE_ID;
@@ -374,14 +376,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 }
 
                 edtPhoneNumber.setSingleLine(true);
-                edtPhoneNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                        if (actionId == IME_ACTION_DONE) {
-                            UI.hideKeyBoard(getActivity());
-                        }
-                        return false;
+                edtPhoneNumber.setOnEditorActionListener((v, actionId, event) -> {
+                    if (actionId == IME_ACTION_DONE) {
+                        UI.hideKeyBoard(getActivity());
                     }
+                    return false;
                 });
 
                 if (comercioResponse.getSobrecargo() > 0) {
@@ -430,16 +429,16 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     imgReferencePayment.setVisibility(View.GONE);
                 }
 
-                int tipoPhoto;
+
                 String nameRefer;
                 if (favoritos != null) {
-                    tipoPhoto = 1;
+
                     nameRefer = favoritos.getNombre();
                 } else {
-                    tipoPhoto = 2;
+
                     nameRefer = comercioResponse.getNombreComercio();
                 }
-                setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
+                //setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
                 txtData.setText(nameRefer);
 
                 imgReferencePayment.setOnClickListener(this);
@@ -472,67 +471,58 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
 
                 edtServiceConcept.setLongClickable(true);
                 edtServiceConcept.setSingleLine();
-                edtServiceImport.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
-                        if (actionid == EditorInfo.IME_ACTION_NEXT) {
-                            // si pasamos al siguiente item
+                edtServiceImport.setOnEditorActionListener((textView, actionid, keyEvent) -> {
+                    if (actionid == EditorInfo.IME_ACTION_NEXT) {
+                        // si pasamos al siguiente item
 
-                            edtServiceConcept.setFocusable(true);
-                            edtServiceConcept.requestFocus();
+                        edtServiceConcept.setFocusable(true);
+                        edtServiceConcept.requestFocus();
 
-                      /*      final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
-                            scrollView.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                                    edtServiceConcept.setFocusable(true);
-                                    edtServiceConcept.requestFocus();
-                                }
-                            });
-                            return true; // Focus will do whatever you put in the logic.)*/
-                        }
-                        return false;
+                  /*      final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                        scrollView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                                edtServiceConcept.setFocusable(true);
+                                edtServiceConcept.requestFocus();
+                            }
+                        });
+                        return true; // Focus will do whatever you put in the logic.)*/
                     }
+                    return false;
                 });
 
                 // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
 
 
-                edtReferenceNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if (hasFocus) {
-                            txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_active);
-                        } else {
-                            txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_normal);
+                edtReferenceNumber.setOnFocusChangeListener((v, hasFocus) -> {
+                    if (hasFocus) {
+                        txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_active);
+                    } else {
+                        txt_referenciaserv.setBackgroundResource(R.drawable.inputtext_normal);
 
-                        }
                     }
                 });
 
-                edtServiceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if (!hasFocus) {
-                            // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
-                            txt_monotserv.setBackgroundResource(R.drawable.inputtext_normal);
+                edtServiceImport.setOnFocusChangeListener((v, hasFocus) -> {
+                    if (!hasFocus) {
+                        // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
+                        txt_monotserv.setBackgroundResource(R.drawable.inputtext_normal);
 
-                            if (edtServiceImport.getText().length() > 0) {
-                                String serviceImportStr = edtServiceImport.getText().toString().substring(1).replace(",", "");
+                        if (edtServiceImport.getText().length() > 0) {
+                            String serviceImportStr = edtServiceImport.getText().toString().substring(1).replace(",", "");
 
-                                if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
-                                    monto = Double.valueOf(serviceImportStr);
-                                    txtMonto.setText("" + Utils.getCurrencyValue(monto));
-                                } else {
-                                    txtMonto.setText("" + Utils.getCurrencyValue(0.0));
-                                }
+                            if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
+                                monto = Double.valueOf(serviceImportStr);
+                                txtMonto.setText("" + Utils.getCurrencyValue(monto));
+                            } else {
+                                txtMonto.setText("" + Utils.getCurrencyValue(0.0));
                             }
-                        } else {
-                            txt_monotserv.setBackgroundResource(R.drawable.inputtext_active);
                         }
-
+                    } else {
+                        txt_monotserv.setBackgroundResource(R.drawable.inputtext_active);
                     }
+
                 });
 
 
@@ -554,18 +544,67 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     .into(imgUserPhoto);
         }
 
+        if (isFavorite){
+            if (!favoritos.getImagenURL().equals("")) {
+                Picasso.with(getContext())
+                        .load(favoritos.getImagenURL())
+                        .placeholder(R.mipmap.icon_user)
+                        .into(circuleDataPhoto);
+                txtIniciales.setVisibility(View.GONE);
+            } else {
+                txtIniciales.setVisibility(View.VISIBLE);
+                txtIniciales.setText(getIniciales(favoritos.getNombre()));
+                GradientDrawable gd = createCircleDrawable(android.graphics.Color.parseColor(favoritos.getColorMarca()),
+                        android.graphics.Color.parseColor(favoritos.getColorMarca()));
+                circuleDataPhoto.setBackground(gd);
+            }
+        } else {
+            if (!comercioResponse.getImagenURL().equals("")) {
+                Picasso.with(getContext())
+                        .load(comercioResponse.getLogoURLColor())
+                        .placeholder(R.mipmap.icon_user)
+                        .into(circuleDataPhoto);
+            }
+            txtIniciales.setVisibility(View.GONE);
+
+            //setImagePicasoFav(imageDataPhoto, circuleDataPhoto, tipoPhoto);
+
+        }
 
     }
 
-    /**
-     * Encargada de hacer Set de la imagen y del borde.
-     *
-     * @param imageDataPhoto   es la imagen que se usa para hacer Set de los logos de Carriers
-     * @param circuleDataPhoto es la imagen que se usa para hacer Set de los logos de favoritos y borde
-     *                         en ambos casos
-     * @param mType
-     */
-    private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
+    private String getIniciales(String fullName) {
+        if (fullName.trim().length() == 1){
+            return fullName.substring(0, 1).toUpperCase();
+        }
+        if (fullName.trim().length() > 1){
+            return fullName.substring(0, 2).toUpperCase();
+        }
+
+        String[] spliName = fullName.split(" ");
+        String sIniciales = "";
+        if (spliName.length > 1) {
+            sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
+            return sIniciales;
+        }
+        return "";
+    }
+
+    private GradientDrawable createCircleDrawable(int colorBackground, int colorBorder) {
+        // Creamos el circulo que mostraremos
+        int strokeWidth = 2; // 3px not dp
+        int roundRadius = 140; // 8px not dp
+        int strokeColor = colorBorder;
+        int fillColor = colorBackground;
+        GradientDrawable gd = new GradientDrawable();
+        gd.setColor(fillColor);
+        gd.setCornerRadius(roundRadius);
+        gd.setStroke(strokeWidth, strokeColor);
+        return gd;
+    }
+
+
+    /*private void setImagePicasoFav(ImageView imageDataPhoto, CircleImageView circuleDataPhoto, int mType) {
         if (mType == 1) {
             String mPhoto = favoritos.getImagenURL();
             if (!mPhoto.equals("")) {
@@ -587,20 +626,17 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             }
             //  circuleDataPhoto.setBorderColor(Color.parseColor(comercioResponse.getColorMarca()));
         }
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.layoutImageContact) {
             Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-            getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
+            Objects.requireNonNull(getActivity()).startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
         }
 
         switch (v.getId()) {
             case R.id.btn_continue_payment:
-                /**
-                 * Por medio de la isRecarga mandamos a procesos de Recargas o Carriers
-                 */
                 if (isRecarga) {
                     referencia = edtPhoneNumber.getText().toString().trim();
                     referencia = referencia.replaceAll(" ", "");
