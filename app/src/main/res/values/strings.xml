@@ -929,7 +929,7 @@
     <string name="contratosterminos">Contratos</string>
     <string name="aviso_privacidad_linea_credito">Línea de crédito </string>
     <string name="aviso_privacidad">Aviso de privacidad</string>
-    <string name="aviso_privacidad_cuenta_ganaste">Cuenta Ya Ganaste</string>
+    <string name="aviso_privacidad_cuenta_ganaste">Ya Ganaste</string>
 
     <string name="micuenta">Mi Cuenta</string>
     <string name="cuentareebolso">Cuenta de reembolso</string>

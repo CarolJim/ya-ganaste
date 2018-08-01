@@ -40,7 +40,6 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelResultFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.ContactoFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NotificacionesPrefFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment;
@@ -51,9 +50,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
@@ -74,8 +71,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_TERMINOS_BACK = "PREFER_USER_TERMINOS_BACK";
     public static String PREFER_USER_PRIVACIDAD_CUENTA_YA = "PREFER_USER_PRIVACIDAD_CUENTA_YA";
     public static String PREFER_USER_TERMINOS_CUENTA_YA = "PREFER_USER_TERMINOS_CUENTA_YA";
-    public static String PREFER_USER_PRIVACIDAD_LINEA_CREDITO = "PREFER_USER_PRIVACIDAD_LINEA_CREDITO";
-    public static String PREFER_USER_TERMINOS_LINEA_CREDITO = "PREFER_USER_TERMINOS_LINEA_CREDITO";
     public static String PREFER_USER_CUENTA_REEMBOLSO = "PREFER_USER_CUENTA_REEMBOLSO";
     public static String PREFER_USER_CUENTA_REEMBOLSO_BACK = "PREFER_USER_CUENTA_REEMBOLSO_BACK";
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
@@ -341,28 +336,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                     LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOS);
                     legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
                     //loadFragment(LegalsDialog.newInstance(TERMINOS));
-                } else {
-                    showDialogMesage(getResources().getString(R.string.no_internet_access));
-                    //Toast.makeText(this, "Is OffLine Terminos", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case "PREFER_USER_PRIVACIDAD_LINEA_CREDITO":
-                boolean isOnlinec = Utils.isDeviceOnline();
-                if (isOnlinec) {
-                    //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                    LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDADLC);
-                    legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
-                } else {
-                    // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
-                    showDialogMesage(getResources().getString(R.string.no_internet_access));
-                }
-                break;
-            case "PREFER_USER_TERMINOS_LINEA_CREDITO":
-                boolean isOnlinec2 = Utils.isDeviceOnline();
-                if (isOnlinec2) {
-                    LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOSLC);
-                    legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                     //Toast.makeText(this, "Is OffLine Terminos", Toast.LENGTH_SHORT).show();

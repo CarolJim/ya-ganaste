@@ -102,6 +102,12 @@ public class ContainerBuilder {
 
     public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> LEGALES(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
         Container s = new Container(context, listener);
+        s.addOptionMenuSegurity(parent, new OptionMenuItem(1, R.string.termin_condiciones, 0, RAW));
+        return s.getArrayListOptionMenuSegurity();
+    }
+
+    public static ArrayList<OptionMenuItem.ViewHolderMenuSegurity> LEGALES_PRIVACY(Context context, ViewGroup parent, OnClickItemHolderListener listener) {
+        Container s = new Container(context, listener);
         s.addOptionMenuSegurity(parent, new OptionMenuItem(1, R.string.aviso_privacidad_cuenta_ganaste, 0, RAW));
         return s.getArrayListOptionMenuSegurity();
     }
