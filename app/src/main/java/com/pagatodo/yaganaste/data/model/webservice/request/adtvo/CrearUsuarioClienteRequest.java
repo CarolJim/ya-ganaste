@@ -21,7 +21,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
     private String CURP = "";
     private int IdPaisNacimiento;
     private String Nacionalidad;
-    private String IdEstadoNacimiento;
+    private String ClaveEntidadNacimiento;
     private String Correo = "";
     private String Telefono = "";
     private String TelefonoCelular = "";
@@ -39,7 +39,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
 
     public CrearUsuarioClienteRequest(String usuario, String contrasena, String nombre, String primerApellido,
                                       String segundoApellido, String genero, String fechaNacimiento, String RFC,
-                                      String CURP, String nacionalidad, String idEstadoNacimiento, String correo,
+                                      String CURP, String nacionalidad, String claveEntidadNacimiento, String correo,
                                       String telefono, String telefonoCelular, String idColonia, String colonia,
                                       String CP, String calle, String numeroExterior, String numeroInterior, int idPaisNacimiento) {
         this.Usuario = usuario;
@@ -52,7 +52,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
         this.RFC = RFC;
         this.CURP = CURP;
         this.Nacionalidad = nacionalidad;
-        this.IdEstadoNacimiento = idEstadoNacimiento;
+        this.ClaveEntidadNacimiento = claveEntidadNacimiento;
         this.Correo = correo;
         this.Telefono = telefono;
         this.TelefonoCelular = telefonoCelular;
@@ -145,12 +145,13 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
         nacionalidad = nacionalidad;
     }
 
-    public String getIdEstadoNacimiento() {
-        return IdEstadoNacimiento;
+
+    public String getClaveEntidadNacimiento() {
+        return ClaveEntidadNacimiento;
     }
 
-    public void setIdEstadoNacimiento(String idEstadoNacimiento) {
-        IdEstadoNacimiento = idEstadoNacimiento;
+    public void setClaveEntidadNacimiento(String claveEntidadNacimiento) {
+        ClaveEntidadNacimiento = claveEntidadNacimiento;
     }
 
     public String getCorreo() {

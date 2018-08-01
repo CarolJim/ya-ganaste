@@ -348,7 +348,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 "",/*RFC*/
                 "",/*CURP*/
                 registerUser.getPaisNacimiento().getIdPais(),/*Nacionalidad*/
-                registerUser.getIdEstadoNacimineto(),
+                registerUser.getClaveEntidadNacimiento(),
                 registerUser.getEmail(),
                 "",/*Telefono*/
                 "",/*Telefono Celular*/
@@ -375,7 +375,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setSegundoApellido(registerUser.getApellidoMaterno());
         request.setFechaNacimiento(registerUser.getFechaNacimiento());
         request.setGenero(registerUser.getGenero());
-        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
+        request.setClaveEntidadNacimiento(registerUser.getClaveEntidadNacimiento());
 
         try {
             ApiAdtvo.validarDatosPersona(request, this);
@@ -397,7 +397,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setSegundoApellido(registerUser.getApellidoMaterno());
         request.setFechaNacimiento(registerUser.getFechaNacimiento());
         request.setGenero(registerUser.getGenero());
-        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
+        request.setClaveEntidadNacimiento(registerUser.getClaveEntidadNacimiento());
         request.setCURP(registerUser.getCURP());
 
         try {
