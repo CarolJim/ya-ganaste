@@ -63,22 +63,4 @@ public class TerminosyCondicionesFragment extends GenericFragment implements OnC
                 break;
         }
     }
-/*
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_back:
-                onEventListener.onEvent(PREFER_USER_TERMINOS_BACK, 1);
-                break;
-
-            case R.id.fragment_terminos_lcredito_linearlayout:
-                onEventListener.onEvent(PREFER_USER_TERMINOS_LINEA_CREDITO, 1);
-                break;
-
-        }
-    }
-*/
-
-
-
 }

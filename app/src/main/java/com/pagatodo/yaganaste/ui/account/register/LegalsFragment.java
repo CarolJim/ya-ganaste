@@ -4,6 +4,8 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,17 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.Serializable;
 
@@ -38,10 +47,11 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
     WebView webViewLegales;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.txt_content_legal)
+    StyleTextView txtContent;
     private String TAG = "LegalsFragment";
     private View rootview;
     private Legales typeLegal;
-    private WebView webViewLegalsContent;
 
     public LegalsFragment() {
         // Required empty public constructor
@@ -89,27 +99,29 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_legals, container, false);
         initViews();
-        init();
         return rootview;
-    }
-
-    private void init() {
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        WebSettings settings = webViewLegalsContent.getSettings();
+        WebSettings settings = webViewLegales.getSettings();
         settings.setJavaScriptEnabled(true);
-        webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-        webViewLegalsContent.loadUrl(getUrlLegals());
-        webViewLegalsContent.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                hideLoader();
-            }
-        });
+        webViewLegales.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        if (typeLegal == Legales.TERMINOS) {
+            txtContent.setVisibility(VISIBLE);
+            getFirebaseLegals();
+        } else {
+            webViewLegales.setVisibility(VISIBLE);
+            webViewLegales.loadUrl(getUrlLegals());
+            webViewLegales.setWebViewClient(new WebViewClient() {
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    hideLoader();
+                }
+            });
+        }
     }
 
     @Override
@@ -129,23 +141,34 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
     }
 
     private String getUrlLegals() {
-
         switch (typeLegal) {
-
-            case TERMINOS:
-
-                return URL_LEGALES_TERMINOS;
-
+            /*case TERMINOS:
+                return URL_LEGALES_TERMINOS;*/
             case PRIVACIDAD:
-
                 return URL_LEGALES_PRIVACIDAD;
-
             default:
-
                 return "";
 
         }
 
+    }
+
+    private void getFirebaseLegals(){
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("Mexico").child("Banking").child("trms_cndtns");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    txtContent.setText(dataSnapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public enum Legales implements Serializable {
