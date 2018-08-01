@@ -14,16 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarLy"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_content_legal"
+            style="@style/generic_text_style_3.1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:visibility="gone" />
 
         <WebView
             android:id="@+id/webViewLegalsContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:gravity="center"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

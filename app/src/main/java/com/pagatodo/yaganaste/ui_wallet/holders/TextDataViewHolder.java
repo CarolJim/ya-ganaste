@@ -7,7 +7,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-public class TextDataViewHolder extends GenericHolder{
+public class TextDataViewHolder extends GenericHolder {
 
     public StyleTextView leftText;
     public StyleTextView rightText;
@@ -29,6 +29,7 @@ public class TextDataViewHolder extends GenericHolder{
         TextData textData = (TextData) item;
         this.leftText.setText(textData.getTitleLeft());
         this.rightText.setText(textData.getTitleRight());
+        this.rightText.setSelected(true);
     }
 
     @Override

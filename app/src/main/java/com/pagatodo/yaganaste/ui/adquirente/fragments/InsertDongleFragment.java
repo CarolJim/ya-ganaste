@@ -466,30 +466,26 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void transactionResult(final String message, String tlv) {
         hideLoader();
         if (transactionType == QPOSService.TransactionType.PAYMENT) {
-            /* Valida si el camino fue de cobro o cancelación */
-            if (!isCancelation) {
-                /* Si es un cobro, entonces valida el estatus de la transaccion */
-                if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_APROVE) {
-                    /* Mandar información a la tarjeta en caso de que el cobro haya sido con un dispositivo Bluetooth */
-                    if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
-                        if (!TransactionAdqData.getCurrentTransaction().isSwipedCard()) {
-                            showLoader("");
-                            App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
-                        } else {
-                            nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
-                        }
+            /* Si es un cobro, entonces valida el estatus de la transaccion */
+            if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_APROVE) {
+                /* Mandar información a la tarjeta en caso de que el cobro haya sido con un dispositivo Bluetooth */
+                if (communicationMode == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
+                    if (!TransactionAdqData.getCurrentTransaction().isSwipedCard()) {
+                        showLoader("");
+                        App.getInstance().pos.sendOnlineProcessResult("8A023030" + (tlv != null ? Utils.translateTlv(tlv) : ""));
                     } else {
-                        /* En caso de ser dispositivo Audio Jack, mandar a la siguiente pantalla */
                         nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
                     }
-                    /* REVERSO para cuando el servicio informa que hubo un problema y mandar a la siguiente pantalla */
-                } else if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_ERROR) {
-                    /*if (!TransactionAdqData.getCurrentTransaction().isSwipedCard())
-                        adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);*/
+                } else {
+                    /* En caso de ser dispositivo Audio Jack, mandar a la siguiente pantalla */
                     nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
                 }
-            } else {
-                /* Si fue un cobro entonces continua a la siguiente pantalla (No es necesario hacer reverso) */
+                /* REVERSO para cuando el servicio informa que hubo un problema y mandar a la siguiente pantalla */
+            } else if (TransactionAdqData.getCurrentTransaction().getStatusTransaction() == ADQ_TRANSACTION_ERROR) {
+                if (!TransactionAdqData.getCurrentTransaction().isSwipedCard()) {
+                    App.getInstance().pos.sendOnlineProcessResult("8A023035");
+                    //adqPresenter.initReverseTransaction(buildEMVRequest(requestTransaction, true), MALFUNCTION_EMV);
+                }
                 nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
             }
         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
@@ -928,7 +924,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     break;
                 case ONLINE_PROCESS_SUCCESS:
                     hideLoader();
-                    nextScreen(EVENT_GO_TRANSACTION_RESULT, "");
+                    if (transactionType == QPOSService.TransactionType.PAYMENT)
+                        nextScreen(EVENT_GO_TRANSACTION_RESULT, "");
                     break;
                 case ONLINE_PROCESS_FAILED:
                 case DESCONECTADO:
