@@ -26,9 +26,7 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD_LINEAC;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_LINEAC;
 
 /**
  * Created by flima on 24/04/2017.
@@ -139,14 +137,6 @@ public class LegalsDialogregistro extends DialogFragment implements IProgressVie
 
                 return URL_LEGALES_PRIVACIDAD;
             case PRIVACIDADLC:
-
-                return URL_LEGALES_PRIVACIDAD_LINEAC;
-
-            case TERMINOSLC:
-
-                return URL_LEGALES_TERMINOS_LINEAC;
-
-
             default:
 
                 return "";

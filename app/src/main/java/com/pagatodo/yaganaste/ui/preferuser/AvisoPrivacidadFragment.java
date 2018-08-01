@@ -52,7 +52,7 @@ public class AvisoPrivacidadFragment extends GenericFragment implements OnClickI
     public void initViews() {
         ButterKnife.bind(this, rootview);
         //listView.setAdapter(ContainerBuilder.LEGALES(getContext(),this));
-        ArrayList<OptionMenuItem.ViewHolderMenuSegurity> list = ContainerBuilder.LEGALES(getContext(),mLinearLayout,this);
+        ArrayList<OptionMenuItem.ViewHolderMenuSegurity> list = ContainerBuilder.LEGALES_PRIVACY(getContext(),mLinearLayout,this);
     }
 
     @Override

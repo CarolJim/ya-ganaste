@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.Serializable;
 
@@ -26,10 +33,7 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD_LINEAC;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD_STARBUKS;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_LINEAC;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_STARBUCKS;
 
 /**
@@ -44,6 +48,8 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
     WebView webViewLegalsContent;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.txt_content_legal)
+    StyleTextView txtContent;
     @BindView(R.id.btn_back)
     AppCompatImageView btnBack;
     private View rootview;
@@ -83,14 +89,7 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Dialog dialog = super.onCreateDialog(savedInstanceState);
-        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //  dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-
-        // NO dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-
         return dialog;
     }
 
@@ -98,7 +97,6 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_legals, container, false);
         initViews();
-        // getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         return rootview;
     }
 
@@ -107,53 +105,38 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
         showLoader(getString(R.string.cargando));
         WebSettings settings = webViewLegalsContent.getSettings();
         settings.setJavaScriptEnabled(true);
-        webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-        webViewLegalsContent.loadUrl(getUrlLegals());
-        webViewLegalsContent.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                hideLoader();
-            }
-        });
+        if (typeLegal != Legales.TERMINOS && typeLegal != Legales.PRIVACIDAD) {
+            webViewLegalsContent.setVisibility(VISIBLE);
+            webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+            webViewLegalsContent.loadUrl(getUrlLegals());
+            webViewLegalsContent.setWebViewClient(new WebViewClient() {
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    hideLoader();
+                }
+            });
+        } else {
+            txtContent.setVisibility(VISIBLE);
+            txtContent.setMovementMethod(new ScrollingMovementMethod());
+            getFirebaseLegals();
+        }
         btnBack.setOnClickListener(this);
     }
 
     private String getUrlLegals() {
-
         switch (typeLegal) {
-
-            case TERMINOS:
-
-                return URL_LEGALES_TERMINOS;
-
+            /*case TERMINOS:
+                return URL_LEGALES_TERMINOS;*/
             case TERMINOSSRABUCKS:
-
                 return URL_LEGALES_TERMINOS_STARBUCKS;
-
             case AVISOSTARBUCKS:
-
                 return URL_LEGALES_PRIVACIDAD_STARBUKS;
-
-
             case PRIVACIDAD:
-
                 return URL_LEGALES_PRIVACIDAD;
-            case PRIVACIDADLC:
-
-                return URL_LEGALES_PRIVACIDAD_LINEAC;
-
-            case TERMINOSLC:
-
-                return URL_LEGALES_TERMINOS_LINEAC;
-
-
             default:
-
                 return "";
-
         }
-
     }
 
     @Override
@@ -184,14 +167,28 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
         }
     }
 
+    private void getFirebaseLegals() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("Mexico").child("Banking").child(typeLegal==Legales.TERMINOS?"trms_cndtns":"prvc_pltcs");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    txtContent.setText(dataSnapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public enum Legales implements Serializable {
         TERMINOS,
         PRIVACIDAD,
-        TERMINOSLC,
-        PRIVACIDADLC,
         TERMINOSSRABUCKS,
         AVISOSTARBUCKS
-
     }
-
 }

@@ -241,6 +241,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
+    private String claveEntidadNacimiento = "";
     private AccountPresenterNew accountPresenter;
 
     public DatosPersonalesFragment() {
@@ -270,7 +271,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         DtoStates item = singleSnapshot.getValue(DtoStates.class);
                         states.add(item);
                     }
-                    states.add(0, new DtoStates("0", "Lugar de nacimiento"));
+                    states.add(0, new DtoStates("0", "Lugar de nacimiento","Prefijo"));
                     adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
                             states, DatosPersonalesFragment.this);
                     spinnerBirthPlace.setAdapter(adapterBirthPlace);
@@ -722,7 +723,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
             registerUser.setPaisNacimiento(new Paises(127, "Mexico", "MX"));
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
-        registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
+        registerUser.setClaveEntidadNacimiento(claveEntidadNacimiento);
+
 
         /*if (BuildConfig.DEBUG) {
             onValidationSuccess();
@@ -745,6 +747,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ID_Estado;
+            claveEntidadNacimiento= ((DtoStates) spinnerBirthPlace.getSelectedItem()).Prefijo;
         }
     }
 

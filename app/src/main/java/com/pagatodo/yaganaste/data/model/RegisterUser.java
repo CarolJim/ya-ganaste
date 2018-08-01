@@ -25,7 +25,7 @@ public class RegisterUser {
     private String nacionalidad = "";
     private String idPaisNacimiento = "";
     private String lugarNacimiento = "";
-    private String idEstadoNacimineto = "";
+    private String claveEntidadNacimiento="";
     private String CURP = "";
     //Datos Domicilio Actual
     private String calle = "";
@@ -51,6 +51,14 @@ public class RegisterUser {
 
     private RegisterUser() {
 
+    }
+
+    public String getClaveEntidadNacimiento() {
+        return claveEntidadNacimiento;
+    }
+
+    public void setClaveEntidadNacimiento(String claveEntidadNacimiento) {
+        this.claveEntidadNacimiento = claveEntidadNacimiento;
     }
 
     public String getCURP() {
@@ -223,14 +231,6 @@ public class RegisterUser {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getIdEstadoNacimineto() {
-        return idEstadoNacimineto;
-    }
-
-    public void setIdEstadoNacimineto(String idEstadoNacimineto) {
-        this.idEstadoNacimineto = idEstadoNacimineto;
     }
 
     public String getIdColonia() {

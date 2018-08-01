@@ -10,9 +10,10 @@ public class DtoStates {
     public DtoStates() {
     }
 
-    public DtoStates(String ID_Estado, String nombre) {
+    public DtoStates(String ID_Estado, String nombre,String Prefijo) {
         this.ID_Estado = ID_Estado;
         Nombre = nombre;
+        this.Prefijo = Prefijo;
     }
 
     @Override
