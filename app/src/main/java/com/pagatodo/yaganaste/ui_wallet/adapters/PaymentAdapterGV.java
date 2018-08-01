@@ -304,15 +304,16 @@ public class PaymentAdapterGV extends BaseAdapter {
         if (fullName.trim().length() == 1){
             return fullName.substring(0, 1).toUpperCase();
         }
-        if (fullName.trim().length() > 1){
-            return fullName.substring(0, 2).toUpperCase();
-        }
 
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
         if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
             return sIniciales;
+        }
+
+        if (fullName.trim().length() > 1){
+            return fullName.substring(0, 2).toUpperCase();
         }
         return "";
     }

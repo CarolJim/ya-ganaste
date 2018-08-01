@@ -559,11 +559,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 circuleDataPhoto.setBackground(gd);
             }
         } else {
-            if (!comercioResponse.getImagenURL().equals("")) {
-                Picasso.with(getContext())
-                        .load(comercioResponse.getLogoURLColor())
+            if (!comercioResponse.getLogoURLColor().equals("")) {
+                Picasso.with(App.getContext())
+                        .load(App.getContext().getString(R.string.url_images_logos) + comercioResponse.getLogoURLColor())
                         .placeholder(R.mipmap.icon_user)
-                        .into(circuleDataPhoto);
+                        .into(imageDataPhoto);
             }
             txtIniciales.setVisibility(View.GONE);
 
@@ -577,9 +577,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
         if (fullName.trim().length() == 1){
             return fullName.substring(0, 1).toUpperCase();
         }
-        if (fullName.trim().length() > 1){
-            return fullName.substring(0, 2).toUpperCase();
-        }
 
         String[] spliName = fullName.split(" ");
         String sIniciales = "";
@@ -587,6 +584,11 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();
             return sIniciales;
         }
+
+        if (fullName.trim().length() > 1){
+            return fullName.substring(0, 2).toUpperCase();
+        }
+
         return "";
     }
 

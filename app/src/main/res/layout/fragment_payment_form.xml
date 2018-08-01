@@ -77,11 +77,17 @@
                         android:visibility="visible">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="@dimen/radio_image_pago_payment_tab"
+                            android:layout_height="@dimen/radio_image_pago_payment_tab"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/ic_circle_border_shadow"
+                            app:civ_border_width="@dimen/border_width" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgPagosServiceToPayRound"
                             android:layout_width="73dp"
                             android:layout_height="73dp"
                             android:layout_centerInParent="true"
-                            android:background="@drawable/ic_circle_border_shadow"
                             app:civ_border_width="@dimen/border_width" />
 
                         <ImageView
@@ -102,7 +108,7 @@
                             android:gravity="center"
                             android:textColor="@color/whiteColor"
                             android:textSize="24sp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </RelativeLayout>
                 </LinearLayout>
