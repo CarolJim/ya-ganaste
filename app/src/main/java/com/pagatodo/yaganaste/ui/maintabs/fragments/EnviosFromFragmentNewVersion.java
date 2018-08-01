@@ -422,7 +422,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     public void onResume() {
         super.onResume();
         //clearContent();
-        //paymentsCarouselPresenter.getFavoriteCarouselItems();
+        paymentsCarouselPresenter.getFavoriteCarouselItems();
     }
 
     @Override
