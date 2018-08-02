@@ -10,8 +10,8 @@ public class DtoStates {
     public DtoStates() {
     }
 
-    public DtoStates(String ID_Estado, String nombre,String Prefijo) {
-        this.ID_Estado = ID_Estado;
+    public DtoStates(String ClaveEntidad, String nombre,String Prefijo) {
+        this.ClaveEntidad = ClaveEntidad;
         Nombre = nombre;
         this.Prefijo = Prefijo;
     }
@@ -21,7 +21,7 @@ public class DtoStates {
         boolean retVal = false;
         if (v instanceof DtoStates) {
             DtoStates ptr = (DtoStates) v;
-            retVal = ptr.ID_Estado.equals(this.ID_Estado);
+            retVal = ptr.ClaveEntidad.equals(this.ClaveEntidad);
         }
         return retVal;
     }
@@ -29,7 +29,7 @@ public class DtoStates {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + (this.ID_Estado != null ? this.ID_Estado.hashCode() : 0);
+        hash = 17 * hash + (this.ClaveEntidad != null ? this.ClaveEntidad.hashCode() : 0);
         return hash;
     }
 }

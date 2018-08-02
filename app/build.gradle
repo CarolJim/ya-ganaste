@@ -24,9 +24,9 @@ android {
     defaultConfig {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 35
-        versionName "4.2.8"
+        targetSdkVersion 26
+        versionCode 37
+        versionName "4.2.9"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

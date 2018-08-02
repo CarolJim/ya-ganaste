@@ -241,7 +241,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
-    private String claveEntidadNacimiento = "";
     private AccountPresenterNew accountPresenter;
 
     public DatosPersonalesFragment() {
@@ -670,12 +669,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
         DtoStates itemSelected = adapterBirthPlace.getItem(position);
         txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_normal);
 
-        if (itemSelected.ID_Estado.equals("0")) {
+        if (itemSelected.ClaveEntidad.equals("0")) {
         } else {
             lugarnacimientomens.setVisibility(VISIBLE);
             lugarnacimientomens.setTextColor(getResources().getColor(R.color.colorAccent));
         }
-        if (itemSelected.ID_Estado.equals("33")) {
+        if (itemSelected.ClaveEntidad.equals("33")) {
             if (country != null) {
                 lytCountry.setVisibility(VISIBLE);
                 //errorCountryMessage.setVisibility(VISIBLE);
@@ -723,8 +722,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             registerUser.setPaisNacimiento(new Paises(127, "Mexico", "MX"));
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
-        registerUser.setClaveEntidadNacimiento(claveEntidadNacimiento);
-
+        registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
         /*if (BuildConfig.DEBUG) {
             onValidationSuccess();
@@ -746,8 +744,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         apMaterno = editSecoundLastName.getText().toString();
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
-            idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ID_Estado;
-            claveEntidadNacimiento= ((DtoStates) spinnerBirthPlace.getSelectedItem()).Prefijo;
+            idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ClaveEntidad;
         }
     }
 
@@ -772,7 +769,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
         int position = 0;
         for (int i = 0; i < states.size(); i++) {
-            if (states.get(i).ID_Estado.equals(registerUser.getLugarNacimiento()))
+            if (states.get(i).ClaveEntidad.equals(registerUser.getLugarNacimiento()))
                 position = i;
         }
         spinnerBirthPlace.setSelection(position);

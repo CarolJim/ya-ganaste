@@ -26,8 +26,8 @@ public class ValidarDatosPersonaRequest implements Serializable {
     @SerializedName("FechaNacimiento")
     private String fechaNacimiento;
 
-    @SerializedName("ClaveEntidadNacimiento")
-    private String claveEntidadNacimiento;
+    @SerializedName("IdEstadoNacimiento")
+    private int idEstadoNacimiento;
 
     @SerializedName("CURP")
     private String CURP;
@@ -80,11 +80,11 @@ public class ValidarDatosPersonaRequest implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getClaveEntidadNacimiento() {
-        return claveEntidadNacimiento;
+    public int getIdEstadoNacimiento() {
+        return idEstadoNacimiento;
     }
 
-    public void setClaveEntidadNacimiento(String claveEntidadNacimiento) {
-        this.claveEntidadNacimiento = claveEntidadNacimiento;
+    public void setIdEstadoNacimiento(int idEstadoNacimiento) {
+        this.idEstadoNacimiento = idEstadoNacimiento;
     }
 }

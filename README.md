@@ -13,6 +13,22 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
+**_VERSION 4.2.9 - 25 de Julio al 1° de Agosto del 2018 (ID:5173)_**
+
+Descripción al desarrollador:
+
+    * Diálogo de selección de lector de tarjetas
+    * Términos y condiciones en Firebase Realtime
+    * Aviso de privacidad en Firebase Realtime
+    * Corrección de incidencias
+    * Mejoras en diseño
+    
+Funcionalidad:
+    
+    * Mejora en comunicación con lector de tarjetas
+    * Actualización de legales
+    * Correcciones menores
+    
 **_VERSION 4.2.7 - 13 al 24 de Julio del 2018 (ID:5092)_**
 
 Descripción al desarrollador:

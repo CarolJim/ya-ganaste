@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -86,12 +84,10 @@ import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -348,7 +344,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 "",/*RFC*/
                 "",/*CURP*/
                 registerUser.getPaisNacimiento().getIdPais(),/*Nacionalidad*/
-                registerUser.getClaveEntidadNacimiento(),
+                registerUser.getIdEstadoNacimineto(),
                 registerUser.getEmail(),
                 "",/*Telefono*/
                 "",/*Telefono Celular*/
@@ -375,7 +371,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setSegundoApellido(registerUser.getApellidoMaterno());
         request.setFechaNacimiento(registerUser.getFechaNacimiento());
         request.setGenero(registerUser.getGenero());
-        request.setClaveEntidadNacimiento(registerUser.getClaveEntidadNacimiento());
+        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
 
         try {
             ApiAdtvo.validarDatosPersona(request, this);
@@ -397,7 +393,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         request.setSegundoApellido(registerUser.getApellidoMaterno());
         request.setFechaNacimiento(registerUser.getFechaNacimiento());
         request.setGenero(registerUser.getGenero());
-        request.setClaveEntidadNacimiento(registerUser.getClaveEntidadNacimiento());
+        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
         request.setCURP(registerUser.getCURP());
 
         try {
