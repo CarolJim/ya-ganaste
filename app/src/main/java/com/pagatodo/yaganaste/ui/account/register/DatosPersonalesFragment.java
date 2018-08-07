@@ -270,7 +270,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         DtoStates item = singleSnapshot.getValue(DtoStates.class);
                         states.add(item);
                     }
-                    states.add(0, new DtoStates("0", "Lugar de nacimiento","Prefijo"));
+                    states.add(0, new DtoStates("0", "Lugar de nacimiento", "Prefijo"));
                     adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
                             states, DatosPersonalesFragment.this);
                     spinnerBirthPlace.setAdapter(adapterBirthPlace);
@@ -724,11 +724,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
-        /*if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             onValidationSuccess();
-        } else {*/
-        accountPresenter.validatePersonData();
-        //}
+        } else {
+            accountPresenter.validatePersonData();
+        }
     }
 
     @Override

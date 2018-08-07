@@ -542,7 +542,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onDongleSelected(int position) {
-        App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName());
+        App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName()+"_"+devicesBT.get(position).getAddress());
         App.getInstance().pos.stopScanQPos2Mode();
         App.getInstance().pos.connectBluetoothDevice(true, 10, devicesBT.get(position).getAddress());
     }
