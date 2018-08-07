@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgraund_wallet">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_title"
+        style="@style/H1Azul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/title_descargar_edo_cuenta" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_subtitle"
+        style="@style/generic_text_style_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_title"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/subtitle_descargar_edo_cuenta"
+        android:textAlignment="center"
+        android:textColor="@color/gray_text_wallet_2" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_text_wallet"
+        android:layout_below="@id/txt_subtitle"/>
+
+    <ListView
+        android:id="@+id/lst_dates_download_edos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_line"
+        android:background="@color/white_text_wallet"
+        android:divider="@color/gray_text_wallet"
+        android:dividerHeight="1dp" />
+
+</RelativeLayout>

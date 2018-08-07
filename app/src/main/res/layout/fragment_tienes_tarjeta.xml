@@ -180,7 +180,7 @@
             android:focusableInTouchMode="true"
             android:keyBackground="@drawable/material_key_drawable"
             android:keyTextColor="#bcbcbc"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
 

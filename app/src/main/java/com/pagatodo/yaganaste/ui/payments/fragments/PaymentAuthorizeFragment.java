@@ -234,7 +234,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
 
         //Huella
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && fingerprintManager!=null) {
             if (!fingerprintManager.isHardwareDetected()) {
             } else if (!keyguardManager.isKeyguardSecure()) {
                 return;

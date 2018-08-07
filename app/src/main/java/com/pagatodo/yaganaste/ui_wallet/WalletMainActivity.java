@@ -69,6 +69,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.AdminCardsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdminStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.ChatFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FavoritesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
@@ -140,6 +141,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_CONTINUE
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_DEPOSITO;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ERROR_ADDRESS_DOCS;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ESTADOS_CUENTA;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_FIRST_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_BUSSINES;
@@ -401,23 +403,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_TUTORIALS:
                 loadFragment(TutorialsFragment.newInstance(), R.id.fragment_container);
                 break;
-           /* case OPTION_BALANCE_CLOSED_LOOP:
-                if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()
-                        && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
-                    loadFragment(PairBluetoothFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD);
-                    UI.showErrorSnackBar(this, getString(R.string.please_config_dongle), Snackbar.LENGTH_SHORT);
-                } else {
-                    UI.showAlertDialog(this, getString(R.string.consultar_saldo_uyu_title), getString(R.string.consultar_saldo_uyu_desc),
-                            getString(R.string.consultar_saldo_uyu_btn), (dialogInterface, i) -> {
-                                TransactionAdqData.getCurrentTransaction().setAmount("");
-                                TransactionAdqData.getCurrentTransaction().setDescription("");
-                                Intent intentAdq = new Intent(this, AdqActivity.class);
-                                intentAdq.putExtra(TYPE_TRANSACTION, QPOSService.TransactionType.INQUIRY.ordinal());
-                                startActivity(intentAdq);
-                                finish();
-                            });
-                }
-                break;*/
+            case OPTION_ESTADOS_CUENTA:
+                loadFragment(DescargarEdoCuentaFragment.newInstance(), R.id.fragment_container);
+                break;
             default:
                 finish();
                 break;

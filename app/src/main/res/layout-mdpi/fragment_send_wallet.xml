@@ -1,0 +1,199 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_amount"
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:inputType="text" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview_envio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/whiteColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/H2Azul"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center"
+                android:text="Enviar dinero a" />
+
+            <RelativeLayout
+                android:id="@+id/itemGallery"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ic_circle_border_shadow"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/crlImageFavorite"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:civ_border_color="#FF09CC20" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtInicialesFav"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_receiver_name"
+                style="@style/H4Gris"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Omar Alejandro"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/linera_monto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/tv_sign"
+                    style="@style/generic_calculator_sign_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="$"
+                    android:textColor="@color/colorAccent" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/tv_monto_entero"
+                    style="@style/generic_calculator_integer_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/colorAccent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="2dp"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="."
+                        android:textColor="@color/colorAccent"
+                        android:textSize="18sp" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/tv_monto_decimal"
+                        style="@style/generic_calculator_decimal_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="00"
+                        android:textColor="@color/colorAccent" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/H4Gris"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:text="@string/ingresa_monto"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/lyt_saldo_disponible"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight=".5"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/H4Gris"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/saldo_disponible_enviar"
+            android:textSize="11sp" />
+
+        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+            android:id="@+id/saldoDisponible"
+            style="@style/H2Azul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="2dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="$0.00"
+            android:textSize="17sp"
+            app:dotBottom="true"
+            app:symbolSmaller="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="2.5"
+        android:gravity="bottom">
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+            android:id="@+id/keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:keyBackground="@drawable/material_key_drawable"
+            android:keyTextColor="#bcbcbc"
+            android:keyTextSize="27sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/enviar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@color/colorAccent"
+        android:layout_gravity="center_vertical"
+        android:text="@string/btn_send"
+        android:textAlignment="center"
+        android:textSize="19sp"/>
+
+</LinearLayout>
+

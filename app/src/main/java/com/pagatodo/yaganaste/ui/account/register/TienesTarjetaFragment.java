@@ -89,6 +89,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     private char mask_number_card = '_';
     public static int LONG_PRESS_TIME = 500;
     private final Handler handler = new Handler();
+
     private final Runnable longPressed = new Runnable() {
         public void run() {
             if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -171,15 +172,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         radioHasCard.setOnCheckedChangeListener(this);
         //radioBtnNo.setChecked(true);//Selección por Default
 
-
-        // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario
-        /*UsuarioClienteResponse singletonUser = SingletonUser.getInstance().getDataUser().getUsuario();
-
-        String mUserName = singletonUser.getNombre()
-                + " " + singletonUser.getPrimerApellido();*/
-
-        // Asignamos el fecha de la TDC cuando tengamos el dato
-        //dateTDC.setText("02/22");
         RegisterUser registerUser = RegisterUser.getInstance();
         String name;
         String lastame;
@@ -224,11 +216,11 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                         StringBuilder cardNumber = new StringBuilder(editNumber.getText().toString());
                         int lastSharpIndex = cardNumber.indexOf("_");
                         if (keyCode == KeyEvent.KEYCODE_DEL) {
-                            if (lastSharpIndex <= 10 && lastSharpIndex >= 0) {
+                            if (lastSharpIndex <= 7 && lastSharpIndex >= 0) {
                                 return false;
                             }
                             if (lastSharpIndex != -1) {
-                                if (lastSharpIndex == 7 || lastSharpIndex == 15) {
+                                if (lastSharpIndex == 10 || lastSharpIndex == 15) {
                                     cardNumber.setCharAt(lastSharpIndex - 2, mask_number_card);
                                 } else {
                                     cardNumber.setCharAt(lastSharpIndex - 1, mask_number_card);
@@ -242,7 +234,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                             if (lastSharpIndex != -1 && keyCode != 29 && keyCode != 1021 && keyCode != 4) {
                                 cardNumber.setCharAt(lastSharpIndex, lastChar);
                             }
-
                         }
                         editNumber.setText(cardNumber);
                         if (cardNumber.indexOf("_") == -1) {
@@ -289,9 +280,13 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             }
         });
 
-        // Iniciamos al TDC vacia
-        editNumber.setText("");
-        editNumber.cancelLongPress();
+        editNumber.setFocusableInTouchMode(true);
+        editNumber.setEnabled(true);
+        editNumber.setCursorVisible(false);
+        editNumber.requestFocus();
+        keyboardView.showCustomKeyboard(editNumber);
+        txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
+        resetCardNumberDefault();
     }
 
     private void onTouchEvent(View v, MotionEvent event) {

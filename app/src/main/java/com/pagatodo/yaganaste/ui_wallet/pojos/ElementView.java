@@ -22,7 +22,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_DOCUMENTACION;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
-import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
@@ -49,6 +48,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_ERROR_ADDRESS = 107;
     static public final int OPTION_ERROR_ADDRESS_DOCS = 108;
     static public final int OPTION_BALANCE_CLOSED_LOOP = 110;
+    static public final int OPTION_ESTADOS_CUENTA = 111;
 
     static public final int OPTION_ADMON_EMISOR = 301;
     static public final int OPTION_ADMON_ADQ = 302;
@@ -243,6 +243,7 @@ public class ElementView implements ElementGlobal {
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_EMISOR, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_DEPOSITO, R.drawable.ico_depositos, R.string.operation_deposito));
         elementViews.add(new ElementView(OPTION_ADMON_EMISOR, R.drawable.ico_admin_tarj, R.string.operation_administracion));
+        elementViews.add(new ElementView(OPTION_ESTADOS_CUENTA, R.drawable.ic_edo_cuenta, R.string.operation_estado_cuenta));
         return elementViews;
     }
 
