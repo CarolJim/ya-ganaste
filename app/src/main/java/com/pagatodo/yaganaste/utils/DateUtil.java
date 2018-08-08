@@ -221,7 +221,6 @@ public class DateUtil {
     }
 
     public static List<MonthsMovementsTab> getLastMovementstMonths() {
-
         // Calendar calendar = Calendar.getInstance(new Locale("MX"));
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
 
@@ -230,6 +229,17 @@ public class DateUtil {
             calendar.add(Calendar.MONTH, subs);
             names.addFirst(new MonthsMovementsTab(getMonthShortName(calendar), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.YEAR)));
+        }
+        return names;
+    }
+
+    public static List<MonthsMovementsTab> getLastDonwloadStatmentsMonths() {
+        LinkedList<MonthsMovementsTab> names = new LinkedList<>();
+        for (int subs = -5; subs <= 0; subs++) {
+            Calendar calendar = Calendar.getInstance(new Locale("MX"));
+            calendar.add(Calendar.MONTH, subs);
+            names.addFirst(new MonthsMovementsTab(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("es", "MX")),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)));
         }
         return names;
     }

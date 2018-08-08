@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,19 @@ import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui_wallet.adapters.AdapterDownloadCuenta;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DescargarEdoCuentaFragment extends GenericFragment implements AdapterView.OnItemClickListener{
+public class DescargarEdoCuentaFragment extends GenericFragment implements AdapterView.OnItemClickListener {
 
     View rootView;
     @BindView(R.id.lst_dates_download_edos)
     ListView lstDates;
+    private AdapterDownloadCuenta adapter;
 
-    public static DescargarEdoCuentaFragment newInstance(){
+    public static DescargarEdoCuentaFragment newInstance() {
         DescargarEdoCuentaFragment fragment = new DescargarEdoCuentaFragment();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
@@ -36,7 +39,7 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(rootView == null){
+        if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_edo_cuenta, container, false);
             initViews();
         }
@@ -46,11 +49,13 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        adapter = new AdapterDownloadCuenta(getActivity());
+        lstDates.setAdapter(adapter);
         lstDates.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        Log.e("YG","Mes: "+adapter.getItem(i).getName(getActivity()));
     }
 }

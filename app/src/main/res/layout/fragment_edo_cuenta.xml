@@ -40,4 +40,11 @@
         android:divider="@color/gray_text_wallet"
         android:dividerHeight="1dp" />
 
+    <View
+        android:id="@+id/view_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_text_wallet"
+        android:layout_below="@id/lst_dates_download_edos"/>
+
 </RelativeLayout>
