@@ -1066,6 +1066,7 @@
     <string name="details_compania">Compañía</string>
     <string name="details_bank">Banco</string>
     <string name="details_enviado_a">Enviado a</string>
+    <string name="details_destinatario">Destinatario</string>
     <string name="details_telefono">Teléfono</string>
     <string name="details_qr">QR</string>
 

@@ -53,7 +53,7 @@ public class CreateDatailBuilder {
                 //  builder.createLeaf(new TextData(R.string.details_iva,StringUtils.getCurrencyValue(response.getIVA())));
 
                 builder.createLeaf(new TextData(R.string.details_bank,response.getComercio()));
-                builder.createLeaf(new TextData(R.string.details_enviado_a,response.getBeneficiario()));
+                builder.createLeaf(new TextData(R.string.details_destinatario,response.getBeneficiario()));
                 if (!response.getReferencia().equals("")) {
                     builder.createLeaf(new TextData(getReferencuaTitleType(response.getReferencia()),response.getReferencia()));
                 }
