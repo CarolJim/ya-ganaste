@@ -175,6 +175,7 @@ public class App extends Application {
         remoteConfigDefaults.put(ForcedUpdateChecker.PIN_STARBUCKS, "425965554aaa92372ccb807ff20a35d26f72d20d");
         remoteConfigDefaults.put(ForcedUpdateChecker.SIZE_APP, 25);
         remoteConfigDefaults.put(ForcedUpdateChecker.TRACE_SUCCESS_WS, false);
+        remoteConfigDefaults.put(ForcedUpdateChecker.URL_ACCOUNTS_STATEMENTS, "http://10.10.41.15:107/api/v1/Accounts/GetAccountStatus/");
 
         firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
         firebaseRemoteConfig.fetch(0)

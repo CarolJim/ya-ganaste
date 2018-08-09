@@ -1607,4 +1607,5 @@
     <!-- Descargar estados de cuenta -->
     <string name="title_descargar_edo_cuenta">Estados de cuenta</string>
     <string name="subtitle_descargar_edo_cuenta">Selecciona el estado de cuenta\nque deseas consultar</string>
+    <string name="input_password">Ingresa tu contraseña</string>
 </resources>

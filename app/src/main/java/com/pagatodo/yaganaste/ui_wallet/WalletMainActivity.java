@@ -71,6 +71,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.AdministracionFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.ChatFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.EdoCuentaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FavoritesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.FrogetPasswordStarbucks;
 import com.pagatodo.yaganaste.ui_wallet.fragments.LoginStarbucksFragment;
@@ -192,7 +193,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_MOV_ADQ = "EVENT_GO_TO_MOV_ADQ";
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
     public final static String EVENT_GO_CHAT = "EVENT_GO_CHAT";
-
+    public final static String EVENT_GO_VISUALIZER_EDO_CUENTA = "EVENT_GO_VISUALIZER_EDO_CUENTA";
 
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
 
@@ -608,6 +609,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
                 break;
+            case EVENT_GO_VISUALIZER_EDO_CUENTA:
+                UI.hideKeyBoard(this);
+                String info[] = data.toString().split("_");
+                loadFragment(EdoCuentaFragment.newInstance(Integer.valueOf(info[0]), Integer.valueOf(info[1]),
+                        info[2]), R.id.fragment_container, Direction.FORDWARD);
+                break;
         }
     }
 
@@ -657,8 +664,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
             finish();
             super.onBackPressed();
-
-
+        } else if (fragment instanceof EdoCuentaFragment) {
+            loadFragment(DescargarEdoCuentaFragment.newInstance(), R.id.fragment_container, Direction.BACK);
         } else {
             setResult(PICK_WALLET_TAB_REQUEST);
             super.onBackPressed();

@@ -37,6 +37,7 @@ public class ForcedUpdateChecker {
     public static final String PIN_STARBUCKS = "pin_starbucks";
     public static final String SIZE_APP = "size_app";
     public static final String TRACE_SUCCESS_WS = "trace_success_ws";
+    public static final String URL_ACCOUNTS_STATEMENTS = "url_accounts_statements";
 
     private OnUpdateNeededListener onUpdateNeededListener;
     private Context context;
@@ -67,14 +68,6 @@ public class ForcedUpdateChecker {
         App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
         App.getInstance().getPrefs().saveDataBool(SHOW_LOGS_PROD, !BuildConfig.DEBUG ? showLogs : true);
         App.getInstance().getPrefs().saveDataInt(CONNECTION_TIMEOUT, connectionTimeout);
-        /*App.getInstance().getPrefs().saveData(URL_YG_ADMIN, remoteConfig.getString(URL_YG_ADMIN));
-        App.getInstance().getPrefs().saveData(URL_YG_TRANS, remoteConfig.getString(URL_YG_TRANS));
-        App.getInstance().getPrefs().saveData(URL_YG_ADQ, remoteConfig.getString(URL_YG_ADQ));
-        App.getInstance().getPrefs().saveData(URL_STARBUCKS, remoteConfig.getString(URL_STARBUCKS));
-        App.getInstance().getPrefs().saveData(PIN_YG_ADMIN, remoteConfig.getString(PIN_YG_ADMIN));
-        App.getInstance().getPrefs().saveData(PIN_YG_TRANS, remoteConfig.getString(PIN_YG_TRANS));
-        App.getInstance().getPrefs().saveData(PIN_YG_ADQ, remoteConfig.getString(PIN_YG_ADQ));
-        App.getInstance().getPrefs().saveData(PIN_STARBUCKS, remoteConfig.getString(PIN_STARBUCKS));*/
         if (!showLoyalty) {
             App.getInstance().getPrefs().saveDataBool(HAS_STARBUCKS, false);
         }

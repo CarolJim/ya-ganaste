@@ -46,7 +46,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     private String my_card_name_user = "";
     private String my_card_number_user = "";
 
-    public String curp="";
+    public String curp = "";
 
     private DialogDoubleActions dialogActions;
 
@@ -66,7 +66,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
      * @return {@link DialogDoubleActions} instancia del dialog
      */
     public static CustomErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
-                                                boolean hasConfirmBtn,String nombre,String number, boolean hasCancelBtn) {
+                                                boolean hasConfirmBtn, String nombre, String number, boolean hasCancelBtn) {
 
         CustomErrorDialog actionsDialog = new CustomErrorDialog();
         Bundle args = new Bundle();
@@ -96,6 +96,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
 
         return actionsDialog;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(idLayoutDialog, container, false);
@@ -107,43 +108,42 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         final StyleButton btnConfirmNotification = (StyleButton) rootView.findViewById(R.id.btnConfirmDialog);
         final StyleButton btnCancelNotification = (StyleButton) rootView.findViewById(R.id.btnCancelDialog);
 
-try {
+        try {
 
-   final TextInputLayout text_curp= (TextInputLayout) rootView.findViewById(R.id.text_curp);
-    final EditText curphomo = (EditText) rootView.findViewById(R.id.edit_curp);
-    curphomo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View view, boolean hasFocus) {
+            final TextInputLayout text_curp = (TextInputLayout) rootView.findViewById(R.id.text_curp);
+            final EditText curphomo = (EditText) rootView.findViewById(R.id.edit_curp);
+            curphomo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
 
-            if (hasFocus){
-                text_curp.setBackgroundResource(R.drawable.inputtext_active);
-            }
+                    if (hasFocus) {
+                        text_curp.setBackgroundResource(R.drawable.inputtext_active);
+                    }
+
+                }
+            });
+
+            curphomo.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    curp = curphomo.getText().toString();
+                }
+            });
+
+
+        } catch (Exception e) {
 
         }
-    });
-
-    curphomo.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            curp=curphomo.getText().toString();
-        }
-    });
-
-
-
-}catch (Exception e){
-
-}
 
 
 
@@ -171,7 +171,6 @@ try {
             StyleTextView txtTitleNotification = (StyleTextView) rootView.findViewById(R.id.my_card_num_cuenta);
             txtTitleNotification.setText(my_card_number_user);
         }
-
 
 
         /**Creamos el {@link StyleTextView} para el mensaje si existe mensaje dinámico.*/
@@ -206,8 +205,6 @@ try {
         }
 
 
-
-
         return rootView;
     }
 
@@ -222,7 +219,6 @@ try {
             showConfirmButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
             showCancelButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, true);
         }
-
 
 
     }
@@ -273,12 +269,12 @@ try {
     }
 
     public void setTitleMessageNotification(String message) {
-try {
-    StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtMessageNotification);
-    txtMessageNotification.setText(message);
-}catch (Exception e){
+        try {
+            StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtMessageNotification);
+            txtMessageNotification.setText(message);
+        } catch (Exception e) {
 
-}
+        }
 
     }
 
@@ -287,7 +283,7 @@ try {
         try {
             StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtTitleNotification);
             txtMessageNotification.setText(title);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -297,7 +293,7 @@ try {
         try {
 
             return curp;
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return null;
@@ -307,6 +303,7 @@ try {
     public void myCardNameUser(String nombreusuario) {
         this.my_card_name_user = nombreusuario;
     }
+
     public void myCardNumberUser(String numero) {
         this.my_card_number_user = numero;
     }

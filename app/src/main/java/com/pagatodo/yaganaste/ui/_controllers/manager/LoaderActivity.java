@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -23,6 +24,7 @@ import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
@@ -214,10 +216,8 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 tryEncrypt(cryptoObject.getCipher());
             }
-
         } else {
             // Authentication happened with backup password. Just show the confirmation message.
-
             showConfirmation(null);
         }
     }
@@ -232,6 +232,7 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
             ((BlockCardFragment) fm).loadOtpHuella();
         if (fm instanceof CancelAccountFragment)
             ((CancelAccountFragment) fm).loadOtpHuella();
-
+        if (fm instanceof DescargarEdoCuentaFragment)
+            ((DescargarEdoCuentaFragment)fm).loadOtpHuella(App.getInstance().getPrefs().loadData("SHA_256_FREJA"));
     }
 }
