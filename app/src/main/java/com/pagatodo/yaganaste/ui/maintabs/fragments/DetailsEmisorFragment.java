@@ -35,6 +35,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.SPEI_CARGO;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.TRASPASO_MISMO_BANCO_CARGO;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
 
@@ -88,7 +90,18 @@ public class DetailsEmisorFragment extends GenericFragment {
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
         TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
         ItemMovements item;
-        if (tipoTransaccion != REEMBOLSO_ADQUIRIENTE) {
+
+       if (tipoTransaccion ==SPEI_CARGO){
+           item = new ItemMovements<>( "Envío a "+movimientosResponse.getComercio(), movimientosResponse.getDetalle(),
+                   movimientosResponse.getTotal(), date[0], date[1],
+                   MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                   movimientosResponse);
+       }  else if (tipoTransaccion ==TRASPASO_MISMO_BANCO_CARGO){
+            item = new ItemMovements<>("Envío a "+movimientosResponse.getComercio(), movimientosResponse.getDetalle(),
+                    movimientosResponse.getTotal(), date[0], date[1],
+                    MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                    movimientosResponse);
+        } else if (tipoTransaccion != REEMBOLSO_ADQUIRIENTE) {
             item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                     movimientosResponse.getTotal(), date[0], date[1],
                     MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),

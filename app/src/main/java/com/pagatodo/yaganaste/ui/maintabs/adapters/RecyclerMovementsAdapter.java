@@ -157,7 +157,24 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             /*if (((MovimientosResponse)itemMovements.getMovement()) != null){
 
             }*/
-            txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
+            if (itemMovements.getTituloDescripcion().equals("Envío de Dinero")) {
+                MovimientosResponse response = (MovimientosResponse) itemMovements.getMovement();
+                if (response !=null)
+                {
+                    if (itemMovements.getTituloDescripcion().equals("Envío de Dinero"))
+                        txtTituloDescripcion.setText("Envío a " + response.getComercio());
+                    else
+                        txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
+                }else{
+                    txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
+                }
+            }else{
+                txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
+            }
+
+
+
+
             txtSubTituloDetalle.setText(itemMovements.getSubtituloDetalle());
 
             txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));

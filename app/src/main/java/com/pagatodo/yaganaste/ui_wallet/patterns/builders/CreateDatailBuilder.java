@@ -25,9 +25,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 
 public class CreateDatailBuilder {
 
+
     public static void createByType(Context context, ViewGroup container, MovimientosResponse response){
         DetailBulder builder = new DetailBulder(context,container);
-
+        boolean isspei=false;
         switch (TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion())){
             case RECARGA:
                 if (response.getIdComercio() == 7){
@@ -48,11 +49,15 @@ public class CreateDatailBuilder {
                 builder.createLeaf(new TextData(R.string.details_concepto,response.getConcepto()));
                 break;
             case SPEI_CARGO:
-                builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(response.getComision())));
-                builder.createLeaf(new TextData(R.string.details_iva,StringUtils.getCurrencyValue(response.getIVA())));
+                //  builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(response.getComision())));
+                //  builder.createLeaf(new TextData(R.string.details_iva,StringUtils.getCurrencyValue(response.getIVA())));
+
+                builder.createLeaf(new TextData(R.string.details_bank,response.getComercio()));
+                builder.createLeaf(new TextData(R.string.details_enviado_a,response.getBeneficiario()));
                 if (!response.getReferencia().equals("")) {
                     builder.createLeaf(new TextData(getReferencuaTitleType(response.getReferencia()),response.getReferencia()));
                 }
+
                 builder.createLeaf(new TextData(R.string.details_concepto,response.getConcepto()));
                 if (!response.getClaveRastreo().equals("")) {
                     builder.createLeaf(new TextData(R.string.details_clave_rastreo,response.getClaveRastreo()));
@@ -60,6 +65,7 @@ public class CreateDatailBuilder {
                 if (!response.getReferenciaNum().trim().equals("")) {
                     builder.createLeaf(new TextData(R.string.detals_referencia_num,response.getReferenciaNum()));
                 }
+                isspei = true;
                 break;
             case TRASPASO_MISMO_BANCO_ABONO:
                 builder.createLeaf(new TextData(R.string.details_concepto,response.getConcepto()));
@@ -106,10 +112,16 @@ public class CreateDatailBuilder {
         }
 
         if (TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != DEVOLUCION){
+
+            if (!isspei) {
+                builder.createLeaf(new TextData(R.string.details_comision, StringUtils.getCurrencyValue(response.getComision())));
+                builder.createLeaf(new TextData(R.string.details_iva, StringUtils.getCurrencyValue(response.getIVA())));
+            }
             builder.createLeaf(new TextData(R.string.details_fecha,response.getFechaMovimiento()));
             builder.createLeaf(new TextData(R.string.details_hora,response.getHoraMovimiento().concat(" hrs")));
             builder.createLeaf(new TextData(R.string.details_autorizacion,response.getNumAutorizacion().trim()));
         }
+        isspei=false;
 
     }
 

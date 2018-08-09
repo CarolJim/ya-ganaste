@@ -295,7 +295,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
                     if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
                         rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
-                        accountPresenter.updateBalance();
+                    //    accountPresenter.updateBalance();
+                        upDateSaldo(StringUtils.getCurrencyValue(balanceEmisor));
                     } else {
                         int idcomercio = adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
                         boolean esUyU = adapterBalanceCard.getElemenWallet(position).getAgentes().isEsComercioUYU();
@@ -306,7 +307,8 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                         } else {
                             rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
                         }
-                        accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
+                     //   accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
+                        upDateSaldo(StringUtils.getCurrencyValue(balanceAdq));
                     }
                 }
             }
@@ -368,6 +370,11 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             if (prefs.loadDataBoolean(SHOW_BALANCE, true)) {
                 setVisibilityBackItems(VISIBLE);
                 setVisibilityFrontItems(GONE);
+                    if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
+                        accountPresenter.updateBalance();
+                    else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
+                        accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
+                    }
             }
         } else {
             ((FlipView) v).flip(false);
