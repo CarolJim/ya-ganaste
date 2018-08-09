@@ -7,12 +7,15 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.DEVOLUCION;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
@@ -126,6 +129,13 @@ public class CreateDatailBuilder {
     }
 
     public static void createByTypeAdq(Context context, ViewGroup container, DataMovimientoAdq response){
+        boolean isComerioUyU = false;
+        try {
+            isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         DetailBulder builder = new DetailBulder(context,container);
         //txtComisionDescripcion.setText(StringUtils.getCurrencyValue(ticket.getComision()).replace("$", "$ "));
         builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(response.getComision())));
@@ -147,14 +157,17 @@ public class CreateDatailBuilder {
 
         switch (response.getEstatus()) {
             case ESTATUS_CANCELADO:
+                if (!isComerioUyU)
                 builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_cancelado)));
                 break;
             case ESTATUS_POR_REMBOLSAR:
+                if (!isComerioUyU)
                 builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_por_rembolsar)));
                 //txtEstatusDescripcion.setText(context.getString(R.string.status_por_rembolsar));
                 break;
             case ESTATUS_REMBOLSADO:
-                builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_rembolsado)));
+                if (!isComerioUyU)
+                    builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_rembolsado)));
                 //txtEstatusDescripcion.setText(context.getString(R.string.status_rembolsado));
                 break;
         }

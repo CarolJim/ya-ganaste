@@ -16,12 +16,15 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
@@ -120,9 +123,15 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
 
         void bindData(ItemMovements itemMovements, int position, View.OnClickListener clickListener) {
             //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
-
+            boolean isComerioUyU = false;
+            try {
+                isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
             if (itemMovements.getColor() == R.color.redColorNegativeMovements) {
                 if (adq) {
+                    if (!isComerioUyU)
                     upDown.setBackgroundResource(R.drawable.down);
                 } else {
                     upDown.setBackgroundResource(R.drawable.down_red);
@@ -131,6 +140,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
 
             if (itemMovements.getColor() == R.color.greenColorPositiveMovements) {
                 if (adq) {
+                    if (!isComerioUyU)
                     upDown.setBackgroundResource(R.drawable.upadq);
                 } else {
                     upDown.setBackgroundResource(R.drawable.up);
@@ -138,10 +148,12 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             }
 
             if (itemMovements.getColor() == R.color.colorAccent) {
+                if (!isComerioUyU)
                 upDown.setBackgroundResource(R.drawable.ico_idle);
             }
 
             if (itemMovements.getColor() == R.color.redColorNegativeMovementsCancel) {
+                if (!isComerioUyU)
                 upDown.setBackgroundResource(R.drawable.down);
             }
 

@@ -7,9 +7,13 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.util.concurrent.ExecutionException;
 
 public class DetailMovementHolder extends GenericHolder {
 
@@ -45,9 +49,16 @@ public class DetailMovementHolder extends GenericHolder {
         this.title.setText(response.getTituloDescripcion());
         this.subtitle.setText(response.getSubtituloDetalle());
         this.monto.setText(StringUtils.getCurrencyValue(response.getMonto()));
+        boolean isComerioUyU = false;
+        try {
+            isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (response.getColor() == R.color.redColorNegativeMovements){
             if(!isAdq) {
+                if (!isComerioUyU)
                 upDown.setBackgroundResource(R.drawable.down_red);
             } else {
                 upDown.setBackgroundResource(R.drawable.down);
@@ -57,19 +68,23 @@ public class DetailMovementHolder extends GenericHolder {
 
         if (isAdq){
             if (response.getColor() == R.color.greenColorPositiveMovements) {
+                if (!isComerioUyU)
                 upDown.setBackgroundResource(R.drawable.upadq);
             }
         }else {
             if (response.getColor() == R.color.greenColorPositiveMovements) {
+                if (!isComerioUyU)
                 upDown.setBackgroundResource(R.drawable.up);
             }
         }
 
         if (response.getColor() == R.color.colorAccent){
+            if (!isComerioUyU)
             upDown.setBackgroundResource(R.drawable.ico_idle);
         }
 
         if (response.getColor() == R.color.redColorNegativeMovementsCancel){
+            if (!isComerioUyU)
             upDown.setBackgroundResource(R.drawable.down);
         }
 
