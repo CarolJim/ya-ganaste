@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui_wallet.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
@@ -95,8 +98,15 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
             txtInput.setBackgroundResource(R.drawable.inputtext_error);
         } else {
             listener.onPasswordSet(edtPas.getText().toString());
-            UI.hideKeyBoard(getActivity());
             this.dismiss();
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        InputMethodManager imm = (InputMethodManager) edtPas.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive())
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        super.onDismiss(dialog);
     }
 }

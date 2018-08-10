@@ -83,7 +83,6 @@ public class EdoCuentaFragment extends GenericFragment {
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         webView.loadUrl(config.getString(URL_ACCOUNTS_STATEMENTS) + idCuenta + "/" + year + "/" + month, headers);
-        //webView.loadUrl("https://pagatodomexico-my.sharepoint.com/:b:/g/personal/ozunigag_pagatodo_com/EYVfRmjhl0FJrtrKBlYL7l4BBV3gB4A-I7j_-PGOCB1m5w?e=DYJ1PE"/*, headers*/);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
