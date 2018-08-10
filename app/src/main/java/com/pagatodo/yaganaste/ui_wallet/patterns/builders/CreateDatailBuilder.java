@@ -95,8 +95,6 @@ public class CreateDatailBuilder {
             case REEMBOLSO_ADQUIRIENTE:
                 Double total = response.getTotal() + response.getComision() + response.getIVA();
                 builder.createLeaf(new TextData(R.string.details_ventas_totales, StringUtils.getCurrencyValue(total)));
-                builder.createLeaf(new TextData(R.string.details_comision,StringUtils.getCurrencyValue(response.getComision())));
-                builder.createLeaf(new TextData(R.string.details_iva,StringUtils.getCurrencyValue(response.getIVA())));
                 break;
             case DEVOLUCION:
                 builder.createLeaf(new TextData(R.string.details_concepto,response.getConcepto()));

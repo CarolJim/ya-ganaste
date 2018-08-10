@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -25,7 +27,9 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SHOW_LOGS;
 import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_ACCOUNTS_STATEMENTS;
+import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class EdoCuentaFragment extends GenericFragment {
 
@@ -82,12 +86,19 @@ public class EdoCuentaFragment extends GenericFragment {
         headers.put("authToken", otp);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        webView.loadUrl(config.getString(URL_ACCOUNTS_STATEMENTS) + idCuenta + "/" + year + "/" + month, headers);
+        String url = config.getString(URL_ACCOUNTS_STATEMENTS) + idCuenta + "/" + year + "/" + month;
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
+            Log.e("YG", "Url Estado Cuenta: " + url);
+        webView.loadUrl(url, headers);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+                try {
+                    onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

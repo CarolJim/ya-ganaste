@@ -25,13 +25,13 @@
                 style="@style/H1Azul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="5dp"
                 android:text="Enviar dinero a" />
 
             <RelativeLayout
                 android:id="@+id/itemGallery"
-                android:layout_width="62dp"
-                android:layout_height="62dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/ic_circle_border_shadow"
@@ -39,8 +39,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/crlImageFavorite"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     app:civ_border_color="#FF09CC20" />
@@ -133,7 +133,7 @@
         android:id="@+id/lyt_saldo_disponible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:layout_weight=".5"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
@@ -165,7 +165,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight="3"
+        android:layout_weight="2.5"
         android:gravity="bottom">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
@@ -186,7 +186,7 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/enviar"
         android:layout_width="match_parent"
-        android:layout_height="53.5dp"
+        android:layout_height="30dp"
         android:gravity="center"
         android:background="@color/colorAccent"
         android:layout_gravity="center_vertical"

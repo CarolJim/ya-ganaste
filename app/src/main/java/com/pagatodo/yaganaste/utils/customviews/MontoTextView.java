@@ -39,9 +39,7 @@ public class MontoTextView extends StyleTextView {
                     attrs,
                     R.styleable.MontoTextView,
                     0, 0);
-
             try {
-
                 decimalsLenght = typedArray.getInt(R.styleable.MontoTextView_decimalLenght, DECIMALS);
                 if (decimalsLenght < 2)
                     decimalsLenght = DECIMALS;
@@ -62,84 +60,77 @@ public class MontoTextView extends StyleTextView {
         super.onDraw(canvas);
         if (isCustom) {
 
-                if (!getText().toString().contains("$"))
-                    setText(String.format("$%s", getText())); // Agregamos símbolo $
+            if (!getText().toString().contains("$"))
+                setText(String.format("$%s", getText())); // Agregamos símbolo $
 
-                if (!getText().toString().contains(".")) {
-                    setText(String.format("%s.00", getText()));// Agregamos decimales por default
+            if (!getText().toString().contains(".")) {
+                setText(String.format("%s.00", getText()));// Agregamos decimales por default
+            }
+
+            int index = getText().toString().indexOf(".");
+            int lenght = getText().toString().length();
+            SpannableString text = new SpannableString(getText().toString());
+
+            if (index > 0) {
+                if (decimalsLenght > (lenght - (index + 1)))
+                    decimalsLenght = (lenght - (index + 1)); // Obtenemos máximo de decimales que contiene el string
+
+                // Truncamos decimales
+                if ((lenght - 1) - (index + decimalsLenght) > 0) {
+                    value = text.toString();
+                    value = value.substring(0, (index + decimalsLenght + 1));
+                    text = new SpannableString(value);
+                    index = value.indexOf(".");
+                    lenght = value.length();
                 }
 
-                int index = getText().toString().indexOf(".");
-                int lenght = getText().toString().length();
-                SpannableString text = new SpannableString(getText().toString());
-
-                if (index > 0) {
-                    if (decimalsLenght > (lenght - (index + 1)))
-                        decimalsLenght = (lenght - (index + 1)); // Obtenemos máximo de decimales que contiene el string
-
-                    // Truncamos decimales
-                    if ((lenght - 1) - (index + decimalsLenght) > 0) {
-                        value = text.toString();
-                        value = value.substring(0, (index + decimalsLenght + 1));
-                        text = new SpannableString(value);
-                        index = value.indexOf(".");
-                        lenght = value.length();
-                    }
-
-                 /*Cambiamos tamaño del símbolo $*/
-                    if (symbolSmaller) {
+                /*Cambiamos tamaño del símbolo $*/
+                if (symbolSmaller) {
                     /*Centramos símbolo de $*/
-                        text.setSpan(new CustomCharacterSpan(0),
-                                0, 1,
-                                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                /*Seteamos elevación de decimales*/
-                        text.setSpan(new CustomCharacterSpan(0.5),
-                                DotBottom ? index + 1 : index, lenght,
-                                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                /*Seteamos escala de font de decimales*/
-                        text.setSpan(new RelativeSizeSpan(0.9f),
-                                DotBottom ? index + 1 : index, lenght,
-                                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                /*Seteamos escala de font de enteros*/
-                        text.setSpan(new RelativeSizeSpan(1.5f),
-                                0,
-                                lenght - (decimalsLenght + 1)/*omitimos el punto decimal*/,
-                                0); // aumentamos el tamaño
+                    text.setSpan(new CustomCharacterSpan(0),
+                            0, 1,
+                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    /*Seteamos elevación de decimales*/
+                    text.setSpan(new CustomCharacterSpan(0.5),
+                            DotBottom ? index + 1 : index, lenght,
+                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    /*Seteamos escala de font de decimales*/
+                    text.setSpan(new RelativeSizeSpan(0.9f),
+                            DotBottom ? index + 1 : index, lenght,
+                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    /*Seteamos escala de font de enteros*/
+                    text.setSpan(new RelativeSizeSpan(1.5f),
+                            0,
+                            lenght - (decimalsLenght + 1)/*omitimos el punto decimal*/,
+                            0); // aumentamos el tamaño
 
-                        text.setSpan(new RelativeSizeSpan(1f), 0, 1, 0); // aumentamos el tamaño del simbolo $
-                    } else {
-                   /*Seteamos elevación de decimales*/
-                        text.setSpan(new CustomCharacterSpan(0.5),
-                                DotBottom ? index + 1 : index, lenght,
-                                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                /*Seteamos escala de font de decimales*/
-                        text.setSpan(new RelativeSizeSpan(0.8f),
-                                DotBottom ? index + 1 : index, lenght,
-                                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-                /*Seteamos escala de font de enteros*/
-                        text.setSpan(new RelativeSizeSpan(2f),
-                                0,
-                                lenght - (decimalsLenght + 1)/*omitimos el punto decimal*/,
-                                0); // aumentamos el tamaño
-                    }
+                    text.setSpan(new RelativeSizeSpan(1f), 0, 1, 0); // aumentamos el tamaño del simbolo $
+                } else {
+                    /*Seteamos elevación de decimales*/
+                    text.setSpan(new CustomCharacterSpan(0.5),
+                            DotBottom ? index + 1 : index, lenght,
+                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    /*Seteamos escala de font de decimales*/
+                    text.setSpan(new RelativeSizeSpan(0.8f),
+                            DotBottom ? index + 1 : index, lenght,
+                            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    /*Seteamos escala de font de enteros*/
+                    text.setSpan(new RelativeSizeSpan(2f),
+                            0,
+                            lenght - (decimalsLenght + 1)/*omitimos el punto decimal*/,
+                            0); // aumentamos el tamaño
                 }
+            }
 
-
-                setText(text, TextView.BufferType.SPANNABLE);
-
-
+            setText(text, TextView.BufferType.SPANNABLE);
             try {
-                Double number = Double.parseDouble(getText().toString().trim().replace("$", "").replace(",",""));
-            }catch (NumberFormatException nfe){
-                String[] clean = getText().toString().trim().replace("$", "").replace(",","").split("\\.");
+                Double number = Double.parseDouble(getText().toString().trim().replace("$", "").replace(",", ""));
+            } catch (NumberFormatException nfe) {
+                String[] clean = getText().toString().trim().replace("$", "").replace(",", "").split("\\.");
                 SpannableString textS = new SpannableString(clean[0]);
-
                 setText(textS, TextView.BufferType.SPANNABLE);
-
             }
         }
-
-
     }
 
     @Override
