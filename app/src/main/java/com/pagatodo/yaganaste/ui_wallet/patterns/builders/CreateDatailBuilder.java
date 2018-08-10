@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.COMISION;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.DEVOLUCION;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
@@ -115,8 +116,7 @@ public class CreateDatailBuilder {
         }
 
         if (TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != DEVOLUCION){
-
-            if (!isspei) {
+            if (!isspei && TipoTransaccionPCODE.getTipoTransaccionById(response.getIdTipoTransaccion()) != COMISION) {
                 builder.createLeaf(new TextData(R.string.details_comision, StringUtils.getCurrencyValue(response.getComision())));
                 builder.createLeaf(new TextData(R.string.details_iva, StringUtils.getCurrencyValue(response.getIVA())));
             }
@@ -125,7 +125,6 @@ public class CreateDatailBuilder {
             builder.createLeaf(new TextData(R.string.details_autorizacion,response.getNumAutorizacion().trim()));
         }
         isspei=false;
-
     }
 
     public static void createByTypeAdq(Context context, ViewGroup container, DataMovimientoAdq response){

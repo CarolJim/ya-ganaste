@@ -168,13 +168,11 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
             } else {
                 dialogPassword = new DialogSetPassword();
                 dialogPassword.setListener(this);
-                dialogPassword.setTitle(adapter.getItem(i).getName(getActivity()) + " " + adapter.getItem(i).getYear());
                 dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
             }
         } else {
             dialogPassword = new DialogSetPassword();
             dialogPassword.setListener(this);
-            dialogPassword.setTitle(adapter.getItem(i).getName(getActivity()) + " " + adapter.getItem(i).getYear());
             dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
         }
     }
@@ -227,9 +225,16 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
         }
     }
 
+    public void showDialogPassword(){
+        dialogPassword = new DialogSetPassword();
+        dialogPassword.setListener(this);
+        dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
+    }
+
     @Override
     public void onOtpGenerated(String otp) {
         Log.e("YG", "OTP: " + otp);
+        UI.hideKeyBoard(getActivity());
         onEventListener.onEvent(EVENT_GO_VISUALIZER_EDO_CUENTA, year + "_" + (month + 1) + "_" + otp);
     }
 

@@ -76,14 +76,14 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if (edtPas.getText().length() == 6) {
+                    txtInput.setBackgroundResource(R.drawable.inputtext_active);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (edtPas.getText().length() == 6) {
-                    txtInput.setBackgroundResource(R.drawable.inputtext_active);
-                }
+
             }
         });
         return view;
@@ -95,6 +95,7 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
             txtInput.setBackgroundResource(R.drawable.inputtext_error);
         } else {
             listener.onPasswordSet(edtPas.getText().toString());
+            UI.hideKeyBoard(getActivity());
             this.dismiss();
         }
     }

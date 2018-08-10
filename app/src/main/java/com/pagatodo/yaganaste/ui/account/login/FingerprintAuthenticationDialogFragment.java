@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
 
 import java.security.KeyStore;
@@ -137,8 +138,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         if (!mFingerprintUiHelper.isFingerprintAuthAvailable()) {
             goToBackupintetos();
         }
-
-
         return v;
     }
 
@@ -170,7 +169,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
             mActivity = (AccountActivity) getActivity();
         if (context instanceof PaymentsProcessingActivity)
             mActivity = (PaymentsProcessingActivity) getActivity();
-        if (context instanceof PreferUserActivity){
+        if (context instanceof PreferUserActivity) {
             mActivity = (PreferUserActivity) getActivity();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -300,12 +299,19 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 // Intentional fall through
 
             case INTENTS:
-                mPasswordDescriptionTextView.setText("Demasiados intentos\nallidos, por favor\nusa tú contraseña");
-                mCancelButton.setText("Usar Contraseña");
-                mFingerprintContent.setVisibility(View.GONE);
-                mBackupContent.setVisibility(View.VISIBLE);
-                mSecondDialogButton.setVisibility(View.GONE);
-                mCancelButton.setOnClickListener(view -> dismiss());
+                if (fragmentInstance instanceof DescargarEdoCuentaFragment) {
+                    ((DescargarEdoCuentaFragment) fragmentInstance).showDialogPassword();
+                    dismiss();
+                } else {
+                    mPasswordDescriptionTextView.setText("Demasiados intentos\nallidos, por favor\nusa tú contraseña");
+                    mCancelButton.setText("Usar Contraseña");
+                    mFingerprintContent.setVisibility(View.GONE);
+                    mBackupContent.setVisibility(View.VISIBLE);
+                    mSecondDialogButton.setVisibility(View.GONE);
+                    mCancelButton.setOnClickListener(view -> {
+                        dismiss();
+                    });
+                }
                 break;
             case PASSWORD:
                 mCancelButton.setText(R.string.cancel);
@@ -321,6 +327,10 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                     mPasswordDescriptionTextView.setVisibility(View.GONE);
                     mNewFingerprintEnrolledTextView.setVisibility(View.VISIBLE);
                     mUseFingerprintFutureCheckBox.setVisibility(View.VISIBLE);
+                }
+                if (fragmentInstance instanceof DescargarEdoCuentaFragment) {
+                    ((DescargarEdoCuentaFragment) fragmentInstance).showDialogPassword();
+                    dismiss();
                 }
                 break;
         }
