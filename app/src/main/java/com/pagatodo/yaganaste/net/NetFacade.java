@@ -154,15 +154,12 @@ public class NetFacade {
      * @return Tipo de método
      */
     private static int getMethodType(HttpMethods method) {
-
         switch (method) {
-
             case METHOD_GET:
                 return GET;
             case METHOD_POST:
                 return Request.Method.POST;
         }
-
         return 0;
 
     }

@@ -101,12 +101,4 @@ public class DialogSetPassword extends DialogFragment implements View.OnClickLis
             this.dismiss();
         }
     }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        InputMethodManager imm = (InputMethodManager) edtPas.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm.isActive())
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-        super.onDismiss(dialog);
-    }
 }

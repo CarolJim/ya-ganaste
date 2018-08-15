@@ -235,7 +235,7 @@ public class DateUtil {
 
     public static List<MonthsMovementsTab> getLastDonwloadStatmentsMonths() {
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
-        for (int subs = -5; subs <= 0; subs++) {
+        for (int subs = -6; subs <= -1; subs++) {
             Calendar calendar = Calendar.getInstance(new Locale("MX"));
             calendar.add(Calendar.MONTH, subs);
             names.addFirst(new MonthsMovementsTab(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("es", "MX")),

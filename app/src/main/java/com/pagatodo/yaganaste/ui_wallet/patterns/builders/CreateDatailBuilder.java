@@ -154,7 +154,6 @@ public class CreateDatailBuilder {
 
         switch (response.getEstatus()) {
             case ESTATUS_CANCELADO:
-                if (!isComerioUyU)
                 builder.createLeaf(new TextData(R.string.details_status, context.getString(R.string.status_cancelado)));
                 break;
             case ESTATUS_POR_REMBOLSAR:

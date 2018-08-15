@@ -4,6 +4,7 @@ import android.os.Trace;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.pagatodo.yaganaste.App;
@@ -50,7 +51,7 @@ public class WsCaller implements IServiceConsumer {
 
     @Override
     public void sendJsonPost(final WsRequest request) {
-        Tracer tracer = new Tracer(RequestHeaders.getUsername(),request.getMethod_name().name());
+        Tracer tracer = new Tracer(RequestHeaders.getUsername(), request.getMethod_name().name());
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
@@ -105,7 +106,7 @@ public class WsCaller implements IServiceConsumer {
                         tracer.setStatusRequest(SUCESS);
                         tracer.setStatusWS(dataSourceResult.getData().toString());
                         tracer.setConnection(Utils.getTypeConnection());
-                        tracer.setDuration(tracer.getFinalTime()-tracer.getStartTime());
+                        tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
                         tracer.getTracerSucess();
 
                         request.getRequestResult().onSuccess(dataSourceResult);
@@ -141,7 +142,15 @@ public class WsCaller implements IServiceConsumer {
                     tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
                     tracer.getTracerError();
 
-                }, request.getHeaders());
+                }, request.getHeaders()) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d(TAG, "Http Status : " + response.statusCode);
+                }
+                return super.parseNetworkResponse(response);
+            }
+        };
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                 request.getTimeOut(),

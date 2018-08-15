@@ -194,6 +194,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     public final static String EVENT_GO_TO_SEND_TICKET = "EVENT_GO_TO_SEND_TICKET";
     public final static String EVENT_GO_CHAT = "EVENT_GO_CHAT";
     public final static String EVENT_GO_VISUALIZER_EDO_CUENTA = "EVENT_GO_VISUALIZER_EDO_CUENTA";
+    public final static String EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR = "EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR";
 
     //public final static String EVENT_GO_TO_FAVORITES = "EVENT_GO_TO_FAVORITES";
 
@@ -610,10 +611,13 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 finish();
                 break;
             case EVENT_GO_VISUALIZER_EDO_CUENTA:
-                UI.hideKeyBoard(this);
                 String info[] = data.toString().split("_");
                 loadFragment(EdoCuentaFragment.newInstance(Integer.valueOf(info[0]), Integer.valueOf(info[1]),
                         info[2]), R.id.fragment_container, Direction.FORDWARD);
+                break;
+            case EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR:
+                loadFragment(DescargarEdoCuentaFragment.newInstance(), R.id.fragment_container, Direction.BACK);
+                UI.showErrorSnackBar(this, "No se encontró el estado de cuenta", Snackbar.LENGTH_SHORT);
                 break;
         }
     }

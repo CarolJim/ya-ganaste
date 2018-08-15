@@ -131,7 +131,6 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             }
             if (itemMovements.getColor() == R.color.redColorNegativeMovements) {
                 if (adq) {
-                    if (!isComerioUyU)
                     upDown.setBackgroundResource(R.drawable.down);
                 } else {
                     upDown.setBackgroundResource(R.drawable.down_red);
