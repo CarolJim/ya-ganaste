@@ -51,6 +51,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_VISUALIZER_EDO_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.PSW_CPR;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 public class DescargarEdoCuentaFragment extends GenericFragment implements AdapterView.OnItemClickListener,
@@ -219,13 +220,17 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
     public void loadOtpHuella(String sha) {
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            presenter.generateOTP(sha);
+            if (sha.equals(preferencias.loadData(SHA_256_FREJA))) {
+                presenter.generateOTP(sha);
+            } else {
+                UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.datos_usuario_pass_no_coinciden), Snackbar.LENGTH_SHORT);
+            }
         } else {
             UI.showErrorSnackBar(getActivity(), getResources().getString(R.string.no_internet_access), Snackbar.LENGTH_SHORT);
         }
     }
 
-    public void showDialogPassword(){
+    public void showDialogPassword() {
         dialogPassword = new DialogSetPassword();
         dialogPassword.setListener(this);
         dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");

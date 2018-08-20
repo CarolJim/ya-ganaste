@@ -102,11 +102,14 @@ public class EdoCuentaFragment extends GenericFragment {
                 if (!statementsExists) {
                     statementsExists = true;
                     try {
-                        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
                         webView.loadUrl("https://docs.google.com/gview?embedded=true&url=" + url);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+                        onEventListener.onEvent(EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR, null);
                     }
+                } else {
+                    onEventListener.onEvent(EVENT_HIDE_LOADER, null);
                 }
             }
 
