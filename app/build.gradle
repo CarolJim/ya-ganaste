@@ -30,9 +30,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86"
-        }
         useLibrary 'org.apache.http.legacy'
     }
     dexOptions {
@@ -53,7 +50,6 @@ android {
 
     buildTypes {
         release {
-            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
@@ -81,6 +77,7 @@ dependencies {
     implementation files('libs/frejaMobileCore_486c0fb7a51.jar')
     // Dspread (Dongle) Compilation
     implementation files('libs/dspread_android_sdk_2.7.6.jar')
+    implementation files('libs/cswiperapi-android-2.9.jar')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:' + rootProject.espressoCoreVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'

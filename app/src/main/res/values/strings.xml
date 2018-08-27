@@ -1454,7 +1454,7 @@
 
     <string name="reembolso_cuarentayocho">Comisión\n2.9% + IVA</string>
     <string name="reembolso_veinticuatro">Comisión\n3.45% + IVA</string>
-    <string name="reembolso_inmediato">Comisión\n3.99% + IVA</string>
+    <string name="reembolso_inmediato">Comisión\n3.95% + IVA</string>
 
     <string name="lector_inalambrico">Lector de tarjetas\ninalámbrico</string>
     <string name="sin_lector_aun">Aún no tengo\nlector de tarjetas</string>

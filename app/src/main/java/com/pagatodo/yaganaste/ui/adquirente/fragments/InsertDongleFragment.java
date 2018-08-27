@@ -93,6 +93,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ONLINE_PROCESS_SUCCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PINPAD_FAILED_EMV;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_BATTERY_LEVEL;
 import static com.pagatodo.yaganaste.utils.Recursos.READ_KSN;
+import static com.pagatodo.yaganaste.utils.Recursos.READ_KSN_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_FINAL_CONFIRM;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_IS_SERVER_CONNECTED;
@@ -542,7 +543,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onDongleSelected(int position) {
-        App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName()+"_"+devicesBT.get(position).getAddress());
+        App.getInstance().getPrefs().saveData(BT_PAIR_DEVICE, devicesBT.get(position).getName() + "_" + devicesBT.get(position).getAddress());
         App.getInstance().pos.stopScanQPos2Mode();
         App.getInstance().pos.connectBluetoothDevice(true, 10, devicesBT.get(position).getAddress());
     }
@@ -804,8 +805,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     }
                     break;
                 case SW_ERROR:
+                case READ_KSN_ERROR:
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                        Log.i("IposListener: ", "=====>>    SW_ERROR");
+                        Log.i("IposListener: ", "=====>>    " + (mensaje == SW_ERROR ? "SW_ERROR" : "READ_KSN_ERROR"));
                     }
                     hideLoader();
                     if (!isWaitingCard)
