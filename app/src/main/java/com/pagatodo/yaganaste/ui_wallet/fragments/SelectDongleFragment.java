@@ -68,7 +68,6 @@ public class SelectDongleFragment extends GenericFragment implements View.OnClic
         lytBtDongle.setOnClickListener(this);
         lytNormalDongle.setOnClickListener(this);
 
-
         try {
             if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                 imgTypeBt.setImageResource(R.drawable.rdb_pressed);
@@ -87,7 +86,7 @@ public class SelectDongleFragment extends GenericFragment implements View.OnClic
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
                 imgTypeBt.setImageResource(R.drawable.rdb_pressed);
                 imgTypeNormal.setImageResource(R.drawable.rdb_not_pressed);
-                onEventListener.onEvent(EVENT_GO_CONFIG_DONGLE, null);
+                //onEventListener.onEvent(EVENT_GO_CONFIG_DONGLE, null);
                 break;
             case R.id.lyt_normal_dongle:
                 App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.AUDIO.ordinal());

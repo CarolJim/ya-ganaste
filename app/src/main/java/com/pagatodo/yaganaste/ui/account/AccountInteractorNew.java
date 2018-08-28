@@ -843,7 +843,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 AdquirienteResponse adquiriente = user.getDataUser().getAdquirente();
                 if (adquiriente.getAgentes() != null && adquiriente.getAgentes().size() > 0 &&
-                        !App.getInstance().getPrefs().loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
+                        !App.getInstance().getPrefs().loadData(HAS_CONFIG_DONGLE).equals("")) {
                     App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
 
                 }

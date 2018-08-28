@@ -116,7 +116,7 @@ public class App extends Application {
         MultiDex.install(this);
 
         this.prefs = new Preferencias(this);
-        //System.loadLibrary("a01jni");
+        System.loadLibrary("a01jni");
         //initEMVListener(QPOSService.CommunicationMode.AUDIO);
         RequestHeaders.initHeaders(this);
         lifecycleHandler = new ApplicationLifecycleHandler();
@@ -268,7 +268,7 @@ public class App extends Application {
         pos.setVolumeFlag(false);
         Handler handler = new Handler(Looper.myLooper());
         pos.initListener(handler, emvListener);
-        //pos.getSdkVersion();
+        pos.getSdkVersion();
     }
 
 

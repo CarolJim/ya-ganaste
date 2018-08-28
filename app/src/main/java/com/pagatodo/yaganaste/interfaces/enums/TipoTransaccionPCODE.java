@@ -20,7 +20,8 @@ public enum TipoTransaccionPCODE {
     COMISION("Comisión", 12),
     COBRO_CON_TARJETA_DISPERSION_ADQ("Cobro con Tarjeta", 13),
     REEMBOLSO_ADQUIRIENTE("Reembolso Adquiriente", 14),
-    DEVOLUCION("Devolucion", 14);
+    DEVOLUCION("Devolucion", 14),
+    COMISION_ADMIN_CUENTA("Comisión de Administración de Cuenta", 96);
 
     private String name;
     private int id;

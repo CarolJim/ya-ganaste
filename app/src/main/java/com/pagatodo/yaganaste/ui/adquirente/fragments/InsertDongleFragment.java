@@ -193,7 +193,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             App.getInstance().initEMVListener(QPOSService.CommunicationMode.BLUETOOTH);
             App.getInstance().pos.clearBluetoothBuffer();
             if (App.getInstance().pos != null) {
-                App.getInstance().pos.scanQPos2Mode(App.getContext(), 15);
+                App.getInstance().pos.scanQPos2Mode(App.getContext(), 10);
             } else {
                 showSimpleDialogError(getString(R.string.error_pos_is_null), new DialogDoubleActions() {
                     @Override
