@@ -13,6 +13,20 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
     
+**_VERSION 4.3.1 - 2 al 28 de Agosto del 2018 (ID:5348)_**
+
+Descripción al desarrollador:
+
+    * Implementación descarga estados de cuenta
+    * Corrección conexión con Dongle Audio Jack
+    * Deshabilitar estatus de reembolso para adquirientes UyU
+    * Corrección cambio de dispositivo de cobro para visualización de iconos
+    
+Funcionalidad:
+
+    * Ver estados de cuenta
+    * Correcciones menores
+    
 **_VERSION 4.2.9 - 25 de Julio al 1° de Agosto del 2018 (ID:5173)_**
 
 Descripción al desarrollador:
