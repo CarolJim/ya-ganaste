@@ -111,7 +111,6 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
             case OBTENER_FAVORITOS:
                 carouselPresenter.onSuccessWSFavorites(dataSourceResult);
                 break;
-
             case OBTENER_BANCOSBIN:
                 carouselPresenter.onSuccessWSBankBin(dataSourceResult);
                 break;
