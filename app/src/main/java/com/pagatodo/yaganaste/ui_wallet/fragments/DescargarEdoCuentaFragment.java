@@ -158,13 +158,9 @@ public class DescargarEdoCuentaFragment extends GenericFragment implements Adapt
                     authDialog.setFragmentInstance(this);
                     authDialog.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                 } else {
-                    FingerprintAuthenticationDialogFragment fragment
-                            = new FingerprintAuthenticationDialogFragment();
-                    fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
-                    fragment.setStage(
-                            FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
-                    fragment.setFragmentInstance(this);
-                    fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
+                    dialogPassword = new DialogSetPassword();
+                    dialogPassword.setListener(this);
+                    dialogPassword.show(getActivity().getFragmentManager(), "Dialog Set Password");
                 }
             } else {
                 dialogPassword = new DialogSetPassword();

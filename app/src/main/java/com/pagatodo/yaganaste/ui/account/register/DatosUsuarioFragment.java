@@ -114,7 +114,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
-        preferencias.saveDataBool(Recursos.HUELLA_FAIL,true);
+        preferencias.saveDataBool(Recursos.HUELLA_FAIL, true);
     }
 
     @Override
@@ -176,23 +176,22 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     if (!UtilsNet.isOnline(getActivity())) {
                         //   editMail.setIsInvalid();
                         showValidationError(editMail.getId(), getString(R.string.no_internet_access));
-                    }else if (editMail.getText().toString().isEmpty()) {
+                    } else if (editMail.getText().toString().isEmpty()) {
                         //    editMail.setIsInvalid();
 
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
                         text_email.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
-                    } else if (!ValidateForm.isValidEmailAddress(editMail.getText().toString()) && !emailValidatedByWS) {
-
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+                    } else if (!ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_email.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
-                    } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim())  && !emailValidatedByWS) {
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+                    } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
                         accountPresenter.validateEmail(editMail.getText().toString());
-                    } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString()) && emailValidatedByWS) {
+                    } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && emailValidatedByWS) {
                         text_email.setBackgroundResource(R.drawable.inputtext_normal);
                         // hideValidationError(editMail.getId());
                         //editMail.setIsValid();
@@ -224,17 +223,17 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                         //   showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
                         //   edtitConfirmEmail.setIsInvalid();
 
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo_confirma), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_confirma), Snackbar.LENGTH_SHORT);
                         text_emailconfirm.setBackgroundResource(R.drawable.inputtext_error);
                     } else if (!edtitConfirmEmail.getText().toString().isEmpty() && !edtitConfirmEmail.getText().toString().equals(editMail.getText().toString())) {
                         //showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
 
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
                         text_emailconfirm.setBackgroundResource(R.drawable.inputtext_error);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo_no_coinciden), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_no_coinciden), Snackbar.LENGTH_SHORT);
                         //edtitConfirmEmail.setIsInvalid();
                     } else if (edtitConfirmEmail.getText().toString().equals(editMail.getText().toString())) {
                         /// hideValidationError(edtitConfirmEmail.getId());
@@ -268,14 +267,14 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     if (!UtilsNet.isOnline(getActivity())) {
                         //  editPassword.setIsInvalid();
                         //  showValidationError(editPassword.getId(), getString(R.string.no_internet_access));
-                    }else if (editPassword.getText().toString().isEmpty()) {
+                    } else if (editPassword.getText().toString().isEmpty()) {
                         // editPassword.setIsInvalid();
                         // showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass), Snackbar.LENGTH_SHORT);
                         text_password.setBackgroundResource(R.drawable.inputtext_error);
-                    }  else if (isValidPassword) {
+                    } else if (isValidPassword) {
                         // hideValidationError(editPassword.getId());
                         // editPassword.setIsValid();
                         text_password.setBackgroundResource(R.drawable.inputtext_normal);
@@ -306,17 +305,17 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     if (editPasswordConfirm.getText().toString().isEmpty()) {
                         // showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
                         // editPasswordConfirm.setIsInvalid();
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass_confirm), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass_confirm), Snackbar.LENGTH_SHORT);
                         text_passwordconfirm.setBackgroundResource(R.drawable.inputtext_error);
                     } else if (!editPasswordConfirm.getText().toString().isEmpty() && !editPasswordConfirm.getText().toString().equals(editPassword.getText().toString())) {
                         //showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
                         //editPasswordConfirm.setIsInvalid();
 
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_pass_no_coinciden), Snackbar.LENGTH_SHORT);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_pass_no_coinciden), Snackbar.LENGTH_SHORT);
                         text_passwordconfirm.setBackgroundResource(R.drawable.inputtext_error);
 
                     } else if (editPasswordConfirm.getText().toString().equals(editPassword.getText().toString())) {
@@ -341,13 +340,15 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         */
 
     }
-    public void setVisibilityBack(boolean mBoolean){
+
+    public void setVisibilityBack(boolean mBoolean) {
         if (mBoolean) {
             btnBack.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btnBack.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void validateForm() {
         getDataForm();
@@ -356,7 +357,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         //Validate format Email
         if (!ValidateForm.isValidEmailAddress(editMail.getText().toString())) {
             text_email.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
             isValid = false;
             //return;
         }
@@ -407,7 +408,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             isValid = false;
             //return;
         }
-
 
 
         //Validate if Password is empty
@@ -601,7 +601,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         userExist = true;
         //editMail.setIsInvalid();
         text_email.setBackgroundResource(R.drawable.inputtext_error);
-        UI.showErrorSnackBar(getActivity(),getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_SHORT);
         //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_existe));
     }
 
