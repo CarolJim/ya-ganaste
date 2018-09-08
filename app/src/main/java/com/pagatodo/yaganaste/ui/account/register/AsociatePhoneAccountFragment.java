@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -39,12 +40,8 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
@@ -171,9 +168,6 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
     }
 
     public void onRequestPermissionsResult() {
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().startEvent(EVENT_APROV);
-        }
         accountPresenter.gerNumberToSMS();
     }
 
@@ -204,11 +198,9 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_APROV, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle);
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
             nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
         } else {
@@ -224,21 +216,17 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
     @Override
     public void finishReseting() {
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_APROV, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle);
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
     @Override
     public void onResetingFailed() {
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_APROV, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle);
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 

@@ -50,8 +50,6 @@ import java.util.Map;
 import java.util.Set;
 
 import io.fabric.sdk.android.Fabric;
-import ly.count.android.sdk.Countly;
-import ly.count.android.sdk.DeviceId;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -59,7 +57,6 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.SESSION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.WS_TIMEOUT;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_COUNTLY;
 
 /**
  * Created by flima on 17/03/17.
@@ -71,7 +68,6 @@ public class App extends Application {
     private static AppDatabase m_database;
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
-    private Countly countly;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -146,8 +142,6 @@ public class App extends Application {
 
         //Contly
         if (!BuildConfig.DEBUG) {
-            countly = Countly.sharedInstance().init(this, URL_COUNTLY, getResources().getString(R.string.countly_key), null, DeviceId.Type.OPEN_UDID);
-            countly.setLoggingEnabled(true);
             Fabric.with(this, new Crashlytics());
         } else {
             Stetho.initializeWithDefaults(this);
@@ -398,23 +392,4 @@ public class App extends Application {
     public void setCurrentSaldo(String currentSaldo) {
         this.currentSaldo = currentSaldo;
     }
-
-    public Countly getCountly() {
-        return this.countly;
-    }
-
-    public void onStartCountly() {
-        Countly.sharedInstance().onStart(currentActivity);
-        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-            Log.d(currentActivity.getClass().getName(), "Countly OnStar");
-        }
-    }
-
-    public void onStopCountly() {
-        Countly.sharedInstance().onStop();
-        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-            Log.d(currentActivity.getClass().getName(), "Countly onStop");
-        }
-    }
-
 }

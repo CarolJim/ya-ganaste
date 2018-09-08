@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dspread.xpos.QPOSService;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -38,6 +39,7 @@ import com.pagatodo.yaganaste.ui_wallet.views.CustomDots;
 import com.pagatodo.yaganaste.ui_wallet.views.ItemOffsetDecoration;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -48,7 +50,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.davidea.flipview.FlipView;
-import ly.count.android.sdk.Countly;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -75,6 +76,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_SETTINGS
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
@@ -295,7 +297,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
                     if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
                         rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
-                    //    accountPresenter.updateBalance();
+                        //    accountPresenter.updateBalance();
                         upDateSaldo(StringUtils.getCurrencyValue(balanceEmisor));
                     } else {
                         int idcomercio = adapterBalanceCard.getElemenWallet(position).getAgentes().getIdComercio();
@@ -307,7 +309,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                         } else {
                             rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
                         }
-                     //   accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
+                        //   accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(position));
                         upDateSaldo(StringUtils.getCurrencyValue(balanceAdq));
                     }
                 }
@@ -337,9 +339,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 nextScreen(EVENT_SECURE_CODE, null);
                 break;
             case OPTION_PAYMENT_ADQ:
-                if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().recordEvent(EVENT_SHORTCUT_CHARGE, 1);
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+                FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SHORTCUT_CHARGE, bundle);
                 nextScreen(EVENT_PAYMENT, null);
                 break;
             case OPTION_ADMON_ADQ:
@@ -370,11 +372,11 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             if (prefs.loadDataBoolean(SHOW_BALANCE, true)) {
                 setVisibilityBackItems(VISIBLE);
                 setVisibilityFrontItems(GONE);
-                    if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
-                        accountPresenter.updateBalance();
-                    else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
-                        accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
-                    }
+                if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() == TYPE_EMISOR)
+                    accountPresenter.updateBalance();
+                else if (adapterBalanceCard.getElemenWallet(this.pageCurrent).getTypeWallet() != TYPE_SETTINGS) {
+                    accountPresenter.updateBalanceAdq(adapterBalanceCard.getElemenWallet(this.pageCurrent));
+                }
             }
         } else {
             ((FlipView) v).flip(false);

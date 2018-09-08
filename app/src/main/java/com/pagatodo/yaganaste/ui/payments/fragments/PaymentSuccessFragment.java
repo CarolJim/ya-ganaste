@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
@@ -46,17 +48,16 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.MY_PERMISSIONS_REQUEST_STORAGE;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.AMOUNT;
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_RECHARGE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SEND_MONEY;
@@ -196,11 +197,11 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_RECHARGE_PHONE, segmentation, 1, 0);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+            bundle.putString(COMPANY, pago.getComercio().getNombreComercio());
+            bundle.putDouble(AMOUNT, pago.getMonto());
+            FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_RECHARGE_PHONE, bundle);
         } else if (pago instanceof Servicios) {
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
@@ -214,11 +215,11 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_SERV_PAYMENT, segmentation, 1, 0);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+            bundle.putString(COMPANY, pago.getComercio().getNombreComercio());
+            bundle.putDouble(AMOUNT, pago.getMonto());
+            FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SERV_PAYMENT, bundle);
         } else if (pago instanceof Envios) {
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
@@ -249,12 +250,11 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 viewClaveRastreo.setVisibility(View.GONE);
             }
 
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_SEND_MONEY, segmentation, 1, 0);
-            }
-
+            Bundle bundle = new Bundle();
+            bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+            bundle.putString(COMPANY, pago.getComercio().getNombreComercio());
+            bundle.putDouble(AMOUNT, pago.getMonto());
+            FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SEND_MONEY, bundle);
         }
 
         importe.setText(Utils.getCurrencyValue(pago.getMonto()));
@@ -386,9 +386,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         AlertDialog alert = builder.create();
         alert.show();
     }
-
-
-
 
 
     @Override

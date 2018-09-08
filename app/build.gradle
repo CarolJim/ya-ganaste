@@ -1,9 +1,6 @@
 buildscript {
     repositories {
         jcenter()
-        maven {
-            url 'http://dl.bintray.com/countly/maven'
-        }
         google()
     }
 
@@ -66,9 +63,6 @@ android {
 }
 repositories {
     jcenter()
-    maven {
-        url 'http://dl.bintray.com/countly/maven'
-    }
     google()
     maven {
         url 'https://maven.google.com/'
@@ -111,7 +105,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:' + rootProject.firebaseVersion
     // Analytics
     implementation 'com.crashlytics.sdk.android:crashlytics:' +  rootProject.fabricVersion
-    implementation 'ly.count.android:sdk:' + rootProject.countlyVersion
     // Onboarding
     implementation 'com.matthew-tamlin:sliding-intro-screen:' + rootProject.onboardingVersion
     // Swipe Fragments Viewer

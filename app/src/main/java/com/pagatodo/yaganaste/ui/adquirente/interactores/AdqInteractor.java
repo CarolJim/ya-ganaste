@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.ui.adquirente.interactores;
 
 import android.content.Context;
+import android.os.Bundle;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -33,10 +35,6 @@ import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULT_BALANCE_UYU;
@@ -49,17 +47,16 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_C
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_CL;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_REG;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
@@ -360,14 +357,13 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            if (data.getMarcaTarjetaBancaria() == null) {
-                Countly.sharedInstance().endEvent(EVENT_CHARGE_ADQ_CL, segmentation, 1, 0);
-            } else {
-                Countly.sharedInstance().endEvent(EVENT_CHARGE_ADQ_REG, segmentation, 1, 0);
-            }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        bundle.putString(AMOUNT, result.getAmount());
+        if (data.getMarcaTarjetaBancaria() == null) {
+            FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_CHARGE_ADQ_CL, bundle);
+        } else {
+            FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_CHARGE_ADQ_REG, bundle);
         }
         switch (data.getError().getId()) {
             case ADQ_CODE_OK:

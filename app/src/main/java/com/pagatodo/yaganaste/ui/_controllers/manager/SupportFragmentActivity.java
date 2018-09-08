@@ -51,16 +51,10 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     @Override
     protected void onStart() {
         super.onStart();
-        if (App.getInstance().getCountly() != null) {
-            App.getInstance().onStartCountly();
-        }
     }
 
     @Override
     protected void onStop() {
-        if (App.getInstance().getCountly() != null) {
-            App.getInstance().onStopCountly();
-        }
         super.onStop();
     }
 

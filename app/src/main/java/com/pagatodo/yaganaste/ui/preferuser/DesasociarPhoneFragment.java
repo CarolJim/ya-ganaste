@@ -26,8 +26,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ly.count.android.sdk.Countly;
-import ly.count.android.sdk.DeviceId;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 
@@ -132,9 +130,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         new DatabaseManager().deleteFavorites();
         new DatabaseManager().deleteAgentes();
         RequestHeaders.clearPreferences();
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().changeDeviceId(DeviceId.Type.OPEN_UDID, null);
-        }
     }
 
     /**

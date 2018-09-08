@@ -19,7 +19,6 @@ public class Recursos {
     public static final String URL_SERVER_ADQ;
     public static final String URL_SERVER_FB;
     public static final String URL_STARBUCKS;
-    public static final String URL_COUNTLY;
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 3;
@@ -52,7 +51,6 @@ public class Recursos {
         //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
         URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
         URL_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.URL_STARBUCKS);
-        URL_COUNTLY = "https://us-try.count.ly";
 
         PIN_ADVO = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADMIN);
         PIN_TRANS = FirebaseRemoteConfig.getInstance().getString(PIN_YG_TRANS);
@@ -319,25 +317,29 @@ public class Recursos {
     public static final String SECURITY_TOKEN_STARBUCKS = "SECURITY_TOKEN_STARBUCKS";
     public static final String NUMBER_CARD_STARBUCKS = "NUMBER_CARD_STARBUCKS";
 
-    /* Eventos de Countly */
-    public static final String EVENT_SPLASH = "EVENT_SPLASH";
-    public static final String EVENT_LOG_IN = "EVENT_LOG_IN";
-    public static final String EVENT_MOVS_EMISOR = "EVENT_MOVS_EMISOR";
-    public static final String EVENT_MOVS_ADQ = "EVENT_MOVS_ADQ";
-    public static final String EVENT_APROV = "EVENT_APROV";
-    public static final String EVENT_BALANCE_EMISOR = "EVENT_BALANCE_EMISOR";
-    public static final String EVENT_BALANCE_ADQ = "EVENT_BALANCE_ADQ";
-    public static final String EVENT_SHORTCUT_CHARGE = "EVENT_SHORTCUT_CHARGE";
-    public static final String EVENT_BALANCE_UYU = "EVENT_BALANCE_UYU";
-    public static final String EVENT_SEND_MONEY = "EVENT_SEND_MONEY";
-    public static final String EVENT_ADD_FAV = "EVENT_ADD_FAV";
-    public static final String EVENT_EDIT_FAV = "EVENT_EDIT_FAV";
-    public static final String EVENT_DELETE_FAV = "EVENT_DELETE_FAV";
-    public static final String EVENT_CHARGE_ADQ_REG = "EVENT_CHARGE_ADQ_REG";
-    public static final String EVENT_CHARGE_ADQ_CL = "EVENT_CHARGE_ADQ_CL";
-    public static final String EVENT_RECHARGE_PHONE = "EVENT_RECHARGE_PHONE";
-    public static final String EVENT_SERV_PAYMENT = "EVENT_SERV_PAYMENT";
+    /* Eventos de Analytics */
+    public static final String EVENT_SPLASH = "event_splash";
+    public static final String EVENT_LOG_IN = "event_log_in";
+    public static final String EVENT_MOVS_EMISOR = "event_movs_emisor";
+    public static final String EVENT_MOVS_ADQ = "event_movs_adq";
+    public static final String EVENT_APROV = "event_aprov";
+    public static final String EVENT_BALANCE_EMISOR = "event_balance_emisor";
+    public static final String EVENT_BALANCE_ADQ = "event_balance_adq";
+    public static final String EVENT_SHORTCUT_CHARGE = "event_shortcut_charge";
+    public static final String EVENT_BALANCE_UYU = "event_balance_uyu";
+    public static final String EVENT_SEND_MONEY = "event_send_money";
+    public static final String EVENT_ADD_FAV = "event_add_fav";
+    public static final String EVENT_EDIT_FAV = "event_edit_fav";
+    public static final String EVENT_DELETE_FAV = "event_delete_fav";
+    public static final String EVENT_CHARGE_ADQ_REG = "event_charge_adq_reg";
+    public static final String EVENT_CHARGE_ADQ_CL = "event_charge_adq_cl";
+    public static final String EVENT_RECHARGE_PHONE = "event_recharge_phone";
+    public static final String EVENT_SERV_PAYMENT = "event_serv_payment";
+    public static final String EVENT_REGISTER_YG = "event_register_yg";
+    public static final String EVENT_REGISTER_ADQ = "event_register_adq";
 
-    /* Segmentaciones eventos County */
-    public static final String CONNECTION_TYPE = "CONNECTION_TYPE";
+    /* Segmentaciones eventos Analytics */
+    public static final String CONNECTION_TYPE = "connection_type";
+    public static final String COMPANY = "company";
+    public static final String AMOUNT = "amount";
 }

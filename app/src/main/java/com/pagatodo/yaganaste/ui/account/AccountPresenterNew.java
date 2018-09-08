@@ -2,8 +2,10 @@ package com.pagatodo.yaganaste.ui.account;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -74,7 +76,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGN
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_SB;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -87,14 +88,15 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
-import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_STARBUCKS_KEY_RSA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
@@ -518,6 +520,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             }
         } else if (accountView instanceof IAccountCardNIPView) {
             if (ws == ASIGNAR_NIP) {
+                Bundle bundle = new Bundle();
+                bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+                FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_YG, bundle);
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }
             if (ws == ACTUALIZAR_AVATAR) {

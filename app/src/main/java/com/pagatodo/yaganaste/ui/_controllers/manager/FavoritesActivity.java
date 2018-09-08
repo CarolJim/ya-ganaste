@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -28,10 +27,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -94,16 +93,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
-import ly.count.android.sdk.Countly;
 
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
@@ -330,9 +326,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                             @Override
                             public void actionConfirm(Object... params) {
                                 DeleteFavoriteRequest deleteFavoriteRequest = new DeleteFavoriteRequest();
-                                if (!BuildConfig.DEBUG) {
-                                    Countly.sharedInstance().startEvent(EVENT_DELETE_FAV);
-                                }
                                 favoritesPresenter.toPresenterDeleteFavorite(deleteFavoriteRequest, idFavorito);
                             }
 
@@ -892,10 +885,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             dataFavoritos.setReferencia(referService);
             //favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
             otpPResenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-
-            if (!BuildConfig.DEBUG) {
-                Countly.sharedInstance().startEvent(EVENT_EDIT_FAV);
-            }
             favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
 
         } else {
@@ -905,9 +894,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
                 // favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
                 otpPResenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-                if (!BuildConfig.DEBUG) {
-                    Countly.sharedInstance().startEvent(EVENT_ADD_FAV);
-                }
                 favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
             } else {
                 /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
@@ -944,11 +930,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mensaje) {
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_ADD_FAV, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_ADD_FAV, bundle);
         showDialogMesage(getString(R.string.title_dialog_favorite),
                 getString(R.string.respond_ok_add_new_favorite), 1);
     }
@@ -966,12 +950,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void toViewSuccessDeleteFavorite(String mensaje) {
-
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_DELETE_FAV, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_DELETE_FAV, bundle);
         setResult(INTENT_FAVORITE);
         finish();
     }
@@ -984,11 +965,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
 
         } else {
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_EDIT_FAV, segmentation, 1, 0);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+            FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_EDIT_FAV, bundle);
             favoritesPresenter.updateLocalFavorite(dataFavoritos);
             showDialogMesage(getString(R.string.title_dialog_edit_favorite),
                     getString(R.string.respond_ok_edit_favorite), 1);

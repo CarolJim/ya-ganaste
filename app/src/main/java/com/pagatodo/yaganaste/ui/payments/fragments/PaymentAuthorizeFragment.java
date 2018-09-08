@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.hardware.fingerprint.FingerprintManager;
@@ -26,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Envios;
@@ -34,7 +32,6 @@ import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ClienteResponse;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -71,12 +68,10 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SEND_MONEY;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
@@ -414,9 +409,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (TextUtils.isEmpty(password)) {
             showValidationError(0, getString(R.string.datos_usuario_pass));
         } else {
-            if (!BuildConfig.DEBUG) {
-                Countly.sharedInstance().startEvent(EVENT_SEND_MONEY);
-            }
             paymentAuthorizePresenter.validatePasswordFormat(password);
         }
     }

@@ -1,25 +1,27 @@
 package com.pagatodo.yaganaste.ui_wallet.interactors;
 
 
+import android.os.Bundle;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SaldoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.ObtenerInfoComercioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.CardRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.ObtenerInfoComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRespons;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdq;
@@ -32,12 +34,8 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ERROR_STATUS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet.TYPE_ADQ;
@@ -75,15 +73,9 @@ public class WalletInteractorImpl implements WalletInteractor {
         try {
             switch (typeWallet) {
                 case TYPE_EMISOR:
-                    if (!BuildConfig.DEBUG) {
-                        Countly.sharedInstance().startEvent(EVENT_BALANCE_EMISOR);
-                    }
                     ApiTrans.consultarSaldo(this);
                     break;
                 case TYPE_ADQ:
-                    if (!BuildConfig.DEBUG) {
-                        Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
-                    }
                     try {
                         Operadores operador = db.getOperadoresAdmin(agente);
                         saldoRequest.addPetroNum(new SaldoRequest.PetroNum(operador.getPetroNumero()));
@@ -178,19 +170,15 @@ public class WalletInteractorImpl implements WalletInteractor {
                 break;*/
             case CONSULTAR_SALDO:
                 //this.listener.onSuccesSaldo(TYPE_EMISOR, ((ConsultarSaldoResponse) result.getData()).getData().getSaldo());
-                if (!BuildConfig.DEBUG) {
-                    Map<String, String> segmentation = new HashMap<>();
-                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                    Countly.sharedInstance().endEvent(EVENT_BALANCE_EMISOR, segmentation, 1, 0);
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+                FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_EMISOR, bundle);
                 this.listener.onSuccess(TYPE_EMISOR, result.getData());
                 break;
             case CONSULTAR_SALDO_ADQ:
-                if (!BuildConfig.DEBUG) {
-                    Map<String, String> segmentation = new HashMap<>();
-                    segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                    Countly.sharedInstance().endEvent(EVENT_BALANCE_ADQ, segmentation, 1, 0);
-                }
+                Bundle bundleFb = new Bundle();
+                bundleFb.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+                FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_ADQ, bundleFb);
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
                 break;
             case CONSULTAR_SALDO_ADQ_ADM:

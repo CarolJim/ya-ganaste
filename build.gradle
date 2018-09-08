@@ -59,7 +59,6 @@ ext {
     butterknifeVersion = "8.8.1"
     archLifecycleVersion = "1.0.0"
     archRoomVersion = "1.0.0"
-    countlyVersion = "18.04"
     aiApiVersion = "2.0.5@aar"
 }
 

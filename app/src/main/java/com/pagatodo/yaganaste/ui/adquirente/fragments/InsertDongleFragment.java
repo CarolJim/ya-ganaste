@@ -19,22 +19,18 @@ import android.view.ViewGroup;
 import com.airbnb.lottie.LottieAnimationView;
 import com.dspread.xpos.EmvAppTag;
 import com.dspread.xpos.QPOSService;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
-import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
-import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -48,13 +44,10 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ly.count.android.sdk.Countly;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.VISIBLE;
@@ -69,7 +62,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.APP_LIST;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
@@ -79,14 +71,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_CL;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_REG;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.LEYENDO;
-import static com.pagatodo.yaganaste.utils.Recursos.MALFUNCTION_EMV;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
 import static com.pagatodo.yaganaste.utils.Recursos.ONLINE_PROCESS_FAILED;
 import static com.pagatodo.yaganaste.utils.Recursos.ONLINE_PROCESS_SUCCESS;
@@ -490,11 +478,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
             }
         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
-            if (!BuildConfig.DEBUG) {
-                Map<String, String> segmentation = new HashMap<>();
-                segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-                Countly.sharedInstance().endEvent(EVENT_BALANCE_UYU, segmentation, 1, 0);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+            FirebaseAnalytics.getInstance(getActivity()).logEvent(EVENT_BALANCE_UYU, bundle);
             nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
         }
     }
@@ -690,17 +676,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                                 adqPresenter.initCancelation(buildEMVRequest(requestTransaction, false), dataMovimientoAdq);
                             } else {
                                 isTransactionInitialized = true;
-                                if (!BuildConfig.DEBUG) {
-                                    Countly.sharedInstance().startEvent(EVENT_CHARGE_ADQ_REG);
-                                    Countly.sharedInstance().startEvent(EVENT_CHARGE_ADQ_CL);
-                                }
                                 adqPresenter.initTransaction(buildEMVRequest(requestTransaction, false), signWithPin);
                             }
                         } else if (transactionType == QPOSService.TransactionType.INQUIRY) {
                             TransactionAdqData.getCurrentTransaction().setAmount("0");
-                            if (!BuildConfig.DEBUG) {
-                                Countly.sharedInstance().startEvent(EVENT_BALANCE_UYU);
-                            }
                             adqPresenter.initConsultBalance(buildEMVRequest(requestTransaction, false));
                         }
                     }

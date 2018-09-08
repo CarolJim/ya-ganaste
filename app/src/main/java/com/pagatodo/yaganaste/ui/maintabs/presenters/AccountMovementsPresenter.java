@@ -1,8 +1,9 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -15,7 +16,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.ReembolsoRespon
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
-import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
@@ -27,11 +27,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_EMISOR;
@@ -52,9 +48,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().startEvent(EVENT_MOVS_EMISOR);
-        }
         movementsView.showLoader("Cargando movimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
@@ -72,9 +65,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().startEvent(EVENT_MOVS_EMISOR);
-        }
         movementsView.showLoader("Cargando movimientos");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
@@ -106,11 +96,9 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_MOVS_EMISOR, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_MOVS_EMISOR, bundle);
         if (response.getData() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
         }

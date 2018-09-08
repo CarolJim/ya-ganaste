@@ -18,15 +18,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
-import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
@@ -40,7 +39,6 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcess
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.IOException;
@@ -48,14 +46,11 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.crypto.KeyGenerator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.interfaces.enums.Direction.FORDWARD;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
@@ -67,8 +62,6 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
-import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SEND_MONEY;
 
 
 public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {

@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -46,7 +43,6 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import ly.count.android.sdk.Countly;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -54,11 +50,9 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
@@ -394,9 +388,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
-        if (!BuildConfig.DEBUG) {
-            Countly.sharedInstance().startEvent(EVENT_LOG_IN);
-        }
         accountPresenter.login(username, password); // Realizamos el  Login
     }
 

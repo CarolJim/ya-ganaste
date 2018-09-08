@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -89,12 +90,8 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import ly.count.android.sdk.Countly;
 
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
@@ -471,9 +468,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalance() {
         try {
-            if (!BuildConfig.DEBUG) {
-                Countly.sharedInstance().startEvent(EVENT_BALANCE_EMISOR);
-            }
             ApiTrans.consultarSaldo(this);
         } catch (OfflineException e) {
             accountManager.onError(CONSULTAR_SALDO, null);
@@ -493,9 +487,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void getBalanceAdq(Agentes agente) {
         try {
-            if (!BuildConfig.DEBUG) {
-                Countly.sharedInstance().startEvent(EVENT_BALANCE_ADQ);
-            }
             //ApiAdq.consultaSaldoCupo(this, elementWallet.getAgentes());
             try {
                 SaldoRequest saldoRequest = new SaldoRequest();
@@ -707,11 +698,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_BALANCE_EMISOR, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_EMISOR, bundle);
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             prefs.saveData(USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
@@ -728,16 +717,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             accountManager.onError(ESTATUS_CUENTA, null);
         }
-
     }
 
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
-        if (!BuildConfig.DEBUG) {
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_BALANCE_ADQ, segmentation, 1, 0);
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_ADQ, bundle);
         if (response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
             prefs.saveData(ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
@@ -999,14 +985,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
         }
-        if (!BuildConfig.DEBUG) {
-            FirebaseAnalytics.getInstance(App.getContext()).setUserId(dataUser.getUsuario().getNombreUsuario());
-            Crashlytics.setUserIdentifier(dataUser.getUsuario().getNombreUsuario());
-            Countly.sharedInstance().changeDeviceId(dataUser.getUsuario().getNombreUsuario());
-            Map<String, String> segmentation = new HashMap<>();
-            segmentation.put(CONNECTION_TYPE, Utils.getTypeConnection());
-            Countly.sharedInstance().endEvent(EVENT_LOG_IN, segmentation, 1, 0);
-        }
+        FirebaseAnalytics.getInstance(App.getContext()).setUserId(dataUser.getUsuario().getNombreUsuario());
+        Crashlytics.setUserIdentifier(dataUser.getUsuario().getNombreUsuario());
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_LOG_IN, bundle);
         accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
 

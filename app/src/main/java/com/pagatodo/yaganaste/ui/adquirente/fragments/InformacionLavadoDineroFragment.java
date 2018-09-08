@@ -19,13 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
@@ -62,6 +64,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_COBROS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DESTINO_RECURSOS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_MONTOS;
@@ -405,6 +409,9 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     public void onSuccessCreateAgente() {
         App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         getActivity().setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_ADQ, bundle);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
         infoAdicionalPresenter.updateSession();
     }
