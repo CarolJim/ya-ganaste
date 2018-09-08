@@ -90,6 +90,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
@@ -522,6 +523,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == ASIGNAR_NIP) {
                 Bundle bundle = new Bundle();
                 bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+                bundle.putString(EMAIL_REGISTER, RequestHeaders.getUsername());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_YG, bundle);
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }

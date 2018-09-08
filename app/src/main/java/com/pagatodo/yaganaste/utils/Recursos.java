@@ -342,4 +342,5 @@ public class Recursos {
     public static final String CONNECTION_TYPE = "connection_type";
     public static final String COMPANY = "company";
     public static final String AMOUNT = "amount";
+    public static final String EMAIL_REGISTER = "email_register";
 }
