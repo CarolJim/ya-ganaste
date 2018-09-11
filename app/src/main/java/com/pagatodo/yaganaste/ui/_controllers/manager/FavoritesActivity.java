@@ -103,7 +103,7 @@ import io.card.payment.CreditCard;
 
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
-import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
+//import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
@@ -199,6 +199,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     TextInputLayout helpLinearTaeRef;
     @BindView(R.id.layoutImageReference)
     RelativeLayout layoutImageReference;
+    @BindView(R.id.layoutImageReferenceTAE)
+    RelativeLayout layoutImageReferenceTAE;
     @BindView(R.id.tipoEnvio_layout)
     LinearLayout tipoEnvio_layout;
     @BindView(R.id.tipoEnvio)
@@ -301,19 +303,12 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
              * Tomamos el telefono de la agenda para TAE
              */
             case R.id.layoutImageContact:
+            case R.id.layoutImageContact2:
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 this.startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
                 break;
-
-            /**
-             * Tomamos el telefono de la agenda para Envios
-             */
-            case R.id.layoutImageContact2:
-                Intent contactPickerIntent2 = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                this.startActivityForResult(contactPickerIntent2, CONTACTS_CONTRACT_LOCAL);
-                break;
-
             case R.id.layoutImageReference:
+            case R.id.layoutImageReferenceTAE:
                 Intent intent = new Intent(this, ScannVisionActivity.class);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
@@ -435,12 +430,16 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // recargaNumber.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
             helpLinearTaeRef.setHint(getString(R.string.hint_tag) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
+            layoutImageReferenceTAE.setVisibility(View.VISIBLE);
+            layoutImageReferenceTAE.setOnClickListener(this);
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);
             // recargaNumber.setHint(getString(R.string.hint_phone_number));
             helpLinearTaeRef.setHint(getString(R.string.hint_phone_number));
             layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
+            layoutImageReferenceTAE.setVisibility(GONE);
+            layoutImageReferenceTAE.setOnClickListener(null);
         }
 
 
@@ -490,12 +489,12 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         List<String> tipoPago = new ArrayList<>();
 
         tipoPago.add(0, "");
-        tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(this));
-        tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(this));
-        tipoPago.add(CLABE.getId(), CLABE.getName(this));
+        tipoPago.add(/*NUMERO_TELEFONO.getId(), */NUMERO_TELEFONO.getName(this));
+        //tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(this));
+        tipoPago.add(/*CLABE.getId(),*/ CLABE.getName(this));
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-            tipoPago.add(QR_CODE.getId(), QR_CODE.getName(this));
+            tipoPago.add(/*QR_CODE.getId(), */QR_CODE.getName(this));
         }
 
         /**
@@ -580,7 +579,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-                    if (current_tab == PAYMENT_RECARGAS || current_tab == PAYMENT_SERVICIOS) {
+                    if (current_tab == PAYMENT_RECARGAS) {
+                        recargaNumber.setText(barcode.displayValue);
+                    } else if (current_tab == PAYMENT_SERVICIOS) {
                         referenceNumber.setText(barcode.displayValue);
                     } else if (current_tab == PAYMENT_ENVIOS) {
                         if (barcode.displayValue.contains("userName") && barcode.displayValue.contains("phoneNumber") &&
@@ -1206,7 +1207,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
         InputFilter[] fArray = new InputFilter[1];
 
-        if (position == NUMERO_TARJETA.getId()) {
+       /* if (position == NUMERO_TARJETA.getId()) {
             maxLength = idComercio == 814 ? 18 : 19;
 
             // CReamos el te numberCardTextWatcher si no existe
@@ -1232,11 +1233,14 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layoutScanCard.setOnClickListener(this);
             selectedType = NUMERO_TARJETA;
             til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
-        } else if (position == NUMERO_TELEFONO.getId()) {
+        } else */
+        if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
 
             layoutImageContact2.setVisibility(View.VISIBLE);
             layoutImageContact2.setOnClickListener(this);
+            layoutImageReferenceTAE.setVisibility(GONE);
+            layoutImageReferenceTAE.setOnClickListener(this);
             layoutScanCard.setVisibility(View.GONE);
             layoutScanCard.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
@@ -1259,7 +1263,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
             til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
-        } else if (position == CLABE.getId()) {
+        } else if (position == 2/*CLABE.getId()*/) {
             maxLength = 22;
 
             // CReamos el te numberCardTextWatcher si no existe
@@ -1275,13 +1279,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             cardNumber.addTextChangedListener(numberClabeTextWatcher);
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
+            layoutImageReferenceTAE.setVisibility(GONE);
+            layoutImageReferenceTAE.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);
             layoutScanQr.setOnClickListener(null);
             layoutScanCard.setVisibility(View.GONE);
             layoutScanCard.setOnClickListener(null);
             selectedType = CLABE;
             til_num_telefono.setHint(CLABE.getName(this));
-        } else if (position == QR_CODE.getId()) {
+        } else if (position == 3/*QR_CODE.getId()*/) {
             maxLength = 22;
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
@@ -1307,6 +1313,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layout_cardNumber.setVisibility(GONE);
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
+            layoutImageReferenceTAE.setVisibility(GONE);
+            layoutImageReferenceTAE.setOnClickListener(null);
             layoutScanCard.setVisibility(View.GONE);
             layoutScanCard.setOnClickListener(null);
             selectedType = null;
@@ -1390,6 +1398,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // Hacemos Set de las imagenes de agendas, para abrir los contactos
             layoutImageContact.setOnClickListener(this);
             layoutImageContact2.setOnClickListener(this);
+            layoutImageReferenceTAE.setOnClickListener(this);
 
             // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
             editListServ.setEnabled(true);
@@ -1499,11 +1508,11 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
                     InputFilter[] fArray = new InputFilter[1];
 
-                    if (position == NUMERO_TARJETA.getId()) {
-                        maxLength = idComercio == 814 ? 18 : 19;
-                        /*cardNumber.setHint(getString(R.string.card_number, String.valueOf(
+                    /* if (position == NUMERO_TARJETA.getId()) {
+                       maxLength = idComercio == 814 ? 18 : 19;
+                        *//*cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                                 idComercio == 814 ? 15 : 16
-                        )));*/
+                        )));*//*
                         txtLytListServ.setHint(getString(R.string.debit_card_number));
 
                         // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
@@ -1528,7 +1537,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         selectedType = NUMERO_TARJETA;
                         til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
 
-                    } else if (position == NUMERO_TELEFONO.getId()) {
+                    } else */
+                    if (position == NUMERO_TELEFONO.getId()) {
                         maxLength = 12;
                         cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
                         layoutImageContact2.setVisibility(View.VISIBLE);
@@ -1551,7 +1561,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         cardNumber.addTextChangedListener(phoneTextWatcher);
                         selectedType = NUMERO_TELEFONO;
                         til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
-                    } else if (position == CLABE.getId()) {
+                    } else if (position == 2 || position == CLABE.getId()) {
                         maxLength = 22;
                         cardNumber.setHint(getString(R.string.transfer_cable));
 
@@ -1568,6 +1578,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         cardNumber.addTextChangedListener(numberClabeTextWatcher);
                         layoutImageContact2.setVisibility(View.GONE);
                         layoutImageContact2.setOnClickListener(null);
+                        layoutImageReferenceTAE.setVisibility(GONE);
+                        layoutImageReferenceTAE.setOnClickListener(null);
                         selectedType = CLABE;
                         til_num_telefono.setHint(CLABE.getName(this));
                     } else {
@@ -1576,6 +1588,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         layout_cardNumber.setVisibility(GONE);
                         layoutImageContact2.setVisibility(View.GONE);
                         layoutImageContact2.setOnClickListener(null);
+                        layoutImageReferenceTAE.setVisibility(GONE);
+                        layoutImageReferenceTAE.setOnClickListener(null);
                         selectedType = null;
                     }
 

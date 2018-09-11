@@ -72,6 +72,7 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
     @Override
     public void showLoader(String message) {
         if (progressLayout != null) {
+            isLoaderShow = true;
             progressLayout.setTextMessage(message != null ? message : "");
             progressLayout.setVisibility(View.VISIBLE);
             progressLayout.bringToFront();
@@ -233,6 +234,13 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
         if (fm instanceof CancelAccountFragment)
             ((CancelAccountFragment) fm).loadOtpHuella();
         if (fm instanceof DescargarEdoCuentaFragment)
-            ((DescargarEdoCuentaFragment)fm).loadOtpHuella(App.getInstance().getPrefs().loadData("SHA_256_FREJA"));
+            ((DescargarEdoCuentaFragment) fm).loadOtpHuella(App.getInstance().getPrefs().loadData("SHA_256_FREJA"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!isLoaderShow) {
+            super.onBackPressed();
+        }
     }
 }

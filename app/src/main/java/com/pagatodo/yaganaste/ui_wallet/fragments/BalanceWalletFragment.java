@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui_wallet.fragments;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -354,7 +356,13 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 nextScreen(EVENT_STORES, null);
                 break;
             case OPTION_BALANCE_CLOSED_LOOP:
-                nextScreen(EVENT_CHECK_MONEY_CARD, null);
+                BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+                if (!adapter.isEnabled()) {
+                    Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivity(enabler);
+                } else {
+                    nextScreen(EVENT_CHECK_MONEY_CARD, null);
+                }
                 break;
             case OPTION_VENTAS_ADQAFUERA:
                 nextScreen(EVENT_GO_VENTAS, null);

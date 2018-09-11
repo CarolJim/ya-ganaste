@@ -290,6 +290,22 @@
                             android:src="@drawable/icono_agenda"
                             android:tint="@color/colorAccent" />
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layoutImageReferenceTAE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imgMakePaymentRefTAE"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <!-- Layout para PDS -->

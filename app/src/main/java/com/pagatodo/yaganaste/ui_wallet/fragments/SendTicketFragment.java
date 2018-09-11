@@ -44,28 +44,25 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
     @BindView(R.id.progress_details)
     ProgressLayout progressLayout;
 
-
     public static SendTicketFragment newInstance(MovTab mov) {
         SendTicketFragment fragment = new SendTicketFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(MOV_DET,mov);
+        bundle.putSerializable(MOV_DET, mov);
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.adqPresenter = new AdqPresenter(this);
-        if (getArguments() != null){
+        if (getArguments() != null) {
             movtab = (MovTab) getArguments().getSerializable(MOV_DET);
             itemMov = movtab.getItemMov();
         } else {
             itemMov = null;
         }
     }
-
 
 
     @Override
@@ -83,6 +80,8 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
         this.editCorreo.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 lyt_correo.setBackgroundResource(R.drawable.inputtext_active);
+            } else {
+                UI.hideKeyBoard(getActivity());
             }
         });
 
@@ -91,21 +90,21 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (editCorreo.getText().toString().isEmpty()) {
-            UI.showErrorSnackBar(getActivity(),getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
-        } else if (!ValidateForm.isValidEmailAddress(editCorreo.getText().toString())){
+            UI.showErrorSnackBar(getActivity(), getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
+        } else if (!ValidateForm.isValidEmailAddress(editCorreo.getText().toString())) {
             //showValidationError(getString(R.string.check_your_mail));
             lyt_correo.setBackgroundResource(R.drawable.inputtext_error);
-            UI.showErrorSnackBar(getActivity(),getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.check_your_mail), Snackbar.LENGTH_SHORT);
         } else {
             //String idTransicion, String name, String email
-            adqPresenter.sendTicket(itemMov.getIdTransaction(),itemMov.getNombre(),editCorreo.getText().toString(), false);
+            adqPresenter.sendTicket(itemMov.getIdTransaction(), itemMov.getNombre(), editCorreo.getText().toString(), false);
         }
 
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ,this.movtab);
+        this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ, this.movtab);
     }
 
     @Override
@@ -125,6 +124,6 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
 
     @Override
     public void showError(Object error) {
-        UI.showErrorSnackBar(getActivity(),error.toString(), Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), error.toString(), Snackbar.LENGTH_SHORT);
     }
 }

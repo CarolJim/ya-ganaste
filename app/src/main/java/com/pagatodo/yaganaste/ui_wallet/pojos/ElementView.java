@@ -475,7 +475,7 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_BUSSINES, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
-        //elementViews.add(new ElementView(OPTION_MVIMIENTOS_BUSSINES, R.drawable.icono_movimientos, R.string.operation_movimientos));
+        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
         return elementViews;
     }
 
