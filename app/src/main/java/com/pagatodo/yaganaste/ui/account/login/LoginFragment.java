@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -52,9 +53,11 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NAME_USER;
 import static com.pagatodo.yaganaste.utils.Recursos.PASSWORD_CHANGE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -390,11 +393,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onValidationSuccess() {
         setEnableViews(false);
         if (!username.equals(RequestHeaders.getUsername())) {
-            App.getInstance().getPrefs().clearPreferences();
-            App.getInstance().clearCache();
-            new DatabaseManager().deleteFavorites();
-            new DatabaseManager().deleteAgentes();
-            RequestHeaders.clearPreferences();
+            preferencias.saveDataBool(HAS_CONFIG_DONGLE, false);
+            preferencias.saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
         }
         accountPresenter.login(username, password); // Realizamos el  Login
     }

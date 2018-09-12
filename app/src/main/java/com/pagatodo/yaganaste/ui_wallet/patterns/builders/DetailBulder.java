@@ -20,15 +20,11 @@ public class DetailBulder extends Builder {
     }
 
     public void createDetailMov(ItemMovements item, boolean isAdq) {
-        try {
             LayoutInflater inflater = LayoutInflater.from(this.context);
             View layout = inflater.inflate(R.layout.item_mov_head, parent, false);
             DetailMovementHolder holder = new DetailMovementHolder(layout, isAdq);
             holder.bind(item, null);
             this.parent.addView(layout);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void createLeaf(Object item) {
