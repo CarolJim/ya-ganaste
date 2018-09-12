@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -388,6 +389,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onValidationSuccess() {
         setEnableViews(false);
+        if (!username.equals(RequestHeaders.getUsername())) {
+            App.getInstance().getPrefs().clearPreferences();
+            App.getInstance().clearCache();
+            new DatabaseManager().deleteFavorites();
+            new DatabaseManager().deleteAgentes();
+            RequestHeaders.clearPreferences();
+        }
         accountPresenter.login(username, password); // Realizamos el  Login
     }
 

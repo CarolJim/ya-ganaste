@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.behavior.RecyclerItemTouchHelper;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -46,10 +47,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public static String IS_BUSSINES = "IS_BUSSINES";
     private ItemMovements<DataMovimientoAdq> itemClicked;
     private int currentTab;
-
-    public static PaymentsFragment newInstance() {
-        return new PaymentsFragment();
-    }
 
     public static PaymentsFragment newInstance(int currentTab, boolean isMyBussines) {
         PaymentsFragment paymentsFragment = new PaymentsFragment();
@@ -120,6 +117,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         movTab.setCurrentTab(tabMonths.getSelectedTabPosition());
         movTab.setItemMov(itemClicked.getMovement());
         this.currentTab = tabMonths.getSelectedTabPosition();
+        ((WalletMainActivity)getActivity()).tabMonthMov = currentTab;
         onEventListener.onEvent(EVENT_GO_DETAIL_ADQ, movTab);
 
     }

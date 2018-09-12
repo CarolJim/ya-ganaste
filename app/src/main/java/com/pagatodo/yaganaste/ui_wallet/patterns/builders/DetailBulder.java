@@ -19,19 +19,23 @@ public class DetailBulder extends Builder {
         super(context, parent);
     }
 
-    public void createDetailMov(ItemMovements item, boolean isAdq){
-        LayoutInflater inflater = LayoutInflater.from(this.context);
-        View layout = inflater.inflate(R.layout.item_mov_head, parent, false);
-        DetailMovementHolder holder = new DetailMovementHolder(layout, isAdq);
-        holder.bind(item,null);
-        this.parent.addView(layout);
+    public void createDetailMov(ItemMovements item, boolean isAdq) {
+        try {
+            LayoutInflater inflater = LayoutInflater.from(this.context);
+            View layout = inflater.inflate(R.layout.item_mov_head, parent, false);
+            DetailMovementHolder holder = new DetailMovementHolder(layout, isAdq);
+            holder.bind(item, null);
+            this.parent.addView(layout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void createLeaf(Object item) {
         LayoutInflater inflater = LayoutInflater.from(this.context);
         View layout = inflater.inflate(R.layout.item_detail_mov, parent, false);
         TextDataViewHolder holder = new TextDataViewHolder(layout);
-        holder.bind(item,null);
+        holder.bind(item, null);
         this.parent.addView(layout);
     }
 

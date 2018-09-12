@@ -80,8 +80,6 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
         this.editCorreo.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 lyt_correo.setBackgroundResource(R.drawable.inputtext_active);
-            } else {
-                UI.hideKeyBoard(getActivity());
             }
         });
 

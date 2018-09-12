@@ -213,7 +213,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
     private List<Giros> girosComercio = new ArrayList<>();
-
+    private boolean isMyBussines = false;
+    public int tabMonthMov = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,7 +302,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case OPTION_MVIMIENTOS_ADQ:
                 //loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
-                loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                isMyBussines = false;
+                loadFragment(PaymentsFragment.newInstance(tabMonthMov, isMyBussines), R.id.fragment_container);
                 break;
             case OPTION_OPERADORES_ADQ:
                 loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container);
@@ -396,7 +398,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(FavoritesFragment.newInstance(OPTION_ADDFAVORITE_PAYMENT), R.id.fragment_container);
                 break;
             case OPTION_MVIMIENTOS_BUSSINES:
-                loadFragment(PaymentsFragment.newInstance(0, true), R.id.fragment_container);
+                isMyBussines = true;
+                loadFragment(PaymentsFragment.newInstance(tabMonthMov, isMyBussines), R.id.fragment_container);
                 break;
             case OPTION_ERROR_ADDRESS_DOCS:
             case OPTION_ERROR_ADDRESS:
@@ -426,7 +429,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     loadFragment(PersonalAccountFragment.newInstance(), R.id.fragment_container);
                     break;
                 case OPTION_MVIMIENTOS_ADQ:
-                    loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+                    loadFragment(PaymentsFragment.newInstance(tabMonthMov, isMyBussines), R.id.fragment_container);
                     break;
             }
         }
@@ -555,7 +558,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_GO_TO_MOV_ADQ:
                 this.movTab = (MovTab) data;
-                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(), false), R.id.fragment_container);
+                loadFragment(PaymentsFragment.newInstance(movTab.getCurrentTab(), isMyBussines), R.id.fragment_container);
                 break;
             case EVENT_GO_TO_SEND_TICKET:
                 this.movTab = (MovTab) data;
@@ -644,8 +647,9 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             loadFragment(AdminCardsFragment.newInstance(), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof SendTicketFragment) {
             loadFragment(DetailsAdquirenteFragment.newInstance(movTab), R.id.fragment_container, Direction.BACK);
+            UI.hideKeyBoard(this);
         } else if (fragment instanceof DetailsAdquirenteFragment) {
-            loadFragment(PaymentsFragment.newInstance(), R.id.fragment_container);
+            loadFragment(PaymentsFragment.newInstance(tabMonthMov, isMyBussines), R.id.fragment_container);
         } else if (fragment instanceof DetalleOperadorFragment) {
             loadFragment(OperadoresUYUFragment.newInstance(itemOperation), R.id.fragment_container, Direction.BACK);
         } else if (fragment instanceof SelectDongleFragment || onDongleChanged) {
