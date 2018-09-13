@@ -1,3 +1,4 @@
+/*
 package com.pagatodo.yaganaste.utils.customviews;
 
 import android.app.Dialog;
@@ -21,9 +22,11 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * Created by Jordan on 17/04/2017.
- */
+ *//*
+
 
 public class NewListDialog extends Dialog implements AdapterView.OnItemClickListener {
 
@@ -93,13 +96,15 @@ public class NewListDialog extends Dialog implements AdapterView.OnItemClickList
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-       /* String value = adapter2.getItem(position);
+       */
+/* String value = adapter2.getItem(position);
         int pos = mList.indexOf(value);
         presenter.setCarouselItem(listCarousel.get(pos));
 
         parentFragment.changeImgageToPay();
         parentFragment.openPaymentFragment();
-        dismiss();*/
+        dismiss();*//*
+
         String value = adapter2.getItem(position);
         int pos = mList.indexOf(value);
 
@@ -107,3 +112,4 @@ public class NewListDialog extends Dialog implements AdapterView.OnItemClickList
         dismiss();
     }
 }
+*/

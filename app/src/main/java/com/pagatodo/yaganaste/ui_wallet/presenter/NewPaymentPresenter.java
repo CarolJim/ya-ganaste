@@ -11,8 +11,8 @@ import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interactors.NewPaymentInteractor;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -125,8 +125,7 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
     private ArrayList<CarouselItem> getCarouselItems(List<Comercio> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
 
-        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
-        carouselItemSearch.setSearchImageViewMargin();
+        CarouselItem carouselItemSearch = new CarouselItem(R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
@@ -135,18 +134,15 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
             if (comercio.getIdTipoComercio() == typeData) {
                 if (comercio.getIdComercio() != 0) {
                     if (comercio.getColorMarca().isEmpty()) {
-                        carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
-                        carouselItemCommerce.setCommerceImageViewMargin();
+                        carouselItemCommerce = new CarouselItem(comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
                         carouselItems.add(carouselItemCommerce);
                     } else {
-                        carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio);
-                        carouselItemCommerce.setCommerceImageViewMargin();
+                        carouselItemCommerce = new CarouselItem(comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio);
                         carouselItems.add(carouselItemCommerce);
                     }
                 } else {
                     //carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
-                    CarouselItem carouselItemSearch2 = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio, null);
-                    carouselItemSearch2.setSearchImageViewMargin();
+                    CarouselItem carouselItemSearch2 = new CarouselItem(R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio, null);
                     carouselItems.add(carouselItemSearch2);
                 }
             }

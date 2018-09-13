@@ -1,36 +1,19 @@
 package com.pagatodo.yaganaste.utils.customviews.carousel;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.support.v4.content.ContextCompat;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
-import com.pagatodo.yaganaste.utils.Utils;
-import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
-
-public class CarouselItem extends FrameLayout
-        implements Comparable<CarouselItem>, Serializable {
+public class CarouselItem implements Comparable<CarouselItem>, Serializable {
 
     public static int DRAG = 0;
     public static int CLICK = 1;
-    private ImageView mImage;
-    private CircleImageView mImageCiruclar;
     private int drawable;
     private String imageUrl;
     private String color;
@@ -40,192 +23,86 @@ public class CarouselItem extends FrameLayout
     private float itemY;
     private float itemZ;
     private boolean drawn;
-    private Context context;
     private boolean visible;
     private boolean empty;
-    private Matrix mCIMatrix;
     private int gestureType;
     private Comercio comercio;
     private Favoritos favoritos;
 
-    public CarouselItem(Context context) {
-        super(context);
-        this.context = context;
-        inflateLayout();
-    }
-
-    public CarouselItem(Context context, Comercio comercio) {
-        super(context);
-        this.context = context;
+    public CarouselItem(Comercio comercio) {
         this.comercio = comercio;
-        inflateLayout();
     }
 
-    public CarouselItem(Context context, Favoritos favoritos) {
-        super(context);
-        this.context = context;
+    public CarouselItem(Favoritos favoritos) {
         this.favoritos = favoritos;
-        inflateLayout();
     }
 
-    public CarouselItem(Context context, int resource, int gestureType, Comercio comercio) {
-        super(context);
-        this.context = context;
+    public CarouselItem(int resource, int gestureType, Comercio comercio) {
         this.gestureType = gestureType;
-        inflateLayout();
         this.drawable = resource;
         this.comercio = comercio;
-        if (drawable == 0) {
-            mImage.setVisibility(INVISIBLE);
-            mImageCiruclar.setVisibility(INVISIBLE);
-        } else {
-            mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
-        }
-
     }
 
-    public CarouselItem(Context context, int resource, int gestureType, Favoritos favoritos) {
-        super(context);
-        this.context = context;
+    public CarouselItem(int resource, int gestureType, Favoritos favoritos) {
         this.gestureType = gestureType;
-        inflateLayout();
         this.drawable = resource;
         this.favoritos = favoritos;
-        mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
 
     }
 
-    public CarouselItem(Context context, String imageUrl, int gestureType, Comercio comercio) {
-        super(context);
-        this.context = context;
+    public CarouselItem(String imageUrl, int gestureType, Comercio comercio) {
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
         this.comercio = comercio;
-        inflateLayout();
-        // Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
-        Picasso.with(getContext())
-                .load(App.getContext().getString(R.string.url_images_logos)+imageUrl)
-                .into(mImage);
     }
 
-    public CarouselItem(Context context, String imageUrl, int gestureType, Favoritos favoritos) {
-        super(context);
-        this.context = context;
+    public CarouselItem(String imageUrl, int gestureType, Favoritos favoritos) {
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
         this.favoritos = favoritos;
-        inflateLayout();
-        //  Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
-        Picasso.with(getContext())
-                .load(imageUrl)
-                .into(mImage);
     }
 
     //
-    public CarouselItem(Context context, int resource, String color, int gestureType, Comercio comercio, Favoritos favoritos) {
-        super(context);
-        this.context = context;
+    public CarouselItem(int resource, String color, int gestureType, Comercio comercio, Favoritos favoritos) {
         this.gestureType = gestureType;
         this.drawable = resource;
         this.comercio = comercio;
         this.color = color;
-        inflateLayout(color);
-        if (drawable == 0) {
-            mImage.setVisibility(INVISIBLE);
-            mImageCiruclar.setVisibility(INVISIBLE);
-        } else {
-            mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
-        }
     }
 //
 
     /**
      * Metodo usado solamente para crear item de nuevo favorito
      *
-     * @param context
      * @param resource
      * @param color
      * @param gestureType
      * @param comercio
      */
-    public CarouselItem(Context context, int resource, String color, int gestureType, Comercio comercio) {
-        super(context);
-        this.context = context;
+    public CarouselItem(int resource, String color, int gestureType, Comercio comercio) {
         this.gestureType = gestureType;
         this.drawable = resource;
         this.comercio = comercio;
         this.color = color;
-        inflateLayout(color);
-        mImage.setBackground(ContextCompat.getDrawable(context, drawable));
     }
 
     //
-    public CarouselItem(Context context, String imageUrl, String color, int gestureType, Comercio comercio) {
-        super(context);
-        this.context = context;
+    public CarouselItem(String imageUrl, String color, int gestureType, Comercio comercio) {
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
         this.comercio = comercio;
         this.color = color;
-        inflateLayout(color);
         //Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
-        Picasso.with(getContext())
-                .load(App.getContext().getString(R.string.url_images_logos)+imageUrl)
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .into(mImage);
-
     }
 
     //*
-    public CarouselItem(Context context, String imageUrl, String color, int gestureType, Favoritos favoritos) {
-        super(context);
-        this.context = context;
+    public CarouselItem(String imageUrl, String color, int gestureType, Favoritos favoritos) {
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
         this.favoritos = favoritos;
         this.color = color;
-        inflateLayout(color);
-        Picasso.with(getContext()).load(imageUrl).placeholder(R.mipmap.icon_user)
-                .error(R.mipmap.icon_user)
-                .into(mImageCiruclar);
     }
 
-
-    private void inflateLayout() {
-        LayoutParams params =
-                new LayoutParams(
-                        LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT);
-
-        this.setLayoutParams(params);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View itemTemplate = inflater.inflate(R.layout.item_gallery, this, true);
-        mImage = (ImageView) itemTemplate.findViewById(R.id.imgItemGalleryPay);
-        mImageCiruclar = (CircleImageView) itemTemplate.findViewById(R.id.imgItemGalleryMark);
-
-
-//        View itemTemplate = inflater.inflate(R.layout.carrousel_item, this, true);
-//        mImage = (ImageView) itemTemplate.findViewById(R.id.statusIv);
-
-    }
-
-    private void inflateLayout(String color) {
-        LayoutParams params =
-                new LayoutParams(
-                        LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT);
-
-        this.setLayoutParams(params);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View itemTemplate = inflater.inflate(R.layout.item_gallery, this, true);
-        mImage = (ImageView) itemTemplate.findViewById(R.id.imgItemGalleryPay);
-        mImageCiruclar = (CircleImageView) itemTemplate.findViewById(R.id.imgItemGalleryMark);
-        mImageCiruclar.setBorderColor(Color.parseColor(color));
-
-//        View itemTemplate = inflater.inflate(R.layout.carrousel_item, this, true);
-//        mImage = (ImageView) itemTemplate.findViewById(R.id.statusIv);
-
-    }
 
     public int getGestureType() {
         return gestureType;
@@ -249,14 +126,6 @@ public class CarouselItem extends FrameLayout
 
     public void setEmpty(boolean empty) {
         this.empty = empty;
-    }
-
-    public ImageView getmImage() {
-        return mImage;
-    }
-
-    public void setmImage(ImageView mImage) {
-        this.mImage = mImage;
     }
 
     public boolean isVisible() {
@@ -332,25 +201,6 @@ public class CarouselItem extends FrameLayout
         this.drawn = drawn;
     }
 
-    public void setImageBitmap(Bitmap bitmap) {
-        mImage.setImageBitmap(bitmap);
-
-    }
-
-    public void setImageDrawable(int drawable) {
-        this.drawable = drawable;
-        mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
-
-    }
-
-    Matrix getCIMatrix() {
-        return mCIMatrix;
-    }
-
-    void setCIMatrix(Matrix mMatrix) {
-        this.mCIMatrix = mMatrix;
-    }
-
     public Comercio getComercio() {
         return this.comercio;
     }
@@ -361,32 +211,5 @@ public class CarouselItem extends FrameLayout
 
     public String getColor() {
         return this.color;
-    }
-
-    public void setSearchImageViewMargin() {
-        MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
-        marginParams.setMargins(60, 60, 60, 60);
-        marginParams.setMargins(Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15));
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
-        mImage.setLayoutParams(layoutParams);
-        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-    }
-
-    public void setCommerceImageViewMargin() {
-        MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
-        //marginParams.setMargins(60, 60, 60, 60);
-        marginParams.setMargins(Utils.convertDpToPixels(40), Utils.convertDpToPixels(40), Utils.convertDpToPixels(40), Utils.convertDpToPixels(40));
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
-        mImage.setLayoutParams(layoutParams);
-        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-    }
-
-    public void setAddImageViewMargin() {
-        MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
-        marginParams.setMargins(10, 10, 10, 10);
-        marginParams.setMargins(Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15));
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
-        mImage.setLayoutParams(layoutParams);
-        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
     }
 }

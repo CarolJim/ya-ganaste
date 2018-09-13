@@ -103,7 +103,7 @@ import io.card.payment.CreditCard;
 
 import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
-//import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
@@ -489,9 +489,9 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         List<String> tipoPago = new ArrayList<>();
 
         tipoPago.add(0, "");
-        tipoPago.add(/*NUMERO_TELEFONO.getId(), */NUMERO_TELEFONO.getName(this));
-        //tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(this));
-        tipoPago.add(/*CLABE.getId(),*/ CLABE.getName(this));
+        tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(this));
+        tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(this));
+        tipoPago.add(CLABE.getId(), CLABE.getName(this));
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
             tipoPago.add(/*QR_CODE.getId(), */QR_CODE.getName(this));
@@ -1207,7 +1207,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
         InputFilter[] fArray = new InputFilter[1];
 
-       /* if (position == NUMERO_TARJETA.getId()) {
+        if (position == NUMERO_TARJETA.getId()) {
             maxLength = idComercio == 814 ? 18 : 19;
 
             // CReamos el te numberCardTextWatcher si no existe
@@ -1233,8 +1233,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layoutScanCard.setOnClickListener(this);
             selectedType = NUMERO_TARJETA;
             til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
-        } else */
-        if (position == NUMERO_TELEFONO.getId()) {
+        } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
 
             layoutImageContact2.setVisibility(View.VISIBLE);
@@ -1263,7 +1262,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
             til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
-        } else if (position == 2/*CLABE.getId()*/) {
+        } else if (position == CLABE.getId()) {
             maxLength = 22;
 
             // CReamos el te numberCardTextWatcher si no existe
@@ -1287,7 +1286,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             layoutScanCard.setOnClickListener(null);
             selectedType = CLABE;
             til_num_telefono.setHint(CLABE.getName(this));
-        } else if (position == 3/*QR_CODE.getId()*/) {
+        } else if (position == QR_CODE.getId()) {
             maxLength = 22;
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
@@ -1508,11 +1507,11 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
                     InputFilter[] fArray = new InputFilter[1];
 
-                    /* if (position == NUMERO_TARJETA.getId()) {
-                       maxLength = idComercio == 814 ? 18 : 19;
-                        *//*cardNumber.setHint(getString(R.string.card_number, String.valueOf(
+                    if (position == NUMERO_TARJETA.getId()) {
+                        maxLength = idComercio == 814 ? 18 : 19;
+                        cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                                 idComercio == 814 ? 15 : 16
-                        )));*//*
+                        )));
                         txtLytListServ.setHint(getString(R.string.debit_card_number));
 
                         // NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
@@ -1537,8 +1536,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         selectedType = NUMERO_TARJETA;
                         til_num_telefono.setHint(NUMERO_TARJETA.getName(this));
 
-                    } else */
-                    if (position == NUMERO_TELEFONO.getId()) {
+                    } else if (position == NUMERO_TELEFONO.getId()) {
                         maxLength = 12;
                         cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
                         layoutImageContact2.setVisibility(View.VISIBLE);
@@ -1561,7 +1559,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                         cardNumber.addTextChangedListener(phoneTextWatcher);
                         selectedType = NUMERO_TELEFONO;
                         til_num_telefono.setHint(NUMERO_TELEFONO.getName(this));
-                    } else if (position == 2 || position == CLABE.getId()) {
+                    } else if (position == CLABE.getId()) {
                         maxLength = 22;
                         cardNumber.setHint(getString(R.string.transfer_cable));
 

@@ -187,11 +187,11 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                                 case 10:
                                     tipoEnvio = 1;
                                     break;
-                                /*case 16:
+                                case 16:
                                     tipoEnvio = 2;
-                                    break;*/
+                                    break;
                                 case 18:
-                                    tipoEnvio = 2;
+                                    tipoEnvio = 3;
                                     break;
                                 default:
                                     tipoEnvio = 0;
@@ -205,7 +205,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                             break;
 
                     }
-                    if (isValidMov && idComercio != 0 && tipoEnvio != 0) {
+                    if (isValidMov && idComercio != 0) {
                         Comercio comercioResponse = paymentPresenter.getComercioById(idComercio);
                         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
                             Intent intent = new Intent(getContext(), FavoritesActivity.class);

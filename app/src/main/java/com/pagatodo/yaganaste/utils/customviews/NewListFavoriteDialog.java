@@ -27,7 +27,6 @@ import java.util.List;
 
 public class NewListFavoriteDialog extends Dialog implements AdapterView.OnItemClickListener {
 
-    ;
     ArrayAdapter<String> adapter = null;
     CustomAdapterPagos adapter2 = null;
     ArrayList<String> mList = new ArrayList<>();

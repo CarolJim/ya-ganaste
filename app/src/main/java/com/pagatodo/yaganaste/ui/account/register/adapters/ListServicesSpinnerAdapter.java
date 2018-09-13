@@ -142,7 +142,7 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CarouselItem> imple
                 if (results.count == 0) {
                     String noExisten = mContext.getResources()
                             .getString(R.string.without_items);
-                    nCountriesList.add(new CarouselItem(mContext, new Comercio(999,999,noExisten,999,"Nada")));
+                    nCountriesList.add(new CarouselItem(new Comercio(999,999,noExisten,999,"Nada")));
                     results.count = nCountriesList.size();
                     results.values = nCountriesList;
                 }

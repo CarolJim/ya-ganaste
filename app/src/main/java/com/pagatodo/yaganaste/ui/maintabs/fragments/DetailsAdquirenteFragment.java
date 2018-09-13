@@ -220,8 +220,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
                 DateUtil.getMonthShortName(calendar),
                 color, ticket);
 
-        CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, movement, true);
         try {
+            CreateDatailBuilder.creatHeaderMovDetail(getContext(), header, movement, true);
             CreateDatailBuilder.createByTypeAdq(getContext(), container, ticket);
         } catch (Exception e) {
             e.printStackTrace();

@@ -15,7 +15,6 @@ import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
-import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
@@ -25,6 +24,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -53,10 +53,10 @@ public class ViewPagerDataFactory {
                 return new ViewPagerData<>(fragmentList, VoidTab.values());
 
             case MAIN_TABS:
-                    addMainFragments(fragmentList);
+                addMainFragments(fragmentList);
                 if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
                     return new ViewPagerData<>(fragmentList, MainTab.values());
-                }else {
+                } else {
                     return new ViewPagerData<>(fragmentList, MainTabOperador.values());
                 }
             case MAIN_ELECTION:
@@ -99,7 +99,7 @@ public class ViewPagerDataFactory {
         }
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(WalletTabFragment.newInstance());
-        } else{
+        } else {
             fragmentList.add(OperadorTabFragment.newInstance());
         }
 

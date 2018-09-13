@@ -70,6 +70,7 @@
     <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
     <string name="enviarCorreo">/EnviarCorreoContactanos</string>
     <string name="consultarFavorito">/ConsultarFavorito</string>
+
     <string name="consultarDatosPersonaStar">/ConsultarInformacionPersona</string>
     <string name="addFavoritos">/AgregarFavorito</string>
     <string name="addFotoFavoritos">/ActualizarImagenFavorito</string>

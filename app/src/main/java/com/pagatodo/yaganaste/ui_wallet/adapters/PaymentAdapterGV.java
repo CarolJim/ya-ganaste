@@ -22,9 +22,6 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.ITEM_CARRIER_PAGOS;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment.ITEM_CARRIER_RECARGA;
-
 /**
  * Created by FranciscoManzo on 27/12/2017.
  * Genera un GridView. En dos casos diferentes:
@@ -103,7 +100,7 @@ public class PaymentAdapterGV extends BaseAdapter {
 
 
             // Procesos para Carriers
-            if (mTypeItem == ITEM_CARRIER_RECARGA || mTypeItem == ITEM_CARRIER_PAGOS) {
+            if (mTypeItem == 1 || mTypeItem == 2) {
                 imageCircleEdit.setVisibility(View.GONE);
                 GradientDrawable gd = createCircleDrawable(Color.WHITE, Color.WHITE);
 

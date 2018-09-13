@@ -1,3 +1,4 @@
+/*
 package com.pagatodo.yaganaste.utils.customviews.carousel;
 
 import android.content.Context;
@@ -17,145 +18,208 @@ import android.widget.Adapter;
 import android.widget.ListView;
 
 public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
-    /**
+    */
+/**
      * The item view type returned by {@link Adapter#getItemViewType(int)} when
      * the adapter does not want the item's view recycled.
-     */
+     *//*
+
     public static final int ITEM_VIEW_TYPE_IGNORE = -1;
 
-    /**
+    */
+/**
      * The item view type returned by {@link Adapter#getItemViewType(int)} when
      * the item is a header or footer.
-     */
+     *//*
+
     public static final int ITEM_VIEW_TYPE_HEADER_OR_FOOTER = -2;
-    /**
+    */
+/**
      * Represents an invalid position. All valid positions are in the range 0 to 1 less than the
      * number of items in the current adapter.
-     */
+     *//*
+
     public static final int INVALID_POSITION = -1;
-    /**
+    */
+/**
      * Represents an empty or invalid row_envios id
-     */
+     *//*
+
     public static final long INVALID_ROW_ID = Long.MIN_VALUE;
-    /**
+    */
+/**
      * Sync based on the selected child
-     */
+     *//*
+
     static final int SYNC_SELECTED_POSITION = 0;
-    /**
+    */
+/**
      * Sync based on the first child displayed
-     */
+     *//*
+
     static final int SYNC_FIRST_POSITION = 1;
-    /**
+    */
+/**
      * Maximum amount of time to spend in {@link #findSyncPosition()}
-     */
+     *//*
+
     static final int SYNC_MAX_DURATION_MILLIS = 50;
-    /**
+    */
+/**
      * The position of the first child displayed
-     */
+     *//*
+
     @ViewDebug.ExportedProperty
     int mFirstPosition = 0;
-    /**
+    */
+/**
      * The offset in pixels from the top of the CarouselAdapter to the top
      * of the view to select during the next layout.
-     */
+     *//*
+
     int mSpecificTop;
-    /**
+    */
+/**
      * Position from which to start looking for mSyncRowId
-     */
+     *//*
+
     int mSyncPosition;
-    /**
+    */
+/**
      * Row id to look for when data has changed
-     */
+     *//*
+
     long mSyncRowId = INVALID_ROW_ID;
-    /**
+    */
+/**
      * Height of the view when mSyncPosition and mSyncRowId where set
-     */
+     *//*
+
     long mSyncHeight;
-    /**
+    */
+/**
      * True if we need to sync to mSyncRowId
-     */
+     *//*
+
     boolean mNeedSync = false;
-    /**
+    */
+/**
      * Indicates whether to sync based on the selection or position. Possible
      * values are {@link #SYNC_SELECTED_POSITION} or
      * {@link #SYNC_FIRST_POSITION}.
-     */
+     *//*
+
     int mSyncMode;
-    /**
+    */
+/**
      * Indicates that this view is currently being laid out.
-     */
+     *//*
+
     boolean mInLayout = true;
-    /**
+    */
+/**
      * The listener that receives notifications when drag.
-     */
+     *//*
+
     OnDragCarouselListener mOnDragListener;
-    /**
+    */
+/**
      * The listener that receives notifications when an item is selected.
-     */
+     *//*
+
     OnItemSelectedListener mOnItemSelectedListener;
-    /**
+    */
+/**
      * The listener that receives notifications when an item is clicked.
-     */
+     *//*
+
     OnItemClickListener mOnItemClickListener;
-    /**
+    */
+/**
      * The listener that receives notifications when an item is long clicked.
-     */
+     *//*
+
     OnItemLongClickListener mOnItemLongClickListener;
-    /**
+    */
+/**
      * True if the data has changed since the last layout
-     */
+     *//*
+
     boolean mDataChanged;
-    /**
+    */
+/**
      * The position within the adapter's data set of the item to select
      * during the next layout.
-     */
+     *//*
+
     @ViewDebug.ExportedProperty
     int mNextSelectedPosition = INVALID_POSITION;
-    /**
+    */
+/**
      * The item id of the item to select during the next layout.
-     */
+     *//*
+
     long mNextSelectedRowId = INVALID_ROW_ID;
-    /**
+    */
+/**
      * The position within the adapter's data set of the currently selected item.
-     */
+     *//*
+
     @ViewDebug.ExportedProperty
     int mSelectedPosition = INVALID_POSITION;
-    /**
+    */
+/**
      * The item id of the currently selected item.
-     */
+     *//*
+
     long mSelectedRowId = INVALID_ROW_ID;
-    /**
+    */
+/**
      * The number of items in the current adapter.
-     */
+     *//*
+
     @ViewDebug.ExportedProperty
     int mItemCount;
 
-    /**
+    */
+/**
      * The number of items in the adapter before a data changed event occured.
-     */
+     *//*
+
     int mOldItemCount;
-    /**
+    */
+/**
      * The last selected position we used when notifying
-     */
+     *//*
+
     int mOldSelectedPosition = INVALID_POSITION;
-    /**
+    */
+/**
      * The id of the last selected position we used when notifying
-     */
+     *//*
+
     long mOldSelectedRowId = INVALID_ROW_ID;
-    /**
+    */
+/**
      * When set to true, calls to requestLayout() will not propagate up the parent hierarchy.
      * This is used to layout the children during a layout pass.
-     */
+     *//*
+
     boolean mBlockLayoutRequests = false;
-    /**
+    */
+/**
      * Our height after the last layout
-     */
+     *//*
+
     private int mLayoutHeight;
-    /**
+    */
+/**
      * View to show if there are no items to show.
-     */
+     *//*
+
     private View mEmptyView;
-    /**
+    */
+/**
      * Indicates what focusable state is requested when calling setFocusable().
      * In addition to this, this view has other criteria for actually
      * determining the focusable state (such as whether its empty or the text
@@ -163,7 +227,8 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
      *
      * @see #setFocusable(boolean)
      * @see #checkFocus()
-     */
+     *//*
+
     private boolean mDesiredFocusableState;
     private boolean mDesiredFocusableInTouchModeState;
     private SelectionNotifier mSelectionNotifier;
@@ -180,25 +245,30 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         super(context, attrs, defStyle);
     }
 
-    /**
+    */
+/**
      * @return The callback to be invoked with an item in this CarouselAdapter has
      * been clicked, or null id no callback has been set.
-     */
+     *//*
+
     public final OnItemClickListener getOnItemClickListener() {
         return mOnItemClickListener;
     }
 
-    /**
+    */
+/**
      * Register a callback to be invoked when an item in this CarouselAdapter has
      * been clicked.
      *
      * @param listener The callback that will be invoked.
-     */
+     *//*
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClickListener = listener;
     }
 
-    /**
+    */
+/**
      * Call the OnItemClickListener, if it is defined.
      *
      * @param view     The view within the CarouselAdapter that was clicked.
@@ -206,7 +276,8 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
      * @param id       The row_envios id of the item that was clicked.
      * @return True if there was an assigned OnItemClickListener that was
      * called, false otherwise is returned.
-     */
+     *//*
+
     public boolean performItemClick(View view, int position, long id) {
         if (mOnItemClickListener != null) {
 
@@ -218,20 +289,24 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         return false;
     }
 
-    /**
+    */
+/**
      * @return The callback to be invoked with an item in this CarouselAdapter has
      * been clicked and held, or null id no callback as been set.
-     */
+     *//*
+
     public final OnItemLongClickListener getOnItemLongClickListener() {
         return mOnItemLongClickListener;
     }
 
-    /**
+    */
+/**
      * Register a callback to be invoked when an item in this CarouselAdapter has
      * been clicked and held
      *
      * @param listener The callback that will run
-     */
+     *//*
+
     public void setOnItemLongClickListener(OnItemLongClickListener listener) {
         if (!isLongClickable()) {
             setLongClickable(true);
@@ -247,108 +322,128 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         return mOnItemSelectedListener;
     }
 
-    /**
+    */
+/**
      * Register a callback to be invoked when an item in this CarouselAdapter has
      * been selected.
      *
      * @param listener The callback that will run
-     */
+     *//*
+
     public void setOnItemSelectedListener(OnItemSelectedListener listener) {
         mOnItemSelectedListener = listener;
     }
 
-    /**
+    */
+/**
      * Returns the adapter currently associated with this widget.
      *
      * @return The adapter used to provide this view's content.
-     */
+     *//*
+
     public abstract T getAdapter();
 
-    /**
+    */
+/**
      * Sets the adapter that provides the data and the views to represent the data
      * in this widget.
      *
      * @param adapter The adapter to use to create this view's content.
-     */
+     *//*
+
     public abstract void setAdapter(T adapter);
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @param child Ignored.
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void addView(View child) {
         throw new UnsupportedOperationException("addView(View) is not supported in CarouselAdapter");
     }
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @param child Ignored.
      * @param index Ignored.
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void addView(View child, int index) {
         throw new UnsupportedOperationException("addView(View, int) is not supported in CarouselAdapter");
     }
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @param child  Ignored.
      * @param params Ignored.
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void addView(View child, LayoutParams params) {
         throw new UnsupportedOperationException("addView(View, LayoutParams) "
                 + "is not supported in CarouselAdapter");
     }
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @param child  Ignored.
      * @param index  Ignored.
      * @param params Ignored.
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void addView(View child, int index, LayoutParams params) {
         throw new UnsupportedOperationException("addView(View, int, LayoutParams) "
                 + "is not supported in CarouselAdapter");
     }
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @param child Ignored.
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void removeView(View child) {
         throw new UnsupportedOperationException("removeView(View) is not supported in CarouselAdapter");
     }
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @param index Ignored.
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void removeViewAt(int index) {
         throw new UnsupportedOperationException("removeViewAt(int) is not supported in CarouselAdapter");
     }
 
-    /**
+    */
+/**
      * This method is not supported and throws an UnsupportedOperationException when called.
      *
      * @throws UnsupportedOperationException Every time this method is invoked.
-     */
+     *//*
+
     @Override
     public void removeAllViews() {
         throw new UnsupportedOperationException("removeAllViews() is not supported in CarouselAdapter");
@@ -359,35 +454,43 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         mLayoutHeight = getHeight();
     }
 
-    /**
+    */
+/**
      * Return the position of the currently selected item within the adapter's data set
      *
      * @return int Position (starting at 0), or {@link #INVALID_POSITION} if there is nothing selected.
-     */
+     *//*
+
     @ViewDebug.CapturedViewProperty
     public int getSelectedItemPosition() {
         return mNextSelectedPosition;
     }
 
-    /**
+    */
+/**
      * @return The id corresponding to the currently selected item, or {@link #INVALID_ROW_ID}
      * if nothing is selected.
-     */
+     *//*
+
     @ViewDebug.CapturedViewProperty
     public long getSelectedItemId() {
         return mNextSelectedRowId;
     }
 
-    /**
+    */
+/**
      * @return The view corresponding to the currently selected item, or null
      * if nothing is selected
-     */
+     *//*
+
     public abstract View getSelectedView();
 
-    /**
+    */
+/**
      * @return The data corresponding to the currently selected item, or
      * null if there is nothing selected.
-     */
+     *//*
+
     public Object getSelectedItem() {
         T adapter = getAdapter();
         int selection = getSelectedItemPosition();
@@ -398,17 +501,20 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         }
     }
 
-    /**
+    */
+/**
      * @return The number of items owned by the Adapter associated with this
      * CarouselAdapter. (This is the number of data items, which may be
      * larger than the number of visible view.)
-     */
+     *//*
+
     @ViewDebug.CapturedViewProperty
     public int getCount() {
         return mItemCount;
     }
 
-    /**
+    */
+/**
      * Get the position within the adapter's data set for the view, where view is a an adapter item
      * or a descendant of an adapter item.
      *
@@ -416,7 +522,8 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
      *             CarouselAdapter at the time of the call.
      * @return the position within the adapter's data set of the view, or {@link #INVALID_POSITION}
      * if the view does not correspond to a list item (or it is not currently visible).
-     */
+     *//*
+
     public int getPositionForView(View view) {
         View listItem = view;
         try {
@@ -441,48 +548,58 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         return INVALID_POSITION;
     }
 
-    /**
+    */
+/**
      * Returns the position within the adapter's data set for the first item
      * displayed on screen.
      *
      * @return The position within the adapter's data set
-     */
+     *//*
+
     public int getFirstVisiblePosition() {
         return mFirstPosition;
     }
 
-    /**
+    */
+/**
      * Returns the position within the adapter's data set for the last item
      * displayed on screen.
      *
      * @return The position within the adapter's data set
-     */
+     *//*
+
     public int getLastVisiblePosition() {
         return mFirstPosition + getChildCount() - 1;
     }
 
-    /**
+    */
+/**
      * Sets the currently selected item. To support accessibility subclasses that
      * override this method must invoke the overriden super method first.
      *
      * @param position Index (starting at 0) of the data item to be selected.
-     */
+     *//*
+
     public abstract void setSelection(int position);
 
-    /**
+    */
+/**
      * When the current adapter is empty, the CarouselAdapter can display a special view
      * call the empty view. The empty view is used to provide feedback to the user
      * that no data is available in this CarouselAdapter.
      *
      * @return The view to show if the adapter is empty.
-     */
+     *//*
+
     public View getEmptyView() {
         return mEmptyView;
     }
 
-    /**
+    */
+/**
      * Sets the view to show if the adapter is empty
-     */
+     *//*
+
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
 
@@ -491,12 +608,14 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         updateEmptyStatus(empty);
     }
 
-    /**
+    */
+/**
      * Indicates whether this view is in filter mode. Filter mode can for instance
      * be enabled by a user when typing on the keyboard.
      *
      * @return True if the view is in filter mode, false otherwise.
-     */
+     *//*
+
     boolean isInFilterMode() {
         return false;
     }
@@ -541,11 +660,13 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         }
     }
 
-    /**
+    */
+/**
      * Update the status of the list based on the empty parameter.  If empty is true and
      * we have an empty view, display it.  In all the other cases, make sure that the listview
      * is VISIBLE and that the empty view is GONE (if it's not null).
-     */
+     *//*
+
     private void updateEmptyStatus(boolean empty) {
         if (isInFilterMode()) {
             empty = false;
@@ -572,12 +693,14 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         }
     }
 
-    /**
+    */
+/**
      * Gets the data associated with the specified position in the list.
      *
      * @param position Which data to get
      * @return The data associated with the specified position in the list
-     */
+     *//*
+
     public Object getItemAtPosition(int position) {
         T adapter = getAdapter();
         return (adapter == null || position < 0) ? null : adapter.getItem(position);
@@ -594,17 +717,21 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
                 + "You probably want setOnItemClickListener instead");
     }
 
-    /**
+    */
+/**
      * Override to prevent freezing of any views created by the adapter.
-     */
+     *//*
+
     @Override
     protected void dispatchSaveInstanceState(SparseArray<Parcelable> container) {
         dispatchFreezeSelfOnly(container);
     }
 
-    /**
+    */
+/**
      * Override to prevent thawing of any views created by the adapter.
-     */
+     *//*
+
     @Override
     protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
         dispatchThawSelfOnly(container);
@@ -751,14 +878,16 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         }
     }
 
-    /**
+    */
+/**
      * Searches the adapter for a position matching mSyncRowId. The search starts at mSyncPosition
      * and then alternates between moving up and moving down until 1) we find the right position, or
      * 2) we run out of time, or 3) we have looked at every position
      *
      * @return Position of the row_envios that matches mSyncRowId, or {@link #INVALID_POSITION} if it can't
      * be found
-     */
+     *//*
+
     int findSyncPosition() {
         int count = mItemCount;
 
@@ -838,34 +967,40 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         return INVALID_POSITION;
     }
 
-    /**
+    */
+/**
      * Find a position that can be selected (i.e., is not a separator).
      *
      * @param position The starting position to look at.
      * @param lookDown Whether to look down for other positions.
      * @return The next selectable position starting at position and then searching either up or
      * down. Returns {@link #INVALID_POSITION} if nothing can be found.
-     */
+     *//*
+
     int lookForSelectablePosition(int position, boolean lookDown) {
         return position;
     }
 
-    /**
+    */
+/**
      * Utility to keep mSelectedPosition and mSelectedRowId in sync
      *
      * @param position Our current position
-     */
+     *//*
+
     void setSelectedPositionInt(int position) {
         mSelectedPosition = position;
         mSelectedRowId = getItemIdAtPosition(position);
     }
 
-    /**
+    */
+/**
      * Utility to keep mNextSelectedPosition and mNextSelectedRowId in sync
      *
      * @param position Intended value for mSelectedPosition the next time we go
      *                 through layout
-     */
+     *//*
+
     void setNextSelectedPositionInt(int position) {
         mNextSelectedPosition = position;
         mNextSelectedRowId = getItemIdAtPosition(position);
@@ -876,10 +1011,12 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         }
     }
 
-    /**
+    */
+/**
      * Remember enough information to restore the screen state when the data has
      * changed.
-     */
+     *//*
+
     void rememberSyncState() {
         if (getChildCount() > 0) {
             mNeedSync = true;
@@ -911,13 +1048,16 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
         }
     }
 
-    /**
+    */
+/**
      * Interface definition for a callback to be invoked when an item in this
      * CarouselAdapter has been clicked.
-     */
+     *//*
+
     public interface OnItemClickListener {
 
-        /**
+        */
+/**
          * Callback method to be invoked when an item in this CarouselAdapter has
          * been clicked.
          * <p>
@@ -929,14 +1069,17 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          *                 will be a view provided by the adapter)
          * @param position The position of the view in the adapter.
          * @param id       The row_envios id of the item that was clicked.
-         */
+         *//*
+
         void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id);
     }
 
-    /**
+    */
+/**
      * Interface definition for a callback to be invoked when an item in this
      * CarouselAdapter has been drag.
-     */
+     *//*
+
     public interface OnDragCarouselListener {
 
 
@@ -944,12 +1087,15 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
 
     }
 
-    /**
+    */
+/**
      * Interface definition for a callback to be invoked when an item in this
      * view has been clicked and held.
-     */
+     *//*
+
     public interface OnItemLongClickListener {
-        /**
+        */
+/**
          * Callback method to be invoked when an item in this view has been
          * clicked and held.
          * <p>
@@ -961,16 +1107,20 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          * @param position The position of the view in the list
          * @param id       The row_envios id of the item that was clicked
          * @return true if the callback consumed the long click, false otherwise
-         */
+         *//*
+
         boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id);
     }
 
-    /**
+    */
+/**
      * Interface definition for a callback to be invoked when
      * an item in this view has been selected.
-     */
+     *//*
+
     public interface OnItemSelectedListener {
-        /**
+        */
+/**
          * Callback method to be invoked when an item in this view has been
          * selected.
          * <p>
@@ -981,39 +1131,50 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
          * @param view     The view within the CarouselAdapter that was clicked
          * @param position The position of the view in the adapter
          * @param id       The row_envios id of the item that is selected
-         */
+         *//*
+
         void onItemSelected(CarouselAdapter<?> parent, View view, int position, long id);
 
-        /**
+        */
+/**
          * Callback method to be invoked when the selection disappears from this
          * view. The selection can disappear for instance when touch is activated
          * or when the adapter becomes empty.
          *
          * @param parent The CarouselAdapter that now contains no selected item.
-         */
+         *//*
+
         void onNothingSelected(CarouselAdapter<?> parent);
     }
 
-    /**
+    */
+/**
      * Extra menu information provided to the
      * {@link OnCreateContextMenuListener#onCreateContextMenu(ContextMenu, View, ContextMenuInfo) }
      * callback when a context menu is brought up for this CarouselAdapter.
-     */
+     *//*
+
     public static class AdapterContextMenuInfo implements ContextMenuInfo {
 
-        /**
+        */
+/**
          * The child view for which the context menu is being displayed. This
          * will be one of the children of this CarouselAdapter.
-         */
+         *//*
+
         public View targetView;
-        /**
+        */
+/**
          * The position in the adapter for which the context menu is being
          * displayed.
-         */
+         *//*
+
         public int position;
-        /**
+        */
+/**
          * The row_envios id of the item for which the context menu is being displayed.
-         */
+         *//*
+
         public long id;
 
         public AdapterContextMenuInfo(View targetView, int position, long id) {
@@ -1089,3 +1250,4 @@ public abstract class CarouselAdapter<T extends Adapter> extends ViewGroup {
     }
 
 }
+*/

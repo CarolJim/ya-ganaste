@@ -305,8 +305,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     private CarouselItem createItemToAddFav() {
         //Se agrega un id en -1 en el constructor para hacer referencia a que el item responde a la accion de agregar favorito desde 0
-        CarouselItem carouselItemAdd = new CarouselItem(App.getInstance(), R.drawable.new_fav_add, "#747E84", CarouselItem.DRAG, new Comercio(-1), null);
-        carouselItemAdd.setAddImageViewMargin();
+        CarouselItem carouselItemAdd = new CarouselItem(R.drawable.new_fav_add, "#747E84", CarouselItem.DRAG, new Comercio(-1), null);
         return carouselItemAdd;
     }
 
@@ -323,9 +322,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     private ArrayList<CarouselItem> getCarouselItems(List<Comercio> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
 
-        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), current_tab != PAYMENT_ENVIOS ? R.drawable.new_fav_search : R.drawable.new_fav_add,
+        CarouselItem carouselItemSearch = new CarouselItem(current_tab != PAYMENT_ENVIOS ? R.drawable.new_fav_search : R.drawable.new_fav_add,
                 current_tab != PAYMENT_ENVIOS ? "#FFFFFF" : "#808080", CarouselItem.CLICK, null, null);
-        carouselItemSearch.setSearchImageViewMargin();
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
@@ -334,18 +332,15 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             if (comercio.getIdTipoComercio() == current_tab) {
                 if (comercio.getIdComercio() != 0) {
                     if (comercio.getColorMarca() == null || comercio.getColorMarca().isEmpty()) {
-                        carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
-                        carouselItemCommerce.setCommerceImageViewMargin();
+                        carouselItemCommerce = new CarouselItem(comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
                         carouselItems.add(carouselItemCommerce);
                     } else {
-                        carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio);
-                        carouselItemCommerce.setCommerceImageViewMargin();
+                        carouselItemCommerce = new CarouselItem(comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio);
                         carouselItems.add(carouselItemCommerce);
                     }
                 } else {
                     //carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
-                    CarouselItem carouselItemSearch2 = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio, null);
-                    carouselItemSearch2.setSearchImageViewMargin();
+                    CarouselItem carouselItemSearch2 = new CarouselItem(R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio, null);
                     carouselItems.add(carouselItemSearch2);
                 }
             }
@@ -355,8 +350,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     private ArrayList<CarouselItem> getCarouselItemsFavoritos(List<Favoritos> favoritos) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
-        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
-        carouselItemSearch.setSearchImageViewMargin();
+        CarouselItem carouselItemSearch = new CarouselItem(R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         if (current_tab != PAYMENT_ENVIOS) {
@@ -370,21 +364,20 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 if (favorito.getIdComercio() != 0) {
                     if (favorito.getColorMarca().isEmpty()) {
                         if (favorito.getImagenURL().isEmpty()) {
-                            carouselItems.add(new CarouselItem(App.getContext(), favorito.getImagenURLComercio(), "#10B2E6", CarouselItem.DRAG, favorito));
+                            carouselItems.add(new CarouselItem(favorito.getImagenURLComercio(), "#10B2E6", CarouselItem.DRAG, favorito));
                         } else {
-                            carouselItems.add(new CarouselItem(App.getContext(), favorito.getImagenURL(), "#10B2E6", CarouselItem.DRAG, favorito));
+                            carouselItems.add(new CarouselItem(favorito.getImagenURL(), "#10B2E6", CarouselItem.DRAG, favorito));
                         }
                     } else {
                         if (favorito.getImagenURL().isEmpty()) {
-                            carouselItems.add(new CarouselItem(App.getContext(), favorito.getImagenURLComercio(), favorito.getColorMarca().toUpperCase(), CarouselItem.DRAG, favorito));
+                            carouselItems.add(new CarouselItem(favorito.getImagenURLComercio(), favorito.getColorMarca().toUpperCase(), CarouselItem.DRAG, favorito));
                         } else {
-                            carouselItems.add(new CarouselItem(App.getContext(), favorito.getImagenURL(), favorito.getColorMarca().toUpperCase(), CarouselItem.DRAG, favorito));
+                            carouselItems.add(new CarouselItem(favorito.getImagenURL(), favorito.getColorMarca().toUpperCase(), CarouselItem.DRAG, favorito));
                         }
                     }
                 } else {
                     //carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
-                    CarouselItem carouselItemSearch2 = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, favorito);
-                    carouselItemSearch2.setSearchImageViewMargin();
+                    CarouselItem carouselItemSearch2 = new CarouselItem(R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, favorito);
                     carouselItems.add(carouselItemSearch2);
                 }
             }

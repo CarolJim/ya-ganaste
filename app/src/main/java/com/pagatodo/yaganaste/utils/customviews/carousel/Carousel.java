@@ -1,3 +1,4 @@
+/*
 package com.pagatodo.yaganaste.utils.customviews.carousel;
 
 import android.content.ClipData;
@@ -26,29 +27,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+*/
 /**
  * @author kushnarev
  *         Carousel class
- */
+ *//*
+
 public class Carousel extends CarouselSpinner implements GestureDetector.OnGestureListener {
 
-    /**
+    */
+/**
      * Tag for a class logging
-     */
+     *//*
+
     private static final String TAG = Carousel.class.getSimpleName();
     // Static private members
-    /**
+    */
+/**
      * If logging should be inside class
-     */
+     *//*
+
     private static final boolean localLOGV = false;
-    /**
+    */
+/**
      * Max theta
-     */
+     *//*
+
     private static final float MAX_THETA = 25.0f;
-    /**
+    */
+/**
      * Duration in milliseconds from the start of a scroll during which we're
      * unsure whether the user is scrolling or flinging.
-     */
+     *//*
+
     //private static final int SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT = 250;
     private static final int SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT = 150;
     private static ArrayList<CarouselItem> OriginalmImages;
@@ -59,98 +70,134 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
     int lastMeasureHeigth = 0;
     int lastMeasureWidth = 0;
     private long mLastEventTime = 0;
-    /**
+    */
+/**
      * The info for adapter context menu
-     */
+     *//*
+
     private AdapterContextMenuInfo mContextMenuInfo;
-    /**
+    */
+/**
      * How long the transition animation should run when a child view changes
      * position, measured in milliseconds.
-     */
+     *//*
+
     //private int mAnimationDuration = 200;
     private int mAnimationDuration = 1000;
-    /**
+    */
+/**
      * Camera to make 3D rotation
-     */
+     *//*
+
     private Camera mCamera = new Camera();
-    /**
+    */
+/**
      * The position of the item that received the user's down touch.
-     */
+     *//*
+
     private int mDownTouchPosition;
-    /**
+    */
+/**
      * The view of the item that received the user's down touch.
-     */
+     *//*
+
     private View mDownTouchView;
-    /**
+    */
+/**
      * Executes the delta rotations from a fling or scroll movement.
-     */
+     *//*
+
     private FlingRotateRunnable mFlingRunnable = new FlingRotateRunnable();
-    /**
+    */
+/**
      * Helper for detecting touch gestures.
-     */
+     *//*
+
     private GestureDetector mGestureDetector;
-    /**
+    */
+/**
      * Gravity for the widget
-     */
+     *//*
+
     private int mGravity;
-    /**
+    */
+/**
      * If true, this onScroll is the first for this user's drag (remember, a
      * drag sends many onScrolls).
-     */
+     *//*
+
     private boolean mIsFirstScroll;
-    /**
+    */
+/**
      * If true, we have received the "invoke" (center or enter buttons) key
      * down. This is checked before we action on the "invoke" key up, and is
      * subsequently cleared.
-     */
+     *//*
+
     private boolean mReceivedInvokeKeyDown;
-    /**
+    */
+/**
      * The currently selected item's child.
-     */
+     *//*
+
     private View mSelectedChild;
-    /**
+    */
+/**
      * Whether to continuously callback on the item selected listener during a
      * fling.
-     */
+     *//*
+
     private boolean mShouldCallbackDuringFling = true;
-    /**
+    */
+/**
      * Whether to callback when an item that is not selected is clicked.
-     */
+     *//*
+
     private boolean mShouldCallbackOnUnselectedItemClick = true;
-    /**
+    */
+/**
      * When fling runnable runs, it resets this to false. Any method along the
      * path until the end of its run() can set this to true to abort any
      * remaining fling. For example, if we've reached either the leftmost or
      * rightmost item, we will set this to true.
-     */
+     *//*
+
     private boolean mShouldStopFling;
-    /**
+    */
+/**
      * If true, do not callback to item selected listener.
-     */
+     *//*
+
     private boolean mSuppressSelectionChanged;
-    /**
+    */
+/**
      * The axe angle
-     */
+     *//*
+
     private float mTheta = (float) (90.0f * (Math.PI / 180.0));
     private boolean hasScrolled = false;
     private boolean isStoped = true;
     // Constructors
-    /**
+    */
+/**
      * Sets mSuppressSelectionChanged = false. This is used to set it to false
      * in the future. It will also trigger a selection changed.
-     */
+     *//*
+
     private Runnable mDisableSuppressSelectionChangedRunnable = new Runnable() {
         public void run() {
             mSuppressSelectionChanged = false;
             selectionChanged();
         }
     };
-    /**
+    */
+/**
      * Tracks a motion scroll. In reality, this is used to do just about any
      * movement to items (touch scroll, arrow-key scroll, set an item as selected).
      *
      * @param deltaAngle Change in X from the previous event.
-     */
+     *//*
+
 
     private int lastIndexVisible = 4;
     private int firstIndexVisible = 0;
@@ -188,47 +235,57 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     }
 
-    /**
+    */
+/**
      * @return The center of the given view.
-     */
+     *//*
+
     private static int getCenterOfView(View view) {
         return view.getLeft() + view.getWidth() / 2;
     }
 
-    /**
+    */
+/**
      * Compute the horizontal extent of the horizontal scrollbar's thumb
      * within the horizontal range. This value is used to compute
      * the length of the thumb within the scrollbar's track.
-     */
+     *//*
+
     @Override
     protected int computeHorizontalScrollExtent() {
         // Only 1 item is considered to be selected
         return 1;
     }
 
-    /**
+    */
+/**
      * Compute the horizontal offset of the horizontal scrollbar's
      * thumb within the horizontal range. This value is used to compute
      * the position of the thumb within the scrollbar's track.
-     */
+     *//*
+
     @Override
     protected int computeHorizontalScrollOffset() {
         // Current scroll position is the same as the selected position
         return mSelectedPosition;
     }
 
-    /**
+    */
+/**
      * Compute the horizontal range that the horizontal scrollbar represents.
-     */
+     *//*
+
     @Override
     protected int computeHorizontalScrollRange() {
         // Scroll range is the same as the item count
         return mItemCount;
     }
 
-    /**
+    */
+/**
      * Implemented to handle touch screen motion events.
-     */
+     *//*
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -248,17 +305,21 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return true;
     }
 
-    /**
+    */
+/**
      * Extra information about the item for which the context menu should be shown.
-     */
+     *//*
+
     @Override
     protected ContextMenuInfo getContextMenuInfo() {
         return mContextMenuInfo;
     }
 
-    /**
+    */
+/**
      * Bring up the context menu for this view.
-     */
+     *//*
+
     @Override
     public boolean showContextMenu() {
 
@@ -273,11 +334,13 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     // ViewGroup overrides
 
-    /**
+    */
+/**
      * Handles left, right, and clicking
      *
      * @see View#onKeyDown
-     */
+     *//*
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -341,11 +404,13 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
 
-        /*
+        */
+/*
          * The gallery shows focus by focusing the selected item. So, give
          * focus to our selected item instead. We steal keys from our
          * selected item elsewhere.
-         */
+         *//*
+
         if (gainFocus && mSelectedChild != null) {
             mSelectedChild.requestFocus(direction);
         }
@@ -369,11 +434,13 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     @Override
     public void dispatchSetSelected(boolean selected) {
-        /*
+        */
+/*
          * We don't want to pass the selected state given from its parent to its
          * children since this widget itself has a selected state to give to its
          * children.
-         */
+         *//*
+
     }
 
     @Override
@@ -405,9 +472,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return event.dispatch(this, null, null);
     }
 
-    /**
+    */
+/**
      * Index of the child to draw for this iteration
-     */
+     *//*
+
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
 
@@ -437,9 +506,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     }
 
-    /**
+    */
+/**
      * Transform an item depending on it's coordinates
-     */
+     *//*
+
     @Override
     protected boolean getChildStaticTransformation(View child, Transformation transformation) {
 
@@ -481,9 +552,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return true;
     }
 
-    /**
+    */
+/**
      * Setting up images
-     */
+     *//*
+
     void layout(int delta, boolean animate) {
 
         if (mDataChanged) {
@@ -550,17 +623,21 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     // Rotation class for the Carousel
 
-    /**
+    */
+/**
      * Setting up images after layout changed
-     */
+     *//*
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
 
-        /*
+        */
+/*
          * Remember that we are in layout to prevent more layout request from
          * being generated.
-         */
+         *//*
+
         mInLayout = true;
         if (!hasScrolled)
             layout(0, false);
@@ -569,7 +646,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     // Image adapter class for the Carousel
 
-    /*TODO Metodo se ejecuta al finalizar la seleccion*/
+    */
+/*TODO Metodo se ejecuta al finalizar la seleccion*//*
+
     @Override
     void selectionChanged() {
         if (!mSuppressSelectionChanged) {
@@ -649,7 +728,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
         if (localLOGV) Log.v(TAG, String.valueOf(e2.getX() - e1.getX()));
 
-        /*
+        */
+/*
          * Now's a good time to tell our parent to stop intercepting our events!
          * The user has moved more than the slop amount, since GestureDetector
          * ensures this before calling this method. Also, if a parent is more
@@ -657,7 +737,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
          * intercepted them by now (for example, we can assume when a Gallery is
          * in the ListView, a vertical scroll would not end up in this method
          * since a ListView would have intercepted it by now).
-         */
+         *//*
+
 
         float y = e1.getY();
         float x = e1.getX();
@@ -686,9 +767,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
                 x < offsetRight && !isDraggin) && (e2.getAction() == MotionEvent.ACTION_MOVE) && isVerticalMovement && angleMovement > 30 &&
                 heightSelectedArea && widthSelectedArea && !isScrolling) {
 
-        /*if (mOnDragListener != null && (distanceX < 35 && distanceX > -35) &&
+        */
+/*if (mOnDragListener != null && (distanceX < 35 && distanceX > -35) &&
                 (y > 0 && y < ((lastMeasureHeigth)) && x > ((getWidth() / 2) - lastMeasureWidth / 2) &&
-                        x < ((getWidth() / 2) + lastMeasureWidth / 2) && !isDraggin) && !isScrolling) {*/
+                        x < ((getWidth() / 2) + lastMeasureWidth / 2) && !isDraggin) && !isScrolling) {*//*
+
             if (!isDraggin) {
 
                 CarouselItem lastCarouselItem = (CarouselItem) getSelectedView();
@@ -725,11 +808,13 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             // info on the screen is up-to-date with the gallery's selection
             if (!mShouldCallbackDuringFling) {
                 if (mIsFirstScroll) {
-                /*
+                */
+/*
                  * We're not notifying the client of selection changes during
                  * the fling, and this scroll could possibly be a fling. Don't
                  * do selection changes until we're sure it is not a fling.
-                 */
+                 *//*
+
                     if (!mSuppressSelectionChanged) mSuppressSelectionChanged = true;
                     postDelayed(mDisableSuppressSelectionChangedRunnable, SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT);
                 }
@@ -743,7 +828,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             }
             mLastEventTime = SystemClock.elapsedRealtime();
 
-            trackMotionScroll(/* -1 * */ (int) distanceX);
+            trackMotionScroll(*/
+/* -1 * *//*
+ (int) distanceX);
 
             mIsFirstScroll = false;
             isStoped = false;
@@ -791,12 +878,14 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         child.setItemY(y);
     }
 
-    /**
+    */
+/**
      * Figure out vertical placement based on mGravity
      *
      * @param child Child to place
      * @return Where the top of the child should be
-     */
+     *//*
+
     private int calculateTop(View child, boolean duringLayout) {
         int myHeight = duringLayout ? getMeasuredHeight() : getHeight();
         int childHeight = duringLayout ? child.getMeasuredHeight() : child.getHeight();
@@ -858,9 +947,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         setPressed(false);
     }
 
-    /**
+    */
+/**
      * @return The center of this Gallery.
-     */
+     *//*
+
     private int getCenterOfGallery() {
         return (getWidth() - Carousel.this.getPaddingLeft() - Carousel.this.getPaddingRight()) / 2 +
                 Carousel.this.getPaddingLeft();
@@ -979,9 +1070,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         onUp();
     }
 
-    /**
+    */
+/**
      * Called when rotation is finished
-     */
+     *//*
+
     private void onFinishedMovement() {
         if (mSuppressSelectionChanged) {
             mSuppressSelectionChanged = false;
@@ -1004,9 +1097,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         dispatchUnpress();
     }
 
-    /**
+    */
+/**
      * Brings an item with nearest to 0 degrees angle to this angle and sets it selected
-     */
+     *//*
+
     private void scrollIntoSlots() {
 
         // Nothing to do
@@ -1073,7 +1168,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     }
 
-    /**
+    */
+/**
      * Whether or not to callback on any {@link #getOnItemSelectedListener()}
      * while the items are being flinged. If false, only the final selected item
      * will cause the callback. If true, all items between the first and the
@@ -1081,12 +1177,14 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      *
      * @param shouldCallback Whether or not to callback on the listener while
      *                       the items are being flinged.
-     */
+     *//*
+
     public void setCallbackDuringFling(boolean shouldCallback) {
         mShouldCallbackDuringFling = shouldCallback;
     }
 
-    /**
+    */
+/**
      * Whether or not to callback when an item that is not selected is clicked.
      * If false, the item will become selected (and re-centered). If true, the
      * {@link #getOnItemClickListener()} will get the callback.
@@ -1094,19 +1192,22 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      * @param shouldCallback Whether or not to callback on the listener when a
      *                       item that is not selected is clicked.
      * @hide
-     */
+     *//*
+
     public void setCallbackOnUnselectedItemClick(boolean shouldCallback) {
         mShouldCallbackOnUnselectedItemClick = shouldCallback;
     }
 
-    /**
+    */
+/**
      * Sets how long the transition animation should run when a child view
      * changes position. Only relevant if animation is turned on.
      *
      * @param animationDurationMillis The duration of the transition, in
      *                                milliseconds.
      * @attr ref android.R.styleable#Gallery_animationDuration
-     */
+     *//*
+
     public void setAnimationDuration(int animationDurationMillis) {
         mAnimationDuration = animationDurationMillis;
     }
@@ -1119,7 +1220,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
     }
 
 
-    /**
+    */
+/**
      * Helper for makeAndAddView to set the position of a view and fill out its
      * layout paramters.
      *
@@ -1130,7 +1232,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      *                          the fromLeft paramter
      * @param lastMeasureWidth  Are we posiitoning views based on the left edge? (i.e.,
      *                          building from left to right)?
-     */
+     *//*
+
     private void setUpChild(CarouselItem child, int index, float angleOffset,
                             int lastMeasureHeigth,
                             int lastMeasureWidth) {
@@ -1138,7 +1241,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         // Ignore any layout parameters for child, use wrap content
 
 
-        addViewInLayout(child, -1 /*index*/, generateDefaultLayoutParams());
+        addViewInLayout(child, -1 */
+/*index*//*
+, generateDefaultLayoutParams());
 
         child.setSelected(index == mSelectedPosition);
 
@@ -1272,7 +1377,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
                 float alpha = child.getAlpha();
                 if (alpha < 1.0) {
-                    /*
+                    */
+/*
                     if(deltaAngle >= 0&&child.isEmpty())
                     {
                         if (lastIndexVisible + 1 >= OriginalmImages.size()) {
@@ -1310,7 +1416,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
                     {
 
                     }
-                */
+                *//*
+
                     child.setEmpty(false);
                 }
                 child.setVisible(true);
@@ -1379,41 +1486,53 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
 
         public Object getItem(int position) {
-            if (position >= mImages.size()) {
+          */
+/*  if (position >= mImages.size()) {
                 return new CarouselItem(mContext);
-            } else {
+            } else {*//*
+
                 return mImages.get(position);
-            }
+            //}
         }
 
-        public long getItemId(int position) {
+        */
+/*public long getItemId(int position) {
             return mImages.get(position).getId();
-        }
+        }*//*
 
-        public View getView(int position, View convertView, ViewGroup parent) {
+
+       */
+/* public View getView(int position, View convertView, ViewGroup parent) {
             if (position >= mImages.size())
                 return new CarouselItem(mContext);
             else
                 return mImages.get(position);
         }
+*//*
 
     }
 
     private class FlingRotateRunnable implements Runnable {
 
-        /**
+        */
+/**
          * Tracks the decay of a fling rotation
-         */
+         *//*
+
         private Rotator mRotator;
 
-        /**
+        */
+/**
          * Angle value reported by mRotator on the previous fling
-         */
+         *//*
+
         private float mLastFlingAngle;
 
-        /**
+        */
+/**
          * Constructor
-         */
+         *//*
+
         public FlingRotateRunnable() {
             mRotator = new Rotator(getContext());
         }
@@ -1457,10 +1576,12 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
 
         private void endFling(boolean scrollIntoSlots) {
-            /*
+            */
+/*
              * Force the scroller's status to finished (without setting its
              * position to the end)
-             */
+             *//*
+
             synchronized (this) {
                 mRotator.forceFinished(true);
             }
@@ -1503,3 +1624,4 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
     }
 }
+*/

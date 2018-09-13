@@ -1,3 +1,4 @@
+/*
 package com.pagatodo.yaganaste.utils.customviews.carousel;
 
 import android.content.Context;
@@ -43,9 +44,11 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         initCarouselSpinner();
     }
 
-    /**
+    */
+/**
      * Common code for different constructor flavors
-     */
+     *//*
+
     private void initCarouselSpinner() {
         setFocusable(true);
         setWillNotDraw(false);
@@ -104,9 +107,11 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         }
     }
 
-    /**
+    */
+/**
      * Jump directly to a specific item in the adapter data.
-     */
+     *//*
+
     public void setSelection(int position, boolean animate) {
         // Animate only if requested position is already on screen somewhere
         boolean shouldAnimate = animate && mFirstPosition <= position &&
@@ -115,12 +120,14 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
     }
 
 
-    /**
+    */
+/**
      * Makes the item at the supplied position selected.
      *
      * @param position Position to select
      * @param animate  Should the transition be animated
-     */
+     *//*
+
     void setSelectionInt(int position, boolean animate) {
         if (position != mOldSelectedPosition) {
             mBlockLayoutRequests = true;
@@ -137,9 +144,11 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         setSelectionInt(position, false);
     }
 
-    /**
+    */
+/**
      * Clear out all children from the list
-     */
+     *//*
+
     void resetList() {
         mDataChanged = false;
         mNeedSync = false;
@@ -153,14 +162,16 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         invalidate();
     }
 
-    /**
+    */
+/**
      * @see View#measure(int, int)
      * <p>
      * Figure out the dimensions of this Spinner. The width comes from
      * the widthMeasureSpec as Spinnners can't have their width set to
      * UNSPECIFIED. The height is based on the height of the selected item
      * plus padding.
-     */
+     *//*
+
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSize;
@@ -240,9 +251,11 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
     }
 
     protected LayoutParams generateDefaultLayoutParams() {
-        /*
+        */
+/*
          * Carousel expects Carousel.LayoutParams.
-         */
+         *//*
+
         return new Carousel.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
 
@@ -261,12 +274,14 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         }
     }
 
-    /**
+    */
+/**
      * Override to prevent spamming ourselves with layout requests
      * as we place views
      *
      * @see View#requestLayout()
-     */
+     *//*
+
     @Override
     public void requestLayout() {
         if (!mBlockLayoutRequests) {
@@ -280,14 +295,16 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         return mItemCount;
     }
 
-    /**
+    */
+/**
      * Maps a point to a position in the list.
      *
      * @param x X in local coordinate
      * @param y Y in local coordinate
      * @return The position of the item which contains the specified point, or
      * {@link #INVALID_POSITION} if the point does not intersect an item.
-     */
+     *//*
+
     public int pointToPosition(int x, int y) {
         if (mAdapter == null)
             return 0;
@@ -375,16 +392,20 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         long selectedId;
         int position;
 
-        /**
+        */
+/**
          * Constructor called from {@link AbsSpinner#onSaveInstanceState()}
-         */
+         *//*
+
         SavedState(Parcelable superState) {
             super(superState);
         }
 
-        /**
+        */
+/**
          * Constructor called from {@link #CREATOR}
-         */
+         *//*
+
         private SavedState(Parcel in) {
             super(in);
             selectedId = in.readLong();
@@ -439,3 +460,4 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         }
     }
 }
+*/
