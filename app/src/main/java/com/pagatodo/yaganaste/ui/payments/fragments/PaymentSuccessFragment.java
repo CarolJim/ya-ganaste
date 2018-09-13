@@ -277,8 +277,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         } else if (pago instanceof Envios) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
                 formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
-                // Ocultar agregar favoritos para envío por numero de tarjeta
-                btnAddFavoriite.setVisibility(View.INVISIBLE);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
