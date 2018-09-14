@@ -130,6 +130,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.EVENT_ADD_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_DELETE_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_EDIT_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
@@ -232,7 +233,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     LinearLayout add_favorites_serv_ll;
 
     private OtpPResenter otpPResenter;
-
+    private AddFavoritesRequest addFavoritesRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -891,12 +892,12 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
         } else {
             if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
-                AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
+                addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
                         idComercio, mAlias, referService, stringFoto.equals("") ? null : stringFoto, stringFoto.equals("") ? null : "png");
 
                 // favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
+                showLoader(getString(R.string.loader_15));
                 otpPResenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-                favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
             } else {
                 /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
                 //UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(), "");
@@ -1717,7 +1718,14 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     @Override
     public void onOtpGenerated(String otp) {
-        RequestHeaders.setTokenFreja(otp);
+        if (otp.equals(RequestHeaders.getTokenFreja())) {
+            new Handler().postDelayed(() -> otpPResenter.generateOTP(preferencias.loadData(SHA_256_FREJA)), 5000);
+        } else {
+            RequestHeaders.setTokenFreja(otp);
+            if (favoriteProcess != EDIT_FAVORITE) {
+                favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
+            }
+        }
     }
 
     @Override

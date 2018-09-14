@@ -48,14 +48,7 @@ public class Constants {
     public static final int TELMEXSR = 21;
     public static final int MAFER = 9;
 
-
-
-
-
-
-
     //endregion
-
     public static final String TIPO_TRANSACCION_CHIP = "1";
     public static final String TIPO_TRANSACCION_BANDA = "2";
 
