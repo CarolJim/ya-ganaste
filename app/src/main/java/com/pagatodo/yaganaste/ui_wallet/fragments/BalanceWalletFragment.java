@@ -357,7 +357,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 break;
             case OPTION_BALANCE_CLOSED_LOOP:
                 BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-                if (!adapter.isEnabled()) {
+                if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivity(enabler);
                 } else {
@@ -425,7 +425,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             try {
                 if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) != QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     chiandpin.setImageResource(R.mipmap.lector_front);
-                    chiandpin.getLayoutParams().width = 400;
+                    chiandpin.getLayoutParams().width = 250;
                 }
             } catch (Exception e) {
                 Log.d("Lector", "Sin opc de lector seleccionada");

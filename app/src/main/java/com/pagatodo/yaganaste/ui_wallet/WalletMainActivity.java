@@ -329,7 +329,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO},
                             REQUEST_ID_MULTIPLE_PERMISSIONS);
                     finish();
-                } else if (!adapter.isEnabled()) {
+                } else if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivity(enabler);
                     finish();
