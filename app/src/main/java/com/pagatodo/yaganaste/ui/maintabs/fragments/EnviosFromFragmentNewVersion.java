@@ -242,10 +242,6 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
         //BoardBookmarks boardBookmarks = new BoardBookmarks(getActivity(),mLinearLayout,this);
         //boardBookmarks.getLayout();
         //listView.setAdapter(adapterList);
-
-
-
-
         /**
          *
          * Parte de los focus change para manejar los edit text activados y normales
@@ -486,21 +482,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
                     isEditable = false;
                     ContainerBuilder.edition(false);
-                    // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
                 } else {
                     editarFavoritos.setTextColor(getResources().getColor(R.color.colorTituloDialog));
                     isEditable = true;
                     ContainerBuilder.edition(true);
-                    // adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
                 }
-
-                // Borramos el adaptar antterior, y volvemos a crearlo para mostrar las imagernes de editar
-                /*if (adapterMaterialPalet != null) {
-                    adapterMaterialPalet = null;
-                    adapterMaterialPalet = new MaterialPaletteAdapter(backUpResponseFavoritos, isEditable, adapterMaterialListener);
-                    recyclerView.setAdapter(adapterMaterialPalet);
-                }*/
-
                 break;
             default:
                 break;
@@ -1182,6 +1168,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             clearContent();
             paymentsCarouselPresenter.getCarouselItems();
             paymentsCarouselPresenter.getFavoriteCarouselItems();
+            editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
+            isEditable = false;
         }
 
         if (resultCode == Activity.RESULT_OK) {

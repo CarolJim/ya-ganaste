@@ -135,7 +135,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipActual.editText.getText().toString().isEmpty()) {
-                        showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
+                        //showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
                         nipActual.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
                         nipActual.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
@@ -151,7 +151,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipNueva.editText.getText().toString().isEmpty()) {
-                        showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
+                        //showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
                         nipNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
                         nipNueva.inputLayout.setBackgroundResource(R.drawable.inputtext_normal);
@@ -168,7 +168,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (nipConfir.editText.getText().toString().isEmpty()) {
-                        showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
+                        //showSnakErrorBar(getResources().getString(R.string.introduce_nip_valido));
                         nipConfir.inputLayout.setBackgroundResource(R.drawable.inputtext_error);
                     } else {
                         if (nipConfir.editText.getText().toString().equalsIgnoreCase(nipNueva.editText.getText().toString())) {

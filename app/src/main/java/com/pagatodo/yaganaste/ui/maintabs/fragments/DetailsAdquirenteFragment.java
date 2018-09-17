@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dspread.xpos.QPOSService;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -51,6 +53,7 @@ import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_TO_SE
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -173,7 +176,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements
                 return true;
             case R.id.action_cancelar_cobro:
                 BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-                if (!adapter.isEnabled()) {
+                if (!adapter.isEnabled() && App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     Intent enabler = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivity(enabler);
                 } else {
