@@ -169,9 +169,10 @@ public class MyDongleFragment extends GenericFragment implements IPreferUserGene
             txtSerialNumber.setVisibility(GONE);
         }
         txtCompanyName.setText(prefs.loadData(COMPANY_NAME));
-        boolean isComerioUyU = false;
+        boolean isComerioUyU = true;
         try {
-            isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
+            if (!RequestHeaders.getIdCuentaAdq().equals(""))
+                isComerioUyU = new DatabaseManager().isComercioUyU(RequestHeaders.getIdCuentaAdq());
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
