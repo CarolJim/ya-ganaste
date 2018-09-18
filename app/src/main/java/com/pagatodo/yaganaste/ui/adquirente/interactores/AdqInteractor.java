@@ -359,7 +359,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
-        bundle.putString(AMOUNT, result.getAmount());
+        bundle.putDouble(AMOUNT, Double.valueOf(result.getAmount()));
         if (data.getMarcaTarjetaBancaria() == null) {
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_CHARGE_ADQ_CL, bundle);
         } else {
