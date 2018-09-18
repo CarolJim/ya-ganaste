@@ -1344,7 +1344,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @Override
     public void onTextComplete() {
         UI.hideKeyBoard(this);
-        favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
+        if (favoriteProcess == NEW_FAVORITE_FROM_CERO)
+            favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
     }
 
     /**
