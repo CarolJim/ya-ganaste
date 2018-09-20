@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.CONNECTION_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TIMEOUT;
 
 /**
  * Created on 16/02/2017.

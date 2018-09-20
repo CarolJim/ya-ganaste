@@ -13,20 +13,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
-import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.dspread.xpos.QPOSService;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -36,7 +34,6 @@ import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
-import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.account.login.NewConfirmPasswordLogin;
 import com.pagatodo.yaganaste.ui.account.login.NewPasswordLoginChange;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
@@ -50,7 +47,6 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.ChatFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
@@ -68,7 +64,6 @@ import static android.os.Process.killProcess;
 import static android.os.Process.myPid;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
-import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.TYPE_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
@@ -77,13 +72,9 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
-import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SIZE_APP;
-import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
-import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
@@ -167,7 +158,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         setUpActionBar();
-
         ForcedUpdateChecker.with(this).onUpdateNeeded(this).check();
         App aplicacion = new App();
         presenterAccount = new AccountPresenterNew(this);
@@ -367,7 +357,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                         && App.getInstance().getPrefs().loadData(BT_PAIR_DEVICE).equals("")) {
                     loginContainerFragment.loadConfigDongle();
                 } else {*/
-                    loginContainerFragment.loadGetBalanceClosedLoop();
+                loginContainerFragment.loadGetBalanceClosedLoop();
                 //}
                 break;
             case EVENT_CONFIG_DONGLE:
@@ -420,7 +410,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                /* if (App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal()) {
                     loadFragment(PairBluetoothFragment.newInstance(), Direction.FORDWARD);
                 } else {*/
-                    onBackPressed();
+                onBackPressed();
                 //}
                 break;
             case EVENT_GO_HELP:
@@ -589,30 +579,43 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     }
 
     @Override
-    public void onUpdateNeeded(String updateUrl) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setTitle(getString(R.string.title_update))
-                .setMessage(getString(R.string.text_update_forced))
-                .setPositiveButton("Actualizar",
-                        (dialog1, which) -> {
-                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                                Log.e(getString(R.string.app_name), "Tamaño App: "+FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024
-                                        + "  Tamaño Disponible: "+Long.valueOf(Utils.getAvailableInternalMemorySize()));
-                            }
-                            /* Validar el tamaño necesario para actualizar la App */
-                            if ((FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
-                                startActivity(i);
-                                killProcess(myPid());
-                            } else {
-                                showDialogUninstallApps();
-                            }
-                        })
-                .setNegativeButton("No gracias",
-                        (dialog12, which) -> killProcess(myPid())).create();
-        dialog.show();
+    public void onUpdateNeeded() {
+        App.getDatabaseReference().child("Version/Size_ADT").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    long size_app = dataSnapshot.getValue(Long.class);
+                    AlertDialog dialog = new AlertDialog.Builder(AccountActivity.this)
+                            .setCancelable(false)
+                            .setTitle(getString(R.string.title_update))
+                            .setMessage(getString(R.string.text_update_forced))
+                            .setPositiveButton("Actualizar",
+                                    (dialog1, which) -> {
+                                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                            Log.e(getString(R.string.app_name), "Tamaño App: " + (size_app * 1024)
+                                                    + "  Tamaño Disponible: " + Long.valueOf(Utils.getAvailableInternalMemorySize()));
+                                        }
+                                        /* Validar el tamaño necesario para actualizar la App */
+                                        if ((size_app * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
+                                            Intent i = new Intent(Intent.ACTION_VIEW);
+                                            i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                                            startActivity(i);
+                                            killProcess(myPid());
+                                        } else {
+                                            showDialogUninstallApps();
+                                        }
+                                    })
+                            .setNegativeButton("No gracias",
+                                    (dialog12, which) -> killProcess(myPid())).create();
+                    dialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void showDialogUninstallApps() {

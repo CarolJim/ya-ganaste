@@ -169,7 +169,7 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
 
     private void getFirebaseLegals() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Mexico").child("Banking").child(typeLegal==Legales.TERMINOS?"trms_cndtns":"prvc_pltcs");
+        DatabaseReference ref = database.child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR").child(typeLegal==Legales.TERMINOS?"CTrmns":"CPrvd");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

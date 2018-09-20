@@ -186,7 +186,6 @@
             android:name=".ui_wallet.RequestPaymentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui_wallet.NotificationActivity" />
         <activity android:name=".ui_wallet.SearchCarrierActivity" />
         <activity
             android:name=".ui._controllers.manager.FavoritesActivity"

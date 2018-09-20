@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
@@ -20,9 +19,8 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -35,14 +33,12 @@ import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.FileDownload;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
-import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -56,7 +52,6 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.SESSION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
-import static com.pagatodo.yaganaste.utils.Recursos.WS_TIMEOUT;
 
 /**
  * Created by flima on 17/03/17.
@@ -66,6 +61,7 @@ public class App extends Application {
 
     private static App m_singleton;
     private static AppDatabase m_database;
+    private static DatabaseReference m_reference;
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
 
@@ -95,6 +91,10 @@ public class App extends Application {
 
     public static AppDatabase getAppDatabase() {
         return m_database = AppDatabase.getInMemoryDatabase(getContext());
+    }
+
+    public static DatabaseReference getDatabaseReference(){
+        return m_reference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -138,52 +138,12 @@ public class App extends Application {
             Log.i(getString(R.string.app_name), "Android Device Id: " + Utils.getUdid(getContext()));
         }
         datoHuellaC = "";
-        firebaseRemoteConfig();
-
         //Contly
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
         } else {
             Stetho.initializeWithDefaults(this);
         }
-    }
-
-    /* Firebase Remote Configuration */
-    private void firebaseRemoteConfig() {
-        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        Map<String, Object> remoteConfigDefaults = new HashMap();
-        remoteConfigDefaults.put(ForcedUpdateChecker.KEY_UPDATE_REQUIRED, true);
-        remoteConfigDefaults.put(ForcedUpdateChecker.KEY_CURRENT_VERSION, BuildConfig.VERSION_NAME);
-        remoteConfigDefaults.put(ForcedUpdateChecker.KEY_UPDATE_URL,
-                "https://play.google.com/store/apps/details?id=com.pagatodo.yaganaste");
-        remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOYALTY_CARDS, false);
-        remoteConfigDefaults.put(ForcedUpdateChecker.SHOW_LOGS, false);
-        remoteConfigDefaults.put(ForcedUpdateChecker.CONNECTION_TIMEOUT, WS_TIMEOUT);
-        remoteConfigDefaults.put(ForcedUpdateChecker.URL_YG_TRANS, "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc");
-        remoteConfigDefaults.put(ForcedUpdateChecker.URL_YG_ADMIN, "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc");
-        remoteConfigDefaults.put(ForcedUpdateChecker.URL_YG_ADQ, "https://adquirente.yaganaste.com:19447/Middleware.svc");
-        remoteConfigDefaults.put(ForcedUpdateChecker.URL_STARBUCKS, "https://crt-rewards.starbucks.mx");
-        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_TRANS, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
-        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_ADMIN, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
-        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_YG_ADQ, "3f3add61acd8b7a3ad1536566669e731ea6e9cea");
-        remoteConfigDefaults.put(ForcedUpdateChecker.PIN_STARBUCKS, "425965554aaa92372ccb807ff20a35d26f72d20d");
-        remoteConfigDefaults.put(ForcedUpdateChecker.SIZE_APP, 25);
-        remoteConfigDefaults.put(ForcedUpdateChecker.TRACE_SUCCESS_WS, false);
-        remoteConfigDefaults.put(ForcedUpdateChecker.URL_ACCOUNTS_STATEMENTS, "http://10.10.42.13:107/api/v1/Accounts/GetAccountStatus/");
-
-        firebaseRemoteConfig.setDefaults(remoteConfigDefaults);
-        firebaseRemoteConfig.fetch(0)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                                Log.d("YA GANASTE", "remote config is fetched.");
-                            }
-                            firebaseRemoteConfig.activateFetched();
-                        }
-                    }
-                });
     }
 
     public void clearCache() {

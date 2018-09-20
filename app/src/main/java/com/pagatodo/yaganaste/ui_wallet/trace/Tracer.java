@@ -4,20 +4,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
-import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.Utils;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
 
 public class Tracer extends WSTracer {
 

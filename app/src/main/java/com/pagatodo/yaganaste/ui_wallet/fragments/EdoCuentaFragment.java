@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui_wallet.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +10,17 @@ import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.UI;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +30,6 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SHOW_LOGS;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_ACCOUNTS_STATEMENTS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 public class EdoCuentaFragment extends GenericFragment {
@@ -87,14 +82,31 @@ public class EdoCuentaFragment extends GenericFragment {
         ButterKnife.bind(this, rootView);
         onEventListener.onEvent(EVENT_SHOW_LOADER, "Buscando estado de cuenta");
         webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        webView.getSettings().setJavaScriptEnabled(true);
+        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/Btn/4/Url").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    String checkUrl = dataSnapshot.getValue(String.class) +  idCuenta + "/" + year + "/" + month;
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
+                        Log.e("YG", "Url Estado Cuenta: " + checkUrl);
+                } else {
+                    onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+                    onEventListener.onEvent(EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR, null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void loadWebView(String url){
         Map<String, String> headers = new HashMap<>();
         headers.put("authToken", otp);
-        webView.getSettings().setJavaScriptEnabled(true);
-        FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
-        String checkUrl = config.getString(URL_ACCOUNTS_STATEMENTS) + idCuenta + "/" + year + "/" + month;
-        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
-            Log.e("YG", "Url Estado Cuenta: " + checkUrl);
-        webView.loadUrl(checkUrl, headers);
+        webView.loadUrl(url, headers);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {

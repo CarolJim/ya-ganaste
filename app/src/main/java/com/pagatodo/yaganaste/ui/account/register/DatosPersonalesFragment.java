@@ -34,7 +34,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -43,7 +42,6 @@ import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBuscaPais;
 import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
-import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -669,12 +667,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
         DtoStates itemSelected = adapterBirthPlace.getItem(position);
         txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_normal);
 
-        if (itemSelected.ClaveEntidad.equals("0")) {
+        if (itemSelected.ID_EntidadNacimiento.equals("0")) {
         } else {
             lugarnacimientomens.setVisibility(VISIBLE);
             lugarnacimientomens.setTextColor(getResources().getColor(R.color.colorAccent));
         }
-        if (itemSelected.ClaveEntidad.equals("33")) {
+        if (itemSelected.ID_EntidadNacimiento.equals("33")) {
             if (country != null) {
                 lytCountry.setVisibility(VISIBLE);
                 //errorCountryMessage.setVisibility(VISIBLE);
@@ -744,7 +742,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         apMaterno = editSecoundLastName.getText().toString();
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
-            idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ClaveEntidad;
+            idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ID_EntidadNacimiento;
         }
     }
 
@@ -769,7 +767,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
         int position = 0;
         for (int i = 0; i < states.size(); i++) {
-            if (states.get(i).ClaveEntidad.equals(registerUser.getLugarNacimiento()))
+            if (states.get(i).ID_EntidadNacimiento.equals(registerUser.getLugarNacimiento()))
                 position = i;
         }
         spinnerBirthPlace.setSelection(position);

@@ -1,21 +1,15 @@
 package com.pagatodo.yaganaste.net;
 
-import android.os.Trace;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.IServiceConsumer;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 import com.pagatodo.yaganaste.ui_wallet.trace.Tracer;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import org.json.JSONException;
@@ -28,7 +22,6 @@ import java.util.Iterator;
 import static com.android.volley.Request.Method.POST;
 import static com.pagatodo.yaganaste.ui_wallet.trace.Tracer.FAILED;
 import static com.pagatodo.yaganaste.ui_wallet.trace.Tracer.SUCESS;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.TRACE_SUCCESS_WS;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 /**

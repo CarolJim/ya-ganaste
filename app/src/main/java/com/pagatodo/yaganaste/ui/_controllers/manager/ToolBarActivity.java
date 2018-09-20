@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.AppCompatImageView;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.ui_wallet.NotificationActivity;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -215,7 +213,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
                 break;
             case R.id.imgNotifications:
                 // Toast.makeText(ToolBarActivity.this, "Click", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, NotificationActivity.class));
+                //startActivity(new Intent(this, NotificationActivity.class));
                 break;
             default:
                 Intent intent = new Intent(this, PreferUserActivity.class);

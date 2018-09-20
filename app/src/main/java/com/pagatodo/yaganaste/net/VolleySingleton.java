@@ -9,7 +9,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.pagatodo.yaganaste.utils.Recursos;
 
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -20,6 +19,11 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.thoughtcrime.ssl.pinning.PinningSSLSocketFactory;
+
+import static com.pagatodo.yaganaste.net.ApiAdq.PIN_ADQ;
+import static com.pagatodo.yaganaste.net.ApiAdtvo.PIN_ADTVO;
+import static com.pagatodo.yaganaste.net.ApiStarbucks.PIN_STARBUCKS;
+import static com.pagatodo.yaganaste.net.ApiTrans.PIN_TRANS;
 
 /**
  * Created on 16/02/2017.
@@ -74,8 +78,7 @@ public class VolleySingleton {
      */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            String[] pins = new String[]{Recursos.PIN_ADVO, Recursos.PIN_TRANS, Recursos.PIN_YA,
-                    Recursos.PIN_STARBUCKS};
+            String[] pins = new String[]{PIN_ADTVO, PIN_TRANS, PIN_ADQ, PIN_STARBUCKS};
             HttpParams httpParameters = new BasicHttpParams();
 
             SchemeRegistry schemeRegistry = new SchemeRegistry();

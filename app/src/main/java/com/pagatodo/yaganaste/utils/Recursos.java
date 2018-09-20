@@ -1,24 +1,8 @@
 package com.pagatodo.yaganaste.utils;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.PIN_YG_ADMIN;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.PIN_YG_ADQ;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.PIN_YG_TRANS;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_YG_ADMIN;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_YG_ADQ;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.URL_YG_TRANS;
-
 public class Recursos {
-
-    //HOST
-    public static final String URL_SERVER_ADTVO;
-    public static final String URL_SERVER_TRANS;
-    public static final String URL_SERVER_ADQ;
-    public static final String URL_SERVER_FB;
-    public static final String URL_STARBUCKS;
 
     //BASE DE DATOS
     public static final int DATABASE_VERSION = 3;
@@ -26,11 +10,6 @@ public class Recursos {
 
     public static final String PUBLIC_KEY_RSA;
     public static final String PUBLIC_STARBUCKS_KEY_RSA;
-
-    public static final String PIN_ADVO;
-    public static final String PIN_TRANS;
-    public static final String PIN_YA;
-    public static final String PIN_STARBUCKS;
 
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
@@ -41,22 +20,7 @@ public class Recursos {
     /*Freja*/
     public static final String PT_CLIENT_CODE = null;
 
-    //URL DE WS
     static {
-        URL_SERVER_ADTVO = FirebaseRemoteConfig.getInstance().getString(URL_YG_ADMIN);
-        //URL_SERVER_ADTVO = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteAdtvo.svc";
-        URL_SERVER_TRANS = FirebaseRemoteConfig.getInstance().getString(URL_YG_TRANS);
-        //URL_SERVER_TRANS = "https://wcfpreprod.yaganaste.com:8033/ServicioYaGanasteTrans.svc";
-        URL_SERVER_ADQ = FirebaseRemoteConfig.getInstance().getString(URL_YG_ADQ);
-        //URL_SERVER_ADQ = "https://adqyaganastepreprod.pagatodo.com/Middleware.svc";
-        URL_SERVER_FB = "http://10.10.45.13:6075/NotificacionesYG.svc/";
-        URL_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.URL_STARBUCKS);
-
-        PIN_ADVO = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADMIN);
-        PIN_TRANS = FirebaseRemoteConfig.getInstance().getString(PIN_YG_TRANS);
-        PIN_YA = FirebaseRemoteConfig.getInstance().getString(PIN_YG_ADQ);
-        PIN_STARBUCKS = FirebaseRemoteConfig.getInstance().getString(ForcedUpdateChecker.PIN_STARBUCKS);
-
         if (BuildConfig.DEBUG) {
             PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
             PUBLIC_STARBUCKS_KEY_RSA = "xymBd9bjA9QcZDSMoqvDts/zvoOTt1xjgzXRWzSD2eHoVHrpVhPR8hJzXiJyjAQ/fzUSsFUoYzIs6irVtZpgbggvhbAs/ItkvbypUzFN4CPnWCmYCVNqf/hwnniVTOn1EJ8WhPXdc5r5PPgBX74GnEvy2GI4n8santnvQq3WvTE=";
@@ -270,6 +234,7 @@ public class Recursos {
     public static final String PSW_CPR = "PSW_CPR";
     public static final String SHOW_LOYALTY = "SHOW_LOYALTY";
     public static final String SHOW_LOGS_PROD = "SHOW_LOGS_PROD";
+    public static final String CONNECTION_TIMEOUT = "CONNECTION_TIMEOUT";
 
     public static final String HAS_PROVISIONING = "HAS_PROVISIONING";
     public static final String USER_PROVISIONED = "USER_PROVISIONED";

@@ -23,18 +23,15 @@ public class FBInteractor implements IFBInteractor, IRequestResult {
 
     @Override
     public void registerFBToken(IFBInteractorListener listener, String tokenFB) {
-        this.listener = listener;
+        /*this.listener = listener;
         try {
-
             RegisterFBTokenRequest request = new RegisterFBTokenRequest(
                     SingletonUser.getInstance().getDataUser().getUsuario().getIdUsuario(),
                     tokenFB);
             ApiAdtvo.registerFBToken(request, this);
         } catch (OfflineException e) {
 
-        }
-
-
+        }*/
     }
 
     @Override

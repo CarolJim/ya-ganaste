@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.net;
 
-import android.util.Log;
-
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -39,8 +37,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimien
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetResumenDiaResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
-import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
-import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 
@@ -52,7 +48,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.AUTENTICA_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ_ADM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULT_BALANCE_UYU;
@@ -73,9 +68,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.SEND_REEMBOLSO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_TYPE_REPAYMENT;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
 /**
  * Created by flima on 17/03/2017.
@@ -84,6 +77,17 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
  */
 
 public class ApiAdq extends Api {
+
+    private static String URL_SERVER_ADQ;
+    public static String PIN_ADQ;
+
+    public static void setUrlServerAdq(String urlServerAdq) {
+        URL_SERVER_ADQ = urlServerAdq;
+    }
+
+    public static void setPinAdq(String pinAdq) {
+        PIN_ADQ = pinAdq;
+    }
 
     /**
      * Verifica que el usuario\contraseña este dado de alta en la plataforma PagaTodo,

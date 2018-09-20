@@ -4,8 +4,6 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +14,11 @@ import android.webkit.WebViewClient;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.dto.DtoVideoTutorials;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -34,7 +30,6 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_PRIVACIDAD;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS;
 
 
 /**
@@ -153,10 +148,8 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
 
     }
 
-    private void getFirebaseLegals(){
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Mexico").child("Banking").child("trms_cndtns");
-        ref.addValueEventListener(new ValueEventListener() {
+    private void getFirebaseLegals() {
+        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/CTrmns").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

@@ -1,19 +1,18 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.animation.Animator;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateInterpolator;
 
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -23,7 +22,6 @@ import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import static android.os.Process.killProcess;
 import static android.os.Process.myPid;
@@ -31,9 +29,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.utils.ForcedUpdateChecker.SIZE_APP;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
@@ -89,30 +85,43 @@ public class MainActivity extends ToolBarActivity implements ForcedUpdateChecker
     }
 
     @Override
-    public void onUpdateNeeded(String updateUrl) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setTitle(getString(R.string.title_update))
-                .setMessage(getString(R.string.text_update_forced))
-                .setPositiveButton("Actualizar",
-                        (dialog1, which) -> {
-                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
-                                Log.e(getString(R.string.app_name), "Tamaño App: "+ FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024
-                                        + "  Tamaño Disponible: "+Long.valueOf(Utils.getAvailableInternalMemorySize()));
-                            }
-                            /* Validar el tamaño necesario para actualizar la App */
-                            if ((FirebaseRemoteConfig.getInstance().getLong(SIZE_APP) * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
-                                startActivity(i);
-                                killProcess(myPid());
-                            } else {
-                                showDialogUninstallApps();
-                            }
-                        })
-                .setNegativeButton("No gracias",
-                        (dialog12, which) -> killProcess(myPid())).create();
-        dialog.show();
+    public void onUpdateNeeded() {
+        App.getDatabaseReference().child("Version/Size_ADT").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    long size_app = dataSnapshot.getValue(Long.class);
+                    AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                            .setCancelable(false)
+                            .setTitle(getString(R.string.title_update))
+                            .setMessage(getString(R.string.text_update_forced))
+                            .setPositiveButton("Actualizar",
+                                    (dialog1, which) -> {
+                                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                            Log.e(getString(R.string.app_name), "Tamaño App: "+ (size_app * 1024)
+                                                    + "  Tamaño Disponible: "+Long.valueOf(Utils.getAvailableInternalMemorySize()));
+                                        }
+                                        /* Validar el tamaño necesario para actualizar la App */
+                                        if ((size_app * 1024) < Long.valueOf(Utils.getAvailableInternalMemorySize())) {
+                                            Intent i = new Intent(Intent.ACTION_VIEW);
+                                            i.setData(Uri.parse("market://details?id=" + App.getContext().getPackageName()));
+                                            startActivity(i);
+                                            killProcess(myPid());
+                                        } else {
+                                            showDialogUninstallApps();
+                                        }
+                                    })
+                            .setNegativeButton("No gracias",
+                                    (dialog12, which) -> killProcess(myPid())).create();
+                    dialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void showDialogUninstallApps() {

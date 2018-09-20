@@ -36,7 +36,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITULAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.EJECUTAR_TRANSACCION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
 
 /**
  * Created by flima on 17/03/2017.
@@ -45,6 +44,17 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
  */
 
 public class ApiTrans extends Api {
+
+    private static String URL_SERVER_TRANS;
+    public static String PIN_TRANS;
+
+    public static void setUrlServerTrans(String urlServerTrans) {
+        URL_SERVER_TRANS = urlServerTrans;
+    }
+
+    public static void setPinTrans(String pinTrans) {
+        PIN_TRANS = pinTrans;
+    }
 
     /**
      * Método que se invoca para asignar una Cuenta a un Cliente.

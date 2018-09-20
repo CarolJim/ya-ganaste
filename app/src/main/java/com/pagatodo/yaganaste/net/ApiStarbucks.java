@@ -9,7 +9,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarb
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksCompleteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.RegisterStarbucksRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.StarbucksStoresRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.ConsultaMovimientosSBResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.CustomResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.LoginStarbucksResponse;
@@ -18,7 +17,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.SaldoSBRe
 import com.pagatodo.yaganaste.data.model.webservice.response.starbucks.StarbucksStoresResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
-import com.pagatodo.yaganaste.ui_wallet.interactors.RegisterCompleteIteractorStarbucks;
 
 import java.util.Map;
 
@@ -28,17 +26,25 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FORGETPASSWORD;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_STARBUCKS_STORES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGINSTARBUCKS;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.PREREGISTRO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTROCOMPLETE;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_STARBUCKS;
 
 /**
  * Created by asandovals on 20/04/2018.
  */
 
 public class ApiStarbucks extends Api {
+
+    private static String URL_STARBUCKS;
+    public static String PIN_STARBUCKS;
+
+    public static void setUrlStarbucks(String urlStarbucks) {
+        URL_STARBUCKS = urlStarbucks;
+    }
+
+    public static void setPinStarbucks(String pinStarbucks) {
+        PIN_STARBUCKS = pinStarbucks;
+    }
 
     public static void loginStarbucks(LoginStarbucksRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersStarbucks();
