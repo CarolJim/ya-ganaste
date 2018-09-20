@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
+import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
@@ -88,6 +89,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         final Handler handler = new Handler();
         preferencias = App.getInstance().getPrefs();
         new DatabaseManager().checkCountries();
+        ForcedUpdateChecker.with(this).check();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
