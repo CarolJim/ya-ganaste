@@ -119,7 +119,7 @@ public class ForcedUpdateChecker {
         });
     }
 
-    private void getUrls(){
+    public static void getUrls(){
         // Obtener url para servidor Emisor Administrativo
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_URL_ADTVO").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

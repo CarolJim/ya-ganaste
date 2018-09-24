@@ -61,7 +61,7 @@ public class App extends Application {
 
     private static App m_singleton;
     private static AppDatabase m_database;
-    private static DatabaseReference m_reference, user_reference;
+    private static DatabaseReference m_reference;
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
 
@@ -94,11 +94,7 @@ public class App extends Application {
     }
 
     public static DatabaseReference getDatabaseReference(){
-        return m_reference = FirebaseDatabase.getInstance("https://odin-dd5ba.firebaseio.com/").getReference();
-    }
-
-    public static DatabaseReference getUserReference(){
-        return user_reference = FirebaseDatabase.getInstance("https://odin-mx-users.firebaseio.com/").getReference();
+        return m_reference = FirebaseDatabase.getInstance("https://odin-dd5ba.firebaseio.com").getReference();
     }
 
     @Override
