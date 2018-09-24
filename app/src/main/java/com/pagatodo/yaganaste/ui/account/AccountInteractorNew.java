@@ -2,11 +2,22 @@ package com.pagatodo.yaganaste.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
@@ -90,7 +101,9 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
@@ -137,6 +150,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
 import static com.pagatodo.yaganaste.utils.Recursos.FAVORITE_DRINK;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_FIREBASE_ACCOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
@@ -161,6 +175,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STARBUCKS_CARDS;
 import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
@@ -552,6 +567,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
             case CERRAR_SESION:
                 RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
+                FirebaseAuth.getInstance().signOut();
                 if (logOutBefore) {
                     logOutBefore = false;
                     switch (this.operationAccount) {
@@ -972,6 +988,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         String stepByUserStatus;
         SingletonUser user = SingletonUser.getInstance();
         DataIniciarSesionUYU dataUser = user.getDataUser();
+        FirebaseAnalytics.getInstance(App.getContext()).setUserId(dataUser.getUsuario().getNombreUsuario());
+        Crashlytics.setUserIdentifier(dataUser.getUsuario().getNombreUsuario());
+        Bundle bundle = new Bundle();
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_LOG_IN, bundle);
         if (!dataUser.getControl().getRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
             //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento
@@ -980,17 +1001,45 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (!SingletonUser.getInstance().needsReset()) {
                 prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
             }
-
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
+            if (!prefs.loadDataBoolean(HAS_FIREBASE_ACCOUNT, false)) {
+                registerUserInFirebase(dataUser, stepByUserStatus);
+            } else {
+                logInFirebase(stepByUserStatus);
+            }
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
+            accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
         }
-        FirebaseAnalytics.getInstance(App.getContext()).setUserId(dataUser.getUsuario().getNombreUsuario());
-        Crashlytics.setUserIdentifier(dataUser.getUsuario().getNombreUsuario());
-        Bundle bundle = new Bundle();
-        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
-        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_LOG_IN, bundle);
-        accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
+    }
+
+    private void registerUserInFirebase(DataIniciarSesionUYU data, String stepUser) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true);
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    FirebaseUser user = auth.getCurrentUser();
+                    prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
+                    Map<String, String> users = new HashMap<>();
+                    users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
+                    users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
+                    FirebaseDatabase.getInstance().getReference().child("Ya-Ganaste-5_0/USERS/" + user.getUid()).setValue(users);
+                    accountManager.goToNextStepAccount(stepUser, null);
+                } else {
+                    accountManager.goToNextStepAccount(stepUser, null);
+                }
+            }
+        });
+    }
+
+    private void logInFirebase(String stepUser) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInWithEmailAndPassword(RequestHeaders.getUsername(), pass).addOnCompleteListener(task -> {
+            accountManager.goToNextStepAccount(stepUser, null);
+        });
     }
 
     public boolean needsProvisioning() {

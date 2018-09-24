@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -286,7 +289,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
         // Deshabilitamos el backButton
         //getActivity().onBackPressed();
         onEventListener.onEvent("DISABLE_BACK", true);
-
+        FirebaseAuth.getInstance().getCurrentUser().updatePassword(editNueva.editText.getText().toString().trim());
         mPreferPresenter.changePassToPresenter(
                 Utils.cipherRSA(editActual.editText.getText().toString().trim(), PUBLIC_KEY_RSA),
                 Utils.cipherRSA(editNueva.editText.getText().toString().trim(), PUBLIC_KEY_RSA)

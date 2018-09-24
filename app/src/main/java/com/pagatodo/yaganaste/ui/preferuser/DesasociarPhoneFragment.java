@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -28,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,6 +127,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
         UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, getString(R.string.title_aceptar), (dialogInterface, i) -> onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null));
+        FirebaseDatabase.getInstance().getReference().child("Ya-Ganaste-5_0/USERS/"+App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_AUTH)+"/Mbl").setValue("00000");
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();

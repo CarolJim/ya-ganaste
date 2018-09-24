@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui_wallet.interactors;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -63,6 +64,7 @@ public class INavigationDrawerInteractorImpl implements INavigationDrawerInterac
         if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
             RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
+            FirebaseAuth.getInstance().signOut();
             //CerrarSesionRequest response = (CerrarSesionRequest) dataSourceResult.getData();
             navigationDrawerPresenter.successGenericToPresenter(dataSourceResult);
         }

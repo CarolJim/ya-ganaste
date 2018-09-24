@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -239,9 +240,9 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         if (dataSourceResult.getData() instanceof CerrarSesionResponse) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
             RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
+            FirebaseAuth.getInstance().signOut();
             //CerrarSesionRequest response = (CerrarSesionRequest) dataSourceResult.getData();
             preferUserPresenter.successGenericToPresenter(dataSourceResult);
-
         }
 
         /**
