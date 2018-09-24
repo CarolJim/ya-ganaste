@@ -127,7 +127,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
         UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, getString(R.string.title_aceptar), (dialogInterface, i) -> onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null));
-        FirebaseDatabase.getInstance().getReference().child("Ya-Ganaste-5_0/USERS/"+App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_AUTH)+"/Mbl").setValue("00000");
+        App.getUserReference().child(App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_AUTH)+"/Mbl").setValue("00000");
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();

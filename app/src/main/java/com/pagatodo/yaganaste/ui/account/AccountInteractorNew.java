@@ -1026,7 +1026,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     Map<String, String> users = new HashMap<>();
                     users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
                     users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
-                    FirebaseDatabase.getInstance().getReference().child("Ya-Ganaste-5_0/USERS/" + user.getUid()).setValue(users);
+                    App.getUserReference().child(user.getUid()).setValue(users);
                     accountManager.goToNextStepAccount(stepUser, null);
                 } else {
                     accountManager.goToNextStepAccount(stepUser, null);
