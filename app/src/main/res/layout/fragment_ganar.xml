@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui_wallet.fragments.GanarFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="120dp"
+            app:srcCompat="@drawable/ic_ico_promos"
+            />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="27dp"
+            android:gravity="center_horizontal"
+            android:text="@string/titulo_ganar_sin_p"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_text_style_2_value" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titulo_datos_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/subtitulo_ganar_sin_p"
+            android:textAlignment="center"
+            android:textColor="@color/adadad"
+            android:textSize="14sp"
+            app:tipo="Text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnPromoUsuario"
+                style="@style/buttonSquareRoundedBlueNewWallet"
+                android:background="@drawable/button_rounded_blue"
+                android:gravity="center"
+                android:text="@string/promoButton" />
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</FrameLayout>

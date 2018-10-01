@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DetalleOperadorFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 
 import java.security.KeyStore;
 
@@ -287,6 +288,26 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
                     fingerprint_titulo.setText("Autoriza esta operación");
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
+                }else if (fragmentInstance instanceof PayQRFragment) {
+
+                    fingerprint_titulo.setText("Autoriza esta operación");
+                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dismiss();
+                            mActivity.calldialogpass(fragmentInstance);
+
+                        }
+                    });
+                    mCancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dismiss();
+                            mActivity.canceltransaction(fragmentInstance);
+
+                        }
+                    });
+
                 }
 
                 mCancelButton.setText(R.string.cancel);
@@ -376,5 +397,11 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
     public interface generateCodehuella {
         void generatecodehue(Fragment fm);
+    }
+    public interface calldialogpass {
+        void calldialogpass(Fragment fm);
+    }
+    public interface canceltransaction {
+        void canceltransaction(Fragment fm);
     }
 }

@@ -488,6 +488,7 @@
     <string name="main_tab_inicio">Wallet</string>
     <string name="main_tab_pagos">Pagar</string>
     <string name="main_tab_depositos">Enviar</string>
+    <string name="main_tab_ganar">Ganar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="main_tab_movimientos">Consultar Movimientos</string>
@@ -1607,4 +1608,29 @@
     <string name="title_descargar_edo_cuenta">Estados de cuenta</string>
     <string name="subtitle_descargar_edo_cuenta">Selecciona el estado de cuenta\nque deseas consultar</string>
     <string name="input_password">Ingresa tu contraseña</string>
+
+
+    <!-- Pago con QR -->
+    <string name="monto_pagar">Monto a pagar</string>
+    <string name="pagar">Pagar</string>
+    <string name="operation_pago_qr">Pago rápido</string>
+    <string name="txt_enter_passwordpayqr">Ingresa tu contraseña</string>
+    <string name="succespaymentqr">Tú pago \nfué realizado con éxito\n\n </string>
+
+
+    <!-- Ganar -->
+    <string name="titulo_ganar_sin_p">Todavía no tienes promociones</string>
+    <string name="subtitulo_ganar_sin_p">Encuentra comercios cerca de ti\ny obten increibles ofertas\nen tus marcas favorítas</string>
+    <string name="promoButton">Encontrar promociones</string>
+
+
+    <!-- Promos -->
+    <string name="titulo_promociones">Ganar</string>
+    <string name="hint_search_win">Buscar promociones</string>
+    <string name="nuevas_promos">Nuevas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vigentes_promos">Vigentes</string>
+
 </resources>

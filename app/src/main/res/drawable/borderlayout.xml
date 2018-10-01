@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!--    <item>
+
+            <shape android:shape="rectangle">
+                <solid android:color="#FFFFFF" />
+                <corners android:radius="3dp" />
+                <stroke android:width="1dp" android:color="#fbfbfb" />
+            </shape>
+        </item>
+    -->
+    <!-- Drop Shadow Stack -->
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="0.5dp"
+                android:right="1dp"
+                android:top="0dp" />
+
+            <solid android:color="@color/yellow" />
+
+            <corners android:radius="17dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="0.5dp"
+                android:right="1dp"
+                android:top="0dp" />
+
+            <solid android:color="@color/greencolor222" />
+
+            <corners android:radius="17dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="0.5dp"
+                android:right="1dp"
+                android:top="0dp" />
+
+            <solid android:color="@color/redColor" />
+
+            <corners android:radius="17dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="0.5dp"
+                android:right="1dp"
+                android:top="0dp" />
+            <solid android:color="@color/colorAccent" />
+            <corners android:radius="17dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/colorAccent" />
+
+            <corners android:radius="17dp" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/black" />
+            <corners android:radius="17dp" />
+            <stroke android:width="0.5dp" android:color="#fbfbfb" />
+        </shape>
+    </item>
+</layer-list>

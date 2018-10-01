@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,22 +11,28 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Card;
+import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesionUYU;
+import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -47,11 +54,15 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.SelfieFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.ChatFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SelectDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
+import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -72,6 +83,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -96,6 +108,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_PERSONAL_DATA = "EVENT_GO_PERSONAL_DATA";
     public final static String EVENT_PERSONAL_DATA_BACK = "EVENT_GO_PERSONAL_DATA_BACK";
 
+    public final static String EVENT_PAYMENTQR = "EVENT_PAYMENTQR";
+
     public final static String EVENT_SELFIE = "EVENT_SELFIE";
     public final static String EVENT_SELFIE_BACK = "EVENT_SELFIE_BACK";
 
@@ -107,6 +121,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_GO_CONFIRM_PIN = "EVENT_GO_CONFIRM_PIN";
     public final static String EVENT_GO_CONFIRM_PIN_BACK = "EVENT_GO_CONFIRM_PIN_BACK";
     public final static String EVENT_GO_CONFIRM_CONTRA_BACK = "EVENT_GO_CONFIRM_CONTRA_BACK";
+    public final static String EVENT_PAYMENT_SUCCES_QR = "EVENT_PAYMENT_SUCCES_QR";
 
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
@@ -126,6 +141,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public final static String EVENT_STORES = "EVENT_STORES";
     public final static String EVENT_ADMIN_ADQ = "EVENT_ADMIN_ADQ";
     public final static String EVENT_OPERADOR_DETALLE = "EVENT_OPERADOR_DETALLE";
+    public final static String EVENT_DETALLE_PROMO = "EVENT_DETALLE_PROMO";
     public final static String EVENT_CHECK_MONEY_CARD = "EVENT_CHECK_MONEY_CARD";
     public final static String SUCCES_CHANGE_STATUS_OPERADOR = "SUCCES_CHANGE_STATUS_OPERADOR";
     FrameLayout container;
@@ -217,6 +233,24 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         super.onEvent(event, o);
         Log.e(TAG, "onEvent - - " + event);
         switch (event) {
+
+            case EVENT_PAYMENT_SUCCES_QR:
+                PageResult pageResult = new PageResult(R.drawable.ic_check_success, this.getString(R.string.cancelation_success),
+                        this.getString(R.string.succespaymentqr), false);
+                pageResult.setNamerBtnPrimary(this.getString(R.string.continuar));
+                //pageResult.setNamerBtnSecondary("Llamar");
+                pageResult.setActionBtnPrimary(new Command() {
+                    @Override
+                    public void action(Context context, Object... params) {
+                        onBackPressed();
+                    }
+                });
+                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
+
+                loadFragment(TransactionResultFragment.newInstance(pageResult), Direction.FORDWARD, false);
+
+                break;
+
             case EVENT_GO_LOGIN:
                 showToolbarHelp(true);
                 loadFragment(loginContainerFragment, Direction.FORDWARD, false);
@@ -237,6 +271,16 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
             case EVENT_DATA_USER_BACK:
                 loadFragment(DatosUsuarioFragment.newInstance(), Direction.BACK, false);
+                break;
+            case EVENT_DETALLE_PROMO:
+                Intent intentpromo = new Intent(this, PromoCodesActivity.class);
+                this.startActivity(intentpromo);
+                break;
+
+            case EVENT_PAYMENTQR:
+                Intent intentqr = new Intent(this, ScannVisionActivity.class);
+                intentqr.putExtra(ScannVisionActivity.QRObject, true);
+                this.startActivityForResult(intentqr, BARCODE_READER_REQUEST_CODE_COMERCE);
                 break;
 
             case EVENT_PERSONAL_DATA:
@@ -526,14 +570,35 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    if (barcode.displayValue.contains("reference") &&
+                            barcode.displayValue.contains("commerce") &&barcode.displayValue.contains("codevisivility") ) {
+                        QrcodeGenerator.MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQrCommerce.class);
+                        Log.d("Ya codigo qr",myQr.getCommerce());
+                        Log.d("Ya codigo qr",myQr.getReference());
+                        showBack(true);
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(),myQr.getReference(),Boolean.parseBoolean(myQr.getCodevisivility())), Direction.FORDWARD);
+                    } else {
+                        UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                    }
+                }
+            }
+        }
+
         if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             loginContainerFragment.onActivityResult(requestCode, resultCode, data);
         } else {
             try {
-                SelfieFragment mFragment = (SelfieFragment) getSupportFragmentManager().findFragmentById(R.id.container);
-                CameraManager cameraManager = mFragment.getCameraManager();
-                // Enviamos datos recibidos al CameraManager
-                cameraManager.setOnActivityResult(requestCode, resultCode, data);
+                if (requestCode != BARCODE_READER_REQUEST_CODE_COMERCE) {
+                    SelfieFragment mFragment = (SelfieFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+                    CameraManager cameraManager = mFragment.getCameraManager();
+                    // Enviamos datos recibidos al CameraManager
+                    cameraManager.setOnActivityResult(requestCode, resultCode, data);
+                }
             } catch (Exception e) {
 
             }

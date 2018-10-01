@@ -24,8 +24,10 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.GanarFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PromocionesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
@@ -106,7 +108,9 @@ public class ViewPagerDataFactory {
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(NewPaymentFragment.newInstance());
         }
-
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
+            fragmentList.add(PromocionesFragment.newInstance());
+        }
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

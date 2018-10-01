@@ -60,6 +60,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_CHECK_MONEY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_VENTAS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENTQR;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_REWARDS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_STORES;
@@ -69,6 +70,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADMON_AD
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BALANCE_CLOSED_LOOP;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_GENERATE_TOKEN;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAGO_QR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
@@ -182,7 +184,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);
-        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rcvElementsBalance.setHasFixedSize(true);
         if (prefs.loadData(CARD_NUMBER).isEmpty()) {
             Status = ESTATUS_CUENTA_BLOQUEADA;
@@ -298,7 +300,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             if (adapterBalanceCard.getElemenWallet(position) != null) {
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
                     if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
-                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
+                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
                         //    accountPresenter.updateBalance();
                         upDateSaldo(StringUtils.getCurrencyValue(balanceEmisor));
                     } else {
@@ -336,6 +338,9 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
 
             case OPTION_BLOCK_CARD:
                 nextScreen(EVENT_BLOCK_CARD, null);
+                break;
+            case OPTION_PAGO_QR:
+                nextScreen(EVENT_PAYMENTQR, null);
                 break;
             case OPTION_GENERATE_TOKEN:
                 nextScreen(EVENT_SECURE_CODE, null);

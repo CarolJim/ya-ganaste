@@ -86,6 +86,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DETALLE_PROMO;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
@@ -383,6 +384,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (event.equals(EVENT_LOGOUT)) {
             logOut(App.getContext().getResources().getString(R.string.reload_session));
         }
+        else if (event.equals(EVENT_DETALLE_PROMO)) {
+            Intent intentpromo = new Intent(this, PromoCodesActivity.class);
+            this.startActivity(intentpromo);
+        }
+
     }
 
     protected void hideMainTab() {

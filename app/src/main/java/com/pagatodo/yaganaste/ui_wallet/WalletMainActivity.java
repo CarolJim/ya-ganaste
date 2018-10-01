@@ -15,12 +15,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ShareActionProvider;
 
 import com.dspread.xpos.QPOSService;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
@@ -43,6 +47,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
@@ -80,6 +85,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.MovementsSbFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorSuccesFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadoresUYUFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PairBluetoothFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterCompleteStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RegisterStarbucksFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.RewardsStarbucksFragment;
@@ -89,6 +95,7 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
+import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
@@ -107,6 +114,7 @@ import javax.crypto.KeyGenerator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DETALLE_PROMO;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_OPERADOR_DETALLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PAYMENT;
@@ -149,6 +157,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENT
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_MVIMIENTOS_STARBUCKS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_OPERADORES_ADQ;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAGO_QR;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_PAYMENT_ADQ;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_RECOMPENSAS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_REENVOLSO_FIRST;
@@ -156,6 +165,7 @@ import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SETTINGS
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_SUCURSALES;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_TUTORIALS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_VENTAS_ADQ;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE_COMERCE;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
@@ -320,6 +330,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case OPTION_ADMON_EMISOR:
                 loadFragment(AdministracionFragment.newInstance(), R.id.fragment_container);
                 break;
+            case OPTION_PAGO_QR:
+                Intent intent = new Intent(this, ScannVisionActivity.class);
+                intent.putExtra(ScannVisionActivity.QRObject, true);
+                this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE_COMERCE);
+                break;
             case OPTION_ADMON_ADQ:
                 int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
                         Manifest.permission.RECORD_AUDIO);
@@ -433,11 +448,29 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     break;
             }
         }
+        if (requestCode == BARCODE_READER_REQUEST_CODE_COMERCE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    if (barcode.displayValue.contains("reference") &&
+                            barcode.displayValue.contains("commerce") &&barcode.displayValue.contains("codevisivility") ) {
+                        QrcodeGenerator.MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQrCommerce.class);
+                        Log.d("Ya codigo qr",myQr.getCommerce());
+                        Log.d("Ya codigo qr",myQr.getReference());
+
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(),myQr.getReference(),Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
+                    } else {
+                        UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
+                    }
+                }
+            }
+        }
+
         if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
                 || requestCode == PAYMENTS_ADQUIRENTE) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         } else {
-            if (data != null) {
+            if (data != null && requestCode != BARCODE_READER_REQUEST_CODE_COMERCE) {
                 getCurrentFragment().onActivityResult(requestCode, resultCode, data);
             }
         }
@@ -566,6 +599,11 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case EVENT_OPERADOR_DETALLE:
                 loadFragment(DetalleOperadorFragment.newInstance((Operadores) data), R.id.fragment_container);
+                break;
+            case EVENT_DETALLE_PROMO:
+                Intent intent = new Intent(this, ScannVisionActivity.class);
+                intent.putExtra(ScannVisionActivity.QRObject, true);
+                this.startActivity(intent);
                 break;
             case SUCCES_CHANGE_STATUS_OPERADOR:
                 loadFragment(OperadorSuccesFragment.newInstance((int) data), R.id.fragment_container);

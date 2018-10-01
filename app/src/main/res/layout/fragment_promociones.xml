@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui_wallet.fragments.PromocionesFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
+        android:text="@string/titulo_promociones"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_style_2_value" />
+
+
+        <LinearLayout
+            android:id="@+id/txtfecha"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/inputtext_normal"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:hint="@string/hint_search_win"
+                android:textColorHint="@color/texthint"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
+                app:passwordToggleTint="@color/hint_color"
+                tools:ignore="UnusedAttribute">
+
+                <EditText
+                    android:id="@+id/editBirthDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/text_apater"
+                    android:layout_marginBottom="9dp"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:paddingLeft="12.5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent"
+                android:background="#c4c4c4"
+                android:layout_marginEnd="10dp" />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="11dp"
+                android:src="@drawable/ic_search_place"
+                android:tint="@color/colorAccent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/whiteColor"
+            android:orientation="horizontal"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:id="@+id/lay_nuevas_promos"
+                >
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/sub_titulo_nuevas_promos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nuevas_promos"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorAlternative"
+                    android:textSize="16dp"
+                    app:tipo="Text" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/whiteColor"
+                    android:id="@+id/line_selectect_nuevas_promos"
+                    android:orientation="vertical"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:id="@+id/lay_vigentes_promos"
+                >
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/sub_titulo_vigentes_promos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/vigentes_promos"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorAlternative"
+                    android:textSize="16dp"
+                    app:tipo="Text" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/whiteColor"
+                    android:id="@+id/line_selectect_vigentes_promos"
+                    android:orientation="vertical"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:id="@+id/lay_fin_promos"
+                >
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/sub_titulo_fin_promos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="Finalizadas"
+                    android:layout_marginBottom="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorAlternative"
+                    android:textSize="16dp"
+                    app:tipo="Text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/colorAccent"
+                    android:id="@+id/line_selectect_fin_promos"
+                    android:orientation="vertical"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_promos"
+            >
+
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+</FrameLayout>

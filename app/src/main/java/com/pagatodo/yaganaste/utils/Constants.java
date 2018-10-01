@@ -22,6 +22,7 @@ public class Constants {
 
     public static final int BARCODE_READER_REQUEST_CODE = 60;
     public static final int CREDITCARD_READER_REQUEST_CODE = 61;
+    public static final int BARCODE_READER_REQUEST_CODE_COMERCE = 62;
     public static final int BACK_FROM_PAYMENTS = 190;
     public static final int REGISTER_ADQUIRENTE_CODE = 840;
 

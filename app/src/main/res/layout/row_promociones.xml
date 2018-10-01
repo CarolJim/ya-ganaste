@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/row_rewards"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+
+    android:background="@drawable/border"
+    android:orientation="horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="6dp"
+        android:layout_gravity="center_vertical"
+        >
+        <ImageView
+            android:layout_width="14.6dp"
+            android:layout_height="11.7dp"
+            app:srcCompat="@drawable/ic_casita"
+            android:id="@+id/img_casa"
+            />
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="11dp"
+    android:layout_gravity="center_vertical"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/bitmap"
+        />
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="11dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        >
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titulo_promo"
+            android:text="$5 pesos de descuento"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/sub_vigencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Vigencia 18/Oct/2018"
+            android:textAlignment="center"
+            android:textColor="@color/adadad"
+            android:textSize="14sp"
+            app:tipo="Text" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_weight="1"
+        android:gravity="right">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/colorAccent"
+            android:layout_marginRight="13dp"
+            app:srcCompat="@drawable/arrow_icon" />
+    </LinearLayout>
+
+
+</LinearLayout>

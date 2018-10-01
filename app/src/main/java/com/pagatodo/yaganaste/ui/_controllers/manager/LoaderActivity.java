@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFr
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.CancelAccountFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.DescargarEdoCuentaFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
@@ -44,7 +45,7 @@ import javax.crypto.KeyGenerator;
  */
 
 public abstract class LoaderActivity extends ToolBarActivity implements OnEventListener, IProgressView<ErrorObject>,
-        FingerprintAuthenticationDialogFragment.generateCodehuella {
+        FingerprintAuthenticationDialogFragment.generateCodehuella,FingerprintAuthenticationDialogFragment.calldialogpass,FingerprintAuthenticationDialogFragment.canceltransaction {
 
     public static final String EVENT_SHOW_LOADER = "EVENT_SHOW_LOADER";
     public static final String EVENT_HIDE_LOADER = "EVENT_HIDE_LOADER";
@@ -242,5 +243,17 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
         if (!isLoaderShow) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void calldialogpass(Fragment fm) {
+        if (fm instanceof PayQRFragment)
+            ((PayQRFragment) fm).calldialogpasss();
+    }
+
+    @Override
+    public void canceltransaction(Fragment fm) {
+        if (fm instanceof PayQRFragment)
+            ((PayQRFragment) fm).canceltransaction();
     }
 }
