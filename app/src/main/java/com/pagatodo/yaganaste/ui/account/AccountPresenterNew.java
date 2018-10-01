@@ -524,6 +524,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 Bundle bundle = new Bundle();
                 bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
                 bundle.putString(EMAIL_REGISTER, RequestHeaders.getUsername());
+                FirebaseAnalytics.getInstance(App.getContext()).setUserId(RequestHeaders.getUsername());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_YG, bundle);
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }

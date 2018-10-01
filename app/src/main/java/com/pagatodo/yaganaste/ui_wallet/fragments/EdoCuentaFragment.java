@@ -90,6 +90,7 @@ public class EdoCuentaFragment extends GenericFragment {
                     String checkUrl = dataSnapshot.getValue(String.class) +  idCuenta + "/" + year + "/" + month;
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false))
                         Log.e("YG", "Url Estado Cuenta: " + checkUrl);
+                    loadWebView(checkUrl);
                 } else {
                     onEventListener.onEvent(EVENT_HIDE_LOADER, null);
                     onEventListener.onEvent(EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR, null);

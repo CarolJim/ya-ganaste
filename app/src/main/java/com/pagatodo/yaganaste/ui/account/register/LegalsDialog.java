@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
@@ -168,8 +169,7 @@ public class LegalsDialog extends DialogFragment implements IProgressView, View.
     }
 
     private void getFirebaseLegals() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR").child(typeLegal==Legales.TERMINOS?"CTrmns":"CPrvd");
+        DatabaseReference ref = App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR").child(typeLegal==Legales.TERMINOS?"CTrmns":"CPrvd");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

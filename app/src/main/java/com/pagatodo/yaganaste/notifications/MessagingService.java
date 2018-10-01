@@ -4,6 +4,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -26,16 +28,17 @@ import static com.pagatodo.yaganaste.utils.Recursos.NOTIF_COUNT;
 public class MessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MessagingService";
+    private static final String CHANNEL_PROMOS = "CHANNEL_PROMOS";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        //   Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Varificamos si el mensaje remoto contiene datos. debemos verificar que concuerden los
         // nombres de variables
         if (remoteMessage.getData().size() > 0) {
-            // Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             // sendNotification(remoteMessage.getData().get("myBody"), remoteMessage.getData().get("id"));
             int notifPendents = App.getInstance().getPrefs().loadDataInt(NOTIF_COUNT) + 1;
             //App.setBadge(notifPendents);
@@ -74,6 +77,16 @@ public class MessagingService extends FirebaseMessagingService {
                         break;
                 }
             }
+        }
+        if (remoteMessage.getNotification() != null) {
+            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_PROMOS)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(remoteMessage.getNotification().getTitle())
+                    .setContentText(remoteMessage.getNotification().getBody())
+                    //.setStyle(new NotificationCompat.BigTextStyle().bigText(remoteMessage.getNotification().getBody()))
+                    .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.card_sbux)).bigLargeIcon(null))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         }
     }
 

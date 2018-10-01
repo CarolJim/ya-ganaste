@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
@@ -44,6 +45,8 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.PayQRFragment;
 import java.security.KeyStore;
 
 import javax.crypto.KeyGenerator;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 
 /**
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
@@ -273,15 +276,16 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                     fingerprint_titulo.setText("Autoriza esta operación ");
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof BlockCardFragment) {
-                    fingerprint_titulo.setText("Bloquear Tarjeta ");
+                    if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals("1")) {
+                        fingerprint_titulo.setText("Desbloquear tarjeta");
+                    } else {
+                        fingerprint_titulo.setText("Bloquear tarjeta");
+                    }
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
-
                     fingerprint_titulo.setText(R.string.generar_codigo_seguridad);
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
-
                 } else if (fragmentInstance instanceof PaymentAuthorizeFragment) {
-
                     fingerprint_titulo.setText(R.string.authorize_payment_title);
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof CancelAccountFragment) {

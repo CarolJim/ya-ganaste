@@ -78,8 +78,7 @@ public class TutorialsFragment extends SupportFragment {
         setButton(new ElementView(OPTION_CALL, R.drawable.ic_telefono, R.string.llamada), item -> {
             UtilsIntents.createCallIntent(getActivity());
         }).inflate(container_options);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference ref = database.child("Mexico").child("AppEngine").child("Media").child("Video");
+        DatabaseReference ref = App.getDatabaseReference().child("Mexico").child("AppEngine").child("Media").child("Video");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

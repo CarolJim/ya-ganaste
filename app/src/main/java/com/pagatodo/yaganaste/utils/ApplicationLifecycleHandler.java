@@ -52,22 +52,6 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
         }
     }
 
-    private void goToLoginScreen(Activity activity) {
-        VolleySingleton.getInstance(App.getContext()).deleteQueue();
-
-        try {
-            ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-
-        Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra(SELECTION, MAIN_SCREEN);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
-    }
-
-
     @Override
     public void onActivityStopped(Activity activity) {
 
