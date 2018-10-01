@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN_USERS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,7 +128,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         //showDialogCustom(mensaje);
         SingletonUser.getInstance().setCardStatusId(null);
         UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), mensaje, getString(R.string.title_aceptar), (dialogInterface, i) -> onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null));
-        FirebaseDatabase.getInstance("https://odin-mx-users.firebaseio.com").getReference().child(App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_AUTH)+"/Mbl").setValue("00000");
+        FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_AUTH)+"/Mbl").setValue("00000");
         App.getInstance().getPrefs().clearPreferences();
         App.getInstance().clearCache();
         new DatabaseManager().deleteFavorites();

@@ -90,6 +90,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         preferencias = App.getInstance().getPrefs();
         new DatabaseManager().checkCountries();
         ForcedUpdateChecker.getUrls();
+        ForcedUpdateChecker.getPins();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -12,16 +12,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -179,6 +174,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN_USERS;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
 
@@ -1005,7 +1002,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (!prefs.loadDataBoolean(HAS_FIREBASE_ACCOUNT, false)) {
                 registerUserInFirebase(dataUser, stepByUserStatus);
             } else {
-                logInFirebase(stepByUserStatus);
+                logInFirebase(dataUser, stepByUserStatus);
             }
         } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
@@ -1026,18 +1023,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     Map<String, String> users = new HashMap<>();
                     users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
                     users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
-                    FirebaseDatabase.getInstance("https://odin-mx-users.firebaseio.com").getReference().child(user.getUid()).setValue(users);
+                    FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
                     accountManager.goToNextStepAccount(stepUser, null);
                 } else {
-                    accountManager.goToNextStepAccount(stepUser, null);
+                    logInFirebase(data, stepUser);
                 }
             }
         });
     }
 
-    private void logInFirebase(String stepUser) {
+    private void logInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(RequestHeaders.getUsername(), pass).addOnCompleteListener(task -> {
+        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = auth.getCurrentUser();
+                prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
+                Map<String, String> users = new HashMap<>();
+                users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
+                users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
+                FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
+            }
             accountManager.goToNextStepAccount(stepUser, null);
         });
     }

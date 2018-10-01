@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
 import static com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity.DATA;
@@ -19,9 +20,7 @@ import static com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity.DATA;
 
 public class NotificationBuilder {
 
-
     public static void createTransactionNotification(Context context, Intent toLaunch, String title, String body) {
-
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, toLaunch,
                 PendingIntent.FLAG_ONE_SHOT);
         sendNotification(context, pendingIntent, 0, title, body);
@@ -29,7 +28,6 @@ public class NotificationBuilder {
 
 
     public static void createCloseSessionNotification(Context context, Intent toLaunch, String title, String body) {
-
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, toLaunch,
                 PendingIntent.FLAG_ONE_SHOT);
         sendNotification(context, pendingIntent, 0, title, body);

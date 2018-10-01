@@ -181,7 +181,7 @@ public class ForcedUpdateChecker {
         });
     }
 
-    private void getPins(){
+    public static void getPins(){
         // Obtener pin ssl para servidor Emisor Administrativo
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_PIN_SSL_ADTVO").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -52,6 +52,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.SESSION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN;
 
 /**
  * Created by flima on 17/03/17.
@@ -94,7 +95,7 @@ public class App extends Application {
     }
 
     public static DatabaseReference getDatabaseReference(){
-        return m_reference = FirebaseDatabase.getInstance("https://odin-dd5ba.firebaseio.com").getReference();
+        return m_reference = FirebaseDatabase.getInstance(URL_BD_ODIN).getReference();
     }
 
     @Override
