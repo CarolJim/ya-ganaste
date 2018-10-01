@@ -1629,8 +1629,14 @@
     <string name="hint_search_win">Buscar promociones</string>
     <string name="nuevas_promos">Nuevas</string>
 
+
+    <string name="find_promo">Encuentra promociones</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="vigentes_promos">Vigentes</string>
+    <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
+    <string name="centrar_mapa">Centrar mapa</string>
+
 
 </resources>

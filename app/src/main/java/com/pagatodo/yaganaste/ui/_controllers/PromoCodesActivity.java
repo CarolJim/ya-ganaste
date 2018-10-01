@@ -7,18 +7,19 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
+import com.pagatodo.yaganaste.ui_wallet.fragments.FindPromoFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PromocionesDetalleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.PromocionesFragment;
 
 public class PromoCodesActivity  extends LoaderActivity  implements OnEventListener {
 
-    private PromocionesDetalleFragment containerFragment;
+    private FindPromoFragment containerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promo_codes);
         showToolbarHelp(true);
-        containerFragment = PromocionesDetalleFragment.newInstance();
+        containerFragment = FindPromoFragment.newInstance();
         loadFragment(containerFragment);
     }
 

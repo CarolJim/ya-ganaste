@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="360dp"
+    android:layout_height="60dp"
+    android:background="@drawable/border"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/name_branch"
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="sans-serif"
+            android:text="Tienda"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+
+        <TextView
+            android:id="@+id/address_branch"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="sans-serif"
+            android:text="Direccion"
+            android:textColor="@color/amout_color_req"
+            android:textSize="12dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/distance_branch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:gravity="right"
+            android:text="Distancia"
+            android:textColor="@color/amout_color_req"
+             />
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/arrive_branch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="0dp"
+            android:gravity="right"
+            android:text="Como llegar"
+            android:textColor="@color/colorAccent"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
