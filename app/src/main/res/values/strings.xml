@@ -876,7 +876,7 @@
     <string name="sub_change_status_success">La cuenta del operador ha sido\n bloqueada con éxito</string>
     <string name="sub_change_status_blok">La cuenta del operador ha sido\n desbloqueada con éxito \n\nYa puede ingresar usando la\nmisma contraseña</string>
     <string name="cancelation_success_message">El cobro fue cancelado con éxito.\nYa puedes retirar la tarjeta del lector</string>
-    <string name="mount_be_higer">El monto tiene que ser mayor</string>
+    <string name="mount_be_higer">El monto tiene que ser mayor a $1</string>
     <string name="mount_valid">Ingresa un monto válido</string>
     <string name="enter_mount">Por favor ingrese un monto</string>
     <string name="mount_cero">$0.00</string>
@@ -1615,7 +1615,7 @@
     <string name="pagar">Pagar</string>
     <string name="operation_pago_qr">Pago rápido</string>
     <string name="txt_enter_passwordpayqr">Ingresa tu contraseña</string>
-    <string name="succespaymentqr">Tú pago \nfué realizado con éxito\n\n </string>
+    <string name="succespaymentqr">Tú pago \nfue realizado con éxito\n\n </string>
 
 
     <!-- Ganar -->

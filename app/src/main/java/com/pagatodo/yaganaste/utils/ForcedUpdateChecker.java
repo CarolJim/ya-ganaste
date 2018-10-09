@@ -126,6 +126,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdtvo.setUrlServerAdtvo(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "YG_EMISOR/BASE_URL_ADTVO: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -141,6 +144,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiTrans.setUrlServerTrans(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "YG_EMISOR/BASE_URL_TRANS: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -156,6 +162,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdq.setUrlServerAdq(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "YG_ADQ/BASE_URL: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -171,6 +180,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiStarbucks.setUrlStarbucks(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "Starbucks/BASE_URL: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -188,6 +200,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdtvo.setPinAdtvo(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_ADTVO: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -203,6 +218,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiTrans.setPinTrans(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_TRANS: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -218,6 +236,9 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdq.setPinAdq(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "YG_ADQ/BASE_PIN_SSL: "+dataSnapshot.getValue(String.class));
+                    }
                 }
             }
 
@@ -233,6 +254,10 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiStarbucks.setPinStarbucks(dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
+                        Log.e(TAG, "Starbucks/BASE_PIN_SSL: "+dataSnapshot.getValue(String.class));
+
+                    }
                 }
             }
 

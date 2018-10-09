@@ -92,6 +92,7 @@ import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
@@ -823,6 +824,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void processLogin(DataSourceResult response) {
         IniciarSesionUYUResponse data = (IniciarSesionUYUResponse) response.getData();
+        /*new Gson().fromJson("{\"Accion\":0,\"CodigoRespuesta\":0,\"IdOperacion\":0,\"Mensaje\":\"\",\"Data\":{\"Adquirente\":{\"Agentes\":[{\"EsComercioUYU\":false,\"Folio\":\"YG-5977\",\"IdComercio\":4565,\"IdEstatus\":12,\"NombreNegocio\":\"Mi Tienda\",\"NumeroAgente\":\"54669\",\"Operadores\":[{\"EstatusUsuario\":\"Activo\",\"IdEstatusUsuario\":1,\"IdOperador\":12445,\"IdUsuario\":52577,\"IdUsuarioAdquirente\":\"28018\",\"IsAdmin\":true,\"NombreUsuario\":\"irmaza@live.com.mx\",\"PetroNumero\":\"46695001\"}]}]},\"Cliente\":{\"ConCuenta\":true,\"Nombre\":\"Armando Kilian\",\"PrimerApellido\":\"Sandoval\",\"SegundoApellido\":\"Silva\"},\"Control\":{\"EsCliente\":true,\"EsUsuario\":true,\"RequiereActivacionSMS\":false},\"Emisor\":{\"Cuentas\":[{\"CLABE\":\"148 180 1000 0044 8111\",\"Cuenta\":\"100 0004 4811\",\"IdCuenta\":112571,\"IdUsuario\":0,\"NumeroCliente\":null,\"Tarjetas\":[{\"AsignoNip\":true,\"Numero\":\"5389 8403 0011 7941\"}],\"Telefono\":\"55 7908 1837\"}]},\"Usuario\":{\"EsExtranjero\":false,\"IdEstatus\":12,\"IdUsuario\":942,\"IdUsuarioAdquirente\":\"\",\"ImagenAvatarURL\":\"https:\\/\\/www.yaganaste.com\\/Avatar\\/e7c2941bf7f751f5f77efefc3d074b1bd647a1225baf748ff4806e85a2d4be26_{0}.jpg\",\"NombreUsuario\":\"ipodssak@live.com.mx\",\"PasswordAsignado\":true,\"Roles\":[{\"IdRol\":128,\"NombreRol\":\"Operador P. Física\"}],\"Semilla\":\"\",\"TokenSesion\":\"14C00D72096885C791DC5E36FCE488EB0D787AD9FCC20FC2556A626425CA44EE807D6F48E96536AFC302784731375CDF\",\"TokenSesionAdquirente\":\"\"}}}", IniciarSesionUYUResponse.class);*/
         DataIniciarSesionUYU dataUser = data.getData();
         String stepByUserStatus = "";
         if (data.getCodigoRespuesta() == CODE_OK) {
