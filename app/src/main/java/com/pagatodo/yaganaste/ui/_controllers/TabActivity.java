@@ -207,7 +207,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         cropResultReceiver = new CropIwaResultReceiver();
         try {
             cropResultReceiver.setListener(this);
-            cropResultReceiver.unregister(this);
+            //cropResultReceiver.unregister(this);
             cropResultReceiver.register(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -225,7 +225,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         textViewversion.setText("Ya Ganaste " + String.valueOf(BuildConfig.VERSION_NAME));
         nameUser.setText(App.getInstance().getPrefs().loadData(SIMPLE_NAME));
         imgLoginExistProfile.setOnClickListener(v -> setAvatar());
-
     }
 
     @Override
@@ -641,7 +640,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Picasso.with(this).load(StringUtils.procesarURLString(mUserImage))
                     .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                     .into(imgLoginExistProfile);
-
         }
     }
 

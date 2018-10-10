@@ -160,7 +160,6 @@ public class CameraManager {
      * @param intIntent
      */
     public void createPhoto(int intIntent) {
-
         selectImageSource(intIntent);
     }
 
@@ -180,13 +179,9 @@ public class CameraManager {
         final CharSequence[] items = {mContext.getString(R.string.action_take_picture),
                 mContext.getString(R.string.action_select_picture),
                 mContext.getString(R.string.action_select_picture_cancel)};
-        LayoutInflater inflater = mContext.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_camera, null);
-
         LayoutInflater titleInflater = mContext.getLayoutInflater();
         View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
-        dialogTittle.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+        dialogTittle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
@@ -194,7 +189,6 @@ public class CameraManager {
         dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-
                 switch (item) {
                     case 0:
                         takeDocumentPicture(documentId);
@@ -212,10 +206,6 @@ public class CameraManager {
         alertDialog.setCancelable(false);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();
-//        AlertDialog alertDialog = dialogBuilder.create();
-//        alertDialog.setTitle("Seleccionar Fotografia");
-//        alertDialog.setCancelable(false);
-//        alertDialog.show();
     }
 
 
@@ -255,7 +245,6 @@ public class CameraManager {
         documentProcessed = document;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(mContext.getPackageManager()) != null) {
-
             // Create the File where the photo should go
             File photoFile = null;
             try {
@@ -274,18 +263,14 @@ public class CameraManager {
                         "com.pagatodo.yaganaste.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-
                 List<ResolveInfo> resolvedIntentActivities = mContext.getPackageManager().queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
                 for (ResolveInfo resolvedIntentInfo : resolvedIntentActivities) {
                     String packageName = resolvedIntentInfo.activityInfo.packageName;
                     mContext.grantUriPermission(packageName, photoURI, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 }
-
-
                 mContext.startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-        // enableItems(false);
     }
 
 
@@ -407,7 +392,6 @@ public class CameraManager {
      * @param data
      */
     public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -476,7 +460,6 @@ public class CameraManager {
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
 
         } else if (resultCode == CROP_RESULT) {
-
             this.listener.onHideProgress();
         }
     }

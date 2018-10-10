@@ -555,7 +555,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     /**
      * Resultado de tomar una foto o escoger una de galeria, se envia el resultado al CameraManager
-     *
      * @param requestCode
      * @param resultCode
      * @param data
