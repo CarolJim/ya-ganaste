@@ -346,19 +346,10 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
         SingletonUser.getInstance().setCardStatusId(statusId);
         App.getInstance().getPrefs().saveData(CARD_STATUS, statusId);
 
-        //cardWalletAdpater.changeStatusCard(pageCurrent);
-        //cardWalletAdpater.notifyDataSetChanged();
-        if (!isBegin) {
-            //if (!prefs.containsData(IS_OPERADOR)) {
-            //  walletPresenter.updateBalance(cardWalletAdpater.getElemenWallet(this.pageCurrent));
-            //}
-            Wallet walletList = WalletBuilder.createWalletsEsencials(false);
-            cardWalletAdpater.addAllList(walletList.getList());
-            //viewPagerWallet.clearOnPageChangeListeners();
-            viewPagerWallet.setAdapter(cardWalletAdpater);
-            viewPagerWallet.setCurrentItem(pageCurrent);
-            //viewPagerWallet.addOnPageChangeListener(this);
-        }
+        Wallet walletList = WalletBuilder.createWalletsEsencials(false);
+        cardWalletAdpater.addAllList(walletList.getList());
+        viewPagerWallet.setAdapter(cardWalletAdpater);
+        viewPagerWallet.setCurrentItem(pageCurrent);
     }
 
     @Override
@@ -484,7 +475,6 @@ public class WalletTabFragment extends SupportFragment implements IWalletView,
                 if (!prefs.containsData(IS_OPERADOR) && cardWalletAdpater.getElemenWallet(pageCurrent) != null) {
                     if (cardWalletAdpater.getElemenWallet(pageCurrent).getTypeWallet() == TYPE_EMISOR) {
                         EmisorResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getEmisor();
-
                         if (usuarioClienteResponse.getCuentas().size() != 0) {
                             walletPresenter.getStatusAccount(usuarioClienteResponse.getCuentas().get(0).getTarjetas().get(0).getNumero());
                         }

@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
+import com.pagatodo.yaganaste.net.VolleySingleton;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
@@ -42,9 +43,11 @@ public class ForcedUpdateChecker {
         this.onUpdateNeededListener = onUpdateNeededListener;
     }
 
+    public ForcedUpdateChecker(Context context) {
+        this.context = context;
+    }
+
     public void check() {
-        getUrls();
-        getPins();
         // Validar visualización de Loyalty
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/ShowLoyalty").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -119,7 +122,7 @@ public class ForcedUpdateChecker {
         });
     }
 
-    public static void getUrls(){
+    public void getUrls(){
         // Obtener url para servidor Emisor Administrativo
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_URL_ADTVO").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -193,13 +196,14 @@ public class ForcedUpdateChecker {
         });
     }
 
-    public static void getPins(){
+    public void getPins(){
         // Obtener pin ssl para servidor Emisor Administrativo
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_PIN_SSL_ADTVO").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdtvo.setPinAdtvo(dataSnapshot.getValue(String.class));
+                    cleanSchemeVolley();
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
                         Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_ADTVO: "+dataSnapshot.getValue(String.class));
                     }
@@ -218,6 +222,7 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiTrans.setPinTrans(dataSnapshot.getValue(String.class));
+                    cleanSchemeVolley();
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
                         Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_TRANS: "+dataSnapshot.getValue(String.class));
                     }
@@ -236,6 +241,7 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdq.setPinAdq(dataSnapshot.getValue(String.class));
+                    cleanSchemeVolley();
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
                         Log.e(TAG, "YG_ADQ/BASE_PIN_SSL: "+dataSnapshot.getValue(String.class));
                     }
@@ -254,6 +260,7 @@ public class ForcedUpdateChecker {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiStarbucks.setPinStarbucks(dataSnapshot.getValue(String.class));
+                    cleanSchemeVolley();
                     if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
                         Log.e(TAG, "Starbucks/BASE_PIN_SSL: "+dataSnapshot.getValue(String.class));
 
@@ -266,6 +273,11 @@ public class ForcedUpdateChecker {
 
             }
         });
+    }
+
+    private void cleanSchemeVolley(){
+        VolleySingleton.getInstance(App.getContext()).deleteQueue();
+        VolleySingleton.getInstance(App.getContext()).getRequestQueue();
     }
 
     private String getAppVersion(Context context) {

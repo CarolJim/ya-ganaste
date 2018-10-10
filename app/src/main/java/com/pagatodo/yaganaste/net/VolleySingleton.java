@@ -106,6 +106,7 @@ public class VolleySingleton {
 
     public void deleteQueue() {
         getRequestQueue().cancelAll(REQUEST_TAG);
+        mRequestQueue = null;
     }
 
     public ImageLoader getImageLoader() {

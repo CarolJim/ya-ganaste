@@ -63,7 +63,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         IAprovView, IResetNIPView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
-    private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
+    private static final long CHECK_SMS_VALIDATE_DELAY = 3000;
     private View view;
     @BindView(R.id.txt_send_sms)
     StyleTextView txtSendSms;
