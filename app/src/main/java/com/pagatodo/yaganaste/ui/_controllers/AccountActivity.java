@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -169,6 +170,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_fragment_container);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();

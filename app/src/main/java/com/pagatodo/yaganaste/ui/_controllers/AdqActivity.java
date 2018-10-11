@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -46,6 +47,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
         idTransactionType = getIntent().getExtras().getInt(TYPE_TRANSACTION);

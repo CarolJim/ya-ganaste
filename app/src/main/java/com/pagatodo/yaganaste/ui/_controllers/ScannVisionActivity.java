@@ -19,6 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -59,6 +60,7 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_barcode_scan);
         if(getIntent().getExtras() != null){
             isQrcode = getIntent().getExtras().getBoolean(QRObject);

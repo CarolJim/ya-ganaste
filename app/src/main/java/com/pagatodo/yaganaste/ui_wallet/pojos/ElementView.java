@@ -301,28 +301,15 @@ public class ElementView implements ElementGlobal {
             if (isAgente && idEstatusAgente == IdEstatus.I6.getId()) {
                 elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
             }
-            if (isAgente && (idEstatusAgente == IdEstatus.I7.getId()
-                    || App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE)) {
+            if (isAgente && (idEstatusAgente == IdEstatus.I7.getId() || idEstatusAgente == IdEstatus.I8.getId()
+                    || idEstatusAgente == IdEstatus.I11.getId())) {
+                /*|| App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE)*/
                 elementViews = ElementView.getListEstadoRevisando(idComercio);
             }
-
-            if (isAgente && idEstatusAgente == IdEstatus.I8.getId()) {
-                elementViews = ElementView.getListEstadoRevisando(idComercio);
-            }
-
             if (isAgente && idEstatusAgente == IdEstatus.I9.getId()) {
                 elementViews = ElementView.getListEstadoError(idComercio);
             }
-
-            if (isAgente && idEstatusAgente == IdEstatus.I10.getId()) {
-                elementViews = ElementView.getListEstadoRechazado(idComercio);
-            }
-
-            if (isAgente && idEstatusAgente == IdEstatus.I11.getId()) {
-                elementViews = ElementView.getListEstadoRevisando(idComercio);
-            }
-
-            if (isAgente && idEstatusAgente == IdEstatus.I13.getId()) {
+            if (isAgente && (idEstatusAgente == IdEstatus.I10.getId() || idEstatusAgente == IdEstatus.I13.getId())) {
                 elementViews = ElementView.getListEstadoRechazado(idComercio);
             }
             /*if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&

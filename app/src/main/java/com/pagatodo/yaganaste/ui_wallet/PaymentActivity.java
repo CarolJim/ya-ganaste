@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
@@ -34,6 +35,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_payment);
         if (getIntent().getExtras() != null) {
             isFavorite = getIntent().getBooleanExtra(PAYMENT_IS_FAV, false);

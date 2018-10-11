@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
@@ -51,6 +52,7 @@ public class AdqActivityUSB extends LoaderActivity implements OnEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
         idTransactionType = getIntent().getExtras().getInt(TYPE_TRANSACTION);

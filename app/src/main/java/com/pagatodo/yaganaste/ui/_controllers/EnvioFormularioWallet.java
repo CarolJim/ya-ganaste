@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
@@ -33,6 +34,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_fragment_container);
         payment = (Envios) getIntent().getExtras().get("pagoItem");
         favoritos = (Favoritos) getIntent().getExtras().get("favoritoItem");
