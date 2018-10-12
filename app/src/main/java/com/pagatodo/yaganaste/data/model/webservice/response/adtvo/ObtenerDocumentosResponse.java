@@ -1,13 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;

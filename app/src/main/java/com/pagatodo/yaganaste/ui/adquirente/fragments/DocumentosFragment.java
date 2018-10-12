@@ -246,7 +246,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     selectImageSource(IFE_BACK);
                 }
                 break;
-
             case R.id.itemWeNeedSmFilesAddressFront:
                 if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(2).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     showDocumentRejected(dataStatusDocuments.get(2), 2);
@@ -254,7 +253,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     selectImageSource(COMPROBANTE_FRONT);
                 }
                 break;
-
             case R.id.itemWeNeedSmFilesAddressBack:
                 if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(3).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     showDocumentRejected(dataStatusDocuments.get(3), 3);
@@ -262,7 +260,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     selectImageSource(COMPROBANTE_BACK);
                 }
                 break;
-
             case R.id.btnWeNeedSmFilesNext:
                 if (mExisteDocs) {
                     sendDocumentsPending();
@@ -270,11 +267,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     sendDocuments();
                 }
                 break;
-
             case R.id.btnRegresar:
                 onBtnBack();
                 break;
-
             default:
                 break;
         }
@@ -331,7 +326,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             String path = SingletonUser.getInstance().getPathPictureTemp();
             Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
-                Bitmap original = BitmapFactory.decodeFile(path,opts);
+                Bitmap original = BitmapFactory.decodeFile(path, opts);
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();
@@ -340,11 +335,11 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 int nuevoWidth = metrics.widthPixels;
                 int nuevoHeight = metrics.heightPixels;
 
-                if(nuevoHeight>900){
-                    int originalH=nuevoHeight;
-                    int originalW=nuevoWidth;
-                    nuevoWidth= 900;
-                    nuevoHeight =(originalH*nuevoWidth)/originalW;
+                if (nuevoHeight > 900) {
+                    int originalH = nuevoHeight;
+                    int originalW = nuevoWidth;
+                    nuevoWidth = 900;
+                    nuevoHeight = (originalH * nuevoWidth) / originalW;
                     scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
                 } else {
                     if (height > width) {
@@ -376,7 +371,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                     path = cursor.getString(columnIndex);
                 }
-                Bitmap original = BitmapFactory.decodeFile(path,opts);
+                Bitmap original = BitmapFactory.decodeFile(path, opts);
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();
@@ -805,7 +800,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
 
-        UI.showAlertDialogcoemtario(getContext(),mData.getMotivo(),  "\n" + mData.getComentario(),false,
+        UI.showAlertDialogcoemtario(getContext(), mData.getMotivo(), "\n" + mData.getComentario(), false,
                 (dialogInterface, i) -> {
                     switch (mPosition) {
                         case 0:

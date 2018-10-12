@@ -56,14 +56,13 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.OperadorTabFragment;
-import com.pagatodo.yaganaste.ui_wallet.fragments.QRFragment;
-import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.interactors.FBInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IFBView;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.NavigationDrawerPresenter;
+import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem;
 import com.pagatodo.yaganaste.ui_wallet.presenter.FBPresenter;
@@ -92,14 +91,14 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
-import static com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder.MAINMENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_AJUSTES;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CODE;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_CONTACTO;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_SEGURIDAD;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.SecurityFragment.MENU_TERMINOS;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder.MAINMENU;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_TUTORIALS;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_ACERCA_DE;
 import static com.pagatodo.yaganaste.ui_wallet.pojos.OptionMenuItem.ID_AJUSTES;
@@ -113,7 +112,6 @@ import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_OPERATION;
-import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
@@ -467,9 +465,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);
-        } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
-            showMainTab();
-            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         /*} else if (requestCode == Constants.ACTIVITY_LANDING) {

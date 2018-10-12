@@ -103,7 +103,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
                     callNextActivity();
                 }
             }
-        }, 2000);
+        }, 3000);
     }
 
     @Override
