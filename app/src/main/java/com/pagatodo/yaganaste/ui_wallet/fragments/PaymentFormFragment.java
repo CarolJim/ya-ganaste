@@ -15,6 +15,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -431,8 +432,14 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                 imgReferencePayment.setOnClickListener(this);
                 edtServiceImport.setLongClickable(true);
                 edtServiceImport.setSingleLine();
-                edtServiceImport.addTextChangedListener(new NumberTextWatcher(edtServiceImport));
-
+                NumberTextWatcher textWatcher = new NumberTextWatcher(edtServiceImport);
+                edtServiceImport.addTextChangedListener(textWatcher);
+                edtServiceImport.setOnKeyListener((v, keyCode, event) -> {
+                    if (keyCode == KeyEvent.KEYCODE_DEL) {
+                        textWatcher.deleteText = true;
+                    }
+                    return false;
+                });
 
                 if (comercioResponse.getLongitudReferencia() > 0) {
                     InputFilter[] fArray = new InputFilter[1];
@@ -531,7 +538,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
                     .into(imgUserPhoto);
         }
 
-        if (isFavorite){
+        if (isFavorite) {
             if (!favoritos.getImagenURL().equals("")) {
                 Picasso.with(getContext())
                         .load(favoritos.getImagenURL())
@@ -561,7 +568,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     }
 
     private String getIniciales(String fullName) {
-        if (fullName.trim().length() == 1){
+        if (fullName.trim().length() == 1) {
             return fullName.substring(0, 1).toUpperCase();
         }
 
@@ -572,7 +579,7 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             return sIniciales;
         }
 
-        if (fullName.trim().length() > 1){
+        if (fullName.trim().length() > 1) {
             return fullName.substring(0, 2).toUpperCase();
         }
 

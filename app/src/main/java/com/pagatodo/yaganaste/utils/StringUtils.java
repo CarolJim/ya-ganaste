@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -18,6 +19,8 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
@@ -427,7 +430,7 @@ public class StringUtils {
      * @return
      */
     public static String getIniciales(String fullName) {
-        if (fullName.trim().length() == 1){
+        if (fullName.trim().length() == 1) {
             return fullName.substring(0, 1).toUpperCase();
         }
 
@@ -438,7 +441,7 @@ public class StringUtils {
             return sIniciales;
         }
 
-        if (fullName.trim().length() > 1){
+        if (fullName.trim().length() > 1) {
             return fullName.substring(0, 2).toUpperCase();
         }
         return "";

@@ -13,6 +13,8 @@ public class NumberTextWatcher implements TextWatcher {
 
     private final EditText edtText;
     private String textBefore;
+    private boolean enableWriting;
+    public boolean deleteText = false;
 
     public NumberTextWatcher(EditText editText) {
         this.edtText = editText;
@@ -21,44 +23,31 @@ public class NumberTextWatcher implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         this.textBefore = s.toString();
+        if (s.toString().length() > 0 && !deleteText) {
+            String[] decimals = s.toString().split("\\.");
+            if (decimals.length > 1 && decimals[1].length() == 2) {
+                enableWriting = false;
+            } else {
+                enableWriting = true;
+            }
+        } else {
+            enableWriting = true;
+            deleteText = false;
+        }
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        final String mount = StringUtils.getCurrencyValue(StringUtils.getDoubleValue(s.toString().replace(".",""))/100);
-        Double value = StringUtils.getDoubleValue(mount);
+        Double value = StringUtils.getDoubleValue(s.toString());
         edtText.removeTextChangedListener(this);
-        if (value <= 999999.99) {
-            edtText.setText(mount);
-            Selection.setSelection(edtText.getText(), mount.length());
+        if (value <= 999999.99 && enableWriting) {
+            edtText.setText(!s.toString().contains("$") ? "$".concat(s.toString()) : s.toString());
+            Selection.setSelection(edtText.getText(), edtText.getText().length());
         } else {
             edtText.setText(textBefore);
             Selection.setSelection(edtText.getText(), textBefore.length());
         }
         edtText.addTextChangedListener(NumberTextWatcher.this);
-
-        /*if (!s.toString().matches("^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$")) {
-            String userInput = "" + s.toString().replaceAll("[^\\d]", "");
-            StringBuilder cashAmountBuilder = new StringBuilder(userInput);
-
-            while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
-                cashAmountBuilder.deleteCharAt(0);
-            }
-
-            while (cashAmountBuilder.length() < 3) {
-                cashAmountBuilder.insert(0, '0');
-            }
-            if (cashAmountBuilder.length() > 5 && cashAmountBuilder.length() < 9) {
-                cashAmountBuilder.insert(cashAmountBuilder.length() - 5, ',');
-            }
-
-            cashAmountBuilder.insert(cashAmountBuilder.length() - 2, '.');
-            cashAmountBuilder.insert(0, '$');
-
-            edtText.setText(cashAmountBuilder.toString());
-            // keeps the cursor always to the right
-            Selection.setSelection(edtText.getText(), cashAmountBuilder.toString().length());
-        }*/
     }
 
     @Override
