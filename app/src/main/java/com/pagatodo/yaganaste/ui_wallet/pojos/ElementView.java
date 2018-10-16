@@ -424,7 +424,7 @@ public class ElementView implements ElementGlobal {
             } else {
                 elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
             }
-            elementViews.add(new ElementView(OPTION_PAGO_QR, R.drawable.ico_qr, R.string.operation_pago_qr));
+            //elementViews.add(new ElementView(OPTION_PAGO_QR, R.drawable.ico_qr, R.string.operation_pago_qr));
         }
         //    elementViews.add(new ElementView(OPTION_GENERATE_TOKEN, R.drawable.ic_generar, R.string.generar_codigo));
         return elementViews;

@@ -75,10 +75,8 @@ public class WalletBuilder {
         if (App.getInstance().getPrefs().loadDataInt(ID_ROL) != 129) {
             if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA)) {
                 walletList.addWallet(ElementWallet.getCardBalanceEmiBloqueda());
-                //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmiBloqueda());
             } else {
                 walletList.addWallet(ElementWallet.getCardBalanceEmi());
-                //balanceWalletAdpater.addCardItem(new ElementWallet().getCardBalanceEmi());
             }
         }
         List<Agentes> agentes = new ArrayList<>();

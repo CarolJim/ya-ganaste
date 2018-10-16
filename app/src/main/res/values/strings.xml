@@ -1239,9 +1239,9 @@
     <string name="enviar_dinero">Enviar dinero</string>
     <string name="solicitar_pago">Solicitar pago</string>
     <string name="subtitle_bloquear_tarjeta">Deshabilitar tu tarjeta temporalmente</string>
-    <string name="bloquear_tarjeta">Bloqueo temporal\nde tarjeta</string>
+    <string name="bloquear_tarjeta">Bloquear\ntarjeta</string>
     <string name="bloquear_tarjeta_admin">Bloquear Tarjeta</string>
-    <string name="desbloquear_tarjeta">Desbloqueo de\ntarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloquear\ntarjeta</string>
     <string name="desbloquear_tarjeta_admin">Desbloquear tarjeta</string>
     <string name="generar_codigo">Generar código\nde seguridad</string>
     <string name="realizar_cobro">Realizar un\ncobro rápido</string>
