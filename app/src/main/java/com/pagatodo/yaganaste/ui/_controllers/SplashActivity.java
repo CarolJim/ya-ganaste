@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetInfoFromFirebase;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -36,7 +37,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 
-public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener {
+public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener,
+        IGetInfoFromFirebase {
     private Preferencias preferencias;
     private AppDatabase db;
     private static final String TAG = "SplashActivity";
@@ -85,25 +87,9 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
 
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();
-        final IRequestResult iRequestResult = this;
-        final Handler handler = new Handler();
         preferencias = App.getInstance().getPrefs();
         new DatabaseManager().checkCountries();
-        new ForcedUpdateChecker(this).getUrls();
-        new ForcedUpdateChecker(this).getPins();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
-                    request.setVersion(preferencias.loadData(CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(CATALOG_VERSION));
-                    ApiAdtvo.obtenerCatalogos(request, iRequestResult);
-                } catch (OfflineException e) {
-                    e.printStackTrace();
-                    callNextActivity();
-                }
-            }
-        }, 3000);
+        new ForcedUpdateChecker(this).getUrls(this);
     }
 
     @Override
@@ -195,5 +181,28 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         startActivity(intent);
         hideLoader();
         this.finish();
+    }
+
+    @Override
+    public void onUrlsDownload() {
+        new ForcedUpdateChecker(this).getPins(this);
+    }
+
+    @Override
+    public void onPinsDownload() {
+        final IRequestResult iRequestResult = this;
+        try {
+            ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
+            request.setVersion(preferencias.loadData(CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(CATALOG_VERSION));
+            ApiAdtvo.obtenerCatalogos(request, iRequestResult);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            callNextActivity();
+        }
+    }
+
+    @Override
+    public void onError() {
+        finish();
     }
 }

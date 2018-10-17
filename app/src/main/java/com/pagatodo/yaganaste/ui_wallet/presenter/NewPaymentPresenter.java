@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui_wallet.SearchCarrierActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.NewPaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.interactors.NewPaymentInteractor;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentInteractor;
@@ -29,6 +30,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 public class NewPaymentPresenter implements INewPaymentPresenter {
     MovementsTab current_tab;
     NewPaymentFragment mView;
+    SearchCarrierActivity mActivity;
     INewPaymentInteractor mInteractor;
     Context mContext;
     private int typeData;
@@ -36,6 +38,12 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
 
     public NewPaymentPresenter(NewPaymentFragment mView, Context context) {
         this.mView = mView;
+        mInteractor = new NewPaymentInteractor(this);
+        this.mContext = context;
+    }
+
+    public NewPaymentPresenter(SearchCarrierActivity mActivity, Context context) {
+        this.mActivity = mActivity;
         mInteractor = new NewPaymentInteractor(this);
         this.mContext = context;
     }
@@ -82,20 +90,15 @@ public class NewPaymentPresenter implements INewPaymentPresenter {
 
     @Override
     public void onSuccesDBObtenerCatalogos(List<Comercio> comercios) {
-        mView.setCarouselData(comercios, typeData);
+        if (mView != null)
+            mView.setCarouselData(comercios, typeData);
+        else
+            mActivity.setCarouselData(comercios);
     }
 
     @Override
     public void onSuccessDBFavorites(List<Favoritos> catalogos) {
         mView.setDataFavorite(catalogos, typeDataFav);
-
-
-//        if (showFavorite) {
-//            paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
-//
-//        } else {
-//            paymentsManager.showFavorites();
-//        }
     }
 
     @Override

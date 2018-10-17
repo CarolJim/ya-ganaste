@@ -19,7 +19,7 @@ public interface ComercioDao {
     @Query("SELECT CASE WHEN COUNT(*) > 0 THEN 0 ELSE 1 END AS isEmpty FROM Comercio")
     boolean isTableEmpty();
 
-    @Query("SELECT * FROM Comercio WHERE Comercio.id_tipo_comercio = :idTypeComercio")
+    @Query("SELECT * FROM Comercio WHERE Comercio.id_tipo_comercio = :idTypeComercio ORDER BY Comercio.nombre_comercio ASC")
     List<Comercio> selectByIdType(int idTypeComercio);
 
     @Query("SELECT * FROM Comercio WHERE Comercio.id_comercio = :idComercio")

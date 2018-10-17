@@ -90,7 +90,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginRight="12dp"
-                    android:src="@drawable/new_fav_search" />
+                    android:src="@drawable/ic_search" />
             </RelativeLayout>
         </LinearLayout>
 

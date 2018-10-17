@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiStarbucks;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.VolleySingleton;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetInfoFromFirebase;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
@@ -122,162 +123,164 @@ public class ForcedUpdateChecker {
         });
     }
 
-    public void getUrls(){
+    public void getUrls(IGetInfoFromFirebase listener) {
         // Obtener url para servidor Emisor Administrativo
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_URL_ADTVO").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdtvo.setUrlServerAdtvo(dataSnapshot.getValue(String.class));
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "YG_EMISOR/BASE_URL_ADTVO: "+dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.e(TAG, "YG_EMISOR/BASE_URL_ADTVO: " + dataSnapshot.getValue(String.class));
                     }
+                    // Obtener url para servidor Emisor Transaccional
+                    App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_URL_TRANS").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                ApiTrans.setUrlServerTrans(dataSnapshot.getValue(String.class));
+                                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                    Log.e(TAG, "YG_EMISOR/BASE_URL_TRANS: " + dataSnapshot.getValue(String.class));
+                                }
+                                // Obtener url para servidor Adquiriente
+                                App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_ADQ/BASE_URL").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            ApiAdq.setUrlServerAdq(dataSnapshot.getValue(String.class));
+                                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                                Log.e(TAG, "YG_ADQ/BASE_URL: " + dataSnapshot.getValue(String.class));
+                                            }
+                                            // Obtener url para servidor Starbucks
+                                            App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Loyalty/Starbucks/BASE_URL").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        ApiStarbucks.setUrlStarbucks(dataSnapshot.getValue(String.class));
+                                                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                                            Log.e(TAG, "Starbucks/BASE_URL: " + dataSnapshot.getValue(String.class));
+                                                        }
+                                                        listener.onUrlsDownload();
+                                                    } else {
+                                                        listener.onError();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+                                                    listener.onError();
+                                                }
+                                            });
+                                        } else {
+                                            listener.onError();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        listener.onError();
+                                    }
+                                });
+                            } else {
+                                listener.onError();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            listener.onError();
+                        }
+                    });
+                } else {
+                    listener.onError();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        // Obtener url para servidor Emisor Transaccional
-        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_URL_TRANS").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApiTrans.setUrlServerTrans(dataSnapshot.getValue(String.class));
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "YG_EMISOR/BASE_URL_TRANS: "+dataSnapshot.getValue(String.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        // Obtener url para servidor Adquiriente
-        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_ADQ/BASE_URL").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApiAdq.setUrlServerAdq(dataSnapshot.getValue(String.class));
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "YG_ADQ/BASE_URL: "+dataSnapshot.getValue(String.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        // Obtener url para servidor Starbucks
-        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Loyalty/Starbucks/BASE_URL").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApiStarbucks.setUrlStarbucks(dataSnapshot.getValue(String.class));
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "Starbucks/BASE_URL: "+dataSnapshot.getValue(String.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+                listener.onError();
             }
         });
     }
 
-    public void getPins(){
+    public void getPins(IGetInfoFromFirebase listener) {
         // Obtener pin ssl para servidor Emisor Administrativo
         App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_PIN_SSL_ADTVO").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ApiAdtvo.setPinAdtvo(dataSnapshot.getValue(String.class));
-                    cleanSchemeVolley();
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_ADTVO: "+dataSnapshot.getValue(String.class));
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_ADTVO: " + dataSnapshot.getValue(String.class));
                     }
+                    // Obtener pin ssl para servidor Emisor Transaccional
+                    App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_PIN_SSL_TRANS").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                ApiTrans.setPinTrans(dataSnapshot.getValue(String.class));
+                                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                    Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_TRANS: " + dataSnapshot.getValue(String.class));
+                                }
+                                // Obtener pin ssl para servidor Adquiriente
+                                App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_ADQ/BASE_PIN_SSL").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            ApiAdq.setPinAdq(dataSnapshot.getValue(String.class));
+                                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                                Log.e(TAG, "YG_ADQ/BASE_PIN_SSL: " + dataSnapshot.getValue(String.class));
+                                            }
+                                            // Obtener url para servidor Starbucks
+                                            App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Loyalty/Starbucks/BASE_PIN_SSL").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        ApiStarbucks.setPinStarbucks(dataSnapshot.getValue(String.class));
+                                                        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                                            Log.e(TAG, "Starbucks/BASE_PIN_SSL: " + dataSnapshot.getValue(String.class));
+                                                        }
+                                                        listener.onPinsDownload();
+                                                    } else {
+                                                        listener.onError();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+                                                    listener.onError();
+                                                }
+                                            });
+                                        } else {
+                                            listener.onError();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        listener.onError();
+                                    }
+                                });
+                            } else {
+                                listener.onError();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            listener.onError();
+                        }
+                    });
+                } else {
+                    listener.onError();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                listener.onError();
             }
         });
-
-        // Obtener pin ssl para servidor Emisor Transaccional
-        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_EMISOR/BASE_PIN_SSL_TRANS").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApiTrans.setPinTrans(dataSnapshot.getValue(String.class));
-                    cleanSchemeVolley();
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "YG_EMISOR/BASE_PIN_SSL_TRANS: "+dataSnapshot.getValue(String.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        // Obtener pin ssl para servidor Adquiriente
-        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Banking/YG_ADQ/BASE_PIN_SSL").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApiAdq.setPinAdq(dataSnapshot.getValue(String.class));
-                    cleanSchemeVolley();
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "YG_ADQ/BASE_PIN_SSL: "+dataSnapshot.getValue(String.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        // Obtener url para servidor Starbucks
-        App.getDatabaseReference().child("Ya-Ganaste-5_0/STTNGS/Url/Loyalty/Starbucks/BASE_PIN_SSL").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApiStarbucks.setPinStarbucks(dataSnapshot.getValue(String.class));
-                    cleanSchemeVolley();
-                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)){
-                        Log.e(TAG, "Starbucks/BASE_PIN_SSL: "+dataSnapshot.getValue(String.class));
-
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void cleanSchemeVolley(){
-        VolleySingleton.getInstance(App.getContext()).deleteQueue();
-        VolleySingleton.getInstance(App.getContext()).getRequestQueue();
     }
 
     private String getAppVersion(Context context) {

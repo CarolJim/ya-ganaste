@@ -105,7 +105,7 @@ public class RecyclerGenericBase {
                                    EditText searchEditText) {
         this.mDataSetCarrier = mDataSetCarrier;
         this.searchEditText = searchEditText;
-        mDataSetCarrier.remove(0); // Removemos el item 0 que es la Lupa en la lista original
+        //mDataSetCarrier.remove(0); // Removemos el item 0 que es la Lupa en la lista original
         mAdapter = new AdapterSearchCarrierRV(iView, mDataSetCarrier, searchEditText);
         mRecyclerView.setAdapter(mAdapter);
     }

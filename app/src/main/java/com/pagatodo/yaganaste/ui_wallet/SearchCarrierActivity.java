@@ -10,11 +10,15 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.room_db.entities.Comercio;
+import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.adapters.RecyclerGenericBase;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.INewPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ISearchCarrier;
+import com.pagatodo.yaganaste.ui_wallet.presenter.NewPaymentPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +50,7 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
     private boolean isReload;
     private RecyclerGenericBase recyclerGenericBase;
     private int currentTab = 0;
+    private INewPaymentPresenter newPaymentPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +62,24 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
         if (getIntent().getExtras() != null) {
             isReload = getIntent().getBooleanExtra(SEARCH_IS_RELOAD, true);
             currentTab = getIntent().getExtras().getInt(CURRENT_TAB_ID);
-            if (isReload) {
-                comercioResponse = (ArrayList<Comercio>) getIntent().getExtras().get(SEARCH_DATA);
-            } else {
-                comercioResponse = (ArrayList<Comercio>) getIntent().getExtras().get(SEARCH_DATA);
-            }
         }
         initViews();
     }
 
     private void initViews() {
         ButterKnife.bind(this);
-        if (currentTab == PAYMENT_RECARGAS) {
-            txtTitleSearch.setText(getString(R.string.btn_recharge_txt));
-        } else if (currentTab == PAYMENT_SERVICIOS) {
-            txtTitleSearch.setText(getString(R.string.btn_payment_txt));
-        }
         /**
          * Creamos el RV con los elementos adicionales del EditText
          */
         recyclerGenericBase = new RecyclerGenericBase(recyclerView, VERTICAL_ORIENTATION);
-        recyclerGenericBase.createRecyclerList(this, comercioResponse, searchEditText);
-
+        newPaymentPresenter = new NewPaymentPresenter(this, this);
+        if (currentTab == PAYMENT_RECARGAS) {
+            txtTitleSearch.setText(getString(R.string.title_recharge_txt));
+            newPaymentPresenter.getCarriersItems(PAYMENT_RECARGAS);
+        } else if (currentTab == PAYMENT_SERVICIOS) {
+            txtTitleSearch.setText(getString(R.string.title_payment_txt));
+            newPaymentPresenter.getCarriersItems(PAYMENT_SERVICIOS);
+        }
     }
 
     @Override
@@ -100,8 +101,8 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
         finish();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    public void setCarouselData(List<Comercio> comercios) {
+        comercioResponse = new ArrayList<>(comercios);
+        recyclerGenericBase.createRecyclerList(this, comercioResponse, searchEditText);
     }
 }
