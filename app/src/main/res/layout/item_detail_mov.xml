@@ -4,65 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:id="@+id/linear_card"
-        >
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txt_left"
-        style="@style/generic_text_style_3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="start"
-        android:text="@string/details_monto_compra"
-        android:textColor="@color/colorAccent"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/txt_right"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txt_right"
-        style="@style/generic_text_style_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_left"
+            style="@style/generic_text_style_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="@string/details_monto_compra"
+            android:textColor="@color/texthint"
+            android:textSize="14sp" />
 
-        android:layout_marginTop="5dp"
-        android:ellipsize="marquee"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:freezesText="true"
-        android:gravity="center_vertical|right"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
-        android:text="9.30"
-        android:layout_marginLeft="9dp"
-        android:textColor="@color/texthint"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txt_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:textAllCaps="false"
-        tools:ignore="RtlHardcoded" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_right"
+            style="@style/generic_text_style_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center_vertical|right"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="9.30"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            app:textAllCaps="false"
+            tools:ignore="RtlHardcoded" />
     </LinearLayout>
+
     <View
         android:id="@+id/view2"
         android:layout_width="0dp"
         android:layout_height="0.5px"
-        android:layout_marginTop="4dp"
         android:background="@color/margin_lines"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

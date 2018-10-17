@@ -97,11 +97,15 @@ public class SendTicketFragment extends SupportFragment implements View.OnClickL
             //String idTransicion, String name, String email
             adqPresenter.sendTicket(itemMov.getIdTransaction(), itemMov.getNombre(), editCorreo.getText().toString(), false);
         }
-
     }
 
     @Override
     public void nextScreen(String event, Object data) {
+        if (data.toString() == getString(R.string.recibo_enviado_line)){
+            UI.showSuccessSnackBar(getActivity(), data.toString(), Snackbar.LENGTH_SHORT);
+        } else {
+            UI.showErrorSnackBar(getActivity(), data.toString(), Snackbar.LENGTH_SHORT);
+        }
         this.onEventListener.onEvent(EVENT_GO_TO_MOV_ADQ, this.movtab);
     }
 

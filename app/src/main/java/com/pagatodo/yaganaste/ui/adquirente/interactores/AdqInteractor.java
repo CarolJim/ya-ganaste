@@ -502,7 +502,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
             result.setPageResult(pageResult);
             result.setTransaccionResponse(new TransaccionEMVDepositResponse());
-            accountManager.onSucces(response.getWebService(), data.getMessage());
+            accountManager.onSucces(response.getWebService(), context.getString(R.string.recibo_enviado_line));
         } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
         } */ else {
