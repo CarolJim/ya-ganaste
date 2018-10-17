@@ -1256,8 +1256,8 @@
     <string name="send_email">Enviar correo electrónico</string>
     <string name="block_your_card_title">Bloqueo temporal de tarjeta</string>
     <string name="block_your_card_subtitle">Si tienes algún problema con tu\ntarjeta, bloquéala temporalmente\ningresando tu contraseña.</string>
-    <string name="unblock_your_card_title">Desbloqueo de tarjeta</string>
-    <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada temporalmente, para\ndesbloquearla ingresa tu contraseña</string>
+    <string name="unblock_your_card_title">Desbloquea tu tarjeta</string>
+    <string name="unblock_your_card_subtitle">Tu tarjeta está bloqueada\ntemporalmente, para desbloquearla\ningresa tu contraseña</string>
     <string name="generate_code_title">Genera un código de seguridad</string>
     <string name="generate_code_subtitle">Para autorizar movimientos desde la web.\nIngresa tu contraseña para generarlo.</string>
     <string name="title_configure_dongle">Configurar lector de tarjetas</string>
