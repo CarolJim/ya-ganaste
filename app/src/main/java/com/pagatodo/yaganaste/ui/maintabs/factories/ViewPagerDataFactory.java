@@ -108,9 +108,9 @@ public class ViewPagerDataFactory {
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(NewPaymentFragment.newInstance());
         }
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
+        /*if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(PromocionesFragment.newInstance());
-        }
+        }*/
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

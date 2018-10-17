@@ -420,7 +420,7 @@ public class ElementView implements ElementGlobal {
         ArrayList<ElementView> elementViews = new ArrayList<>();
         if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).isEmpty()) {
             if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals(ESTATUS_CUENTA_BLOQUEADA)) {
-                elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.desbloquear_tarjeta));
+                elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_desbloquear, R.string.desbloquear_tarjeta));
             } else {
                 elementViews.add(new ElementView(OPTION_BLOCK_CARD, R.drawable.ic_bloquear, R.string.bloquear_tarjeta));
             }

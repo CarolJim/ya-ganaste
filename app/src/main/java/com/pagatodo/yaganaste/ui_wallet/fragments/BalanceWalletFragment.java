@@ -184,7 +184,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(),
                 R.dimen.item_offset);
         rcvElementsBalance.addItemDecoration(itemDecoration);
-        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
         rcvElementsBalance.setHasFixedSize(true);
         if (prefs.loadData(CARD_NUMBER).isEmpty()) {
             Status = ESTATUS_CUENTA_BLOQUEADA;
@@ -300,7 +300,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             if (adapterBalanceCard.getElemenWallet(position) != null) {
                 if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() != TYPE_SETTINGS) {
                     if (adapterBalanceCard.getElemenWallet(position).getTypeWallet() == TYPE_EMISOR) {
-                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                        rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 1));
                         //    accountPresenter.updateBalance();
                         upDateSaldo(StringUtils.getCurrencyValue(balanceEmisor));
                     } else {
