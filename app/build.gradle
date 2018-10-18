@@ -106,6 +106,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:' + rootProject.firebaseVersion
     // Analytics
     implementation 'com.crashlytics.sdk.android:crashlytics:' + rootProject.fabricVersion
+    implementation 'com.mixpanel.android:mixpanel-android:' + rootProject.mixpanelVersion
     // Onboarding
     implementation 'com.matthew-tamlin:sliding-intro-screen:' + rootProject.onboardingVersion
     // Swipe Fragments Viewer
