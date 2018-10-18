@@ -172,9 +172,6 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.til_num_telefono2)
     TextInputLayout til_num_telefono2;
 
-    @BindView(R.id.scrollViewpagos)
-    ScrollView scrollViewpagos;
-
     @BindView(R.id.txtInicialesFav)
     StyleTextView txtIniciales;
 
