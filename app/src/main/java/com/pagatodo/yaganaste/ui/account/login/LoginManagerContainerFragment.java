@@ -22,6 +22,8 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
+import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
+import com.pagatodo.yaganaste.ui.account.register.ConfirmarNIPFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.BalanceWalletFragment;
@@ -81,8 +83,8 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     public void initViews() {
         ButterKnife.bind(this, rootView);
         if ((prefs.containsData(IS_OPERADOR)) || (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
-            //loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
-            loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);
+            /*loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);*/
+            loadFragment(ConfirmarNIPFragment.newInstance("nada"), Direction.FORDWARD, false);
             showBack(false);
         } else {
             loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);

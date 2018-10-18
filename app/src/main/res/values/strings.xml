@@ -1441,6 +1441,7 @@
 
     <string name="titulo_nip">Nip de tu tarjeta</string>
     <string name="sub_titulo_nip_personal">Asigna el NIP de seguridad, no puede\ncontener tres números consecutivos\nascendentes o descendentes</string>
+    <string name="sub_titulo_uso_nip">Este es el número que utilizarás para realizar\nretiros de efectivo en cajeros automáticos</string>
     <string name="nip">NIP (4 dígitos)</string>
     <string name="nipconfirma">Confirma tu NIP (4 dígitos)</string>
     <string name="introduce_nip_valido">Introduce NIP</string>
