@@ -1081,7 +1081,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             editListServ.setEnabled(true);
             maxLength = 2;
             txtLytCardNumber.setHint(getString(R.string.hint_reference));
-            layout_cardNumber.setVisibility(GONE);
+            //layout_cardNumber.setVisibility(GONE);
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             layoutScanQr.setVisibility(View.GONE);

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +10,7 @@
         style="@style/H1Azul"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="Envía dinero"
         android:textAlignment="center" />
 
@@ -19,7 +18,6 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:fillViewport="true">
 
@@ -52,36 +50,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:text="¿Quieres enviar dinero a uno de tus favoritos?" />
+                            android:text="Favoritos" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtEditarFavoritos"
                             style="@style/H4Gris"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/txtEditarFavoritor123"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginRight="10dp"
-                            android:layout_below="@+id/txtEditarFavoritor123"
                             android:text="@string/edit_word"
                             android:textColor="@color/texthint"
-                            android:textSize="9sp"
-                            android:layout_marginEnd="10dp" />
+                            android:textSize="9sp" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtEditarFavoritor123"
                             style="@style/H4Gris"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
+                            android:layout_marginEnd="10.5dp"
                             android:layout_marginRight="10.5dp"
                             android:text="@string/edit_word"
-                            android:visibility="gone"
-                            android:layout_marginEnd="10.5dp"
-                            android:layout_alignParentEnd="true" />
+                            android:visibility="gone" />
                     </RelativeLayout>
+
                     <HorizontalScrollView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -90,11 +89,11 @@
                             android:id="@+id/content_linearlayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_marginStart="10.5dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="2dp"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginStart="10.5dp" />
+                            android:orientation="horizontal" />
                     </HorizontalScrollView>
                 </LinearLayout>
 
@@ -111,57 +110,60 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
-                    android:layout_marginRight="11dp"
                     android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="@string/tipo_de_envio"
                         android:id="@+id/tipo_envio"
                         style="@style/generic_text_style_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:visibility="visible"
-                        android:layout_marginStart="15dp" />
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="@string/tipo_de_envio"
+                        android:visibility="visible" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        >
-                    <Spinner
-                        android:id="@+id/spnTypeSend"
-                        android:layout_width="0dp"
-                        android:layout_gravity="bottom"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/transparent"
-                        tools:ignore="UnusedAttribute"
-                        android:layout_marginStart="15dp" />
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spnTypeSend"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/transparent"
+                            tools:ignore="UnusedAttribute" />
+
                         <View
                             android:layout_width="1dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginRight="10dp"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
                             android:background="#c4c4c4"
-                            android:layout_marginEnd="10dp" />
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/imageViewCustomSpinner"
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="21dp"
-                        android:layout_marginBottom="4dp"
-                        android:adjustViewBounds="true"
-                        android:tint="@color/colorAccent"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ico_select"
-                        android:layout_marginEnd="21dp" />
+                            android:visibility="invisible" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/imageViewCustomSpinner"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="21dp"
+                            android:layout_marginRight="21dp"
+                            android:layout_marginBottom="4dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/ico_select" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -171,8 +173,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
-                    android:layout_marginRight="11dp"
                     android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -190,8 +192,8 @@
                         android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -205,8 +207,8 @@
                             android:inputType="number"
                             android:maxLength="19"
                             android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor"/>
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -221,10 +223,10 @@
                             android:id="@+id/imgMakePaymentContact"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:layout_marginRight="21dp"
-                            android:tint="@color/colorAccent"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/icono_agenda" />
+                            android:layout_marginRight="21dp"
+                            android:src="@drawable/icono_agenda"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -238,10 +240,10 @@
                             android:id="@+id/imgMakePaymentRef"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:tint="@color/colorAccent"
                             android:layout_centerInParent="true"
                             android:layout_marginRight="21dp"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -255,10 +257,10 @@
                             android:id="@+id/imgScanCard"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:tint="@color/colorAccent"
                             android:layout_centerInParent="true"
                             android:layout_marginRight="21dp"
-                            android:src="@drawable/icono_camara_servicios" />
+                            android:src="@drawable/icono_camara_servicios"
+                            android:tint="@color/colorAccent" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -267,8 +269,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
-                    android:layout_marginRight="11dp"
                     android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/details_bank"
@@ -277,8 +279,8 @@
                     android:textColorHint="@color/texthint"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
-                    app:hintTextAppearance="@style/HintText"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -293,8 +295,8 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:paddingLeft="15dp"
-                        android:theme ="@style/NewEdittextwallet"
                         android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet"
                         android:windowSoftInputMode="stateHidden" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -304,8 +306,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="11dp"
-                    android:layout_marginRight="11dp"
                     android:layout_marginTop="6dp"
+                    android:layout_marginRight="11dp"
                     android:background="@drawable/inputtext_normal"
                     android:gravity="center_vertical"
                     android:hint="@string/hint_name_destinatario"
@@ -314,8 +316,8 @@
                     android:textColorHint="@color/texthint"
                     app:counterEnabled="true"
                     app:counterMaxLength="1"
-                    app:hintTextAppearance="@style/HintText"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
                     app:passwordToggleTint="@color/hint_color"
                     tools:ignore="UnusedAttribute">
 
@@ -331,8 +333,8 @@
                         android:maxLines="1"
                         android:paddingLeft="15dp"
                         android:singleLine="true"
-                        android:theme ="@style/NewEdittextwallet"
-                        android:textColor="@color/grayColor" />
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -348,8 +350,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="11dp"
-                        android:layout_marginRight="11dp"
                         android:layout_marginTop="6dp"
+                        android:layout_marginRight="11dp"
                         android:background="@drawable/inputtext_normal"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_concepto"
@@ -358,8 +360,8 @@
                         android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -376,8 +378,8 @@
                             android:maxLength="40"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor" />
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -386,8 +388,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="11dp"
-                        android:layout_marginRight="11dp"
                         android:layout_marginTop="6dp"
+                        android:layout_marginRight="11dp"
                         android:background="@drawable/inputtext_normal"
                         android:gravity="center_vertical"
                         android:hint="@string/hint_referencia_numerica"
@@ -396,8 +398,8 @@
                         android:textColorHint="@color/texthint"
                         app:counterEnabled="true"
                         app:counterMaxLength="1"
-                        app:hintTextAppearance="@style/HintText"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
                         app:passwordToggleTint="@color/hint_color"
                         tools:ignore="UnusedAttribute">
 
@@ -413,8 +415,8 @@
                             android:maxLength="6"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:theme ="@style/NewEdittextwallet"
-                            android:textColor="@color/grayColor" />
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -462,8 +464,8 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btnenviar"
         style="@style/buttonSquareRoundedBlue"
-        android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Continuar"
         android:visibility="visible" />
 </LinearLayout>
