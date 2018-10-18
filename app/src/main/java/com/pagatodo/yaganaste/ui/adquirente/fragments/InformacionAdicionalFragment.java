@@ -73,6 +73,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     LinearLayout txtparentesco;
     @BindView(R.id.layoutEresMexa)
     LinearLayout layoutEresMexa;
+    @BindView(R.id.line_nacionalidad)
+    View lineNacionalidad;
     @BindView(R.id.radioEresMexa)
     RadioGroup radioEresMexa;
     @BindView(R.id.radioBtnEresMexaNo)
@@ -83,7 +85,6 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     LinearLayout layoutPais;
     @BindView(R.id.btnNext)
     Button btnNext;
-
 
     @BindView(R.id.text_cargo)
     TextInputLayout text_cargo;
@@ -142,7 +143,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         Log.e("YG", "Extranjero: " + isExtranjero);
         if (isExtranjero) {
             layoutEresMexa.setVisibility(View.VISIBLE);
-            //spaceFamiliar.setVisibility(View.VISIBLE);
+            lineNacionalidad.setVisibility(View.VISIBLE);
             radioBtnEresMexaYes.setChecked(true);
             //editCountry.setFullOnClickListener(this);
             //editCountry.setOnClickListener(this);
