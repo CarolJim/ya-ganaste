@@ -501,7 +501,10 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onChangeTextListener(String text) {
         //String leyenda = "Cobrar ";
-        cobrar.setText("Cobrar " + text);
+        if (!text.equals("$0.00"))
+            cobrar.setText("Cobrar " + text);
+        else
+            cobrar.setText("Cobrar");
     }
 }
 
