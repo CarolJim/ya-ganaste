@@ -99,7 +99,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginBottom="19.5dp"
+                        android:layout_marginBottom="16dp"
                         android:background="@color/hint_color" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_medium"
                         android:layout_marginRight="@dimen/margin_medium"
-                        android:layout_marginTop="22dp" />
+                        android:layout_marginTop="16dp" />
 
                 </LinearLayout>
 
@@ -174,7 +174,7 @@
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:background="@android:color/darker_gray"
             android:focusable="true"
             android:focusableInTouchMode="true"

@@ -177,10 +177,13 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     StyleTextView fotoTittle;
     @BindView(R.id.act_favorites_tittle_tv)
     StyleTextView textTittle;
+
     @BindView(R.id.txt_lyt_list_serv)
     TextInputLayout txtLytListServ;
+
     @BindView(R.id.add_favorites_linear_tipo)
     TextInputLayout helpLinearTipoServ;
+
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
     @BindView(R.id.layoutImageContact2)

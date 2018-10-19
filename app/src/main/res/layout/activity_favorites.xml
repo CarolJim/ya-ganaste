@@ -40,10 +40,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -111,8 +111,8 @@
                         android:id="@+id/add_favorites_alias"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="9dp"
                         android:layout_marginLeft="5.5dp"
+                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:digits="@string/input_alphanumeric_space_reference"
                         android:imeOptions="actionDone"
@@ -139,7 +139,6 @@
                     android:paddingLeft="8dp"
                     android:textColorHint="@color/texthint"
                     app:counterEnabled="true"
-
                     app:counterMaxLength="1"
                     app:counterOverflowTextAppearance="@style/CounterOverFlow"
                     app:hintTextAppearance="@style/HintText"
@@ -150,8 +149,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="9dp"
                         android:layout_marginLeft="2.5dp"
+                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:focusableInTouchMode="false"
                         android:imeOptions="actionNext"
@@ -164,7 +163,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <!-- Elemento auxiliar VISUAL que muestra el tipo de servicio que vamos a guardar, en AddNew NO SE muestra
-                solo debe verse en AddNewFromPago. Y solo en Envios-->
+                solo debe verse en AddNewFromPago. Y solo en Envios -->
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/add_favorites_linear_tipo"
                     android:layout_width="match_parent"
@@ -188,8 +187,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="9dp"
                         android:layout_marginLeft="5.5dp"
+                        android:layout_marginBottom="9dp"
                         android:background="@android:color/transparent"
                         android:focusableInTouchMode="false"
                         android:imeOptions="actionNext"
@@ -235,8 +234,8 @@
                     android:id="@+id/add_favorites_tae_ll"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="horizontal"
                     android:visibility="gone">
@@ -262,8 +261,8 @@
                             android:id="@+id/recargaNumber"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="9dp"
                             android:layout_marginLeft="5.5dp"
+                            android:layout_marginBottom="9dp"
                             android:background="@android:color/transparent"
                             android:digits="@string/input_alphanumeric_reference"
                             android:imeOptions="actionDone"
@@ -313,8 +312,8 @@
                     android:id="@+id/add_favorites_serv_ll"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/inputtext_normal"
                     android:orientation="horizontal"
                     android:visibility="gone">
@@ -560,7 +559,8 @@
 
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:visibility="gone" />
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
