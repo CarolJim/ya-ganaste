@@ -298,7 +298,7 @@ public class App extends Application {
 
             @Override
             public void onFinish() {
-                cerrarApp();
+                /*cerrarApp();*/
             }
         };
         countDownTimer.start();

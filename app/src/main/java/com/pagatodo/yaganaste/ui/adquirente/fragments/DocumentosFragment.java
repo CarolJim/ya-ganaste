@@ -11,6 +11,8 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -324,34 +326,34 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             showLoader("");
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
+            ExifInterface exif = null;
+            try {
+                exif = new ExifInterface(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Log.e("Ya Ganaste", "@Path Foto = " + path);
             try {
                 Bitmap original = BitmapFactory.decodeFile(path, opts);
+                Bitmap rotated = rotateBitmap(original, exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED));
                 Bitmap scaled;
-                int width = original.getWidth();
-                int height = original.getHeight();
-                DisplayMetrics metrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                int nuevoWidth = metrics.widthPixels;
-                int nuevoHeight = metrics.heightPixels;
+                int width = rotated.getWidth();
+                int height = rotated.getHeight();
 
-                if (nuevoHeight > 900) {
-                    int originalH = nuevoHeight;
-                    int originalW = nuevoWidth;
-                    nuevoWidth = 900;
-                    nuevoHeight = (originalH * nuevoWidth) / originalW;
-                    scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
+                if (width > 1280 || height > 720) {
+                    /* Reducir el tamaño de las imagenes un 25% */
+                    int newHeight = (int) Math.round(height * .75);
+                    int newWidth = (int) Math.round(width * .75);
+                    scaled = Bitmap.createScaledBitmap(rotated, newWidth, newHeight, false);
+                    saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 } else {
-                    if (height > width) {
-                        scaled = Bitmap.createScaledBitmap(original, nuevoWidth, nuevoHeight, false);
-                    } else {
-                        scaled = Bitmap.createScaledBitmap(original, nuevoHeight, nuevoWidth, false);
-                    }
+                    saveBmpImgUser(rotated, bitmapToBase64(rotated, path));
                 }
-                saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
+
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
+                hideLoader();
                 UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), getString(R.string.error_cargar_imagen),
                         R.string.title_aceptar, (dialogInterface, i) -> {
                         });
@@ -529,7 +531,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 getActivity().startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-
     }
 
     private void takeGallery(int document) {
@@ -900,6 +901,48 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         lnr_buttons.setVisibility(GONE);
         swipeRefreshLayout.setEnabled(true);
 
+    }
+
+    private static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_NORMAL:
+                return bitmap;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle();
+            return bmRotated;
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
 

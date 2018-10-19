@@ -83,8 +83,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     public void initViews() {
         ButterKnife.bind(this, rootView);
         if ((prefs.containsData(IS_OPERADOR)) || (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty())) {
-            /*loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);*/
-            loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
+            loadFragment(BalanceWalletFragment.newInstance(), Direction.FORDWARD, false);
             showBack(false);
         } else {
             loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);

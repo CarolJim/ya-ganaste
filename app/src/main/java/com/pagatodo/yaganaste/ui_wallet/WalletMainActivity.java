@@ -346,6 +346,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 break;
             case 7:
                 startActivity(BussinesActivity.createIntent(this, itemOperation.getNumeroAgente()));
+                setResult(PICK_WALLET_TAB_REQUEST);
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
                 break;
@@ -406,7 +407,6 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(DescargarEdoCuentaFragment.newInstance(), R.id.fragment_container);
                 break;
             default:
-                finish();
                 break;
         }
     }
@@ -429,12 +429,12 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
                     if (barcode.displayValue.contains("reference") &&
-                            barcode.displayValue.contains("commerce") &&barcode.displayValue.contains("codevisivility") ) {
+                            barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
                         QrcodeGenerator.MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQrCommerce.class);
-                        Log.d("Ya codigo qr",myQr.getCommerce());
-                        Log.d("Ya codigo qr",myQr.getReference());
+                        Log.d("Ya codigo qr", myQr.getCommerce());
+                        Log.d("Ya codigo qr", myQr.getReference());
 
-                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(),myQr.getReference(),Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(), myQr.getReference(), Boolean.parseBoolean(myQr.getCodevisivility())), R.id.fragment_container);
                     } else {
                         UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                     }
@@ -635,6 +635,8 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
             case EVENT_GO_VISUALIZER_EDO_CUENTA_ERROR:
                 loadFragment(DescargarEdoCuentaFragment.newInstance(), R.id.fragment_container, Direction.BACK);
                 UI.showErrorSnackBar(this, "No se encontró el estado de cuenta", Snackbar.LENGTH_SHORT);
+                break;
+            default:
                 break;
         }
     }

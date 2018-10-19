@@ -172,7 +172,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         radioHasCard.setOnCheckedChangeListener(this);
         //radioBtnNo.setChecked(true);//Selección por Default
 
-        /*RegisterUser registerUser = RegisterUser.getInstance();
+        RegisterUser registerUser = RegisterUser.getInstance();
         String name;
         String lastame;
         if (registerUser.getNombre().isEmpty() || registerUser.getApellidoPaterno().isEmpty()) {
@@ -183,7 +183,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             lastame = registerUser.getApellidoPaterno();
         }
 
-        name = StringUtils.getFirstName(name);*/
+        name = StringUtils.getFirstName(name);
         userName.setText("");
 
         editNumber.setTypeface(typeface);
