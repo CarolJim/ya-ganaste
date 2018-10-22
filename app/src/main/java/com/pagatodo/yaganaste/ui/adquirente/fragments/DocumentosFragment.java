@@ -341,9 +341,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 int height = rotated.getHeight();
 
                 if (width > 1280 || height > 720) {
-                    /* Reducir el tamaño de las imagenes un 25% */
-                    int newHeight = (int) Math.round(height * .75);
-                    int newWidth = (int) Math.round(width * .75);
+                    /* Reducir el tamaño de las imagenes un 30% */
+                    int newHeight = (int) Math.round(height * .70);
+                    int newWidth = (int) Math.round(width * .70);
                     scaled = Bitmap.createScaledBitmap(rotated, newWidth, newHeight, false);
                     saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 } else {
