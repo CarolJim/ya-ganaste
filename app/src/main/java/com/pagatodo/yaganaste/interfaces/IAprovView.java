@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 
+import org.json.JSONException;
+
 /**
  * Created by flima on 20/02/2017.
  */

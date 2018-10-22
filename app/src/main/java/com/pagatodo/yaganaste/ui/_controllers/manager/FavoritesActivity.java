@@ -89,6 +89,9 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -127,6 +130,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_ADD_FAV;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_DELETE_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_EDIT_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
@@ -938,6 +942,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_ADD_FAV, bundle);
+        JSONObject props = new JSONObject();
+        if(!BuildConfig.DEBUG) {
+            try {
+                props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_ADD_FAV, props);
+        }
         showDialogMesage(getString(R.string.title_dialog_favorite),
                 getString(R.string.respond_ok_add_new_favorite), 1);
     }
@@ -958,6 +971,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_DELETE_FAV, bundle);
+        JSONObject props = new JSONObject();
+        if(!BuildConfig.DEBUG) {
+            try {
+                props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_DELETE_FAV, props);
+        }
         setResult(INTENT_FAVORITE);
         finish();
     }
@@ -973,6 +995,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             Bundle bundle = new Bundle();
             bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_EDIT_FAV, bundle);
+            JSONObject props = new JSONObject();
+            if(!BuildConfig.DEBUG) {
+                try {
+                    props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                App.mixpanel.track(EVENT_EDIT_FAV, props);
+            }
             favoritesPresenter.updateLocalFavorite(dataFavoritos);
             showDialogMesage(getString(R.string.title_dialog_edit_favorite),
                     getString(R.string.respond_ok_edit_favorite), 1);

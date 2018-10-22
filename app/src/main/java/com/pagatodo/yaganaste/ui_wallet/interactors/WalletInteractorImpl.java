@@ -34,6 +34,9 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.WalletNotification;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -46,6 +49,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_EDIT_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 
@@ -173,12 +177,30 @@ public class WalletInteractorImpl implements WalletInteractor {
                 Bundle bundle = new Bundle();
                 bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_EMISOR, bundle);
+                JSONObject props = new JSONObject();
+                if(!BuildConfig.DEBUG) {
+                    try {
+                        props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    App.mixpanel.track(EVENT_BALANCE_EMISOR, props);
+                }
                 this.listener.onSuccess(TYPE_EMISOR, result.getData());
                 break;
             case CONSULTAR_SALDO_ADQ:
                 Bundle bundleFb = new Bundle();
                 bundleFb.putString(CONNECTION_TYPE, Utils.getTypeConnection());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_ADQ, bundleFb);
+                JSONObject propsFb = new JSONObject();
+                if(!BuildConfig.DEBUG) {
+                    try {
+                        propsFb.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    App.mixpanel.track(EVENT_BALANCE_ADQ, propsFb);
+                }
                 this.listener.onSuccesSaldo(TYPE_ADQ, ((ConsultaSaldoCupoResponse) result.getData()).getSaldo());
                 break;
             case CONSULTAR_SALDO_ADQ_ADM:

@@ -40,6 +40,9 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -195,18 +198,24 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
 
 
     public void finishAssociation() {
-        /*if (SingletonUser.getInstance().needsReset()) {
-            accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
-        } else {*/
+        /* Firebase Track Event */
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_APROV, props);
+        }
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
             nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
         } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
-        //}
     }
 
     @Override
@@ -219,6 +228,15 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_APROV, props);
+        }
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
@@ -227,6 +245,15 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_APROV, props);
+        }
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 

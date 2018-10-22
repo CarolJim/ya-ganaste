@@ -98,7 +98,13 @@ public class WalletPresenterImpl implements WalletPresenter, WalletNotification 
                     break;
             }
         } else if (SingletonUser.getInstance().getDataUser().getControl().getEsCliente()) {
-            String saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
+            String saldo;
+            try {
+                saldo = ((ConsultarSaldoResponse) result).getData().getSaldo();
+            } catch (Exception e) {
+                saldo = "0.0";
+                e.printStackTrace();
+            }
             switch (typeWallet) {
                 case TYPE_STARBUCKS:
                     App.getInstance().getPrefs().saveData(STARBUCKS_BALANCE, saldo);

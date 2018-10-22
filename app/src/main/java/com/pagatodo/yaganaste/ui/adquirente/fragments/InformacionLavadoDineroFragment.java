@@ -48,6 +48,9 @@ import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +68,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_COBROS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DESTINO_RECURSOS;
@@ -412,6 +416,15 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_ADQ, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_REGISTER_ADQ, props);
+        }
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
         infoAdicionalPresenter.updateSession();
     }

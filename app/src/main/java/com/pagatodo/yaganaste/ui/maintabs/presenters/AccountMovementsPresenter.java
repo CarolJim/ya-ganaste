@@ -26,11 +26,15 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresent
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.USER_BALANCE;
 
@@ -99,6 +103,15 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_MOVS_EMISOR, bundle);
+        JSONObject props = new JSONObject();
+        if(!BuildConfig.DEBUG) {
+            try {
+                props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_MOVS_EMISOR, props);
+        }
         if (response.getData() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
         }

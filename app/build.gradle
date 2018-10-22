@@ -100,6 +100,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services:' + rootProject.playServicesVersion
     implementation 'com.google.android.gms:play-services-vision:' + rootProject.playServicesVersion
     implementation 'com.google.android.gms:play-services-maps:' + rootProject.playServicesVersion
+    implementation 'com.google.android.gms:play-services-gcm:' + rootProject.playServicesVersion
     // Firebase
     implementation 'com.google.firebase:firebase-messaging:' + rootProject.firebaseVersion
     implementation 'com.google.firebase:firebase-core:' + rootProject.firebaseVersion

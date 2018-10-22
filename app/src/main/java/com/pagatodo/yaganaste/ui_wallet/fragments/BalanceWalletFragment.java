@@ -48,6 +48,9 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -82,6 +85,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_STATUS;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SHORTCUT_CHARGE;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIOADQ;
@@ -349,6 +353,15 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 Bundle bundle = new Bundle();
                 bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SHORTCUT_CHARGE, bundle);
+                JSONObject props = new JSONObject();
+                if(!BuildConfig.DEBUG) {
+                    try {
+                        props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    App.mixpanel.track(EVENT_SHORTCUT_CHARGE, props);
+                }
                 nextScreen(EVENT_PAYMENT, null);
                 break;
             case OPTION_ADMON_ADQ:

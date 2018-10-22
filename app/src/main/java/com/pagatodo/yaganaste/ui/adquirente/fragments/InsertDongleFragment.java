@@ -41,6 +41,9 @@ import com.pagatodo.yaganaste.utils.USBClass;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,8 +63,10 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Constants.TIPO_TRANSACCION_CHIP;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.APP_LIST;
 import static com.pagatodo.yaganaste.utils.Recursos.BT_PAIR_DEVICE;
+import static com.pagatodo.yaganaste.utils.Recursos.COMPANY;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONFIG_READER_OK_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
@@ -71,6 +76,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_RECHARGE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
@@ -481,6 +487,15 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             Bundle bundle = new Bundle();
             bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
             FirebaseAnalytics.getInstance(getActivity()).logEvent(EVENT_BALANCE_UYU, bundle);
+            JSONObject props = new JSONObject();
+            if(!BuildConfig.DEBUG) {
+                try {
+                    props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                App.mixpanel.track(EVENT_BALANCE_UYU, props);
+            }
             nextScreen(EVENT_GO_GET_BALANCE_RESULT, message);
         }
     }

@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
@@ -96,6 +97,9 @@ import com.pagatodo.yaganaste.utils.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -141,6 +145,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_APROV;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_LOG_IN;
@@ -715,6 +720,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_EMISOR, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_BALANCE_EMISOR, props);
+        }
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             prefs.saveData(USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
@@ -738,6 +752,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_ADQ, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_BALANCE_ADQ, props);
+        }
         if (response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
             prefs.saveData(ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
@@ -992,6 +1015,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_LOG_IN, bundle);
+        JSONObject props = null;
+        if(!BuildConfig.DEBUG) {
+            try {
+                props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_LOG_IN, props);
+        }
         if (!dataUser.getControl().getRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
             //TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento

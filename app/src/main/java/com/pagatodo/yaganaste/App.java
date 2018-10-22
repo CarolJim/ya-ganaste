@@ -21,6 +21,7 @@ import com.dspread.xpos.QPOSService;
 import com.facebook.stetho.Stetho;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.room_db.AppDatabase;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -52,6 +53,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.SESSION_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_MIXPANEL;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN;
 
 /**
@@ -72,6 +74,7 @@ public class App extends Application {
 
     public QPOSService pos;
     public IposListener emvListener;
+    public static MixpanelAPI mixpanel;
     private Preferencias prefs;
     //currentMount
     private String currentMount;
@@ -94,7 +97,7 @@ public class App extends Application {
         return m_database = AppDatabase.getInMemoryDatabase(getContext());
     }
 
-    public static DatabaseReference getDatabaseReference(){
+    public static DatabaseReference getDatabaseReference() {
         return m_reference = FirebaseDatabase.getInstance(URL_BD_ODIN).getReference();
     }
 
@@ -142,6 +145,7 @@ public class App extends Application {
         //Contly
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
+            mixpanel = MixpanelAPI.getInstance(this, TOKEN_MIXPANEL);
         } else {
             Stetho.initializeWithDefaults(this);
         }

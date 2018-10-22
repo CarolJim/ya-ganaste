@@ -20,12 +20,16 @@ import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IRequestResult;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.IGetInfoFromFirebase;
 import com.pagatodo.yaganaste.utils.FileDownloadListener;
 import com.pagatodo.yaganaste.utils.ForcedUpdateChecker;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -35,6 +39,8 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CATALOG_VERSION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SPLASH;
 
 public class SplashActivity extends LoaderActivity implements IRequestResult, FileDownloadListener,
@@ -142,6 +148,15 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(this).logEvent(EVENT_SPLASH, bundle);
+        JSONObject props = new JSONObject();
+        if(!BuildConfig.DEBUG) {
+            try {
+                props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_SPLASH, props);
+        }
         if (!downloadFile) {
             startActivity(intent/*, SPLASH_ACTIVITY_RESULT, options.toBundle()*/);
             SplashActivity.this.finish();

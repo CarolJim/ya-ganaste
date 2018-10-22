@@ -349,7 +349,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 } else {
                     saveBmpImgUser(rotated, bitmapToBase64(rotated, path));
                 }
-
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -377,12 +376,15 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 Bitmap scaled;
                 int width = original.getWidth();
                 int height = original.getHeight();
-                if (height > width) {
-                    scaled = Bitmap.createScaledBitmap(original, 500, 888, false);
+                if (width > 1280 || height > 720) {
+                    /* Reducir el tamaño de las imagenes un 30% */
+                    int newHeight = (int) Math.round(height * .70);
+                    int newWidth = (int) Math.round(width * .70);
+                    scaled = Bitmap.createScaledBitmap(original, newWidth, newHeight, false);
+                    saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 } else {
-                    scaled = Bitmap.createScaledBitmap(original, 888, 500, false);
+                    saveBmpImgUser(original, bitmapToBase64(original, path));
                 }
-                saveBmpImgUser(scaled, bitmapToBase64(scaled, path));
                 hideLoader();
             } catch (Exception e) {
                 e.printStackTrace();

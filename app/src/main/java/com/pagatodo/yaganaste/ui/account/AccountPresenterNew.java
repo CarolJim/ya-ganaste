@@ -62,6 +62,9 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +95,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_REGISTER_YG;
 import static com.pagatodo.yaganaste.utils.Recursos.GENERO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_PROVISIONING;
@@ -526,6 +530,16 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 bundle.putString(EMAIL_REGISTER, RequestHeaders.getUsername());
                 FirebaseAnalytics.getInstance(App.getContext()).setUserId(RequestHeaders.getUsername());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_YG, bundle);
+                JSONObject props = new JSONObject();
+                if(!BuildConfig.DEBUG) {
+                    try {
+                        props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                        props.put(EMAIL_REGISTER, RequestHeaders.getUsername());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    App.mixpanel.track(EVENT_REGISTER_YG, props);
+                }
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }
             if (ws == ACTUALIZAR_AVATAR) {

@@ -28,6 +28,9 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -36,6 +39,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ESTATUS_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
@@ -96,6 +100,15 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_MOVS_ADQ, bundle);
+        JSONObject props = new JSONObject();
+        if(!BuildConfig.DEBUG) {
+            try {
+                props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            App.mixpanel.track(EVENT_MOVS_ADQ, props);
+        }
         if (response.getMovimientos() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<DataMovimientoAdq>>());
         }

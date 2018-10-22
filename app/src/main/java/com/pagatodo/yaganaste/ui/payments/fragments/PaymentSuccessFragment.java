@@ -43,6 +43,9 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -59,6 +62,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.Recursos.AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.COMPANY;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EVENT_MOVS_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_RECHARGE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SEND_MONEY;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_SERV_PAYMENT;
@@ -202,6 +206,17 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             bundle.putString(COMPANY, pago.getComercio().getNombreComercio());
             bundle.putDouble(AMOUNT, pago.getMonto());
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_RECHARGE_PHONE, bundle);
+            JSONObject props = new JSONObject();
+            if(!BuildConfig.DEBUG) {
+                try {
+                    props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    props.put(COMPANY, pago.getComercio().getNombreComercio());
+                    props.put(AMOUNT, pago.getMonto());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                App.mixpanel.track(EVENT_RECHARGE_PHONE, props);
+            }
         } else if (pago instanceof Servicios) {
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
@@ -220,6 +235,17 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             bundle.putString(COMPANY, pago.getComercio().getNombreComercio());
             bundle.putDouble(AMOUNT, pago.getMonto());
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SERV_PAYMENT, bundle);
+            JSONObject props = new JSONObject();
+            if(!BuildConfig.DEBUG) {
+                try {
+                    props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    props.put(COMPANY, pago.getComercio().getNombreComercio());
+                    props.put(AMOUNT, pago.getMonto());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                App.mixpanel.track(EVENT_SERV_PAYMENT, props);
+            }
         } else if (pago instanceof Envios) {
             layoutCompania.setVisibility(View.GONE);
             if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
@@ -255,6 +281,17 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             bundle.putString(COMPANY, pago.getComercio().getNombreComercio());
             bundle.putDouble(AMOUNT, pago.getMonto());
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SEND_MONEY, bundle);
+            JSONObject props = new JSONObject();
+            if(!BuildConfig.DEBUG) {
+                try {
+                    props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+                    props.put(COMPANY, pago.getComercio().getNombreComercio());
+                    props.put(AMOUNT, pago.getMonto());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                App.mixpanel.track(EVENT_SEND_MONEY, props);
+            }
         }
 
         importe.setText(Utils.getCurrencyValue(pago.getMonto()));

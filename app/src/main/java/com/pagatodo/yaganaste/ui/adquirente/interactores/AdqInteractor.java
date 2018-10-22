@@ -34,6 +34,9 @@ import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
@@ -55,6 +58,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.AMOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_CL;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_CHARGE_ADQ_REG;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
@@ -360,10 +364,23 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         Bundle bundle = new Bundle();
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         bundle.putDouble(AMOUNT, Double.valueOf(result.getAmount()));
+        JSONObject props = new JSONObject();
+        try {
+            props.put(CONNECTION_TYPE, Utils.getTypeConnection());
+            props.put(AMOUNT, Double.valueOf(result.getAmount()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if (data.getMarcaTarjetaBancaria() == null) {
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_CHARGE_ADQ_CL, bundle);
+            if(!BuildConfig.DEBUG) {
+                App.mixpanel.track(EVENT_CHARGE_ADQ_CL, props);
+            }
         } else {
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_CHARGE_ADQ_REG, bundle);
+            if(!BuildConfig.DEBUG) {
+                App.mixpanel.track(EVENT_CHARGE_ADQ_REG, props);
+            }
         }
         switch (data.getError().getId()) {
             case ADQ_CODE_OK:
