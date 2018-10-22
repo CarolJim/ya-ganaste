@@ -64,7 +64,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private TextView mPasswordDescriptionTextView;
     private TextView mNewFingerprintEnrolledTextView;
     private TextView fingerprint_titulo;
-
+    private TextView fingerprint_description;
 
     private Stage mStage = Stage.FINGERPRINT;
 
@@ -123,6 +123,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mPassword = (EditText) v.findViewById(R.id.password);
         mPassword.setOnEditorActionListener(this);
         mPasswordDescriptionTextView = (TextView) v.findViewById(R.id.password_description);
+        fingerprint_description = (TextView)v.findViewById(R.id.fingerprint_description);
         mUseFingerprintFutureCheckBox = (CheckBox)
                 v.findViewById(R.id.use_fingerprint_in_future_check);
 
@@ -276,10 +277,11 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                     fingerprint_titulo.setText("Autoriza esta operación ");
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof BlockCardFragment) {
+                    fingerprint_titulo.setText("Autoriza esta operación");
                     if (App.getInstance().getPrefs().loadData(CARD_STATUS).equals("1")) {
-                        fingerprint_titulo.setText("Desbloquear tarjeta");
+                        fingerprint_description.setText("Usa tu huella digital para bloquear tu tarjeta");
                     } else {
-                        fingerprint_titulo.setText("Bloquear tarjeta");
+                        fingerprint_description.setText("Usa tu huella digital para desbloquear tu tarjeta");
                     }
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
@@ -289,10 +291,9 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                     fingerprint_titulo.setText(R.string.authorize_payment_title);
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
                 } else if (fragmentInstance instanceof CancelAccountFragment) {
-
                     fingerprint_titulo.setText("Autoriza esta operación");
                     mSecondDialogButton.setOnClickListener(view -> dismiss());
-                }else if (fragmentInstance instanceof PayQRFragment) {
+                } else if (fragmentInstance instanceof PayQRFragment) {
 
                     fingerprint_titulo.setText("Autoriza esta operación");
                     mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
@@ -402,9 +403,11 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     public interface generateCodehuella {
         void generatecodehue(Fragment fm);
     }
+
     public interface calldialogpass {
         void calldialogpass(Fragment fm);
     }
+
     public interface canceltransaction {
         void canceltransaction(Fragment fm);
     }

@@ -144,6 +144,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_REGISTER;
 import static com.pagatodo.yaganaste.utils.Recursos.EMAIL_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_APROV;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_ADQ;
@@ -721,7 +722,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_EMISOR, bundle);
         JSONObject props = null;
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             try {
                 props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
             } catch (JSONException e) {
@@ -753,7 +754,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_BALANCE_ADQ, bundle);
         JSONObject props = null;
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             try {
                 props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
             } catch (JSONException e) {
@@ -1016,7 +1017,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_LOG_IN, bundle);
         JSONObject props = null;
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             try {
                 props = new JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection());
             } catch (JSONException e) {
@@ -1076,6 +1077,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
                 users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
                 FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
+                if (!BuildConfig.DEBUG) {
+                    App.mixpanel.identify(user.getUid());
+                    App.mixpanel.getPeople().identify(user.getUid());
+                    App.mixpanel.getPeople().set("email", data.getUsuario().getNombreUsuario());
+                    App.mixpanel.getPeople().set("name", data.getCliente().getNombre() + " " +
+                            data.getCliente().getPrimerApellido() + " " + data.getCliente().getSegundoApellido());
+                }
             }
             accountManager.goToNextStepAccount(stepUser, null);
         });

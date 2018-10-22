@@ -700,7 +700,7 @@
     <string name="share_ticket_email">Compartir recibo</string>
     <string name="share_text">Compartir</string>
     <string name="share_ticket_email_text">Ingresa el correo electronico que \nrecibira el detalle del cobro</string>
-    <string name="recibo_enviado_line">El ticket fue enviado con éxito</string>
+    <string name="recibo_enviado_line">El ticket fue enviado con exitosamente</string>
 
     <!-- Mensajes de error para registro SMS -->
     <string name="fallo_envio">Falla al enviar el mensaje</string>
