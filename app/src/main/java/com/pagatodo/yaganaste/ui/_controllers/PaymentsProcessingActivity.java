@@ -108,7 +108,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_generic_fragment_container);
 
         presenter = new PaymentsProcessingPresenter(this);

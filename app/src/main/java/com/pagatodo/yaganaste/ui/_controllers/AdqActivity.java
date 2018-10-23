@@ -47,7 +47,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_fragment_container);
         pref = App.getInstance().getPrefs();
         idTransactionType = getIntent().getExtras().getInt(TYPE_TRANSACTION);

@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -170,7 +171,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_fragment_container);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
@@ -578,12 +579,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
                     if (barcode.displayValue.contains("reference") &&
-                            barcode.displayValue.contains("commerce") &&barcode.displayValue.contains("codevisivility") ) {
+                            barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
                         QrcodeGenerator.MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQrCommerce.class);
-                        Log.d("Ya codigo qr",myQr.getCommerce());
-                        Log.d("Ya codigo qr",myQr.getReference());
+                        Log.d("Ya codigo qr", myQr.getCommerce());
+                        Log.d("Ya codigo qr", myQr.getReference());
                         showBack(true);
-                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(),myQr.getReference(),Boolean.parseBoolean(myQr.getCodevisivility())), Direction.FORDWARD);
+                        loadFragment(PayQRFragment.newInstance(myQr.getCommerce(), myQr.getReference(), Boolean.parseBoolean(myQr.getCodevisivility())), Direction.FORDWARD);
                     } else {
                         UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                     }

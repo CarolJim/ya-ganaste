@@ -286,7 +286,13 @@ public class DateUtil {
                         try {
                             date = dateFormat.parse(movDate);
                         } catch (ParseException e4) {
-                            date = Calendar.getInstance().getTime();
+                            e4.printStackTrace();
+                            dateFormat = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss", new Locale("en", "us"));
+                            try {
+                                date = dateFormat.parse(movDate);
+                            } catch (ParseException e5) {
+                                date = Calendar.getInstance().getTime();
+                            }
                         }
                     }
                 }

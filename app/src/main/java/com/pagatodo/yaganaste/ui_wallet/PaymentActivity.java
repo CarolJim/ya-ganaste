@@ -35,7 +35,7 @@ public class PaymentActivity extends LoaderActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_payment);
         if (getIntent().getExtras() != null) {
             isFavorite = getIntent().getBooleanExtra(PAYMENT_IS_FAV, false);

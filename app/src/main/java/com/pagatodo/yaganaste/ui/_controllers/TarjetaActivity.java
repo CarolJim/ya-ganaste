@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -65,7 +66,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_tarjeta);
         ButterKnife.bind(this);
         mPreferPresenter = new TarjetaUserPresenter(this);

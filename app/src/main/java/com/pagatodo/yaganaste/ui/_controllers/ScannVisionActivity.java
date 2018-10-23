@@ -28,6 +28,7 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.utils.barcode.BarcodeTracker;
@@ -60,9 +61,9 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_barcode_scan);
-        if(getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             isQrcode = getIntent().getExtras().getBoolean(QRObject);
         }
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
@@ -84,8 +85,8 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);
             finish();
-        // Read only QR code
-        } else if (isQrcode && barcode != null && barcode.format == Barcode.QR_CODE){
+            // Read only QR code
+        } else if (isQrcode && barcode != null && barcode.format == Barcode.QR_CODE) {
             Intent intent = new Intent();
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);
@@ -170,7 +171,6 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
                 .setFlashMode(false ? Camera.Parameters.FLASH_MODE_TORCH : null)
                 .build();
     }
-
 
 
     @Override

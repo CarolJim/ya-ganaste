@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.WindowManager;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpViewFragment;
@@ -30,7 +31,7 @@ public class OtpCodeActivity extends SupportFragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_details_em_adq);
 
         loadFragment(OtpViewFragment.newInstance(getIntent().getExtras().getString(OTP_PASS)));

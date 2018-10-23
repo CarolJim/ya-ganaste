@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 
-public class CropActivity extends SupportFragmentActivity{
+public class CropActivity extends SupportFragmentActivity {
 
     private static final String EXTRA_URI = "PICTURE";
     private static final String EXTRA_CAMERA = "CAM";
@@ -54,7 +55,7 @@ public class CropActivity extends SupportFragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_crop);
         ButterKnife.bind(this);
         //toolbar.setTitle(R.string.title_crop_gallery);
