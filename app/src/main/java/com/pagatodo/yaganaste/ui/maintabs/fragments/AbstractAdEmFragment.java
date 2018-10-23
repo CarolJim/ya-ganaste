@@ -93,6 +93,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     protected ArrayAdapter<String> spinnerArrayAdapter;
     protected List<Agentes> agentes;
     protected boolean isBussines = false;
+    protected int currentTab;
 
     public AbstractAdEmFragment() {
 
@@ -200,6 +201,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        this.currentTab = tab.getPosition();
         if (!doubleSwipePosition.containsKey(tab.getPosition())) {
             swipeContainer.setDirection(SwipyRefreshLayoutDirection.BOTH);
         } else {
@@ -211,14 +213,14 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
-            if(isBussines) {
+            if (isBussines) {
                 int idADQ = 0;
                 try {
                     if (!agentes.isEmpty()) {
                         idADQ = new DatabaseManager().getIdUsuarioAdqByAgente(agentes.get(0).getNumeroAgente());
                         RequestHeaders.setIdCuentaAdq("" + idADQ);
                     }
-                } catch (ExecutionException|InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }

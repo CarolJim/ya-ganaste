@@ -46,7 +46,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public static String CURRENT_TAB = "CURRENT_TAB";
     public static String IS_BUSSINES = "IS_BUSSINES";
     private ItemMovements<DataMovimientoAdq> itemClicked;
-    private int currentTab;
 
     public static PaymentsFragment newInstance(int currentTab, boolean isMyBussines) {
         PaymentsFragment paymentsFragment = new PaymentsFragment();
@@ -206,7 +205,11 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
             e.printStackTrace();
         }
         RequestHeaders.setIdCuentaAdq("" + idADQ);
-        getDataForTab(tabMonths.getCurrentData(currentTab));
+        if (this.currentTab != 0) {
+            getDataForTab(tabMonths.getCurrentData(currentTab));
+        } else {
+            getDataForTab(tabMonths.getCurrentData(tabMonths.getTabCount() - 1));
+        }
     }
 
     @Override
