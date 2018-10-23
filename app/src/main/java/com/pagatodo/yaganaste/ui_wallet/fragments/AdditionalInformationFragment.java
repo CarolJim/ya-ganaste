@@ -239,31 +239,31 @@ public class AdditionalInformationFragment extends GenericFragment implements ID
 
 
     /**
-     *  Obtiene el diseño correspondiente al spinner
+     * Obtiene el diseño correspondiente al spinner
      */
-    private SpinnerHolder setSpinner(int texthint, BussinesLineSpinnerAdapter adapter, OnClickItemHolderListener listener){
+    private SpinnerHolder setSpinner(int texthint, BussinesLineSpinnerAdapter adapter, OnClickItemHolderListener listener) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View layout = inflater.inflate(R.layout.spinner_view_layout, parent, false);
         SpinnerHolder spinnerHolder = new SpinnerHolder(layout);
-        spinnerHolder.bind(new SpinnerHolder.SpinerItem(texthint,adapter),listener);
+        spinnerHolder.bind(new SpinnerHolder.SpinerItem(texthint, adapter), listener);
         return spinnerHolder;
     }
 
-    public InputDataViewHolder setInputText(String texthint){
+    public InputDataViewHolder setInputText(String texthint) {
         View layout = inflater.inflate(R.layout.textinput_view_layout, parent, false);
         InputDataViewHolder inputDataViewHolder = new InputDataViewHolder(layout);
-        inputDataViewHolder.bind(texthint,null);
+        inputDataViewHolder.bind(texthint, null);
         return inputDataViewHolder;
     }
 
-    public QuestionViewHolder setQuest(int text, boolean deafultR, RadioGroup.OnCheckedChangeListener listener){
+    public QuestionViewHolder setQuest(int text, boolean deafultR, RadioGroup.OnCheckedChangeListener listener) {
         View layout = inflater.inflate(R.layout.cuestion_layout, parent, false);
-        QuestionViewHolder questionViewHolder = new QuestionViewHolder(layout,listener);
-        questionViewHolder.bind(new QuestionViewHolder.Question(text,deafultR),null);
+        QuestionViewHolder questionViewHolder = new QuestionViewHolder(layout, listener);
+        questionViewHolder.bind(new QuestionViewHolder.Question(text, deafultR), null);
         return questionViewHolder;
     }
 
-    public View setSpace(int high){
+    public View setSpace(int high) {
         View space = new View(getContext());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,

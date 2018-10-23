@@ -202,7 +202,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         spBussinesColonia.setAdapter(adapterColonia);
         btnNextBussinesAddress.setOnClickListener(this);
         if (!RegisterAgent.getInstance().isUseSameAddress()) {
-            btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_btn));
+            /*btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_btn));*/
+            btnNextBussineslimpiar.setVisibility(View.INVISIBLE);
         } else {
             btnNextBussineslimpiar.setText(getString(R.string.datos_usar_mismo_domicilio_limpiar));
         }
@@ -515,7 +516,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             }
         }
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
-        if(getActivity() instanceof WalletMainActivity){
+        if (getActivity() instanceof WalletMainActivity) {
             adqPresenter.updateAdq(folio);
         } else {
             nextScreen(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION, null);

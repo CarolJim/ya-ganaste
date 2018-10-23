@@ -41,7 +41,7 @@ public class DateUtil {
     }
 
     public static String getBirthDateCustomString(Calendar date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "mx"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "MX"));
         return renameDateMonth(dateFormat.format(date.getTime()));
 
     }

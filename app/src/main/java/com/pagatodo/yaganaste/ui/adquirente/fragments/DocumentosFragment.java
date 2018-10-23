@@ -627,6 +627,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         refreshContent();
         SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatusEmisor(7);
         App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, 7);
+        nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
         onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
 
     }

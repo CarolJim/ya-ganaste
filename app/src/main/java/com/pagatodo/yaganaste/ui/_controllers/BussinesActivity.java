@@ -161,7 +161,7 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK:
-                loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(AdditionalInformationFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
@@ -206,7 +206,7 @@ public class BussinesActivity extends LoaderActivity {
                 onEvent(EVENT_GO_BUSSINES_PRE_ADDRESS_BACK, null);
             } else if (currentFragment instanceof DomicilioNegocioFragment) {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
-            } else if (currentFragment instanceof InformacionAdicionalFragment) {
+            } else if (currentFragment instanceof AdditionalInformationFragment) {
                 onEvent(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK, null);
             } else if (currentFragment instanceof InformacionLavadoDineroFragment) {
                 onEvent(EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK, null);

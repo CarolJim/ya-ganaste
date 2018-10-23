@@ -74,20 +74,20 @@
                     android:visibility="visible">
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
-                        android:id="@+id/radioBtnPublicServantNo"
-                        style="@style/RadioButtonMenu"
-                        android:layout_width="45dp"
-                        android:layout_height="25dp"
-
-                        android:text="No" />
-
-                    <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
                         android:id="@+id/radioBtnPublicServantYes"
                         style="@style/RadioButtonMenu"
                         android:layout_width="45dp"
                         android:layout_height="25dp"
                         android:checked="false"
                         android:text="Si" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomRadioButton
+                        android:id="@+id/radioBtnPublicServantNo"
+                        style="@style/RadioButtonMenu"
+                        android:layout_width="45dp"
+                        android:layout_height="25dp"
+                        android:text="No" />
+
                 </RadioGroup>
             </LinearLayout>
 
@@ -237,7 +237,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:background="#d0d0d0"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/txt_nacionalidad"
