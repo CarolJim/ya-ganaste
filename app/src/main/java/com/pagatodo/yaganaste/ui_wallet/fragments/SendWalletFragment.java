@@ -100,7 +100,6 @@ public class SendWalletFragment extends GenericFragment implements EditTextImeBa
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
-
         SingletonUser dataUser = SingletonUser.getInstance();
         saldoDisponible.setText("" + StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(USER_BALANCE)));
         txtReceiverName.setText(payments.getNombreDestinatario());
