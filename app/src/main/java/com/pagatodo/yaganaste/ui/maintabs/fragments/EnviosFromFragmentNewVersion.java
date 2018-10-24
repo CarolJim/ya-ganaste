@@ -684,11 +684,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 referenciaNumber = numberReference.getText().toString().trim();
                 payment = new Envios(selectedType, referencia, 0D, nombreDestinatario, concepto, referenciaNumber, comercioItem,
                         favoriteItem != null);
-                clearContent();
                 Intent intent = new Intent(getContext(), EnvioFormularioWallet.class);
                 intent.putExtra("pagoItem", payment);
                 intent.putExtra("favoritoItem", favoriteItem);
                 startActivityForResult(intent, BACK_FROM_PAYMENTS);
+                clearContent();
             }
         }
     }
