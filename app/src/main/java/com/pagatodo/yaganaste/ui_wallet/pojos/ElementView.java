@@ -24,6 +24,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 /**
@@ -302,8 +303,8 @@ public class ElementView implements ElementGlobal {
                 elementViews = ElementView.getListEstadoContinuarRegistro(idComercio);
             }
             if (isAgente && (idEstatusAgente == IdEstatus.I7.getId() || idEstatusAgente == IdEstatus.I8.getId()
-                    || idEstatusAgente == IdEstatus.I11.getId())) {
-                /*|| App.getInstance().getPrefs().loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE)*/
+                    || idEstatusAgente == IdEstatus.I11.getId() || App.getInstance().getPrefs().
+                    loadDataInt(ESTATUS_DOCUMENTACION) == STATUS_DOCTO_PENDIENTE)) {
                 elementViews = ElementView.getListEstadoRevisando(idComercio);
             }
             if (isAgente && idEstatusAgente == IdEstatus.I9.getId()) {
@@ -324,6 +325,7 @@ public class ElementView implements ElementGlobal {
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
+                App.getInstance().getPrefs().saveDataInt(ESTATUS_DOCUMENTACION, STATUS_DOCTO_APROBADO);
                 elementViews = ElementView.getListEstadoAprobado(idComercio);
             }
         }
