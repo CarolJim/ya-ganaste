@@ -586,6 +586,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(OperadorSuccesFragment.newInstance((int) data), R.id.fragment_container);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), R.id.fragment_container);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:

@@ -168,6 +168,7 @@ public class BussinesActivity extends LoaderActivity {
                 showBack(true);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
+                showBack(false);
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_MAINTAB:
