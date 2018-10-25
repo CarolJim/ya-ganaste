@@ -14,17 +14,19 @@ import com.pagatodo.yaganaste.ui_wallet.interfaces.IVentasDiarias;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_RESUMENDIA;
 
 public class VentasDiariasPresenter implements IVentasDiarias {
-    Context context ;
+
+    Context context;
     VentasDiariasIteractor ventasDiariasIteractor;
     IVentasAdmin viewventas;
+
     public VentasDiariasPresenter(Context context, IVentasAdmin viewventas) {
         this.context = context;
         this.viewventas = viewventas;
         ventasDiariasIteractor = new VentasDiariasIteractor(this);
     }
+
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
-
         switch (ws) {
             case GET_RESUMENDIA:
                 viewventas.hideLoader();
@@ -32,7 +34,6 @@ public class VentasDiariasPresenter implements IVentasDiarias {
 
                 break;
         }
-
     }
 
     @Override

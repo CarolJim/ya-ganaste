@@ -20,7 +20,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_OPERADOR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_RESUMENDIA;
 import static com.pagatodo.yaganaste.utils.Recursos.AGENTE_NUMBER;
 
-public class VentasDiariasIteractor implements IVentasDiariasIteractor , IRequestResult {
+public class VentasDiariasIteractor implements IVentasDiariasIteractor, IRequestResult {
 
     IVentasDiarias iVentasDiariaspresenter;
 
@@ -39,18 +39,17 @@ public class VentasDiariasIteractor implements IVentasDiariasIteractor , IReques
                     ventas.setTicketp(data.getTicketPromedio());
                     ventas.setCobrosr(data.getNumeroCobros());
                     iVentasDiariaspresenter.onSucces(GET_RESUMENDIA, "Succes");
-                }else {
-                    iVentasDiariaspresenter.onError(GET_RESUMENDIA,data.getResult().getMessage());
+                } else {
+                    iVentasDiariaspresenter.onError(GET_RESUMENDIA, data.getResult().getMessage());
                 }
                 break;
         }
     }
+
     @Override
     public void onFailed(DataSourceResult error) {
         switch (error.getWebService()) {
             case GET_RESUMENDIA:
-
-
                 break;
         }
     }
@@ -63,23 +62,19 @@ public class VentasDiariasIteractor implements IVentasDiariasIteractor , IReques
 
     @Override
     public void obtenerResumendia(String fecha) {
-
         try {
-            ApiAdq.getresumendia(fecha,this);
+            ApiAdq.getresumendia(fecha, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             iVentasDiariaspresenter.onError(GET_RESUMENDIA, App.getContext().getString(R.string.no_internet_access));
         }
-
     }
-
-
 }
- interface IVentasDiariasIteractor {
 
-     void obtenerSaldo();
+interface IVentasDiariasIteractor {
 
-     void obtenerResumendia(String fecha);
+    void obtenerSaldo();
 
+    void obtenerResumendia(String fecha);
 
 }

@@ -21,7 +21,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -312,6 +314,10 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                         boolean esUyU = adapterBalanceCard.getElemenWallet(position).getAgentes().isEsComercioUYU();
                         App.getInstance().getPrefs().saveData(NOM_COM, adapterBalanceCard.getElemenWallet(position).getAgentes().getNombreNegocio());
                         App.getInstance().getPrefs().saveData(ID_COMERCIOADQ, idcomercio + "");
+                        for (Operadores op : adapterBalanceCard.getElemenWallet(position).getAgentes().getOperadores()) {
+                            if (op.getIsAdmin())
+                                RequestHeaders.setIdCuentaAdq(op.getIdUsuarioAdquirente());
+                        }
                         if (esUyU) {
                             rcvElementsBalance.setLayoutManager(new GridLayoutManager(getContext(), 3));
                         } else {
@@ -324,7 +330,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
             }
         }
         updateOperations(position);
-
     }
 
     @Override
@@ -339,7 +344,6 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
         setVisibilityBackItems(GONE);
         setVisibilityFrontItems(VISIBLE);
         switch (elementView.getIdOperacion()) {
-
             case OPTION_BLOCK_CARD:
                 nextScreen(EVENT_BLOCK_CARD, null);
                 break;
@@ -354,7 +358,7 @@ public class BalanceWalletFragment extends GenericFragment implements View.OnCli
                 bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
                 FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_SHORTCUT_CHARGE, bundle);
                 JSONObject props = new JSONObject();
-                if(!BuildConfig.DEBUG) {
+                if (!BuildConfig.DEBUG) {
                     try {
                         props.put(CONNECTION_TYPE, Utils.getTypeConnection());
                     } catch (JSONException e) {
