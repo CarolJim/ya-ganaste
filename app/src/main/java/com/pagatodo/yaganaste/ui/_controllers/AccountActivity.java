@@ -367,7 +367,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_GO_ASOCIATE_PHONE:
                 showToolbarHelp(false);
                 changeToolbarVisibility(true);
-                showBack(true);
+                showBack(false);
                 loadFragment(AsociatePhoneAccountFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
@@ -376,6 +376,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
             case EVENT_APROV_SUCCES:
                 pref.clearPreference(COUCHMARK_EMISOR);
                 pref.clearPreference(COUCHMARK_ADQ);
+                showBack(false);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
                 break;
             case EVENT_COUCHMARK:
