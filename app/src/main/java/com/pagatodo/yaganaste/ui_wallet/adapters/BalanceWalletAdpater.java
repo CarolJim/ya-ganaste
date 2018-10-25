@@ -2,9 +2,7 @@ package com.pagatodo.yaganaste.ui_wallet.adapters;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -23,24 +21,21 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.ICardBalance;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
-import com.pagatodo.yaganaste.utils.QrcodeGenerator;
-import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.qrcode.MyQr;
+import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import eu.davidea.flipview.FlipView;
 
-import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLACK;
-import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
-import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
+import static com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator.BLACK;
+import static com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator.WHITE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
-import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 
@@ -144,7 +139,7 @@ public class BalanceWalletAdpater extends PagerAdapter implements CardAdapter {
         String phone = prefs.loadData(PHONE_NUMBER);
         String cardNumber = prefs.loadData(CARD_NUMBER);
         String clabe = prefs.loadData(CLABE_NUMBER);
-        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, phone, cardNumber, clabe);
+        MyQr myQr = new MyQr(name, phone, cardNumber, clabe);
         String gson = new Gson().toJson(myQr);
         QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(),
                 /*smallerDimension*/parentBitmap.getHeight() - 40);

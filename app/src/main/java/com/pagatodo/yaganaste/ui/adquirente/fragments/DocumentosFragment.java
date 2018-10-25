@@ -624,7 +624,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     @Override
     public void documentosActualizados(String s) {
         dataDocumnets.clear();
-        refreshContent();
         SingletonUser.getInstance().getDataUser().getUsuario().setIdEstatusEmisor(7);
         App.getInstance().getPrefs().saveDataInt(ID_ESTATUS_EMISOR, 7);
         nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
@@ -903,7 +902,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         adqPresenter.getEstatusDocs();
         lnr_buttons.setVisibility(GONE);
         swipeRefreshLayout.setEnabled(true);
-
     }
 
     private static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {

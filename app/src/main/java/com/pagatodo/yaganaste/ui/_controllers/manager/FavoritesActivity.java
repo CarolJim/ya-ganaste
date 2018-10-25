@@ -74,7 +74,8 @@ import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
-import com.pagatodo.yaganaste.utils.QrcodeGenerator;
+import com.pagatodo.yaganaste.utils.qrcode.MyQr;
+import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -130,7 +131,6 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_RECARGAS;
 import static com.pagatodo.yaganaste.utils.Constants.PAYMENT_SERVICIOS;
 import static com.pagatodo.yaganaste.utils.Recursos.CONNECTION_TYPE;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_ADD_FAV;
-import static com.pagatodo.yaganaste.utils.Recursos.EVENT_BALANCE_UYU;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_DELETE_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.EVENT_EDIT_FAV;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
@@ -594,7 +594,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                     } else if (current_tab == PAYMENT_ENVIOS) {
                         if (barcode.displayValue.contains("userName") && barcode.displayValue.contains("phoneNumber") &&
                                 barcode.displayValue.contains("cardNumber") && barcode.displayValue.contains("clabe")) {
-                            QrcodeGenerator.MyQr myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQr.class);
+                            MyQr myQr = new Gson().fromJson(barcode.displayValue, MyQr.class);
                             cardNumber.setText(myQr.getClabe());
                         } else {
                             UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);

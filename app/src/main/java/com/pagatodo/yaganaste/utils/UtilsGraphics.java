@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.View;
@@ -18,12 +16,13 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.utils.qrcode.MyQr;
+import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static com.pagatodo.yaganaste.App.getContext;
-import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLACK;
-import static com.pagatodo.yaganaste.utils.QrcodeGenerator.BLUE;
-import static com.pagatodo.yaganaste.utils.QrcodeGenerator.WHITE;
+import static com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator.BLACK;
+import static com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator.WHITE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.FULL_NAME_USER;
@@ -40,7 +39,7 @@ public class UtilsGraphics {
         String phone = App.getInstance().getPrefs().loadData(PHONE_NUMBER);
         String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
         String clabe = App.getInstance().getPrefs().loadData(CLABE_NUMBER);
-        QrcodeGenerator.MyQr myQr = new QrcodeGenerator.MyQr(name, phone, cardNumber, clabe);
+        MyQr myQr = new MyQr(name, phone, cardNumber, clabe);
         String gson = new Gson().toJson(myQr);
         QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(),
                 /*smallerDimension*/parentBitmap.getHeight() - 15);

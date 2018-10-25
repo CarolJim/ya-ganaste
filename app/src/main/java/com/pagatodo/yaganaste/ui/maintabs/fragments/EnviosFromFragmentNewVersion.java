@@ -62,20 +62,17 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.ui_wallet.bookmarks.ui.BoardBookmarks;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.holders.PaletteViewHolder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.IEnviosPaymentPresenter;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
-import com.pagatodo.yaganaste.ui_wallet.presenter.EnviosPaymentPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
-import com.pagatodo.yaganaste.utils.QrcodeGenerator;
+import com.pagatodo.yaganaste.utils.qrcode.MyQr;
+import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -1183,7 +1180,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
                     if (barcode.displayValue.contains("userName") && barcode.displayValue.contains("phoneNumber") &&
                             barcode.displayValue.contains("cardNumber") && barcode.displayValue.contains("clabe")) {
-                        QrcodeGenerator.MyQr myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQr.class);
+                        MyQr myQr = new Gson().fromJson(barcode.displayValue, MyQr.class);
                         cardNumber.setText(myQr.getClabe());
                         receiverName.setText(myQr.getUserName());
                     } else {

@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.utils;
+package com.pagatodo.yaganaste.utils.qrcode;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -89,7 +89,7 @@ public class QrcodeGenerator {
         for (int y = 0; y < height; y++) {
             int offset = y * width;
             for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLUE : WHITE;
+                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
             }
         }
 
@@ -106,87 +106,5 @@ public class QrcodeGenerator {
             }
         }
         return null;
-    }
-
-    public static class MyQr {
-
-        String userName, phoneNumber, cardNumber, clabe;
-
-        public MyQr(String username, String phoneNumber, String cardNumber, String clabe) {
-            this.userName = username;
-            this.phoneNumber = phoneNumber;
-            this.cardNumber = cardNumber;
-            this.clabe = clabe;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public void setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-        }
-
-        public String getCardNumber() {
-            return cardNumber;
-        }
-
-        public void setCardNumber(String cardNumber) {
-            this.cardNumber = cardNumber;
-        }
-
-        public String getClabe() {
-            return clabe;
-        }
-
-        public void setClabe(String clabe) {
-            this.clabe = clabe;
-        }
-    }
-
-    public static class MyQrCommerce {
-
-        String reference, commerce,codevisivility;
-
-
-
-        public MyQrCommerce(String reference, String commerce,String codevisivility) {
-            this.reference = reference;
-            this.commerce = commerce;
-            this.codevisivility= codevisivility;
-
-        }
-
-        public String getCodevisivility() {
-            return codevisivility;
-        }
-
-        public void setCodevisivility(String codevisivility) {
-            this.codevisivility = codevisivility;
-        }
-
-        public String getReference() {
-            return reference;
-        }
-
-        public void setReference(String reference) {
-            this.reference = reference;
-        }
-
-        public String getCommerce() {
-            return commerce;
-        }
-
-        public void setCommerce(String commerce) {
-            this.commerce = commerce;
-        }
     }
 }

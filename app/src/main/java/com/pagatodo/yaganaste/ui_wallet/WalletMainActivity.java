@@ -84,7 +84,8 @@ import com.pagatodo.yaganaste.ui_wallet.fragments.TimeRepaymentFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.TutorialsFragment;
 import com.pagatodo.yaganaste.ui_wallet.fragments.VentasDiariasFragment;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
-import com.pagatodo.yaganaste.utils.QrcodeGenerator;
+import com.pagatodo.yaganaste.utils.qrcode.MyQrCommerce;
+import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
@@ -430,7 +431,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                     Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
                     if (barcode.displayValue.contains("reference") &&
                             barcode.displayValue.contains("commerce") && barcode.displayValue.contains("codevisivility")) {
-                        QrcodeGenerator.MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, QrcodeGenerator.MyQrCommerce.class);
+                        MyQrCommerce myQr = new Gson().fromJson(barcode.displayValue, MyQrCommerce.class);
                         Log.d("Ya codigo qr", myQr.getCommerce());
                         Log.d("Ya codigo qr", myQr.getReference());
 

@@ -122,7 +122,6 @@ public class SelfieFragment extends GenericFragment implements View.OnClickListe
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(getContext());
 
-
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
@@ -362,5 +361,11 @@ public class SelfieFragment extends GenericFragment implements View.OnClickListe
     public void backScreen(String event, Object data) {
         omitir.setVisibility(View.GONE);
         mUserImage = "";
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cropResultReceiver.unregister(getContext());
     }
 }
