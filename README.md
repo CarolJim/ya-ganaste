@@ -13,6 +13,22 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
+**_VERSION 4.3.4 - 19 de Septiembre al 26 de Octubre del 2018 (ID:5623)_**
+
+Descripción al desarrollador:
+
+    * Implementación de eventos en Mixpanel.
+    * Migración de cajas de Firebase de Ya Ganaste a Odín.
+    * Migración de esquema de url's a Odín.
+    * Mejora en la manera de actualizar app por forzamiento.
+    * Nuevo algoritmo de redimensionamiento de imágenes para registro adquiriente.
+    * Creación de estructura para definición de QR.
+    * Correccion de incidencias.
+    
+Funcionalida:
+
+    * Correcciones menores.
+
 **_VERSION 4.3.3 - 29 de Agosto al 18 de Septiembre del 2018 (ID:5460)_**
 
 Descripción al desarrollador:
