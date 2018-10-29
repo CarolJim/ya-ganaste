@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.ES_AGENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_LOGIN;
+import static com.pagatodo.yaganaste.utils.Recursos.FIST_ADQ_REEMBOLSO;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.NUMBER_CARD_STARBUCKS;
@@ -233,7 +235,9 @@ public class ElementWallet {
             String leyenda;
             int descripcion;
             boolean isReload = true;
-            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId()) {
+            if (SingletonUser.getInstance().getDataUser().getUsuario().getIdEstatusEmisor() == IdEstatus.ADQUIRENTE.getId() &&
+                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false) &&
+                    App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)) {
                 /*if (agentes.getIdEstatus() == IdEstatus.ADQUIRENTE.getId()) {*/
                 leyenda = StringUtils.getCurrencyValue(App.getInstance().getPrefs().loadData(ADQUIRENTE_BALANCE));
                 descripcion = R.string.saldo_reembolso;

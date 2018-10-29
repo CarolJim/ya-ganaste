@@ -29,10 +29,6 @@ public class WalletBuilder {
             } else {
                 walletList.addWallet(ElementWallet.getCardyaganaste());
             }
-            /*} else {
-                walletList.addWallet(ElementWallet.getCardyaganaste());
-            }*/
-
         } else {
             if (App.getInstance().getPrefs().loadDataInt(ID_ROL) != 129) {
                 walletList.addWallet(ElementWallet.getCardyaganaste());

@@ -321,7 +321,10 @@ public class ElementView implements ElementGlobal {
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_REEMBOLSO, false)
                     && !isComercioUyu) {
+                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
                 elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
+            } else {
+                App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
             }
             if (isAgente && idEstatusAgente == IdEstatus.ADQUIRENTE.getId() &&
                     !App.getInstance().getPrefs().loadDataBoolean(FIST_ADQ_LOGIN, false)) {
