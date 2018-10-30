@@ -71,6 +71,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
+import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
 import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
@@ -1060,19 +1061,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             layoutScanCard.setOnClickListener(null);
             txtLytCardNumber.setHint(getString(R.string.transfer_qr));
             cardNumber.setEnabled(false);
-            editListServ.setText(getString(R.string.app_name));
-            editListServ.setEnabled(false);
-            idcomercioqr(IDCOMERCIO_YA_GANASTE);
             selectedType = CLABE;
-
-            referenciaLayout.setVisibility(GONE);
-            numberReference.setText("123456");
-            //cardNumber.setOnFocusChangeListener(this);
-            //amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            //amountToSend.setOnEditorActionListener(this);
-            concept.setImeOptions(IME_ACTION_DONE);
-            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
-
         } else {
             cardNumber.setEnabled(true);
             editListServ.setEnabled(true);
@@ -1183,6 +1172,24 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         MyQr myQr = new Gson().fromJson(barcode.displayValue, MyQr.class);
                         cardNumber.setText(myQr.getClabe());
                         receiverName.setText(myQr.getUserName());
+                    } else if (barcode.displayValue.contains("Opt") && barcode.displayValue.contains("Aux") &&
+                            barcode.displayValue.contains("Typ") && barcode.displayValue.contains("Ver")) {
+                        InterbankQr interbankQr = new Gson().fromJson(barcode.displayValue, InterbankQr.class);
+                        cardNumber.setText(interbankQr.getOptionalData().beneficiaryAccount);
+                        receiverName.setText(interbankQr.getOptionalData().beneficiaryName);
+                        numberReference.setText(interbankQr.getOptionalData().referenceNumber);
+                        if(interbankQr.getOptionalData().bankId.equals("148")){
+                            editListServ.setText(getString(R.string.app_name));
+                            editListServ.setEnabled(false);
+                            idcomercioqr(IDCOMERCIO_YA_GANASTE);
+                            referenciaLayout.setVisibility(GONE);
+                            concept.setImeOptions(IME_ACTION_DONE);
+                            concept.setText(App.getContext().getResources().getString(R.string.trans_yg_envio_txt));
+                        } else {
+                            editListServ.setEnabled(true);
+                            concept.setImeOptions(IME_ACTION_DONE);
+                            concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+                        }
                     } else {
                         UI.showErrorSnackBar(getActivity(), getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                     }

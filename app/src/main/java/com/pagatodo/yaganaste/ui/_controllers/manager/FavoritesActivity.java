@@ -74,6 +74,7 @@ import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
+import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
 import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -562,6 +563,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
     /**
      * Resultado de tomar una foto o escoger una de galeria, se envia el resultado al CameraManager
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -596,12 +598,14 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                                 barcode.displayValue.contains("cardNumber") && barcode.displayValue.contains("clabe")) {
                             MyQr myQr = new Gson().fromJson(barcode.displayValue, MyQr.class);
                             cardNumber.setText(myQr.getClabe());
+                        } else if (barcode.displayValue.contains("Opt") && barcode.displayValue.contains("Aux") &&
+                                barcode.displayValue.contains("Typ") && barcode.displayValue.contains("Ver")) {
+                            InterbankQr interbankQr = new Gson().fromJson(barcode.displayValue, InterbankQr.class);
+                            cardNumber.setText(interbankQr.getOptionalData().beneficiaryAccount);
                         } else {
                             UI.showErrorSnackBar(this, getString(R.string.transfer_qr_invalid), Snackbar.LENGTH_SHORT);
                         }
                     }
-                    // Ocultamos el mensaje de error si esta visible
-                    // Borrar  editReferError.setVisibilityImageError(false);
                 }
             }
         }
@@ -943,7 +947,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_ADD_FAV, bundle);
         JSONObject props = new JSONObject();
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             try {
                 props.put(CONNECTION_TYPE, Utils.getTypeConnection());
             } catch (JSONException e) {
@@ -972,7 +976,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
         bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
         FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_DELETE_FAV, bundle);
         JSONObject props = new JSONObject();
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             try {
                 props.put(CONNECTION_TYPE, Utils.getTypeConnection());
             } catch (JSONException e) {
@@ -996,7 +1000,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection());
             FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_EDIT_FAV, bundle);
             JSONObject props = new JSONObject();
-            if(!BuildConfig.DEBUG) {
+            if (!BuildConfig.DEBUG) {
                 try {
                     props.put(CONNECTION_TYPE, Utils.getTypeConnection());
                 } catch (JSONException e) {

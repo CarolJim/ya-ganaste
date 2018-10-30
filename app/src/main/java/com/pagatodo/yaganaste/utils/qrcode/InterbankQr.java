@@ -6,11 +6,11 @@ public class InterbankQr {
 
     /* Tipo y subtipo de Operación */
     @SerializedName("Typ")
-    private String type;
+    private String type = "";
 
     /* Versión */
     @SerializedName("Ver")
-    private String version;
+    private String version = "";
 
     /* Campos Opcionales */
     @SerializedName("Opt")
@@ -19,6 +19,11 @@ public class InterbankQr {
     /* Campos Auxiliares */
     @SerializedName("Aux")
     private Auxiliar auxiliarData;
+
+    public InterbankQr() {
+        optionalData = new Optional();
+        auxiliarData = new Auxiliar();
+    }
 
     public String getType() {
         return type;
@@ -36,65 +41,73 @@ public class InterbankQr {
         return auxiliarData;
     }
 
-    static class Optional {
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public class Optional {
         /* Código País */
         @SerializedName("Cou")
-        public String countryCode;
+        public String countryCode = "";
 
         /* Referencia Numérica */
         @SerializedName("Ref")
-        public String referenceNumber;
+        public String referenceNumber = "";
 
         /* Código Divisa */
         @SerializedName("Cur")
-        public String currencyCode;
+        public String currencyCode = "";
 
         /* Vigencia */
         @SerializedName("Exp")
-        public String expiration;
+        public String expiration = "";
 
         /* Identificador del dispositivo o serie */
         @SerializedName("Dev")
-        public String deviceId;
+        public String deviceId = "";
 
         /* Monto */
         @SerializedName("Amo")
-        public String amount;
+        public String amount = "";
 
         /* Clave del Banco */
         @SerializedName("Ban")
-        public String bankId;
+        public String bankId = "";
 
         /* Fecha y Hora de creación */
         @SerializedName("Date")
-        public String dateCreation;
+        public String dateCreation = "";
 
         /* Criptograma */
         @SerializedName("Cry")
-        public String cryptogram;
+        public String cryptogram = "";
 
         /* Cadena encriptada */
         @SerializedName("Enc")
-        public String encryptedString;
+        public String encryptedString = "";
 
         /* Identificador de cobro */
         @SerializedName("Idc")
-        public String billingIdentifier;
+        public String billingIdentifier = "";
 
         /* Nombre del beneficiario */
         @SerializedName("Nam")
-        public String beneficiaryName;
+        public String beneficiaryName = "";
 
         /* Cuenta beneficiario */
         @SerializedName("Acc")
-        public String beneficiaryAccount;
+        public String beneficiaryAccount = "";
 
         /* Concepto */
         @SerializedName("Des")
-        public String description;
+        public String description = "";
     }
 
-    static class Auxiliar {
+    public class Auxiliar {
 
     }
 }

@@ -16,6 +16,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.pdf417.PDF417Writer;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
 import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 
@@ -36,11 +37,20 @@ public class UtilsGraphics {
 
     public static Bitmap getQrCode(Bitmap parentBitmap) {
         String name = App.getInstance().getPrefs().loadData(FULL_NAME_USER);
-        String phone = App.getInstance().getPrefs().loadData(PHONE_NUMBER);
-        String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
+        /*String phone = App.getInstance().getPrefs().loadData(PHONE_NUMBER);
+        String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);*/
         String clabe = App.getInstance().getPrefs().loadData(CLABE_NUMBER);
-        MyQr myQr = new MyQr(name, phone, cardNumber, clabe);
-        String gson = new Gson().toJson(myQr);
+        /*MyQr myQr = new MyQr(name, phone, cardNumber, clabe);*/
+        InterbankQr qr = new InterbankQr();
+        qr.setVersion("0.1");
+        qr.setType("300");
+        qr.getOptionalData().countryCode = "MX";
+        qr.getOptionalData().currencyCode = "MXN";
+        qr.getOptionalData().bankId = "148";
+        qr.getOptionalData().beneficiaryAccount = clabe.replace(" ", "");
+        qr.getOptionalData().beneficiaryName = (name.length() > 19 ? name.substring(0, 19) : name);
+        qr.getOptionalData().referenceNumber = DateUtil.getDayMonthYear();
+        String gson = new Gson().toJson(qr);
         QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(),
                 /*smallerDimension*/parentBitmap.getHeight() - 15);
         try {

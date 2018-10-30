@@ -36,7 +36,9 @@ import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.pojos.TextData;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UtilsIntents;
+import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
 import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -238,8 +240,17 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         int height = point.y;
         int smallerDimension = width < height ? width : height;
         smallerDimension = smallerDimension * 3 / 4;
-        MyQr myQr = new MyQr(name, cellPhone, usuario.getTarjetas().get(0).getNumero(), usuario.getCLABE());
-        String gson = new Gson().toJson(myQr);
+        //MyQr myQr = new MyQr(name, cellPhone, usuario.getTarjetas().get(0).getNumero(), usuario.getCLABE());
+        InterbankQr qr = new InterbankQr();
+        qr.setVersion("0.1");
+        qr.setType("300");
+        qr.getOptionalData().countryCode = "MX";
+        qr.getOptionalData().currencyCode = "MXN";
+        qr.getOptionalData().bankId = "148";
+        qr.getOptionalData().beneficiaryAccount = usuario.getCLABE().replace(" ", "");
+        qr.getOptionalData().beneficiaryName = (name.length() > 19 ? name.substring(0, 19) : name);
+        qr.getOptionalData().referenceNumber = DateUtil.getDayMonthYear();
+        String gson = new Gson().toJson(qr);
         //String gsonCipher = Utils.cipherAES(gson, true);
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
@@ -252,56 +263,4 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             e.printStackTrace();
         }
     }
-
-    /*private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-
-                        Intent gpsOptionsIntent = new Intent(
-                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(gpsOptionsIntent);
-
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
-    }*/
-/*
-    private void printCard(String cardNumber) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
-        android.graphics.Bitmap.Config bitmapConfig =
-                bitmap.getConfig();
-        // set default bitmap config if none
-        if (bitmapConfig == null) {
-            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
-        }
-        // resource bitmaps are imutable,
-        // so we need to convert it to mutable one
-        bitmap = bitmap.copy(bitmapConfig, true);
-
-        Canvas canvas = new Canvas(bitmap);
-        // new antialised Paint
-        TextPaint textPaint = new TextPaint();
-        Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", getContext());
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTypeface(typeface);
-
-        float heigth = canvas.getHeight();
-        float width = canvas.getWidth();
-        textPaint.setTextSize(heigth * 0.115f);
-
-        canvas.drawText(cardNumber, width * 0.07f, heigth * 0.6f, textPaint);
-
-
-        imgYaGanasteQR.setImageBitmap(bitmap);
-    }
-*/
-
-
 }
