@@ -205,13 +205,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         cameraManager = new CameraManager(this);
         cameraManager.initCamera(this, imgLoginExistProfile, this);
         cropResultReceiver = new CropIwaResultReceiver();
-        try {
-            cropResultReceiver.setListener(this);
-            //cropResultReceiver.unregister(this);
-            cropResultReceiver.register(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         fbmPresenter = new FBPresenter(this, new FBInteractor());
         this.tabPresenter = new MainMenuPresenterImp(this);
         this.resetPinPresenter = new ResetPinPresenterImp(false);
@@ -274,6 +267,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 isValid = false;
             }
             if (isValid) {
+                try {
+                    cropResultReceiver.setListener(this);
+                    //cropResultReceiver.unregister(this);
+                    cropResultReceiver.register(this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 drawerPresenter.openMenuPhoto(1, cameraManager);
             }
         }
@@ -462,9 +462,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     startActivity(intent);
                 }
             }
-        } else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
+        /*} else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
                 && getFragment(1) != null) {
-            getFragment(1).onActivityResult(requestCode, resultCode, data);
+            getFragment(1).onActivityResult(requestCode, resultCode, data);*/
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         /*} else if (requestCode == Constants.ACTIVITY_LANDING) {
