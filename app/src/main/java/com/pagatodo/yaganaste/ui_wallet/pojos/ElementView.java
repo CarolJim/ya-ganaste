@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Agentes;
 import com.pagatodo.yaganaste.data.room_db.entities.Operadores;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -323,6 +324,11 @@ public class ElementView implements ElementGlobal {
                     && !isComercioUyu) {
                 App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, false);
                 elementViews = ElementView.getListSeleccionarTipoReevolso(idComercio);
+                for (Operadores opr : list) {
+                    if (opr.getIsAdmin()) {
+                        RequestHeaders.setIdCuentaAdq(opr.getIdUsuarioAdquirente());
+                    }
+                }
             } else {
                 App.getInstance().getPrefs().saveDataBool(FIST_ADQ_REEMBOLSO, true);
             }

@@ -88,38 +88,6 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
         this.title.setText(elementView.getTitle());
 
         if (elementView.isStatus()) {
-/*<<<<<<< HEAD
-            this.descBtn1.setText(this.activity.getString(R.string.lector_plug));
-            this.descBtn2.setText(this.activity.getString(R.string.lector_inalambrico));
-            this.descBtn3.setText(this.activity.getString(R.string.sin_lector_aun));
-            this.imgBtn1.setImageResource(R.drawable.ico_cobrar_in);
-            this.imgBtn2.setImageResource(R.drawable.ic_bluetooth_dongle);
-            this.imgBtn3.setImageResource(R.drawable.ic_no_dongle);
-            this.btnContinue.setText(this.activity.getString(R.string.continuar));
-            this.btnContinue.setOnClickListener(v -> {
-
-                switch (idButton) {
-                    case FIRST_OPTION:
-                        App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
-                        App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.AUDIO.ordinal());
-                        listener.onItemClick(elementView);
-                        break;
-                    case SECOND_OPTION:
-                        App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
-                        App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
-                        listener.onItemClick(elementView);
-                        break;
-                    case THIRD_OPTION:
-                        App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
-
-                        App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, 0);
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yaganaste.com"));
-                        this.activity.startActivity(browserIntent);
-                        break;
-                    default:
-                        UI.showErrorSnackBar(this.activity, this.itemView.getContext().getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
-                        break;
-*/
             if (reembolso){
                 this.descBtn1.setText(activity.getString(R.string.reembolso_cuarentayocho));
                 this.descBtn2.setText(activity.getString(R.string.reembolso_veinticuatro));
@@ -179,12 +147,8 @@ public class SelectOptionZoneViewHolder extends GenericHolder implements View.On
                         default:
                             UI.showErrorSnackBar(activity, activity.getString(R.string.error_seleccion_lector), Snackbar.LENGTH_SHORT);
                             break;
-
-
                     }
                 }
-
-
             });
         }
         this.btn1.setOnClickListener(this);
