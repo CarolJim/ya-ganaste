@@ -7,7 +7,7 @@
     </item>
 
     <item
-        android:drawable="@drawable/keyboard_back"
+        android:drawable="@drawable/delete_btn"
         android:gravity="center">
 
     </item>

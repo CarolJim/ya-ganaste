@@ -132,10 +132,7 @@ public class CustomKeyboardView extends KeyboardView {
                     dr.setState(key.getCurrentDrawableState());
                     dr.draw(canvas);
                 }
-
             }
         }
     }
-
-
 }
