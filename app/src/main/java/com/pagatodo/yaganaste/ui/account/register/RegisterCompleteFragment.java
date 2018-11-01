@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -21,6 +22,8 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_CONFIG_DONGLE;
+import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 
 
@@ -124,6 +127,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 btnName = getString(R.string.nextButton);
                 txtSubtitle.setText(getString(R.string.adq_subtitle_thanks));
                 btnNextComplete.setText("Continuar");
+                App.getInstance().getPrefs().saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal());
+                App.getInstance().getPrefs().saveDataBool(HAS_CONFIG_DONGLE, true);
                 NEXT_SCREEN = EVENT_DOC_CHECK;
                 break;
             case ADQ_ACEPTADOS:
