@@ -50,7 +50,7 @@
         <Key
             android:codes="67"
             android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/keyboard_back" />
+            android:keyIcon="@drawable/delete_btn" />
     </Row>
     <!--
         <Key android:codes="67" android:keyIcon="@mipmap/ic_launcher" />
