@@ -41,7 +41,17 @@ public class NumberTextWatcher implements TextWatcher {
         Double value = StringUtils.getDoubleValue(s.toString());
         edtText.removeTextChangedListener(this);
         if (value <= 999999.99 && enableWriting) {
-            edtText.setText(!s.toString().contains("$") ? "$".concat(s.toString()) : s.toString());
+            int thousands = value.intValue() / 1000;
+            int lengthThousand = new String(thousands > 0 ? thousands + "" : "").length();
+            if (lengthThousand > 0) {
+                String newValue = s.toString().replaceAll(",", "");
+                StringBuilder string = new StringBuilder(newValue);
+                string.insert(newValue.contains("$") ? lengthThousand + 1 : lengthThousand, ",");
+                edtText.setText(!newValue.contains("$") ? "$".concat(string.toString()) : string.toString());
+            } else {
+                String newValue = s.toString().replaceAll(",", "");
+                edtText.setText(!newValue.contains("$") ? "$".concat(newValue) : newValue);
+            }
             Selection.setSelection(edtText.getText(), edtText.getText().length());
         } else {
             edtText.setText(textBefore);
