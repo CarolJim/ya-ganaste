@@ -21,4 +21,6 @@ public interface IFavoritesIteractor {
     void toIteractorDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito);
 
     void getTitularName(String cuenta);
+
+    void getDataBank(String input, String cob);
 }

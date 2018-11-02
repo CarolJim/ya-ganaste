@@ -1028,6 +1028,14 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     public void toViewErrorCuentaFail(String mensaje) {
 
     }
+
+    @Override
+    public void toViewSucessObtenerBanco(String idComercio) {
+        int myIdComercio = Integer.parseInt(idComercio);
+        if (this.idComercio != myIdComercio) {
+            UI.showErrorSnackBar(this, "El banco no coincide con la referencia ingresada", Snackbar.LENGTH_LONG);
+        }
+    }
     /**
      * FIN METODOS de interfase  IAddFavoritesActivity
      */
@@ -1252,6 +1260,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // CReamos el te numberCardTextWatcher si no existe
             if (numberCardTextWatcher == null) {
                 numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
+                numberCardTextWatcher.setOnITextChangeListener(this);
             }
 
             // Borramos el contenido de TextWatcher del elemento
@@ -1259,10 +1268,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             cardNumber.removeTextChangedListener(phoneTextWatcher);
             cardNumber.removeTextChangedListener(numberClabeTextWatcher);
 
-
-            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-                numberCardTextWatcher.setOnITextChangeListener(this);
-            }
             cardNumber.addTextChangedListener(numberCardTextWatcher);
             layoutImageContact2.setVisibility(View.GONE);
             layoutImageContact2.setOnClickListener(null);
@@ -1307,6 +1312,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
                 numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+                numberCardTextWatcher.setOnITextChangeListener(this);
             }
 
             // Borramos el contenido de TextWatcher del elemento
@@ -1330,6 +1336,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
                 numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
+                numberCardTextWatcher.setOnITextChangeListener(this);
             }
 
             // Borramos el contenido de TextWatcher del elemento
@@ -1381,8 +1388,15 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     @Override
     public void onTextComplete() {
         UI.hideKeyBoard(this);
-        if (favoriteProcess == NEW_FAVORITE_FROM_CERO)
-            favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
+        if (favoriteProcess == NEW_FAVORITE_FROM_CERO) {
+            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
+            }
+            if (current_tab == 3 && maxLength >= 18) {
+                favoritesPresenter.getDataBank(cardNumber.getText().toString().replace(" ", ""),
+                        (maxLength <= 19 ? "bin" : "clave"));
+            }
+        }
     }
 
     /**

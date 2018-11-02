@@ -1107,6 +1107,7 @@
     <string name="delete_fav_button">Eliminar</string>
     <string name="update_fav_request">Actualizando favorito</string>
     <string name="delete_fav_request">Borrando favorito</string>
+    <string name="validate_fav_bank">Validando Banco</string>
     <string name="fav_photo_request">Procesando foto</string>
     <string name="path_image">/YaGanaste</string>
     <string name="update_data">Actualizando datos</string>

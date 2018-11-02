@@ -7,12 +7,14 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerBancoBinRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultarTitularCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -107,6 +109,18 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
         }
     }
 
+    @Override
+    public void getDataBank(String input, String cob) {
+        try {
+            ObtenerBancoBinRequest request = new ObtenerBancoBinRequest();
+            request.setPbusqueda(input);
+            request.setTipoConsulta(cob);
+            ApiAdtvo.obtenerBancoBin(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * RESPUESTAS DE APIS
@@ -189,6 +203,18 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
+            } else {
+                favoritesPresenter.toPresenterGenericError(dataSourceResult);
+            }
+        }
+
+        /**
+         * Instancia de petición exitosa de ConsultarBancosBin
+         */
+        if(dataSourceResult.getData() instanceof ObtenerBancoBinResponse){
+            ObtenerBancoBinResponse response = (ObtenerBancoBinResponse) dataSourceResult.getData();
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK){
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);

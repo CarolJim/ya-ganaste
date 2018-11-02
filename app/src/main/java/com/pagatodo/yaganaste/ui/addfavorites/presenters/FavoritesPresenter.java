@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerBancoBinResponse;
 import com.pagatodo.yaganaste.data.room_db.DatabaseManager;
 import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
@@ -35,9 +36,10 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     IFavoritesIteractor favoritesIteractor;
     int idFavorito;
 
-    public FavoritesPresenter(){
+    public FavoritesPresenter() {
         this.favoritesIteractor = new FavoritesIteractor(this);
     }
+
     public FavoritesPresenter(IAddFavoritesActivity mView) {
         this.mView = mView;
         favoritesIteractor = new FavoritesIteractor(this);
@@ -77,7 +79,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
     @Override
     public void updateLocalFavorite(Favoritos favoritos) {
-        new DatabaseManager().deleteFavoriteById((int)favoritos.getIdFavorito());
+        new DatabaseManager().deleteFavoriteById((int) favoritos.getIdFavorito());
         new DatabaseManager().insertFavorite(favoritos);
         mView.hideLoader();
     }
@@ -100,14 +102,21 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         cuenta = cuenta.replaceAll(" ", "");
         favoritesIteractor.getTitularName(cuenta);
     }
-//(WebService ws, Object error)
+
+    @Override
+    public void getDataBank(String data, String cob) {
+        mView.showLoader(App.getContext().getString(R.string.validate_fav_bank));
+        favoritesIteractor.getDataBank(data, cob);
+    }
+
+    //(WebService ws, Object error)
     @Override
     public void onError(WebService ws, String error) {
         mView.hideLoader();
-        if(ws == CONSULTAR_TITULAR_CUENTA){
+        if (ws == CONSULTAR_TITULAR_CUENTA) {
             mView.onFailGetTitulaName(error);
         }
-       // mView.showErrorTitular(error.toString());
+        // mView.showErrorTitular(error.toString());
     }
 
     /**
@@ -225,6 +234,14 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             mView.hideLoader();
             ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
             mView.toViewSuccessGetPerson();
+        }
+
+        /**
+         * Instancia de petición exitosa y operacion exitosa de ObtenerBancosBinResponse
+         */
+        if (dataSourceResult.getData() instanceof ObtenerBancoBinResponse) {
+            mView.hideLoader();
+            mView.toViewSucessObtenerBanco(((ObtenerBancoBinResponse) dataSourceResult.getData()).getData().getIdComercioAfectado());
         }
     }
 

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.addfavorites.interfases;
 
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDataBin;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -33,4 +34,6 @@ public interface IAddFavoritesActivity {
     void onFailGetTitulaName(String error);
 
     void toViewErrorCuentaFail(String mensaje);
+
+    void toViewSucessObtenerBanco(String idComercio);
 }

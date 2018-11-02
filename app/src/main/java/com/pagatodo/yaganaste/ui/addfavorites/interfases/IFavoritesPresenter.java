@@ -39,5 +39,7 @@ public interface IFavoritesPresenter {
 
     void getTitularName(String trim);
 
+    void getDataBank(String data, String cob);
+
     void onError(WebService consultarTitularCuenta, String string);
 }
