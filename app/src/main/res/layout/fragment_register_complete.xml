@@ -61,7 +61,7 @@
         android:layout_below="@+id/txtTitle"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:gravity="center"
-        android:text="Tu cuenta Ya Ganaste esta lista"
+        android:text="Tu cuenta Ya Ganaste se ha\nvinculado exitosamente"
         android:textColor="@color/white_text_wallet"
         android:textSize="16sp" />
 
