@@ -1312,7 +1312,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
                 numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
-                numberCardTextWatcher.setOnITextChangeListener(this);
+                numberClabeTextWatcher.setOnITextChangeListener(this);
             }
 
             // Borramos el contenido de TextWatcher del elemento
