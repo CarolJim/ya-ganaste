@@ -79,7 +79,7 @@ public class InterbankQr {
         public String bankId = "";
 
         /* Fecha y Hora de creación */
-        @SerializedName("Date")
+        @SerializedName("Dat")
         public String dateCreation = "";
 
         /* Criptograma */

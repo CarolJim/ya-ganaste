@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -181,6 +184,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             text_email.setVisibility(GONE);
             imgHeaderLogin.setVisibility(GONE);
             textNameUser.setOnClickListener(this);
+            edtUserPass.setFocusableInTouchMode(true);
+            edtUserPass.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(edtUserPass, InputMethodManager.SHOW_IMPLICIT);
         } else {
             ((AccountActivity) getActivity()).changeToolbarVisibility(false);
             lyImgUser.setVisibility(GONE);
@@ -191,7 +199,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             textNameUser.setText(getString(R.string.set_credentials_login));
             edtUserName.setText(RequestHeaders.getUsername());
             text_email.setVisibility(VISIBLE);
-
+            edtUserName.setFocusableInTouchMode(true);
+            edtUserName.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(edtUserName, InputMethodManager.SHOW_IMPLICIT);
         }
         setValidationRules();
         txtVersionApp.setText("Versión: " + BuildConfig.VERSION_NAME);
