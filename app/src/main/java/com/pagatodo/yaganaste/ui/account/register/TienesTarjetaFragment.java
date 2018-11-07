@@ -184,7 +184,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         }
 
         name = StringUtils.getFirstName(name);
-        userName.setText("");
+        userName.setText(name + " " + lastame);
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
@@ -331,7 +331,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 keyboardView.hideCustomKeyboard();
                 btnNextTienesTarjeta.setVisibility(View.VISIBLE);
                 // Reiniciamos al TDC vacia
-                editNumber.setText("");
+                //editNumber.setText("");
                 break;
             default:
                 // Reiniciamos al TDC vacia
