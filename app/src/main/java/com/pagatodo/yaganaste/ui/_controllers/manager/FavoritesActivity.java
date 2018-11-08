@@ -68,6 +68,8 @@ import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
 import com.pagatodo.yaganaste.ui.otp.presenters.OtpPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
@@ -119,7 +121,10 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADD_NEW_FAV_SUCCES;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
@@ -955,8 +960,10 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
             App.mixpanel.track(EVENT_ADD_FAV, props);
         }
-        showDialogMesage(getString(R.string.title_dialog_favorite),
-                getString(R.string.respond_ok_add_new_favorite), 1);
+        setResult(RESUL_FAVORITES);
+        finish();
+        /*showDialogMesage(getString(R.string.title_dialog_favorite),
+                getString(R.string.respond_ok_add_new_favorite), 1);*/
     }
 
     @Override
@@ -1336,7 +1343,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             // CReamos el te numberCardTextWatcher si no existe
             if (numberClabeTextWatcher == null) {
                 numberClabeTextWatcher = new NumberClabeTextWatcher(cardNumber, maxLength);
-                numberCardTextWatcher.setOnITextChangeListener(this);
+                numberClabeTextWatcher.setOnITextChangeListener(this);
             }
 
             // Borramos el contenido de TextWatcher del elemento
@@ -1414,7 +1421,6 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                              * Regresamos el exito como un OK a nuestra actividad anterior para
                              * ocultar el icono de agregar
                              */
-                            Intent returnIntent = new Intent();
                             setResult(RESUL_FAVORITES);
                             finish();
                         }

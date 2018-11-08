@@ -62,10 +62,12 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
 import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
+import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
@@ -100,10 +102,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJET
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
+import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADD_NEW_FAV_SUCCES;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
@@ -603,6 +608,8 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 errorTittle = getString(R.string.txt_referencia_number_invalid);
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_error))) {
                 errorTittle = getString(R.string.txt_referencia_number_error);
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_qr))) {
+                errorTittle = getString(R.string.txt_referencia_envio_empty_qr);
             }
             UI.showErrorSnackBar(getActivity(), errorTittle, Snackbar.LENGTH_LONG);
         }
@@ -1156,6 +1163,9 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             paymentsCarouselPresenter.getFavoriteCarouselItems();
             editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
             isEditable = false;
+            Intent intent = new Intent(getActivity(), WalletMainActivity.class);
+            intent.putExtra(ITEM_OPERATION, new ElementView(OPTION_ADD_NEW_FAV_SUCCES, 0, 0));
+            startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
         }
 
         if (resultCode == Activity.RESULT_OK) {
@@ -1178,7 +1188,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                         cardNumber.setText(interbankQr.getOptionalData().beneficiaryAccount);
                         receiverName.setText(interbankQr.getOptionalData().beneficiaryName);
                         numberReference.setText(interbankQr.getOptionalData().referenceNumber);
-                        if(interbankQr.getOptionalData().bankId.equals("148")){
+                        if (interbankQr.getOptionalData().bankId.equals("148")) {
                             editListServ.setText(getString(R.string.app_name));
                             editListServ.setEnabled(false);
                             idcomercioqr(IDCOMERCIO_YA_GANASTE);

@@ -434,7 +434,7 @@ public class StringUtils {
             return fullName.substring(0, 1).toUpperCase();
         }
 
-        String[] spliName = fullName.split(" ");
+        String[] spliName = fullName.trim().split(" ");
         String sIniciales = "";
         if (spliName.length > 1) {
             sIniciales = spliName[0].substring(0, 1) + spliName[1].substring(0, 1).toUpperCase();

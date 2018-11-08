@@ -464,8 +464,8 @@
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu cuenta Ya Ganaste está lista</string>
-
     <string name="congratulation_text2">A continuación, te enseñaremos todo lo\nque puedes hacer con ella</string>
+    <string name="congratulation_text3">¡Has agregado un nuevo favorito\nexitosamente!</string>
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre requerido, verifique su información</string>
     <string name="datos_negocio_giro">Giro requerido, verifique su información</string>

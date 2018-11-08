@@ -51,6 +51,7 @@ public class ElementView implements ElementGlobal {
     static public final int OPTION_ERROR_ADDRESS_DOCS = 108;
     static public final int OPTION_BALANCE_CLOSED_LOOP = 110;
     static public final int OPTION_ESTADOS_CUENTA = 111;
+    static public final int OPTION_ADD_NEW_FAV_SUCCES = 112;
 
     static public final int OPTION_ADMON_EMISOR = 301;
     static public final int OPTION_ADMON_ADQ = 302;

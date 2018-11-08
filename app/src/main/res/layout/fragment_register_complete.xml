@@ -31,6 +31,7 @@
             app:srcCompat="@drawable/ic_done" />
 
         <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_view"
             android:layout_width="135dp"
             android:layout_height="135dp"
             android:layout_centerHorizontal="true"

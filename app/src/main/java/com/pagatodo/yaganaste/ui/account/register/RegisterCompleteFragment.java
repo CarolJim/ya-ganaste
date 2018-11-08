@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -33,6 +33,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener {
     public static String TIPO_MENSAJE = "TIPO_MENSAJE";
     public String TAG = getClass().getSimpleName();
+    @BindView(R.id.lottie_view)
+    LottieAnimationView lottie;
     @BindView(R.id.imgCompleted)
     AppCompatImageView imgCompleted;
     @BindView(R.id.txtTitle)
@@ -91,8 +93,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
             btnName = getString(R.string.nextButton);
             txtSubtitle.setText(getString(R.string.adq_subtitle_thanks));
         }
-
-
     }
 
     @Override
@@ -147,6 +147,19 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 btnName = getString(R.string.txt_felicidades);
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
+            case ADD_FAV:
+                iIdIcon = R.drawable.ic_star;
+                title = getString(R.string.txt_felicidades);
+                subTitle = getString(R.string.congratulation_text3);
+                message = getString(R.string.adq_msg_accept);
+                btnName = getString(R.string.nextButton);
+                lottie.setVisibility(View.GONE);
+                imgCompleted.setImageResource(iIdIcon);
+                imgCompleted.setVisibility(View.VISIBLE);
+                txtSubtitle.setText(subTitle);
+                btnNextComplete.setText(btnName);
+                NEXT_SCREEN = EVENT_GO_MAINTAB;
+                break;
         }
 
         /*Seteamos la información.*/
@@ -161,7 +174,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         EMISOR,
         ADQ_REVISION,
         ADQ_ACEPTADOS,
-        SALDO
+        SALDO,
+        ADD_FAV
     }
 }
 

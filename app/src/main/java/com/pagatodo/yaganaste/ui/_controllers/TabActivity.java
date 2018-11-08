@@ -484,7 +484,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             onHideProgress();
             updatePhoto();
         } else if (resultCode == RESUL_FAVORITES) {
-
             //if (getCurrentFragment() instanceof EnviosFromFragmentNewVersion){
             //EnviosFromFragmentNewVersion.newInstance().onActivityResult(requestCode, resultCode, data);
             Fragment childFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.main_view_pager + ":" + mainViewPager.getCurrentItem());
