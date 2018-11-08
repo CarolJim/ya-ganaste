@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="16dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:textColor="@color/gray_text_wallet_2" />
 
@@ -44,8 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="4dp">
@@ -56,16 +56,15 @@
                 android:layout_height="50dp"
                 android:background="@drawable/inputtext_normal"
                 android:gravity="center_vertical"
+                android:hint="@string/concepto"
                 android:maxLines="1"
+                android:textColorHint="@color/hint_color"
                 app:counterEnabled="true"
                 app:counterMaxLength="1"
-                app:hintTextAppearance="@style/HintText"
                 app:counterOverflowTextAppearance="@style/CounterOverFlow"
-                android:textColorHint="@color/hint_color"
+                app:hintTextAppearance="@style/HintText"
                 app:passwordToggleTint="@color/hint_color"
-                tools:ignore="UnusedAttribute"
-                android:hint="@string/concepto"
-                >
+                tools:ignore="UnusedAttribute">
 
                 <EditText
                     android:id="@+id/edtConcept"
@@ -74,11 +73,11 @@
                     android:layout_marginBottom="9dp"
                     android:background="@android:color/transparent"
                     android:imeOptions="actionDone"
+                    android:paddingStart="15dp"
                     android:paddingLeft="15dp"
                     android:singleLine="true"
-                    android:theme ="@style/NewEdittextwallet"
                     android:textColor="@color/grayColor"
-                    android:paddingStart="15dp"
+                    android:theme="@style/NewEdittextwallet"
                     tools:ignore="RtlSymmetry" />
 
             </android.support.design.widget.TextInputLayout>
@@ -117,8 +116,8 @@
         android:id="@+id/btncobrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
             android:id="@+id/keyboard_view"
@@ -138,16 +137,33 @@
 
         />-->
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/cobrar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="53.5dp"
-            android:gravity="center"
             android:background="@color/colorAccent"
-            android:layout_gravity="center_vertical"
-            android:text="@string/cobrar"
-            android:textAlignment="center"
-            android:textSize="19sp"/>
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/cobrar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:text="@string/cobrar"
+                android:textAlignment="textEnd"
+                android:textSize="19sp" />
+
+            <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                android:id="@+id/amount_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="8dp"
+                android:textSize="13sp"
+                app:symbolSmaller="true" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -155,8 +171,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -191,8 +207,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/seekbar_margin"
-        android:layout_marginRight="@dimen/seekbar_margin"
         android:layout_marginTop="@dimen/margin_doble"
+        android:layout_marginRight="@dimen/seekbar_margin"
         android:background="@drawable/seek_background"
         android:clickable="false"
         android:max="100"

@@ -45,6 +45,7 @@ import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -75,6 +76,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     LinearLayout btncobrar;
     @BindView(R.id.cobrar)
     StyleTextView cobrar;
+    @BindView(R.id.amount_text)
+    MontoTextView amount_text;
     @BindView(R.id.text_input_concepto)
     TextInputLayout inputConcept;
 
@@ -500,11 +503,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     @Override
     public void onChangeTextListener(String text) {
-        //String leyenda = "Cobrar ";
-        if (!text.equals("$0.00"))
-            cobrar.setText("Cobrar " + text);
-        else
-            cobrar.setText("Cobrar");
+        amount_text.setText(text);
     }
 }
 
