@@ -141,6 +141,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_LOGOUT = "EVENT_LOGOUT";
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
     public static final int RESUL_FAVORITES = 7894;
+    public static final int MONEY_SEND = 7895;
     public static final int INTENT_FAVORITE = 46325;
     public static final int TYPE_DETAILS = 3;
     public static final int PICK_WALLET_TAB_REQUEST = 9630;  // The request code

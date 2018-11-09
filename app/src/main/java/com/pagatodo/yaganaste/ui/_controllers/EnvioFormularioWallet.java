@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui_wallet.fragments.SendWalletFragment;
 
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.MONEY_SEND;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK_CLOSE;
@@ -68,7 +69,7 @@ public class EnvioFormularioWallet extends LoaderActivity implements OnEventList
         if (resultCode == RESULT_CODE_OK_CLOSE || resultCode == RESULT_CODE_BACK_PRESS) {
             //finish();
         } else {
-            setResult(RESUL_FAVORITES);
+            setResult(MONEY_SEND);
             finish();
         }
     }

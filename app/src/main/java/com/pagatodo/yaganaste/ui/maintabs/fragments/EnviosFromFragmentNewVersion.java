@@ -102,6 +102,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFO
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.INTENT_FAVORITE;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.MONEY_SEND;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
@@ -1156,7 +1157,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESUL_FAVORITES || resultCode == INTENT_FAVORITE) {
+        if (resultCode == RESUL_FAVORITES || resultCode == INTENT_FAVORITE || resultCode == MONEY_SEND) {
             clearContent();
             paymentsCarouselPresenter.getCarouselItems();
             paymentsCarouselPresenter.getFavoriteCarouselItems();
