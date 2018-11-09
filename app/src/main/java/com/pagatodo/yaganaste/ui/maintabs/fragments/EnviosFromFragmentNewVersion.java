@@ -64,18 +64,15 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
+import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.Container;
 import com.pagatodo.yaganaste.ui_wallet.patterns.builders.ContainerBuilder;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
 import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
-import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
-import com.pagatodo.yaganaste.utils.qrcode.MyQr;
-import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -83,6 +80,8 @@ import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
+import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -102,9 +101,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJET
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.QR_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
-import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
+import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
@@ -116,7 +116,6 @@ import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_C
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE_FROM_CERO;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
-import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.UtilsIntents.favoriteIntents;
 
 /**
@@ -1163,9 +1162,11 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
             paymentsCarouselPresenter.getFavoriteCarouselItems();
             editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
             isEditable = false;
-            Intent intent = new Intent(getActivity(), WalletMainActivity.class);
-            intent.putExtra(ITEM_OPERATION, new ElementView(OPTION_ADD_NEW_FAV_SUCCES, 0, 0));
-            startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+            if (resultCode == RESUL_FAVORITES) {
+                Intent intent = new Intent(getActivity(), WalletMainActivity.class);
+                intent.putExtra(ITEM_OPERATION, new ElementView(OPTION_ADD_NEW_FAV_SUCCES, 0, 0));
+                startActivityForResult(intent, PICK_WALLET_TAB_REQUEST);
+            }
         }
 
         if (resultCode == Activity.RESULT_OK) {

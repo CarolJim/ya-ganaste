@@ -409,6 +409,7 @@ public class WalletMainActivity extends LoaderActivity implements View.OnClickLi
                 loadFragment(DescargarEdoCuentaFragment.newInstance(), R.id.fragment_container);
                 break;
             case OPTION_ADD_NEW_FAV_SUCCES:
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 loadFragment(RegisterCompleteFragment.newInstance(ADD_FAV), R.id.fragment_container);
                 break;
             default:

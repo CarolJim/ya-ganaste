@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +43,6 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
@@ -122,7 +120,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
-import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.REQUEST_TAKE_PHOTO;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOTO;
@@ -133,7 +130,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView {
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
-    public static final int RESUL_FAVORITES = 7894;
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
     public static final String EVENT_CARGA_DOCUMENTS = "EVENT_CARGA_DOCUMENTS";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
@@ -144,6 +140,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
     public static final String EVENT_LOGOUT = "EVENT_LOGOUT";
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
+    public static final int RESUL_FAVORITES = 7894;
+    public static final int INTENT_FAVORITE = 46325;
     public static final int TYPE_DETAILS = 3;
     public static final int PICK_WALLET_TAB_REQUEST = 9630;  // The request code
     public static final int RESULT_CODE_SELECT_DONGLE = 9631;  // The result code code

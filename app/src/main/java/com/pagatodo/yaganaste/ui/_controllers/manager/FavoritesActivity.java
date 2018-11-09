@@ -68,17 +68,12 @@ import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
 import com.pagatodo.yaganaste.ui.otp.presenters.OtpPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
-import com.pagatodo.yaganaste.ui_wallet.pojos.ElementView;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberReferenceTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
-import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
-import com.pagatodo.yaganaste.utils.qrcode.MyQr;
-import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -90,6 +85,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.UploadCircleDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
+import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
@@ -121,10 +118,8 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
-import static com.pagatodo.yaganaste.ui._controllers.TabActivity.PICK_WALLET_TAB_REQUEST;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
-import static com.pagatodo.yaganaste.ui_wallet.fragments.WalletTabFragment.ITEM_OPERATION;
-import static com.pagatodo.yaganaste.ui_wallet.pojos.ElementView.OPTION_ADD_NEW_FAV_SUCCES;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
@@ -144,7 +139,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
-import static com.pagatodo.yaganaste.utils.UtilsIntents.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 public class FavoritesActivity extends LoaderActivity implements View.OnClickListener,
@@ -991,8 +985,8 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
             }
             App.mixpanel.track(EVENT_DELETE_FAV, props);
         }
-        setResult(INTENT_FAVORITE);
-        finish();
+        showDialogMesage(getString(R.string.title_dialog_delete_favorite),
+                getString(R.string.respond_ok_delete_favorite), 1);
     }
 
     @Override
@@ -1421,7 +1415,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                              * Regresamos el exito como un OK a nuestra actividad anterior para
                              * ocultar el icono de agregar
                              */
-                            setResult(RESUL_FAVORITES);
+                            setResult(INTENT_FAVORITE);
                             finish();
                         }
                     }

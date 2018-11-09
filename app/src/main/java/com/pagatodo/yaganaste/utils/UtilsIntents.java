@@ -2,12 +2,10 @@ package com.pagatodo.yaganaste.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 
 import com.pagatodo.yaganaste.R;
@@ -15,6 +13,7 @@ import com.pagatodo.yaganaste.data.room_db.entities.Favoritos;
 import com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.INTENT_FAVORITE;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.RESUL_FAVORITES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.FavoritesActivity.FAVORITE_PROCESS;
 import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
@@ -28,7 +27,6 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 public class UtilsIntents {
 
     public static String INTENT_SHARE = "Compartir con...";
-    public static int INTENT_FAVORITE = 46325;
 
     public static void IntentShare(Context context,String message){
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
