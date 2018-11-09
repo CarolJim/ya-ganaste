@@ -312,9 +312,12 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
              * Tomamos el telefono de la agenda para TAE
              */
             case R.id.layoutImageContact:
-            case R.id.layoutImageContact2:
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                this.startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
+                this.startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT_LOCAL);
+                break;
+            case R.id.layoutImageContact2:
+                Intent contactPickerIntent2 = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                this.startActivityForResult(contactPickerIntent2, CONTACTS_CONTRACT);
                 break;
             case R.id.layoutImageReference:
             case R.id.layoutImageReferenceTAE:
@@ -574,11 +577,11 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CONTACTS_CONTRACT) {
-                contactPicked(data, 1);
+                contactPicked(data, 2);
                 // Ocultamos el mensaje de error si esta visible
                 // Borrar editReferError.setVisibilityImageError(false);
             } else if (requestCode == CONTACTS_CONTRACT_LOCAL) {
-                contactPicked(data, 2);
+                contactPicked(data, 1);
                 // Ocultamos el mensaje de error si esta visible
                 // Borrar  editReferError.setVisibilityImageError(false);
             }
