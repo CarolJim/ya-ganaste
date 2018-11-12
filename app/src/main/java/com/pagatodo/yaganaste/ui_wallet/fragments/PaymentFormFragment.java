@@ -749,44 +749,36 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
             if (errorText.equals(getString(R.string.txt_importe_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.txt_importe_error);
                 errorText = App.getContext().getResources().getString(R.string.txt_importe_error);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_importe_error), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
-
+                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
-
+                errorText = App.getContext().getResources().getString(R.string.new_body_phone_error);
             } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.favor_selecciona_importe), Snackbar.LENGTH_SHORT);
+                errorText = getString(R.string.favor_selecciona_importe);
             } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
-
             } else if (errorText.equals(App.getContext().getString(R.string.numero_telefono_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.phone_invalid);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_phone_error);
-
-                //  til_num_telefono.setBackgroundResource(R.drawable.inputtext_error);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.new_body_recargas_phone_error), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getResources().getString(R.string.txt_referencia_empty))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_refer_error);
                 errorText = App.getContext().getResources().getString(R.string.txt_referencia_empty);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_referencia_empty), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getResources().getString(R.string.mount_valid))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_body_envios_importe_empty_error);
                 errorText = App.getContext().getResources().getString(R.string.mount_valid);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.mount_valid), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(App.getContext().getResources().getString(R.string.txt_concept_empty))) {
                 errorTittle = App.getContext().getResources().getString(R.string.txt_concept_empty);
                 errorText = App.getContext().getResources().getString(R.string.txt_concept_empty);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_concept_empty), Snackbar.LENGTH_SHORT);
             } else if (errorText.equals(getString(R.string.txt_referencia_errornuevo))) {
                 errorTittle = App.getContext().getResources().getString(R.string.txt_referencia_errornuevo);
                 errorText = App.getContext().getResources().getString(R.string.txt_referencia_errornuevo);
-                UI.showErrorSnackBar(getActivity(), getString(R.string.txt_referencia_errornuevo), Snackbar.LENGTH_SHORT);
             }
-            //  UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            //UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.showErrorSnackBar(getActivity(), errorText, Snackbar.LENGTH_SHORT);
         }
     }
 

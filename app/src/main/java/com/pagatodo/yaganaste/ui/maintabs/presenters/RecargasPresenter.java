@@ -42,7 +42,7 @@ public class RecargasPresenter implements IRecargasPresenter, IRecargasInteracto
     @Override
     public void onNumberError() {
         paymentsManager.onError(isIAVE ? App.getContext().getString(R.string.new_body_IAVE_error) :
-        App.getContext().getString(R.string.new_body_phone_error) );
+        App.getContext().getString(R.string.new_body_phone_error));
     }
 
     @Override
