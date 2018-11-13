@@ -25,6 +25,102 @@ public class InterbankQr {
         auxiliarData = new Auxiliar();
     }
 
+    public class Optional {
+        /* Código País */
+        @SerializedName("Cou")
+        public String countryCode = "";
+
+        /* Referencia Numérica */
+        @SerializedName("Ref")
+        public String referenceNumber = "";
+
+        /* Código Divisa */
+        @SerializedName("Cur")
+        public String currencyCode = "";
+
+        /* Código de Ciudad */
+        @SerializedName("Mci")
+        public String cityCode = "";
+
+        /* Vigencia */
+        @SerializedName("Exp")
+        public String expiration = "";
+
+        /* Código Postal */
+        @SerializedName("Cop")
+        public String postalCode = "";
+
+        /* Identificador del dispositivo o serie */
+        @SerializedName("Dev")
+        public String deviceId = "";
+
+        /* Monto */
+        @SerializedName("Amo")
+        public String amount = "";
+
+        /* Tipo de Cuenta */
+        @SerializedName("Tyc")
+        public String typeOfAccount = "";
+
+        /* RFU */
+        @SerializedName("Rfu")
+        public String rfu = "";
+
+        /* Propina */
+        @SerializedName("Tip")
+        public String tip = "";
+
+        /* Pago de la comisión */
+        @SerializedName("Com")
+        public String comission = "";
+
+        /* Clave del Banco */
+        @SerializedName("Ban")
+        public String bankId = "";
+
+        /* Fecha y Hora de creación */
+        @SerializedName("Dat")
+        public String dateCreation = "";
+
+        /* Criptograma */
+        @SerializedName("Cry")
+        public String cryptogram = "";
+
+        /* Cuenta de transaccion en app */
+        @SerializedName("Atc")
+        public String applicationCount = "";
+
+        /* Issuer application data */
+        @SerializedName("Iad")
+        public String issuerData = "";
+
+        /* Cadena encriptada */
+        @SerializedName("Enc")
+        public String encryptedString = "";
+
+        /* Identificador de cobro */
+        @SerializedName("Idc")
+        public String billingIdentifier = "";
+
+        /* Nombre del beneficiario */
+        @SerializedName("Nam")
+        public String beneficiaryName = "";
+
+        /* Cuenta beneficiario */
+        @SerializedName("Acc")
+        public String beneficiaryAccount = "";
+
+        /* Concepto */
+        @SerializedName("Des")
+        public String description = "";
+    }
+
+    public class Auxiliar {
+        /* ID del QR */
+        @SerializedName("Plt")
+        public String plateQr = "";
+    }
+
     public String getType() {
         return type;
     }
@@ -47,99 +143,5 @@ public class InterbankQr {
 
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    public class Optional {
-        /* Código País */
-        @SerializedName("COU")
-        public String countryCode = "";
-
-        /* Referencia Numérica */
-        @SerializedName("REF")
-        public String referenceNumber = "";
-
-        /* Código Divisa */
-        @SerializedName("CUR")
-        public String currencyCode = "";
-
-        /* Código de Ciudad */
-        @SerializedName("MCI")
-        public String cityCode = "";
-
-        /* Vigencia */
-        @SerializedName("EXP")
-        public String expiration = "";
-
-        /* Código Postal */
-        @SerializedName("COP")
-        public String postalCode = "";
-
-        /* Identificador del dispositivo o serie */
-        @SerializedName("DEV")
-        public String deviceId = "";
-
-        /* Monto */
-        @SerializedName("AMO")
-        public String amount = "";
-
-        /* Tipo de Cuenta */
-        @SerializedName("TYC")
-        public String typeOfAccount = "";
-
-        /* RFU */
-        @SerializedName("RFU")
-        public String rfu = "";
-
-        /* Propina */
-        @SerializedName("TIP")
-        public String tip = "";
-
-        /* Pago de la comisión */
-        @SerializedName("COM")
-        public String comission = "";
-
-        /* Clave del Banco */
-        @SerializedName("BAN")
-        public String bankId = "";
-
-        /* Fecha y Hora de creación */
-        @SerializedName("DAT")
-        public String dateCreation = "";
-
-        /* Criptograma */
-        @SerializedName("CRY")
-        public String cryptogram = "";
-
-        /* Cuenta de transaccion en app */
-        @SerializedName("ATC")
-        public String applicationCount = "";
-
-        /* Issuer application data */
-        @SerializedName("IAD")
-        public String issuerData = "";
-
-        /* Cadena encriptada */
-        @SerializedName("ENC")
-        public String encryptedString = "";
-
-        /* Identificador de cobro */
-        @SerializedName("IDC")
-        public String billingIdentifier = "";
-
-        /* Nombre del beneficiario */
-        @SerializedName("NAM")
-        public String beneficiaryName = "";
-
-        /* Cuenta beneficiario */
-        @SerializedName("ACC")
-        public String beneficiaryAccount = "";
-
-        /* Concepto */
-        @SerializedName("DES")
-        public String description = "";
-    }
-
-    public class Auxiliar {
-
     }
 }
