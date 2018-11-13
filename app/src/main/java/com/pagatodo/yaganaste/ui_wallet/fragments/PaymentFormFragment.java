@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -57,6 +56,7 @@ import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
@@ -110,9 +110,9 @@ public class PaymentFormFragment extends GenericFragment implements PaymentsMana
     @BindView(R.id.txt_data)
     StyleTextView txtData;
     @BindView(R.id.txt_saldo)
-    StyleTextView txtSaldo;
+    MontoTextView txtSaldo;
     @BindView(R.id.txt_monto)
-    StyleTextView txtMonto;
+    MontoTextView txtMonto;
     @BindView(R.id.btn_continue_payment)
     StyleButton btnContinue;
     @BindView(R.id.textmontorecarga)

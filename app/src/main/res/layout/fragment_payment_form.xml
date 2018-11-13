@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_saldo"
                     style="@style/generic_text_style_3"
                     android:layout_width="0dp"
@@ -166,6 +166,7 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="$11,350.00"
+                    android:textSize="10sp"
                     android:textColor="#888888" />
 
                 <Space
@@ -173,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_monto"
                     style="@style/generic_text_style_3"
                     android:layout_width="0dp"
@@ -183,6 +184,7 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="$100.00"
+                    android:textSize="10sp"
                     android:textColor="#888888" />
 
             </LinearLayout>

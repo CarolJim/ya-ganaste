@@ -23,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="11dp"
         app:cardBackgroundColor="@color/whiteColor"
         app:cardUseCompatPadding="true">
 
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_import"
                     style="@style/generic_text_style_3"
                     android:layout_width="0dp"
@@ -139,14 +139,15 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="$11,350.00"
-                    android:textColor="@color/grayColor" />
+                    android:textColor="@color/grayColor"
+                    android:textSize="10sp" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_monto"
                     style="@style/generic_text_style_3"
                     android:layout_width="0dp"
@@ -156,7 +157,8 @@
                     android:gravity="center"
                     android:maxLines="2"
                     android:text="$300.00"
-                    android:textColor="@color/grayColor" />
+                    android:textColor="@color/grayColor"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
@@ -168,10 +170,10 @@
         android:id="@+id/text_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/inputtext_normal"
         android:gravity="center_vertical"
         android:hint="@string/txt_escribe_tu_pass"

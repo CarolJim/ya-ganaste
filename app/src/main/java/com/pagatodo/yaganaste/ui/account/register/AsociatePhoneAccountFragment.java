@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_NEW_CONTRASE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
@@ -212,7 +213,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             App.mixpanel.track(EVENT_APROV, props);
         }
         if (preferencias.loadDataBoolean(PASSWORD_CHANGE, false)) {
-            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+            nextScreen(EVENT_APROV_SUCCES, null);
         } else {
             nextScreen(EVENT_GO_ASSIGN_NEW_CONTRASE, null);
         }
@@ -237,7 +238,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             }
             App.mixpanel.track(EVENT_APROV, props);
         }
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_APROV_SUCCES, null);
     }
 
     @Override
@@ -254,7 +255,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements IVe
             }
             App.mixpanel.track(EVENT_APROV, props);
         }
-        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_APROV_SUCCES, null);
     }
 
 

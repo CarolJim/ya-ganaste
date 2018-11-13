@@ -46,6 +46,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
@@ -91,7 +92,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     IPaymentAuthorizePresenter paymentAuthorizePresenter;
 
     @BindView(R.id.txt_import)
-    StyleTextView importe;
+    MontoTextView importe;
 
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
@@ -103,7 +104,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView txt_username_payment;
 
     @BindView(R.id.txt_monto)
-    StyleTextView txt_monto;
+    MontoTextView txt_monto;
 
     @BindView(R.id.txtIniciales)
     TextView txtIniciales;

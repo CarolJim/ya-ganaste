@@ -117,6 +117,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 subTitle = getString(R.string.congratulation_text1);
                 message = getString(R.string.congratulation_text2);
                 btnName = getString(R.string.next);
+                txtSubtitle.setText(subTitle);
+                btnNextComplete.setText(btnName);
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
             case ADQ_REVISION:
@@ -175,7 +177,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         ADQ_REVISION,
         ADQ_ACEPTADOS,
         SALDO,
-        ADD_FAV
+        ADD_FAV,
+        ASOCIATE_PHN
     }
 }
 

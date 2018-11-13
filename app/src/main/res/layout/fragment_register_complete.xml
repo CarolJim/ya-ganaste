@@ -92,7 +92,7 @@
             android:layout_width="214dp"
             android:layout_height="45dp"
             android:background="@drawable/white_round_button"
-            android:text="@string/txt_comenzar"
+            android:text="@string/continuar"
             android:textAllCaps="false"
             android:textColor="@color/whiteColor"
             android:textSize="16sp" />
