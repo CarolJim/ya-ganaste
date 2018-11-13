@@ -80,6 +80,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ASOCIATE_PHN;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_CONFIG_DONGLE;
 import static com.pagatodo.yaganaste.ui_wallet.WalletMainActivity.EVENT_GO_SELECT_DONGLE;
@@ -382,7 +383,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 pref.clearPreference(COUCHMARK_EMISOR);
                 pref.clearPreference(COUCHMARK_ADQ);
                 showBack(false);
-                loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
                 break;
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);

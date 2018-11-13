@@ -162,6 +162,9 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 btnNextComplete.setText(btnName);
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
+            default:
+                NEXT_SCREEN = EVENT_GO_MAINTAB;
+                break;
         }
 
         /*Seteamos la información.*/
