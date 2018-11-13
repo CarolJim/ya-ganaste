@@ -481,14 +481,16 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 break;
             case R.id.txtEditarFavoritos:
                 // Hacemos update del Adapter de Envio de favoritos
-                if (isEditable) {
-                    editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
-                    isEditable = false;
-                    ContainerBuilder.edition(false);
-                } else {
-                    editarFavoritos.setTextColor(getResources().getColor(R.color.colorTituloDialog));
-                    isEditable = true;
-                    ContainerBuilder.edition(true);
+                if (backUpResponsefavo.size() > 1) {
+                    if (isEditable) {
+                        editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
+                        isEditable = false;
+                        ContainerBuilder.edition(false);
+                    } else {
+                        editarFavoritos.setTextColor(getResources().getColor(R.color.colorTituloDialog));
+                        isEditable = true;
+                        ContainerBuilder.edition(true);
+                    }
                 }
                 break;
             default:

@@ -1787,4 +1787,10 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
     public void showError(Errors error) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        setResult(INTENT_FAVORITE);
+        super.onBackPressed();
+    }
 }
