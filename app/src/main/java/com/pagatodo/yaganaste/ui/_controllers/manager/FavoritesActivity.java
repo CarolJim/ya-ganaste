@@ -325,6 +325,7 @@ public class FavoritesActivity extends LoaderActivity implements View.OnClickLis
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
             case R.id.btn_back:
+                setResult(INTENT_FAVORITE);
                 finish();
                 break;
             case R.id.delete_fav:
