@@ -301,6 +301,15 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
             mView.onFailGetTitulaName(response.getMensaje());
         }
+
+        /**
+         * Consultar Bancos Bin
+         */
+        if (dataSourceResult.getData() instanceof ObtenerBancoBinResponse) {
+            mView.hideLoader();
+            ObtenerBancoBinResponse response = (ObtenerBancoBinResponse) dataSourceResult.getData();
+            mView.toViewErrorServer(response.getMensaje());
+        }
     }
 
     @Override
