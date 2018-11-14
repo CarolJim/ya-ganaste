@@ -481,7 +481,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
                 break;
             case R.id.txtEditarFavoritos:
                 // Hacemos update del Adapter de Envio de favoritos
-                if (backUpResponsefavo.size() > 1) {
+                if (backUpResponseFavoritos.size() > 0) {
                     if (isEditable) {
                         editarFavoritos.setTextColor(getResources().getColor(R.color.texthint));
                         isEditable = false;
@@ -790,6 +790,7 @@ public class EnviosFromFragmentNewVersion extends GenericFragment implements
     @Override
     public void setFavolist(List<Favoritos> lista) {
         backUpResponseFavoritos = new ArrayList<>();
+        backUpResponseFavoritos = lista;
         mLinearLayout.removeAllViews();
         ContainerBuilder.FAVORITOS(getContext(), mLinearLayout, lista, this);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
