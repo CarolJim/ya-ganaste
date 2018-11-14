@@ -283,7 +283,6 @@ public class ElementView implements ElementGlobal {
         boolean isBluetooth = App.getInstance().getPrefs().loadDataInt(MODE_CONNECTION_DONGLE) == QPOSService.CommunicationMode.BLUETOOTH.ordinal();
         elementViews.add(new ElementView(OPTION_MVIMIENTOS_ADQ, R.drawable.icono_movimientos, R.string.operation_movimientos));
         elementViews.add(new ElementView(OPTION_PAYMENT_ADQ, isBluetooth ? R.drawable.ic_bluetooth_dongle : R.drawable.ico_cobrar_in, R.string.operation_cobro, nombreN));
-        elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
         if (!App.getInstance().getPrefs().loadDataBoolean(IS_OPERADOR, false) && isComercioUyu) {
             elementViews.add(new ElementView(OPTION_OPERADORES_ADQ, R.drawable.ico_operador, R.string.mis_operadores, list, nombreN, numeroAgente, idComercio));
             elementViews.add(new ElementView(OPTION_VENTAS_ADQ, R.drawable.ico_reportes, R.string.ventas_dia, list, nombreN, numeroAgente, idComercio));
@@ -295,6 +294,7 @@ public class ElementView implements ElementGlobal {
             e.printStackTrace();
         }
         if (agentes.size() < 2) {
+            elementViews.add(new ElementView(OPTION_BALANCE_CLOSED_LOOP, R.drawable.ic_consulta, R.string.operation_consultar_saldo));
             elementViews.add(new ElementView(OPTION_ADMON_ADQ, isBluetooth ? R.drawable.ico_admin_chip : R.drawable.ico_admin, R.string.operation_configurar));
         }
 
