@@ -226,29 +226,32 @@ public class NewPaymentFragment extends GenericFragment implements IPaymentFragm
     // Agregamos Listener para hacer Click en editar para recargas
     @OnClick(R.id.fragment_newpayment_editar_textview)
     public void submit(View view) {
-        if (isEditable) {
-            tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
-            isEditable = false;
-            adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
-        } else {
-            tvEditarFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
-            isEditable = true;
-            adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
+        if (adapterPagosClass.getmFullListaFav().get(0).size() > 1) {
+            if (isEditable) {
+                tvEditarFav.setTextColor(getResources().getColor(R.color.texthint));
+                isEditable = false;
+                adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 1);
+            } else {
+                tvEditarFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
+                isEditable = true;
+                adapterPagosClass.createRecycler(ITEM_FAVORITO_RECARGA, 2);
+            }
         }
-
     }
 
     // Agregamos Listener para hacer Click en editar para Pagar
     @OnClick(R.id.newpayment_pagar_editar_tv)
     public void editarPDS(View view) {
-        if (isPDSEditable) {
-            tvPDSEditFav.setTextColor(getResources().getColor(R.color.texthint));
-            isPDSEditable = false;
-            adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 1);
-        } else {
-            tvPDSEditFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
-            isPDSEditable = true;
-            adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 2);
+        if (adapterPDSClass.getmFullListaFav().get(0).size() > 1) {
+            if (isPDSEditable) {
+                tvPDSEditFav.setTextColor(getResources().getColor(R.color.texthint));
+                isPDSEditable = false;
+                adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 1);
+            } else {
+                tvPDSEditFav.setTextColor(getResources().getColor(R.color.colorTituloDialog));
+                isPDSEditable = true;
+                adapterPDSClass.createRecycler(ITEM_FAVORITO_PAGOS, 2);
+            }
         }
 
     }
