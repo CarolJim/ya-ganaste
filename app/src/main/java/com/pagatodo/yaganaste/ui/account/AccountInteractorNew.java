@@ -1043,7 +1043,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void registerUserInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true);
@@ -1065,7 +1065,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void logInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(task -> {
+        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456").addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
                 prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());

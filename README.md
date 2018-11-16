@@ -12,6 +12,20 @@ Las intrucciones de uso son las siguientes:
     4. Descripciones breves:  Una vez que el código de un branch ya sea autorizado para subirse a master se deberá crear una descripción breve de los cambios que se realizaron en el código.
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
+    
+**_VERSION 4.35  - 27 de Octubre al 16 deNoviembre del 2018 (ID:5714)_**
+
+Descripción al desarrollador:
+
+    * Correccion de incidencias en producción.
+    * Corrección de flujos en adquiriente para visualización en Wallet.
+    * Implementación de creación y lectura del nuevo estándar del código QR.
+    
+Funcionalidad:
+
+    * Nueva lectura del código QR.
+    * Teclados automáticos para mayor accesibilidad a la App.
+    * Correcciones de diseño.
 
 **_VERSION 4.3.4 - 19 de Septiembre al 26 de Octubre del 2018 (ID:5623)_**
 

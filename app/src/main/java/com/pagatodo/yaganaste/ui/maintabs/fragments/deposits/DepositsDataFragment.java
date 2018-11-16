@@ -243,7 +243,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         //MyQr myQr = new MyQr(name, cellPhone, usuario.getTarjetas().get(0).getNumero(), usuario.getCLABE());
         InterbankQr qr = new InterbankQr();
         qr.setVersion("0.1");
-        qr.setType("300");
+        qr.setType("100");
         qr.getOptionalData().countryCode = "MX";
         qr.getOptionalData().currencyCode = "MXN";
         qr.getOptionalData().bankId = "148";
