@@ -17,6 +17,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CUENTA_BLOQUEADA;
 import static com.pagatodo.yaganaste.utils.Recursos.HAS_STARBUCKS;
 import static com.pagatodo.yaganaste.utils.Recursos.ID_ROL;
 
+/**
+ * Constructor de las listas de la lista de los wallets (Administradores)
+ */
 public class WalletBuilder {
 
     public static Wallet createWalletsEsencials(boolean error) {

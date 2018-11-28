@@ -95,7 +95,7 @@
         <activity
             android:name=".ui._controllers.AdqActivity"
             android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui._controllers.TabActivity"
             android:screenOrientation="portrait"
@@ -184,7 +184,8 @@
         <activity
             android:name=".ui._controllers.manager.FavoritesActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui._controllers.PromoCodesActivity"></activity>
+        <activity android:name=".ui._controllers.PromoCodesActivity" />
+        <activity android:name=".modules.register.RegActivity"></activity>
     </application>
 
 </manifest>

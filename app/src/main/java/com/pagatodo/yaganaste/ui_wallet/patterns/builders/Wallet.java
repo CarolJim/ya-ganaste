@@ -4,6 +4,9 @@ import com.pagatodo.yaganaste.ui_wallet.pojos.ElementWallet;
 
 import java.util.ArrayList;
 
+/**
+ * Administrador de listas de Wallets
+ */
 public class Wallet {
 
     private ArrayList<ElementWallet> list = new ArrayList<>();

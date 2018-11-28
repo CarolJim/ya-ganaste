@@ -20,6 +20,7 @@ import android.widget.Scroller;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -112,15 +113,17 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btn_create_user:
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
-                intent.putExtra(SELECTION, GO_TO_REGISTER);
-                startActivity(intent);
+                //intent.putExtra(SELECTION, GO_TO_REGISTER);
+                //startActivity(intent);
                 //getActivity().finish();
+                startActivity(RegActivity.createIntent(getActivity()));
                 break;
 
             case R.id.btn_login_user:
                 intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
+                //startActivity(RegActivity.createIntent(getActivity()));
                 break;
             case R.id.help_text:
                 intent = new Intent(getActivity(), AccountActivity.class);

@@ -31,7 +31,7 @@ import static com.pagatodo.yaganaste.utils.UtilsGraphics.frontCardYg;
 import static com.pagatodo.yaganaste.utils.UtilsGraphics.overlayImages;
 
 /**
- * Created by icruz on 12/12/2017.
+ * Constituye los datos necesarios que conforman una Wallet o tarjeta de acuerdo a los estados e informacion de la cuenta obtenidos
  */
 
 public class ElementWallet {
