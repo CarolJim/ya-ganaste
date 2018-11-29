@@ -119,6 +119,7 @@
     <color name="gray_text_wallet_2">#8a8a8a</color>
     <color name="gray_text_wallet_3">#7a7c7d</color>
     <color name="gray_text_wallet_4">#e0e0e0</color>
+    <color name="gray_space">#e0e0e0</color>
 
     <color name="dark_icon">#99000000</color>
     <color name="dark_icon_half_alpha">#4d000000</color>
