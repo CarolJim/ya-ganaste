@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 
 public class RegActivity extends LoaderActivity implements RegContracts.Presenter{
 
-    private RegRouter router;
+    //private RegContracts.RegRouter router;
+
+    private RegContracts.Router router;
 
     public static Intent createIntent(Activity activity){
         return new Intent(activity,RegActivity.class);
@@ -31,6 +34,6 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
-
+        router.showUserData(Direction.FORDWARD);
     }
 }

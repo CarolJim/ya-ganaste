@@ -134,7 +134,7 @@
         android:layout_marginTop="10dp"
         android:visibility="gone"
         android:padding="@dimen/margin_medium"
-        android:text="jajajaja se te olvido tu contraseña ?? "
+        android:text="Se te olvido tu contraseña? "
         android:textAlignment="center" />
 
     <LinearLayout
