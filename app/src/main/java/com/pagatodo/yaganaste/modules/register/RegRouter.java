@@ -1,5 +1,10 @@
 package com.pagatodo.yaganaste.modules.register;
 
+import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.register.RegistroCorreo.RegistroCorreoFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PersonalAccountFragment;
+
 public class RegRouter implements RegContracts.Router {
 
     /**
@@ -16,8 +21,11 @@ public class RegRouter implements RegContracts.Router {
     /**
      * Panatalla 01
      */
+
     @Override
-    public void showUserData() {
+    public void showUserData(Direction direction) {
+       // activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
+        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.container_register);
 
     }
 

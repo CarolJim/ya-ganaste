@@ -1632,9 +1632,11 @@
     <string name="titulo_promociones">Ganar</string>
     <string name="hint_search_win">Buscar promociones</string>
     <string name="nuevas_promos">Nuevas</string>
-
-
     <string name="find_promo">Encuentra promociones</string>
+
+    <!--Nuevo Registro Emisor y Agregador-->
+
+    <string name="titulo_datos_usuario_ea">Registra tus datos de usuario\npara crear tu cuenta</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

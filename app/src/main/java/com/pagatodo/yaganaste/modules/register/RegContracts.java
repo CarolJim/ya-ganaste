@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.modules.register;
 
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+
 public class RegContracts {
 
     public interface Presenter{
@@ -15,7 +17,7 @@ public class RegContracts {
     }
 
     public interface Router{
-        void showUserData(); //Pantalla 01
+        void showUserData(Direction direction); //Pantalla 01
         void showPersonalData(); //Pantalla 02
         void showPrsonalAddress(); //Pantalla 03
         void showBusinessData(); //Pantalla 04
