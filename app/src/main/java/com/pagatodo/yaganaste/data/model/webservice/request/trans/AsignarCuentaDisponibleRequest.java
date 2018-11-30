@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class AsignarCuentaDisponibleRequest implements Serializable {
+
     private int IdCuenta;
 
     public AsignarCuentaDisponibleRequest() {

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.modules.register;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegistroCorreo.RegistroCorreoFragment;
+import com.pagatodo.yaganaste.modules.register.VincularCuenta.VincularCuentaFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PersonalAccountFragment;
 
 public class RegRouter implements RegContracts.Router {
@@ -25,8 +26,7 @@ public class RegRouter implements RegContracts.Router {
     @Override
     public void showUserData(Direction direction) {
        // activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
-        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.container_register);
-
+        activity.loadFragment(VincularCuentaFragment.newInstance("",""), R.id.container_register);
     }
 
     /**
