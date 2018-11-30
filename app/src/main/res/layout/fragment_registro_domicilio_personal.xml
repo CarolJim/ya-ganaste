@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".modules.register.CorreoUsuario.RegistroCorreoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".3"
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titulo_datos_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/titulo_domicilio_ea"
+            android:textAlignment="center"
+            android:textColor="@color/gristexto"
+            android:textSize="16sp"
+            app:tipo="Text" />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_calle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/edit_nombre"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center_vertical"
+            android:hint="@string/streetHint"
+            android:maxLines="1"
+            android:textColorHint="@color/texthint"
+            app:counterEnabled="true"
+            app:counterMaxLength="1"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+            app:hintTextAppearance="@style/HintText"
+            app:passwordToggleTint="@color/hint_color"
+
+            tools:ignore="UnusedAttribute">
+
+            <EditText
+                android:id="@+id/editStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:background="@android:color/transparent"
+                android:imeOptions="actionNext"
+                android:paddingLeft="15dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:textColor="@color/grayColor"
+                android:theme="@style/NewEdittextwallet" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_num_exterior"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edit_nombre"
+                android:layout_marginTop="0dp"
+                android:layout_weight=".5"
+                android:background="@drawable/inputtext_normal"
+                android:gravity="center_vertical"
+                android:hint="@string/outside_number"
+                android:maxLines="1"
+                android:textColorHint="@color/texthint"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
+                tools:ignore="UnusedAttribute">
+
+                <EditText
+                    android:id="@+id/editExtNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:background="@android:color/transparent"
+                    android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopasdfghjklyxcvbnm,_,-, ,QWERTYUIOPASDFGHJKLÑZXCVBNM"
+                    android:imeOptions="actionNext"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="4dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_num_interior"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edit_nombre"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight=".5"
+                android:background="@drawable/inputtext_normal"
+                android:gravity="center_vertical"
+                android:hint="@string/intern_number"
+                android:maxLines="1"
+                android:textColorHint="@color/texthint"
+                app:counterEnabled="true"
+                app:counterMaxLength="1"
+                app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                app:hintTextAppearance="@style/HintText"
+                tools:ignore="UnusedAttribute">
+
+                <EditText
+                    android:id="@+id/editIntNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:background="@android:color/transparent"
+                    android:digits="0,1,2,3,4,5,6,7,8,9,*, ,qwertzuiopasdfghjklyxcvbnm,_,-,QWERTYUIOPASDFGHJKLÑZXCVBNM"
+                    android:imeOptions="actionNext"
+                    android:maxLength="10"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="4dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grayColor"
+                    android:theme="@style/NewEdittextwallet" />
+
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_cp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_below="@+id/edit_nombre"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center_vertical"
+            android:hint="@string/zipCodeHint"
+            android:maxLines="1"
+            android:textColorHint="@color/texthint"
+            app:counterEnabled="false"
+            app:counterMaxLength="1"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+            app:hintTextAppearance="@style/HintText"
+            app:passwordToggleTint="@color/hint_color"
+            tools:ignore="UnusedAttribute">
+
+            <EditText
+                android:id="@+id/editZipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:background="@android:color/transparent"
+                android:digits="1,2,3,4,5,6,7,8,9,0"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+
+                android:maxLength="5"
+                android:paddingLeft="15dp"
+                android:singleLine="true"
+                android:textColor="@color/grayColor"
+                android:theme="@style/NewEdittextwallet" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnBackDatosUsuario"
+                style="@style/buttonDirecctionBackSmall"
+                android:gravity="center"
+                android:text="@string/backButton"
+                android:visibility="gone" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextDatosUsuario"
+                style="@style/buttonSquareRoundedBluenewRegister"
+                android:gravity="center"
+                android:text="@string/confirmardatos" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</LinearLayout>

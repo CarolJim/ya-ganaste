@@ -18,7 +18,7 @@ public class RegContracts {
 
     public interface Router{
         void showUserData(Direction direction); //Pantalla 01
-        void showPersonalData(); //Pantalla 02
+        void showPersonalData(Direction direction); //Pantalla 02
         void showPrsonalAddress(); //Pantalla 03
         void showBusinessData(); //Pantalla 04
         void showPhysicalCode(); //Pantalla 05

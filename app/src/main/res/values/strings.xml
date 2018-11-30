@@ -382,7 +382,7 @@
     <string name="female">Mujer</string>
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
-    <string name="birthDay">Fecha de nacimiento</string>
+    <string name="birthDay">Cumpleaños</string>
     <string name="county">País de nacimiento</string>
     <string name="country_nationality">Nacionalidad</string>
     <string name="curp">CURP</string>
@@ -1637,6 +1637,14 @@
     <!--Nuevo Registro Emisor y Agregador-->
 
     <string name="titulo_datos_usuario_ea">Registra tus datos de usuario\npara crear tu cuenta</string>
+
+    <!--Nuevo Registro  Datos Personales-->
+    <string name="titulo_datos_personales_ea">Ingresa tus datos tal como aparecen\nen tu identificación</string>
+    <string name="confirmardatos">Confirmar datos </string>
+
+    <!--Nuevo Registro  Datos Personales-->
+    <string name="titulo_domicilio_ea">Ingresa tu domicilio actual</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

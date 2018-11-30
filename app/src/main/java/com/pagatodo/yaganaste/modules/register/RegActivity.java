@@ -36,4 +36,9 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     public void initViews() {
         router.showUserData(Direction.FORDWARD);
     }
+
+    public void showFragmentDatosPersonales(){
+        router.showPersonalData(Direction.FORDWARD);
+    }
+
 }

@@ -2,8 +2,8 @@ package com.pagatodo.yaganaste.modules.register;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.register.RegistroCorreo.RegistroCorreoFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PersonalAccountFragment;
+import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
+import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
 
 public class RegRouter implements RegContracts.Router {
 
@@ -25,7 +25,7 @@ public class RegRouter implements RegContracts.Router {
     @Override
     public void showUserData(Direction direction) {
        // activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
-        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.container_register);
+        activity.loadFragment(RegistroCorreoFragment.newInstance(activity), R.id.container_register,false);
 
     }
 
@@ -33,12 +33,13 @@ public class RegRouter implements RegContracts.Router {
      * Panatalla 02
      */
     @Override
-    public void showPersonalData() {
+    public void showPersonalData (Direction direction) {
+        // activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
+        activity.loadFragment(RegistroDatosPersonalesFragment.newInstance(activity), R.id.container_register,false);
+
 
     }
-
-    /**
-     * Panatalla 03
+     /** Panatalla 03
      */
     @Override
     public void showPrsonalAddress() {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".modules.register.RegistroCorreo.RegistroCorreoFragment">
+    tools:context=".modules.register.CorreoUsuario.RegistroCorreoFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
