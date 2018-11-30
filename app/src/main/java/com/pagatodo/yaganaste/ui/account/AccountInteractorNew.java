@@ -1080,6 +1080,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     App.mixpanel.getPeople().set("name", data.getCliente().getNombre() + " " +
                             data.getCliente().getPrimerApellido() + " " + data.getCliente().getSegundoApellido());
                 }
+            } else {
+                auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()){
+                        FirebaseAuth.getInstance().getCurrentUser().updatePassword("123456");
+                    }
+                });
             }
             accountManager.goToNextStepAccount(stepUser, null);
         });

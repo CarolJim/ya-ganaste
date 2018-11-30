@@ -289,7 +289,7 @@ public class MyPassFragment extends GenericFragment implements View.OnClickListe
         // Deshabilitamos el backButton
         //getActivity().onBackPressed();
         onEventListener.onEvent("DISABLE_BACK", true);
-        FirebaseAuth.getInstance().getCurrentUser().updatePassword(editNueva.editText.getText().toString().trim());
+        //FirebaseAuth.getInstance().getCurrentUser().updatePassword(editNueva.editText.getText().toString().trim());
         mPreferPresenter.changePassToPresenter(
                 Utils.cipherRSA(editActual.editText.getText().toString().trim(), PUBLIC_KEY_RSA),
                 Utils.cipherRSA(editNueva.editText.getText().toString().trim(), PUBLIC_KEY_RSA)

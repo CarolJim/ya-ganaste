@@ -414,6 +414,7 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
+    <string name="activacion_sms_desc">Para finalizar, pulsa el botón “Enviar SMS”\nasí vincularémos tu número de teléfono a\ntu cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
