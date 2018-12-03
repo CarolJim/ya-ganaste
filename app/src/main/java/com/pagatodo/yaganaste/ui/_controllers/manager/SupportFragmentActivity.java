@@ -68,27 +68,27 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
+    public void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
+    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
+    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
                                 boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, addToBackStack);
         UI.hideKeyBoard(this);

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".modules.register.CorreoUsuario.RegistroCorreoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".3"
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/titulo_datos_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/titulo_datos_personales_ea"
+            android:textAlignment="center"
+            android:textColor="@color/gristexto"
+            android:textSize="16sp"
+            app:tipo="Text" />
+
+        <LinearLayout
+            style="@style/BorderLayoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:hint="@string/datos_personal_nombre_b"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:paddingTop="1dp"
+                    android:textColorHint="@color/texthint"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_nombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textNoSuggestions|textCapSentences"
+                        android:paddingLeft="9.5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_marginTop="6dp"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editNames"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xsmall"
+                    android:visibility="gone"
+                    app:formato="text"
+                    app:hintText="@string/nameHint"
+                    app:imageIsGone="true"
+                    app:isSingleLine="true"
+                    app:maxLength="30" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorNameMessage"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_apater"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/edit_nombre"
+                    android:background="@drawable/inputtext_normal"
+                    android:gravity="center_vertical"
+                    android:hint="@string/datos_personal_paterno"
+                    android:maxLines="1"
+                    android:textColorHint="@color/texthint"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color"
+
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_appater"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionNext"
+                        android:inputType="textNoSuggestions|textCapSentences"
+                        android:paddingLeft="12.5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editFirstLastName"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:formato="text"
+                    app:hintText="@string/last_name"
+                    app:imageIsGone="true"
+                    app:isSingleLine="true"
+                    app:maxLength="30" />
+
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorFLastNameMessage"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_amaterno"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:gravity="center_vertical"
+                    android:hint="@string/datos_personal_materno"
+                    android:textColorHint="@color/texthint"
+                    app:counterEnabled="true"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color"
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/edit_apmaterno"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/text_apater"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionDone"
+                        android:inputType="textNoSuggestions|textCapSentences"
+                        android:paddingLeft="12.5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/grayColor"
+                        android:theme="@style/NewEdittextwallet" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editSecoundLastName"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:formato="text"
+                    app:hintText="@string/second_last_name"
+                    app:imageIsGone="true"
+                    app:isSingleLine="true"
+                    app:maxLength="30" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinnergenero"
+                    style="@style/SpinnerNoArrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_xsmall"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:backgroundTint="@color/transparent"
+                    android:visibility="gone" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorGenderMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorBirthDayMessage"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/txtlugarnacimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="12.5dp"
+                        >
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/lugarnacimientomens"
+                            style="@style/generic_text_style_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="Lugar de nacimiento"
+                            android:textSize="12sp"
+                            android:textColor="@color/hint_color"
+                            android:visibility="gone"/>
+
+                        <Spinner
+                            android:id="@+id/spinnerBirthPlace"
+                            style="@style/SpinnerNoArrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="match_parent"
+                        android:background="#c4c4c4"
+                        android:layout_marginEnd="10dp" />
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="11dp"
+                        android:tint="@color/colorAccent"
+                        android:src="@drawable/ico_select"
+                        android:layout_marginEnd="11dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+                <LinearLayout
+                    android:id="@+id/txtfecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    >
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:hint="@string/birthDay"
+                        android:textColorHint="@color/texthint"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1"
+                        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                        app:hintTextAppearance="@style/HintText"
+                        app:passwordToggleTint="@color/hint_color"
+                        tools:ignore="UnusedAttribute">
+
+                        <EditText
+                            android:id="@+id/editBirthDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/text_apater"
+                            android:layout_marginBottom="9dp"
+                            android:background="@android:color/transparent"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:paddingLeft="12.5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/grayColor"
+                            android:theme="@style/NewEdittextwallet" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="match_parent"
+                        android:background="#c4c4c4"
+                        android:layout_marginEnd="10dp" />
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="11dp"
+                        android:src="@drawable/cal"
+                         />
+
+                    </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/generTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="8.5dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginEnd="8.5dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/seleccionaGenero"
+                        style="@style/generic_text_style_3.3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="12.5dp"
+                        android:paddingLeft="12.5dp"
+                        android:text="@string/genero" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:theme="@style/RadioButtonTheme"
+                        android:gravity="center"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:background="@color/colorAccent"
+                            android:id="@+id/background_h"
+                            >
+                        <RadioButton
+                            android:id="@+id/radioBtnMale"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/masc"
+                            android:gravity="center" />
+                            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/whiteColor"
+                                android:layout_marginLeft="10dp"
+
+                                android:text="H"/>
+
+                        </LinearLayout>
+                        <View
+                            android:layout_width="1dp"
+                            android:background="#c4c4c4"
+                            android:layout_height="match_parent"
+
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:background="@color/colorAccent"
+                            android:id="@+id/background_m"
+                            >
+
+                            <RadioButton
+                                android:id="@+id/radioBtnFemale"
+                                style="@style/generic_text_style_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/fem"
+                                android:gravity="center" />
+
+                            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/whiteColor"
+                                android:layout_marginLeft="10dp"
+                                android:text="M"/>
+                        </LinearLayout>
+
+
+
+                        </RadioGroup>
+
+                     </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnBackDatosUsuario"
+                style="@style/buttonDirecctionBackSmall"
+                android:gravity="center"
+                android:text="@string/backButton"
+                android:visibility="gone" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextDatosUsuario"
+                style="@style/buttonSquareRoundedBluenewRegister"
+                android:gravity="center"
+                android:text="@string/confirmardatos" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</LinearLayout>

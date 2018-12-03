@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.register.RegistroCorreo;
+package com.pagatodo.yaganaste.modules.register.CorreoUsuario;
 
 
 import android.content.Context;
@@ -18,12 +18,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,15 +43,21 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     TextInputLayout text_email;
     @BindView(R.id.edit_email)
     EditText editMail;
+    @BindView(R.id.btnNextDatosUsuario)
+    StyleButton btnNextDatosUsuario;
     private Preferencias preferencias;
     private AccountPresenterNew accountPresenter;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
-
+    private static RegActivity activityf;
 
 
     public static RegistroCorreoFragment newInstance(){
 
+        return  new RegistroCorreoFragment();
+    }
+    public static RegistroCorreoFragment newInstance(RegActivity activity){
+        activityf = activity;
         return  new RegistroCorreoFragment();
     }
 
@@ -80,13 +87,17 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        btnNextDatosUsuario.setOnClickListener(this);
+
         setValidationRules();
 
     }
 
     @Override
     public void onClick(View view) {
-
+        if (view.getId() == R.id.btnNextDatosUsuario) {
+            validateForm();
+        }
     }
 
     @Override
@@ -158,6 +169,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 if (hasFocus) {
                     //  hideValidationError(editMail.getId());
                     //editMail.imageViewIsGone(true);
+                    emailValidatedByWS = false;
                     text_email.setBackgroundResource(R.drawable.inputtext_active);
 
                 } else {
@@ -192,6 +204,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void validateForm() {
+
+        activityf.showFragmentDatosPersonales();
 
     }
 
