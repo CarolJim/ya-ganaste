@@ -7,22 +7,20 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.databinding.FragmentVincularCuentaBinding
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER
 import com.pagatodo.yaganaste.ui._manager.GenericFragment
 import com.pagatodo.yaganaste.utils.UI
 import com.pagatodo.yaganaste.utils.Utils
-import com.pagatodo.yaganaste.utils.customviews.StyleButton
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,11 +80,11 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     }
 
     override fun showLoader(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message)
     }
 
     override fun hideLoader() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null)
     }
 
     override fun onLinkedSuccess() {
