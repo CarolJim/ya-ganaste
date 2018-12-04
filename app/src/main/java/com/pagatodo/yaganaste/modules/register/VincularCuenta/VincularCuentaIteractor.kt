@@ -1,29 +1,36 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
+import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.BuildConfig
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.DataSourceResult
+import com.pagatodo.yaganaste.data.dto.ErrorObject
 import com.pagatodo.yaganaste.data.model.Card
+import com.pagatodo.yaganaste.data.model.MessageValidation
 import com.pagatodo.yaganaste.data.model.RegisterUserNew
 import com.pagatodo.yaganaste.data.model.SingletonUser
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.*
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse
+import com.pagatodo.yaganaste.data.room_db.DatabaseManager
 import com.pagatodo.yaganaste.exceptions.OfflineException
+import com.pagatodo.yaganaste.interfaces.IAprovView
 import com.pagatodo.yaganaste.interfaces.IRequestResult
 import com.pagatodo.yaganaste.interfaces.enums.WebService
 import com.pagatodo.yaganaste.net.ApiAdtvo
 import com.pagatodo.yaganaste.net.ApiTrans
 import com.pagatodo.yaganaste.net.RequestHeaders
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED
+import com.pagatodo.yaganaste.ui.account.AprovPresenter
 import com.pagatodo.yaganaste.utils.Constants.*
 import com.pagatodo.yaganaste.utils.Recursos.*
 import com.pagatodo.yaganaste.utils.Utils
@@ -32,10 +39,11 @@ import org.json.JSONObject
 import java.util.ArrayList
 
 class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) : VincularcuentaContracts.Iteractor,
-        IRequestResult<DataSourceResult> {
+        IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
+        IAprovView<Any> {
 
     override fun createUser() {
-        presenter.showLoader("Creando usuario")
+        presenter.showLoader(App.getContext().getString(R.string.creating_user))
         var registerUserSingleton = RegisterUserNew.getInstance()
         var request = CrearUsuarioClienteRequest(
                 registerUserSingleton.email,
@@ -69,7 +77,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun createClient() {
-        presenter.showLoader("Asignando cuenta\nProceso 1 de 2")
+        presenter.showLoader(App.getContext().getString(R.string.assigning_account_1))
         var request = AsignarCuentaDisponibleRequest(Card.getInstance().idAccount)
         try {
             ApiTrans.asignarCuentaDisponible(request, this)
@@ -80,7 +88,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun assignNip() {
-        presenter.showLoader("Asignando cuenta\nProceso 2 de 2")
+        presenter.showLoader(App.getContext().getString(R.string.assigning_account_2))
         var request = AsignarNIPRequest(Utils.cipherRSA("7485", PUBLIC_KEY_RSA))
         try {
             ApiTrans.asignarNip(request, this, WebService.ASIGNAR_NIP)
@@ -91,8 +99,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun createAgent() {
-        presenter.showLoader("Creando agente")
-        var request = CrearAgenteRequest()
+        presenter.showLoader(App.getContext().getString(R.string.creating_agent))
+        var registerUserSingleton = RegisterUserNew.getInstance()
+        var request = CrearAgenteRequest(registerUserSingleton.)
         try {
             ApiAdtvo.crearAgente(request, this)
         } catch (e: Exception) {
@@ -101,8 +110,42 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         }
     }
 
-    override fun onSendSMS() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getNumberOfSms() {
+        presenter.showLoader(App.getContext().getString(R.string.verificando_sms_espera))
+        try {
+            ApiAdtvo.obtenerNumeroSMS(this)
+        } catch (e: OfflineException) {
+            e.printStackTrace()
+            presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
+        }
+    }
+
+    override fun verifyActivationSms() {
+        presenter.showLoader(App.getContext().getString(R.string.verificando_sms_esperanuevo))
+        App.getInstance().prefs.clearPreference(HAS_PROVISIONING)
+        App.getInstance().prefs.clearPreference(HAS_PUSH)
+        App.getInstance().prefs.clearPreference(USER_PROVISIONED)
+        SingletonUser.getInstance().setNeedsReset(false)
+        try {
+            ApiAdtvo.verificarActivacion(this)
+        } catch (e: OfflineException) {
+            e.printStackTrace()
+            presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
+        }
+    }
+
+    override fun updateSession() {
+        try {
+            ApiAdtvo.actualizarInformacionSesion(this)
+        } catch (e: OfflineException) {
+            e.printStackTrace()
+            presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
+        }
+    }
+
+    override fun provisionDevice() {
+        super.setAprovView(this)
+        super.doProvisioning()
     }
 
     override fun onSuccess(data: DataSourceResult?) {
@@ -139,7 +182,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     user.dataUser.emisor.cuentas[0].idCuenta = cuenta.idCuenta
                     RequestHeaders.setIdCuenta(String.format("%s", cuenta.idCuenta))
                     Card.getInstance().idAccount = cuenta.idCuenta
-                    presenter.onAccountAsigned()
+                    presenter.onAccountAssigned()
                 } else {
                     presenter.onErrorService(data.mensaje)
                 }
@@ -174,10 +217,120 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     presenter.onErrorService(data.mensaje)
                 }
             }
+            is ObtenerNumeroSMSResponse -> {
+                if (data.codigoRespuesta == CODE_OK) {
+                    val user = SingletonUser.getInstance()
+                    val phone = data.getData().numeroTelefono
+                    val tokenValidation = user.dataUser.usuario.semilla + RequestHeaders.getUsername() + RequestHeaders.getTokendevice()
+                    if (App.getInstance().prefs.loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d("WSC", "TokenValidation: $tokenValidation")
+                    }
+                    val tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation))
+                    if (App.getInstance().prefs.loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d("WSC", "TokenValidation SHA: $tokenValidationSHA")
+                    }
+                    val message = String.format("%sT%sT%s", user.dataUser.usuario.idUsuario,
+                            user.dataUser.emisor.cuentas[0].idCuenta, tokenValidationSHA)
+                    if (App.getInstance().prefs.loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d("WSC", "Token Firebase ID: " + FirebaseInstanceId.getInstance().token!!)
+                    }
+                    if (FirebaseInstanceId.getInstance().token != null) {
+                        App.getInstance().prefs.saveData(TOKEN_FIREBASE, FirebaseInstanceId.getInstance().token)
+                    }
+                    val messageValidation = MessageValidation(phone, message)
+                    presenter.onSmsNumberObtained(messageValidation)
+                } else {
+                    presenter.onErrorService(data.mensaje)
+                }
+            }
+            is VerificarActivacionResponse -> {
+                if (data.codigoRespuesta == CODE_OK) {
+                    val user = SingletonUser.getInstance()
+                    user.dataExtraUser.phone = data.getData().numeroTelefono
+                    RequestHeaders.setTokenauth(data.getData().tokenAutenticacion)
+                    presenter.onVerificationSmsSuccess()
+                } else {
+                    presenter.onErrorService(data.mensaje)
+                }
+            }
+            is ActualizarInformacionSesionResponse -> {
+                if (data.codigoRespuesta == CODE_OK) {
+                    val newSessionData = data.getData()
+                    if (newSessionData.adquirente.agentes != null && newSessionData.adquirente.agentes.size > 0) {
+                        DatabaseManager().insertAgentes(newSessionData.adquirente.agentes)
+                    }
+                    val userInfo = SingletonUser.getInstance()
+                    newSessionData.usuario.tokenSesionAdquirente = RequestHeaders.getTokenAdq()
+                    userInfo.dataUser = newSessionData
+                    App.getInstance().prefs.saveDataInt(ID_ESTATUS_EMISOR, newSessionData.usuario.idEstatusEmisor)
+                    presenter.onSessionUpdate()
+                } else {
+                    presenter.onErrorService(data.mensaje)
+                }
+            }
         }
     }
 
     override fun onFailed(error: DataSourceResult?) {
-        presenter.onErrorService(error!!.data.toString())
+        if (error!!.webService == WebService.VERIFICAR_ACTIVACION) {
+            presenter.onVerificationSmsFailed(error!!.data.toString())
+        } else {
+            presenter.onErrorService(error!!.data.toString())
+        }
     }
+
+    /**
+     * IAprov Interface Methods
+     */
+
+    override fun showErrorAprov(error: ErrorObject?) {
+        presenter.onAprovFailed(error, EVENT_SHOW_ERROR)
+    }
+
+    override fun finishAssociation() {
+        /* Firebase Track Event */
+        val bundle = Bundle()
+        bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection())
+        FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_APROV, bundle)
+        var props: JSONObject? = null
+        if (!BuildConfig.DEBUG) {
+            try {
+                props = JSONObject().put(CONNECTION_TYPE, Utils.getTypeConnection())
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            App.mixpanel.track(EVENT_APROV, props)
+        }
+        presenter.onAprovSuccess()
+    }
+
+    override fun showLoader(message: String?) {
+        presenter.showLoader(message!!)
+    }
+
+    override fun showError(error: Any?) {
+        presenter.onAprovFailed(error, EVENT_SESSION_EXPIRED)
+    }
+
+    override fun hideLoader() {
+        presenter.hideLoader()
+    }
+
+    override fun errorSessionExpired(response: DataSourceResult?) {}
+
+    override fun goToNextStepAccount(event: String?, data: Any?) {}
+
+    override fun onSuccesBalance() {}
+
+    override fun onSuccesChangePass6(dataSourceResult: DataSourceResult?) {}
+
+    override fun onSuccesStateCuenta() {}
+
+    override fun onSuccesBalanceAdq() {}
+
+    override fun onSuccessBalanceStarbucks() {}
+
+    override fun onSuccessDataPerson() {}
+
+    override fun onHomonimiaDataPerson() {}
 }

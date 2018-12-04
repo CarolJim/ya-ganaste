@@ -1648,12 +1648,17 @@
     <string name="titulo_domicilio_ea">Ingresa tu domicilio actual</string>
     <string name="domicilio_ea">Blvrd. Ávila Camacho #66 Interior 2 C.P. 11000</string>
 
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="vigentes_promos">Vigentes</string>
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
 
+    
+    <!-- Nueva Pantalla Vincular Dispositivo -->
+    <string name="creating_user">Creando usuario</string>
+    <string name="assigning_account_1">Asignando cuenta\nProceso 1 de 2</string>
+    <string name="assigning_account_2">Asignando cuenta\nProceso 2 de 2</string>
+    <string name="creating_agent">Creando agente</string>
 
 </resources>
