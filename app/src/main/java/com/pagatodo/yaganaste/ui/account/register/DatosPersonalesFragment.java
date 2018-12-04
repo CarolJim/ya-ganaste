@@ -495,15 +495,15 @@ public class DatosPersonalesFragment extends GenericFragment implements
         /*
 
         editFirstLastName.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editFirstLastName.getId());
-                editFirstLastName.imageViewIsGone(true);
-            }
-        });
+        @Override
+        public void afterTextChanged(String s) {
+            hideValidationError(editFirstLastName.getId());
+            editFirstLastName.imageViewIsGone(true);
+        }
+    });
             */
 
-    }
+}
 
     @Override
     public void validateForm() {

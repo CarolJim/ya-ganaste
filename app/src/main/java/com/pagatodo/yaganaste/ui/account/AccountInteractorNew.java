@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SaldoRequest;
@@ -392,6 +393,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
         }
 
+    }
+
+    @Override
+    public void validatePersonDatanew() {
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
+
+        request.setNombre(registerUser.getNombre());
+        request.setPrimerApellido(registerUser.getApellidoPaterno());
+        request.setSegundoApellido(registerUser.getApellidoMaterno());
+        request.setFechaNacimiento(registerUser.getFechaNacimiento());
+        request.setGenero(registerUser.getGenero());
+        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
+
+        try {
+            ApiAdtvo.validarDatosPersona(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
+        }
     }
 
     @Override

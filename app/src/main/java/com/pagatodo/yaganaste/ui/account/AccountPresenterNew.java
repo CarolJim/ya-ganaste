@@ -202,6 +202,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
+    public void validatePersonDatanew() {
+        accountView.showLoader(context.getString(R.string.msg_renapo));
+        accountIteractor.validatePersonDatanew();
+    }
+
+    @Override
     public void validatePersonDataHomonimia() {
         accountView.showLoader(context.getString(R.string.msg_renapo));
         accountIteractor.validatePersonDataHomonimia();

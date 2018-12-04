@@ -1,13 +1,19 @@
 package com.pagatodo.yaganaste.modules.register.DatosPersonales;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
@@ -54,6 +60,7 @@ import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
 import com.pagatodo.yaganaste.ui_wallet.views.Color;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -73,6 +80,9 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,7 +90,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_
 public class RegistroDatosPersonalesFragment extends GenericFragment implements IOnSpinnerClick ,View.OnClickListener,ValidationForms,AdapterView.OnItemSelectedListener,IRenapoView ,IDatosPersonalesManager {
 
     private static RegActivity activityf;
-
+    Boolean seencuentra = false;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
     @BindView(R.id.radioBtnFemale)
@@ -467,7 +477,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 changecolorradio();
                 break;
                 case R.id.btnNextDatosPersonales:
-                 activityf.showFragmentDomicilioIngresaCP();
+                    validateForm();
+
                 break;
 
 
@@ -480,11 +491,166 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void setValidationRules() {
+        editNames.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideValidationError(editNames.getId());
+                    //  editNames.imageViewIsGone(true);
+                    text_nombre.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    if (editNames.getText().toString().isEmpty()) {
+                        //   showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
+                        text_nombre.setBackgroundResource(R.drawable.inputtext_error);
+                        //    editNames.setIsInvalid();
+                    } else {
+                        //  hideValidationError(editNames.getId());
+                        text_nombre.setBackgroundResource(R.drawable.inputtext_normal);
+                        //editNames.setIsValid();
+                    }
+                }
+            }
+        });
+        /*
+
+        editNames.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideValidationError(editNames.getId());
+                editNames.imageViewIsGone(true);
+            }
+        });
+        */
+
+        editFirstLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //  hideValidationError(editFirstLastName.getId());
+                    text_apater.setBackgroundResource(R.drawable.inputtext_active);
+                    //     editFirstLastName.imageViewIsGone(true);
+                } else {
+                    if (editFirstLastName.getText().toString().isEmpty()) {
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
+                        text_apater.setBackgroundResource(R.drawable.inputtext_error);
+                        // showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
+                        //       editFirstLastName.setIsInvalid();
+                    } else {
+                        //hideValidationError(editFirstLastName.getId());
+                        text_apater.setBackgroundResource(R.drawable.inputtext_normal);
+                        // editFirstLastName.setIsValid();
+                    }
+                }
+            }
+        });
 
     }
 
     @Override
     public void validateForm() {
+        getDataForm();
+        boolean isValid = true;
+        if (genero == null || genero.equals("")) {
+            // showValidationError(spinnergenero.getId(), getString(R.string.datos_personal_genero));
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_genero), Snackbar.LENGTH_SHORT);
+            generTitle.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+
+        if (nombre.isEmpty()) {
+            //showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+            //  editNames.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
+            text_nombre.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+        if (apPaterno.isEmpty()) {
+            //  showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
+            //  editFirstLastName.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_paterno), Snackbar.LENGTH_SHORT);
+            text_apater.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
+            //showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
+            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            //editBirthDay.setIsInvalid();
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && actualDate != null) {
+
+            Calendar mCalendar = Calendar.getInstance();
+            mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+
+            if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_mayor_edad), Snackbar.LENGTH_SHORT);
+                txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+                //
+                showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
+                // editBirthDay.setIsInvalid();
+                isValid = false;
+            }
+        }
+
+        if (fechaNacimiento.isEmpty()) {
+            //   showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            // editBirthDay.setIsInvalid();
+            //showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_fecha), Snackbar.LENGTH_SHORT);
+            txtfecha.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+
+        if (lugarNacimiento.isEmpty()) {
+            //  showValidationError(spinnerBirthPlace.getId(), getString(R.string.datos_personal_estado));
+
+            //showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
+            txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+
+            isValid = false;
+        }
+
+        if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals("Extranjero")) {
+            if (country == null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_estado), Snackbar.LENGTH_SHORT);
+                txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_error);
+                // showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
+                isValid = false;
+            }
+        }
+        if (isValid) {
+                setPersonData();
+          //  activityf.showFragmentDomicilioIngresaCP();
+        }
+
+
+
 
     }
 
@@ -500,7 +666,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void onValidationSuccess() {
-
+        activityf.showFragmentDomicilioIngresaCP();
     }
     private void setPersonData() {
         //Almacenamos la información para el registro
@@ -522,9 +688,10 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
         if (BuildConfig.DEBUG) {
-            onValidationSuccess();
+            //onValidationSuccess();
+            accountPresenter.validatePersonDatanew();
         } else {
-            accountPresenter.validatePersonData();
+            accountPresenter.validatePersonDatanew();
         }
     }
     @Override
@@ -577,7 +744,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void onValidateUserDataSuccess() {
-
+        onValidationSuccess();
     }
 
     @Override
@@ -610,19 +777,61 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
-
     @Override
     public void showError(Object error) {
+        errorVerificationData++;
+        String titulo = "", text = "";
+        if (!error.toString().isEmpty() && errorVerificationData < 4) {
+            //  UI.showToastShort(error.toString(), getActivity());
+            text = getString(R.string.problem_with_register1);
+            UI.showAlertDialog(getActivity(), getResources().getString(R.string.app_name), text,
+                    R.string.title_aceptar, (dialogInterface, i) -> {
+                    });
+        } else {
+            text = getString(R.string.problem_with_register2);
+            titulo = getString(R.string.titulo_extranjero);
+            seencuentra = true;
+            UI.showAlertDialogLlamar(getActivity(), titulo, text, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    llamar();
+                }
+            });
 
+        }
     }
+    public void llamar() {
+        String number = getString(R.string.numero_telefono_paises);
 
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel:" + number));
+
+
+        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+            ValidatePermissions.checkPermissions(getActivity(), new String[]{
+                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
+        } else {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            getActivity().startActivity(callIntent);
+        }
+    }
     @Override
     public void onCountrySelectedListener(Paises item) {
         country = item;
