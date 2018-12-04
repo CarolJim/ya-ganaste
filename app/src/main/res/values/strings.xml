@@ -1644,6 +1644,7 @@
 
     <!--Nuevo Registro  Datos Personales-->
     <string name="titulo_domicilio_ea">Ingresa tu domicilio actual</string>
+    <string name="domicilio_ea">Blvrd. Ávila Camacho #66 Interior 2 C.P. 11000</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

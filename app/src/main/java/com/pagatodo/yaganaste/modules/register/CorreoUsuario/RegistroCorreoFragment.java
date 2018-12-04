@@ -88,9 +88,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextDatosUsuario.setOnClickListener(this);
-
         setValidationRules();
-
     }
 
     @Override

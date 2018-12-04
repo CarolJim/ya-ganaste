@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginTop="8dp"
             android:text="@string/titulo_datos_personales_ea"
             android:textAlignment="center"
@@ -281,6 +281,44 @@
                         android:src="@drawable/ico_select"
                         android:layout_marginEnd="11dp" />
                 </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/lyt_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/inputtext_normal"
+                    android:clickable="true"
+                    android:hint="@string/county"
+                    android:textColorHint="@color/texthint"
+                    android:visibility="gone"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="1"
+                    app:counterOverflowTextAppearance="@style/CounterOverFlow"
+                    app:hintTextAppearance="@style/HintText"
+                    app:passwordToggleTint="@color/hint_color"
+
+                    tools:ignore="UnusedAttribute">
+
+                    <EditText
+                        android:id="@+id/editCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/text_apater"
+                        android:layout_marginBottom="9dp"
+                        android:background="@android:color/transparent"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:paddingLeft="12.5dp"
+                        android:singleLine="true"
+                        android:textColor="@color/hint_color"
+                        android:theme="@style/NewEdittextwallet" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -383,7 +421,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:background="@color/colorAccent"
+                            android:background="@color/whiteColor"
                             android:id="@+id/background_h"
                             >
                         <RadioButton
@@ -397,9 +435,9 @@
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/whiteColor"
+                                android:textColor="@color/gristexto"
                                 android:layout_marginLeft="10dp"
-
+                                android:id="@+id/letraH"
                                 android:text="H"/>
 
                         </LinearLayout>
@@ -414,7 +452,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:background="@color/colorAccent"
+                            android:background="@color/whiteColor"
                             android:id="@+id/background_m"
                             >
 
@@ -430,9 +468,11 @@
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/whiteColor"
+                                android:textColor="@color/gristexto"
                                 android:layout_marginLeft="10dp"
-                                android:text="M"/>
+                                android:text="M"
+                                android:id="@+id/letraM"
+                                />
                         </LinearLayout>
 
 
@@ -479,7 +519,7 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextDatosUsuario"
+                android:id="@+id/btnNextDatosPersonales"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:gravity="center"
                 android:text="@string/confirmardatos" />

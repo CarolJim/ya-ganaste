@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model;
 
+import com.pagatodo.yaganaste.data.room_db.entities.Paises;
+
 public class RegisterUserNew {
 
     private static RegisterUserNew registerUserNew;
@@ -13,7 +15,10 @@ public class RegisterUserNew {
     private String apellidoPaterno = "";
     private String apellidoMaterno = "";
     private String fechaNacimiento = "";
+    private String fechaNacimientoToShow = "";
     private String lugarNacimiento = "";
+    private String idEstadoNacimineto = "";
+    private Paises paisNacimiento;
     private String CURP = "";
     /* Datos Domicilio Actual*/
     private String calle = "";
@@ -193,5 +198,29 @@ public class RegisterUserNew {
 
     public void setAceptaTerminos(boolean aceptaTerminos) {
         this.aceptaTerminos = aceptaTerminos;
+    }
+
+    public String getFechaNacimientoToShow() {
+        return fechaNacimientoToShow;
+    }
+
+    public void setFechaNacimientoToShow(String fechaNacimientoToShow) {
+        this.fechaNacimientoToShow = fechaNacimientoToShow;
+    }
+
+    public String getIdEstadoNacimineto() {
+        return idEstadoNacimineto;
+    }
+
+    public void setIdEstadoNacimineto(String idEstadoNacimineto) {
+        this.idEstadoNacimineto = idEstadoNacimineto;
+    }
+
+    public Paises getPaisNacimiento() {
+        return paisNacimiento;
+    }
+
+    public void setPaisNacimiento(Paises paisNacimiento) {
+        this.paisNacimiento = paisNacimiento;
     }
 }

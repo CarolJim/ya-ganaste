@@ -94,7 +94,7 @@ public class SplashActivity extends LoaderActivity implements IRequestResult, Fi
         preferencias = App.getInstance().getPrefs();
         db = App.getAppDatabase();
         preferencias = App.getInstance().getPrefs();
-        new DatabaseManager().checkCountries();
+       // new DatabaseManager().checkCountries();
         new ForcedUpdateChecker(this).getUrls(this);
     }
 
