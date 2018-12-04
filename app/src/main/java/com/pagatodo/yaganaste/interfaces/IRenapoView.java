@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.room_db.entities.CountryF;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 
 import java.util.ArrayList;
@@ -15,4 +16,8 @@ public interface IRenapoView extends INavigationView {
     void onHomonimiaError();
 
     void showDialogList(List<Paises> paises);
+
+    void showDialogListCountryF(List<CountryF> paises);
+
+
 }

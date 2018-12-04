@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.room_db.entities.CountryF;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBuscaPais;
@@ -88,6 +89,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     Boolean seencuentra = false;
     private final int EXTRANJERO = 2;
+
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
     @BindView(R.id.radioBtnFemale)
@@ -424,6 +426,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
     }
 
+    @Override
+    public void showDialogListCountryF(List<CountryF> paises) {
+
+    }
+
     /*Implementacion de ValidationForms*/
     @Override
     public void setValidationRules() {
@@ -717,7 +724,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             registerUser.setPaisNacimiento(country);
             //registerUser.setNacionalidad(country.getIdPais());
         } else {
-            registerUser.setPaisNacimiento(new Paises(127, "Mexico", "MX"));
+           // registerUser.setPaisNacimiento(new Paises(127, "Mexico", "MX"));
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
