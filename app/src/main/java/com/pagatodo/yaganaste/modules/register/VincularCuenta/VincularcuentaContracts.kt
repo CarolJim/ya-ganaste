@@ -29,11 +29,12 @@ class VincularcuentaContracts {
         fun verifyActivationSms()
         fun updateSession()
         fun provisionDevice()
+        /* Firebase Process */
+        fun registerUserFirebase()
     }
 
     interface Router {
         fun presentLinkedAccountScreen()
         fun presentOnboardingScreen()
-        fun presentSelectionQr()
     }
 }

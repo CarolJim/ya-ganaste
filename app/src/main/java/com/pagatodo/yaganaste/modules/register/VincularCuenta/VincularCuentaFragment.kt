@@ -18,15 +18,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pagatodo.yaganaste.App
-import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.model.MessageValidation
+import com.pagatodo.yaganaste.data.model.RegisterUserNew
 import com.pagatodo.yaganaste.databinding.FragmentVincularCuentaBinding
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED
 import com.pagatodo.yaganaste.ui._manager.GenericFragment
+import com.pagatodo.yaganaste.utils.Constants.*
 import com.pagatodo.yaganaste.utils.Recursos
 import com.pagatodo.yaganaste.utils.UI
 import com.pagatodo.yaganaste.utils.Utils
@@ -76,7 +76,14 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         when (v?.id) {
             binding.btnSendSms.id -> {
                 if (Utils.isDeviceOnline()) {
-                    iteractor.createUser()
+                    when (RegisterUserNew.getInstance().statusRegistro) {
+                        SIN_REGISTRO -> iteractor.createUser()
+                        USUARIO_CREADO -> iteractor.createClient()
+                        CUENTA_ASIGNADA -> iteractor.assignNip()
+                        NIP_ASIGNADO -> iteractor.createAgent()
+                        AGENTE_CREADO -> iteractor.getNumberOfSms()
+                        else -> iteractor.createUser()
+                    }
                 } else {
                     UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), Snackbar.LENGTH_LONG)
                 }
@@ -112,7 +119,6 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         validatePermissions()
         TODO("Alta en Firebase")
         TODO("Asignacion de QR's")
-        TODO("Empezsar aprovisionamiento")
     }
 
     override fun onSmsNumberObtained(obj: MessageValidation) {

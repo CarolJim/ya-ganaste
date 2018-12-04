@@ -212,6 +212,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             }
             is CrearAgenteResponse -> {
                 if (data.codigoRespuesta == CODE_OK) {
+                    RegisterUserNew.getInstance().statusRegistro = AGENTE_CREADO
                     presenter.onAgentCreated()
                 } else {
                     presenter.onErrorService(data.mensaje)
@@ -301,6 +302,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             }
             App.mixpanel.track(EVENT_APROV, props)
         }
+        RegisterUserNew.getInstance().statusRegistro = USUARIO_APROVISIONADO
         presenter.onAprovSuccess()
     }
 
