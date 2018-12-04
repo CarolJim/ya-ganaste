@@ -3,15 +3,21 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 class VincularcuentaContracts {
 
     interface Presenter {
+        fun onUserCreated()
+        fun onAccountAsigned()
+        fun onNipAssigned()
         fun onLinkedSuccess()
-        fun goToLoginAlert(message : String)
+        fun goToLoginAlert(message: String)
         fun showLoader(message: String)
         fun hideLoader()
+        fun onErrorService(message: String)
     }
 
     interface Iteractor {
-        fun onCreateUserClient()
-        fun onCreateAgent()
+        fun createUser()
+        fun createClient()
+        fun assignNip()
+        fun createAgent()
         fun onSendSMS()
     }
 

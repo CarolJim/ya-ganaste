@@ -34,6 +34,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     private var param2: String? = null
 
     private lateinit var binding: FragmentVincularCuentaBinding
+    private lateinit var iteractor: VincularcuentaContracts.Iteractor
     private lateinit var router: VincularcuentaContracts.Router
 
     companion object {
@@ -64,14 +65,15 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     override fun initViews() {
         router = VincularCuentaRouter(activity!!)
+        iteractor = VincularCuentaIteractor(this)
         binding.btnSendSms.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             binding.btnSendSms.id -> {
-                if (Utils.isDeviceOnline()){
-
+                if (Utils.isDeviceOnline()) {
+                    iteractor.createUser()
                 } else {
                     UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), Snackbar.LENGTH_LONG)
                 }
@@ -87,8 +89,28 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         onEventListener.onEvent(EVENT_HIDE_LOADER, null)
     }
 
+    override fun onUserCreated() {
+        hideLoader()
+        iteractor.createClient()
+    }
+
+    override fun onAccountAsigned() {
+        hideLoader()
+        iteractor.assignNip()
+    }
+
+    override fun onNipAssigned() {
+        hideLoader()
+        iteractor.createAgent()
+    }
+
     override fun onLinkedSuccess() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onErrorService(message: String) {
+        hideLoader()
+        UI.showErrorSnackBar(activity!!, message, Snackbar.LENGTH_SHORT)
     }
 
     override fun goToLoginAlert(message: String) {

@@ -180,26 +180,16 @@ public class Recursos {
     public static final String ESTATUS_REMBOLSADO = "3";
 
     /*Preferencias de Sesion*/
-    public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
     public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
     public static String COUCHMARK_ADQ = "COUCHMARKADQ";
-    public static String COUCHMARK_EDIT_FAV = "COUCHMARKEF";
-
-    public static String CO_QUICK_EM = "CO_QUICK_EM";
-    public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
     public static String SHA_256_STARBUCKS = "SHA_256_STARBUCKS";
     public static String GENERO = "GENERO";
-    public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
-    public static String VERSION_APP = "VERSION_APP";
-    public static String FIREBASE_KEY = "FIREBASE_KEY";
     public static String NOTIF_COUNT = "NOTIF_COUNT";
 
-    public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
-    public static final String CUPO_PROCESS = "FLAG_PROCESS_CUPO";
     public static String CUPO_COMPLETE = "CUPO_COMPLETE";
 
     // Preferencias para Foto de Usuario. URL
@@ -251,7 +241,6 @@ public class Recursos {
 
     public static final String OLD_NIP = "OLD_NIP";
     public static final String HAS_FIREBASE_ACCOUNT = "HAS_FIREBASE_ACCOUNT";
-    public static final String HAS_TOKEN_ONLINE = "HAS_TOKEN_ONLINE";
     public static final String TOKEN_FIREBASE = "TOKEN_FIREBASE";
     public static final String TOKEN_FIREBASE_AUTH = "TOKEN_FIREBASE_AUTH";
     public static final String TOKEN_FIREBASE_STATUS = "TOKEN_FIREBASE_STATUS";

@@ -431,7 +431,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void assignmentNIP(AsignarNIPRequest request, WebService webService) {
         try {
-            ApiTrans.asignarNip(request, this, webService);
+            ApiTrans.asignarNip(request, this, ASIGNAR_NIP);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(ASIGNAR_NIP, App.getContext().getString(R.string.no_internet_access));
