@@ -104,8 +104,11 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         iteractor.createAgent()
     }
 
-    override fun onLinkedSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onAgentCreated() {
+        hideLoader()
+        TODO("Alta en Firebase")
+        TODO("Asignacion de QR's")
+        TODO("Empezsar aprovisionamiento")
     }
 
     override fun onErrorService(message: String) {
@@ -113,7 +116,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         UI.showErrorSnackBar(activity!!, message, Snackbar.LENGTH_SHORT)
     }
 
-    override fun goToLoginAlert(message: String) {
+    private fun goToLoginAlert(message: String) {
         hideLoader()
         if (message.isNotEmpty()) {
             UI.createCustomDialogSMS("", message, fragmentManager, fragmentTag, object : DialogDoubleActions {

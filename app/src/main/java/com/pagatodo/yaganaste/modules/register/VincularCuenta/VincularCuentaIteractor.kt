@@ -1,14 +1,19 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
+import android.os.Bundle
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.pagatodo.yaganaste.App
+import com.pagatodo.yaganaste.BuildConfig
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.DataSourceResult
 import com.pagatodo.yaganaste.data.model.Card
 import com.pagatodo.yaganaste.data.model.RegisterUserNew
 import com.pagatodo.yaganaste.data.model.SingletonUser
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse
@@ -20,9 +25,10 @@ import com.pagatodo.yaganaste.net.ApiAdtvo
 import com.pagatodo.yaganaste.net.ApiTrans
 import com.pagatodo.yaganaste.net.RequestHeaders
 import com.pagatodo.yaganaste.utils.Constants.*
-import com.pagatodo.yaganaste.utils.Recursos.CODE_OK
-import com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA
+import com.pagatodo.yaganaste.utils.Recursos.*
 import com.pagatodo.yaganaste.utils.Utils
+import org.json.JSONException
+import org.json.JSONObject
 import java.util.ArrayList
 
 class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) : VincularcuentaContracts.Iteractor,
@@ -41,9 +47,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.fechaNacimiento,
                 "",/*RFC*/
                 "",/*CURP*/
-                registerUserSingleton.getPaisNacimiento().getIdPais(),/*Nacionalidad*/
-                registerUserSingleton.getIdEstadoNacimineto(),
-                registerUserSingleton.getEmail(),
+                registerUserSingleton.paisNacimiento.idPais,/*Nacionalidad*/
+                registerUserSingleton.idEstadoNacimineto,
+                registerUserSingleton.email,
                 "",/*Telefono*/
                 "",/*Telefono Celular*/
                 registerUserSingleton.idColonia,
@@ -52,7 +58,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.calle,
                 registerUserSingleton.numExterior,
                 registerUserSingleton.numInterior,
-                registerUserSingleton.getPaisNacimiento().getId())
+                registerUserSingleton.paisNacimiento.id)
         RequestHeaders.TokenDispositivo = Utils.getTokenDevice(App.getContext())
         try {
             ApiAdtvo.crearUsuarioCliente(request, this)
@@ -85,7 +91,14 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun createAgent() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        presenter.showLoader("Creando agente")
+        var request = CrearAgenteRequest()
+        try {
+            ApiAdtvo.crearAgente(request, this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
+        }
     }
 
     override fun onSendSMS() {
@@ -134,7 +147,29 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             is AsignarNIPResponse -> {
                 if (data.codigoRespuesta == CODE_OK) {
                     RegisterUserNew.getInstance().statusRegistro = NIP_ASIGNADO
+                    val bundle = Bundle()
+                    bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection())
+                    bundle.putString(EMAIL_REGISTER, RequestHeaders.getUsername())
+                    FirebaseAnalytics.getInstance(App.getContext()).setUserId(RequestHeaders.getUsername())
+                    FirebaseAnalytics.getInstance(App.getContext()).logEvent(EVENT_REGISTER_YG, bundle)
+                    val props = JSONObject()
+                    if (!BuildConfig.DEBUG) {
+                        try {
+                            props.put(CONNECTION_TYPE, Utils.getTypeConnection())
+                            props.put(EMAIL_REGISTER, RequestHeaders.getUsername())
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        App.mixpanel.track(EVENT_REGISTER_YG, props)
+                    }
                     presenter.onNipAssigned()
+                } else {
+                    presenter.onErrorService(data.mensaje)
+                }
+            }
+            is CrearAgenteResponse -> {
+                if (data.codigoRespuesta == CODE_OK) {
+                    presenter.onAgentCreated()
                 } else {
                     presenter.onErrorService(data.mensaje)
                 }
