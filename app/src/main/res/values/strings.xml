@@ -1647,6 +1647,10 @@
     <!--Nuevo Registro  Datos Personales-->
     <string name="titulo_domicilio_ea">Ingresa tu domicilio actual</string>
     <string name="domicilio_ea">Blvrd. Ávila Camacho #66 Interior 2 C.P. 11000</string>
+    <string name="terminosaviso">Al crear una cuenta, acepto los\nTérminos y Condiciones y el Aviso de Privacidad</string>
+
+    <!--Nuevo Registro  Datos Negocio-->
+    <string name="titulo_info_negocio">Compártenos algunos datos de tu negocio o profesión</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

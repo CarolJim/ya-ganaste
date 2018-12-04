@@ -13,6 +13,15 @@ public class Giros implements Serializable {
     private String Giro = "";
     private List<SubGiro> ListaSubgiros;
 
+    public Giros(Integer idGiro, String giro, List<SubGiro> listaSubgiros) {
+        IdGiro = idGiro;
+        Giro = giro;
+        ListaSubgiros = listaSubgiros;
+    }
+
+    public Giros() {
+    }
+
     public int getIdGiro() {
         return IdGiro;
     }

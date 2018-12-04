@@ -130,6 +130,19 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/terminosaviso"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/terminosaviso"
+            android:textAlignment="center"
+            android:textColor="@color/gristexto"
+            android:textSize="12sp"
+            app:tipo="Text" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -150,10 +163,10 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextDatosUsuario"
+                android:id="@+id/btnNextDataBusiness"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:gravity="center"
-                android:text="@string/confirmardatos" />
+                android:text="@string/continuar" />
         </LinearLayout>
 
 
