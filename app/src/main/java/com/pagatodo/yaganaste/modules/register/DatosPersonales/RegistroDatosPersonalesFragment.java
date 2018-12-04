@@ -331,6 +331,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_registro_datos_personales, container, false);
+        actualDate = Calendar.getInstance(new Locale("es"));
         initViews();
         return rootView;
     }
@@ -350,8 +351,6 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         spinnergenero.setOnItemSelectedListener(this);
         editCountry.setOnClickListener(this);
         btnNextDatosPersonales.setOnClickListener(this);
-
-
         editSecoundLastName.setImeOptions(IME_ACTION_DONE);
         editSecoundLastName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -386,9 +385,11 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     private void onCountryClick() {
 
+        paises.clear();
         for (DtoCountry dtoCountry : countrys){
             if(dtoCountry.Valido){
              Paises paisesa=  new Paises(Integer.parseInt(dtoCountry.IdPaisFirebase),dtoCountry.Nombre,dtoCountry.Valor);
+
             paises.add(paisesa );
             }
 
@@ -464,6 +465,9 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 radioBtnMale.setChecked(false);
                 radioBtnFemale.setChecked(true);
                 changecolorradio();
+                break;
+                case R.id.btnNextDatosPersonales:
+                 activityf.showFragmentDomicilioIngresaCP();
                 break;
 
 
@@ -621,6 +625,9 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void onCountrySelectedListener(Paises item) {
+        country = item;
+        editCountry.setText(country.getPais());
+        lytCountry.setBackgroundResource(R.drawable.inputtext_normal);
 
     }
 }

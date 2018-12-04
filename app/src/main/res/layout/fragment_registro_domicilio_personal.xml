@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="35dp"
             android:layout_marginTop="8dp"
             android:text="@string/titulo_domicilio_ea"
             android:textAlignment="center"
@@ -39,7 +39,7 @@
             android:layout_below="@+id/edit_nombre"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="0dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center_vertical"
             android:hint="@string/streetHint"
@@ -223,7 +223,7 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextDatosUsuario"
+                android:id="@+id/btnNextSelectZip"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:gravity="center"
                 android:text="@string/confirmardatos" />
