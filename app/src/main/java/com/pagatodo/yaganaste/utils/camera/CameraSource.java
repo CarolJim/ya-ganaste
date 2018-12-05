@@ -129,10 +129,13 @@ public class CameraSource {
      */
     private Map<byte[], ByteBuffer> mBytesToByteBuffer = new HashMap<>();
 
+
+
     /**
      * Only allow creation via the builder class.
      */
     private CameraSource() {
+
     }
 
     /**
@@ -308,6 +311,22 @@ public class CameraSource {
             mProcessingThread.start();
         }
         return this;
+    }
+
+
+    public boolean turnOnAndOffLight(boolean isLight){
+        Camera.Parameters p = mCamera.getParameters();
+        if (!isLight){
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            mCamera.setParameters(p);
+
+            return true;
+        } else {
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            mCamera.setParameters(p);
+            return false;
+        }
+
     }
 
     //==============================================================================================
