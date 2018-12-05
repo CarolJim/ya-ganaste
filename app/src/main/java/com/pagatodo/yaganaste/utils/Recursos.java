@@ -242,6 +242,7 @@ public class Recursos {
     public static final String OLD_NIP = "OLD_NIP";
     public static final String HAS_FIREBASE_ACCOUNT = "HAS_FIREBASE_ACCOUNT";
     public static final String TOKEN_FIREBASE = "TOKEN_FIREBASE";
+    public static final String TOKEN_FIREBASE_SESSION = "TOKEN_FIREBASE_SESSION";
     public static final String TOKEN_FIREBASE_AUTH = "TOKEN_FIREBASE_AUTH";
     public static final String TOKEN_FIREBASE_STATUS = "TOKEN_FIREBASE_STATUS";
     public static final String TOKEN_FIREBASE_SUCCESS = "TOKEN_FIREBASE_SUCCESS";
