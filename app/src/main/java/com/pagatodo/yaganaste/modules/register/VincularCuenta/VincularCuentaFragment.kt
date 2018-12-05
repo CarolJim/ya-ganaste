@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pagatodo.yaganaste.App
+import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.model.MessageValidation
 import com.pagatodo.yaganaste.data.model.RegisterUserNew
 import com.pagatodo.yaganaste.databinding.FragmentVincularCuentaBinding

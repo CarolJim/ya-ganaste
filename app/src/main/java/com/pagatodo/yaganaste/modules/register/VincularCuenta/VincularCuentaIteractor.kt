@@ -13,7 +13,6 @@ import com.pagatodo.yaganaste.data.model.Card
 import com.pagatodo.yaganaste.data.model.MessageValidation
 import com.pagatodo.yaganaste.data.model.RegisterUserNew
 import com.pagatodo.yaganaste.data.model.SingletonUser
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest
@@ -36,7 +35,7 @@ import com.pagatodo.yaganaste.utils.Recursos.*
 import com.pagatodo.yaganaste.utils.Utils
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
+import java.util.*
 
 class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) : VincularcuentaContracts.Iteractor,
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
@@ -101,9 +100,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun createAgent() {
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
-        var request = CrearAgenteRequest(registerUserSingleton.)
+        //var request = CrearAgenteRequest(registerUserSingleton.)
         try {
-            ApiAdtvo.crearAgente(request, this)
+            //ApiAdtvo.crearAgente(request, this)
         } catch (e: Exception) {
             e.printStackTrace()
             presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
@@ -146,6 +145,10 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun provisionDevice() {
         super.setAprovView(this)
         super.doProvisioning()
+    }
+
+    override fun registerUserFirebase() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onSuccess(data: DataSourceResult?) {

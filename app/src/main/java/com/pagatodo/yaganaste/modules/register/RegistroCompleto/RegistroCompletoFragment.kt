@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.ui._manager.GenericFragment
 
 class RegistroCompletoFragment : GenericFragment() {

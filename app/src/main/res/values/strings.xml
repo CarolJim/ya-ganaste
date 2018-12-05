@@ -444,7 +444,6 @@
     <string name="cambiar_nip_actual">Introduce el NIP Actual</string>
     <string name="cambiar_nip_nueva">Introduce el nuevo NIP</string>
 
-
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu negocio</string>
@@ -1658,11 +1657,14 @@
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
 
-
     <!-- Nueva Pantalla Vincular Dispositivo -->
     <string name="creating_user">Creando usuario</string>
     <string name="assigning_account_1">Asignando cuenta\nProceso 1 de 2</string>
     <string name="assigning_account_2">Asignando cuenta\nProceso 2 de 2</string>
     <string name="creating_agent">Creando agente</string>
+
+    <!-- Nueva Pantalla Registro Completado -->
+    <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
+    <string name="desc_register_complete">\u2713   Aceptar pagos desde celulares con las principales apps bancarias\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Pagar a proveedores o enviar dinero a familiares y amigos\n\n\u2713   Hacer recargas y pagar tus servicios.</string>
 
 </resources>

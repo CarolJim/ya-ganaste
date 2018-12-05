@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".modules.register.RegistroCompleto.RegistroCompletoFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".modules.register.RegistroCompleto.RegistroCompletoFragment">
 
-</FrameLayout>
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_title"
+            style="@style/generic_text_style_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/title_register_complete"
+            android:textColor="@color/gray_text_wallet_3"
+            android:textSize="@dimen/size_text_style_2_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/generic_text_style_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="38dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="38dp"
+            android:text="@string/desc_register_complete"
+            android:textColor="@color/gray_text_wallet_3"
+            android:textSize="@dimen/size_text_style_2_half_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btn_send_sms"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/button_rounded_blue"
+            android:text="@string/ob_get_started"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
