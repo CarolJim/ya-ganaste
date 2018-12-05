@@ -6,6 +6,7 @@ public class RegisterUserNew {
 
     private static RegisterUserNew registerUserNew;
 
+    public int statusRegistro = 0;
     /* Datos de correo*/
     private String email = "";
     private String contrasenia = "";
@@ -34,7 +35,7 @@ public class RegisterUserNew {
     private boolean aceptaTerminos;
 
     public static synchronized RegisterUserNew getInstance() {
-        if (registerUserNew== null)
+        if (registerUserNew == null)
             registerUserNew = new RegisterUserNew();
         return registerUserNew;
     }

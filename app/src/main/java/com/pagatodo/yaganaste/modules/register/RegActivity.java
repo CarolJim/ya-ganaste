@@ -18,7 +18,6 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         return new Intent(activity,RegActivity.class);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

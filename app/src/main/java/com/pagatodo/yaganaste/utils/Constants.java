@@ -66,4 +66,12 @@ public class Constants {
     public static final int MOVEMENTS_EMISOR = 1;
     public static final int MOVEMENTS_ADQ = 2;
     public static final int MOVEMENTS_STARBUCKS = 3;
+
+    /* Estatus de registro */
+    public static final int SIN_REGISTRO = 0;
+    public static final int USUARIO_CREADO = 1;
+    public static final int CUENTA_ASIGNADA = 2;
+    public static final int NIP_ASIGNADO = 3;
+    public static final int AGENTE_CREADO = 4;
+    public static final int USUARIO_APROVISIONADO = 5;
 }

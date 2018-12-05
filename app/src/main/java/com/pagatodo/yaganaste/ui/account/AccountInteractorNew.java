@@ -8,11 +8,13 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.dspread.xpos.QPOSService;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -176,6 +178,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STARS_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_GOLD;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.UPDATE_DATE_BALANCE_CUPO;
@@ -452,7 +455,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void assignmentNIP(AsignarNIPRequest request, WebService webService) {
         try {
-            ApiTrans.asignarNip(request, this, webService);
+            ApiTrans.asignarNip(request, this, ASIGNAR_NIP);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(ASIGNAR_NIP, App.getContext().getString(R.string.no_internet_access));
@@ -1090,6 +1093,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
                 prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
+                auth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+                    @Override
+                    public void onSuccess(GetTokenResult getTokenResult) {
+                        String idToken = getTokenResult.getToken();
+                        prefs.saveData(TOKEN_FIREBASE_SESSION, idToken);
+                    }
+                });
                 Map<String, String> users = new HashMap<>();
                 users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
                 users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
@@ -1101,6 +1111,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     App.mixpanel.getPeople().set("name", data.getCliente().getNombre() + " " +
                             data.getCliente().getPrimerApellido() + " " + data.getCliente().getSegundoApellido());
                 }
+            } else {
+                auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), pass).addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        FirebaseAuth.getInstance().getCurrentUser().updatePassword("123456");
+                    }
+                });
             }
             accountManager.goToNextStepAccount(stepUser, null);
         });

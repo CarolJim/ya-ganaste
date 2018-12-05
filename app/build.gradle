@@ -72,7 +72,7 @@ repositories {
 }
 
 dependencies {
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // Freja Mass Compilation
     implementation files('libs/frejaMobileCore_486c0fb7a51.jar')
 
@@ -170,3 +170,5 @@ dependencies {
     implementation 'ai.api:libai:1.6.12'
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
