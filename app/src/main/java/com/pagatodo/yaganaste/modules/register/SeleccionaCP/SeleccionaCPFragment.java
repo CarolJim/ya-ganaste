@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +29,10 @@ View rootView;
 
     @BindView(R.id.btnNextDataBusiness)
     StyleButton btnNextDataBusiness;
+    @BindView(R.id.sub_titulo_datos_cp_usuario)
+    StyleTextView sub_titulo_datos_cp_usuario;
+
+String street,numExterior,interiorNumber,codigoPostal;
 
 
     public SeleccionaCPFragment() {
@@ -50,6 +57,7 @@ View rootView;
     public void initViews() {
 
         ButterKnife.bind(this,rootView);
+        setData();
 
         btnNextDataBusiness.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +65,20 @@ View rootView;
                 activityf.showFragmentDatosNegocio();
             }
         });
+
+    }
+
+    private void setData() {
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
+        street =registerUser.getCalle();
+        numExterior= registerUser.getNumExterior();
+        interiorNumber=registerUser.getNumInterior();
+        codigoPostal =registerUser.getCodigoPostal();
+        if (interiorNumber.isEmpty()) {
+            sub_titulo_datos_cp_usuario.setText(street + " #" + numExterior + " C.P. "+codigoPostal);
+        }else {
+            sub_titulo_datos_cp_usuario.setText(street + " #" + numExterior + "\nInterior "+interiorNumber+ " C.P. "+codigoPostal);
+        }
 
     }
 }

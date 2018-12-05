@@ -418,7 +418,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void validatePersonDataHomonimia() {
 
-        RegisterUser registerUser = RegisterUser.getInstance();
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
         ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
 
         request.setNombre(registerUser.getNombre());

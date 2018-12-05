@@ -42,6 +42,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.data.room_db.entities.CountryF;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
@@ -109,23 +110,18 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     LinearLayout generTitle;
     @BindView(R.id.txtfecha)
     LinearLayout txtfecha;
-
     @BindView(R.id.txtlugarnacimiento)
     LinearLayout txtlugarnacimiento;
-
     @BindView(R.id.lugarnacimientomens)
     StyleTextView lugarnacimientomens;
-
     @BindView(R.id.editFirstLastName)
     CustomValidationEditText editFirstLastNameold;
     @BindView(R.id.edit_appater)
     EditText editFirstLastName;
-
     @BindView(R.id.editSecoundLastName)
     CustomValidationEditText editSecoundLastNameold;
     @BindView(R.id.edit_apmaterno)
     EditText editSecoundLastName;
-
     @BindView(R.id.editBirthDay)
     EditText editBirthDay;
     @BindView(R.id.spinnerBirthPlace)
@@ -134,19 +130,14 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     AppCompatSpinner spinnergenero;
     @BindView(R.id.btnNextDatosPersonales)
     StyleButton btnNextDatosPersonales;
-
-
     @BindView(R.id.lyt_country)
     TextInputLayout lytCountry;
     @BindView(R.id.editCountry)
     EditText editCountry;
-
-
     @BindView(R.id.background_h)
     LinearLayout background_h;
     @BindView(R.id.background_m)
     LinearLayout background_m;
-
     @BindView(R.id.letraH)
     StyleTextView letraH;
     @BindView(R.id.letraM)
@@ -688,8 +679,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
         if (BuildConfig.DEBUG) {
-            //onValidationSuccess();
-            accountPresenter.validatePersonDatanew();
+            onValidationSuccess();
         } else {
             accountPresenter.validatePersonDatanew();
         }
@@ -749,7 +739,18 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     @Override
     public void onHomonimiaError() {
+        String CURP = "";
+        UI.createSimpleCustomDialogCURP(getString(R.string.ingresa_tu_curp), "",
+                getFragmentManager(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        accountPresenter.validatePersonDataHomonimia();
+                    }
 
+                    @Override
+                    public void actionCancel(Object... params) {
+                    }
+                }, true, false);
     }
 
     @Override
