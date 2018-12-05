@@ -36,7 +36,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 public abstract class SupportFragmentActivity extends AppCompatActivity implements OnEventListener {
 
     public static final String EVENT_SESSION_EXPIRED = "EVENT_SESSION_EXPIRED";
-    private SupportComponent mSupportComponent;
+    public static SupportComponent mSupportComponent;
     private boolean isFromActivityForResult = false;
 
     @Override
@@ -58,37 +58,37 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         super.onStop();
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment) {
+    public  void loadFragment(@NonNull GenericFragment fragment) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, false);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, false);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
+    public void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
+    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
+    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
                                 boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, addToBackStack);
         UI.hideKeyBoard(this);

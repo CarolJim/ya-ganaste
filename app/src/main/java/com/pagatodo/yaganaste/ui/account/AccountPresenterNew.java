@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pagatodo.yaganaste.App;
@@ -25,6 +26,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.starbucks.LoginStarb
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.room_db.entities.CountryF;
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
 import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
@@ -40,6 +42,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IChangePass6;
+import com.pagatodo.yaganaste.interfaces.ICountrySelect;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IPursePresenter;
@@ -111,7 +114,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USER_PROVISIONED;
  * Created by flima on 22/03/2017.
  */
 
-public class AccountPresenterNew extends AprovPresenter implements IAccountPresenterNew, IAccountManager, IPursePresenter {
+public class AccountPresenterNew extends AprovPresenter implements IAccountPresenterNew, IAccountManager, IPursePresenter ,ICountrySelect {
     private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
     private INavigationView accountView;
@@ -196,6 +199,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void validatePersonData() {
         accountView.showLoader(context.getString(R.string.msg_renapo));
         accountIteractor.validatePersonData();
+    }
+
+    @Override
+    public void validatePersonDatanew() {
+        accountView.showLoader(context.getString(R.string.msg_renapo));
+        accountIteractor.validatePersonDatanew();
     }
 
     @Override
@@ -699,6 +708,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void setPurseReference(IPurseView view) {
         this.view = view;
+    }
+
+    @Override
+    public void onCountrySelectedListener(CountryF item) {
+
     }
 
     /**

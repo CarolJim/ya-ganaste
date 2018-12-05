@@ -46,6 +46,8 @@ public interface IAccountIteractorNew<T> {
 
     void validatePersonData();
 
+    void validatePersonDatanew();
+
     void validatePersonDataHomonimia();
 
     void getNeighborhoodByZipCode(String zipCode);
