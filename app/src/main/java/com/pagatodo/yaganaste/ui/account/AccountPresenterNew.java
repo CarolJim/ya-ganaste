@@ -498,8 +498,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
-    public void onSucces(WebService ws, Object data) {
-        accountView.hideLoader();
+    public void onSucces(WebService ws, Object data) {        accountView.hideLoader();
         if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreatedSuccess(data.toString());
