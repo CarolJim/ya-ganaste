@@ -118,7 +118,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     override fun onAgentCreated() {
         hideLoader()
         validatePermissions()
-        TODO("Alta en Firebase")
+        iteractor.registerUserFirebase()
         TODO("Asignacion de QR's")
     }
 

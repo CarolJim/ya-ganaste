@@ -2,7 +2,12 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
 import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.BuildConfig
@@ -148,7 +153,19 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun registerUserFirebase() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "123456").addOnCompleteListener { task ->
+            App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+                val user = auth.currentUser
+                App.getInstance().prefs.saveData(TOKEN_FIREBASE_AUTH, user!!.uid)
+                val users = HashMap<String, String?>()
+                users["Mbl"] = SingletonUser.getInstance().dataUser.emisor.cuentas[0].telefono.replace(" ", "")
+                users["DvcId"] = FirebaseInstanceId.getInstance().token
+                FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).reference.child(user.uid).setValue(users)
+            }
+        }
     }
 
     override fun onSuccess(data: DataSourceResult?) {
@@ -286,7 +303,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     /**
      * IAprov Interface Methods
      */
-
     override fun showErrorAprov(error: ErrorObject?) {
         presenter.onAprovFailed(error, EVENT_SHOW_ERROR)
     }
