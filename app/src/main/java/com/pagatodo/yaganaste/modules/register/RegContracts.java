@@ -4,6 +4,8 @@ public class RegContracts {
 
     public interface Presenter{
         void initViews();
+        void nextStep();
+        void backStep();
     }
 
     public interface Listener{

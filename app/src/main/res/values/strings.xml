@@ -1642,5 +1642,6 @@
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
 
-
+    <string name="scan_qr_label">Escanea tu código QR</string>
+    <string name="physical_question">¿Ya tienes un código QR para\ntu negocio?</string>
 </resources>
