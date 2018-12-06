@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -24,10 +26,12 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.widget.Toast.LENGTH_LONG;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
@@ -35,7 +39,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link Fragment} subclass.
  */
 public class RegistroCorreoFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IUserDataRegisterView,
-        View.OnFocusChangeListener{
+        View.OnFocusChangeListener, CustomPassSixDigits.OnCodeChangedListener {
 
     private View rootview;
     @BindView(R.id.text_email)
@@ -47,11 +51,29 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
 
+    @BindView(R.id.img_password)
+    LinearLayout img_password;
+    @BindView(R.id.customPassSixDigits)
+    CustomPassSixDigits customPassSixDigits;
+    @BindView(R.id.text_password)
+    TextView text_password;
+    @BindView(R.id.titulo_datos_usuario)
+    TextView titulo_datos_usuario;
+    @BindView(R.id.confirm_password)
+    LinearLayout confirm_password;
+
+    /*@BindView(R.id.customPassSixDigits)
+    LinearLayout customPassSixDigits;*/
+    @BindView(R.id.edit_text_aux)
+    EditText edit_text_aux;
+
+    @BindView(R.id.edit_text_aux_confirm)
+    EditText edit_text_aux_confirm;
 
 
-    public static RegistroCorreoFragment newInstance(){
+    public static RegistroCorreoFragment newInstance() {
 
-        return  new RegistroCorreoFragment();
+        return new RegistroCorreoFragment();
     }
 
     @Override
@@ -81,7 +103,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void initViews() {
         ButterKnife.bind(this, rootview);
         setValidationRules();
-
+        customPassSixDigits.setListener(this);
+        customPassSixDigits.setCodeChangedListener(this);
     }
 
     @Override
@@ -213,5 +236,24 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void getDataForm() {
 
+    }
+
+    @Override
+    public void onCodeChanged() {
+        if (edit_text_aux.getText().toString().length() == 5 &&
+                edit_text_aux_confirm.getText().toString().length() == 5) {
+            //UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_LONG);
+            //UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_LONG);
+        }
+        //UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_LONG);
+    }
+
+    @Override
+    public void setVisivility() {
+        img_password.setVisibility(View.VISIBLE);
+        customPassSixDigits.setVisibility(View.GONE);
+        text_password.setVisibility(View.GONE);
+        //titulo_datos_usuario.setVisibility(View.GONE);
+        confirm_password.setVisibility(View.VISIBLE);
     }
 }

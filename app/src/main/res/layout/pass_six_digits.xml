@@ -7,41 +7,34 @@
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
-    <android.support.design.widget.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Crea tu contraseña (6 números)"
-        android:textAlignment="center"
-        android:textColor="@color/grayColor"
-        android:textSize="16sp" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:id="@+id/linear_pass"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
         android:background="@drawable/inputtext_normal"
-        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textPass1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            android:layout_weight="1"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass2"
             android:textAlignment="center"
-            android:textColor="@color/transparent"
-            android:textSize="20sp" />
+            android:textColor="@color/transparent" />
 
         <LinearLayout
 
-            android:layout_width="1dp"
-            android:layout_height="25dp"
+            android:layout_width="2dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/gray_space">
 
@@ -49,21 +42,21 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textPass2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            android:layout_weight="1"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass3"
             android:textAlignment="center"
-            android:textColor="@color/transparent"
-            android:textSize="20sp" />
+            android:textColor="@color/transparent" />
 
         <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="25dp"
+            android:layout_width="2dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/gray_space">
 
@@ -71,21 +64,21 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textPass3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            android:layout_weight="1"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass4"
             android:textAlignment="center"
-            android:textColor="@color/transparent"
-            android:textSize="20sp" />
+            android:textColor="@color/transparent" />
 
         <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="25dp"
+            android:layout_width="2dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/gray_space">
 
@@ -93,21 +86,21 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textPass4"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            android:layout_weight="1"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass5"
             android:textAlignment="center"
-            android:textColor="@color/transparent"
-            android:textSize="20sp" />
+            android:textColor="@color/transparent" />
 
         <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="25dp"
+            android:layout_width="2dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/gray_space">
 
@@ -115,21 +108,21 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textPass5"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            android:layout_weight="1"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass6"
             android:textAlignment="center"
-            android:textColor="@color/transparent"
-            android:textSize="20sp" />
+            android:textColor="@color/transparent" />
 
         <LinearLayout
             android:layout_width="2dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/gray_space">
 
@@ -137,15 +130,31 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textPass6"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="13dp"
+            android:layout_weight="1"
             android:inputType="numberPassword"
             android:textAlignment="center"
-            android:textColor="@color/transparent"
-            android:textSize="20sp" />
+            android:textColor="@color/transparent" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/edit_text_aux"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="5"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edit_text_aux_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="5"
+        android:visibility="gone" />
 </LinearLayout>
