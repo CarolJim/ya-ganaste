@@ -20,13 +20,27 @@ public class Paises implements Serializable {
     @PrimaryKey
     private int id;
 
-    @SerializedName("IdPais")
+    @SerializedName("ID_Pais")
     @ColumnInfo(name = "id_pais")
     private String idPais;
 
-    @SerializedName("Descripcion")
+    @SerializedName("IdPaisFirebase")
+    @ColumnInfo(name = "id_pais_firebase")
+    private String idPaisFirebase;
+
+    @SerializedName("Nombre")
     @ColumnInfo(name = "pais")
     private String pais;
+
+    @SerializedName("Valido")
+    @ColumnInfo(name = "valido")
+    private boolean valido;
+
+    @SerializedName("Valor")
+    @ColumnInfo(name = "valor")
+    private String valor;
+
+
 
     public Paises(int id, String pais, String idPais) {
         this.id = id;
@@ -34,8 +48,10 @@ public class Paises implements Serializable {
         this.idPais = idPais;
     }
 
+
+
     @Ignore
-    private Paises(Parcel parcel) {
+    public Paises(Parcel parcel) {
         id = parcel.readInt();
         pais = parcel.readString();
         idPais = parcel.readString();
@@ -63,5 +79,29 @@ public class Paises implements Serializable {
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    public String getIdPaisFirebase() {
+        return idPaisFirebase;
+    }
+
+    public void setIdPaisFirebase(String idPaisFirebase) {
+        this.idPaisFirebase = idPaisFirebase;
+    }
+
+    public boolean isValido() {
+        return valido;
+    }
+
+    public void setValido(boolean valido) {
+        this.valido = valido;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 }

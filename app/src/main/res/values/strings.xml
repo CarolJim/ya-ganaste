@@ -28,7 +28,8 @@
 
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
-    <string name="createAgentUrl">/CrearAgente</string>
+    <!--<string name="createAgentUrl">/CrearAgente</string>-->
+    <string name="createAgentUrl">/CrearAgenteWallet</string>
     <!--<string name="createUserClientUrl">/CrearUsuarioCliente</string>-->
     <string name="createUserClientUrl">/CrearUsuarioClienteWallet</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
@@ -383,7 +384,7 @@
     <string name="female">Mujer</string>
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
-    <string name="birthDay">Fecha de nacimiento</string>
+    <string name="birthDay">Cumpleaños</string>
     <string name="county">País de nacimiento</string>
     <string name="country_nationality">Nacionalidad</string>
     <string name="curp">CURP</string>
@@ -415,6 +416,7 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
+    <string name="activacion_sms_desc">Para finalizar, pulsa el botón “Enviar SMS”\nasí vincularémos tu número de teléfono a\ntu cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
@@ -442,7 +444,6 @@
     <string name="new_nip_four_digits">Son necesarios 4 números</string>
     <string name="cambiar_nip_actual">Introduce el NIP Actual</string>
     <string name="cambiar_nip_nueva">Introduce el nuevo NIP</string>
-
 
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
@@ -1639,11 +1640,33 @@
 
     <string name="titulo_datos_usuario_ea">Registra tus datos de usuario\npara crear tu cuenta</string>
 
+    <!--Nuevo Registro  Datos Personales-->
+    <string name="titulo_datos_personales_ea">Ingresa tus datos tal como aparecen\nen tu identificación</string>
+    <string name="confirmardatos">Confirmar datos </string>
+
+    <!--Nuevo Registro  Datos Personales-->
+    <string name="titulo_domicilio_ea">Ingresa tu domicilio actual</string>
+    <string name="domicilio_ea">Blvrd. Ávila Camacho #66 Interior 2 C.P. 11000</string>
+    <string name="terminosaviso">Al crear una cuenta, acepto los\nTérminos y Condiciones y el Aviso de Privacidad</string>
+
+    <!--Nuevo Registro  Datos Negocio-->
+    <string name="titulo_info_negocio">Compártenos algunos datos de tu negocio o profesión</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="vigentes_promos">Vigentes</string>
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
 
+    <string name="scan_qr_label">Escanea tu código QR</string>
+    <string name="physical_question">¿Ya tienes un código QR para\ntu negocio?</string>
+    <!-- Nueva Pantalla Vincular Dispositivo -->
+    <string name="creating_user">Creando usuario</string>
+    <string name="assigning_account_1">Asignando cuenta\nProceso 1 de 2</string>
+    <string name="assigning_account_2">Asignando cuenta\nProceso 2 de 2</string>
+    <string name="creating_agent">Creando agente</string>
 
+    <!-- Nueva Pantalla Registro Completado -->
+    <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
+    <string name="desc_register_complete">\u2713   Aceptar pagos desde celulares con las principales apps bancarias\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Pagar a proveedores o enviar dinero a familiares y amigos\n\n\u2713   Hacer recargas y pagar tus servicios.</string>
 </resources>

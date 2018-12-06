@@ -22,6 +22,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -32,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_HELP;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 
 /**
@@ -112,11 +114,15 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_create_user:
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                //Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
                 //intent.putExtra(SELECTION, GO_TO_REGISTER);
                 //startActivity(intent);
                 //getActivity().finish();
-                startActivity(RegActivity.createIntent(getActivity()));
+                //startActivity(RegActivity.createIntent(getActivity()));
+                Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
+                intent.putExtra(ScannVisionActivity.QRObject, true);
+                startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+
                 break;
 
             case R.id.btn_login_user:

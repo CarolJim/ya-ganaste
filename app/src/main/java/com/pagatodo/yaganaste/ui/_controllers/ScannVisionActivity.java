@@ -18,8 +18,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -37,12 +39,14 @@ import com.pagatodo.yaganaste.utils.camera.CameraSource;
 import com.pagatodo.yaganaste.utils.camera.CameraSourcePreview;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by Jordan on 19/04/2017.
  */
 
-public class ScannVisionActivity extends SupportFragmentActivity implements BarcodeTracker.BarcodeGraphicTrackerCallback {
+public class ScannVisionActivity extends SupportFragmentActivity implements View.OnClickListener,
+        BarcodeTracker.BarcodeGraphicTrackerCallback {
     // Constants used to pass extra data in the intent
     public static final String BarcodeObject = "Barcode";
     public static final String QRObject = "Qrcode";
@@ -57,12 +61,17 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
     private CameraSourcePreview mPreview;
     private boolean isQrcode = false;
 
+
+    private boolean isLight;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_barcode_scan);
+        (findViewById(R.id.button_capture)).setOnClickListener(this);
+        (findViewById(R.id.btn_back)).setOnClickListener(this);
         if (getIntent().getExtras() != null) {
             isQrcode = getIntent().getExtras().getBoolean(QRObject);
         }
@@ -75,6 +84,9 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
         } else {
             requestCameraPermission();
         }
+        this.isLight = false;
+
+
     }
 
     @Override
@@ -86,7 +98,8 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
             setResult(CommonStatusCodes.SUCCESS, intent);
             finish();
             // Read only QR code
-        } else if (isQrcode && barcode != null && barcode.format == Barcode.QR_CODE) {
+        } else
+            if (isQrcode && barcode != null && barcode.format == Barcode.QR_CODE) {
             Intent intent = new Intent();
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);
@@ -236,11 +249,7 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
         Log.e(TAG, "Permission not granted: results len = " + grantResults.length +
                 " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
 
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                finish();
-            }
-        };
+        DialogInterface.OnClickListener listener = (dialog, id) -> finish();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Multitracker sample")
@@ -278,5 +287,17 @@ public class ScannVisionActivity extends SupportFragmentActivity implements Barc
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button_capture:
+                this.isLight = mCameraSource.turnOnAndOffLight(this.isLight);
+                break;
+            case R.id.btn_back:
+                finish();
+                break;
+        }
     }
 }

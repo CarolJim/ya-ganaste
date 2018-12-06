@@ -6,6 +6,8 @@ public class RegContracts {
 
     public interface Presenter{
         void initViews();
+        void nextStep();
+        void backStep();
     }
 
     public interface Listener{
@@ -18,9 +20,10 @@ public class RegContracts {
 
     public interface Router{
         void showUserData(Direction direction); //Pantalla 01
-        void showPersonalData(); //Pantalla 02
-        void showPrsonalAddress(); //Pantalla 03
-        void showBusinessData(); //Pantalla 04
+        void showPersonalData(Direction direction); //Pantalla 02
+        void showPrsonalAddress(Direction direction); //Pantalla 03
+        void showPrsonalAddressSelectCP(Direction direction); //Pantalla 03
+        void showBusinessData(Direction direction); //Pantalla 04
         void showPhysicalCode(); //Pantalla 05
         void showScanQR(); //Pantalla Scan QR 06
         void showDigitalCode(); //Pantalla 07
