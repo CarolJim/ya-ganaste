@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
@@ -308,15 +309,17 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (radioBtnMale.isChecked()) {
             background_h.setBackgroundResource(R.color.colorAccent);
             background_m.setBackgroundResource(R.color.whiteColor);
-            radioBtnMale.setBackgroundResource(R.drawable.masc);
+            radioBtnMale.setBackgroundResource(R.drawable.mascb);
             radioBtnFemale.setBackgroundResource(R.drawable.fem);
+
             generTitle.setBackgroundResource(R.drawable.inputtext_normal);
             letraM.setTextColor(getResources().getColor(R.color.gristexto));
             letraH.setTextColor(getResources().getColor(R.color.whiteColor));
         } else {
             if (radioBtnFemale.isChecked()) {
                 radioBtnMale.setBackgroundResource(R.drawable.masc);
-                radioBtnFemale.setBackgroundResource(R.drawable.fem);
+                radioBtnFemale.setBackgroundResource(R.drawable.femb);
+
                 background_h.setBackgroundResource(R.color.whiteColor);
                 background_m.setBackgroundResource(R.color.colorAccent);
                 generTitle.setBackgroundResource(R.drawable.inputtext_normal);
