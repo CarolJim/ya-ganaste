@@ -137,4 +137,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        backStep();
+    }
 }

@@ -58,6 +58,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_vincular_cuenta, container, false)
         binding.btnSendSms.setOnClickListener(this)
+        (activity!! as RegActivity).nextStep()
         return binding.root
     }
 

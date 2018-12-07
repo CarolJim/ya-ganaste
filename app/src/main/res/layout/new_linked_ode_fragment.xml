@@ -100,7 +100,7 @@
             android:autofillHints="@string/app_name"
             android:background="@android:color/transparent"
             android:imeOptions="actionDone"
-            android:inputType="numberPassword"
+            android:inputType="text"
             android:maxLength="6"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"

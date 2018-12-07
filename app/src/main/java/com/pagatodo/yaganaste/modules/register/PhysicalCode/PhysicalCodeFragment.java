@@ -65,7 +65,7 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
         switch (view.getId()){
             case R.id.button_yes:
                 activity.getRouter().showScanQR();
-                activity.getRouter().shosWritePlateQR();
+                activity.getRouter().showNewLinkedCode("538 984");
                 /*Intent intent = new Intent(activity, ScannVisionActivity.class);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
                     startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
