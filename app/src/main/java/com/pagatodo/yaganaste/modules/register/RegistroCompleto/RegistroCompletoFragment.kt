@@ -44,7 +44,7 @@ class RegistroCompletoFragment : GenericFragment(), RegistroCompletoContracts.Pr
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            binding.btnFinishRegister.id -> iteractor.saveData()
+            binding.btnFinishRegister.id -> /*iteractor.saveData()*/ router.presentMainScreen()
         }
     }
 }

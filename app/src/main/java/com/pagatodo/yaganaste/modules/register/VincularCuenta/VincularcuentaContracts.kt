@@ -31,6 +31,8 @@ class VincularcuentaContracts {
         fun provisionDevice()
         /* Firebase Process */
         fun registerUserFirebase()
+        /* Demo */
+        fun logInUser()
     }
 
     interface Router {

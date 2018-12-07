@@ -15,7 +15,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 
-public class RegActivity extends LoaderActivity implements RegContracts.Presenter{
+public class RegActivity extends LoaderActivity implements RegContracts.Presenter {
 
     public static final int RESULT_CODE_KEYBOARD = 153;
 
@@ -23,8 +23,8 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     private StepBar stepBar;
 
 
-    public static Intent createIntent(Activity activity){
-        return new Intent(activity,RegActivity.class);
+    public static Intent createIntent(Activity activity) {
+        return new Intent(activity, RegActivity.class);
     }
 
     @Override
@@ -39,17 +39,19 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
-        router.showUserData(Direction.FORDWARD);
+        //router.showUserData(Direction.FORDWARD);
         //router.showPrsonalAddress(Direction.FORDWARD);
         //router.showPhysicalCode();
-       // router.showPhysicalCode();
+        // router.showPhysicalCode();
 
 
     }
-    public void showFragmentDatosPersonales(){
+
+    public void showFragmentDatosPersonales() {
         router.showPersonalData(Direction.FORDWARD);
     }
-    public void showFragmentDomicilioIngresaCP(){
+
+    public void showFragmentDomicilioIngresaCP() {
         router.showPrsonalAddress(Direction.FORDWARD);
     }
 
@@ -63,14 +65,15 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         stepBar.backStep();
     }
 
-    public void showFragmentDomicilioSelectCP(){
+    public void showFragmentDomicilioSelectCP() {
         router.showPrsonalAddressSelectCP(Direction.FORDWARD);
     }
-    public void showFragmentDatosNegocio(){
+
+    public void showFragmentDatosNegocio() {
         router.showBusinessData(Direction.FORDWARD);
     }
 
-    public void showFragmentviculaQr(){
+    public void showFragmentviculaQr() {
         router.showQRVincualteData(Direction.FORDWARD);
     }
 
@@ -127,10 +130,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
-        switch (event){
+        switch (event) {
 
             case "START":
-                loadFragment(NewLinkedCodeFragment.newInstance("",R.string.title_code_fragment),R.id.fragment_container,Direction.NONE,true);
+                loadFragment(NewLinkedCodeFragment.newInstance("", R.string.title_code_fragment), R.id.fragment_container, Direction.NONE, true);
                 break;
         }
     }
