@@ -116,6 +116,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
+        activityf.nextStep();
         btnNextSelectZip.setOnClickListener(this::onClick);
 
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {

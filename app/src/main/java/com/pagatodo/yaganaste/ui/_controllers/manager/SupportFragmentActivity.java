@@ -28,12 +28,6 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
-
-/**
- * Created by jguerras on 29/11/2016.
- * Updated by flima on 8/02/2017.
- */
-
 public abstract class SupportFragmentActivity extends AppCompatActivity implements OnEventListener {
 
     public static final String EVENT_SESSION_EXPIRED = "EVENT_SESSION_EXPIRED";

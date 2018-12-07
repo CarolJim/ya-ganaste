@@ -8,6 +8,8 @@ public class RegContracts {
         void initViews();
         void nextStep();
         void backStep();
+        void hideStepBar();
+        void showStepBar();
     }
 
     public interface Listener{
@@ -26,6 +28,7 @@ public class RegContracts {
         void showBusinessData(Direction direction); //Pantalla 04
         void showPhysicalCode(); //Pantalla 05
         void showScanQR(); //Pantalla Scan QR 06
+        void shosWritePlateQR();
         void showNewLinkedCode(String displayValue);// Pantalla 06b - Códigos vinculados nuevo
         void showDigitalCode(); //Pantalla 07
         void showSMSAndroid(); //Pantalla 08

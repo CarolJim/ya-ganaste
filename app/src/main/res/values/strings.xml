@@ -1670,4 +1670,8 @@
 
     <!-- Codigo fisico -->
     <string name="code_qr_linked_label">Códigos QR vinculados\na tu cuenta</string>
+    <string name="enter_qr_number">Ingresar Número QR</string>
+    <string name="qr_number">Número QRR</string>
+    <string name="qr_code">QR code</string>
+
 </resources>
