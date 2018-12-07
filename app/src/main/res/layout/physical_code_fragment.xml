@@ -20,7 +20,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:textAllCaps="false" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,13 +34,13 @@
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/img_productos"
-        app:layout_constraintBottom_toTopOf="@+id/styleButton"
+        app:layout_constraintBottom_toTopOf="@+id/button_no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/styleTextView3" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/styleButton"
+        android:id="@+id/button_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -49,13 +50,14 @@
         android:text="@string/no"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/styleButton2"
+        app:layout_constraintEnd_toStartOf="@+id/button_yes"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/styleButton2"
+        android:id="@+id/button_yes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -65,10 +67,11 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_yes"
         android:text="Si"
+        android:textAllCaps="false"
         android:textColor="@color/whiteColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/styleButton" />
+        app:layout_constraintStart_toEndOf="@+id/button_no" />
 </android.support.constraint.ConstraintLayout>

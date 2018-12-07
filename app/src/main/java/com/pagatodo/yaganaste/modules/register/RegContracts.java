@@ -26,6 +26,7 @@ public class RegContracts {
         void showBusinessData(Direction direction); //Pantalla 04
         void showPhysicalCode(); //Pantalla 05
         void showScanQR(); //Pantalla Scan QR 06
+        void showNewLinkedCode(String displayValue);// Pantalla 06b - Códigos vinculados nuevo
         void showDigitalCode(); //Pantalla 07
         void showSMSAndroid(); //Pantalla 08
         void showWelcome(); //Pantalla 09
