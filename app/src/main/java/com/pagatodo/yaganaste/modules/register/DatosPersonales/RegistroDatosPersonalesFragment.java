@@ -340,6 +340,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
+        activityf.nextStep();
         radioBtnMale.setOnClickListener(this);
         radioBtnFemale.setOnClickListener(this);
         background_h.setOnClickListener(this);

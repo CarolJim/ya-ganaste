@@ -55,6 +55,7 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
 
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        activity.nextStep();
         buttonYes.setOnClickListener(this);
         buttonNo.setOnClickListener(this);
     }
@@ -63,13 +64,16 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_yes:
-                //activity.getRouter().showScanQR();
-                Intent intent = new Intent(activity, ScannVisionActivity.class);
+                activity.getRouter().showScanQR();
+                activity.getRouter().shosWritePlateQR();
+                /*Intent intent = new Intent(activity, ScannVisionActivity.class);
                 intent.putExtra(ScannVisionActivity.QRObject, true);
-                    getActivity().startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+                    startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
                 break;
             case R.id.button_no:
+                activity.getRouter().showDigitalCode();
                 break;
+
 
         }
     }
@@ -78,7 +82,7 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-
-        activity.getRouter().showNewLinkedCode(barcode.displayValue);
+        onEventListener.onEvent("START",data);
+        //activity.getRouter().showNewLinkedCode(barcode.displayValue);
     }
 }

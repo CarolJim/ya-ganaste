@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
