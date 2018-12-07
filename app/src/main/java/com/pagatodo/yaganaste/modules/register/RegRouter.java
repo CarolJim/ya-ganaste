@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.modules.register;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.register.CodigoVinculados.CodigosVinculadosFragment;
 import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;
 import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
@@ -57,6 +58,12 @@ public class RegRouter implements RegContracts.Router {
     @Override
     public void showBusinessData(Direction direction) {
         activity.loadFragment(DatosNegocioEAFragment.newInstance(activity), R.id.container_register,false);
+
+    }
+
+    @Override
+    public void showQRVincualteData(Direction direction) {
+        activity.loadFragment(CodigosVinculadosFragment.newInstance(activity), R.id.container_register,false);
 
     }
 

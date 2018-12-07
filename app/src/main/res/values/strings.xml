@@ -1640,7 +1640,7 @@
     <string name="titulo_datos_usuario_ea">Registra tus datos de usuario\npara crear tu cuenta</string>
 
     <!--Nuevo Registro  Datos Personales-->
-    <string name="titulo_datos_personales_ea">Ingresa tus datos tal como aparecen\nen tu identificación</string>
+    <string name="titulo_datos_personales_ea">Ingresar Datos</string>
     <string name="confirmardatos">Confirmar datos </string>
 
     <!--Nuevo Registro  Datos Personales-->
@@ -1668,4 +1668,5 @@
     <!-- Nueva Pantalla Registro Completado -->
     <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
     <string name="desc_register_complete">\u2713   Aceptar pagos desde celulares con las principales apps bancarias\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Pagar a proveedores o enviar dinero a familiares y amigos\n\n\u2713   Hacer recargas y pagar tus servicios.</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
 </resources>

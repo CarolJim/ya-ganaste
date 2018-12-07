@@ -40,8 +40,8 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
-        router.showUserData(Direction.FORDWARD);
-       // router.showPrsonalAddress(Direction.FORDWARD);
+     //   router.showUserData(Direction.FORDWARD);
+        router.showQRVincualteData(Direction.FORDWARD);
     }
 
     public void showFragmentDatosPersonales(){
@@ -66,6 +66,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     }
     public void showFragmentDatosNegocio(){
         router.showBusinessData(Direction.FORDWARD);
+    }
+
+    public void showFragmentviculaQr(){
+        router.showQRVincualteData(Direction.FORDWARD);
     }
 
 

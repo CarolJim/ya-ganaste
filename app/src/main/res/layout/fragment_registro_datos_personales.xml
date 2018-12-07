@@ -24,8 +24,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
             android:text="@string/titulo_datos_personales_ea"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            app:tipo="Text" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/subtitulo_datos_usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="Tal como aparecen en tu identificación"
             android:textAlignment="center"
             android:textColor="@color/gristexto"
             android:textSize="16sp"
@@ -272,8 +283,8 @@
                         android:background="#c4c4c4" />
 
                     <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="11dp"
                         android:layout_marginRight="11dp"
