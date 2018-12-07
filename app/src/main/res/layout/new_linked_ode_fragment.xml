@@ -8,7 +8,7 @@
     tools:context=".modules.register.RegActivity">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/styleTextView6"
+        android:id="@+id/title_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,12 +34,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="2258"
+        android:text="Abarrotes"
         android:textColor="@color/colorAccent"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView6" />
+        app:layout_constraintTop_toBottomOf="@+id/title_fragment" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/styleTextView7" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/styleTextView8"
+        android:id="@+id/plate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -73,16 +73,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
-    <android.support.design.widget.TextInputEditText
-        android:layout_width="0dp"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_number_qr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/inputtext_normal"
+        android:hint="@string/enter_a_name"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        android:theme="@style/TextLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plate"
+        app:passwordToggleEnabled="false"
+        app:passwordToggleTint="@color/colorAccent"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/editUserPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="9dp"
+            android:autofillHints="@string/app_name"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:singleLine="true"
+            android:textColor="@color/texthint"
+            android:theme="@style/NewEdittextwallet"
+            tools:ignore="LabelFor,RtlSymmetry">
+
+            <requestFocus />
+        </EditText>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/button_continue"
+        android:layout_width="219dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_yes"
+        android:text="Continuar"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView8">
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </android.support.design.widget.TextInputEditText>
 </android.support.constraint.ConstraintLayout>

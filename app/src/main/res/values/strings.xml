@@ -1640,7 +1640,7 @@
     <string name="titulo_datos_usuario_ea">Registra tus datos de usuario\npara crear tu cuenta</string>
 
     <!--Nuevo Registro  Datos Personales-->
-    <string name="titulo_datos_personales_ea">Ingresa tus datos tal como aparecen\nen tu identificación</string>
+    <string name="titulo_datos_personales_ea">Ingresar Datos</string>
     <string name="confirmardatos">Confirmar datos </string>
 
     <!--Nuevo Registro  Datos Personales-->
@@ -1673,5 +1673,8 @@
     <string name="enter_qr_number">Ingresar Número QR</string>
     <string name="qr_number">Número QRR</string>
     <string name="qr_code">QR code</string>
-
+    <string name="enter_a_name">Ingresa un Nombre para Identificar tu Código</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="title_code_fragment">Códigos QR vinculados\na tu cuenta</string>
+    <string name="title_code_digital_fragment">Hemos generado un código QR\npara tu negocio</string>
 </resources>

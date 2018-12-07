@@ -25,10 +25,10 @@
         android:layout_gravity="center"
         android:layout_marginBottom="32dp"
         android:layout_marginTop="8dp"
-        android:text="@string/titulo_datos_usuario_ea"
+        android:text="@string/crear_cuenta"
         android:textAlignment="center"
-        android:textColor="@color/gristexto"
-        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
         app:tipo="Text" />
 
     <android.support.design.widget.TextInputLayout

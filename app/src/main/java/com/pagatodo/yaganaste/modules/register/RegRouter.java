@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.register.CodigoVinculados.CodigosVinculadosFragment;
 import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;
 import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
@@ -25,7 +26,7 @@ public class RegRouter implements RegContracts.Router {
 
     private RegActivity activity;
 
-    public RegRouter(RegActivity activity) {
+    RegRouter(RegActivity activity) {
         this.activity = activity;
     }
 
@@ -66,6 +67,12 @@ public class RegRouter implements RegContracts.Router {
 
     }
 
+    @Override
+    public void showQRVincualteData(Direction direction) {
+
+
+    }
+
     /**
      * Panatalla 05
      */
@@ -89,9 +96,16 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showNewLinkedCode(String displayValue) {
-        activity.loadFragment(NewLinkedCodeFragment.newInstance(displayValue),R.id.fragment_container,Direction.NONE,false);
+        activity.loadFragment(NewLinkedCodeFragment.newInstance(displayValue,R.string.title_code_fragment),R.id.fragment_container,Direction.NONE,false);
     }
 
+    /**
+     * pantalla 06c - Códigos vinculados
+     */
+    @Override
+    public void showLinkedCodes() {
+        activity.loadFragment(CodigosVinculadosFragment.newInstance(activity), R.id.fragment_container,false);
+    }
 
     /**
      * Pantalla 06d - Escribir Plate QR
@@ -106,7 +120,7 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showDigitalCode() {
-
+        activity.loadFragment(NewLinkedCodeFragment.newInstance("",R.string.title_code_digital_fragment),R.id.fragment_container,Direction.NONE,false);
     }
 
     /**

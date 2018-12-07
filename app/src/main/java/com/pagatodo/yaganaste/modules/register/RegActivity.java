@@ -13,6 +13,8 @@ import com.pagatodo.yaganaste.modules.register.PhysicalCode.NewLinkedCodeFragmen
 import com.pagatodo.yaganaste.modules.register.PhysicalCode.PhysicalCodeFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+
 public class RegActivity extends LoaderActivity implements RegContracts.Presenter{
 
     public static final int RESULT_CODE_KEYBOARD = 153;
@@ -40,6 +42,8 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         router.showUserData(Direction.FORDWARD);
         //router.showPrsonalAddress(Direction.FORDWARD);
         //router.showPhysicalCode();
+       // router.showPhysicalCode();
+
 
     }
     public void showFragmentDatosPersonales(){
@@ -64,6 +68,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     }
     public void showFragmentDatosNegocio(){
         router.showBusinessData(Direction.FORDWARD);
+    }
+
+    public void showFragmentviculaQr(){
+        router.showQRVincualteData(Direction.FORDWARD);
     }
 
     public RegRouter getRouter() {
@@ -122,7 +130,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         switch (event){
 
             case "START":
-                loadFragment(NewLinkedCodeFragment.newInstance(""),R.id.fragment_container,Direction.NONE,true);
+                loadFragment(NewLinkedCodeFragment.newInstance("",R.string.title_code_fragment),R.id.fragment_container,Direction.NONE,true);
                 break;
         }
     }
