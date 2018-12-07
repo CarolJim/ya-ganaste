@@ -110,8 +110,6 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
 
 
-
-
     @BindView(R.id.editState)
     CustomValidationEditText editState;
     @BindView(R.id.spColonia)

@@ -138,8 +138,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                         hideValidationError(editZipCode.getId());
                         // editZipCode.setIsValid();
                         text_cp.setBackgroundResource(R.drawable.inputtext_normal);
-                        showLoader(getString(R.string.search_zipcode));
-                        accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
+                     //   showLoader(getString(R.string.search_zipcode));
+                       // accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
                     }
                 }
             }
@@ -268,16 +268,6 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
-
-        /*
-        editIntNumber.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                editIntNumber.imageViewIsGone(true);
-            }
-        });
-
-        */
 
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
