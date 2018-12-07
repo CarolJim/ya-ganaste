@@ -1,12 +1,19 @@
 package com.pagatodo.yaganaste.modules.register;
 
+import android.content.Intent;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;
 import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
+import com.pagatodo.yaganaste.modules.register.PhysicalCode.NewLinkedCodeFragment;
+import com.pagatodo.yaganaste.modules.register.PhysicalCode.PhysicalCodeFragment;
 import com.pagatodo.yaganaste.modules.register.RegistroDomicilioPersonal.RegistroDomicilioPersonalFragment;
 import com.pagatodo.yaganaste.modules.register.SeleccionaCP.SeleccionaCPFragment;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
+
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 public class RegRouter implements RegContracts.Router {
 
@@ -27,8 +34,8 @@ public class RegRouter implements RegContracts.Router {
 
     @Override
     public void showUserData(Direction direction) {
-       // activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
-        activity.loadFragment(RegistroCorreoFragment.newInstance(activity), R.id.container_register,false);
+        //activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
+        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.container_register,direction,false);
 
     }
 
@@ -38,17 +45,19 @@ public class RegRouter implements RegContracts.Router {
     @Override
     public void showPersonalData (Direction direction) {
         // activity.loadFragment(RegisterPhoneNumber.newInstance(), R.id.container_register_wallet, direction, false);
-        activity.loadFragment(RegistroDatosPersonalesFragment.newInstance(activity), R.id.container_register,false);
+        activity.nextStep();
+        //activity.loadFragment(RegistroDatosPersonalesFragment.newInstance(activity), R.id.container_register,direction,false);
     }
      /** Panatalla 03
      */
     @Override
     public void showPrsonalAddress(Direction direction) {
-        activity.loadFragment(RegistroDomicilioPersonalFragment.newInstance(activity), R.id.container_register,false);
+        activity.nextStep();
+        //activity.loadFragment(RegistroDomicilioPersonalFragment.newInstance(activity), R.id.container_register,direction,false);
     }
     @Override
     public void showPrsonalAddressSelectCP(Direction direction) {
-        activity.loadFragment(SeleccionaCPFragment.newInstance(activity), R.id.container_register,false);
+        //activity.loadFragment(SeleccionaCPFragment.newInstance(activity), R.id.container_register,direction,false);
     }
 
     /**
@@ -56,7 +65,7 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showBusinessData(Direction direction) {
-        activity.loadFragment(DatosNegocioEAFragment.newInstance(activity), R.id.container_register,false);
+        //activity.loadFragment(DatosNegocioEAFragment.newInstance(activity), R.id.container_register,direction,false);
 
     }
 
@@ -65,7 +74,7 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showPhysicalCode() {
-        
+        activity.loadFragment(PhysicalCodeFragment.newInstance(), R.id.container_register,Direction.FORDWARD,false);
     }
 
     /**
@@ -73,7 +82,17 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showScanQR() {
+        /*Intent intent = new Intent(activity, ScannVisionActivity.class);
+        intent.putExtra(ScannVisionActivity.QRObject, true);
+        activity.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
+    }
 
+    /**
+     * Panatalla 06b
+     */
+    @Override
+    public void showNewLinkedCode(String displayValue) {
+        activity.loadFragment(NewLinkedCodeFragment.newInstance(displayValue),R.id.container_register,Direction.NONE,false);
     }
 
     /**

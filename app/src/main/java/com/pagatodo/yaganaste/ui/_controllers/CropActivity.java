@@ -1,29 +1,21 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.steelkiwi.cropiwa.CropIwaView;
 import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
-import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.File;
-import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

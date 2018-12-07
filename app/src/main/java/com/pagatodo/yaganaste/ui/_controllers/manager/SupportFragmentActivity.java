@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -42,7 +43,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mSupportComponent = new SupportComponent(getSupportFragmentManager());
+        mSupportComponent = new SupportComponent(getSupportFragmentManager());
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
@@ -94,8 +95,8 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
-                                boolean addToBackStack) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
+                             boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, direction, addToBackStack);
         UI.hideKeyBoard(this);
     }
@@ -106,7 +107,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    protected Fragment getCurrentFragment() {
+    public Fragment getCurrentFragment() {
         return mSupportComponent.getCurrentFragment();
     }
 
@@ -174,11 +175,11 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         super.startActivityForResult(intent, requestCode);
     }
 
-    @Override
+    /*
     public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         isFromActivityForResult = true;
         super.startActivityForResult(intent, requestCode, options);
-    }
+    }*/
 
     @Override
     protected void onResume() {

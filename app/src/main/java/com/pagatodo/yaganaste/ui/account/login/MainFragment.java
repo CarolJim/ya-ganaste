@@ -114,14 +114,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_create_user:
-                //Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
+                Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
                 //intent.putExtra(SELECTION, GO_TO_REGISTER);
                 //startActivity(intent);
                 //getActivity().finish();
-                //startActivity(RegActivity.createIntent(getActivity()));
-                Intent intent = new Intent(getActivity(), ScannVisionActivity.class);
-                intent.putExtra(ScannVisionActivity.QRObject, true);
-                startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+                startActivity(RegActivity.createIntent(getActivity()));
+
 
                 break;
 

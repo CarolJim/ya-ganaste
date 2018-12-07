@@ -1,5 +1,6 @@
-package com.pagatodo.yaganaste.modules.register.fragments.physicalcode;
+package com.pagatodo.yaganaste.modules.register.PhysicalCode;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,25 +13,31 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 import butterknife.ButterKnife;
 
-public class PhysicalCodeFragment extends GenericFragment {
+public class NewLinkedCodeFragment extends GenericFragment {
 
     private View rootView;
 
-
-    public static PhysicalCodeFragment newInstance(){
-        return new PhysicalCodeFragment();
+    public static NewLinkedCodeFragment newInstance(String textDisplay){
+        NewLinkedCodeFragment fragment = new NewLinkedCodeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("DISPLAY",textDisplay);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.physical_code_fragment,container,false);
+        rootView = inflater.inflate(R.layout.new_linked_ode_fragment,container,false);
         initViews();
         return rootView;
+
     }
 
-    @Override
+
     public void initViews() {
         ButterKnife.bind(this, rootView);
     }
+
+
 }

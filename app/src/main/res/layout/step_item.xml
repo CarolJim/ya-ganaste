@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/step_inactive"
-        android:layout_width="@dimen/item_step"
-        android:layout_height="@dimen/item_step"
+        android:layout_width="@dimen/item_step_s"
+        android:layout_height="@dimen/item_step_s"
         android:background="@drawable/bck_step_inactive"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,17 +48,29 @@
             android:textSize="@dimen/text_step"/>
     </LinearLayout>
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/step_check"
-        android:layout_width="@dimen/item_step"
-        android:layout_height="@dimen/item_step"
-        app:srcCompat="@drawable/ic_step_ok"
+        android:layout_width="@dimen/item_step_s"
+        android:layout_height="@dimen/item_step_s"
+        android:background="@drawable/bck_step_check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="visible"
-        android:contentDescription="@string/app_name">
-    </ImageView>
+        android:contentDescription="@string/app_name"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/text_num_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="#fff"
+            android:textSize="@dimen/text_step"/>
+    </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

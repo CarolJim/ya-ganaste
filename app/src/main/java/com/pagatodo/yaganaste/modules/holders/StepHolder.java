@@ -16,7 +16,7 @@ import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 public class StepHolder extends GenericHolder {
 
     private LinearLayout stepState;
-    private ImageView check;
+    private LinearLayout check;
     private TextView numText;
     private AnimatedVectorDrawable drawable;
 
