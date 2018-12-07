@@ -1,12 +1,13 @@
 package com.pagatodo.yaganaste.modules.register.CorreoUsuario;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -49,16 +51,16 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     private AccountPresenterNew accountPresenter;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
-    private static RegActivity activityf;
-
+    private RegActivity activityf;
 
     public static RegistroCorreoFragment newInstance(){
-
         return  new RegistroCorreoFragment();
     }
-    public static RegistroCorreoFragment newInstance(RegActivity activity){
-        activityf = activity;
-        return  new RegistroCorreoFragment();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activityf = (RegActivity) context;
     }
 
     @Override
@@ -76,7 +78,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_registro_correo, container, false);
@@ -84,7 +86,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         return rootview;
     }
 
-    @Override
+
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextDatosUsuario.setOnClickListener(this);
@@ -145,12 +147,12 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void showLoader(String message) {
-        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+        //onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        //onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
@@ -224,6 +226,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void getDataForm() {
+
+    }
+
+    @Override
+    public void errorSessionExpired(DataSourceResult response) {
 
     }
 }

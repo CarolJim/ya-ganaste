@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.modules.components.StepBar;
-
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.components.StepBar;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 
@@ -33,15 +33,16 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         initViews();
     }
 
-    @Override
+    /*@Override
     public boolean requiresTimer() {
         return false;
-    }
+    }*/
 
     @Override
     public void initViews() {
-     //   router.showUserData(Direction.FORDWARD);
-        router.showQRVincualteData(Direction.FORDWARD);
+        router.showUserData(Direction.FORDWARD);
+        //router.showPrsonalAddress(Direction.FORDWARD);
+       // router.showPhysicalCode();
     }
 
     public void showFragmentDatosPersonales(){
@@ -72,5 +73,35 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         router.showQRVincualteData(Direction.FORDWARD);
     }
 
+    public RegRouter getRouter() {
+        return router;
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //PhysicalCodeFragment childFragment = (PhysicalCodeFragment) getSupportFragmentManager().findFragmentById(R.id.container_register);
+        //childFragment.onActivityResult(requestCode,resultCode,data);
+        //Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+        //router.showNewLinkedCode("");
+        // loadFragment(NewLinkedCodeFragment.newInstance(""),R.id.container_register,Direction.NONE,false);
+        /*if (requestCode == BARCODE_READER_REQUEST_CODE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    //Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                    router.showNewLinkedCode("");
+                    //referenceNumber.setText(barcode.displayValue);
+                    //Ocultamos el mensaje de error si esta visible
+                    //editReferError.setVisibilityImageError(false);
+
+                }
+            }
+        }*/
+    }
+
+    @Override
+    public boolean requiresTimer() {
+        return false;
+    }
 }

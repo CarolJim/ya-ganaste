@@ -20,6 +20,7 @@ public class SupportComponent {
 
     protected FragmentManager fragmentManager;
     GenericFragment lastFragment;
+
     @IdRes
     private int containerID;
 
