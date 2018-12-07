@@ -39,12 +39,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
-        //router.showUserData(Direction.FORDWARD);
-        //router.showPrsonalAddress(Direction.FORDWARD);
-        //router.showPhysicalCode();
-        // router.showPhysicalCode();
-
-
+        router.showUserData(Direction.FORDWARD);
     }
 
     public void showFragmentDatosPersonales() {

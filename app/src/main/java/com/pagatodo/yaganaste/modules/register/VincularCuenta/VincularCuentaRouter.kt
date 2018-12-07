@@ -5,7 +5,7 @@ import com.pagatodo.yaganaste.modules.register.RegActivity
 class VincularCuentaRouter(val activity: RegActivity) : VincularcuentaContracts.Router {
 
     override fun presentLinkedAccountScreen() {
-        //activity.router
+        activity.router.showWelcome()
     }
 
     override fun presentOnboardingScreen() {

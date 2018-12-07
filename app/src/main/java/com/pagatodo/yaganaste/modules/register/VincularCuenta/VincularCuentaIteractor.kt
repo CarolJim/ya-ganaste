@@ -302,12 +302,16 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     presenter.onErrorService(data.mensaje)
                 }
             }
-            is IniciarSesionUYUResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
-                    val dataUser = data.getData()
+            is DataSourceResult -> {
+                var result = data.data as IniciarSesionUYUResponse
+                if (result.codigoRespuesta == CODE_OK) {
+                    val dataUser = result.data
+                    val user = SingletonUser.getInstance()
+                    user.dataUser = dataUser// Si Usuario
                     App.getInstance().prefs.saveDataInt(ID_ESTATUS_EMISOR, dataUser.usuario.idEstatusEmisor)
                     val pswcph = "654321" + "-" + Utils.getSHA256("654321") + "-" + System.currentTimeMillis()
                     App.getInstance().prefs.saveData(PSW_CPR, Utils.cipherAES(pswcph, true))
+                    RequestHeaders.setUsername(dataUser.usuario.nombreUsuario)
                     RequestHeaders.setTokensesion(dataUser.usuario.tokenSesion)//Guardamos Token de sesion
                     RequestHeaders.setTokenAdq(dataUser.usuario.tokenSesion)
                     RequestHeaders.setIdCuentaAdq(dataUser.usuario.idUsuarioAdquirente)
@@ -317,11 +321,11 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                         App.getInstance().prefs.saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal)
                     }
                     if (dataUser.cliente.conCuenta) {// Si Cuenta
-                        RequestHeaders.setIdCuenta(String.format("%s", data.getData().emisor.cuentas[0].idCuenta))
+                        RequestHeaders.setIdCuenta(String.format("%s", dataUser.emisor.cuentas[0].idCuenta))
                     }
-                    presenter.onVerificationSmsSuccess()
+                    presenter.onAprovSuccess()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(result.mensaje)
                 }
             }
         }
