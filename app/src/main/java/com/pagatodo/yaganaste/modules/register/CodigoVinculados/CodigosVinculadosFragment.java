@@ -44,6 +44,7 @@ public class CodigosVinculadosFragment extends GenericFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_codigos_vinculados, container, false);
+        initViews();
         return rootView;
     }
 

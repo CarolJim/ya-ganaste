@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
@@ -44,7 +45,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     @Override
     public void onActivityResumed(Activity activity) {
         if (!(activity instanceof CardIOActivity)) {
-            App.getInstance().resetTimer((SupportFragmentActivity) activity);
+            //App.getInstance().resetTimer(activity);
             if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
                 Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
             }

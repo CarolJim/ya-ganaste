@@ -47,7 +47,7 @@ import static com.pagatodo.yaganaste.modules.register.RegActivity.RESULT_CODE_KE
  * Created by Jordan on 19/04/2017.
  */
 
-public class ScannVisionActivity extends SupportFragmentActivity implements View.OnClickListener,
+public class ScannVisionActivity extends AppCompatActivity implements View.OnClickListener,
         BarcodeTracker.BarcodeGraphicTrackerCallback {
     // Constants used to pass extra data in the intent
     public static final String BarcodeObject = "Barcode";
@@ -195,11 +195,11 @@ public class ScannVisionActivity extends SupportFragmentActivity implements View
         startCameraSource();
     }
 
-    @Override
+    /*@Override
     public boolean requiresTimer() {
         return true;
     }
-
+*/
     @Override
     protected void onPause() {
         super.onPause();
