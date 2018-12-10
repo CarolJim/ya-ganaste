@@ -99,8 +99,10 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
         var registerAgent = RegisterAgent.getInstance()
-        registerAgent.nombre //= registerUserSingleton.comer
-        var request = CrearAgenteRequest()
+        registerAgent.nombre = registerUserSingleton.nombreNegocio
+        registerAgent.giro = Giros(registerUserSingleton.idGiro, registerUserSingleton.giro, null)
+        registerAgent.telefono = "5555555555"
+        var request = CrearAgenteRequest(registerAgent, 1, null)
         try {
             ApiAdtvo.crearAgenteWallet(request, this)
         } catch (e: Exception) {
