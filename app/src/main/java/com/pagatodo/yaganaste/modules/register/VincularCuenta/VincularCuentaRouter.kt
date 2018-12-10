@@ -1,11 +1,11 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
-import android.app.Activity
+import com.pagatodo.yaganaste.modules.register.RegActivity
 
-class VincularCuentaRouter(val activity: Activity) : VincularcuentaContracts.Router {
+class VincularCuentaRouter(val activity: RegActivity) : VincularcuentaContracts.Router {
 
     override fun presentLinkedAccountScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        activity.router.showWelcome()
     }
 
     override fun presentOnboardingScreen() {

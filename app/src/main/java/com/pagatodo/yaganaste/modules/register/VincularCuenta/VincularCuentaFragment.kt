@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
-
 import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
@@ -51,7 +50,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        router = VincularCuentaRouter(activity!!)
+        router = VincularCuentaRouter(activity!! as RegActivity)
         iteractor = VincularCuentaIteractor(this)
     }
 
@@ -79,14 +78,15 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         when (v?.id) {
             binding.btnSendSms.id -> {
                 if (Utils.isDeviceOnline()) {
-                    when (RegisterUserNew.getInstance().statusRegistro) {
+                    /*when (RegisterUserNew.getInstance().statusRegistro) {
                         SIN_REGISTRO -> iteractor.createUser()
                         USUARIO_CREADO -> iteractor.createClient()
                         CUENTA_ASIGNADA -> iteractor.assignNip()
                         NIP_ASIGNADO -> iteractor.createAgent()
                         AGENTE_CREADO -> iteractor.getNumberOfSms()
                         else -> iteractor.createUser()
-                    }
+                    }*/
+                    iteractor.logInUser()
                 } else {
                     UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), Snackbar.LENGTH_LONG)
                 }

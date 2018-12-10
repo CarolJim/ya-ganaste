@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
-public class PhysicalCodeFragment extends GenericFragment implements View.OnClickListener{
+public class PhysicalCodeFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootView;
     private RegActivity activity;
@@ -34,7 +34,7 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.button_no)
     public StyleButton buttonNo;
 
-    public static PhysicalCodeFragment newInstance(){
+    public static PhysicalCodeFragment newInstance() {
         return new PhysicalCodeFragment();
     }
 
@@ -47,7 +47,7 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.physical_code_fragment,container,false);
+        rootView = inflater.inflate(R.layout.physical_code_fragment, container, false);
         initViews();
         return rootView;
     }

@@ -37,7 +37,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSupportComponent = new SupportComponent(getSupportFragmentManager());
+        this.mSupportComponent = new SupportComponent(getSupportFragmentManager());
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
@@ -63,27 +63,27 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
+    protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
                                 boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, addToBackStack);
         UI.hideKeyBoard(this);
@@ -101,7 +101,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    public Fragment getCurrentFragment() {
+    protected Fragment getCurrentFragment() {
         return mSupportComponent.getCurrentFragment();
     }
 
@@ -169,11 +169,12 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         super.startActivityForResult(intent, requestCode);
     }
 
-    /*
+    @SuppressLint("RestrictedApi")
+    @Override
     public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         isFromActivityForResult = true;
         super.startActivityForResult(intent, requestCode, options);
-    }*/
+    }
 
     @Override
     protected void onResume() {
