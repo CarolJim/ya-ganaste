@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import java.util.HashMap;
 
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_BD_ODIN_USERS;
 
 public class RegistroCorreoIteractor implements RegistroCorreoContracts.Iteractor {
@@ -25,7 +26,15 @@ public class RegistroCorreoIteractor implements RegistroCorreoContracts.Iteracto
                 users.put("Mbl", "00000");
                 users.put("DvcId", FirebaseInstanceId.getInstance().getId());
                 FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
+                getFirebaseSessionId();
             }
+        });
+    }
+
+    private void getFirebaseSessionId() {
+        FirebaseAuth.getInstance().getCurrentUser().getIdToken(true).addOnCompleteListener(task -> {
+            if (task.isSuccessful())
+                App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_SESSION, task.getResult().getToken());
         });
     }
 }

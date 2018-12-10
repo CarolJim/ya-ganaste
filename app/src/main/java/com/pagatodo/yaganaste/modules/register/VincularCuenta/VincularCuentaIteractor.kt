@@ -2,22 +2,16 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
 import android.util.Log
-import com.dspread.xpos.QPOSService
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.BuildConfig
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.DataSourceResult
 import com.pagatodo.yaganaste.data.dto.ErrorObject
-import com.pagatodo.yaganaste.data.model.Card
-import com.pagatodo.yaganaste.data.model.MessageValidation
-import com.pagatodo.yaganaste.data.model.RegisterUserNew
-import com.pagatodo.yaganaste.data.model.SingletonUser
+import com.pagatodo.yaganaste.data.model.*
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.*
@@ -104,9 +98,11 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun createAgent() {
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
-        //var request = CrearAgenteRequest(registerUserSingleton.)
+        var registerAgent = RegisterAgent.getInstance()
+        registerAgent.nombre //= registerUserSingleton.comer
+        var request = CrearAgenteRequest()
         try {
-            //ApiAdtvo.crearAgente(request, this)
+            ApiAdtvo.crearAgenteWallet(request, this)
         } catch (e: Exception) {
             e.printStackTrace()
             presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
@@ -271,7 +267,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 } else {
                     presenter.onErrorService(data.mensaje)
                 }
-            }
+            }/*
             is DataSourceResult -> {
                 var result = data.data as IniciarSesionUYUResponse
                 if (result.codigoRespuesta == CODE_OK) {
@@ -297,7 +293,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 } else {
                     presenter.onErrorService(result.mensaje)
                 }
-            }
+            }*/
         }
     }
 
