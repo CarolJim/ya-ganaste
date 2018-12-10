@@ -45,20 +45,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
         IAprovView<Any> {
 
-    override fun logInUser() {
-        val requestLogin = IniciarSesionRequest("android9y@ganaste.com", Utils.cipherRSA("654321", PUBLIC_KEY_RSA))
-        RequestHeaders.setUsername("android9y@ganaste.com")
-        RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().applicationContext))
-        App.getInstance().prefs.saveData(SHA_256_FREJA, Utils.getSHA256("654321"))
-        try {
-            DatabaseManager().deleteFavorites()
-            ApiAdtvo.iniciarSesionSimple(requestLogin, this)
-        } catch (e: OfflineException) {
-            e.printStackTrace()
-            presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
-        }
-    }
-
     override fun createUser() {
         presenter.showLoader(App.getContext().getString(R.string.creating_user))
         var registerUserSingleton = RegisterUserNew.getInstance()
@@ -163,22 +149,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun provisionDevice() {
         super.setAprovView(this)
         super.doProvisioning()
-    }
-
-    override fun registerUserFirebase() {
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "123456").addOnCompleteListener { task ->
-            App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
-            if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
-                val user = auth.currentUser
-                App.getInstance().prefs.saveData(TOKEN_FIREBASE_AUTH, user!!.uid)
-                val users = HashMap<String, String?>()
-                users["Mbl"] = SingletonUser.getInstance().dataUser.emisor.cuentas[0].telefono.replace(" ", "")
-                users["DvcId"] = FirebaseInstanceId.getInstance().token
-                FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).reference.child(user.uid).setValue(users)
-            }
-        }
     }
 
     override fun onSuccess(data: DataSourceResult?) {
