@@ -35,9 +35,11 @@ public class RegisterUserNew {
     private String razonSocial = "";
     private Giros giro;
     private boolean aceptaTerminos;
-
+    //Datos de Negocio
+    private Integer IdGiro = 0;
+    private String Giro = "";
+    private String nombreNegocio = "";
     //Datos de QRs
-
     ArrayList<QRs> qRs;
 
     public static synchronized RegisterUserNew getInstance() {
@@ -238,5 +240,33 @@ public class RegisterUserNew {
 
     public void setqRs(ArrayList<QRs> qRs) {
         this.qRs = qRs;
+    }
+
+    public int getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(int statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
+
+    public Integer getIdGiro() {
+        return IdGiro;
+    }
+
+    public void setIdGiro(Integer idGiro) {
+        IdGiro = idGiro;
+    }
+
+    public void setGiro(String giro) {
+        Giro = giro;
+    }
+
+    public String getNombreNegocio() {
+        return nombreNegocio;
+    }
+
+    public void setNombreNegocio(String nombreNegocio) {
+        this.nombreNegocio = nombreNegocio;
     }
 }
