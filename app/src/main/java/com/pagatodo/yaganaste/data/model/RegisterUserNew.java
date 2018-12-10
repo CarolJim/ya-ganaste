@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.data.model;
 
 import com.pagatodo.yaganaste.data.room_db.entities.Paises;
 
+import java.util.ArrayList;
+
 public class RegisterUserNew {
 
     private static RegisterUserNew registerUserNew;
@@ -33,6 +35,10 @@ public class RegisterUserNew {
     private String razonSocial = "";
     private Giros giro;
     private boolean aceptaTerminos;
+
+    //Datos de QRs
+
+    ArrayList<QRs> qRs;
 
     public static synchronized RegisterUserNew getInstance() {
         if (registerUserNew == null)
@@ -223,5 +229,14 @@ public class RegisterUserNew {
 
     public void setPaisNacimiento(Paises paisNacimiento) {
         this.paisNacimiento = paisNacimiento;
+    }
+
+
+    public ArrayList<QRs> getqRs() {
+        return qRs;
+    }
+
+    public void setqRs(ArrayList<QRs> qRs) {
+        this.qRs = qRs;
     }
 }

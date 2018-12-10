@@ -198,7 +198,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 day = newCalendar.get(Calendar.DAY_OF_MONTH);
             }
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_TRADITIONAL, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.Theme_AppCompat_Light, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
