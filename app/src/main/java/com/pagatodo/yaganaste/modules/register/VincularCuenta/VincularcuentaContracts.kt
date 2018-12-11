@@ -29,10 +29,6 @@ class VincularcuentaContracts {
         fun verifyActivationSms()
         fun updateSession()
         fun provisionDevice()
-        /* Firebase Process */
-        fun registerUserFirebase()
-        /* Demo */
-        fun logInUser()
     }
 
     interface Router {

@@ -28,8 +28,8 @@
 
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
-    <!--<string name="createAgentUrl">/CrearAgente</string>-->
-    <string name="createAgentUrl">/CrearAgenteWallet</string>
+    <string name="createAgentUrl">/CrearAgente</string>
+    <string name="createAgentWallet">/CrearAgenteWallet</string>
     <!--<string name="createUserClientUrl">/CrearUsuarioCliente</string>-->
     <string name="createUserClientUrl">/CrearUsuarioClienteWallet</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>

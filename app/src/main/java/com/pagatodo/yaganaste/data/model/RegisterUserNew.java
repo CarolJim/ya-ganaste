@@ -33,7 +33,6 @@ public class RegisterUserNew {
     private String idColonia = "";
     /*Datos de Negocio*/
     private String razonSocial = "";
-    private Giros giro;
     private boolean aceptaTerminos;
     //Datos de Negocio
     private Integer IdGiro = 0;
@@ -193,12 +192,8 @@ public class RegisterUserNew {
         this.razonSocial = razonSocial;
     }
 
-    public Giros getGiro() {
-        return giro;
-    }
-
-    public void setGiro(Giros giro) {
-        this.giro = giro;
+    public String getGiro() {
+        return Giro;
     }
 
     public boolean isAceptaTerminos() {
