@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
-
 import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
@@ -23,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation
 import com.pagatodo.yaganaste.data.model.RegisterUserNew
 import com.pagatodo.yaganaste.databinding.FragmentVincularCuentaBinding
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions
+import com.pagatodo.yaganaste.modules.register.RegActivity
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity.MY_PERMISSIONS_REQUEST_SEND_SMS
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER
@@ -50,7 +50,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        router = VincularCuentaRouter(activity!!)
+        router = VincularCuentaRouter(activity!! as RegActivity)
         iteractor = VincularCuentaIteractor(this)
     }
 
@@ -58,6 +58,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_vincular_cuenta, container, false)
         binding.btnSendSms.setOnClickListener(this)
+        (activity!! as RegActivity).nextStep()
         return binding.root
     }
 
@@ -118,7 +119,6 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     override fun onAgentCreated() {
         hideLoader()
         validatePermissions()
-        iteractor.registerUserFirebase()
         TODO("Asignacion de QR's")
     }
 

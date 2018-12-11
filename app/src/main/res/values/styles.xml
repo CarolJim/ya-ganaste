@@ -212,7 +212,6 @@
     <style name="buttonSquareRoundedBluenewRegister" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns_big</item>
         <item name="android:layout_height">@dimen/height_btns</item>
-        <item name="android:background">@drawable/button_rounded_blue</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_centerHorizontal">true</item>

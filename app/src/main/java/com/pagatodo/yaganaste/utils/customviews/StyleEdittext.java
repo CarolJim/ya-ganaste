@@ -22,15 +22,6 @@ import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 
-
-/**
- * Created by jcortez on 14/10/2015.
- */
-
-/**
- * Created by icruz on 09/12/2016.
- */
-
 public class StyleEdittext extends AppCompatEditText {
 
     private TextWatcher textWatcher;

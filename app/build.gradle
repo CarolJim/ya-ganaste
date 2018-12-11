@@ -16,12 +16,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 43
         versionName "4.3.5"
         vectorDrawables.useSupportLibrary = true
@@ -73,14 +73,13 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     // Freja Mass Compilation
     implementation files('libs/frejaMobileCore_486c0fb7a51.jar')
 
     // Dspread (Dongle) Compilation
     implementation files('libs/dspread_android_sdk_2.7.6.jar')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:' + rootProject.espressoCoreVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -169,6 +168,7 @@ dependencies {
     //Chat IA
     implementation 'ai.api:sdk:' + rootProject.aiApiVersion
     implementation 'ai.api:libai:1.6.12'
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'

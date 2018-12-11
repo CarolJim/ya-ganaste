@@ -242,7 +242,8 @@
     <dimen name="input_label_vertical_spacing">8dp</dimen>
     <dimen name="input_label_horizontal_spacing">4dp</dimen>
 
-    <dimen name="item_step">32dp</dimen>
+    <dimen name="item_step_s">24dp</dimen>
+    <dimen name="item_step">42dp</dimen>
     <dimen name="text_step">16sp</dimen>
 
 </resources>

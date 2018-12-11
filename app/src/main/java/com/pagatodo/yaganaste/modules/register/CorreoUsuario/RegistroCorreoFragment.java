@@ -1,22 +1,22 @@
 package com.pagatodo.yaganaste.modules.register.CorreoUsuario;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -38,7 +38,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link Fragment} subclass.
  */
 public class RegistroCorreoFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IUserDataRegisterView,
-        View.OnFocusChangeListener, CustomPassSixDigits.OnCodeChangedListener {
+        View.OnFocusChangeListener{
 
     private View rootview;
     @BindView(R.id.text_email)
@@ -51,35 +51,16 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     private AccountPresenterNew accountPresenter;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
-
-    @BindView(R.id.img_password)
-    LinearLayout img_password;
-    @BindView(R.id.customPassSixDigits)
-    CustomPassSixDigits customPassSixDigits;
-    @BindView(R.id.text_password)
-    TextView text_password;
-    @BindView(R.id.titulo_datos_usuario)
-    TextView titulo_datos_usuario;
-    @BindView(R.id.confirm_password)
-    LinearLayout confirm_password;
-
-    /*@BindView(R.id.customPassSixDigits)
-    LinearLayout customPassSixDigits;*/
-    @BindView(R.id.edit_text_aux)
-    EditText edit_text_aux;
-
-    @BindView(R.id.edit_text_aux_confirm)
-    EditText edit_text_aux_confirm;
-    private static RegActivity activityf;
-
+    private RegActivity activityf;
 
     public static RegistroCorreoFragment newInstance(){
-
         return  new RegistroCorreoFragment();
     }
-    public static RegistroCorreoFragment newInstance(RegActivity activity){
-        activityf = activity;
-        return  new RegistroCorreoFragment();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activityf = (RegActivity) context;
     }
 
     @Override
@@ -97,7 +78,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_registro_correo, container, false);
@@ -105,13 +86,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         return rootview;
     }
 
-    @Override
+
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextDatosUsuario.setOnClickListener(this);
         setValidationRules();
-        customPassSixDigits.setListener(this);
-        customPassSixDigits.setCodeChangedListener(this);
     }
 
     @Override
@@ -168,12 +147,12 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void showLoader(String message) {
-        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+        //onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        //onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
@@ -251,21 +230,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     }
 
     @Override
-    public void onCodeChanged() {
-        if (edit_text_aux.getText().toString().length() == 5 &&
-                edit_text_aux_confirm.getText().toString().length() == 5) {
-            //UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_LONG);
-            //UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_LONG);
-        }
-        //UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_LONG);
-    }
+    public void errorSessionExpired(DataSourceResult response) {
 
-    @Override
-    public void setVisivility() {
-        img_password.setVisibility(View.VISIBLE);
-        customPassSixDigits.setVisibility(View.GONE);
-        text_password.setVisibility(View.GONE);
-        //titulo_datos_usuario.setVisibility(View.GONE);
-        confirm_password.setVisibility(View.VISIBLE);
     }
 }

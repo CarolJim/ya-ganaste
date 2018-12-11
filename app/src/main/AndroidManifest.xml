@@ -185,7 +185,7 @@
             android:name=".ui._controllers.manager.FavoritesActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui._controllers.PromoCodesActivity" />
-        <activity android:name=".modules.register.RegActivity"></activity>
+        <activity android:name=".modules.register.RegActivity"/>
     </application>
 
 </manifest>

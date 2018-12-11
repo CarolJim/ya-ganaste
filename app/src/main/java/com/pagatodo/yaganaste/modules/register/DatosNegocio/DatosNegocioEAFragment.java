@@ -99,6 +99,14 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
+        activityf.nextStep();
+        rootView.findViewById(R.id.btnNextDatosUsuario).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activityf.getRouter().showPhysicalCode();
+            }
+        });
+
         spinnerBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

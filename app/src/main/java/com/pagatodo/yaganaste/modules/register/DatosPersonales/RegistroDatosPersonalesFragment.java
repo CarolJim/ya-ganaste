@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
@@ -26,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -142,6 +144,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     StyleTextView letraH;
     @BindView(R.id.letraM)
     StyleTextView letraM;
+    @BindView(R.id.icon_lugarde)
+    ImageView icon_lugarde;
 
 
 
@@ -201,6 +205,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                     newDate.set(year, month, date);
                     // editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
                     editBirthDay.setText(DateUtil.getBirthDateSpecialCustom(year, month, date));
+                    colorboton();
                     // editBirthDay.setIsValid();
                     txtfecha.setBackgroundResource(R.drawable.inputtext_normal);
 
@@ -308,20 +313,22 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (radioBtnMale.isChecked()) {
             background_h.setBackgroundResource(R.color.colorAccent);
             background_m.setBackgroundResource(R.color.whiteColor);
-            radioBtnMale.setBackgroundResource(R.drawable.masc);
+            radioBtnMale.setBackgroundResource(R.drawable.mascb);
             radioBtnFemale.setBackgroundResource(R.drawable.fem);
             generTitle.setBackgroundResource(R.drawable.inputtext_normal);
             letraM.setTextColor(getResources().getColor(R.color.gristexto));
             letraH.setTextColor(getResources().getColor(R.color.whiteColor));
+            colorboton();
         } else {
             if (radioBtnFemale.isChecked()) {
                 radioBtnMale.setBackgroundResource(R.drawable.masc);
-                radioBtnFemale.setBackgroundResource(R.drawable.fem);
+                radioBtnFemale.setBackgroundResource(R.drawable.femb);
                 background_h.setBackgroundResource(R.color.whiteColor);
                 background_m.setBackgroundResource(R.color.colorAccent);
                 generTitle.setBackgroundResource(R.drawable.inputtext_normal);
                 letraM.setTextColor(getResources().getColor(R.color.whiteColor));
                 letraH.setTextColor(getResources().getColor(R.color.gristexto));
+                colorboton();
             }
         }
 
@@ -340,6 +347,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
+        icon_lugarde.setOnClickListener(view -> spinnerBirthPlace.performClick());
+        activityf.nextStep();
         radioBtnMale.setOnClickListener(this);
         radioBtnFemale.setOnClickListener(this);
         background_h.setOnClickListener(this);
@@ -348,6 +357,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         editBirthDay.setOnClickListener(onClickListenerDatePicker);
         adaptergenero = new EnumSpinnerAdapter(getContext(), R.layout.spinner_layout, Genero.values(), this);
         spinnerBirthPlace.setOnItemSelectedListener(this);
+
         spinnergenero.setAdapter(adaptergenero);
         spinnergenero.setOnItemSelectedListener(this);
         editCountry.setOnClickListener(this);
@@ -400,13 +410,32 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
     }
     private void setCurrentData() {
-        RegisterUser registerUser = RegisterUser.getInstance();
+
+        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
+                states, RegistroDatosPersonalesFragment.this);
+        spinnerBirthPlace.setAdapter(adapterBirthPlace);
+
+        RegisterUserNew registerUser = RegisterUserNew.getInstance();
         if (registerUser.getGenero().equals("H")) {
             radioBtnMale.setChecked(true);
-            radioBtnMale.setBackgroundResource(R.drawable.ico_maleb);
+            background_h.setBackgroundResource(R.color.colorAccent);
+            background_m.setBackgroundResource(R.color.whiteColor);
+            radioBtnMale.setBackgroundResource(R.drawable.mascb);
+            radioBtnFemale.setBackgroundResource(R.drawable.fem);
+            generTitle.setBackgroundResource(R.drawable.inputtext_normal);
+            letraM.setTextColor(getResources().getColor(R.color.gristexto));
+            letraH.setTextColor(getResources().getColor(R.color.whiteColor));
+
         } else if (registerUser.getGenero().equals("M")) {
             radioBtnFemale.setChecked(true);
-            radioBtnFemale.setBackgroundResource(R.drawable.ico_femaleb);
+            radioBtnMale.setBackgroundResource(R.drawable.masc);
+            radioBtnFemale.setBackgroundResource(R.drawable.femb);
+
+            background_h.setBackgroundResource(R.color.whiteColor);
+            background_m.setBackgroundResource(R.color.colorAccent);
+            generTitle.setBackgroundResource(R.drawable.inputtext_normal);
+            letraM.setTextColor(getResources().getColor(R.color.whiteColor));
+            letraH.setTextColor(getResources().getColor(R.color.gristexto));
         }
 
         editNames.setText(registerUser.getNombre());
@@ -420,7 +449,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         }
         int position = 0;
         for (int i = 0; i < states.size(); i++) {
-            if (states.get(i).ID_EntidadNacimiento.equals(registerUser.getLugarNacimiento()))
+            if (states.get(i).ID_EntidadNacimiento.equals(registerUser.getIdEstadoNacimineto()))
                 position = i;
         }
         spinnerBirthPlace.setSelection(position);
@@ -444,8 +473,12 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 break;
             case R.id.btnNextPersonalInfo:
                 validateForm();
+                colorboton();
                 break;
             case R.id.editCountry:
+                onCountryClick();
+                break;
+                case R.id.icon_lugarde:
                 onCountryClick();
                 break;
             case R.id.imageViewValidation:
@@ -502,6 +535,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         text_nombre.setBackgroundResource(R.drawable.inputtext_normal);
                         //editNames.setIsValid();
                     }
+                    colorboton();
                 }
             }
         });
@@ -536,9 +570,69 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                         text_apater.setBackgroundResource(R.drawable.inputtext_normal);
                         // editFirstLastName.setIsValid();
                     }
+                    colorboton();
                 }
             }
         });
+
+    }
+
+    public void colorboton() {
+        getDataForm();
+        boolean isValid = true;
+        if (genero == null || genero.equals("")) {
+            isValid = false;
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+
+        if (nombre.isEmpty()) {
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+            isValid = false;
+        }
+        if (apPaterno.isEmpty()) {
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && actualDate != null) {
+
+            Calendar mCalendar = Calendar.getInstance();
+            mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+
+            if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+                btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+
+                isValid = false;
+            }
+        }
+
+        if (fechaNacimiento.isEmpty()) {
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+            isValid = false;
+        }
+
+        if (lugarNacimiento.isEmpty()) {
+            btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+            isValid = false;
+        }
+
+        if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals("Extranjero")) {
+            if (country == null) {
+                btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_gray);
+                isValid = false;
+            }
+        }
+        if (isValid) {
+              btnNextDatosPersonales.setBackgroundResource(R.drawable.button_rounded_blue);
+        }
+
+
+
 
     }
 
@@ -679,7 +773,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
         if (BuildConfig.DEBUG) {
-            onValidationSuccess();
+              onValidationSuccess();
+          //  accountPresenter.validatePersonDatanew();
         } else {
             accountPresenter.validatePersonDatanew();
         }
@@ -693,6 +788,8 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             idEstadoNacimiento = ((DtoStates) spinnerBirthPlace.getSelectedItem()).ID_EntidadNacimiento;
+        }else {
+            lugarNacimiento = "";
         }
     }
 
@@ -702,9 +799,12 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         txtlugarnacimiento.setBackgroundResource(R.drawable.inputtext_normal);
 
         if (itemSelected.ID_EntidadNacimiento.equals("0")) {
+            lugarnacimientomens.setVisibility(GONE);
+            colorboton();
         } else {
             lugarnacimientomens.setVisibility(VISIBLE);
             lugarnacimientomens.setTextColor(getResources().getColor(R.color.colorAccent));
+
         }
         if (itemSelected.ID_EntidadNacimiento.equals("33")) {
             if (country != null) {
@@ -718,12 +818,14 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 lytCountry.setBackgroundResource(R.drawable.inputtext_error);
                 //errorCountryMessage.setVisibility(VISIBLE);
             }
+            colorboton();
         } else {
             hideValidationError(editCountry.getId());
             lytCountry.setVisibility(GONE);
             //errorCountryMessage.setVisibility(GONE);
             //errorCountryMessage.setMessageText("");
             country = null;
+            colorboton();
         }
     }
 
@@ -838,6 +940,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
         country = item;
         editCountry.setText(country.getPais());
         lytCountry.setBackgroundResource(R.drawable.inputtext_normal);
+
 
     }
 }

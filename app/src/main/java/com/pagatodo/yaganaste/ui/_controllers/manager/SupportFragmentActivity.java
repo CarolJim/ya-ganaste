@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -26,12 +27,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-
-
-/**
- * Created by jguerras on 29/11/2016.
- * Updated by flima on 8/02/2017.
- */
 
 public abstract class SupportFragmentActivity extends AppCompatActivity implements OnEventListener {
 
@@ -68,34 +63,34 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
+    protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction, false);
         UI.hideKeyBoard(this);
     }
 
-    public void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
                                 boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, addToBackStack);
         UI.hideKeyBoard(this);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
-                                boolean addToBackStack) {
+    public void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
+                             boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, direction, addToBackStack);
         UI.hideKeyBoard(this);
     }
@@ -174,6 +169,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         super.startActivityForResult(intent, requestCode);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         isFromActivityForResult = true;

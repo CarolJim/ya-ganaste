@@ -1,40 +1,50 @@
 package com.pagatodo.yaganaste.modules.register.RegistroCompleto
 
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pagatodo.yaganaste.R
+import com.pagatodo.yaganaste.databinding.FragmentRegistroCompletoBinding
 import com.pagatodo.yaganaste.ui._manager.GenericFragment
 
-class RegistroCompletoFragment : GenericFragment() {
+class RegistroCompletoFragment : GenericFragment(), RegistroCompletoContracts.Presenter, View.OnClickListener {
+
+    private lateinit var binding: FragmentRegistroCompletoBinding
+    private lateinit var router: RegistroCompletoContracts.Router
+    private lateinit var iteractor: RegistroCompletoContracts.Iteractor
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegistroCompletoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() = RegistroCompletoFragment().apply {}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        router = RegistroCompletoRouter(activity!!)
+        iteractor = RegistroCompletoIteractor(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registro_completo, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_registro_completo, container, false)
+        initViews()
+        return binding.root
     }
 
     override fun initViews() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        binding.btnFinishRegister.setOnClickListener(this)
+    }
+
+    override fun onDataSaved() {
+        router.presentMainScreen()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            binding.btnFinishRegister.id -> /*iteractor.saveData()*/ router.presentMainScreen()
+        }
     }
 }

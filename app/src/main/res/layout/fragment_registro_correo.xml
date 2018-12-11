@@ -18,128 +18,139 @@
         android:layout_weight=".3"
         android:orientation="vertical">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/titulo_datos_usuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/titulo_datos_usuario_ea"
-            android:textAlignment="center"
-            android:textColor="@color/gristexto"
-            android:textSize="16sp"
-            app:tipo="Text" />
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/titulo_datos_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/crear_cuenta"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        app:tipo="Text" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_email"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/edit_nombre"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/inputtext_normal"
+        android:gravity="center_vertical"
+        android:hint="@string/correo_electronico"
+        android:maxLines="1"
+        android:textColorHint="@color/texthint"
+        app:counterEnabled="true"
+        app:counterMaxLength="1"
+        app:hintTextAppearance="@style/HintText"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:passwordToggleTint="@color/hint_color"
+        tools:ignore="UnusedAttribute">
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:theme ="@style/NewEdittextwallet"
+            android:textColor="@color/grayColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="17dp"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:layout_marginBottom="9dp"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_email"
+            android:id="@+id/text_password"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/edit_nombre"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center_vertical"
-            android:hint="@string/correo_electronico"
+            android:hint="@string/contrasena_usuario"
             android:maxLines="1"
             android:textColorHint="@color/texthint"
             app:counterEnabled="true"
             app:counterMaxLength="1"
-            app:counterOverflowTextAppearance="@style/CounterOverFlow"
             app:hintTextAppearance="@style/HintText"
-            app:passwordToggleTint="@color/hint_color"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent"
             tools:ignore="UnusedAttribute">
 
             <EditText
-                android:id="@+id/edit_email"
+                android:id="@+id/edit_password"
+                android:theme ="@style/NewEdittextwallet"
+                android:textColor="@color/grayColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="17dp"
                 android:layout_marginBottom="9dp"
                 android:background="@android:color/transparent"
+                android:digits="0,1,2,3,4,5,6,7,8,9"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword|number"
+                android:maxLength="6"
+                android:cursorVisible="false"
+                android:paddingLeft="15dp"
+                android:password="true"
                 android:singleLine="true"
-                android:textColor="@color/grayColor"
-                android:theme="@style/NewEdittextwallet" />
+                />
 
         </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/img_password"
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_passwordconfirm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_height="50dp"
+            android:layout_below="@+id/edit_nombre"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/inputtext_normal"
+            android:gravity="center_vertical"
+            android:hint="@string/contrasena_confirma"
+            android:maxLines="1"
+            android:textColorHint="@color/texthint"
+            app:counterEnabled="true"
+            app:counterMaxLength="1"
+            app:hintTextAppearance="@style/HintText"
+            app:counterOverflowTextAppearance="@style/CounterOverFlow"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent"
+            tools:ignore="UnusedAttribute">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            <EditText
+                android:id="@+id/edit_passwordconfirm"
+                android:theme ="@style/NewEdittextwallet"
+                android:textColor="@color/grayColor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Crea tu contraseña (6 números)"
-                android:textAlignment="center"
-                android:textColor="@color/grayColor" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="9dp"
+                android:background="@android:color/transparent"
+                android:digits="0,1,2,3,4,5,6,7,8,9"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword|number"
+                android:maxLength="6"
+                android:cursorVisible="false"
+                android:paddingLeft="15dp"
+                android:password="true"
+                android:singleLine="true"
+                />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/ic_password" />
-
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:visibility="visible"
-                android:id="@+id/text_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Crea tu contraseña (6 números)"
-                android:textAlignment="center"
-                android:textColor="#46606a"
-                android:textSize="16sp" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits
-                android:id="@+id/customPassSixDigits"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-
-            </com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits>
-        </LinearLayout>
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:visibility="visible"
-                android:id="@+id/text_password_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Confirma tu contraseña"
-                android:textAlignment="center"
-                android:textColor="#46606a"
-                android:textSize="16sp" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits
-                android:id="@+id/customPassSixDigitsConfirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-
-            </com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits>
-        </LinearLayout>
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
@@ -147,8 +158,8 @@
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical">
@@ -176,6 +187,7 @@
                 android:id="@+id/btnNextDatosUsuario"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:gravity="center"
+                android:background="@drawable/button_rounded_gray"
                 android:text="@string/nextButton" />
         </LinearLayout>
 

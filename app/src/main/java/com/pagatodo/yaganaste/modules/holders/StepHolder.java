@@ -16,8 +16,9 @@ import com.pagatodo.yaganaste.ui_wallet.holders.OnClickItemHolderListener;
 public class StepHolder extends GenericHolder {
 
     private LinearLayout stepState;
-    private ImageView check;
+    private LinearLayout check;
     private TextView numText;
+    private TextView textNumCheck;
     private AnimatedVectorDrawable drawable;
 
 
@@ -31,6 +32,7 @@ public class StepHolder extends GenericHolder {
         this.stepState = this.itemView.findViewById(R.id.step_inactive);
         this.numText = this.itemView.findViewById(R.id.text_num);
         this.check = this.itemView.findViewById(R.id.step_check);
+        this.textNumCheck = this.itemView.findViewById(R.id.text_num_check);
     }
 
     @Override
@@ -41,6 +43,7 @@ public class StepHolder extends GenericHolder {
                 drawable = (AnimatedVectorDrawable) stepBarItem.getResource();
                 this.check.setImageDrawable(drawable);
             } else {*/
+            this.textNumCheck.setText(stepBarItem.getNumText());
                 switch (stepBarItem.getState()) {
                     case inactive:
                         this.stepState.setVisibility(View.VISIBLE);
@@ -58,6 +61,7 @@ public class StepHolder extends GenericHolder {
                         break;
                     case check:
                         this.check.setVisibility(View.VISIBLE);
+
                         this.stepState.setVisibility(View.GONE);
                         break;
                 }

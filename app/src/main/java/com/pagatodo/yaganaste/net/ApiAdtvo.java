@@ -368,7 +368,6 @@ public class ApiAdtvo extends Api {
                 headers, request, GenericResponse.class, result);
     }
 
-
     /**
      * Método que se invoca para que un Cliente se vuelva Agente.
      *
@@ -381,6 +380,21 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(CREAR_AGENTE,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createAgentUrl),
+                headers, request, CrearAgenteResponse.class, result);
+    }
+
+    /**
+     * Método que se invoca para que un Cliente se vuelva Agente.
+     *
+     * @param request {@link CrearAgenteRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void crearAgenteWallet(CrearAgenteRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+        NetFacade.consumeWS(CREAR_AGENTE,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createAgentWallet),
                 headers, request, CrearAgenteResponse.class, result);
     }
 
@@ -932,7 +946,7 @@ public class ApiAdtvo extends Api {
                 headers, null, InformacionAgenteResponse.class, result);
     }
 
-   public static void cancelAccount(CancelRequest request, IRequestResult result) throws OfflineException {
+    public static void cancelAccount(CancelRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put("Content-type", "application/json");
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());

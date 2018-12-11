@@ -41,11 +41,13 @@ import com.pagatodo.yaganaste.utils.camera.CameraSourcePreview;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.pagatodo.yaganaste.modules.register.RegActivity.RESULT_CODE_KEYBOARD;
+
 /**
  * Created by Jordan on 19/04/2017.
  */
 
-public class ScannVisionActivity extends SupportFragmentActivity implements View.OnClickListener,
+public class ScannVisionActivity extends AppCompatActivity implements View.OnClickListener,
         BarcodeTracker.BarcodeGraphicTrackerCallback {
     // Constants used to pass extra data in the intent
     public static final String BarcodeObject = "Barcode";
@@ -65,12 +67,13 @@ public class ScannVisionActivity extends SupportFragmentActivity implements View
     private boolean isLight;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);*/
         setContentView(R.layout.activity_barcode_scan);
         (findViewById(R.id.button_capture)).setOnClickListener(this);
+        (findViewById(R.id.button_keyboard)).setOnClickListener(this);
         (findViewById(R.id.btn_back)).setOnClickListener(this);
         if (getIntent().getExtras() != null) {
             isQrcode = getIntent().getExtras().getBoolean(QRObject);
@@ -192,11 +195,11 @@ public class ScannVisionActivity extends SupportFragmentActivity implements View
         startCameraSource();
     }
 
-    @Override
+    /*@Override
     public boolean requiresTimer() {
         return true;
     }
-
+*/
     @Override
     protected void onPause() {
         super.onPause();
@@ -296,6 +299,10 @@ public class ScannVisionActivity extends SupportFragmentActivity implements View
                 this.isLight = mCameraSource.turnOnAndOffLight(this.isLight);
                 break;
             case R.id.btn_back:
+                finish();
+                break;
+            case R.id.button_keyboard:
+                setResult(RESULT_CODE_KEYBOARD);
                 finish();
                 break;
         }

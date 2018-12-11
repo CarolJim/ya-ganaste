@@ -28,8 +28,8 @@
 
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
-    <!--<string name="createAgentUrl">/CrearAgente</string>-->
-    <string name="createAgentUrl">/CrearAgenteWallet</string>
+    <string name="createAgentUrl">/CrearAgente</string>
+    <string name="createAgentWallet">/CrearAgenteWallet</string>
     <!--<string name="createUserClientUrl">/CrearUsuarioCliente</string>-->
     <string name="createUserClientUrl">/CrearUsuarioClienteWallet</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
@@ -416,7 +416,7 @@
     <string name="msg_renapo">Validando información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_desc">Para finalizar, pulsa el botón “Enviar SMS”\nasí vincularémos tu número de teléfono a\ntu cuenta Ya Ganaste</string>
+    <string name="activacion_sms_desc">Para finalizar, vincularemos tu número\nde teléfono a tu cuenta Ya Ganaste\n\nPulsa “Enviar SMS”</string>
     <string name="activacion_sms_mes_1">Para terminar tu registro, debemos\nasociar tu número telefónico con tu cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_2">Pulsa el botón y enviaremos un SMS\npara realizar este proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
@@ -1641,7 +1641,7 @@
     <string name="titulo_datos_usuario_ea">Registra tus datos de usuario\npara crear tu cuenta</string>
 
     <!--Nuevo Registro  Datos Personales-->
-    <string name="titulo_datos_personales_ea">Ingresa tus datos tal como aparecen\nen tu identificación</string>
+    <string name="titulo_datos_personales_ea">Ingresar Datos</string>
     <string name="confirmardatos">Confirmar datos </string>
 
     <!--Nuevo Registro  Datos Personales-->
@@ -1652,8 +1652,6 @@
     <!--Nuevo Registro  Datos Negocio-->
     <string name="titulo_info_negocio">Compártenos algunos datos de tu negocio o profesión</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="vigentes_promos">Vigentes</string>
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
     <string name="centrar_mapa">Centrar mapa</string>
@@ -1669,4 +1667,15 @@
     <!-- Nueva Pantalla Registro Completado -->
     <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
     <string name="desc_register_complete">\u2713   Aceptar pagos desde celulares con las principales apps bancarias\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Recibir tu dinero de inmediato\n\n\u2713   Pagar a proveedores o enviar dinero a familiares y amigos\n\n\u2713   Hacer recargas y pagar tus servicios.</string>
+
+
+    <!-- Codigo fisico -->
+    <string name="code_qr_linked_label">Códigos QR vinculados\na tu cuenta</string>
+    <string name="enter_qr_number">Ingresar Número QR</string>
+    <string name="qr_number">Número QRR</string>
+    <string name="qr_code">QR code</string>
+    <string name="enter_a_name">Ingresa un Nombre para Identificar tu Código</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="title_code_fragment">Códigos QR vinculados\na tu cuenta</string>
+    <string name="title_code_digital_fragment">Hemos generado un código QR\npara tu negocio</string>
 </resources>
