@@ -187,6 +187,7 @@
                 android:id="@+id/btnNextDatosUsuario"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:gravity="center"
+                android:background="@drawable/button_rounded_gray"
                 android:text="@string/nextButton" />
         </LinearLayout>
 

@@ -514,7 +514,6 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         }
 
         if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty())
-
         {
             // showValidationError(spColonia.getId(), getString(R.string.datos_domicilio_colonia));
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

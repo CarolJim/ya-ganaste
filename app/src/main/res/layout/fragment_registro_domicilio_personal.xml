@@ -280,7 +280,9 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextSelectZip"
                 style="@style/buttonSquareRoundedBluenewRegister"
+                android:layout_height="match_parent"
                 android:gravity="center"
+                android:background="@drawable/button_rounded_gray"
                 android:text="@string/confirmardatos" />
         </LinearLayout>
 
