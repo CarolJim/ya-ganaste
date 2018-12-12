@@ -77,7 +77,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     LinearLayout password_confirm;
     @BindView(R.id.customPassSixDigitsConfirm)
     CustomPassSixDigits customPassSixDigitsConfirm;
-
+    boolean emailvalid=true;
     private View rootview;
     private Preferencias preferencias;
     private AccountPresenterNew accountPresenter;
@@ -303,7 +303,16 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             //  editNames.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_personal_nombre), Snackbar.LENGTH_SHORT);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
+            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+        if (userExist) {
+            //showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+            //  editNames.setIsInvalid();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_SHORT);
             text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
@@ -387,7 +396,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void isChecked() {
         getDataForm();
         boolean isValid = true;
-        if (email == null || email.equals("")) {
+        if (email == null || email.equals("") || userExist) {
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
