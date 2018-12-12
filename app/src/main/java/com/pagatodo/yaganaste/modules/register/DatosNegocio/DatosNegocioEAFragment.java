@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -74,6 +75,8 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     EditText editBussinesName;
     @BindView(R.id.txtgiro)
     LinearLayout txtgiro;
+    @BindView(R.id.spiner1)
+    ImageView spiner1;
 
     @BindView(R.id.btnNextDatosNegocio)
     StyleButton btnNextDatosNegocio;
@@ -115,6 +118,9 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
                 validateForm();
             }
         });
+
+        spiner1.setOnClickListener(view -> spinnerBussineLine.performClick());
+
         if (girosComercio == null) {
             girosComercio = new ArrayList<>();
             Giros giroHint = new Giros();
