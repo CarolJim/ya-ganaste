@@ -4,11 +4,21 @@ import java.io.Serializable;
 
 public class QRs implements Serializable {
 
-    String alias,plate;
+    private String alias,plate;
+    private boolean isDigital;
 
-    public QRs(String alias, String plate) {
+    public QRs(String alias, String plate, boolean isDigital) {
         this.alias = alias;
         this.plate = plate;
+        this.isDigital = isDigital;
+    }
+
+    public boolean isDigital() {
+        return isDigital;
+    }
+
+    public void setDigital(boolean digital) {
+        isDigital = digital;
     }
 
     public String getAlias() {

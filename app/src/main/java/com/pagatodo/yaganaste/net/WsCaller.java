@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.net;
 
 import android.util.Log;
 
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
@@ -47,6 +48,117 @@ public class WsCaller implements IServiceConsumer {
         Tracer tracer = new Tracer(RequestHeaders.getUsername(), request.getMethod_name().name());
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
+        if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+            Log.d(TAG, "Request : " + request.get_url_request());
+        }
+        if (request.getHeaders() != null && request.getHeaders().size() > 0) {
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d(TAG, "Headers : ");
+            }
+            for (String name : request.getHeaders().keySet()) {
+                String key = name.toString();
+                String value = request.getHeaders().get(name).toString();
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d(TAG, key + " : " + value);
+                }
+            }
+        }
+
+        if (request.getBody() != null)
+            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                Log.d(TAG, "Body Request : " + request.getBody().toString());
+            }
+        CustomJsonObjectRequest jsonRequest = new CustomJsonObjectRequest(
+                request.getMethod(),
+                request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
+                request.getMethod() == POST ? request.getBody() : null,
+                response -> {
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d(TAG, "Response Success : " + response.toString());
+                    }
+                    tracer.End();
+                    if (request.getRequestResult() != null) {
+                        DataSourceResult dataSourceResult = new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse()));
+                        //GenericResponse genericResponse  = (GenericResponse) dataSourceResult.getData();
+                        /*if (genericResponse.getCodigoRespuesta() != Recursos.CODE_OK){
+
+
+                                tracer.setStatusRequest(SUCESS);
+                                tracer.setStatusWS(dataSourceResult.getData().toString());
+                                tracer.setConnection(Utils.getTypeConnection());
+                                tracer.setDuration(tracer.getFinalTime()-tracer.getStartTime());
+                                tracer.getTracerSucess();
+
+                        } else {
+
+                            tracer.setStatusRequest(FAILED);
+                            tracer.setStatusWS(String.valueOf(genericResponse.getCodigoRespuesta()));
+                            tracer.setConnection(Utils.getTypeConnection());
+                            tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                            tracer.getTracerError();
+                        }*/
+                        tracer.setStatusRequest(SUCESS);
+                        tracer.setStatusWS(dataSourceResult.getData().toString());
+                        tracer.setConnection(Utils.getTypeConnection());
+                        tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                        tracer.getTracerSucess();
+
+                        request.getRequestResult().onSuccess(dataSourceResult);
+
+
+                    } else {
+
+                        tracer.setStatusRequest(FAILED);
+                        tracer.setStatusWS("Null");
+                        tracer.setConnection(Utils.getTypeConnection());
+                        tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                        tracer.getTracerError();
+                    }
+
+                },
+                error -> {
+                    if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                        Log.d(TAG, error.toString());
+                        Log.d(TAG, "Request Failed : " + error.getMessage());
+                    }
+                    if (request.getRequestResult() != null) {
+                        if (error.networkResponse != null) {
+                            if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                                Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
+                            }
+                        }
+                        request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
+                    }
+                    tracer.End();
+                    tracer.setStatusRequest(FAILED);
+                    tracer.setStatusWS("Time out");
+                    tracer.setConnection(Utils.getTypeConnection());
+                    tracer.setDuration(tracer.getFinalTime() - tracer.getStartTime());
+                    tracer.getTracerError();
+
+                }, request.getHeaders()) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
+                    Log.d(TAG, "Http Status : " + response.statusCode);
+                }
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
+                request.getTimeOut(),
+                0,//Se quitan los reintentos para validar si esto arroja SocketException
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //TRACER
+        tracer.Start();
+        volleySingleton.addToRequestQueue(jsonRequest);
+    }
+
+    @Override
+    public void sendJsonPost(WsRequest request, boolean pin) {
+        Tracer tracer = new Tracer(RequestHeaders.getUsername(), request.getMethod_name().name());
+        VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext(), pin);
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.d(TAG, "Request : " + request.get_url_request());
         }

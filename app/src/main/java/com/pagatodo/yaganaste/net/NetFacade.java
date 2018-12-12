@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.net;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
@@ -13,7 +15,17 @@ import com.pagatodo.yaganaste.utils.JsonManager;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
@@ -49,15 +61,57 @@ public class NetFacade {
     }
 
 
-    public static void consumeWSnotag(WebService method_name, HttpMethods method, String urlService, Map<String, String> headers, Object oRequest, Type responseType, IRequestResult requestResult) throws OfflineException {
-
+    public static void consumeWSnotag(WebService method_name, HttpMethods method, String urlService,
+                                      Map<String, String> headers, Object oRequest, Type responseType,
+                                      IRequestResult requestResult, boolean needPins) throws OfflineException {
         if (UtilsNet.isOnline(App.getContext())) {
+            if (!needPins)
+                disableSSLValidation();
             WsCaller wsCaller = new WsCaller();
             wsCaller.sendJsonPost(createRequestnorequesttag(method_name, method, urlService, oRequest,
-                    getMethodType(method) == POST, headers, responseType, requestResult));
+                    getMethodType(method) == POST, headers, responseType, requestResult), needPins);
         } else {
             throw new OfflineException();
         }
+    }
+
+    /**
+     * Create a trust manager for Web Services that include SSL Certificates
+     * WARNING: ONLY USED WITH WS THAT AREN'T PART OF BANKING PROJECT
+     */
+    private static void disableSSLValidation() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
+
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
+        }
+        };
+        // Install the all-trusting trust manager
+        SSLContext sc = null;
+        try {
+            sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            Log.d("test_disable", "OK========");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
 
     public static void consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String, String> headers, Object oRequest, boolean envolve, Type responseType, IRequestResult requestResult) throws OfflineException {

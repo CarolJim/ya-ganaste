@@ -99,7 +99,6 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">@dimen/frag_adquirente_final_titulo_text_Size</item>
         <item name="android:gravity">center</item>
-        <item name="android:textAlignment">center</item>
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">24dp</item>
 
@@ -265,7 +264,6 @@
 
     <style name="textHelp">
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textAlignment">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/whiteColor_disable</item>
         <item name="android:textSize">12sp</item>
@@ -275,7 +273,6 @@
         <item name="android:layout_margin">5dp</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textAlignment">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="android:textSize">24sp</item>
@@ -340,7 +337,7 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="RadioButtonTheme" parent="@style/AppTheme">
+    <style name="RadioButtonTheme" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:colorControlNormal">#64dd17</item>
         <item name="android:colorControlActivated">#460745</item>
         <item name="android:colorControlHighlight">#c51162</item>
@@ -590,7 +587,7 @@
     </style>
 
     <style name="formatPIN">
-        <item name="android:textColor">@color/wallet_holo_blue_light</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>

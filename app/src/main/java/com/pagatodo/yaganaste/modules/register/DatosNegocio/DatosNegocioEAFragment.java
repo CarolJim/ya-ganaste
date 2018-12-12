@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -103,7 +104,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         rootView.findViewById(R.id.btnNextDatosUsuario).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activityf.getRouter().showPhysicalCode();
+                activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
             }
         });
 

@@ -197,6 +197,8 @@ public enum WebService {
     /* Obtener Informacion Comercio */
     INFO_COMERCIO,
     /* Consultar Saldo UyU */
-    CONSULT_BALANCE_UYU
+    CONSULT_BALANCE_UYU,
+    /* validacion de plates*/
+    VALIDATE_PLATE
 }
 

@@ -38,6 +38,7 @@ public class VolleySingleton {
     private static Context mCtx;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+    private boolean needPin = true;
     public static String REQUEST_TAG = "VOLLEY_REQUEST_TAG";
 
     /**
@@ -45,9 +46,13 @@ public class VolleySingleton {
      *
      * @param context {@link Context}
      */
-    private VolleySingleton(Context context) {
+    private VolleySingleton(Context context, boolean pin) {
         mCtx = context;
-        mRequestQueue = getRequestQueue();
+        if (pin) {
+            mRequestQueue = getRequestQueue();
+        } else {
+            mRequestQueue = getRequestQueueNoPin();
+        }
 
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {
@@ -66,9 +71,17 @@ public class VolleySingleton {
                 });
     }
 
+
     public static synchronized VolleySingleton getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new VolleySingleton(context);
+            mInstance = new VolleySingleton(context, true);
+        }
+        return mInstance;
+    }
+
+    public static synchronized VolleySingleton getInstance(Context context, boolean pin) {
+        if (mInstance == null) {
+            mInstance = new VolleySingleton(context, pin);
         }
         return mInstance;
     }
@@ -92,12 +105,18 @@ public class VolleySingleton {
 
             ClientConnectionManager connectionManager = new ThreadSafeClientConnManager(httpParameters, schemeRegistry);
             DefaultHttpClient httpClient = new DefaultHttpClient(connectionManager, httpParameters);
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
             mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new HttpClientStack(httpClient));
         }
         return mRequestQueue;
     }
+
+    public RequestQueue getRequestQueueNoPin() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+        }
+        return mRequestQueue;
+    }
+
 
     public <T> void addToRequestQueue(Request<T> req) {
         req.setTag(REQUEST_TAG);

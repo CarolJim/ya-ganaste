@@ -13,4 +13,6 @@ import com.pagatodo.yaganaste.net.WsRequest;
 public interface IServiceConsumer {
 
     void sendJsonPost(final WsRequest request);
+
+    void sendJsonPost(final WsRequest request,boolean pin);
 }

@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.Preferencias;
+import com.pagatodo.yaganaste.data.model.RegisterUserNew;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
@@ -27,6 +28,8 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,6 +92,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
         btnNextDatosUsuario.setOnClickListener(this);
         setValidationRules();
     }
