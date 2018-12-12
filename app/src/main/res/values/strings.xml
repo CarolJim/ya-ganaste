@@ -57,7 +57,8 @@
     <string name="fondearCupoUrl">/FondearCupo</string>
     <string name="getBalanceAdqUrl">/ConsultarSaldoADQ</string>
     <string name="getSucursales">/LocalizarSucursales</string>
-    <string name="obtenerSubgiros">/ObtenerSubgiros</string>
+    <!--<string name="obtenerSubgiros">/ObtenerSubgiros</string>-->
+    <string name="obtenerSubgiros">/ObtenerSubgirosWallet</string>
     <string name="obteneroperadores">/ObtenerOperadores</string>
     <string name="obtenerresumendia">/agMov/ObtenerResumenDia?fecha=</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
@@ -1652,7 +1653,8 @@
     <string name="terminosaviso">Al crear una cuenta, acepto los\nTérminos y Condiciones y el Aviso de Privacidad</string>
 
     <!--Nuevo Registro  Datos Negocio-->
-    <string name="titulo_info_negocio">Compártenos algunos datos de tu negocio o profesión</string>
+    <string name="titulo_info_negocio">Compártenos algunos datos\nde tu negocio o profesión</string>
+    <string name="titulo_info_negociob">Información Adicional</string>
 
     <string name="vigentes_promos">Vigentes</string>
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
