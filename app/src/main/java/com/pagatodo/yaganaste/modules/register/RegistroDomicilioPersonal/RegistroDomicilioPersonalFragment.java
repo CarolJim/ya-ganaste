@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -72,6 +75,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     @BindView(R.id.text_calle)
     TextInputLayout text_calle;
 
+    @BindView(R.id.txtcoloria)
+    LinearLayout txtcoloria;
+
     @BindView(R.id.text_num_exterior)
     TextInputLayout text_num_exterior;
 
@@ -82,10 +88,13 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     TextInputLayout text_cp;
 
     @BindView(R.id.spColonia)
-    Spinner spColonia;
-
+    AppCompatSpinner spColonia;
+    int positioncol;
     @BindView(R.id.imgcp)
     ImageView imgcp;
+
+    @BindView(R.id.aux_codepostal)
+    EditText aux_codepostal;
 
     private AccountPresenterNew accountPresenter;
 
@@ -104,7 +113,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     private String numExt = "";
     private String numInt = "";
     private String codigoPostal = "";
-
+    private String colonia = "";
+    private String Idcolonia = "";
 
 
     private static RegActivity activityf;
@@ -139,13 +149,98 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     public void initViews() {
         ButterKnife.bind(this,rootView);
         activityf.nextStep();
+        imgcp.setOnClickListener(view -> spColonia.performClick());
         btnNextSelectZip.setOnClickListener(this::onClick);
         coloniasNombre = new ArrayList<String>();
         coloniasNombre.add(getString(R.string.colonia));
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spColonia.setAdapter(adapterColonia);
+        editExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideValidationError(editExtNumber.getId());
+                    //  editExtNumber.imageViewIsGone(true);
+                    text_num_exterior.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    if (editExtNumber.getText().toString().isEmpty()) {
+                        //   showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
+                        //    editExtNumber.setIsInvalid();
+
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
+                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {
+                        //hideValidationError(editExtNumber.getId());
+                        //  editExtNumber.setIsValid();
+                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_normal);
+                        colorBoton();
+                    }
+                }
+            }
+        });
 
 
+
+
+        editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    //    editIntNumber.imageViewIsGone(true);
+                    text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
+                } else {
+                    /*if (editIntNumber.getText().toString().isEmpty()) {
+                        text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
+                    } else {*/
+                    text_num_interior.setBackgroundResource(R.drawable.inputtext_normal);
+                    //}
+                }
+            }
+        });
+
+        editStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideValidationError(editStreet.getId());
+                    // editStreet.imageViewIsGone(true);
+                    text_calle.setBackgroundResource(R.drawable.inputtext_active);
+
+                    } else {
+                    if (editStreet.getText().toString().isEmpty()) {
+                        //showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
+
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
+                        text_calle.setBackgroundResource(R.drawable.inputtext_error);
+
+                        //   editStreet.setIsInvalid();
+                    } else {
+                        hideValidationError(editStreet.getId());
+                        // editStreet.setIsValid();
+                        text_calle.setBackgroundResource(R.drawable.inputtext_normal);
+                    }
+                    colorBoton();
+                }
+            }
+        });
+
+        spColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+           colorBoton();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSpinnerClick();
+            }
+
+
+        });
 
 
         editZipCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -162,6 +257,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                     return true;
                 }
                 else {
+                    colorBoton();
                     return false;
                 }
             }
@@ -240,30 +336,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
-
-       /* editZipCode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (editZipCode.getText().length()==5){
-                    text_cp.setBackgroundResource(R.drawable.inputtext_normal);
-                    showLoader(getString(R.string.search_zipcode));
-                    accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-*/
+    setValidationRules();
     }
 
     @Override
@@ -279,7 +352,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @Override
     public void onSpinnerClick() {
-
+        colorBoton();
+        txtcoloria.setBackgroundResource(R.drawable.inputtext_normal);
     }
 
     @Override
@@ -294,91 +368,6 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @Override
     public void setValidationRules() {
-        //  editZipCode.addCustomTextWatcher(textWatcherZipCode);
-
-        editStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    hideValidationError(editStreet.getId());
-                    // editStreet.imageViewIsGone(true);
-                    text_calle.setBackgroundResource(R.drawable.inputtext_active);
-
-                } else {
-                    if (editStreet.getText().toString().isEmpty()) {
-                        //showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
-
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
-                        text_calle.setBackgroundResource(R.drawable.inputtext_error);
-
-                        //   editStreet.setIsInvalid();
-                    } else {
-                        hideValidationError(editStreet.getId());
-                        // editStreet.setIsValid();
-                        text_calle.setBackgroundResource(R.drawable.inputtext_normal);
-                    }
-                }
-            }
-        });
-
-        /*
-
-        editStreet.addCustomTextWatcher(new AbstractTextWatcher() {
-            @Override
-            public void afterTextChanged(String s) {
-                hideValidationError(editStreet.getId());
-                //       editStreet.imageViewIsGone(true);
-            }
-        });
-
-        */
-
-
-        editExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    hideValidationError(editExtNumber.getId());
-                    //  editExtNumber.imageViewIsGone(true);
-                    text_num_exterior.setBackgroundResource(R.drawable.inputtext_active);
-                } else {
-                    if (editExtNumber.getText().toString().isEmpty()) {
-                        //   showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
-                        //    editExtNumber.setIsInvalid();
-
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_num_ext), Snackbar.LENGTH_SHORT);
-                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {
-                        //hideValidationError(editExtNumber.getId());
-                        //  editExtNumber.setIsValid();
-                        text_num_exterior.setBackgroundResource(R.drawable.inputtext_normal);
-
-                    }
-                }
-            }
-        });
-
-
-        editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    //    editIntNumber.imageViewIsGone(true);
-                    text_num_interior.setBackgroundResource(R.drawable.inputtext_active);
-                } else {
-                    /*if (editIntNumber.getText().toString().isEmpty()) {
-                        text_num_interior.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {*/
-                    text_num_interior.setBackgroundResource(R.drawable.inputtext_normal);
-                    //}
-                }
-            }
-        });
-
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -394,6 +383,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                     } else {
                         hideValidationError(editZipCode.getId());
                         text_cp.setBackgroundResource(R.drawable.inputtext_normal);
+                        colorBoton();
                     }
                 }
             }
@@ -418,6 +408,35 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 return handled;
             }
         });
+
+    }
+
+    public void colorBoton() {
+        getDataForm();
+        boolean isValid = true;
+        if (calle.isEmpty()) {
+            isValid = false;
+            btnNextSelectZip.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (numExt.isEmpty()) {
+            isValid = false;
+            btnNextSelectZip.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (codigoPostal.isEmpty()) {
+            isValid = false;
+            btnNextSelectZip.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+
+        if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty())
+        {
+            isValid = false;
+            btnNextSelectZip.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (isValid)
+        {
+            btnNextSelectZip.setBackgroundResource(R.drawable.button_rounded_blue);
+        }
+
 
     }
 
@@ -451,11 +470,24 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             text_cp.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
+
+        if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty())
+        {
+            // showValidationError(spColonia.getId(), getString(R.string.datos_domicilio_colonia));
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_colonia), Snackbar.LENGTH_SHORT);
+            txtcoloria.setBackgroundResource(R.drawable.inputtext_error);
+
+
+            isValid = false;
+        }
         if (isValid)
         {
             if (editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                activityf.showFragmentDatosNegocio();
-        }else {
+                //activityf.showFragmentDatosNegocio();
+                activityf.getRouter().showBusinessData(Direction.FORDWARD);
+            }else {
                 UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
                 text_cp.setBackgroundResource(R.drawable.inputtext_error);
                 isValid = false;
@@ -482,9 +514,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         registerUser.setNumExterior(numExt);
         registerUser.setNumInterior(numInt);
         registerUser.setCodigoPostal(codigoPostal);
-/*        registerUser.setEstadoDomicilio(estado);
+        registerUser.setEstadoDomicilio(estadoDomicilio);
         registerUser.setColonia(colonia);
-        registerUser.setIdColonia(Idcolonia);*/
+        registerUser.setIdColonia(Idcolonia);
         activityf.showFragmentDomicilioSelectCP();
     }
 
@@ -494,6 +526,14 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         numExt = editExtNumber.getText().toString().trim();
         numInt = editIntNumber.getText().toString().trim();
         codigoPostal = editZipCode.getText().toString().trim();
+        if (spColonia.getSelectedItem() != null && listaColonias != null) {
+            colonia = spColonia.getSelectedItem().toString();
+            for (ColoniasResponse coloniaInfo : listaColonias) {
+                if (coloniaInfo.getColonia().equals(colonia)) {
+                    Idcolonia = coloniaInfo.getColoniaId();
+                }
+            }
+        }
 
     }
 
@@ -524,6 +564,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         coloniasNombre.add(getString(R.string.colonia));
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spColonia.setAdapter(adapterColonia);
+
 
         if (!error.toString().isEmpty())
             // UI.showToastShort(error.toString(), getActivity());

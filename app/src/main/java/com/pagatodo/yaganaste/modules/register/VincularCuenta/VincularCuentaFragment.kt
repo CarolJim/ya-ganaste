@@ -78,15 +78,14 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         when (v?.id) {
             binding.btnSendSms.id -> {
                 if (Utils.isDeviceOnline()) {
-                    /*when (RegisterUserNew.getInstance().statusRegistro) {
+                    when (RegisterUserNew.getInstance().statusRegistro) {
                         SIN_REGISTRO -> iteractor.createUser()
                         USUARIO_CREADO -> iteractor.createClient()
                         CUENTA_ASIGNADA -> iteractor.assignNip()
                         NIP_ASIGNADO -> iteractor.createAgent()
                         AGENTE_CREADO -> iteractor.getNumberOfSms()
                         else -> iteractor.createUser()
-                    }*/
-                    iteractor.logInUser()
+                    }
                 } else {
                     UI.showErrorSnackBar(activity!!, getString(R.string.no_internet_access), Snackbar.LENGTH_LONG)
                 }
@@ -120,7 +119,6 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     override fun onAgentCreated() {
         hideLoader()
         validatePermissions()
-        iteractor.registerUserFirebase()
         TODO("Asignacion de QR's")
     }
 

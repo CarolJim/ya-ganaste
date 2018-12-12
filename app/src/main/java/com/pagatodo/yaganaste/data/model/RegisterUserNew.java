@@ -33,11 +33,13 @@ public class RegisterUserNew {
     private String idColonia = "";
     /*Datos de Negocio*/
     private String razonSocial = "";
-    private Giros giro;
     private boolean aceptaTerminos;
-
+    //Datos de Negocio
+    private Integer IdGiro = 0;
+    private String Giro = "";
+    private String nombreNegocio = "";
+    private Giros giroComercio;
     //Datos de QRs
-
     ArrayList<QRs> qRs;
 
     public static synchronized RegisterUserNew getInstance() {
@@ -191,12 +193,8 @@ public class RegisterUserNew {
         this.razonSocial = razonSocial;
     }
 
-    public Giros getGiro() {
-        return giro;
-    }
-
-    public void setGiro(Giros giro) {
-        this.giro = giro;
+    public String getGiro() {
+        return Giro;
     }
 
     public boolean isAceptaTerminos() {
@@ -238,5 +236,41 @@ public class RegisterUserNew {
 
     public void setqRs(ArrayList<QRs> qRs) {
         this.qRs = qRs;
+    }
+
+    public int getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(int statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
+
+    public Integer getIdGiro() {
+        return IdGiro;
+    }
+
+    public void setIdGiro(Integer idGiro) {
+        IdGiro = idGiro;
+    }
+
+    public void setGiro(String giro) {
+        Giro = giro;
+    }
+
+    public String getNombreNegocio() {
+        return nombreNegocio;
+    }
+
+    public void setNombreNegocio(String nombreNegocio) {
+        this.nombreNegocio = nombreNegocio;
+    }
+
+    public Giros getGiroComercio() {
+        return giroComercio;
+    }
+
+    public void setGiroComercio(Giros giroComercio) {
+        this.giroComercio = giroComercio;
     }
 }

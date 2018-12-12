@@ -2,10 +2,9 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
 import android.util.Log
-import com.dspread.xpos.QPOSService
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
@@ -13,12 +12,9 @@ import com.pagatodo.yaganaste.BuildConfig
 import com.pagatodo.yaganaste.R
 import com.pagatodo.yaganaste.data.DataSourceResult
 import com.pagatodo.yaganaste.data.dto.ErrorObject
-import com.pagatodo.yaganaste.data.model.Card
-import com.pagatodo.yaganaste.data.model.MessageValidation
-import com.pagatodo.yaganaste.data.model.RegisterUserNew
-import com.pagatodo.yaganaste.data.model.SingletonUser
+import com.pagatodo.yaganaste.data.model.*
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.*
@@ -45,20 +41,6 @@ import java.util.*
 class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) : VincularcuentaContracts.Iteractor,
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
         IAprovView<Any> {
-
-    override fun logInUser() {
-        val requestLogin = IniciarSesionRequest("android9y@ganaste.com", Utils.cipherRSA("654321", PUBLIC_KEY_RSA))
-        RequestHeaders.setUsername("android9y@ganaste.com")
-        RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().applicationContext))
-        App.getInstance().prefs.saveData(SHA_256_FREJA, Utils.getSHA256("654321"))
-        try {
-            DatabaseManager().deleteFavorites()
-            ApiAdtvo.iniciarSesionSimple(requestLogin, this)
-        } catch (e: OfflineException) {
-            e.printStackTrace()
-            presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
-        }
-    }
 
     override fun createUser() {
         presenter.showLoader(App.getContext().getString(R.string.creating_user))
@@ -119,9 +101,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun createAgent() {
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
-        //var request = CrearAgenteRequest(registerUserSingleton.)
+        var registerAgent = RegisterAgent.getInstance()
+        registerAgent.nombre = registerUserSingleton.nombreNegocio
+        registerAgent.giro = Giros(registerUserSingleton.idGiro, registerUserSingleton.giro, null)
+        registerAgent.telefono = "5555555555"
+        var request = CrearAgenteRequest(registerAgent, 1, null)
         try {
-            //ApiAdtvo.crearAgente(request, this)
+            ApiAdtvo.crearAgenteWallet(request, this)
         } catch (e: Exception) {
             e.printStackTrace()
             presenter.onErrorService(App.getContext().getString(R.string.no_internet_access))
@@ -164,22 +150,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun provisionDevice() {
         super.setAprovView(this)
         super.doProvisioning()
-    }
-
-    override fun registerUserFirebase() {
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "123456").addOnCompleteListener { task ->
-            App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
-            if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
-                val user = auth.currentUser
-                App.getInstance().prefs.saveData(TOKEN_FIREBASE_AUTH, user!!.uid)
-                val users = HashMap<String, String?>()
-                users["Mbl"] = SingletonUser.getInstance().dataUser.emisor.cuentas[0].telefono.replace(" ", "")
-                users["DvcId"] = FirebaseInstanceId.getInstance().token
-                FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).reference.child(user.uid).setValue(users)
-            }
-        }
     }
 
     override fun onSuccess(data: DataSourceResult?) {
@@ -302,7 +272,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 } else {
                     presenter.onErrorService(data.mensaje)
                 }
-            }
+            }/*
             is DataSourceResult -> {
                 var result = data.data as IniciarSesionUYUResponse
                 if (result.codigoRespuesta == CODE_OK) {
@@ -328,7 +298,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 } else {
                     presenter.onErrorService(result.mensaje)
                 }
-            }
+            }*/
         }
     }
 

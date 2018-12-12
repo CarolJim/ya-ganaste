@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/group_postal_code"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Código Postal"
+            android:textColor="@color/blue_text_wallet" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textColor="@color/grayColor"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/edt1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/gray_space"></LinearLayout>
+
+        <EditText
+            android:textColor="@color/grayColor"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/edt2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/gray_space"></LinearLayout>
+
+        <EditText
+            android:textColor="@color/grayColor"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/edt3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/gray_space"></LinearLayout>
+
+        <EditText
+            android:textColor="@color/grayColor"
+            android:id="@+id/edt4"
+            android:layout_width="0dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:background="@color/gray_space"></LinearLayout>
+
+        <EditText
+            android:textColor="@color/grayColor"
+            android:id="@+id/edt5"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/aux_codepostal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

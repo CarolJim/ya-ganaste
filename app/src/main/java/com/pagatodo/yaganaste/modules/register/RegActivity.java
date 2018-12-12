@@ -60,7 +60,6 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     @Override
     public void initViews() {
         router.showUserData(Direction.FORDWARD);
-        //router.showPhysicalCode(Direction.FORDWARD);
     }
 
     public void showFragmentDatosPersonales() {
@@ -133,23 +132,31 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             finish();
 
         } else if (currentFragment instanceof RegistroDatosPersonalesFragment) {
-                router.showUserData(Direction.BACK);
+            backStep();
+            router.showUserData(Direction.BACK);
             backStep();
         } else if (currentFragment instanceof RegistroDomicilioPersonalFragment) {
+            backStep();
             router.showPersonalData(Direction.BACK);
             backStep();
         } else if (currentFragment instanceof DatosNegocioEAFragment){
+            backStep();
             router.showPrsonalAddress(Direction.BACK);
             backStep();
         } else if (currentFragment instanceof PhysicalCodeFragment){
+            backStep();
             router.showBusinessData(Direction.BACK);
             backStep();
+
         } else if (currentFragment instanceof NewLinkedCodeFragment ||
                 currentFragment instanceof CodigosVinculadosFragment ||
                 currentFragment instanceof WritePlateQRFragment ) {
+            backStep();
             router.showPhysicalCode(Direction.BACK);
             backStep();
         } else if (currentFragment instanceof VincularCuentaFragment){
+            backStep();
+            backStep();
             router.showBusinessData(Direction.BACK);
             backStep();
         } else {
