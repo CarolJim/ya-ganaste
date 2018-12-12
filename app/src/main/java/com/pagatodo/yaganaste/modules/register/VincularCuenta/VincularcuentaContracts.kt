@@ -17,6 +17,7 @@ class VincularcuentaContracts {
         fun onAprovFailed(obj: Any?, tag: String)
         fun showLoader(message: String)
         fun hideLoader()
+        fun onAsignQrPhysical()
         fun onErrorService(message: String)
     }
 
@@ -25,6 +26,7 @@ class VincularcuentaContracts {
         fun createClient()
         fun assignNip()
         fun createAgent()
+        fun assignmentQrs()
         fun getNumberOfSms()
         fun verifyActivationSms()
         fun updateSession()
