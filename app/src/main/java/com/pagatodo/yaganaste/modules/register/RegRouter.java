@@ -38,7 +38,8 @@ public class RegRouter implements RegContracts.Router {
 
     @Override
     public void showUserData(Direction direction) {
-        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container, direction, false);
+        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
+                direction, false);
 
     }
 
@@ -47,7 +48,8 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showPersonalData(Direction direction) {
-        activity.loadFragment(RegistroDatosPersonalesFragment.newInstance(activity), R.id.fragment_container, direction, true);
+        activity.loadFragment(RegistroDatosPersonalesFragment.newInstance(activity),
+                R.id.fragment_container, direction, false);
     }
 
     /**
@@ -55,12 +57,14 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showPrsonalAddress(Direction direction) {
-        activity.loadFragment(RegistroDomicilioPersonalFragment.newInstance(activity), R.id.fragment_container, direction, true);
+        activity.loadFragment(RegistroDomicilioPersonalFragment.newInstance(activity),
+                R.id.fragment_container, direction, false);
     }
 
     @Override
     public void showPrsonalAddressSelectCP(Direction direction) {
-        activity.loadFragment(SeleccionaCPFragment.newInstance(activity), R.id.fragment_container, direction, true);
+        activity.loadFragment(SeleccionaCPFragment.newInstance(), R.id.fragment_container,
+                direction, false);
     }
 
     /**
@@ -68,13 +72,8 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showBusinessData(Direction direction) {
-        activity.loadFragment(DatosNegocioEAFragment.newInstance(activity), R.id.fragment_container, direction, true);
-
-    }
-
-    @Override
-    public void showQRVincualteData(Direction direction) {
-
+        activity.loadFragment(DatosNegocioEAFragment.newInstance(activity), R.id.fragment_container,
+                direction, false);
 
     }
 
@@ -82,8 +81,9 @@ public class RegRouter implements RegContracts.Router {
      * Panatalla 05
      */
     @Override
-    public void showPhysicalCode() {
-        activity.loadFragment(PhysicalCodeFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
+    public void showPhysicalCode(Direction direction) {
+        activity.loadFragment(PhysicalCodeFragment.newInstance(), R.id.fragment_container,
+                direction, false);
     }
 
     /**
@@ -101,7 +101,8 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showNewLinkedCode(String displayValue) {
-        activity.loadFragment(NewLinkedCodeFragment.newInstance(displayValue, R.string.title_code_fragment), R.id.fragment_container, Direction.NONE, true);
+        activity.loadFragment(NewLinkedCodeFragment.newInstance(displayValue, R.string.title_code_fragment),
+                R.id.fragment_container, Direction.FORDWARD, false);
     }
 
     /**
@@ -109,7 +110,8 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showLinkedCodes() {
-        activity.loadFragment(CodigosVinculadosFragment.newInstance(activity), R.id.fragment_container, Direction.FORDWARD, true);
+        activity.loadFragment(CodigosVinculadosFragment.newInstance(), R.id.fragment_container,
+                Direction.FORDWARD, false);
     }
 
     /**
@@ -117,7 +119,8 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void shosWritePlateQR() {
-        activity.loadFragment(WritePlateQRFragment.newInstance(), R.id.fragment_container, Direction.NONE, true);
+        activity.loadFragment(WritePlateQRFragment.newInstance(), R.id.fragment_container,
+                Direction.NONE, false);
     }
 
     /**
@@ -125,7 +128,9 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showDigitalCode() {
-        activity.loadFragment(NewLinkedCodeFragment.newInstance("", R.string.title_code_digital_fragment), R.id.fragment_container, Direction.FORDWARD, true);
+        activity.loadFragment(NewLinkedCodeFragment.newInstance("",
+                R.string.title_code_digital_fragment), R.id.fragment_container,
+                Direction.FORDWARD, false);
     }
 
     /**
@@ -133,7 +138,8 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showSMSAndroid() {
-        activity.loadFragment(VincularCuentaFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
+        activity.loadFragment(VincularCuentaFragment.newInstance(), R.id.fragment_container,
+                Direction.FORDWARD, false);
     }
 
     /**
@@ -141,6 +147,7 @@ public class RegRouter implements RegContracts.Router {
      */
     @Override
     public void showWelcome() {
-        activity.loadFragment(RegistroCompletoFragment.newInstance(), R.id.fragment_container, Direction.FORDWARD, true);
+        activity.loadFragment(RegistroCompletoFragment.newInstance(), R.id.fragment_container,
+                Direction.FORDWARD, false);
     }
 }

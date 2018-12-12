@@ -56,7 +56,7 @@ public class SearchCarrierActivity extends LoaderActivity implements ISearchCarr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_carrier);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
         setSupportActionBar(toolbar);
 
         if (getIntent().getExtras() != null) {

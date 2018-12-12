@@ -19,11 +19,23 @@
         android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/titulo_datos_usuario"
+            android:id="@+id/titulo_datos_negocio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/titulo_info_negociob"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:tipo="Text" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/subtitulo_datos_negocio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:text="@string/titulo_info_negocio"
             android:textAlignment="center"
@@ -178,7 +190,7 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextDatosUsuario"
+                android:id="@+id/btnNextDatosNegocio"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:gravity="center"
                 android:background="@drawable/button_rounded_gray"

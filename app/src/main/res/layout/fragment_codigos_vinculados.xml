@@ -26,74 +26,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/styleTextView10"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/qr_rcv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Abarrotes Lup…"
-        android:textColor="#46606a"
-        android:textSize="14sp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_continue"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView8" />
+        app:layout_constraintTop_toBottomOf="@+id/styleTextView8">
 
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/qr_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView10" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="1652"
-        android:textSize="14sp"
-        android:textColor="#46606a"
-        app:layout_constraintEnd_toEndOf="@+id/imageView15"
-        app:layout_constraintStart_toStartOf="@+id/imageView15"
-        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Agregar QR"
-        android:textColor="#9ca2a8"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView13"
-        app:layout_constraintStart_toStartOf="@+id/imageView13"
-        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@id/progressLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:scaleType="center"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView15"
-        app:layout_constraintStart_toEndOf="@+id/imageView15"
-        app:layout_constraintTop_toTopOf="@+id/imageView15"
-        android:background="@drawable/border_cutter"
-        app:srcCompat="@drawable/ic_camera_plus" />
+    </android.support.v7.widget.RecyclerView>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/button_continue"
@@ -103,9 +47,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_yes"
-        android:text="Continuar"
+        android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@color/whiteColor"
         android:textSize="16sp"

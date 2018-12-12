@@ -12,10 +12,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 import java.util.List;
 
-/**
- * @author Juan Guerra on 15/06/2017.
- */
-
 public class SupportComponent {
 
     protected FragmentManager fragmentManager;

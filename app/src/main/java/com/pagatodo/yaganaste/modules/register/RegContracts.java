@@ -13,11 +13,12 @@ public class RegContracts {
     }
 
     public interface Listener{
-
+        void onSuccessValidatePlate(String plate);
+        void onErrorValidatePlate(String error);
     }
 
     public interface Iteractor{
-
+        void onValidateQr(String plate);
     }
 
     public interface Router{
@@ -26,8 +27,7 @@ public class RegContracts {
         void showPrsonalAddress(Direction direction); //Pantalla 03
         void showPrsonalAddressSelectCP(Direction direction); //Pantalla 03
         void showBusinessData(Direction direction); //Pantalla 04
-        void showQRVincualteData(Direction direction); //Pantalla 06b
-        void showPhysicalCode(); //Pantalla 05
+        void showPhysicalCode(Direction direction); //Pantalla 05
         void showScanQR(); //Pantalla Scan QR 06
         void shosWritePlateQR();
         void showNewLinkedCode(String displayValue);// Pantalla 06b - Códigos vinculados nuevo

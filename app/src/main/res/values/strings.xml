@@ -57,7 +57,8 @@
     <string name="fondearCupoUrl">/FondearCupo</string>
     <string name="getBalanceAdqUrl">/ConsultarSaldoADQ</string>
     <string name="getSucursales">/LocalizarSucursales</string>
-    <string name="obtenerSubgiros">/ObtenerSubgiros</string>
+    <!--<string name="obtenerSubgiros">/ObtenerSubgiros</string>-->
+    <string name="obtenerSubgiros">/ObtenerSubgirosWallet</string>
     <string name="obteneroperadores">/ObtenerOperadores</string>
     <string name="obtenerresumendia">/agMov/ObtenerResumenDia?fecha=</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
@@ -377,6 +378,7 @@
     <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
     <string name="exito_nip">"Tu NIP ha sido cambiado correctamente"</string>
+    <string name="password_invalid">No coinciden tus contraseñas</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos personales</string>
@@ -399,6 +401,8 @@
     <string name="datos_personal_pais_nacionalidad">Nacionalidad requerida, verifique su información</string>
     <string name="datos_personal_mayor_edad">Debes ser mayor de edad para continuar</string>
     <string name="buscar_pais">Busca tu país</string>
+    <string name="psd">Ingresa tu contraseña</string>
+    <string name="psd_con">Confirma tu contraseña</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio personal</string>
     <string name="streetHint">Calle</string>
@@ -1649,7 +1653,8 @@
     <string name="terminosaviso">Al crear una cuenta, acepto los\nTérminos y Condiciones y el Aviso de Privacidad</string>
 
     <!--Nuevo Registro  Datos Negocio-->
-    <string name="titulo_info_negocio">Compártenos algunos datos de tu negocio o profesión</string>
+    <string name="titulo_info_negocio">Compártenos algunos datos\nde tu negocio o profesión</string>
+    <string name="titulo_info_negociob">Información Adicional</string>
 
     <string name="vigentes_promos">Vigentes</string>
     <string name="promo_near">Estos son los comercios cercanos\nque tienen promociones para ti</string>
@@ -1662,6 +1667,8 @@
     <string name="assigning_account_1">Asignando cuenta\nProceso 1 de 2</string>
     <string name="assigning_account_2">Asignando cuenta\nProceso 2 de 2</string>
     <string name="creating_agent">Creando agente</string>
+    <string name="assignment_qrs">Asignando Qrs</string>
+
 
     <!-- Nueva Pantalla Registro Completado -->
     <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
@@ -1671,9 +1678,9 @@
     <!-- Codigo fisico -->
     <string name="code_qr_linked_label">Códigos QR vinculados\na tu cuenta</string>
     <string name="enter_qr_number">Ingresar Número QR</string>
-    <string name="qr_number">Número QRR</string>
+    <string name="qr_number">Número QR</string>
     <string name="qr_code">QR code</string>
-    <string name="enter_a_name">Ingresa un Nombre para Identificar tu Código</string>
+    <string name="enter_a_name">Ingresa un nombre para identificar tu vódigo</string>
     <string name="crear_cuenta">Crear Cuenta</string>
     <string name="title_code_fragment">Códigos QR vinculados\na tu cuenta</string>
     <string name="title_code_digital_fragment">Hemos generado un código QR\npara tu negocio</string>

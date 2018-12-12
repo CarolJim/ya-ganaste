@@ -17,12 +17,10 @@ import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 public class PhysicalCodeFragment extends GenericFragment implements View.OnClickListener {
 
@@ -65,24 +63,10 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
         switch (view.getId()){
             case R.id.button_yes:
                 activity.getRouter().showScanQR();
-                activity.getRouter().showNewLinkedCode("538 984");
-                /*Intent intent = new Intent(activity, ScannVisionActivity.class);
-                intent.putExtra(ScannVisionActivity.QRObject, true);
-                    startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);*/
                 break;
             case R.id.button_no:
                 activity.getRouter().showDigitalCode();
                 break;
-
-
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-        onEventListener.onEvent("START",data);
-        //activity.getRouter().showNewLinkedCode(barcode.displayValue);
     }
 }

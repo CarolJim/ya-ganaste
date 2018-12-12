@@ -38,6 +38,7 @@ public class RegisterUserNew {
     private Integer IdGiro = 0;
     private String Giro = "";
     private String nombreNegocio = "";
+    private Giros giroComercio;
     //Datos de QRs
     ArrayList<QRs> qRs;
 
@@ -263,5 +264,13 @@ public class RegisterUserNew {
 
     public void setNombreNegocio(String nombreNegocio) {
         this.nombreNegocio = nombreNegocio;
+    }
+
+    public Giros getGiroComercio() {
+        return giroComercio;
+    }
+
+    public void setGiroComercio(Giros giroComercio) {
+        this.giroComercio = giroComercio;
     }
 }
