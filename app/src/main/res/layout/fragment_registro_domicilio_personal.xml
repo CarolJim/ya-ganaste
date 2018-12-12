@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="35dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="35dp"
             android:text="@string/titulo_domicilio_ea"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
@@ -38,8 +38,8 @@
             android:layout_height="50dp"
             android:layout_below="@+id/edit_nombre"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="0dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center_vertical"
             android:hint="@string/streetHint"
@@ -74,8 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
@@ -155,6 +155,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/edit_nombre"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/inputtext_normal"
             android:gravity="center_vertical"
@@ -185,13 +186,15 @@
                 android:theme="@style/NewEdittextwallet" />
 
         </android.support.design.widget.TextInputLayout>
+
         <com.pagatodo.yaganaste.utils.customviews.Custom_postal_code
             android:id="@+id/component_postal_code"
-            android:visibility="gone"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="55dp">
+            android:layout_height="55dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:visibility="gone">
 
         </com.pagatodo.yaganaste.utils.customviews.Custom_postal_code>
 
@@ -200,8 +203,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="3dp"
             android:background="@drawable/inputtext_normal"
             android:orientation="horizontal">
 
@@ -234,14 +237,16 @@
                     app:backgroundTint="@color/transparent" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_height="match_parent"
-                android:background="#c4c4c4"
-                android:layout_marginEnd="10dp" />
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="#c4c4c4" />
+
             <ImageView
                 android:id="@+id/imgcp"
                 android:layout_width="17dp"
@@ -253,16 +258,14 @@
         </LinearLayout>
 
 
-
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
         android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical">
@@ -290,8 +293,8 @@
                 android:id="@+id/btnNextSelectZip"
                 style="@style/buttonSquareRoundedBluenewRegister"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:background="@drawable/button_rounded_gray"
+                android:gravity="center"
                 android:text="@string/confirmardatos" />
         </LinearLayout>
 

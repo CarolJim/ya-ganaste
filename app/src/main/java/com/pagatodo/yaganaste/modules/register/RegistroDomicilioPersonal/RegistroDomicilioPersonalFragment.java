@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -41,7 +42,9 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.Custom_postal_code;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -58,7 +61,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link Fragment} subclass.
  */
 public class RegistroDomicilioPersonalFragment extends GenericFragment implements View.OnClickListener,
-        ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick {
+        ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick,Custom_postal_code.OnCodeChangedListenerCP {
     public static int MIN_LENGHT_VALIDATION_CP = 4;
     @BindView(R.id.btnNextSelectZip)
     StyleButton btnNextSelectZip;
@@ -91,6 +94,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     int positioncol;
     @BindView(R.id.imgcp)
     ImageView imgcp;
+
+    @BindView(R.id.component_postal_code)
+    Custom_postal_code component_postal_code;
 
     @BindView(R.id.aux_codepostal)
     EditText aux_codepostal;
@@ -154,6 +160,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         coloniasNombre.add(getString(R.string.colonia));
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spColonia.setAdapter(adapterColonia);
+
+        component_postal_code.setListener(this);
         editExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -242,6 +250,22 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         });
 
 
+
+        editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    component_postal_code.setVisibility(View.VISIBLE);
+                    component_postal_code.setBackgroundResource(R.drawable.inputtext_active);
+                    text_cp.setVisibility(View.GONE);
+                    component_postal_code.getCode1().requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }
+            }
+        });
+
+        /*
         editZipCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -261,7 +285,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
-
+        */
 
         editZipCode.addTextChangedListener(new TextWatcher() {
             @Override
@@ -288,6 +312,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             }
         });
 
+        /*
 
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -335,6 +360,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
                 }
             }
         });
+*/
     setValidationRules();
     }
 
@@ -367,6 +393,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @Override
     public void setValidationRules() {
+
+        /*
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -388,7 +416,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             }
         });
 
-
+        */
 
         editZipCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -622,6 +650,22 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @Override
     public void setCurrentAddress(DataObtenerDomicilio domicilio) {
+
+    }
+
+    @Override
+    public void onCodeChanged() {
+        if (component_postal_code.getText().toString().length()==5){
+            accountPresenter.getNeighborhoods(component_postal_code.getText().toString().toString().trim());//Buscamos por CP
+            accountPresenter.getNeighborhoods(component_postal_code.getText().toString().toString().trim());//Buscamos por CP
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
+            if (!component_postal_code.getText().toString().isEmpty()) {
+                imgcp.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);
+            }else {
+                imgcp.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_space), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+        }
 
     }
 }
