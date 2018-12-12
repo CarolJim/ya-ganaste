@@ -87,5 +87,10 @@
             android:layout_weight="1"
             android:inputType="number" />
     </LinearLayout>
+    <EditText
+        android:id="@+id/aux_codepostal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

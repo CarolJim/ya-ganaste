@@ -92,6 +92,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     @BindView(R.id.imgcp)
     ImageView imgcp;
 
+    @BindView(R.id.aux_codepostal)
+    EditText aux_codepostal;
+
     private AccountPresenterNew accountPresenter;
 
     private List<ColoniasResponse> listaColonias;
