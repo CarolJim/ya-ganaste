@@ -120,7 +120,9 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
         hideLoader()
         validatePermissions()
         TODO("Asignacion de QR's")
+        iteractor.assignmentQrs()
     }
+
 
     override fun onSmsNumberObtained(obj: MessageValidation) {
         sendSMS(obj.phone, obj.message)
@@ -242,5 +244,9 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
             }
             activity!!.unregisterReceiver(this)
         }
+    }
+
+    override fun onAsignQrPhysical() {
+
     }
 }

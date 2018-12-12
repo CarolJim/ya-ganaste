@@ -2,6 +2,11 @@ package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
 import android.util.Log
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.VolleyLog
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.google.firebase.analytics.FirebaseAnalytics
 
 import com.google.firebase.auth.FirebaseAuth
@@ -36,11 +41,14 @@ import com.pagatodo.yaganaste.utils.Recursos.*
 import com.pagatodo.yaganaste.utils.Utils
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.UnsupportedEncodingException
 import java.util.*
+import kotlin.collections.HashMap
 
 class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) : VincularcuentaContracts.Iteractor,
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
         IAprovView<Any> {
+
 
     override fun createUser() {
         presenter.showLoader(App.getContext().getString(R.string.creating_user))
@@ -114,6 +122,159 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         }
     }
 
+    override fun assignmentQrs() {
+        //presenter.showLoader(App.getContext().getString(R.string.assignment_qrs))
+        for (QRs in RegisterUserNew.getInstance().getqRs()){
+            if (!QRs.isDigital) {
+                setAsignQrPhysical(QRs)
+            }
+            else {
+                setAsignQrDigital(QRs)
+            }
+        }
+
+    }
+
+    fun setAsignQrDigital(qrs:QRs){
+        val requestQueue = Volley.newRequestQueue(App.getContext())
+
+        val jsonBody = JSONObject()
+        try {
+            jsonBody.put("name", qrs.alias)
+            jsonBody.put("bank", "148")
+            jsonBody.put("account",SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+
+        val requestBody = jsonBody.toString()
+
+        val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
+                "https://us-central1-frigg-1762c.cloudfunctions.net/nwQRYG", null,
+                { response ->
+                    try {
+                        val success = response.getBoolean("success")
+                        if (success) {
+                            //listener.onSuccessValidatePlate(plate)
+                            presenter.onAsignQrPhysical()
+                        } else {
+                            presenter.onErrorService(response.getString("message"))
+
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+
+                }, { error ->
+            // TODO: Handle error
+            Log.e("VOLLEY", error.toString())
+            presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
+        }) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+
+            override fun getBody(): ByteArray? {
+                try {
+                    return requestBody.toByteArray(charset("utf-8"))
+                } catch (uee: UnsupportedEncodingException) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
+                            requestBody, "utf-8")
+                    return null
+                }
+            }
+
+            override fun getHeaders(): HashMap<String, String> {
+
+                val headersQR = HashMap<String, String>()
+                headersQR.put("Authorization",App.getInstance().prefs.loadData(TOKEN_FIREBASE))
+                return headersQR
+            }
+        }
+        /*
+         @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("key", "Value");
+                return headers;
+            }
+         */
+        requestQueue.add(jsonObjectRequest)
+    }
+
+    fun setAsignQrPhysical(qrs:QRs ){
+        val requestQueue = Volley.newRequestQueue(App.getContext())
+
+        val jsonBody = JSONObject()
+        try {
+            jsonBody.put("plate", qrs.plate)
+            jsonBody.put("name", qrs.alias)
+            jsonBody.put("bank", "148")
+            jsonBody.put("account",SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+
+        val requestBody = jsonBody.toString()
+
+        val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
+                "https://us-central1-frigg-1762c.cloudfunctions.net/lnkQRYG ", null,
+                { response ->
+            try {
+                val success = response.getBoolean("success")
+                if (success) {
+                    //listener.onSuccessValidatePlate(plate)
+                    presenter.onAsignQrPhysical()
+                } else {
+                    presenter.onErrorService(response.getString("message"))
+
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+        }, { error ->
+            // TODO: Handle error
+            Log.e("VOLLEY", error.toString())
+            presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
+        }) {
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+
+            override fun getBody(): ByteArray? {
+                try {
+                    return requestBody.toByteArray(charset("utf-8"))
+                } catch (uee: UnsupportedEncodingException) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
+                            requestBody, "utf-8")
+                    return null
+                }
+            }
+
+            override fun getHeaders(): HashMap<String, String> {
+
+                val headersQR = HashMap<String, String>()
+                headersQR.put("Authorization",App.getInstance().prefs.loadData(TOKEN_FIREBASE))
+                return headersQR
+            }
+        }
+        /*
+         @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                headers.put("key", "Value");
+                return headers;
+            }
+         */
+        requestQueue.add(jsonObjectRequest)
+    }
     override fun getNumberOfSms() {
         presenter.showLoader(App.getContext().getString(R.string.verificando_sms_espera))
         try {

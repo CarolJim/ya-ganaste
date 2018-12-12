@@ -1667,6 +1667,8 @@
     <string name="assigning_account_1">Asignando cuenta\nProceso 1 de 2</string>
     <string name="assigning_account_2">Asignando cuenta\nProceso 2 de 2</string>
     <string name="creating_agent">Creando agente</string>
+    <string name="assignment_qrs">Asignando Qrs</string>
+
 
     <!-- Nueva Pantalla Registro Completado -->
     <string name="title_register_complete">¡Bienvenido a Ya Ganaste!\nAhora ya puedes:</string>
