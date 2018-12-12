@@ -400,6 +400,8 @@
     <string name="datos_personal_pais_nacionalidad">Nacionalidad requerida, verifique su información</string>
     <string name="datos_personal_mayor_edad">Debes ser mayor de edad para continuar</string>
     <string name="buscar_pais">Busca tu país</string>
+    <string name="psd">Ingresa tu contraseña</string>
+    <string name="psd_con">Confirma tu contraseña</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio personal</string>
     <string name="streetHint">Calle</string>
