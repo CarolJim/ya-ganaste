@@ -24,16 +24,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/styleTextView7"
+        android:id="@+id/name_qr_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="Abarrotes"
         android:textColor="@color/colorAccent"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +54,7 @@
         android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/styleTextView7" />
+        app:layout_constraintTop_toBottomOf="@+id/name_qr_text" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/plate"
@@ -65,7 +64,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="1652"
         android:textColor="@color/gray_text_wallet_3"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +73,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_number_qr"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -94,7 +92,7 @@
         tools:ignore="UnusedAttribute">
 
         <EditText
-            android:id="@+id/editUserPassword"
+            android:id="@+id/edit_text_name_qr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="9dp"
@@ -102,13 +100,13 @@
             android:background="@android:color/transparent"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:maxLength="6"
+            android:maxLength="20"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
             android:singleLine="true"
             android:textColor="@color/texthint"
             android:theme="@style/NewEdittextwallet"
-            tools:ignore="LabelFor,RtlSymmetry">
+            tools:ignore="LabelFor,RtlSymmetry,TextFields">
 
             <requestFocus />
         </EditText>
@@ -124,8 +122,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/button_yes"
-        android:text="Continuar"
+        android:background="@drawable/btn_desactive"
+        android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@color/whiteColor"
         android:textSize="16sp"

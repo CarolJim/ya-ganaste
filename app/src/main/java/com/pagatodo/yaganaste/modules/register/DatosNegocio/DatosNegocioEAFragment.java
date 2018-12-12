@@ -19,32 +19,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.Giros;
-import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.RegisterUserNew;
-import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
-import com.pagatodo.yaganaste.ui_wallet.dto.DtoCountry;
 import com.pagatodo.yaganaste.ui_wallet.dto.DtoGiro;
-import com.pagatodo.yaganaste.ui_wallet.dto.DtoStates;
-import com.pagatodo.yaganaste.ui_wallet.dto.DtoSubGiro;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -112,11 +99,9 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     public void initViews() {
         ButterKnife.bind(this,rootView);
         activityf.nextStep();
-        rootView.findViewById(R.id.btnNextDatosNegocio).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validateForm();
-            }
+        rootView.findViewById(R.id.btnNextDatosNegocio).setOnClickListener(view -> {
+            activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
+            validateForm();
         });
 
         spiner1.setOnClickListener(view -> spinnerBussineLine.performClick());
@@ -309,7 +294,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         registerAgent.setNombreNegocio(nombre);
         registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
         registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
-        activityf.getRouter().showPhysicalCode();
+        //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
     }
 
     @Override

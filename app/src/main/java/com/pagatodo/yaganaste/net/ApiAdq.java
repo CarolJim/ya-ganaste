@@ -340,7 +340,7 @@ public class ApiAdq extends Api {
         // headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWSnotag(CONSULTAR_SALDO_ADQ,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
-                headers, request, ConsultaSaldoCupoResponse.class, result);
+                headers, request, ConsultaSaldoCupoResponse.class, result,true);
     }
 
     /**
@@ -362,7 +362,7 @@ public class ApiAdq extends Api {
         //headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWSnotag(CONSULTAR_SALDO_ADQ,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSaldoAdm),
-                headers, request, ConsultaSaldoCupoResponse.class, result);
+                headers, request, ConsultaSaldoCupoResponse.class, result,true);
     }
 
     /**

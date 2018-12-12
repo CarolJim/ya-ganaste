@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--  Nuevos colores wallet
-    -->
     <color name="colorTituloDialog">#00a1e1</color>
     <color name="texthint">#adadad</color>
     <color name="texthint_edittext">#7a7c7d</color>
@@ -127,4 +125,6 @@
 
     <!-- chat -->
     <color name="line">#e2e2e2</color>
+
+    <color name="btn_desactive">#c4c4c4</color>
 </resources>

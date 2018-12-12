@@ -35,8 +35,6 @@ public class DashboardFavoritesFragment extends SupportFragment implements Facad
 
     @BindView(R.id.container)
     LinearLayout container;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
 
     private View rootview;
 

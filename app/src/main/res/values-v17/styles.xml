@@ -9,4 +9,33 @@
         <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="textTitle">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/frag_adquirente_final_titulo_text_Size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+
+    </style>
+
+    <style name="textPinPadButton">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="textHelp">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/whiteColor_disable</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

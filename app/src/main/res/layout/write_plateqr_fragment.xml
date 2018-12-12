@@ -59,24 +59,40 @@
         tools:ignore="UnusedAttribute">
 
         <EditText
-            android:id="@+id/editUserPassword"
+            android:id="@+id/edit_code_wr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="9dp"
             android:autofillHints="@string/app_name"
             android:background="@android:color/transparent"
             android:imeOptions="actionDone"
-            android:inputType="numberPassword"
-            android:maxLength="6"
+            android:inputType="numberDecimal"
+            android:maxLength="12"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
             android:singleLine="true"
             android:textColor="@color/texthint"
             android:theme="@style/NewEdittextwallet"
-            tools:ignore="LabelFor,RtlSymmetry">
-            <requestFocus/>
+            tools:ignore="LabelFor,RtlSymmetry,TextFields">
         </EditText>
 
     </android.support.design.widget.TextInputLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btn_continue"
+        style="@style/Botones"
+        android:layout_width="219dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_desactive"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

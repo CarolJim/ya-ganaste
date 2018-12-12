@@ -32,6 +32,8 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -91,9 +93,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         return new RegistroCorreoFragment();
     }
 
-    public static RegistroCorreoFragment newInstance(RegActivity activity) {
-        activityf = activity;
-        return new RegistroCorreoFragment();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activityf = (RegActivity) context;
     }
 
     @Override
@@ -123,6 +126,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
         btnNextDatosUsuario.setOnClickListener(this);
         customPassSixDigits.setOnClickListener(this);
         customPassSixDigits.setListener(this);

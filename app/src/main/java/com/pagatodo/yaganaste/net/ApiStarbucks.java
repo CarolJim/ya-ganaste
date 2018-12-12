@@ -60,7 +60,7 @@ public class ApiStarbucks extends Api {
         headers.put("token", "");
         NetFacade.consumeWSnotag(FORGETPASSWORD,
                 METHOD_POST, URL_STARBUCKS + App.getContext().getString(R.string.forgetpasswordstarbucks),
-                headers, request, CustomResult.class, result);
+                headers, request, CustomResult.class, result,true);
     }
 
     public static void preregistroStarbucks(RegisterStarbucksRequest request, IRequestResult result) throws OfflineException {
