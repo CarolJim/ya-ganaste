@@ -306,7 +306,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     @Override
     public void onValidationSuccess() {
         RegisterUserNew registerAgent = RegisterUserNew.getInstance();
-        registerAgent.setNombre(nombre);
+        registerAgent.setNombreNegocio(nombre);
         registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
         registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
         activityf.getRouter().showPhysicalCode();

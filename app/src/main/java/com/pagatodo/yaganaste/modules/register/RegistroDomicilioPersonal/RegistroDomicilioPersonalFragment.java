@@ -484,6 +484,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         if (isValid)
         {
             if (editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
+                onValidationSuccess();
                 activityf.showFragmentDatosNegocio();
             }else {
                 UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
