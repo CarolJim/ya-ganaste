@@ -38,7 +38,7 @@ public class RegRouter implements RegContracts.Router {
 
     @Override
     public void showUserData(Direction direction) {
-        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container, direction, false);
+        activity.loadFragment(RegistroCorreoFragment.newInstance(activity), R.id.fragment_container, direction, false);
 
     }
 

@@ -185,6 +185,15 @@
                 android:theme="@style/NewEdittextwallet" />
 
         </android.support.design.widget.TextInputLayout>
+        <com.pagatodo.yaganaste.utils.customviews.Custom_postal_code
+            android:id="@+id/component_postal_code"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+
+        </com.pagatodo.yaganaste.utils.customviews.Custom_postal_code>
 
         <LinearLayout
             android:id="@+id/txtcoloria"
