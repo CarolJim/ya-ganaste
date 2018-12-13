@@ -130,11 +130,9 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         btnNextDatosUsuario.setOnClickListener(this);
         customPassSixDigits.setOnClickListener(this);
         customPassSixDigits.setListener(this);
-        customPassSixDigits.setCodeChangedListener(this);
 
         customPassSixDigitsConfirm.setOnClickListener(this);
         customPassSixDigitsConfirm.setListener(this);
-        customPassSixDigitsConfirm.setCodeChangedListener(this);
 
         edit_psw.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

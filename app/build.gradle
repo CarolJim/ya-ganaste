@@ -28,7 +28,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
-            abiFilters "armeabi", "armeabi-v7a"
+            abiFilters "armeabi", "armeabi-v7a", "x86"
         }
         useLibrary 'org.apache.http.legacy'
     }
@@ -39,20 +39,10 @@ android {
         enabled = true
     }
 
-    signingConfigs {
-        release {
-            storeFile file("cert.jks")
-            storePassword "PagaTodo"
-            keyAlias "ptmobile"
-            keyPassword "PagaTodo"
-        }
-    }
-
-
     buildTypes {
         debug {
             shrinkResources false
-            minifyEnabled true
+            minifyEnabled false
             useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'

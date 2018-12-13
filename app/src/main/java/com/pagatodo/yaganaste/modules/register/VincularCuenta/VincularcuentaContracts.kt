@@ -31,6 +31,8 @@ class VincularcuentaContracts {
         fun verifyActivationSms()
         fun updateSession()
         fun provisionDevice()
+        /* QR Process */
+        fun assignQr()
     }
 
     interface Router {
