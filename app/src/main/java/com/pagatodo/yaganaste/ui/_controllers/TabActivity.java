@@ -286,7 +286,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
 
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            mainViewPager.setCurrentItem(1);
+            mainViewPager.setCurrentItem(0);
         } else {
             mainViewPager.setCurrentItem(0);
         }

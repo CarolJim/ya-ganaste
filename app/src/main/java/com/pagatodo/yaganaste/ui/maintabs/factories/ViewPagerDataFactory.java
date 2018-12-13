@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTabOperador;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
+import com.pagatodo.yaganaste.modules.qr.QrManagerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFromFragmentNewVersion;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
@@ -96,9 +97,7 @@ public class ViewPagerDataFactory {
 
     private static void addMainFragments(List<Fragment> fragmentList) {
         int Idestatus;
-        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
-        }
+
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(WalletTabFragment.newInstance());
         } else {
@@ -106,11 +105,15 @@ public class ViewPagerDataFactory {
         }
 
         if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
+            fragmentList.add(EnviosFromFragmentNewVersion.newInstance());
+        }
+
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
             fragmentList.add(NewPaymentFragment.newInstance());
         }
-        /*if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
-            fragmentList.add(PromocionesFragment.newInstance());
-        }*/
+        if (!App.getInstance().getPrefs().containsData(IS_OPERADOR)) {
+            fragmentList.add(QrManagerFragment.newInstance());
+        }
     }
 
     private static void addHomeFragments(List<Fragment> fragmentList) {

@@ -20,7 +20,7 @@ public class QrManagerFragment extends GenericFragment {
     private TabActivity activity;
     private QrManagerRouter router;
 
-    public static QrManagerFragment newIntance(){
+    public static QrManagerFragment newInstance(){
         return new QrManagerFragment();
     }
 
