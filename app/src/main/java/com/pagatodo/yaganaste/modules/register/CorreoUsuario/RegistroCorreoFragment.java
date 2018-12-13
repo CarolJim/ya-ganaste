@@ -127,6 +127,9 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        //InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //inputMethodManager.toggleSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+
         btnNextDatosUsuario.setOnClickListener(this);
         customPassSixDigits.setOnClickListener(this);
         customPassSixDigits.setListener(this);
