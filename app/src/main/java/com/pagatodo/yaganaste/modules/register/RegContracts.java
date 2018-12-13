@@ -35,5 +35,6 @@ public class RegContracts {
         void showDigitalCode(); //Pantalla 07
         void showSMSAndroid(); //Pantalla 08
         void showWelcome(); //Pantalla 09
+
     }
 }

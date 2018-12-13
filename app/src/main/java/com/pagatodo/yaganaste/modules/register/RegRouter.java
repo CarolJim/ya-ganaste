@@ -150,4 +150,7 @@ public class RegRouter implements RegContracts.Router {
         activity.loadFragment(RegistroCompletoFragment.newInstance(), R.id.fragment_container,
                 Direction.FORDWARD, false);
     }
+
+
+
 }
