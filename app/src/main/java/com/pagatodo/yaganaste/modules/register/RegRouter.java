@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.QR.QRWallet.AgregaQRFragment;
 import com.pagatodo.yaganaste.modules.register.CodigoVinculados.CodigosVinculadosFragment;
 import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;
@@ -38,7 +39,10 @@ public class RegRouter implements RegContracts.Router {
 
     @Override
     public void showUserData(Direction direction) {
-        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
+        /*activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
+                direction, false);
+        */
+        activity.loadFragment(AgregaQRFragment.newInstance(), R.id.fragment_container,
                 direction, false);
 
     }

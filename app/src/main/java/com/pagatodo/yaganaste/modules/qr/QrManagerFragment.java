@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity.ID_ADD_QR;
+
 public class QrManagerFragment extends GenericFragment {
 
     private View rootView;
@@ -31,6 +34,9 @@ public class QrManagerFragment extends GenericFragment {
 
     @BindView(R.id.rcv_qr)
     RecyclerView rcv_qr;
+
+    @BindView(R.id.addQR)
+    LinearLayout addQR;
 
     public static QrManagerFragment newInstance(){
         return new QrManagerFragment();
@@ -69,7 +75,12 @@ public class QrManagerFragment extends GenericFragment {
         list.add(new MyQrData("Sucursal 2","1325",R.drawable.qr_code));
         list.add(new MyQrData("Vendedor 2","9957",R.drawable.qr_code));
 
-
+        addQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                router.showOperation(ID_ADD_QR);
+            }
+        });
         LinearLayoutManager llm = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         rcv_qr.setLayoutManager(llm);
         rcv_qr.setHasFixedSize(true);
