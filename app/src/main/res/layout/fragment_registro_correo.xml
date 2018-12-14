@@ -8,9 +8,6 @@
     android:orientation="vertical"
     tools:context=".modules.register.CorreoUsuario.RegistroCorreoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <LinearLayout
 
         android:layout_width="match_parent"

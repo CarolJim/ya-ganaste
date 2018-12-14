@@ -1,16 +1,13 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.analytics.FirebaseAnalytics
-
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.BuildConfig
@@ -37,6 +34,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED
 import com.pagatodo.yaganaste.ui.account.AprovPresenter
 import com.pagatodo.yaganaste.utils.Constants.*
+import com.pagatodo.yaganaste.utils.Recursos
 import com.pagatodo.yaganaste.utils.Recursos.*
 import com.pagatodo.yaganaste.utils.Utils
 import org.json.JSONException
@@ -49,6 +47,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
         IAprovView<Any> {
 
+    private var intentsValidateSms = 0
 
     override fun createUser() {
         presenter.showLoader(App.getContext().getString(R.string.creating_user))
@@ -75,7 +74,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.numExterior,
                 registerUserSingleton.numInterior,
                 registerUserSingleton.paisNacimiento.id)
-        RequestHeaders.TokenDispositivo = Utils.getTokenDevice(App.getContext())
+        RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getContext()))
         try {
             ApiAdtvo.crearUsuarioCliente(request, this)
         } catch (e: OfflineException) {
@@ -109,11 +108,8 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun createAgent() {
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
-        var registerAgent = RegisterAgent.getInstance()
-        registerAgent.nombre = registerUserSingleton.nombreNegocio
-        registerAgent.giro = Giros(registerUserSingleton.idGiro, registerUserSingleton.giro, null)
-        registerAgent.telefono = "5555555555"
-        var request = CrearAgenteRequest(registerAgent, 1, null)
+        var request = CrearAgenteRequest(22, registerUserSingleton.nombreNegocio, "5555555555",
+                registerUserSingleton.idGiro, null)
         try {
             ApiAdtvo.crearAgenteWallet(request, this)
         } catch (e: Exception) {
@@ -123,41 +119,33 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun assignmentQrs() {
-        //presenter.showLoader(App.getContext().getString(R.string.assignment_qrs))
-        for (QRs in RegisterUserNew.getInstance().getqRs()){
+        for (QRs in RegisterUserNew.getInstance().getqRs()) {
             if (!QRs.isDigital) {
                 setAsignQrPhysical(QRs)
-            }
-            else {
+            } else {
                 setAsignQrDigital(QRs)
             }
         }
-
     }
 
-    fun setAsignQrDigital(qrs:QRs){
+    private fun setAsignQrDigital(qrs: QRs) {
         val requestQueue = Volley.newRequestQueue(App.getContext())
-
         val jsonBody = JSONObject()
         try {
             jsonBody.put("name", qrs.alias)
             jsonBody.put("bank", "148")
-            jsonBody.put("account",SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
+            jsonBody.put("account", SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
-
         val requestBody = jsonBody.toString()
-
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
                 "https://us-central1-frigg-1762c.cloudfunctions.net/nwQRYG", null,
                 { response ->
                     try {
                         val success = response.getBoolean("success")
                         if (success) {
-                            //listener.onSuccessValidatePlate(plate)
                             presenter.onAsignQrPhysical()
                         } else {
                             presenter.onErrorService(response.getString("message"))
@@ -168,7 +156,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     }
 
                 }, { error ->
-            // TODO: Handle error
             Log.e("VOLLEY", error.toString())
             presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
         }) {
@@ -187,59 +174,42 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             }
 
             override fun getHeaders(): HashMap<String, String> {
-
                 val headersQR = HashMap<String, String>()
-                headersQR.put("Authorization",App.getInstance().prefs.loadData(TOKEN_FIREBASE))
+                headersQR.put("Authorization", App.getInstance().prefs.loadData(TOKEN_FIREBASE))
                 return headersQR
             }
         }
-        /*
-         @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("key", "Value");
-                return headers;
-            }
-         */
         requestQueue.add(jsonObjectRequest)
     }
 
-    fun setAsignQrPhysical(qrs:QRs ){
+    private fun setAsignQrPhysical(qrs: QRs) {
         val requestQueue = Volley.newRequestQueue(App.getContext())
-
         val jsonBody = JSONObject()
         try {
             jsonBody.put("plate", qrs.plate)
             jsonBody.put("name", qrs.alias)
             jsonBody.put("bank", "148")
-            jsonBody.put("account",SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
-
+            jsonBody.put("account", SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
-
         val requestBody = jsonBody.toString()
-
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
                 "https://us-central1-frigg-1762c.cloudfunctions.net/lnkQRYG ", null,
                 { response ->
-            try {
-                val success = response.getBoolean("success")
-                if (success) {
-                    //listener.onSuccessValidatePlate(plate)
-                    presenter.onAsignQrPhysical()
-                } else {
-                    presenter.onErrorService(response.getString("message"))
+                    try {
+                        val success = response.getBoolean("success")
+                        if (success) {
+                            presenter.onAsignQrPhysical()
+                        } else {
+                            presenter.onErrorService(response.getString("message"))
 
-                }
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
 
-        }, { error ->
-            // TODO: Handle error
+                }, { error ->
             Log.e("VOLLEY", error.toString())
             presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
         }) {
@@ -260,21 +230,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             override fun getHeaders(): HashMap<String, String> {
 
                 val headersQR = HashMap<String, String>()
-                headersQR.put("Authorization",App.getInstance().prefs.loadData(TOKEN_FIREBASE))
+                headersQR.put("Authorization", App.getInstance().prefs.loadData(TOKEN_FIREBASE))
                 return headersQR
             }
         }
-        /*
-         @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("key", "Value");
-                return headers;
-            }
-         */
         requestQueue.add(jsonObjectRequest)
     }
+
     override fun getNumberOfSms() {
         presenter.showLoader(App.getContext().getString(R.string.verificando_sms_espera))
         try {
@@ -314,11 +276,12 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun onSuccess(data: DataSourceResult?) {
-        when (data) {
+        when (data!!.data) {
             is CrearUsuarioClienteResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
+                val response = data.data as CrearUsuarioClienteResponse
+                if (response.codigoRespuesta == Recursos.CODE_OK) {
                     RegisterUserNew.getInstance().statusRegistro = USUARIO_CREADO
-                    val dataUser = data.getData()
+                    val dataUser = response.data
                     RequestHeaders.setTokensesion(dataUser.usuario.tokenSesion)
                     val user = SingletonUser.getInstance()
                     val dataIniciarSesion = user.dataUser
@@ -329,13 +292,14 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     dataIniciarSesion.usuario = dataUser.usuario
                     presenter.onUserCreated()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(response.mensaje)
                 }
             }
             is AsignarCuentaDisponibleResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
+                val response = data.data as AsignarCuentaDisponibleResponse
+                if (response.codigoRespuesta == CODE_OK) {
                     RegisterUserNew.getInstance().statusRegistro = CUENTA_ASIGNADA
-                    val dataUser = data.getData()
+                    val dataUser = response.data
                     val cuenta = dataUser.cuenta
                     val user = SingletonUser.getInstance()
                     if (user.dataUser.emisor.cuentas == null) {
@@ -349,11 +313,12 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     Card.getInstance().idAccount = cuenta.idCuenta
                     presenter.onAccountAssigned()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(response.mensaje)
                 }
             }
             is AsignarNIPResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
+                val response = data.data as AsignarNIPResponse
+                if (response.codigoRespuesta == CODE_OK) {
                     RegisterUserNew.getInstance().statusRegistro = NIP_ASIGNADO
                     val bundle = Bundle()
                     bundle.putString(CONNECTION_TYPE, Utils.getTypeConnection())
@@ -372,21 +337,23 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     }
                     presenter.onNipAssigned()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(response.mensaje)
                 }
             }
             is CrearAgenteResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
+                val response = data.data as CrearAgenteResponse
+                if (response.codigoRespuesta == CODE_OK) {
                     RegisterUserNew.getInstance().statusRegistro = AGENTE_CREADO
                     presenter.onAgentCreated()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(response.mensaje)
                 }
             }
             is ObtenerNumeroSMSResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
+                val response = data.data as ObtenerNumeroSMSResponse
+                if (response.codigoRespuesta == CODE_OK) {
                     val user = SingletonUser.getInstance()
-                    val phone = data.getData().numeroTelefono
+                    val phone = response.data.numeroTelefono
                     val tokenValidation = user.dataUser.usuario.semilla + RequestHeaders.getUsername() + RequestHeaders.getTokendevice()
                     if (App.getInstance().prefs.loadDataBoolean(SHOW_LOGS_PROD, false)) {
                         Log.d("WSC", "TokenValidation: $tokenValidation")
@@ -406,22 +373,30 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     val messageValidation = MessageValidation(phone, message)
                     presenter.onSmsNumberObtained(messageValidation)
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(response.mensaje)
                 }
             }
             is VerificarActivacionResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
+                val response = data.data as VerificarActivacionResponse
+                if (response.codigoRespuesta == CODE_OK) {
                     val user = SingletonUser.getInstance()
-                    user.dataExtraUser.phone = data.getData().numeroTelefono
-                    RequestHeaders.setTokenauth(data.getData().tokenAutenticacion)
+                    user.dataExtraUser.phone = response.data.numeroTelefono
+                    RequestHeaders.setTokenauth(response.data.tokenAutenticacion)
                     presenter.onVerificationSmsSuccess()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    if (intentsValidateSms == 3) {
+                        intentsValidateSms = 0
+                        presenter.onErrorService(response.mensaje)
+                    } else {
+                        intentsValidateSms += 1
+                        Handler().postDelayed({ verifyActivationSms() }, 3000)
+                    }
                 }
             }
             is ActualizarInformacionSesionResponse -> {
-                if (data.codigoRespuesta == CODE_OK) {
-                    val newSessionData = data.getData()
+                val response = data.data as ActualizarInformacionSesionResponse
+                if (response.codigoRespuesta == CODE_OK) {
+                    val newSessionData = response.data
                     if (newSessionData.adquirente.agentes != null && newSessionData.adquirente.agentes.size > 0) {
                         DatabaseManager().insertAgentes(newSessionData.adquirente.agentes)
                     }
@@ -431,35 +406,9 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     App.getInstance().prefs.saveDataInt(ID_ESTATUS_EMISOR, newSessionData.usuario.idEstatusEmisor)
                     presenter.onSessionUpdate()
                 } else {
-                    presenter.onErrorService(data.mensaje)
+                    presenter.onErrorService(response.mensaje)
                 }
-            }/*
-            is DataSourceResult -> {
-                var result = data.data as IniciarSesionUYUResponse
-                if (result.codigoRespuesta == CODE_OK) {
-                    val dataUser = result.data
-                    val user = SingletonUser.getInstance()
-                    user.dataUser = dataUser// Si Usuario
-                    App.getInstance().prefs.saveDataInt(ID_ESTATUS_EMISOR, dataUser.usuario.idEstatusEmisor)
-                    val pswcph = "654321" + "-" + Utils.getSHA256("654321") + "-" + System.currentTimeMillis()
-                    App.getInstance().prefs.saveData(PSW_CPR, Utils.cipherAES(pswcph, true))
-                    RequestHeaders.setUsername(dataUser.usuario.nombreUsuario)
-                    RequestHeaders.setTokensesion(dataUser.usuario.tokenSesion)//Guardamos Token de sesion
-                    RequestHeaders.setTokenAdq(dataUser.usuario.tokenSesion)
-                    RequestHeaders.setIdCuentaAdq(dataUser.usuario.idUsuarioAdquirente)
-                    val adquiriente = dataUser.adquirente
-                    if (adquiriente.agentes != null && adquiriente.agentes.size > 0 && !App.getInstance().prefs.loadDataBoolean(HAS_CONFIG_DONGLE, false)) {
-                        App.getInstance().prefs.saveDataBool(HAS_CONFIG_DONGLE, true)
-                        App.getInstance().prefs.saveDataInt(MODE_CONNECTION_DONGLE, QPOSService.CommunicationMode.BLUETOOTH.ordinal)
-                    }
-                    if (dataUser.cliente.conCuenta) {// Si Cuenta
-                        RequestHeaders.setIdCuenta(String.format("%s", dataUser.emisor.cuentas[0].idCuenta))
-                    }
-                    presenter.onAprovSuccess()
-                } else {
-                    presenter.onErrorService(result.mensaje)
-                }
-            }*/
+            }
         }
     }
 

@@ -4,7 +4,11 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.qr.operations.DetailQr.DetailQrFragment;
 
-import java.text.DecimalFormat;
+import android.content.Intent;
+
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
+
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 public class QrOperationsRouter implements QrOperationsContracts.Router {
 
@@ -33,7 +37,9 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     /*04 - Scan QR*/
     @Override
     public void showScanQR(Direction direction) {
-
+        Intent intent = new Intent(activity, ScannVisionActivity.class);
+        intent.putExtra(ScannVisionActivity.QRObject, true);
+        activity.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     }
 
     /* 04b - Nombrar QR fisico */

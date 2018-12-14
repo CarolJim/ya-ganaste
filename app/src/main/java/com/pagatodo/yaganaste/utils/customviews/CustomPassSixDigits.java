@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -16,21 +15,16 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 
-import butterknife.OnFocusChange;
-
-import static com.pagatodo.yaganaste.R.drawable.ico_asterisk;
 import static com.pagatodo.yaganaste.R.drawable.ico_asterisk_blank;
 
 public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListener, View.OnFocusChangeListener {
 
     OnCodeChangedListener listener;
     private EditText text1, text2, text3, text4, text5, text6, aux;
-    private Boolean isValid = false;
+    private Boolean isActionDelete = true;
     int position;
 
     LinearLayout linear_pass;
-
-    int contador = 0;
 
     public CustomPassSixDigits(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -49,12 +43,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
     }
 
     public void setListener(OnCodeChangedListener listener) {
-        this.listener = listener;
-
-    }
-
-    public void setCodeChangedListener(OnCodeChangedListener listener) {
-
         this.listener = listener;
     }
 
@@ -75,11 +63,9 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
         text4.setOnFocusChangeListener(this::onFocusChange);
         text5.setOnFocusChangeListener(this::onFocusChange);
         text6.setOnFocusChangeListener(this::onFocusChange);
+
         position = 0;
-
         linear_pass = findViewById(R.id.linear_pass);
-
-        //char pass[]=aux.toString().toCharArray();
 
         aux.setOnFocusChangeListener((view1, b) -> {
             if (b) {
@@ -112,67 +98,49 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
                 position++;
             }
         });
-        text1.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus) {
-                    linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
-                } else {
-                    linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
-                }
-            }
-        });
-        text2.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus) {
-                    linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
-                } else {
-                    linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
-                }
-            }
-        });
-        text3.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus) {
-                    linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
-                } else {
-                    linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
-                }
-            }
-        });
-        text4.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus) {
-                    linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
-                } else {
-                    linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
-                }
-            }
-        });
-        text5.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus) {
-                    linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
-                } else {
-                    linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
-                }
-            }
-        });
-        text6.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus) {
-                    linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
-                } else {
-                    linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
-                }
-            }
-        });
 
+        text1.setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
+            } else {
+                linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
+        text2.setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
+            } else {
+                linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
+        text3.setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
+            } else {
+                linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
+        text4.setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
+            } else {
+                linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
+        text5.setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
+            } else {
+                linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
+        text6.setOnFocusChangeListener((view, focus) -> {
+            if (focus) {
+                linear_pass.setBackgroundResource(R.drawable.rectangle_blue_inputdata);
+            } else {
+                linear_pass.setBackgroundResource(R.drawable.inputtext_normal);
+            }
+        });
 
         text1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,20 +157,13 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void afterTextChanged(Editable editable) {
-                //if (!text1.getText().toString().isEmpty()) {
-                if (text1.getText().toString().trim().length() == 1) {
-                    text1.setBackgroundResource(R.drawable.ico_asterisk_blank);
-                    text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
-                    text2.requestFocus();
-                    if (listener != null) {
-                        listener.onCodeChanged();
-                    }
-                } else {
-                    text1.setBackground(null);
+                text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
+                text2.requestFocus();
+                if (listener != null) {
+                    listener.onCodeChanged();
                 }
             }
         });
-
         text2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -217,19 +178,14 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!text2.getText().toString().isEmpty()) {
-                    text2.setBackgroundResource(ico_asterisk_blank);
                     text2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
                     text3.requestFocus();
                 }
                 if (listener != null) {
                     listener.onCodeChanged();
                 }
-
             }
         });
-        text2.setOnKeyListener(this::onKey);
-
-
         text3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -245,7 +201,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!text3.getText().toString().isEmpty()) {
-                    text3.setBackgroundResource(R.drawable.ico_asterisk_blank);
                     text3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
                     text4.requestFocus();
                 }
@@ -254,10 +209,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
                 }
             }
         });
-
-        text3.setOnKeyListener(this::onKey);
-
-
         text4.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -273,7 +224,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!text4.getText().toString().isEmpty()) {
-                    text4.setBackgroundResource(R.drawable.ico_asterisk_blank);
                     text4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
                     text5.requestFocus();
                 }
@@ -282,10 +232,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
                 }
             }
         });
-
-        text4.setOnKeyListener(this::onKey);
-
-
         text5.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -299,9 +245,7 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
 
             @Override
             public void afterTextChanged(Editable editable) {
-
                 if (!text5.getText().toString().isEmpty()) {
-                    text5.setBackgroundResource(R.drawable.ico_asterisk_blank);
                     text5.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
                     text6.requestFocus();
                 }
@@ -310,10 +254,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
                 }
             }
         });
-
-
-        text5.setOnKeyListener(this::onKey);
-
         text6.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -329,7 +269,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!text6.getText().toString().isEmpty()) {
-                    text6.setBackgroundResource(R.drawable.ico_asterisk_blank);
                     text6.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk, 0);
                     InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputMethodManager.hideSoftInputFromWindow(text6.getWindowToken(), 0);
@@ -341,84 +280,63 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             }
         });
 
+        text2.setOnKeyListener(this::onKey);
+        text3.setOnKeyListener(this::onKey);
+        text4.setOnKeyListener(this::onKey);
+        text5.setOnKeyListener(this::onKey);
         text6.setOnKeyListener(this::onKey);
-
-    }
-
-    static boolean esPar(int numero) {
-        if (numero % 2 == 0) return true;
-        else return false;
     }
 
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
-
-        if (esPar(contador)) {
-
-
+        if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DEL && isActionDelete) {
             switch (view.getId()) {
-
-
                 case R.id.textPass2:
-                    if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                        if (text2.getText().length() == 0 && text2.hasFocus()) {
-                            text1.setText("");
-                            text1.setBackground(null);
-                            text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
-                            text1.requestFocus();
-                        }
+                    if (text2.getText().length() == 0 && text2.hasFocus()) {
+                        text1.setText("");
+                        text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
+                        isActionDelete = false;
+                        text1.requestFocus();
                     }
                     break;
                 case R.id.textPass3:
-                    if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                        if (text3.getText().length() == 0 && text3.hasFocus()) {
-                            text2.setText("");
-                            text2.setBackground(null);
-                            text2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
-                            text2.requestFocus();
-                        }
+                    if (text3.getText().length() == 0 && text3.hasFocus()) {
+                        text2.setText("");
+                        text2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
+                        isActionDelete = false;
+                        text2.requestFocus();
                     }
                     break;
                 case R.id.textPass4:
-                    if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                        if (text4.getText().length() == 0 && text4.hasFocus()) {
-                            text3.setText("");
-                            text3.setBackground(null);
-                            text3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
-                            text3.requestFocus();
-                        }
+                    if (text4.getText().length() == 0 && text4.hasFocus()) {
+                        text3.setText("");
+                        text3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
+                        isActionDelete = false;
+                        text3.requestFocus();
                     }
                     break;
                 case R.id.textPass5:
-                    if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                        if (text5.getText().length() == 0 && text5.hasFocus()) {
-                            text4.setText("");
-                            text4.setBackground(null);
-                            text4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
-                            text4.requestFocus();
-                        }
+                    if (text5.getText().length() == 0 && text5.hasFocus()) {
+                        text4.setText("");
+                        text4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
+                        isActionDelete = false;
+                        text4.requestFocus();
                     }
-
                     break;
                 case R.id.textPass6:
-                    if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                        if (text6.getText().length() == 0 && text6.hasFocus()) {
-                            text5.setText("");
-                            text5.setBackground(null);
-                            text5.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
-                            text5.requestFocus();
-                        }
+                    if (text6.getText().length() == 0 && text6.hasFocus()) {
+                        text5.setText("");
+                        text5.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
+                        isActionDelete = false;
+                        text5.requestFocus();
                     }
                     break;
-
-
             }
+        } else {
+            isActionDelete = true;
         }
-
-        contador++;
         return false;
     }
-
 
     @Override
     public void onFocusChange(View view, boolean b) {
@@ -443,6 +361,7 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
             }
         }
     }
+
     public void clearCode() {
         text1.setText("");
         text1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_asterisk_blank, 0);
@@ -465,15 +384,7 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
         text1.requestFocus();
     }
 
-    public interface OnCodeChangedListener {
-        void onCodeChanged();
-
-        void setVisivility();
-    }
-
-
     public void addNumber(String s) {
-
         switch (position) {
             case 0:
                 text1.setText(s);
@@ -496,8 +407,6 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
         }
     }
 
-
-
     public String getText() {
         String code;
         code = text1.getText().toString() + text2.getText().toString() + text3.getText().toString() +
@@ -505,29 +414,13 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
         return code;
     }
 
-
     public EditText getCode1() {
         return (EditText) text1;
     }
 
-    public EditText getCode2() {
-        return (EditText) text2;
-    }
+    public interface OnCodeChangedListener {
+        void onCodeChanged();
 
-    public EditText getCode3() {
-        return (EditText) text3;
+        void setVisivility();
     }
-
-    public EditText getCode4() {
-        return (EditText) text4;
-    }
-
-    public EditText getCode5() {
-        return (EditText) text5;
-    }
-
-    public EditText getCode6() {
-        return (EditText) text6;
-    }
-
 }

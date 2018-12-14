@@ -331,7 +331,6 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
                 colorboton();
             }
         }
-
     }
 
     @Override
@@ -375,8 +374,6 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
 
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
-
-
     }
 
     @Override
