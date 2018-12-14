@@ -135,10 +135,10 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
 
         if (textPlate.isEmpty()){
             RegisterUserNew.getInstance().setqRs(new ArrayList<>());
-            RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, true));
+            RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, true,""));
             activity.getRouter().showSMSAndroid();
         } else {
-            RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, false));
+            RegisterUserNew.getInstance().getqRs().add(new QRs(editNameQR.getText().toString().trim(),textPlate, false,""));
             activity.getRouter().showLinkedCodes();
         }
     }

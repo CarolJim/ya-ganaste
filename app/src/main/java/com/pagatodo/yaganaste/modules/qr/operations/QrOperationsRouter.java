@@ -1,6 +1,10 @@
 package com.pagatodo.yaganaste.modules.qr.operations;
 
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.qr.operations.DetailQr.DetailQrFragment;
+
+import java.text.DecimalFormat;
 
 public class QrOperationsRouter implements QrOperationsContracts.Router {
 
@@ -47,7 +51,7 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     /*Pantalla 5*/
     @Override
     public void showDetailQR(Direction direction) {
-
+        activity.loadFragment(DetailQrFragment.newInstance(),R.id.fragment_container_qr,direction,false);
     }
 
     // 05b - Editar QR

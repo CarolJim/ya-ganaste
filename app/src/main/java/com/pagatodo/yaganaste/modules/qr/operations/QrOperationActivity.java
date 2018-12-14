@@ -15,6 +15,7 @@ public class QrOperationActivity extends LoaderActivity {
     public static final int ID_ADD_QR = 101;
     public static final int ID_GENERATE_NEW_QR = 102;
     public static final int ID_MY_SALES_QR = 103;
+    public static final int ID_DETAIL_QR = 104;
     private int idFragment;
     private QrOperationsRouter router;
 
@@ -45,6 +46,9 @@ public class QrOperationActivity extends LoaderActivity {
                 break;
             case ID_MY_SALES_QR:
                 router.showMyMovementsQR(Direction.NONE);
+                break;
+            case ID_DETAIL_QR:
+                router.showDetailQR(Direction.NONE);
                 break;
         }
     }

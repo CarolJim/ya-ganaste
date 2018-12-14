@@ -177,6 +177,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         } catch (NullPointerException e){
             onErrorValidatePlate("QR Invalido");
         }
+
     }
 
 
