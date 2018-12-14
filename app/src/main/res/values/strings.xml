@@ -493,6 +493,7 @@
     <string name="main_tab_inicio">Wallet</string>
     <string name="main_tab_pagos">Pagar</string>
     <string name="main_tab_depositos">Enviar</string>
+    <string name="main_tab_qr">Mis QR</string>
     <string name="main_tab_ganar">Ganar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
@@ -1685,6 +1686,17 @@
     <string name="title_code_fragment">Códigos QR vinculados\na tu cuenta</string>
     <string name="title_code_digital_fragment">Hemos generado un código QR\npara tu negocio</string>
 
+
+    <!--Agregar Qr Wallet-->
+    <string name="agregar_qr">Agregar QR</string>
+    <string name="addqrbutton">Agregar QR</string>
+    <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
+
+
+    <!--QR-->
+    <string name="my_qr">Mis Códigos QR</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

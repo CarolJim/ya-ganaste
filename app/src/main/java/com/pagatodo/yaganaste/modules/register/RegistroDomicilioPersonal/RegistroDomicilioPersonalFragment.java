@@ -305,56 +305,6 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
             }
         });
-
-        /*
-
-        editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    hideValidationError(editZipCode.getId());
-                    text_cp.setBackgroundResource(R.drawable.inputtext_active);
-                } else {
-                    if (editZipCode.getText().toString().isEmpty()) {
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
-                    } else {
-                        hideValidationError(editZipCode.getId());
-                        text_cp.setBackgroundResource(R.drawable.inputtext_normal);
-                    }
-                }
-            }
-        });
-
-        editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    hideValidationError(editZipCode.getId());
-                    // editZipCode.imageViewIsGone(true);
-                    text_cp.setBackgroundResource(R.drawable.inputtext_active);
-                } else {
-                    if (editZipCode.getText().toString().isEmpty()) {
-                        //editZipCode.setIsInvalid();
-                        showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
-
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-                        text_cp.setBackgroundResource(R.drawable.inputtext_error);
-                    } else if (editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                        //   hideValidationError(editZipCode.getId());
-                        // editZipCode.setIsValid();
-                        text_cp.setBackgroundResource(R.drawable.inputtext_normal);
-                        //    showLoader(getString(R.string.search_zipcode));
-                        //    accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
-                    }
-                }
-            }
-        });
-*/
         setValidationRules();
     }
 
