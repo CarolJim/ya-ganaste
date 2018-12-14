@@ -8,9 +8,6 @@
     android:orientation="vertical"
     tools:context=".modules.register.CorreoUsuario.RegistroCorreoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -299,6 +296,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="3dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/inputtext_normal"
                     android:clickable="true"
                     android:hint="@string/county"
@@ -502,7 +500,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -510,7 +508,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
