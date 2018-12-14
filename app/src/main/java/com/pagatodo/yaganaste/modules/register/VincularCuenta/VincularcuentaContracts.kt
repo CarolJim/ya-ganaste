@@ -26,13 +26,12 @@ class VincularcuentaContracts {
         fun createClient()
         fun assignNip()
         fun createAgent()
-        fun assignmentQrs()
         fun getNumberOfSms()
         fun verifyActivationSms()
         fun updateSession()
         fun provisionDevice()
         /* QR Process */
-        fun assignQr()
+        fun assignmentQrs()
     }
 
     interface Router {

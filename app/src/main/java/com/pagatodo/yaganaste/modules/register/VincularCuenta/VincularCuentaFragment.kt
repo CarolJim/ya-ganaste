@@ -37,6 +37,8 @@ private const val CHECK_SMS_VALIDATE_DELAY: Long = 3000
 
 class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presenter, View.OnClickListener {
 
+    var permissionSms: Int = 0
+    var permissionCall: Int = 0
     private lateinit var binding: FragmentVincularCuentaBinding
     private lateinit var iteractor: VincularcuentaContracts.Iteractor
     private lateinit var router: VincularcuentaContracts.Router
@@ -63,6 +65,17 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     }
 
     override fun initViews() {}
+
+    override fun onResume() {
+        super.onResume()
+        permissionSms = ContextCompat.checkSelfPermission(context!!, Manifest.permission.SEND_SMS)
+        permissionCall = ContextCompat.checkSelfPermission(context!!, Manifest.permission.READ_PHONE_STATE)
+        if (permissionSms == -1 || permissionCall == -1) {
+            ValidatePermissions.checkPermissions(activity,
+                    arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE),
+                    MY_PERMISSIONS_REQUEST_SEND_SMS)
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -119,7 +132,6 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     override fun onAgentCreated() {
         hideLoader()
         validatePermissions()
-        TODO("Asignacion de QR's")
         iteractor.assignmentQrs()
     }
 
@@ -154,10 +166,6 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     }
 
     private fun validatePermissions() {
-        val permissionSms = ContextCompat.checkSelfPermission(context!!,
-                Manifest.permission.SEND_SMS)
-        val permissionCall = ContextCompat.checkSelfPermission(context!!,
-                Manifest.permission.READ_PHONE_STATE)
         // Si no tenemos el permiso lo solicitamos, en cawso contrario entramos al proceso de envio del MSN
         if (permissionSms == -1 || permissionCall == -1) {
             ValidatePermissions.checkPermissions(activity,

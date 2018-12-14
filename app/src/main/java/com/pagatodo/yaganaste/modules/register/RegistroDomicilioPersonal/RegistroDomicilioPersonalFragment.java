@@ -57,11 +57,12 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
-/**btnNextSelectZip
+/**
+ * btnNextSelectZip
  * A simple {@link Fragment} subclass.
  */
 public class RegistroDomicilioPersonalFragment extends GenericFragment implements View.OnClickListener,
-        ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick,Custom_postal_code.OnCodeChangedListenerCP {
+        ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick, Custom_postal_code.OnCodeChangedListenerCP {
     public static int MIN_LENGHT_VALIDATION_CP = 4;
     @BindView(R.id.btnNextSelectZip)
     StyleButton btnNextSelectZip;
@@ -245,7 +246,6 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         });
 
 
-
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -355,7 +355,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             }
         });
 */
-    setValidationRules();
+        setValidationRules();
     }
 
     @Override
@@ -461,11 +461,8 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @Override
     public void validateForm() {
-
         getDataForm();
-
         boolean isValid = true;
-
         if (calle.isEmpty()) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
@@ -486,7 +483,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-            text_cp.setBackgroundResource(R.drawable.inputtext_error);
+            component_postal_code.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
 
@@ -497,21 +494,11 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_colonia), Snackbar.LENGTH_SHORT);
             txtcoloria.setBackgroundResource(R.drawable.inputtext_error);
 
-
             isValid = false;
         }
         if (isValid) {
-            if (editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                //activityf.showFragmentDatosNegocio();
-                activityf.getRouter().showBusinessData(Direction.FORDWARD);
-            } else {
-                UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_cp), Snackbar.LENGTH_SHORT);
-                text_cp.setBackgroundResource(R.drawable.inputtext_error);
-                isValid = false;
-            }
+            onValidationSuccess();
         }
-
-
     }
 
     @Override
@@ -534,7 +521,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         registerUser.setEstadoDomicilio(estadoDomicilio);
         registerUser.setColonia(colonia);
         registerUser.setIdColonia(Idcolonia);
-        activityf.showFragmentDomicilioSelectCP();
+        activityf.getRouter().showBusinessData(Direction.FORDWARD);
     }
 
     @Override
@@ -542,7 +529,7 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
         calle = editStreet.getText().toString().trim();
         numExt = editExtNumber.getText().toString().trim();
         numInt = editIntNumber.getText().toString().trim();
-        codigoPostal = editZipCode.getText().toString().trim();
+        codigoPostal = component_postal_code.getText().trim();
         if (spColonia.getSelectedItem() != null && listaColonias != null) {
             colonia = spColonia.getSelectedItem().toString();
             for (ColoniasResponse coloniaInfo : listaColonias) {
@@ -645,17 +632,15 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @Override
     public void onCodeChanged() {
-        if (component_postal_code.getText().toString().length()==5){
-            accountPresenter.getNeighborhoods(component_postal_code.getText().toString().toString().trim());//Buscamos por CP
-            accountPresenter.getNeighborhoods(component_postal_code.getText().toString().toString().trim());//Buscamos por CP
+        if (component_postal_code.getText().length() == 5) {
+            accountPresenter.getNeighborhoods(component_postal_code.getText().trim());//Buscamos por CP
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(rootView.getWindowToken(), 0);
-            if (!component_postal_code.getText().toString().isEmpty()) {
+            if (!component_postal_code.getText().isEmpty()) {
                 imgcp.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);
-            }else {
+            } else {
                 imgcp.setColorFilter(ContextCompat.getColor(getContext(), R.color.gray_space), android.graphics.PorterDuff.Mode.SRC_IN);
             }
         }
-
     }
 }

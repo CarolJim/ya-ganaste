@@ -1,16 +1,13 @@
 package com.pagatodo.yaganaste.modules.register.VincularCuenta
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.analytics.FirebaseAnalytics
-
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.BuildConfig
@@ -50,6 +47,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         IRequestResult<DataSourceResult>, AprovPresenter(App.getContext(), false),
         IAprovView<Any> {
 
+    private var intentsValidateSms = 0
 
     override fun createUser() {
         presenter.showLoader(App.getContext().getString(R.string.creating_user))
@@ -76,7 +74,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 registerUserSingleton.numExterior,
                 registerUserSingleton.numInterior,
                 registerUserSingleton.paisNacimiento.id)
-        RequestHeaders.TokenDispositivo = Utils.getTokenDevice(App.getContext())
+        RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getContext()))
         try {
             ApiAdtvo.crearUsuarioCliente(request, this)
         } catch (e: OfflineException) {
@@ -110,11 +108,8 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun createAgent() {
         presenter.showLoader(App.getContext().getString(R.string.creating_agent))
         var registerUserSingleton = RegisterUserNew.getInstance()
-        var registerAgent = RegisterAgent.getInstance()
-        registerAgent.nombre = registerUserSingleton.nombreNegocio
-        registerAgent.giro = Giros(registerUserSingleton.idGiro, registerUserSingleton.giro, null)
-        registerAgent.telefono = "5555555555"
-        var request = CrearAgenteRequest(registerAgent, 22, null)
+        var request = CrearAgenteRequest(22, registerUserSingleton.nombreNegocio, "5555555555",
+                registerUserSingleton.idGiro, null)
         try {
             ApiAdtvo.crearAgenteWallet(request, this)
         } catch (e: Exception) {
@@ -124,7 +119,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun assignmentQrs() {
-        //presenter.showLoader(App.getContext().getString(R.string.assignment_qrs))
         for (QRs in RegisterUserNew.getInstance().getqRs()) {
             if (!QRs.isDigital) {
                 setAsignQrPhysical(QRs)
@@ -132,12 +126,10 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                 setAsignQrDigital(QRs)
             }
         }
-
     }
 
-    fun setAsignQrDigital(qrs: QRs) {
+    private fun setAsignQrDigital(qrs: QRs) {
         val requestQueue = Volley.newRequestQueue(App.getContext())
-
         val jsonBody = JSONObject()
         try {
             jsonBody.put("name", qrs.alias)
@@ -147,17 +139,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
-
         val requestBody = jsonBody.toString()
-
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
                 "https://us-central1-frigg-1762c.cloudfunctions.net/nwQRYG", null,
                 { response ->
                     try {
                         val success = response.getBoolean("success")
                         if (success) {
-                            //listener.onSuccessValidatePlate(plate)
                             presenter.onAsignQrPhysical()
                         } else {
                             presenter.onErrorService(response.getString("message"))
@@ -168,7 +156,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     }
 
                 }, { error ->
-            // TODO: Handle error
             Log.e("VOLLEY", error.toString())
             presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
         }) {
@@ -187,25 +174,15 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             }
 
             override fun getHeaders(): HashMap<String, String> {
-
                 val headersQR = HashMap<String, String>()
                 headersQR.put("Authorization", App.getInstance().prefs.loadData(TOKEN_FIREBASE))
                 return headersQR
             }
         }
-        /*
-         @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                //headers.put("Content-Type", "application/json");
-                headers.put("key", "Value");
-                return headers;
-            }
-         */
         requestQueue.add(jsonObjectRequest)
     }
 
-    fun setAsignQrPhysical(qrs: QRs) {
+    private fun setAsignQrPhysical(qrs: QRs) {
         val requestQueue = Volley.newRequestQueue(App.getContext())
         val jsonBody = JSONObject()
         try {
@@ -213,7 +190,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             jsonBody.put("name", qrs.alias)
             jsonBody.put("bank", "148")
             jsonBody.put("account", SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
-
         } catch (e: JSONException) {
             e.printStackTrace()
         }
@@ -224,7 +200,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     try {
                         val success = response.getBoolean("success")
                         if (success) {
-                            //listener.onSuccessValidatePlate(plate)
                             presenter.onAsignQrPhysical()
                         } else {
                             presenter.onErrorService(response.getString("message"))
@@ -298,10 +273,6 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     override fun provisionDevice() {
         super.setAprovView(this)
         super.doProvisioning()
-    }
-
-    override fun assignQr() {
-
     }
 
     override fun onSuccess(data: DataSourceResult?) {
@@ -413,7 +384,13 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
                     RequestHeaders.setTokenauth(response.data.tokenAutenticacion)
                     presenter.onVerificationSmsSuccess()
                 } else {
-                    presenter.onErrorService(response.mensaje)
+                    if (intentsValidateSms == 3) {
+                        intentsValidateSms = 0
+                        presenter.onErrorService(response.mensaje)
+                    } else {
+                        intentsValidateSms += 1
+                        Handler().postDelayed({ verifyActivationSms() }, 3000)
+                    }
                 }
             }
             is ActualizarInformacionSesionResponse -> {

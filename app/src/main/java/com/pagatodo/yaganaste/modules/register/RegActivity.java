@@ -28,7 +28,6 @@ import com.pagatodo.yaganaste.modules.register.RegistroDomicilioPersonal.Registr
 import com.pagatodo.yaganaste.modules.register.VincularCuenta.VincularCuentaFragment;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
-        router.showPrsonalAddress(Direction.FORDWARD);
+        router.showUserData(Direction.FORDWARD);
     }
 
     public void showFragmentDatosPersonales() {
@@ -153,7 +152,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 currentFragment instanceof WritePlateQRFragment ) {
             backStep();
             router.showPhysicalCode(Direction.BACK);
-            backStep();
+            //backStep();
         } else if (currentFragment instanceof VincularCuentaFragment){
             backStep();
             backStep();
