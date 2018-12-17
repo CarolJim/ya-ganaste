@@ -4,9 +4,8 @@ import android.content.Intent;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.QR.QRWallet.AgregaQRFragment;
+import com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico.AgregaQRFragment;
 import com.pagatodo.yaganaste.modules.register.CodigoVinculados.CodigosVinculadosFragment;
-import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;
 import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
 import com.pagatodo.yaganaste.modules.register.PhysicalCode.NewLinkedCodeFragment;

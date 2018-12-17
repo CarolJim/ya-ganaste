@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 
@@ -21,22 +22,23 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity.ID_ADD_QR;
+
 public class QrManagerFragment extends GenericFragment {
 
     private View rootView;
     private TabActivity activity;
     private QrManagerRouter router;
-    ArrayList<MyQrData> list = new ArrayList<>();
-    private QRAdapter adapter;
-
-    private QrManagerIteractor iteractor;
+    ArrayList<MyQrData> list=new ArrayList<>();
 
 
     @BindView(R.id.rcv_qr)
     RecyclerView rcv_qr;
 
+    @BindView(R.id.addQR)
+    LinearLayout addQR;
 
-    public static QrManagerFragment newInstance() {
+    public static QrManagerFragment newInstance(){
         return new QrManagerFragment();
     }
 
@@ -50,15 +52,13 @@ public class QrManagerFragment extends GenericFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.router = new QrManagerRouter(activity);
-
-        iteractor = new QrManagerIteractor(this, getContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_my_qr, container, false);
-        initViews();
+        rootView = inflater.inflate(R.layout.fragment_my_qr,container,false);
+        this.initViews();
         return rootView;
     }
 
@@ -75,35 +75,16 @@ public class QrManagerFragment extends GenericFragment {
         list.add(new MyQrData("Sucursal 2","1325",R.drawable.qr_code));
         list.add(new MyQrData("Vendedor 2","9957",R.drawable.qr_code));
 
-
+        addQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                router.showOperation(ID_ADD_QR);
+            }
+        });
         LinearLayoutManager llm = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         rcv_qr.setLayoutManager(llm);
         rcv_qr.setHasFixedSize(true);
 
-        adapter = new QRAdapter(this);
-
-        //rcv_qr.setAdapter(new QRAdapter(list));
-        rcv_qr.setAdapter(adapter);
-
-        Log.d("TOKEN", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE));
-        Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
-
-        iteractor.getMyQrs();
-    }
-
-    public QrManagerIteractor getIteractor() {
-        return iteractor;
-    }
-
-
-    @Override
-    public void onClickItem(QrItems item) {
-
-    }
-
-    @Override
-    public void onSuccessQRs(ArrayList<QrItems> listQRs) {
-        //adapter.setQrUser();
-        adapter.setQrUser(listQRs);
+      //  rcv_qr.setAdapter(new QRAdapter(list));
     }
 }

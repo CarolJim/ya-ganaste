@@ -1696,6 +1696,10 @@
     <string name="agregar_qr">Agregar QR</string>
     <string name="addqrbutton">Agregar QR</string>
     <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
+    <string name="qr_add_succes">QR agregado correctamente</string>
+    <string name="qr_add_error">QR Invalido</string>
+
+
 
 
     <!--QR-->

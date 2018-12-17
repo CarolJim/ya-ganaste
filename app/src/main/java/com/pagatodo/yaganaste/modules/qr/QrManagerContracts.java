@@ -1,6 +1,11 @@
 package com.pagatodo.yaganaste.modules.qr;
 
 import com.pagatodo.yaganaste.modules.data.QrItem;
+import com.pagatodo.yaganaste.modules.data.QrItems;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class QrManagerContracts {
 
@@ -9,7 +14,7 @@ public class QrManagerContracts {
     }
 
     public interface Iteractor{
-        void getMyQrs();
+        void getMyQrs() throws JSONException;
     }
 
     public interface Router{

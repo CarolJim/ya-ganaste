@@ -27,13 +27,16 @@ import static android.content.Context.WINDOW_SERVICE;
 
 public class QRAdapter extends RecyclerView.Adapter<QRAdapter.ViewHolder> {
 
+    private ArrayList<QrItems> listQR;
+    private OnHolderListener<QrItems> listener;
+
+
+
     public QRAdapter(OnHolderListener<QrItems> listener){
         this.listQR=new ArrayList<>();
         this.listener=listener;
     }
 
-    private ArrayList<QrItems> listQR;
-    private OnHolderListener<QrItems> listener;
 
     public void setQrUser(ArrayList<QrItems> qrUser){
         this.listQR=qrUser;
