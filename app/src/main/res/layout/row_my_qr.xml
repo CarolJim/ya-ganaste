@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="110dp"
+    android:layout_width="120dp"
     android:orientation="vertical"
     android:layout_height="wrap_content">
     <EditText
@@ -11,12 +11,14 @@
         android:text="Caja principal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <ImageView
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:src="@drawable/qr_code"
-        android:id="@+id/image_qr"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+
+        <ImageView
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:src="@drawable/qr_code"
+            android:id="@+id/image_qr"
+            android:layout_width="110dp"
+            android:layout_height="110dp" />
+
     <EditText
 
         android:gravity="center_horizontal"

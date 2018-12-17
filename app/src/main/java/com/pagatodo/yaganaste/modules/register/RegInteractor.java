@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
 
 public class RegInteractor implements RegContracts.Iteractor{
 
-    private static final String URL_VALIDATE_PLATE = "https://us-central1-frigg-1762c.cloudfunctions.net/vldtLnkPltYG";
+    private static final String URL_VALIDATE_PLATE = "https://us-central1-frigg-1762c.cloudfunctions.net/gtQRSYG";
     private RegContracts.Listener listener;
     private RequestQueue requestQueue;
 
