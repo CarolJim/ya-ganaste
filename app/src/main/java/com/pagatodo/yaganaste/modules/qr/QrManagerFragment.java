@@ -1,24 +1,17 @@
 package com.pagatodo.yaganaste.modules.qr;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
-import com.pagatodo.yaganaste.modules.data.QrItems;
-import com.pagatodo.yaganaste.modules.patterns.OnHolderListener;
 import com.pagatodo.yaganaste.modules.qr.Adapter.QRAdapter;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -28,11 +21,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.content.Context.WINDOW_SERVICE;
-import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
-import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
-
-public class QrManagerFragment extends GenericFragment implements QrManagerContracts.Listener, OnHolderListener<QrItems> {
+public class QrManagerFragment extends GenericFragment {
 
     private View rootView;
     private TabActivity activity;
@@ -76,8 +65,18 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        list.add(new MyQrData("Caja principal","1652",R.drawable.qr_code));
+        list.add(new MyQrData("Sucursal 2","1325",R.drawable.qr_code));
+        list.add(new MyQrData("Vendedor 2","9957",R.drawable.qr_code));
+        list.add(new MyQrData("Caja principal","1652",R.drawable.qr_code));
+        list.add(new MyQrData("Sucursal 2","1325",R.drawable.qr_code));
+        list.add(new MyQrData("Vendedor 2","9957",R.drawable.qr_code));
+        list.add(new MyQrData("Caja principal","1652",R.drawable.qr_code));
+        list.add(new MyQrData("Sucursal 2","1325",R.drawable.qr_code));
+        list.add(new MyQrData("Vendedor 2","9957",R.drawable.qr_code));
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         rcv_qr.setLayoutManager(llm);
         rcv_qr.setHasFixedSize(true);
 

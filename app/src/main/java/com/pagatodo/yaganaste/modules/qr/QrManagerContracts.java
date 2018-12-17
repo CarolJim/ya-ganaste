@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.modules.qr;
 
-import com.pagatodo.yaganaste.modules.data.QrItems;
-
-import java.util.ArrayList;
+import com.pagatodo.yaganaste.modules.data.QrItem;
 
 public class QrManagerContracts {
 
@@ -16,5 +14,6 @@ public class QrManagerContracts {
 
     public interface Router{
         void showOperation(int idFragment);
+        void showOperationDetail(QrItem item);
     }
 }

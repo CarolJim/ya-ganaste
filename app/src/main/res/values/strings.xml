@@ -1375,6 +1375,8 @@
     <string name="item_menu_reenviar">Reenviar ticket</string>
     <string name="item_menu_cancelar">Cancelar cobro</string>
     <string name="item_menu_anadir_mov">Añadir</string>
+    <string name="item_menu_delete">Eliminar</string>
+
 
     <!--Tittle Operaciones-->
     <string name="operation_movimientos">Consultar\nmovimientos</string>
@@ -1686,9 +1688,17 @@
     <string name="title_code_fragment">Códigos QR vinculados\na tu cuenta</string>
     <string name="title_code_digital_fragment">Hemos generado un código QR\npara tu negocio</string>
 
+    <string name="btn_share_qr">Compartir QR</string>
+
+
+
+    <!--Agregar Qr Wallet-->
+    <string name="agregar_qr">Agregar QR</string>
+    <string name="addqrbutton">Agregar QR</string>
+    <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
+
+
     <!--QR-->
     <string name="my_qr">Mis Códigos QR</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

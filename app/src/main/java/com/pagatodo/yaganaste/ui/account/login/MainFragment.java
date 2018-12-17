@@ -129,7 +129,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
-                //startActivity(RegActivity.createIntent(getActivity()));
                 break;
             case R.id.help_text:
                 intent = new Intent(getActivity(), AccountActivity.class);

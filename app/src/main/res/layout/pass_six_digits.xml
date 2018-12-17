@@ -63,9 +63,9 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass3"
-            android:textAlignment="center"
             android:textColor="@color/transparent" />
 
         <LinearLayout
@@ -87,6 +87,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass4"
             android:textAlignment="center"
@@ -98,6 +99,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:background="@color/gray_space"
+            android:gravity="center"
             android:visibility="visible">
 
         </LinearLayout>
@@ -135,6 +137,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:inputType="numberPassword"
             android:nextFocusForward="@id/textPass6"
             android:textAlignment="center"
@@ -159,6 +162,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:inputType="numberPassword"
             android:textAlignment="center"
             android:textColor="@color/transparent" />

@@ -74,7 +74,7 @@ public class CodigosVinculadosFragment extends GenericFragment implements OnHold
         for (QRs qrs:RegisterUserNew.getInstance().getqRs()){
             qrItems.add(new QrItem(qrs,R.drawable.qr_code));
         }
-        qrItems.add(new QrItem(new QRs("","Agregar QR",true),R.drawable.ic_camera_plus));
+        qrItems.add(new QrItem(new QRs("","Agregar QR",true,""),R.drawable.ic_camera_plus));
         adapter.setQrItems(qrItems);
         rootView.findViewById(R.id.button_continue).setOnClickListener(view -> activity.getRouter().showSMSAndroid());
         //android:src="@drawable/qr_code"
