@@ -1,48 +1,25 @@
 package com.pagatodo.yaganaste.modules.qr;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaUyUResponse;
 import com.pagatodo.yaganaste.modules.data.QrItems;
 import com.pagatodo.yaganaste.modules.patterns.OnHolderListener;
 import com.pagatodo.yaganaste.modules.qr.Adapter.QRAdapter;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui_wallet.interfaces.RecyclerViewOnItemClickListener;
-import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
-import com.pagatodo.yaganaste.utils.qrcode.QrcodeGenerator;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.content.Context.WINDOW_SERVICE;
-import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
-import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE;
-import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
 
 public class QrManagerFragment extends GenericFragment implements QrManagerContracts.Listener, OnHolderListener<QrItems> {
 
