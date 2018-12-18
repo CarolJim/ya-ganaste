@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -38,7 +39,6 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActi
 public class AgregaQRFragment extends GenericFragment implements  AgregaQRContracts.Listener{
     @BindView(R.id.edit_code_qr)
     EditText edit_code_qr;
-
     @BindView(R.id.text_name_qr)
     TextInputLayout text_name_qr;
 
@@ -53,7 +53,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     View rootView;
     public static String plate;
     boolean isValid=false;
-
+    public static int MILISEGUNDOS_ESPERA = 2000;
     RegActivity activityf;
 
     public static AgregaQRFragment newInstance(){
@@ -91,7 +91,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(text_name_qr, InputMethodManager.SHOW_IMPLICIT);
-        Toast.makeText(getActivity(), "Plate: "+plate, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getActivity(), "Plate: "+plate, Toast.LENGTH_LONG).show();
         edit_code_qr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -149,17 +149,32 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
 
     @Override
     public void onSuccessQRs() {
-        //UI.showSuccessSnackBar(getActivity(), getString(R.string.qr_add_succes), Snackbar.LENGTH_SHORT);
+        UI.showSuccessSnackBar(getActivity(), getString(R.string.qr_add_succes), Snackbar.LENGTH_SHORT);
+        esperarYCerrar(MILISEGUNDOS_ESPERA);
 
-
-        UI.showAlertDialog(getActivity(), getResources().getString(R.string.qr_add_succes),"",
+      /*  UI.showAlertDialog(getActivity(), getResources().getString(R.string.qr_add_succes),"",
                 R.string.title_aceptar, (dialogInterface, i) -> {
             getActivity().finish();
-                });
+                });*/
 
 
     }
+    public void esperarYCerrar(int milisegundos) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // acciones que se ejecutan tras los milisegundos
+                finalizarApp();
+            }
+        }, milisegundos);
+    }
 
+    /**
+     * Finaliza la aplicación
+     */
+    public void finalizarApp() {
+        getActivity().finish();
+    }
     @Override
     public void onErrorQRs() {
         UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);

@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.modules.qr.QRWallet.EcribeQRPlate;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -8,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
@@ -63,7 +66,9 @@ public  static QrOperationActivity activityf;
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
-
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+        imm.showSoftInput(edit_code_wr, InputMethodManager.SHOW_IMPLICIT);
         edit_code_wr.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -74,6 +79,9 @@ public  static QrOperationActivity activityf;
                 if (edit_code_wr.getText().length()==12){
                     btn_continue.setBackgroundResource(R.drawable.button_rounded_blue);
                     isValid = true;
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
                 }else {
                     btn_continue.setBackgroundResource(R.drawable.button_rounded_gray);
                     isValid = false;

@@ -87,8 +87,10 @@ public class QrOperationActivity extends LoaderActivity {
                     /*    cardNumber.setText(myQr.getClabe());
                         receiverName.setText(myQr.getUserName());*/
                     }
+                }else{
+                    finish();
                 }
-            }if (resultCode ==153){
+            }else if (resultCode ==153){
                 router.showWritePlateQr(Direction.NONE);
             }
 
