@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.data.QrItems;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.Constants;
@@ -20,6 +21,8 @@ import com.pagatodo.yaganaste.utils.qrcode.Auxl;
 import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
 import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.pagatodo.yaganaste.utils.qrcode.Qrlectura;
+
+import java.util.Objects;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
@@ -31,6 +34,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 public class QrOperationActivity extends LoaderActivity {
 
     private static final String TAG_ID_FRAGMENT = "TAG_ID_FRAGMENT";
+    private static final String TAG_QR_ITEM = "TAG_QR_ITEM";
     public static final int ID_ADD_QR = 101;
     public static final int ID_GENERATE_NEW_QR = 102;
     public static final int ID_MY_SALES_QR = 103;
@@ -41,6 +45,13 @@ public class QrOperationActivity extends LoaderActivity {
     public static Intent createIntent(Activity activity, int tag){
         Intent intent = new Intent(activity,QrOperationActivity.class);
         intent.putExtra(TAG_ID_FRAGMENT,tag);
+        return intent;
+    }
+
+    public static Intent createIntent(Activity activity, QrItems item, int tag){
+        Intent intent = new Intent(activity,QrOperationActivity.class);
+        intent.putExtra(TAG_ID_FRAGMENT,tag);
+        intent.putExtra(TAG_QR_ITEM,item);
         return intent;
     }
 
@@ -67,7 +78,8 @@ public class QrOperationActivity extends LoaderActivity {
                 router.showMyMovementsQR(Direction.NONE);
                 break;
             case ID_DETAIL_QR:
-                router.showDetailQR(Direction.NONE);
+                QrItems item = (QrItems) Objects.requireNonNull(getIntent().getExtras()).getSerializable(TAG_QR_ITEM);
+                router.showDetailQR(Direction.NONE,item);
                 break;
         }
     }
@@ -105,5 +117,9 @@ public class QrOperationActivity extends LoaderActivity {
     @Override
     public boolean requiresTimer() {
         return true;
+    }
+
+    public QrOperationsRouter getRouter() {
+        return router;
     }
 }

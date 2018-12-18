@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ya-ganaste-adt-4x.iml" filepath="$PROJECT_DIR$/ya-ganaste-adt-4x.iml" />
-      <module fileurl="file://$PROJECT_DIR$/yaganaste-pt.iml" filepath="$PROJECT_DIR$/yaganaste-pt.iml" />
     </modules>
   </component>
 </project>

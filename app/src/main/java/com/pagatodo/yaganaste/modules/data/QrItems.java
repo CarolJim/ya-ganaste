@@ -5,11 +5,14 @@ import com.pagatodo.yaganaste.data.model.QRUser;
 import java.io.Serializable;
 
 public class QrItems implements Serializable {
+
     private QRUser qrUser;
+    private String jsonQr;
     private int resImage;
 
-    public QrItems(QRUser qrUser, int resImage) {
+    public QrItems(QRUser qrUser, String jsonQr, int resImage) {
         this.qrUser = qrUser;
+        this.jsonQr = jsonQr;
         this.resImage = resImage;
     }
 
@@ -27,5 +30,13 @@ public class QrItems implements Serializable {
 
     public void setResImage(int resImage) {
         this.resImage = resImage;
+    }
+
+    public String getJsonQr() {
+        return jsonQr;
+    }
+
+    public void setJsonQr(String jsonQr) {
+        this.jsonQr = jsonQr;
     }
 }

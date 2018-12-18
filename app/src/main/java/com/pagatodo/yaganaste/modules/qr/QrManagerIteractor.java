@@ -53,8 +53,7 @@ public class QrManagerIteractor implements QrManagerContracts.Iteractor {
                                 object.getString("name");
                                 JSONObject qr = object.getJSONObject("qr");
                                 JSONObject plateJson = qr.getJSONObject("Aux");
-
-                                list.add(new QrItems(new QRUser(object.getString("name"),plateJson.getString("Pl")),2));
+                                list.add(new QrItems(new QRUser(object.getString("name"),plateJson.getString("Pl")),plateJson.toString(),2));
                             }
                             listener.onSuccessQRs(list);
                         } catch (JSONException e) {
