@@ -25,6 +25,11 @@
         android:orientation="horizontal">
 
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
