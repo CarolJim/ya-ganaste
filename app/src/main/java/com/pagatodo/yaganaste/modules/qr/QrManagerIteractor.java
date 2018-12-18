@@ -37,13 +37,11 @@ public class QrManagerIteractor implements QrManagerContracts.Iteractor {
 
     @Override
     public void getMyQrs() {
-        Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, URL_VERIFY_QR_USER, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("VOLLEY_OK", response.toString());
-                        Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
+
                         list = new ArrayList<>();
                         try {
                             JSONArray data = response.getJSONArray("data");
@@ -64,7 +62,7 @@ public class QrManagerIteractor implements QrManagerContracts.Iteractor {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY OK", error.toString());
+                        listener.onErrorQRs();
                     }
                 }) {
             @Override

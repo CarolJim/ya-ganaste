@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRFragment;
 import com.pagatodo.yaganaste.modules.register.CodigoVinculados.CodigosVinculadosFragment;
+import com.pagatodo.yaganaste.modules.register.CorreoUsuario.RegistroCorreoFragment;
 import com.pagatodo.yaganaste.modules.register.DatosNegocio.DatosNegocioEAFragment;
 import com.pagatodo.yaganaste.modules.register.DatosPersonales.RegistroDatosPersonalesFragment;
 import com.pagatodo.yaganaste.modules.register.PhysicalCode.NewLinkedCodeFragment;
@@ -38,12 +39,12 @@ public class RegRouter implements RegContracts.Router {
 
     @Override
     public void showUserData(Direction direction) {
-        /*activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
-                direction, false);
-        */
-        activity.loadFragment(AgregaQRFragment.newInstance(), R.id.fragment_container,
+        activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
                 direction, false);
 
+        /*activity.loadFragment(AgregaQRFragment.newInstance(), R.id.fragment_container,
+                direction, false);
+*/
     }
 
     /**
@@ -153,7 +154,6 @@ public class RegRouter implements RegContracts.Router {
         activity.loadFragment(RegistroCompletoFragment.newInstance(), R.id.fragment_container,
                 Direction.FORDWARD, false);
     }
-
 
 
 }

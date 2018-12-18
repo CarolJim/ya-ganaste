@@ -9,6 +9,7 @@ public class QrManagerContracts {
 
     public interface Listener{
         void onSuccessQRs(ArrayList<QrItems> listQRs);
+        void onErrorQRs();
     }
 
     public interface Iteractor{
@@ -17,6 +18,6 @@ public class QrManagerContracts {
 
     public interface Router{
         void showOperation(int idFragment);
-        void showOperationDetail(QrItem item);
+        void showOperationDetail(QrItems item);
     }
 }
