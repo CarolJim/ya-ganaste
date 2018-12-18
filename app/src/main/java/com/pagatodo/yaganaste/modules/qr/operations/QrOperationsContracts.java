@@ -20,7 +20,7 @@ public class QrOperationsContracts {
         void showMyMovementsQR(Direction direction); //02 -Movimientos
         void showGenerateQR(Direction direction); //03 - generar QR
         void showScanQR(Direction direction); //04 - Scan QR
-        void showNameQrPhysical(Direction direction); //04b - Nombrar QR fisico
+        void showNameQrPhysical(Direction direction,String plate); //04b - Nombrar QR fisico
         void showWritePlateQr(Direction direction); //04c - Escribir Plate QR
         void showDetailQR(Direction direction); //05 -Detalle QR
         void showEditQr(Direction direction); // 05b - Editar QR

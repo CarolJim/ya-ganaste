@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.modules.qr.operations;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRFragment;
+import com.pagatodo.yaganaste.modules.qr.operations.EcribeQRPlate.ErcribePlateFragment;
 import com.pagatodo.yaganaste.modules.qr.operations.DetailQr.DetailQrFragment;
 
 import android.content.Intent;
@@ -44,13 +46,14 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
 
     /* 04b - Nombrar QR fisico */
     @Override
-    public void showNameQrPhysical(Direction direction) {
-
+    public void showNameQrPhysical(Direction direction,String plate) {
+        activity.loadFragment(AgregaQRFragment.newInstance(plate),R.id.fragment_container_qr,direction,false);
     }
 
     ///04c - Escribir Plate QR
     @Override
     public void showWritePlateQr(Direction direction) {
+        activity.loadFragment(ErcribePlateFragment.newInstance(activity),R.id.fragment_container_qr,direction,false);
 
     }
 

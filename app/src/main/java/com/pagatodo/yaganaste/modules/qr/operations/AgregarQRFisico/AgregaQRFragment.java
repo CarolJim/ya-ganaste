@@ -1,8 +1,9 @@
-package com.pagatodo.yaganaste.modules.QR.QRWallet;
+package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico;
 
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -28,13 +29,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AgregaQRFragment extends GenericFragment {
+public class AgregaQRFragment extends GenericFragment implements  AgregaQRContracts.Listener{
     @BindView(R.id.edit_code_qr)
     EditText edit_code_qr;
-
     @BindView(R.id.text_name_qr)
     TextInputLayout text_name_qr;
 
+    AgregaQRContracts.Iteractor iteractor;
 
     @BindView(R.id.subtitle_addqr)
     StyleTextView subtitle_addqr;
@@ -43,12 +44,17 @@ public class AgregaQRFragment extends GenericFragment {
     StyleButton btnAddQR;
 
     View rootView;
-
+    public static String plate;
     boolean isValid=false;
-
+    public static int MILISEGUNDOS_ESPERA = 1500;
     RegActivity activityf;
 
     public static AgregaQRFragment newInstance(){
+        return new AgregaQRFragment();
+    }
+
+    public static AgregaQRFragment newInstance(String platre){
+        plate = platre;
         return new AgregaQRFragment();
     }
 
@@ -67,6 +73,7 @@ public class AgregaQRFragment extends GenericFragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_agrega_qr, container, false);
         initViews();
+        iteractor= new AgregaQRIteractor(this,getContext());
         return rootView;
     }
 
@@ -77,7 +84,7 @@ public class AgregaQRFragment extends GenericFragment {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(text_name_qr, InputMethodManager.SHOW_IMPLICIT);
-
+       // Toast.makeText(getActivity(), "Plate: "+plate, Toast.LENGTH_LONG).show();
         edit_code_qr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -114,15 +121,17 @@ public class AgregaQRFragment extends GenericFragment {
         });
 
 
+
         btnAddQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isValid){
-
+                    iteractor.asociaQRValido(plate,edit_code_qr.getText().toString().trim());
                 }else {
 
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);
                     text_name_qr.setBackgroundResource(R.drawable.inputtext_error);
+
                 }
             }
         });
@@ -130,4 +139,39 @@ public class AgregaQRFragment extends GenericFragment {
 
 
     }
+
+    @Override
+    public void onSuccessQRs() {
+        UI.showSuccessSnackBar(getActivity(), getString(R.string.qr_add_succes), Snackbar.LENGTH_SHORT);
+        esperarYCerrar(MILISEGUNDOS_ESPERA);
+
+      /*  UI.showAlertDialog(getActivity(), getResources().getString(R.string.qr_add_succes),"",
+                R.string.title_aceptar, (dialogInterface, i) -> {
+            getActivity().finish();
+                });*/
+
+
+    }
+    public void esperarYCerrar(int milisegundos) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // acciones que se ejecutan tras los milisegundos
+                finalizarApp();
+            }
+        }, milisegundos);
+    }
+
+    /**
+     * Finaliza la aplicación
+     */
+    public void finalizarApp() {
+        getActivity().finish();
+    }
+    @Override
+    public void onErrorQRs() {
+        UI.showErrorSnackBar(getActivity(), getString(R.string.qr_add_error), Snackbar.LENGTH_SHORT);
+    }
+
+
 }
