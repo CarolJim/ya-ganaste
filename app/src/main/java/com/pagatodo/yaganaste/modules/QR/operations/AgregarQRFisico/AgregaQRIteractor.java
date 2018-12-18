@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
+package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,16 +11,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.model.QRUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.modules.data.QrItems;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

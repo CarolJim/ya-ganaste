@@ -2,8 +2,8 @@ package com.pagatodo.yaganaste.modules.qr.operations;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico.AgregaQRFragment;
-import com.pagatodo.yaganaste.modules.qr.QRWallet.EcribeQRPlate.ErcribePlateFragment;
+import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRFragment;
+import com.pagatodo.yaganaste.modules.qr.operations.EcribeQRPlate.ErcribePlateFragment;
 import com.pagatodo.yaganaste.modules.qr.operations.DetailQr.DetailQrFragment;
 
 import android.content.Intent;

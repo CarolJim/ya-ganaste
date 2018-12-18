@@ -1,8 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
-
-import com.pagatodo.yaganaste.modules.data.QrItems;
-
-import java.util.ArrayList;
+package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico;
 
 public class AgregaQRContracts {
 

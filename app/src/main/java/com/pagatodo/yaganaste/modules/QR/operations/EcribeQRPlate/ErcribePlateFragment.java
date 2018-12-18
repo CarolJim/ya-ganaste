@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.EcribeQRPlate;
+package com.pagatodo.yaganaste.modules.qr.operations.EcribeQRPlate;
 
 
 import android.app.Activity;

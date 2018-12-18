@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
+package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico;
 
 public class AgregarQRPresenter {
 

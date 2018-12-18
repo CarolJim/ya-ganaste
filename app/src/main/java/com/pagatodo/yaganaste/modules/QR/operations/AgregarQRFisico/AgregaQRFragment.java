@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
+package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico;
 
 
 import android.content.Context;
@@ -15,23 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.modules.data.QrItems;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +46,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     View rootView;
     public static String plate;
     boolean isValid=false;
-    public static int MILISEGUNDOS_ESPERA = 2000;
+    public static int MILISEGUNDOS_ESPERA = 1500;
     RegActivity activityf;
 
     public static AgregaQRFragment newInstance(){
@@ -136,7 +129,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
                     iteractor.asociaQRValido(plate,edit_code_qr.getText().toString().trim());
                 }else {
 
-                    UI.showErrorSnackBar(getActivity(), getString(R.string.datos_domicilio_calle), Snackbar.LENGTH_SHORT);
+                    UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);
                     text_name_qr.setBackgroundResource(R.drawable.inputtext_error);
 
                 }
@@ -177,7 +170,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     }
     @Override
     public void onErrorQRs() {
-        UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(getActivity(), getString(R.string.qr_add_error), Snackbar.LENGTH_SHORT);
     }
 
 
