@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.modules.qr.operations.DetailQr.DetailQrFragment;
 
 import android.content.Intent;
 
+import com.pagatodo.yaganaste.modules.qr.operations.EditQr.EditQrFragment;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
@@ -67,6 +68,6 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     // 05b - Editar QR
     @Override
     public void showEditQr(Direction direction, QrItems item) {
-        
+        activity.loadFragment(EditQrFragment.newInstance(item),R.id.fragment_container_qr,direction,false);
     }
 }

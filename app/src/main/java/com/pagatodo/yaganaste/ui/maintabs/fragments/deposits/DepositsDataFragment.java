@@ -52,10 +52,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
-/**
- * Created by Jordan on 17/05/2017.
- */
-
 public class DepositsDataFragment extends SupportFragment implements View.OnClickListener {
     //DepositsManager depositsManager;
     @BindView(R.id.imgYaGanasteQR)
@@ -255,7 +251,8 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         if (App.getInstance().getPrefs().loadDataBoolean(SHOW_LOGS_PROD, false)) {
             Log.e("Ya Ganaste", "QR JSON: " + /*myQr.toString()*/gson /*+ "\nQR Ciphered: " + gsonCipher*/);
         }
-        QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null, BarcodeFormat.QR_CODE.toString(), smallerDimension);
+        QrcodeGenerator qrCodeEncoder = new QrcodeGenerator(gson, null,
+                BarcodeFormat.QR_CODE.toString(), smallerDimension);
         try {
             Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
             imgYaGanasteQR.setImageBitmap(bitmap);

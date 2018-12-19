@@ -1,6 +1,10 @@
 package com.pagatodo.yaganaste.modules.qr.operations.DetailQr;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,13 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.components.FeetQrDetail;
 import com.pagatodo.yaganaste.modules.data.QrItems;
 import com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity;
+import com.pagatodo.yaganaste.modules.qr.utils.ImageProcessing;
+import com.pagatodo.yaganaste.modules.qr.utils.ManagerQr;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -37,6 +45,12 @@ public class DetailQrFragment extends GenericFragment implements View.OnClickLis
     FeetQrDetail feetQrDetail;
     @BindView(R.id.text_alias)
     StyleTextView textAlias;
+    @BindView(R.id.share_btn)
+    StyleButton shareBtn;
+    @BindView(R.id.qr_view)
+    LinearLayout QrView;
+    @BindView(R.id.qr_code)
+    ImageView qrCode;
 
     public static DetailQrFragment newInstance(QrItems item){
         DetailQrFragment fragment = new DetailQrFragment();
@@ -69,13 +83,10 @@ public class DetailQrFragment extends GenericFragment implements View.OnClickLis
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_qr_delete, menu);
+        //inflater.inflate(R.menu.menu_qr_delete, menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+
 
     @Override
     public void initViews() {
@@ -85,16 +96,31 @@ public class DetailQrFragment extends GenericFragment implements View.OnClickLis
             assert item != null;
             Log.d("QR_ITEM",item.getQrUser().getAlias());
             textAlias.setText(item.getQrUser().getAlias());
+            qrCode.setImageBitmap(ManagerQr.showQRCode(item.getJsonQr()));
             feetQrDetail.setPlate(item.getQrUser().getPlate());
+            btnEdit.setOnClickListener(this);
+            shareBtn.setOnClickListener(this);
+
         }
-        btnEdit.setOnClickListener(this);
+
 
     }
 
     @Override
     public void onClick(View view) {
-        if (item != null) {
-            activity.getRouter().showEditQr(Direction.NONE,item);
+        switch (view.getId()){
+            case R.id.btn_edit:
+                if (item != null) {
+                    activity.getRouter().showEditQr(Direction.NONE,item);
+                }
+                break;
+            case R.id.share_btn:
+                Bitmap returnedBitmap = Bitmap.createBitmap(QrView.getWidth(), QrView.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(returnedBitmap);
+                canvas.drawColor(Color.WHITE);
+                QrView.draw(canvas);
+                ImageProcessing.onShareItem(getActivity(),returnedBitmap);
+                break;
         }
     }
 

@@ -1102,7 +1102,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 Map<String, String> users = new HashMap<>();
                 users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
                 users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
-                FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
                 if (!BuildConfig.DEBUG) {
                     App.mixpanel.identify(user.getUid());
                     App.mixpanel.getPeople().identify(user.getUid());

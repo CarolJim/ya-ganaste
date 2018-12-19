@@ -6,7 +6,7 @@ public class EditQrContracts {
 
     interface Listener{
         void onSuccessEdit();
-        void onErrorEdit();
+        void onErrorEdit(String msjError);
     }
 
     interface Interactor{
