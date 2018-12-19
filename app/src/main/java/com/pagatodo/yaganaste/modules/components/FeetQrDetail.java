@@ -43,7 +43,7 @@ public class FeetQrDetail extends LinearLayout {
 
     @SuppressLint("SetTextI18n")
     public void setPlate(String plate){
-        if (plate.length() == 8){
+        if (plate.length() == 12){
             one.setText(plate.substring(0,3));
             two.setText(plate.substring(4,7));
             three.setText(plate.substring(8));

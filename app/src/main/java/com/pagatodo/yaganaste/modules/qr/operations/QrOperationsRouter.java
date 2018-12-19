@@ -54,7 +54,7 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     ///04c - Escribir Plate QR
     @Override
     public void showWritePlateQr(Direction direction) {
-        activity.loadFragment(ErcribePlateFragment.newInstance(activity),R.id.fragment_container_qr,direction,false);
+        activity.loadFragment(ErcribePlateFragment.newInstance(),R.id.fragment_container_qr,direction,false);
 
     }
 

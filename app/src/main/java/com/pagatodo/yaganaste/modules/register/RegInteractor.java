@@ -15,10 +15,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegInteractor implements RegContracts.Iteractor{
 
-    private static final String URL_VALIDATE_PLATE = "https://us-central1-frigg-1762c.cloudfunctions.net/gtQRSYG";
+    private static final String URL_VALIDATE_PLATE = "https://us-central1-frigg-1762c.cloudfunctions.net/vldtLnkPltYG";
     private RegContracts.Listener listener;
     private RequestQueue requestQueue;
 
@@ -70,6 +72,12 @@ public class RegInteractor implements RegContracts.Iteractor{
                     VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
                     return null;
                 }
+            }
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
             }
         };
         requestQueue.add(jsonObjectRequest);

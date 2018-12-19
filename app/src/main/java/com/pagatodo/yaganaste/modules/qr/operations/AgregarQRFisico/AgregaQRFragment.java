@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,7 +38,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     @BindView(R.id.text_name_qr)
     TextInputLayout text_name_qr;
 
-    AgregaQRContracts.Iteractor iteractor;
+    private AgregaQRIteractor iteractor;
 
     @BindView(R.id.subtitle_addqr)
     StyleTextView subtitle_addqr;
@@ -47,7 +50,6 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     public static String plate;
     boolean isValid=false;
     public static int MILISEGUNDOS_ESPERA = 1500;
-    RegActivity activityf;
 
     public static AgregaQRFragment newInstance(){
         return new AgregaQRFragment();
@@ -62,18 +64,16 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
         return new AgregaQRFragment();
     }
 
-    public AgregaQRFragment() {
-        // Required empty public constructor
-    }
+
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_agrega_qr, container, false);
         initViews();
-        iteractor= new AgregaQRIteractor(this,getContext());
+        iteractor = new AgregaQRIteractor(this,getContext());
         return rootView;
     }
 
@@ -85,12 +85,9 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(text_name_qr, InputMethodManager.SHOW_IMPLICIT);
        // Toast.makeText(getActivity(), "Plate: "+plate, Toast.LENGTH_LONG).show();
-        edit_code_qr.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                text_name_qr.setBackgroundResource(R.drawable.inputtext_active);
-                return false;
-            }
+        edit_code_qr.setOnTouchListener((view, motionEvent) -> {
+            text_name_qr.setBackgroundResource(R.drawable.inputtext_active);
+            return false;
         });
 
         edit_code_qr.addTextChangedListener(new TextWatcher() {
@@ -166,11 +163,11 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
      * Finaliza la aplicación
      */
     public void finalizarApp() {
-        getActivity().finish();
+        Objects.requireNonNull(getActivity()).finish();
     }
     @Override
     public void onErrorQRs() {
-        UI.showErrorSnackBar(getActivity(), getString(R.string.qr_add_error), Snackbar.LENGTH_SHORT);
+        UI.showErrorSnackBar(Objects.requireNonNull(getActivity()), getString(R.string.qr_add_error), Snackbar.LENGTH_SHORT);
     }
 
 

@@ -2,34 +2,20 @@ package com.pagatodo.yaganaste.modules.qr.operations;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.Gson;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.data.QrItems;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.utils.Constants;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.qrcode.Auxl;
-import com.pagatodo.yaganaste.utils.qrcode.InterbankQr;
-import com.pagatodo.yaganaste.utils.qrcode.MyQr;
 import com.pagatodo.yaganaste.utils.qrcode.Qrlectura;
 
 import java.util.Objects;
-
-import static android.view.View.GONE;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
-import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
-import static com.pagatodo.yaganaste.utils.Constants.CREDITCARD_READER_REQUEST_CODE;
-import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 public class QrOperationActivity extends LoaderActivity {
 
@@ -110,16 +96,14 @@ public class QrOperationActivity extends LoaderActivity {
     }
 
 
-    public static void showaliasfragment(String plate){
-        router.showNameQrPhysical(Direction.NONE,plate);
-    }
-
     @Override
     public boolean requiresTimer() {
         return true;
     }
 
+
     public QrOperationsRouter getRouter() {
         return router;
     }
 }
+

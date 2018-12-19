@@ -39,6 +39,7 @@
         android:layout_marginRight="10dp">
 
         <android.support.v7.widget.CardView
+            app:cardElevation="1dp"
             app:cardBackgroundColor="@color/transparent"
             android:layout_width="0dp"
             app:cardCornerRadius="2dp"
@@ -46,6 +47,7 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/addQR"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -71,6 +73,7 @@
 
         <android.support.v7.widget.CardView
             android:layout_marginLeft="4dp"
+            app:cardElevation="1dp"
             android:layout_marginRight="4dp"
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="2dp"
@@ -79,8 +82,8 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:id="@+id/generateQR"
                 android:layout_marginTop="8dp"
-                android:id="@+id/addQR"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

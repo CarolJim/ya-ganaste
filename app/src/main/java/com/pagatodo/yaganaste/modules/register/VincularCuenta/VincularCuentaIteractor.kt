@@ -7,7 +7,12 @@ import com.android.volley.Request
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.pagatodo.yaganaste.App
 import com.pagatodo.yaganaste.BuildConfig
@@ -119,11 +124,32 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
     }
 
     override fun assignmentQrs() {
-        for (QRs in RegisterUserNew.getInstance().getqRs()) {
-            if (!QRs.isDigital) {
-                setAsignQrPhysical(QRs)
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "123456").addOnCompleteListener { task ->
+            App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+                val user = auth.currentUser
+                App.getInstance().prefs.saveData(TOKEN_FIREBASE_AUTH, user!!.uid)
+                val users = java.util.HashMap<String, String>()
+                //users["Mbl"] = RegisterUserNew.getInstance().getEmisor().getCuentas().get(0).getTelefono().replace(" ", "")
+                users["Mbl"] = App.getInstance().prefs.loadData(CLABE_NUMBER).replace(" ", "")
+                users["DvcId"] = FirebaseInstanceId.getInstance().token!!
+                //FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).reference.child(user.uid).setValue(users)
+                FirebaseAuth.getInstance().currentUser!!.getIdToken(false).addOnCompleteListener {
+                    task ->
+                    if (task.isSuccessful)
+                        App.getInstance().prefs.saveData(TOKEN_FIREBASE_SESSION, task.result!!.token)
+                    for (QRs in RegisterUserNew.getInstance().getqRs()) {
+                        if (!QRs.isDigital) {
+                            setAsignQrPhysical(QRs)
+                        } else {
+                            setAsignQrDigital(QRs)
+                        }
+                    }
+                }
             } else {
-                setAsignQrDigital(QRs)
+
             }
         }
     }
@@ -135,17 +161,20 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             jsonBody.put("name", qrs.alias)
             jsonBody.put("bank", "148")
             jsonBody.put("account", SingletonUser.getInstance().dataUser.emisor.cuentas[0].clabe)
+            Log.d("REQUEST", jsonBody.toString())
 
         } catch (e: JSONException) {
             e.printStackTrace()
         }
         val requestBody = jsonBody.toString()
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
-                "https://us-central1-frigg-1762c.cloudfunctions.net/nwQRYG", null,
+                "https://us-central1-frigg-1762c.cloudfunctions.net/lnkQRYG", null,
                 { response ->
                     try {
                         val success = response.getBoolean("success")
+                        Log.d("REQUEST", response.toString())
                         if (success) {
+
                             presenter.onAsignQrPhysical()
                         } else {
                             presenter.onErrorService(response.getString("message"))
@@ -175,7 +204,8 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
 
             override fun getHeaders(): HashMap<String, String> {
                 val headersQR = HashMap<String, String>()
-                headersQR.put("Authorization", App.getInstance().prefs.loadData(TOKEN_FIREBASE))
+                headersQR.put("Content-Type", "application/json")
+                headersQR.put("Authorization", "Yg-" + App.getInstance().prefs.loadData(TOKEN_FIREBASE_SESSION))
                 return headersQR
             }
         }
@@ -211,7 +241,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
 
                 }, { error ->
             Log.e("VOLLEY", error.toString())
-            presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
+            //presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
         }) {
             override fun getBodyContentType(): String {
                 return "application/json; charset=utf-8"
@@ -230,7 +260,8 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
             override fun getHeaders(): HashMap<String, String> {
 
                 val headersQR = HashMap<String, String>()
-                headersQR.put("Authorization", App.getInstance().prefs.loadData(TOKEN_FIREBASE))
+                headersQR.put("Content-Type", "application/json")
+                headersQR.put("Authorization", "Yg-" + App.getInstance().prefs.loadData(TOKEN_FIREBASE_SESSION))
                 return headersQR
             }
         }

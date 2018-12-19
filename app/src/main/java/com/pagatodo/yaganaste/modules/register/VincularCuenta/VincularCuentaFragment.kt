@@ -132,7 +132,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
     override fun onAgentCreated() {
         hideLoader()
         validatePermissions()
-        iteractor.assignmentQrs()
+        //iteractor.assignmentQrs()
     }
 
 
@@ -150,6 +150,7 @@ class VincularCuentaFragment : GenericFragment(), VincularcuentaContracts.Presen
 
     override fun onAprovSuccess() {
         hideLoader()
+        iteractor.assignmentQrs()
         router.presentLinkedAccountScreen()
     }
 

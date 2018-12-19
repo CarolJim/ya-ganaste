@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.qr.QrManagerRouter;
 import com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -30,29 +31,26 @@ public class ErcribePlateFragment extends GenericFragment{
 
     @BindView(R.id.btn_continue)
     StyleButton btn_continue;
-
     @BindView(R.id.edit_code_wr)
     EditText edit_code_wr;
-public  static QrOperationActivity activityf;
-    View rootView;
+
+    private QrOperationActivity activityf;
+    private View rootView;
 
     boolean isValid = false;
     private QrManagerRouter router;
 
+
     public static ErcribePlateFragment newInstance(){
-        return new ErcribePlateFragment();
-    }
-   public static ErcribePlateFragment newInstance(QrOperationActivity activity){
-        activityf=activity;
-        return new ErcribePlateFragment();
+       return new ErcribePlateFragment();
     }
 
 
-
-    public ErcribePlateFragment() {
-        // Required empty public constructor
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activityf = (QrOperationActivity) context;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,12 +93,9 @@ public  static QrOperationActivity activityf;
             }
         });
 
-        btn_continue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isValid){
-                    activityf.showaliasfragment(edit_code_wr.getText().toString().trim());
-                }
+        btn_continue.setOnClickListener(view -> {
+            if (isValid){
+                activityf.getRouter().showNameQrPhysical(Direction.NONE,edit_code_wr.getText().toString().trim());
             }
         });
 

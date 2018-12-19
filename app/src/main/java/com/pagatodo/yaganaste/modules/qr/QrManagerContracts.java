@@ -8,6 +8,7 @@ public class QrManagerContracts {
 
     public interface Listener{
         void onSuccessQRs(ArrayList<QrItems> listQRs);
+        void onErrorQRs();
     }
 
     public interface Iteractor{
