@@ -1703,6 +1703,8 @@
 
     <!--QR-->
     <string name="my_qr">Mis Códigos QR</string>
+    <string name="add_qr">Agregar\nQR</string>
+    <string name="generate_new_qr">Generar\nNuevo QR</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
