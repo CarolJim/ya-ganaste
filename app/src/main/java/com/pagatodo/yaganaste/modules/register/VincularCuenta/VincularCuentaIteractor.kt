@@ -165,11 +165,10 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         }
         val requestBody = jsonBody.toString()
         val jsonObjectRequest = object : JsonObjectRequest(Request.Method.POST,
-                "https://us-central1-frigg-1762c.cloudfunctions.net/lnkQRYG", null,
+                "https://us-central1-frigg-1762c.cloudfunctions.net/nwQRYG", null,
                 { response ->
                     try {
                         val success = response.getBoolean("success")
-                        Log.d("REQUEST", response.toString())
                         if (success) {
 
                             presenter.onAsignQrPhysical()
@@ -183,7 +182,7 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
 
                 }, { error ->
             Log.e("VOLLEY", error.toString())
-            presenter.onErrorService(App.getInstance().getString(R.string.no_internet_access))
+            presenter.onErrorService("QR Invalido")
         }) {
             override fun getBodyContentType(): String {
                 return "application/json; charset=utf-8"

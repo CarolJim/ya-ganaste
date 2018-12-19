@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +32,7 @@ import butterknife.ButterKnife;
 
 public class EditQrFragment extends GenericFragment implements View.OnClickListener,
         EditQrContracts.Listener, TextWatcher, View.OnFocusChangeListener, TextView.OnEditorActionListener {
+
 
     private static String TAG_QR_ITEM = "TAG_QR_ITEM";
     private QrOperationActivity activity;
@@ -76,7 +76,8 @@ public class EditQrFragment extends GenericFragment implements View.OnClickListe
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.edit_qr_fragment,container,false);
         initViews();
         return rootView;

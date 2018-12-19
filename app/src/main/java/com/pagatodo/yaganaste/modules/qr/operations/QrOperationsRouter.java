@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.modules.data.QrItems;
 import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRFragment;
+import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRVirtual.AgregarQRVirtFragment;
 import com.pagatodo.yaganaste.modules.qr.operations.EcribeQRPlate.ErcribePlateFragment;
 import com.pagatodo.yaganaste.modules.qr.operations.DetailQr.DetailQrFragment;
 
@@ -35,7 +36,7 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     /*03 - generar QR*/
     @Override
     public void showGenerateQR(Direction direction) {
-
+        activity.loadFragment(AgregarQRVirtFragment.newInstance(activity),R.id.fragment_container_qr,direction,false);
     }
 
     /*04 - Scan QR*/
@@ -50,6 +51,7 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     @Override
     public void showNameQrPhysical(Direction direction,String plate) {
         activity.loadFragment(AgregaQRFragment.newInstance(plate,activity),R.id.fragment_container_qr,direction,false);
+
     }
 
     ///04c - Escribir Plate QR
