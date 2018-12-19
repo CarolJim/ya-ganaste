@@ -18,7 +18,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditQrFragment extends GenericFragment implements View.OnClickListener {
+public class EditQrFragment extends GenericFragment implements View.OnClickListener, EditQrContracts.Listener{
 
     private static String TAG_QR_ITEM = "TAG_QR_ITEM";
     private QrOperationActivity activity;
@@ -44,7 +44,7 @@ public class EditQrFragment extends GenericFragment implements View.OnClickListe
             item = (QrItems) getArguments().getSerializable(TAG_QR_ITEM);
             assert item != null;
         }
-        interactor = new EditQrInteractor(this)
+        interactor = new EditQrInteractor(this);
     }
 
     @Override
@@ -69,6 +69,16 @@ public class EditQrFragment extends GenericFragment implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onSuccessEdit() {
+
+    }
+
+    @Override
+    public void onErrorEdit() {
 
     }
 }

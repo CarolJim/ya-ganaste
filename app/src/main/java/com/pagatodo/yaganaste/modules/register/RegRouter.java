@@ -42,7 +42,7 @@ public class RegRouter implements RegContracts.Router {
         activity.loadFragment(RegistroCorreoFragment.newInstance(), R.id.fragment_container,
                 direction, false);
 
-        /*activity.loadFragment(AgregaQRFragment.newInstance(), R.id.fragment_container,
+        /*activity.loadFragment(AgregaQRFragmentisma.newInstance(), R.id.fragment_container,
                 direction, false);
 */
     }

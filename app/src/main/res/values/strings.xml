@@ -1691,8 +1691,8 @@
     <string name="btn_share_qr">Compartir QR</string>
 
 
-
     <!--Agregar Qr Wallet-->
+    <string name="generar_qr">Generar Nuevo QR</string>
     <string name="agregar_qr">Agregar QR</string>
     <string name="addqrbutton">Agregar QR</string>
     <string name="qr_name_add">Ingresa un Nombre para Identificar tu Código</string>
@@ -1701,9 +1701,10 @@
     <string name="no_qr">No cuentas con codigos QR</string>
 
 
-
-
     <!--QR-->
     <string name="my_qr">Mis Códigos QR</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

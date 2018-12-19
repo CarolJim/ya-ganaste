@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity.ID_ADD_QR;
+import static com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity.ID_GENERATE_NEW_QR;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
 
 
@@ -100,6 +101,7 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
 
         iteractor.getMyQrs();
         addQR.setOnClickListener(v -> router.showOperation(ID_ADD_QR));
+        generateQR.setOnClickListener(v -> router.showOperation(ID_GENERATE_NEW_QR));
 
     }
 
