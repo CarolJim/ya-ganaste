@@ -126,7 +126,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
             @Override
             public void onClick(View view) {
                 if (isValid){
-                    iteractor.asociaQRValido(plate,edit_code_qr.getText().toString().trim());
+                    iteractor.validarQRValido(plate,edit_code_qr.getText().toString().trim());
                 }else {
 
                     UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);
