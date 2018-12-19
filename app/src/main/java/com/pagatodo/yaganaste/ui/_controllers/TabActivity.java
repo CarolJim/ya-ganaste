@@ -411,7 +411,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     public void goHome() {
-        TabLayout.Tab current = mainTab.getTabAt(1);
+        TabLayout.Tab current = mainTab.getTabAt(0);
         if (current != null) {
             current.select();
         }

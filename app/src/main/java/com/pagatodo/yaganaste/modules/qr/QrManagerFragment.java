@@ -63,6 +63,12 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        iteractor.getMyQrs();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.router = new QrManagerRouter(activity);

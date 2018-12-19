@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity;
 import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
@@ -46,15 +47,16 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     View rootView;
     public static String plate;
     boolean isValid=false;
-    public static int MILISEGUNDOS_ESPERA = 1500;
-    RegActivity activityf;
+    public static int MILISEGUNDOS_ESPERA = 1000;
+    public static QrOperationActivity activityf;
 
     public static AgregaQRFragment newInstance(){
         return new AgregaQRFragment();
     }
 
-    public static AgregaQRFragment newInstance(String platre){
+    public static AgregaQRFragment newInstance(String platre,QrOperationActivity activity){
         plate = platre;
+        activityf =activity;
         return new AgregaQRFragment();
     }
 
@@ -126,6 +128,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
             @Override
             public void onClick(View view) {
                 if (isValid){
+                    activityf.showLoader("Agregando QR");
                     iteractor.validarQRValido(plate,edit_code_qr.getText().toString().trim());
                 }else {
 
@@ -142,6 +145,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
 
     @Override
     public void onSuccessQRs() {
+        activityf.hideLoader();
         UI.showSuccessSnackBar(getActivity(), getString(R.string.qr_add_succes), Snackbar.LENGTH_SHORT);
         esperarYCerrar(MILISEGUNDOS_ESPERA);
 
@@ -170,6 +174,7 @@ public class AgregaQRFragment extends GenericFragment implements  AgregaQRContra
     }
     @Override
     public void onErrorQRs() {
+        activityf.hideLoader();
         UI.showErrorSnackBar(getActivity(), getString(R.string.qr_add_error), Snackbar.LENGTH_SHORT);
     }
 
