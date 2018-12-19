@@ -25,7 +25,7 @@ public class RegistroCorreoIteractor implements RegistroCorreoContracts.Iteracto
                 HashMap users = new HashMap<String, String>();
                 users.put("Mbl", "00000");
                 users.put("DvcId", FirebaseInstanceId.getInstance().getId());
-                FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
+                //FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).getReference().child(user.getUid()).setValue(users);
                 getFirebaseSessionId();
             }
         });

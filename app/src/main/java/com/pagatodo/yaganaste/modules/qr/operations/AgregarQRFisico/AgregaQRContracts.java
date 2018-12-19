@@ -10,5 +10,6 @@ public class AgregaQRContracts {
 
     public interface Iteractor{
         void asociaQRValido(String Plate ,String alias);
+        void validarQRValido(String Plate ,String alias);
     }
 }

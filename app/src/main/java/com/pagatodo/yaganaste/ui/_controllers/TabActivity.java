@@ -323,6 +323,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void onResetingFailed() {
         hideLoader();
         tabPresenter.doProvisioning();
+
     }
 
     @Override
@@ -333,6 +334,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             App.getInstance().getPrefs().saveDataBool(CUPO_COMPLETE, false);
         }
         updatePhoto();
+
     }
 
     @Override
@@ -409,7 +411,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     public void goHome() {
-        TabLayout.Tab current = mainTab.getTabAt(1);
+        TabLayout.Tab current = mainTab.getTabAt(0);
         if (current != null) {
             current.select();
         }

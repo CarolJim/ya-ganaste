@@ -57,7 +57,7 @@ public class RegInteractor implements RegContracts.Iteractor{
                 }, error -> {
                     // TODO: Handle error
                     Log.e("VOLLEY", error.toString());
-                    listener.onErrorValidatePlate(App.getInstance().getString(R.string.no_internet_access));
+                    listener.onErrorValidatePlate("QR Invalid");
                 }){
             @Override
             public String getBodyContentType() {

@@ -167,8 +167,8 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         try {
             JsonElement jelement = new JsonParser().parse(barcode.displayValue);
             JsonObject jobject = jelement.getAsJsonObject();
-            jobject = jobject.getAsJsonObject("data");
-            String plate = jobject.get("plate").getAsString();
+            jobject = jobject.getAsJsonObject("Aux");
+            String plate = jobject.get("Pl").getAsString();
             interactor.onValidateQr(plate);
         }catch (JsonParseException e){
             e.printStackTrace();
@@ -176,7 +176,6 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
         } catch (NullPointerException e){
             onErrorValidatePlate("QR Invalido");
         }
-
     }
 
 

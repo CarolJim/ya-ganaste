@@ -128,14 +128,11 @@ class VincularCuentaIteractor(var presenter: VincularcuentaContracts.Presenter) 
         auth.createUserWithEmailAndPassword(RegisterUserNew.getInstance().email, "123456").addOnCompleteListener { task ->
             App.getInstance().prefs.saveDataBool(HAS_FIREBASE_ACCOUNT, true)
             if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
                 val user = auth.currentUser
                 App.getInstance().prefs.saveData(TOKEN_FIREBASE_AUTH, user!!.uid)
                 val users = java.util.HashMap<String, String>()
-                //users["Mbl"] = RegisterUserNew.getInstance().getEmisor().getCuentas().get(0).getTelefono().replace(" ", "")
                 users["Mbl"] = App.getInstance().prefs.loadData(CLABE_NUMBER).replace(" ", "")
                 users["DvcId"] = FirebaseInstanceId.getInstance().token!!
-                //FirebaseDatabase.getInstance(URL_BD_ODIN_USERS).reference.child(user.uid).setValue(users)
                 FirebaseAuth.getInstance().currentUser!!.getIdToken(false).addOnCompleteListener {
                     task ->
                     if (task.isSuccessful)

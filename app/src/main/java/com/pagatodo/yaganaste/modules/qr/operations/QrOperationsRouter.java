@@ -48,7 +48,7 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     /* 04b - Nombrar QR fisico */
     @Override
     public void showNameQrPhysical(Direction direction,String plate) {
-        activity.loadFragment(AgregaQRFragment.newInstance(plate),R.id.fragment_container_qr,direction,false);
+        activity.loadFragment(AgregaQRFragment.newInstance(plate,activity),R.id.fragment_container_qr,direction,false);
     }
 
     ///04c - Escribir Plate QR
@@ -67,6 +67,6 @@ public class QrOperationsRouter implements QrOperationsContracts.Router {
     // 05b - Editar QR
     @Override
     public void showEditQr(Direction direction, QrItems item) {
-
+        
     }
 }
