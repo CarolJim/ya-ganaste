@@ -1076,7 +1076,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     FirebaseUser user = auth.getCurrentUser();
                     prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
                     Map<String, String> users = new HashMap<>();
-                    users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
+                    users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono()
+                            .replace(" ", ""));
                     users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
                     accountManager.goToNextStepAccount(stepUser, null);
                 } else {
@@ -1088,16 +1089,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void logInFirebase(DataIniciarSesionUYU data, String stepUser) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456").addOnCompleteListener(task -> {
+        auth.signInWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
+                .addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = auth.getCurrentUser();
                 prefs.saveData(TOKEN_FIREBASE_AUTH, user.getUid());
-                auth.getCurrentUser().getIdToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-                    @Override
-                    public void onSuccess(GetTokenResult getTokenResult) {
-                        String idToken = getTokenResult.getToken();
-                        prefs.saveData(TOKEN_FIREBASE_SESSION, idToken);
-                    }
+                auth.getCurrentUser().getIdToken(false).addOnSuccessListener(getTokenResult -> {
+                    String idToken = getTokenResult.getToken();
+                    prefs.saveData(TOKEN_FIREBASE_SESSION, idToken);
                 });
                 Map<String, String> users = new HashMap<>();
                 users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));

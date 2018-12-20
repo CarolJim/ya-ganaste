@@ -110,7 +110,7 @@ public class AgregaQRIteractor  implements  AgregaQRContracts.Iteractor {
         }
 
         String requestBody = jsonBody.toString();
-        Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
+        //Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, URL_VERIFY_QR, null, new Response.Listener<JSONObject>() {
                     @Override

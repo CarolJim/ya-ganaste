@@ -43,10 +43,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.Recursos.IS_OPERADOR;
 import static com.pagatodo.yaganaste.utils.Recursos.MODE_CONNECTION_DONGLE;
 
-/**
- * Created by Jordan on 06/07/2017.
- */
-
 public class LoginManagerContainerFragment extends SupportFragment implements ILoginContainerManager {
 
     @BindView(R.id.container)

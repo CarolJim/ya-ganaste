@@ -97,7 +97,7 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
         adapter = new QRAdapter(this);
         rcv_qr.setAdapter(adapter);
 
-        Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
+       // Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
 
         iteractor.getMyQrs();
         addQR.setOnClickListener(v -> router.showOperation(ID_ADD_QR));

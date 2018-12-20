@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,7 +78,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_register_complete, container, false);
         initViews();

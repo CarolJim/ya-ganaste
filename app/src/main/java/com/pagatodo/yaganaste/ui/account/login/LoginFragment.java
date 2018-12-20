@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -44,6 +45,8 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,16 +124,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     private boolean dialogErrorShown = false;
 
     public static LoginFragment newInstance() {
-        LoginFragment fragmentRegister = new LoginFragment();
-        Bundle args = new Bundle();
-        fragmentRegister.setArguments(args);
-        return fragmentRegister;
+        return new LoginFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) Objects.requireNonNull(getActivity())).getPresenter();
         accountPresenter.setIView(this);
         prefs.saveDataBool(HUELLA_FAIL, true);
         this.preferencias = App.getInstance().getPrefs();
@@ -148,7 +148,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootview == null) {
             rootview = inflater.inflate(R.layout.fragment_login, container, false);
@@ -235,7 +235,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     private void actionBtnLogin() {
-        if (UtilsNet.isOnline(getActivity())) {
+        if (UtilsNet.isOnline(Objects.requireNonNull(getActivity()))) {
             validateForm();
         } else {
             UI.showErrorSnackBar(getActivity(), getString(R.string.no_internet_access), Snackbar.LENGTH_LONG);

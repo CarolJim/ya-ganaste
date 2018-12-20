@@ -31,7 +31,7 @@ public class RegistroCorreoIteractor implements RegistroCorreoContracts.Iteracto
     }
 
     private void getFirebaseSessionId() {
-        FirebaseAuth.getInstance().getCurrentUser().getIdToken(true).addOnCompleteListener(task -> {
+        FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(task -> {
             if (task.isSuccessful())
                 App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_SESSION, task.getResult().getToken());
         });

@@ -18,12 +18,18 @@ import android.view.Menu;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.Preferencias;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -68,6 +74,9 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import java.security.KeyStore;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import javax.crypto.KeyGenerator;
 
@@ -90,6 +99,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
+import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
 
 public class AccountActivity extends LoaderActivity implements OnEventListener, FingerprintAuthenticationDialogFragment.generateCodehuella,
         ForcedUpdateChecker.OnUpdateNeededListener {
@@ -383,7 +394,38 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 pref.clearPreference(COUCHMARK_EMISOR);
                 pref.clearPreference(COUCHMARK_ADQ);
                 showBack(false);
-                loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                SingletonUser userT = SingletonUser.getInstance();
+                DataIniciarSesionUYU dataUserT = userT.getDataUser();
+
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signInWithEmailAndPassword(dataUserT.getUsuario().getNombreUsuario(), "123456")
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = auth.getCurrentUser();
+                                App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_AUTH,
+                                        Objects.requireNonNull(user).getUid());
+                                Objects.requireNonNull(auth.getCurrentUser())
+                                        .getIdToken(false).addOnSuccessListener(getTokenResult -> {
+                                    String idToken = getTokenResult.getToken();
+                                    App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_SESSION, idToken);
+                                });
+                                Map<String, String> usersmap = new HashMap<>();
+                                usersmap.put("Mbl", dataUserT.getEmisor().getCuentas().get(0).getTelefono().replace(" ", ""));
+                                usersmap.put("DvcId", Objects.requireNonNull(FirebaseInstanceId.getInstance().getToken()));
+                                if (!BuildConfig.DEBUG) {
+                                    App.mixpanel.identify(user.getUid());
+                                    App.mixpanel.getPeople().identify(user.getUid());
+                                    App.mixpanel.getPeople().set("email", dataUserT.getUsuario().getNombreUsuario());
+                                    App.mixpanel.getPeople().set("name", dataUserT.getCliente().getNombre() + " " +
+                                            dataUserT.getCliente().getPrimerApellido() + " " + dataUserT.getCliente().getSegundoApellido());
+                                }
+                            } else {
+                                // Error de login Firebase
+                            }
+                            //accountManager.goToNextStepAccount(stepUser, null);
+                            loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                        });
+
                 break;
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
