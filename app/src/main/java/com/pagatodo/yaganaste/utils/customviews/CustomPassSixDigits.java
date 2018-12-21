@@ -416,6 +416,16 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
 
     public EditText getCode1() {
         return (EditText) text1;
+    }public EditText getCode2() {
+        return (EditText) text2;
+    }public EditText getCode3() {
+        return (EditText) text3;
+    }public EditText getCode4() {
+        return (EditText) text4;
+    }public EditText getCode5() {
+        return (EditText) text5;
+    }public EditText getCode6() {
+        return (EditText) text6;
     }
 
     public interface OnCodeChangedListener {

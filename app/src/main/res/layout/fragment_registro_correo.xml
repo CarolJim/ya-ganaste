@@ -55,7 +55,7 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginBottom="9dp"
                 android:background="@android:color/transparent"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textColor="@color/grayColor"

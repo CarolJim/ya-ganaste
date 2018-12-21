@@ -8,13 +8,17 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
@@ -77,7 +81,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     LinearLayout password_confirm;
     @BindView(R.id.customPassSixDigitsConfirm)
     CustomPassSixDigits customPassSixDigitsConfirm;
-    boolean emailvalid=true;
+    boolean emailvalid = true;
     private View rootview;
     private Preferencias preferencias;
     private AccountPresenterNew accountPresenter;
@@ -88,6 +92,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     private String email = "";
     private String psd = "";
     private String psd_con = "";
+    private boolean fillcode = false;
 
     public static RegistroCorreoFragment newInstance() {
         return new RegistroCorreoFragment();
@@ -137,6 +142,22 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         customPassSixDigitsConfirm.setOnClickListener(this);
         customPassSixDigitsConfirm.setListener(this);
 
+
+        editMail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    accountPresenter.validateEmail(editMail.getText().toString());
+                    isChecked();
+                    UI.hideKeyBoard(getActivity());
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
         edit_psw.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -169,7 +190,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 isChecked();
             }
         });
-
         setValidationRules();
     }
 
@@ -178,17 +198,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         if (view.getId() == R.id.btnNextDatosUsuario) {
             validateForm();
             isChecked();
-
         }
-        /*switch (view.getId()) {
-            case R.id.btnNextDatosUsuario:
-                validateForm();
-                isChecked();
-                break;
-            case R.id.customPassSixDigits:
-                customPassSixDigitsConfirm.clearCode();
-                break;
-        }*/
     }
 
     @Override
@@ -200,7 +210,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void isEmailAvaliable() {
         hideLoader();
         emailValidatedByWS = true;
-        userExist = false;
+        userExist = true;
         text_email.setBackgroundResource(R.drawable.inputtext_normal);
     }
 
@@ -208,12 +218,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void isEmailRegistered() {
         hideLoader();
         emailValidatedByWS = false;
-        userExist = true;
-        //editMail.setIsInvalid();
+        userExist = false;
         text_email.setBackgroundResource(R.drawable.inputtext_error);
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-        UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_LONG);
+        UI.showErrorSnackBar(getActivity(), getString(R.string.invalid_email), Snackbar.LENGTH_LONG);
     }
 
     @Override
@@ -253,26 +262,19 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
 
     @Override
     public void setValidationRules() {
-
         editMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    //  hideValidationError(editMail.getId());
-                    //editMail.imageViewIsGone(true);
                     emailValidatedByWS = false;
                     text_email.setBackgroundResource(R.drawable.inputtext_active);
 
                 } else {
                     if (!UtilsNet.isOnline(getActivity())) {
-                        //   editMail.setIsInvalid();
                         showValidationError(editMail.getId(), getString(R.string.no_internet_access));
                     } else if (editMail.getText().toString().isEmpty()) {
-                        //    editMail.setIsInvalid();
-
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                        //showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
                         text_email.setBackgroundResource(R.drawable.inputtext_error);
                         UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
                     } else if (!ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && !emailValidatedByWS) {
@@ -284,15 +286,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                         accountPresenter.validateEmail(editMail.getText().toString());
                     } else if (ValidateForm.isValidEmailAddress(editMail.getText().toString().trim().toLowerCase()) && emailValidatedByWS) {
                         text_email.setBackgroundResource(R.drawable.inputtext_normal);
-                        // hideValidationError(editMail.getId());
-                        //editMail.setIsValid();
                     }
-
                 }
                 isChecked();
             }
         });
-
     }
 
     @Override
@@ -300,23 +298,26 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         getDataForm();
         boolean isValid = true;
         if (email.isEmpty()) {
-            //showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
-            //  editNames.setIsInvalid();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.ingress_your_mail), Snackbar.LENGTH_SHORT);
             text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
-        if (userExist) {
-            //showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
-            //  editNames.setIsInvalid();
+        if (!ValidateForm.isValidEmailAddress(email)) {
+            text_email.setBackgroundResource(R.drawable.inputtext_error);
+            //btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
+            UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo), Snackbar.LENGTH_SHORT);
+            isValid = false;
+        }
+        if (!userExist) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
             UI.showErrorSnackBar(getActivity(), getString(R.string.datos_usuario_correo_existe), Snackbar.LENGTH_SHORT);
             text_email.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
+
         if (psd.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd), Snackbar.LENGTH_SHORT);
             edt_psw.setBackgroundResource(R.drawable.inputtext_error);
@@ -324,6 +325,11 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         }
         if (psd_con.isEmpty()) {
             UI.showErrorSnackBar(getActivity(), getString(R.string.psd_con), Snackbar.LENGTH_SHORT);
+            edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
+            isValid = false;
+        }
+        if (!psd_con.equals(psd)) {
+            UI.showErrorSnackBar(getActivity(), getString(R.string.confirmar_contrase), Snackbar.LENGTH_SHORT);
             edt_psw_confirm.setBackgroundResource(R.drawable.inputtext_error);
             isValid = false;
         }
@@ -338,7 +344,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         registerUser.setContrasenia(psd);
         if (BuildConfig.DEBUG) {
             onValidationSuccess();
-            //  accountPresenter.validatePersonDatanew();
         }
     }
 
@@ -378,26 +383,87 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_LONG);
             }
         }
-        //UI.showErrorSnackBar(getActivity(), getString(R.string.password_invalid), Snackbar.LENGTH_LONG);
-        //edit_email
+        this.customPassSixDigits.getCode1().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (fillcode=true){
+                    customPassSixDigits.clearCode();
+                    return true;
+                }
+                return false;
+            }
+        });
+        this.customPassSixDigits.getCode2().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (fillcode=true){
+                    customPassSixDigits.clearCode();
+                    return true;
+                }
+                return false;
+            }
+        });
+        this.customPassSixDigits.getCode3().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (fillcode=true){
+                    customPassSixDigits.clearCode();
+                    return true;
+                }
+                return false;
+            }
+        });
+        this.customPassSixDigits.getCode4().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (fillcode=true){
+                    customPassSixDigits.clearCode();
+                    return true;
+                }
+                return false;
+            }
+        });
+        this.customPassSixDigits.getCode5().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (fillcode=true){
+                    customPassSixDigits.clearCode();
+                    return true;
+                }
+                return false;
+            }
+        });
+        this.customPassSixDigits.getCode6().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (fillcode=true){
+                    customPassSixDigits.clearCode();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
 
     @Override
     public void setVisivility() {
-        //customPassSixDigits.setVisibility(View.GONE);
-        //titulo_datos_usuario.setVisibility(View.GONE);
         edt_psw_confirm.setVisibility(View.GONE);
         password_confirm.setVisibility(View.VISIBLE);
         customPassSixDigitsConfirm.getCode1().requestFocus();
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(customPassSixDigitsConfirm.getCode1(), InputMethodManager.SHOW_IMPLICIT);
-
+        fillcode = true;
     }
 
     public void isChecked() {
         getDataForm();
         boolean isValid = true;
         if (email == null || email.equals("") || userExist) {
+            isValid = false;
+            btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
+        }
+        if (!ValidateForm.isValidEmailAddress(email)) {
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
