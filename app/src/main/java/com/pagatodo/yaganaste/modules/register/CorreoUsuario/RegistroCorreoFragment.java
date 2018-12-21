@@ -212,6 +212,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
         emailValidatedByWS = true;
         userExist = true;
         text_email.setBackgroundResource(R.drawable.inputtext_normal);
+        isChecked();
     }
 
     @Override
@@ -459,7 +460,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     public void isChecked() {
         getDataForm();
         boolean isValid = true;
-        if (email == null || email.equals("") || userExist) {
+        if (email == null || email.equals("") || !userExist) {
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
@@ -475,6 +476,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
             isValid = false;
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_gray);
         }
+
         if (isValid) {
             btnNextDatosUsuario.setBackgroundResource(R.drawable.button_rounded_blue);
         }
