@@ -1,44 +1,31 @@
 package com.pagatodo.yaganaste.modules.qr;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.pagatodo.yaganaste.App;
+import com.google.gson.Gson;
 import com.pagatodo.yaganaste.data.model.QRUser;
 import com.pagatodo.yaganaste.modules.data.QrItems;
+import com.pagatodo.yaganaste.modules.management.ApisFriggs;
+import com.pagatodo.yaganaste.modules.management.apis.FriggsHeaders;
+import com.pagatodo.yaganaste.modules.management.apis.FrigsMethod;
+import com.pagatodo.yaganaste.modules.management.apis.ListenerFriggs;
+import com.pagatodo.yaganaste.modules.management.response.QrsResponse;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_SESSION;
+import static com.pagatodo.yaganaste.utils.Recursos.FRIGGS_GET_QR;
 
-public class QrManagerIteractor implements QrManagerContracts.Iteractor {
+public class QrManagerIteractor implements QrManagerContracts.Iteractor, ListenerFriggs {
 
-    private static final String URL_VERIFY_QR_USER = "https://us-central1-frigg-1762c.cloudfunctions.net/gtQRSYG";
     private QrManagerContracts.Listener listener;
     private RequestQueue requestQueue;
 
-
-    public QrManagerIteractor(QrManagerContracts.Listener listener, Context context) {
+    QrManagerIteractor(QrManagerContracts.Listener listener, Context context) {
         this.listener = listener;
         this.requestQueue = Volley.newRequestQueue(context);
     }
@@ -47,6 +34,10 @@ public class QrManagerIteractor implements QrManagerContracts.Iteractor {
 
     @Override
     public void getMyQrs() {
+        ApisFriggs apisFriggs = new ApisFriggs(this);
+        requestQueue.add(apisFriggs.sendRequest(FrigsMethod.GET,FRIGGS_GET_QR,
+                FriggsHeaders.getHeadersBasic()));
+        /*
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, URL_VERIFY_QR_USER, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -90,8 +81,23 @@ public class QrManagerIteractor implements QrManagerContracts.Iteractor {
                 return headers;
             }
         };
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonObjectRequest);*/
     }
 
 
+    @Override
+    public void onSuccess(JSONObject response) {
+
+            Gson gson = new Gson();
+            QrsResponse qrResponse = gson.fromJson(response.toString(),QrsResponse.class);
+            Log.d("WSC",qrResponse.getData().size() + "");
+            list = new ArrayList<>();
+            //list.add(new QrItems(new QRUser()))
+            //list.add(new QrItems(new QRUser(object.getString("name"),plateJson.getString("Pl")),plateJson.toString(),2));
+    }
+
+    @Override
+    public void onError() {
+
+    }
 }

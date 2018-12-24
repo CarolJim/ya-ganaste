@@ -44,7 +44,7 @@ public class AgregaQRIteractor  implements  AgregaQRContracts.Iteractor {
 
     @Override
     public void asociaQRValido(String plate ,String alias) {
-        Log.d("QR_MANAGER",App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
+        //Log.d("QR_MANAGER",App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
         RequestQueue requestQueue = Volley.newRequestQueue(App.getContext());
         JSONObject jsonBody = new JSONObject();
         try {
