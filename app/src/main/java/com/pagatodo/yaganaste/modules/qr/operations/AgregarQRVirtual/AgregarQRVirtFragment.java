@@ -64,7 +64,7 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_agrega_qr, container, false);
         initViews();
-        iteractor= new AgregarVirtQRIteractor(this,getContext());
+        iteractor= new AgregarVirtQRIteractor(this);
         return rootView;
     }
 

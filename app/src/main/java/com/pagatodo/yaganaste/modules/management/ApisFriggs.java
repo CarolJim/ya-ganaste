@@ -5,8 +5,11 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.modules.management.apis.FrigsMethod;
 import com.pagatodo.yaganaste.modules.management.apis.ListenerFriggs;
+
+import org.json.JSONException;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -23,8 +26,11 @@ public class ApisFriggs {
     }
 
     public JsonObjectRequest sendRequest(FrigsMethod method, String urlRequest,
-                                         HashMap<String, String> headers, Serializable bodyRequest, Class<?> resClass){
-
+                                         HashMap<String, String> headers,
+                                         Serializable bodyRequest, WebService webService){
+        //WsCaller
+        Log.d("WSC", urlRequest);
+        Log.d("WSC",headers.get("Authorization"));
         Gson gson = new Gson();
         int metthodRequest = Request.Method.GET;
         if (method == FrigsMethod.POST) {
@@ -33,13 +39,22 @@ public class ApisFriggs {
 
         return new JsonObjectRequest
                 (metthodRequest, urlRequest, null, response -> {
-
-                    this.listener.onSuccess(response);
+                    try {
+                        Log.d("WSC Request",response.toString());
+                        if (response.getBoolean("success")) {
+                            this.listener.onSuccess(webService,response);
+                        } else {
+                            this.listener.onError();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }, error ->
                         this.listener.onError()) {
             @Override
             public byte[] getBody() {
                 try {
+                    Log.d("WSC",gson.toJson(bodyRequest));
                     return gson.toJson(bodyRequest).getBytes("UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -65,7 +80,11 @@ public class ApisFriggs {
 
         return new JsonObjectRequest
                 (metthodRequest, urlRequest, null, response -> {
-                    this.listener.onSuccess(response);
+                    try {
+                        this.listener.onSuccess(null,response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Log.d("WSC Request",response.toString());
                 }, error -> this.listener.onError())
         {

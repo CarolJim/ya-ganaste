@@ -9,7 +9,6 @@ public class AgregarVirtContracts {
     }
 
     public interface Iteractor{
-        void asociaQRValido(String Plate ,String alias);
         void validarQRValido(String alias);
     }
 }

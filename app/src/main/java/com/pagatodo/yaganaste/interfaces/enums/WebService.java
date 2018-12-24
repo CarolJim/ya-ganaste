@@ -199,6 +199,12 @@ public enum WebService {
     /* Consultar Saldo UyU */
     CONSULT_BALANCE_UYU,
     /* validacion de plates*/
-    VALIDATE_PLATE
+    VALIDATE_PLATE,
+    /* Vinculacion de qr*/
+    LINKED_QR,
+    /*Nuevo QR*/
+    NEW_QR,
+    /* Actualizar QR*/
+    UPDATE_QR
 }
 
