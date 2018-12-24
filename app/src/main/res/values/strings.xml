@@ -379,6 +379,7 @@
     <string name="confrimacion">Confirmar</string>
     <string name="exito_nip">"Tu NIP ha sido cambiado correctamente"</string>
     <string name="password_invalid">No coinciden tus contraseñas</string>
+    <string name="invalid_email">Ingresa correctamente tu correo</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos personales</string>
