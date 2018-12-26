@@ -9,9 +9,11 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 
@@ -21,6 +23,7 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
 
     OnCodeChangedListener listener;
     private EditText text1, text2, text3, text4, text5, text6, aux;
+    private TextView titlepass;
     private Boolean isActionDelete = true;
     int position;
 
@@ -56,6 +59,7 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
         text5 = findViewById(R.id.textPass5);
         text6 = findViewById(R.id.textPass6);
         aux = findViewById(R.id.edit_text_aux);
+        titlepass = findViewById(R.id.titlepass);
 
         text1.setOnFocusChangeListener(this::onFocusChange);
         text2.setOnFocusChangeListener(this::onFocusChange);
@@ -416,16 +420,30 @@ public class CustomPassSixDigits extends LinearLayout implements View.OnKeyListe
 
     public EditText getCode1() {
         return (EditText) text1;
-    }public EditText getCode2() {
+    }
+
+    public EditText getCode2() {
         return (EditText) text2;
-    }public EditText getCode3() {
+    }
+
+    public EditText getCode3() {
         return (EditText) text3;
-    }public EditText getCode4() {
+    }
+
+    public EditText getCode4() {
         return (EditText) text4;
-    }public EditText getCode5() {
+    }
+
+    public EditText getCode5() {
         return (EditText) text5;
-    }public EditText getCode6() {
+    }
+
+    public EditText getCode6() {
         return (EditText) text6;
+    }
+
+    public TextView getTitlepass(){
+        return titlepass;
     }
 
     public interface OnCodeChangedListener {

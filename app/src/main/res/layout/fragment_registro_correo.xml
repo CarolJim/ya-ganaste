@@ -55,7 +55,7 @@
                 android:layout_marginTop="17dp"
                 android:layout_marginBottom="9dp"
                 android:background="@android:color/transparent"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textColor="@color/grayColor"
@@ -172,7 +172,6 @@
 
             </com.pagatodo.yaganaste.utils.customviews.CustomPassSixDigits>
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout

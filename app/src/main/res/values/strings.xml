@@ -403,6 +403,7 @@
     <string name="datos_personal_mayor_edad">Debes ser mayor de edad para continuar</string>
     <string name="buscar_pais">Busca tu país</string>
     <string name="psd">Ingresa tu contraseña</string>
+    <string name="psd_no_six_digits">Tu contraseña debe contener 6 digitos</string>
     <string name="psd_con">Confirma tu contraseña</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio personal</string>
