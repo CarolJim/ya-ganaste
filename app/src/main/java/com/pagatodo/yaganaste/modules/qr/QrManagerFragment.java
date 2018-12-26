@@ -45,7 +45,6 @@ public class QrManagerFragment extends GenericFragment implements QrManagerContr
 
     @BindView(R.id.rcv_qr)
     RecyclerView rcv_qr;
-
     @BindView(R.id.no_data)
     TextView no_data;
     @BindView(R.id.addQR)

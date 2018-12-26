@@ -136,6 +136,14 @@
     <string name="cupoActualizaDocumentosCupo">/ActualizaDocumentosCupo</string>
     <string name="cupoActualizaReferenciasCupo">/ActualizarReferenciaCupo</string>
 
+
+    <!--Métodos de WS QR-->
+    <string name="getQrs">/gtQRSYG</string>
+    <string name="validateQr">/vldtLnkPltYG</string>
+    <string name="linkedQr">/lnkQRYG</string>
+    <string name="newQr">/nwQRYG</string>
+    <string name="updateQR">/pdtQR</string>
+
     <!-- Cadenas de Notificaciones -->
     <string name="queryNotifUser">ConsultarNotificacionesUsuario</string>
 
