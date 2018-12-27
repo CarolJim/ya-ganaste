@@ -100,7 +100,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         ButterKnife.bind(this,rootView);
         activityf.nextStep();
         rootView.findViewById(R.id.btnNextDatosNegocio).setOnClickListener(view -> {
-            activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
+
             validateForm();
         });
 
@@ -191,6 +191,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
     }
     private void initValues() {
             datosNegocioPresenter.getGiros();
+            activityf.backvisivility(false);
 
     }
     @Override
@@ -295,6 +296,7 @@ public class DatosNegocioEAFragment extends GenericFragment implements IOnSpinne
         registerAgent.setIdGiro(giroArrayAdapter.getGiroId(spinnerBussineLine.getSelectedItemPosition()));
         registerAgent.setGiroComercio(giroArrayAdapter.getItemSelected(spinnerBussineLine.getSelectedItemPosition()));
         //activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
+        activityf.getRouter().showPhysicalCode(Direction.FORDWARD);
     }
 
     @Override

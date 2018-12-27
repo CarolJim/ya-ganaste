@@ -346,6 +346,7 @@ public class RegistroDatosPersonalesFragment extends GenericFragment implements 
     @Override
     public void initViews() {
         ButterKnife.bind(this,rootView);
+        activityf.backvisivility(false);
         icon_lugarde.setOnClickListener(view -> spinnerBirthPlace.performClick());
         activityf.nextStep();
         radioBtnMale.setOnClickListener(this);
