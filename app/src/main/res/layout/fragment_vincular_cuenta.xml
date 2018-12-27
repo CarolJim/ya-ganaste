@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Vincular Cuenta"
+            android:text="Vincular Teléfono"
             android:textSize="@dimen/size_text_style_2_value"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

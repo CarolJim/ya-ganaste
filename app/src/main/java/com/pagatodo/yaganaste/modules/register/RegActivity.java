@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.JsonElement;
@@ -40,6 +41,8 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     private StepBar stepBar;
     private RegInteractor interactor;
 
+    ImageView btn_back ;
+
 
     public static Intent createIntent(Activity activity) {
         return new Intent(activity, RegActivity.class);
@@ -58,7 +61,17 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
 
     @Override
     public void initViews() {
-        router.showUserData(Direction.FORDWARD);
+       router.showUserData(Direction.FORDWARD);
+        btn_back = (ImageView) findViewById(R.id.btn_back);
+       //  router.showBusinessData(Direction.FORDWARD);
+    }
+
+    public void backvisivility( boolean visivility){
+        if (visivility)
+            btn_back.setVisibility(View.VISIBLE);
+        else
+            btn_back.setVisibility(View.INVISIBLE);
+
     }
 
     public void showFragmentDatosPersonales() {
@@ -131,17 +144,17 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
             finish();
 
         } else if (currentFragment instanceof RegistroDatosPersonalesFragment) {
-            backStep();
+            /*backStep();
             router.showUserData(Direction.BACK);
-            backStep();
+            backStep();*/
         } else if (currentFragment instanceof RegistroDomicilioPersonalFragment) {
             backStep();
             router.showPersonalData(Direction.BACK);
             backStep();
         } else if (currentFragment instanceof DatosNegocioEAFragment){
-            backStep();
+            /*backStep();
             router.showPrsonalAddress(Direction.BACK);
-            backStep();
+            backStep();*/
         } else if (currentFragment instanceof PhysicalCodeFragment){
             backStep();
             router.showBusinessData(Direction.BACK);

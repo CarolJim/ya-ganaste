@@ -1,6 +1,10 @@
-package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRVirtual;
+package com.pagatodo.yaganaste.modules.qr.AgregarQRFisico;
 
-public class AgregarVirtContracts {
+import com.pagatodo.yaganaste.modules.data.QrItems;
+
+import java.util.ArrayList;
+
+public class AgregaQRContractsisma {
 
 
     public interface Listener{
@@ -10,6 +14,5 @@ public class AgregarVirtContracts {
 
     public interface Iteractor{
         void asociaQRValido(String Plate ,String alias);
-        void validarQRValido(String alias);
     }
 }

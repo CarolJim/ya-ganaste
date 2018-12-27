@@ -56,6 +56,7 @@ public class PhysicalCodeFragment extends GenericFragment implements View.OnClic
         activity.nextStep();
         buttonYes.setOnClickListener(this);
         buttonNo.setOnClickListener(this);
+        activity.backvisivility(true);
     }
 
     @Override

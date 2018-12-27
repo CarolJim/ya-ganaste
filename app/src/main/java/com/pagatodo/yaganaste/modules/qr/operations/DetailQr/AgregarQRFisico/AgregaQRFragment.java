@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.modules.qr.operations.AgregarQRVirtual;
+package com.pagatodo.yaganaste.modules.qr.QRWallet.AgregarQRFisico;
 
 
 import android.content.Context;
@@ -15,45 +15,61 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRContracts;
-import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRFragment;
-import com.pagatodo.yaganaste.modules.qr.operations.AgregarQRFisico.AgregaQRIteractor;
-import com.pagatodo.yaganaste.modules.qr.operations.QrOperationActivity;
+import com.pagatodo.yaganaste.modules.data.QrItems;
+import com.pagatodo.yaganaste.modules.register.RegActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVirtContracts.Listener {
+public class AgregaQRFragment extends GenericFragment implements  AgregaQRContracts.Listener{
     @BindView(R.id.edit_code_qr)
     EditText edit_code_qr;
     @BindView(R.id.text_name_qr)
     TextInputLayout text_name_qr;
-    AgregarVirtContracts.Iteractor iteractor;
+
+    AgregaQRContracts.Iteractor iteractor;
+
     @BindView(R.id.subtitle_addqr)
     StyleTextView subtitle_addqr;
+
     @BindView(R.id.btnAddQR)
     StyleButton btnAddQR;
+
     View rootView;
     public static String plate;
     boolean isValid=false;
-    public static int MILISEGUNDOS_ESPERA = 1000;
-    public static QrOperationActivity activityf;
-    public static AgregarQRVirtFragment newInstance( QrOperationActivity activity){
+    public static int MILISEGUNDOS_ESPERA = 1500;
+    RegActivity activityf;
 
-        activityf =activity;
-        return new AgregarQRVirtFragment();
+    public static AgregaQRFragment newInstance(){
+        return new AgregaQRFragment();
     }
 
-    public AgregarQRVirtFragment() {
+    public static AgregaQRFragment newInstance(String platre){
+        plate = platre;
+        return new AgregaQRFragment();
+    }
+
+      public static AgregaQRFragment newInstance(RegActivity activityf){
+        return new AgregaQRFragment();
+    }
+
+    public AgregaQRFragment() {
         // Required empty public constructor
     }
 
@@ -64,7 +80,7 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_agrega_qr, container, false);
         initViews();
-        iteractor= new AgregarVirtQRIteractor(this,getContext());
+        iteractor= new AgregaQRIteractor(this,getContext());
         return rootView;
     }
 
@@ -75,7 +91,7 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
         imm.showSoftInput(text_name_qr, InputMethodManager.SHOW_IMPLICIT);
-        // Toast.makeText(getActivity(), "Plate: "+plate, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getActivity(), "Plate: "+plate, Toast.LENGTH_LONG).show();
         edit_code_qr.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -96,7 +112,7 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
                 if (edit_code_qr.getText().length()>0)
                 {
                     btnAddQR.setBackgroundResource(R.drawable.button_rounded_blue);
-                    isValid=true;
+                isValid=true;
                 }
                 else{
                     btnAddQR.setBackgroundResource(R.drawable.button_rounded_gray);
@@ -108,7 +124,7 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
             public void afterTextChanged(Editable editable) {
 
 
-            }
+                }
         });
 
 
@@ -117,8 +133,7 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
             @Override
             public void onClick(View view) {
                 if (isValid){
-                    activityf.showLoader("Generando QR");
-                    iteractor.validarQRValido(edit_code_qr.getText().toString().trim());
+                    iteractor.asociaQRValido(plate,edit_code_qr.getText().toString().trim());
                 }else {
 
                     UI.showErrorSnackBar(getActivity(), getString(R.string.qr_name_add), Snackbar.LENGTH_SHORT);
@@ -129,10 +144,11 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
         });
 
 
+
     }
+
     @Override
     public void onSuccessQRs() {
-        activityf.hideLoader();
         UI.showSuccessSnackBar(getActivity(), getString(R.string.qr_add_succes), Snackbar.LENGTH_SHORT);
         esperarYCerrar(MILISEGUNDOS_ESPERA);
 
@@ -161,7 +177,8 @@ public class AgregarQRVirtFragment extends GenericFragment implements  AgregarVi
     }
     @Override
     public void onErrorQRs() {
-        activityf.hideLoader();
         UI.showErrorSnackBar(getActivity(), getString(R.string.qr_add_error), Snackbar.LENGTH_SHORT);
     }
+
+
 }

@@ -28,7 +28,7 @@
             android:text="@string/titulo_info_negociob"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            android:textSize="14sp"
+            android:textSize="18sp"
             app:tipo="Text" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView

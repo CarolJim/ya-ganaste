@@ -73,8 +73,10 @@ public class NewLinkedCodeFragment extends GenericFragment implements TextWatche
 
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        if (getArguments() != null){
 
+        RegisterUserNew registerAgent = RegisterUserNew.getInstance();
+        editNameQR.setText(registerAgent.getNombreNegocio());
+        if (getArguments() != null){
             textPlate = getArguments().getString("DISPLAY");
             assert textPlate != null;
             if (!textPlate.isEmpty()) {

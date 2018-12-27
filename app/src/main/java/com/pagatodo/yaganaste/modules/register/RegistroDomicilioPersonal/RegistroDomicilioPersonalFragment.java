@@ -10,7 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +45,12 @@ import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.Custom_postal_code;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -56,6 +64,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
 
 /**
  * btnNextSelectZip
@@ -83,6 +93,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
 
     @BindView(R.id.text_num_exterior)
     TextInputLayout text_num_exterior;
+
+    @BindView(R.id.txtLegales)
+    StyleTextView txtLegales;
 
     @BindView(R.id.text_num_interior)
     TextInputLayout text_num_interior;
@@ -151,7 +164,9 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        setClickLegales();
         activityf.nextStep();
+        activityf.backvisivility(true);
         imgcp.setOnClickListener(view -> spColonia.performClick());
         btnNextSelectZip.setOnClickListener(this::onClick);
         coloniasNombre = new ArrayList<String>();
@@ -317,6 +332,56 @@ public class RegistroDomicilioPersonalFragment extends GenericFragment implement
             default:
                 break;
         }
+    }
+
+    private void setClickLegales() {
+
+
+        SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions_private));
+        CustomClickableSpan span1 = new CustomClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                boolean isOnline = Utils.isDeviceOnline();
+                if (isOnline) {
+                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(LegalsDialogregistro.Legales.TERMINOS);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
+                } else {
+                  //  showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
+
+
+            }
+        };
+
+        //Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones
+
+        CustomClickableSpan span2 = new CustomClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                boolean isOnline2 = Utils.isDeviceOnline();
+                if (isOnline2) {
+                    //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(PRIVACIDAD);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
+                } else {
+                //    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
+            }
+        };
+
+        ss.setSpan(span1, 24, 48, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(span1, 53, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 24, 48, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 53, 72, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        /*ss.setSpan(span2, 106, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 106, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+
+
+        txtLegales.setText(ss);
+        txtLegales.setMovementMethod(LinkMovementMethod.getInstance());
+
+
     }
 
     @Override
