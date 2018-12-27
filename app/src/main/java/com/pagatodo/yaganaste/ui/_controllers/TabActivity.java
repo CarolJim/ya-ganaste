@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -127,7 +129,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.SELECT_FILE_PHOT
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject>, OnClickItemHolderListener,
-        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView {
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener, IFBView, BottomNavigationView.OnNavigationItemSelectedListener{
 
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
@@ -161,8 +163,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     DrawerLayout navDrawer;
     @BindView(R.id.main_view_pager)
     ViewPager mainViewPager;
-    @BindView(R.id.main_tab)
-    TabLayout mainTab;
+    @BindView(R.id.bottomNavigationView)
+    BottomNavigationView navitaionBar;
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
     @BindView(R.id.txtVersionApp)
@@ -171,6 +173,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     ViewGroup mLinearLayout;
     @BindView(R.id.txt_name_user)
     TextView nameUser;
+    private int lastFrag;
+
 
 
     private boolean disableBackButton = false;
@@ -290,7 +294,41 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else {
             mainViewPager.setCurrentItem(0);
         }
-        mainTab.setupWithViewPager(mainViewPager);
+        //mainTab.setupWithViewPager(mainViewPager);
+        lastFrag = R.id.navigation_wallet;
+
+        navitaionBar.setOnNavigationItemSelectedListener(item -> {
+            if (lastFrag != item.getItemId()) {
+                lastFrag = item.getItemId();
+                switch (item.getItemId()) {
+
+
+                    case R.id.navigation_send:
+
+                        mainViewPager.setCurrentItem(0);
+                        return true;
+
+                    case R.id.navigation_pay:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_pay);
+                        mainViewPager.setCurrentItem(1);
+                        return true;
+
+                    case R.id.navigation_wallet:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_wallet);
+                        mainViewPager.setCurrentItem(2);
+                        return true;
+                    case R.id.navigation_my_qr:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_my_qr);
+                        mainViewPager.setCurrentItem(3);
+                        return true;
+                    case R.id.navigation_charge:
+                        //navitaionBar.setSelectedItemId(R.id.navigation_charge);
+                        mainViewPager.setCurrentItem(4);
+                        return true;
+                }
+            }
+            return false;
+        });
 
         if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
@@ -392,29 +430,29 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     protected void hideMainTab() {
-        if (mainTab.getVisibility() == View.VISIBLE) {
+        /*if (mainTab.getVisibility() == View.VISIBLE) {
             mainTab.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     protected void showMainTab() {
-        if (mainTab.getVisibility() == View.GONE) {
+        /*if (mainTab.getVisibility() == View.GONE) {
             mainTab.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     private void onInviteAdquirente() {
-        TabLayout.Tab current = mainTab.getTabAt(mainTab.getTabCount() - 1);
+        /*TabLayout.Tab current = mainTab.getTabAt(mainTab.getTabCount() - 1);
         if (current != null) {
             current.select();
-        }
+        }*/
     }
 
     public void goHome() {
-        TabLayout.Tab current = mainTab.getTabAt(0);
+        /*TabLayout.Tab current = mainTab.getTabAt(0);
         if (current != null) {
             current.select();
-        }
+        }*/
     }
 
     @Override
@@ -807,5 +845,42 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void setLogOutSession() {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+
+            case R.id.navigation_send:
+
+                mainViewPager.setCurrentItem(0);
+
+                break;
+
+            case R.id.navigation_pay:
+
+                mainViewPager.setCurrentItem(1);
+
+                break;
+
+            case R.id.navigation_wallet:
+
+                mainViewPager.setCurrentItem(2);
+
+                break;
+            case R.id.navigation_my_qr:
+
+                mainViewPager.setCurrentItem(3);
+
+                break;
+            case R.id.navigation_charge:
+
+                mainViewPager.setCurrentItem(4);
+
+                break;
+
+        }
+
+        return false;
     }
 }

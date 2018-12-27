@@ -8,6 +8,32 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:497725350407:android:f8ebe55b052a61c2",
+        "android_client_info": {
+          "package_name": "com.example.pushodin.pushodin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGq-I2mFbaUYHUfQPsK-XqTqa1Eel2Vkc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:497725350407:android:4ebc6fd4b0e54b51",
         "android_client_info": {
           "package_name": "com.pagatodo.yaganaste"
@@ -21,10 +47,6 @@
             "package_name": "com.pagatodo.yaganaste",
             "certificate_hash": "cca9ff83d6f14d236506a54d216527ced41377fa"
           }
-        },
-        {
-          "client_id": "497725350407-j11j7q9v1t9cggisbl7rqao0ak2ud7ko.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -44,10 +66,10 @@
               "client_type": 3
             },
             {
-              "client_id": "497725350407-3ioqsk10f7v83an2nkiflbt7bl7rrhjv.apps.googleusercontent.com",
+              "client_id": "497725350407-q4dvln37em5s04aflbqs3nt5j15jsneb.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.pagatodomobile.YaGanaste-NM"
+                "bundle_id": "com.pagatodomobile.yaganaste-QA"
               }
             }
           ]

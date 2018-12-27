@@ -38,48 +38,6 @@ public class EditQrInteractor implements EditQrContracts.Interactor, ListenerFri
                         App.getContext().getResources().getString(R.string.updateQR),
                 FriggsHeaders.getHeadersBasic(),qrRequest,UPDATE_QR));
 
-        /*
-
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("name",item.getQrUser().getAlias());
-            jsonBody.put("bank", "148");
-            jsonBody.put("account", App.getInstance().getPrefs().loadData(CLABE_NUMBER)
-                    .replace(" ",""));
-            jsonBody.put("plate",item.getQrUser().getPlate());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String requestBody = jsonBody.toString();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, URL_UPDATE, null, response -> {
-                    Log.d("QR_MANAGER",response.toString());
-                    listener.onSuccessEdit();
-                }, error -> listener.onErrorEdit("No se pudo hacer la operación")) {
-
-            @Override
-            public byte[] getBody() {
-                try {
-                    return requestBody.getBytes("UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            public Map<String, String> getHeaders(){
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Yg-" + App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
-                return headers;
-            }
-
-        };
-        requestQueue.add(jsonObjectRequest);
-        */
     }
 
     @Override

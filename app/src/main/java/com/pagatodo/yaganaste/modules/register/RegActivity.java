@@ -109,8 +109,10 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
                 router.shosWritePlateQR();
                 break;
                 default:
-                    Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
-                    parserQR(barcode);
+                    if (data!=null) {
+                        Barcode barcode = data.getParcelableExtra(ScannVisionActivity.BarcodeObject);
+                        parserQR(barcode);
+                    }
                     break;
         }
     }
@@ -119,8 +121,7 @@ public class RegActivity extends LoaderActivity implements RegContracts.Presente
     public boolean requiresTimer() {
         return false;
     }
-
-
+    
 
     @Override
     public void onBackPressed() {

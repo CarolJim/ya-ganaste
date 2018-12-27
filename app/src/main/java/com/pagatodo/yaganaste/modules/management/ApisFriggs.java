@@ -81,6 +81,7 @@ public class ApisFriggs {
         return new JsonObjectRequest
                 (metthodRequest, urlRequest, null, response -> {
                     try {
+                        Log.d("WSC Request",response.toString());
                         this.listener.onSuccess(null,response);
                     } catch (JSONException e) {
                         e.printStackTrace();

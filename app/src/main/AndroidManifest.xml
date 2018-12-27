@@ -188,7 +188,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui._controllers.PromoCodesActivity" />
         <activity android:name=".modules.register.RegActivity" />
-        <activity android:name=".modules.qr.operations.QrOperationActivity"></activity>
+        <activity android:name=".modules.qr.operations.QrOperationActivity"/>
     </application>
 
 </manifest>

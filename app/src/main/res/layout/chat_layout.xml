@@ -68,7 +68,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_send" />
+            app:srcCompat="@drawable/ic_send_chat" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -121,7 +121,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_registro_correo, container, false);
         initViews();
 
@@ -131,7 +130,7 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
+        activityf.showStepBar();
         //InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         //inputMethodManager.toggleSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.SHOW_FORCED, 0);
 

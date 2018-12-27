@@ -35,54 +35,6 @@ public class AgregarVirtQRIteractor implements  AgregarVirtContracts.Iteractor, 
         requestQueue.add(apisFriggs.sendRequest(FrigsMethod.POST,URL_FRIGGS +
                         App.getContext().getResources().getString(R.string.newQr),
                 FriggsHeaders.getHeadersBasic(),qrRequest,NEW_QR));
-
-        /*JSONObject jsonBody = new JSONObject();
-        try {
-//            jsonBody.put("plate",plate);
-            jsonBody.put("name",alias);
-            jsonBody.put("bank", "148");
-            jsonBody.put("account", App.getInstance().getPrefs().loadData(CLABE_NUMBER).replace(" ",""));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        String requestBody = jsonBody.toString();
-        Log.d("TOKEN_SESION", App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, URL_NEW_QR, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        listener.onSuccessQRs();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY OK", error.toString());
-                        listener.onErrorQRs();
-                    }
-                }) {
-
-            @Override
-            public byte[] getBody() {
-                try {
-                    return requestBody.getBytes("UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Yg-" + App.getInstance().getPrefs().loadData(TOKEN_FIREBASE_SESSION));
-                return headers;
-            }
-
-        };
-        requestQueue.add(jsonObjectRequest);*/
     }
 
     @Override

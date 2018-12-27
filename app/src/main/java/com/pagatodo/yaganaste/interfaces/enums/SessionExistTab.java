@@ -15,7 +15,7 @@ public enum SessionExistTab implements IEnumTab {
 
     TAB1(R.string.main_tab_inicio, R.drawable.icon_tab_ya),
     TAB2(R.string.main_tab_pagos, R.drawable.icon_tab_pagos_white),
-    TAB3(R.string.main_tab_depositos, R.drawable.icon_tab_deposito_white);
+    TAB3(R.string.main_tab_send, R.drawable.icon_tab_deposito_white);
 
     @StringRes
     private int name;

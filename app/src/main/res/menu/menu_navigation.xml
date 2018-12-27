@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_send"
+        android:icon="@drawable/ic_send_tab"
+        android:title="@string/main_tab_send" />
+
+    <item
+        android:id="@+id/navigation_pay"
+        android:icon="@drawable/ic_pay_tab"
+        android:title="@string/main_tab_pagos" />
+
+    <item
+        android:id="@+id/navigation_wallet"
+        android:icon="@drawable/ic_wallet_tab"
+        android:title="@string/main_tab_inicio" />
+
+    <item
+        android:id="@+id/navigation_my_qr"
+        android:icon="@drawable/ic_qr_tab"
+        android:title="@string/main_tab_qr" />
+
+    <item
+        android:id="@+id/navigation_charge"
+        android:icon="@drawable/ic_charge_tab"
+        android:title="@string/main_tab_cobros" />
+
+</menu>

@@ -499,13 +499,13 @@
     <string name="message_generic_wsnuevo">Ocurrió un error de conexión al intentar realizar la operación</string>
 
     <!-- Strings Menu Principal-->
-    <string name="main_tab_inicio">Wallet</string>
+    <string name="main_tab_inicio">Inicio</string>
     <string name="main_tab_pagos">Pagar</string>
-    <string name="main_tab_depositos">Enviar</string>
+    <string name="main_tab_send">Enviar</string>
     <string name="main_tab_qr">Mis QR</string>
     <string name="main_tab_ganar">Ganar</string>
     <string name="main_tab_adquiriente">Adquirente</string>
-    <string name="main_tab_cobros">Cobros</string>
+    <string name="main_tab_cobros">Cobrar</string>
     <string name="main_tab_movimientos">Consultar Movimientos</string>
 
     <string name="no_movimientos">Sin movimientos</string>
@@ -1388,8 +1388,9 @@
 
 
     <!--Tittle Operaciones-->
-    <string name="operation_movimientos">Consultar\nmovimientos</string>
+    <string name="operation_movimientos">Movimientos\nYa Ganaste</string>
     <string name="operation_deposito">Mi cuenta</string>
+    <string name="operation_payment_qr">Pago a\nQR</string>
     <string name="operation_administracion">Administrar\ntarjeta</string>
     <string name="operation_administracion_starbucks">Administrar\nTarjetas</string>
     <string name="operation_cobro">Realizar\nun cobro</string>

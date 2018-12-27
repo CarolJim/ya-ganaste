@@ -97,6 +97,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Recursos.CLABE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.HAS_FIREBASE_ACCOUNT;
 import static com.pagatodo.yaganaste.utils.Recursos.PHONE_NUMBER;
 import static com.pagatodo.yaganaste.utils.Recursos.SHOW_LOGS_PROD;
 import static com.pagatodo.yaganaste.utils.Recursos.TOKEN_FIREBASE_AUTH;
@@ -421,9 +422,10 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                                 }
                             } else {
                                 // Error de login Firebase
+                                registerUserInFirebase(dataUserT);
                             }
                             //accountManager.goToNextStepAccount(stepUser, null);
-                            loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                            //loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
                         });
 
                 break;
@@ -513,6 +515,35 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 break;
 
         }
+    }
+
+    private void registerUserInFirebase(DataIniciarSesionUYU data) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(data.getUsuario().getNombreUsuario(), "123456")
+                .addOnCompleteListener(task -> {
+                    App.getInstance().getPrefs().saveDataBool(HAS_FIREBASE_ACCOUNT, true);
+
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = auth.getCurrentUser();
+                        App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_AUTH, user.getUid());
+                        Map<String, String> users = new HashMap<>();
+                        users.put("Mbl", data.getEmisor().getCuentas().get(0).getTelefono()
+                                .replace(" ", ""));
+                        users.put("DvcId", FirebaseInstanceId.getInstance().getToken());
+                        Objects.requireNonNull(auth.getCurrentUser())
+                                .getIdToken(false).addOnSuccessListener(getTokenResult -> {
+                            String idToken = getTokenResult.getToken();
+                            App.getInstance().getPrefs().saveData(TOKEN_FIREBASE_SESSION, idToken);
+                        });
+                        //accountManager.goToNextStepAccount(stepUser, null);
+                        //loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                    } else {
+                        //logInFirebase(data, stepUser);
+                        //UI.showErrorSnackBar(this,"No se pudo realizar la operación",Snackbar.LENGTH_SHORT);
+                    }
+                    loadFragment(RegisterCompleteFragment.newInstance(ASOCIATE_PHN), Direction.FORDWARD, false);
+                });
     }
 
     @Override
