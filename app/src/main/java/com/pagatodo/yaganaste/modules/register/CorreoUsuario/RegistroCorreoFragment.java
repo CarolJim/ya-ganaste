@@ -133,13 +133,10 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
         customPassSixDigitsConfirm.getTitlepass().setText("Confirma tu Contraseña");
-
         btnNextDatosUsuario.setOnClickListener(this);
         customPassSixDigits.setOnClickListener(this);
         customPassSixDigits.setListener(this);
-
         customPassSixDigitsConfirm.setOnClickListener(this);
         customPassSixDigitsConfirm.setListener(this);
 
@@ -151,8 +148,8 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     accountPresenter.validateEmail(editMail.getText().toString());
                     isChecked();
-                    if (customPassSixDigits.getCode1().getText().length() == 1) {
-                        customPassSixDigits.getCode1().requestFocus();
+                    if (customPassSixDigits.getText().length()>=1) {
+                        customPassSixDigits.clearCode();
                     } else {
                         edit_psw.requestFocus();
                     }
@@ -276,7 +273,6 @@ public class RegistroCorreoFragment extends GenericFragment implements View.OnCl
                 return false;
             }
         });
-
 
         customPassSixDigitsConfirm.getCode1().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
